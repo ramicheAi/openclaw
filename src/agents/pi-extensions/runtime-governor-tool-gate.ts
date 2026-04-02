@@ -10,6 +10,19 @@
  */
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import { writeFileSync, appendFileSync } from "node:fs";
+
+const GATE_LOG = "/tmp/openclaw/runtime-governor-gate.log";
+function gateLog(msg: string): void {
+  try {
+    appendFileSync(GATE_LOG, `${new Date().toISOString()} ${msg}\n`);
+  } catch {}
+}
+
+// Proof of load
+try {
+  writeFileSync(GATE_LOG, `${new Date().toISOString()} EXTENSION MODULE LOADED\n`);
+} catch {}
 
 const PILOT_AGENTS = ["atlas", "shuri", "triage", "main"];
 
@@ -79,49 +92,54 @@ function isPilotSession(sessionKey: string): boolean {
 }
 
 export default function runtimeGovernorToolGate(api: ExtensionAPI): void {
-  // Resolve session key from the session manager at handler time
-  let sessionKey = "";
+  gateLog("runtimeGovernorToolGate() CALLED — registering handlers");
+  let sessionKey: string | null = null;
 
-  api.on("session_start", (_event, ctx) => {
-    // Capture session info on start
+  api.on("before_agent_start", (_event, ctx) => {
     const sm = ctx.sessionManager as any;
-    sessionKey = sm?.sessionKey ?? sm?.id ?? "";
-    console.warn(`[runtime-governor-ext] tool_call gate registered | session=${sessionKey}`);
+    sessionKey = sm?.sessionKey ?? sm?.id ?? sm?.getSessionName?.() ?? "";
+    gateLog(`before_agent_start | session=${sessionKey}`);
   });
 
-  api.on("tool_call", (event, _ctx) => {
+  api.on("tool_call", (event, ctx) => {
     const t0 = Date.now();
     const tool = event.toolName;
-    const env = classifyEnvironment(sessionKey);
-    const agent = sessionKey || "unknown";
 
-    console.warn(
-      `[runtime-governor-ext] tool_call FIRED | tool=${tool} env=${env} session=${sessionKey}`,
-    );
+    // Lazy resolve session key if before_agent_start hasn't fired yet
+    if (sessionKey === null) {
+      const sm = ctx.sessionManager as any;
+      sessionKey = sm?.sessionKey ?? sm?.id ?? sm?.getSessionName?.() ?? "";
+    }
+
+    const resolvedKey = sessionKey ?? "";
+    const env = classifyEnvironment(resolvedKey);
+    const agent = resolvedKey || "unknown";
+
+    gateLog(`tool_call | tool=${tool} env=${env} session=${sessionKey}`);
 
     // Only enforce for pilot agents
-    if (!isPilotSession(sessionKey)) {
+    if (!isPilotSession(resolvedKey)) {
       return;
     }
 
     // Environment gate
     if (env !== "openclaw" && OPENCLAW_ONLY_TOOLS.has(tool)) {
       const reason = `tool "${tool}" requires OpenClaw runtime (current: ${env})`;
-      console.warn(`[runtime-governor-ext] BLOCKED ENV_MISMATCH | tool=${tool} env=${env}`);
+      gateLog(`BLOCKED ENV_MISMATCH | tool=${tool} env=${env}`);
       logMetric(env, agent, tool, "block", "env_mismatch", Date.now() - t0, true);
       return { block: true, reason };
     }
 
     // Blocked tools
     if (BLOCKED_TOOLS.has(tool)) {
-      console.warn(`[runtime-governor-ext] BLOCKED | tool=${tool} agent=${agent}`);
+      gateLog(`BLOCKED | tool=${tool} agent=${agent}`);
       logMetric(env, agent, tool, "block", "blocked_by_policy", Date.now() - t0, false);
       return { block: true, reason: `tool "${tool}" is blocked by runtime-governor policy` };
     }
 
     // Flagged tools (allowed but logged)
     if (FLAGGED_TOOLS.has(tool)) {
-      console.warn(`[runtime-governor-ext] FLAGGED | tool=${tool} agent=${agent}`);
+      gateLog(`FLAGGED | tool=${tool} agent=${agent}`);
       logMetric(env, agent, tool, "flag", "flagged_tool", Date.now() - t0, false);
       return;
     }
@@ -133,7 +151,7 @@ export default function runtimeGovernorToolGate(api: ExtensionAPI): void {
     }
 
     // Unknown — allow but flag
-    console.warn(`[runtime-governor-ext] UNKNOWN tool=${tool} agent=${agent} — allowed`);
+    gateLog(`UNKNOWN tool=${tool} agent=${agent} — allowed`);
     logMetric(env, agent, tool, "flag", "unknown_tool", Date.now() - t0, false);
   });
 }
@@ -158,5 +176,5 @@ function logMetric(
     estimated_cost: TOOL_COST_ESTIMATES[tool] ?? DEFAULT_TOOL_COST,
     blocked_mismatch: blockedMismatch,
   };
-  console.warn(`[runtime-governor-metric] ${JSON.stringify(metric)}`);
+  gateLog(`METRIC ${JSON.stringify(metric)}`);
 }
