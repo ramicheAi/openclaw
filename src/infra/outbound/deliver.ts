@@ -4,6 +4,7 @@ import {
   resolveChunkMode,
   resolveTextChunkLimit,
 } from "../../auto-reply/chunk.js";
+import { getGlobalHookRunner } from "../../plugins/hook-runner-global.js";
 import type { ReplyPayload } from "../../auto-reply/types.js";
 import { resolveChannelMediaMaxBytes } from "../../channels/plugins/media-limits.js";
 import { loadChannelOutboundAdapter } from "../../channels/plugins/outbound/load.js";
@@ -312,6 +313,7 @@ export async function deliverOutboundPayloads(params: {
     };
   };
   const normalizedPayloads = normalizeReplyPayloadsForDelivery(payloads);
+  const hookRunner = getGlobalHookRunner();
   for (const payload of normalizedPayloads) {
     const payloadSummary: NormalizedOutboundPayload = {
       text: payload.text ?? "",
@@ -320,6 +322,20 @@ export async function deliverOutboundPayloads(params: {
     };
     try {
       throwIfAborted(abortSignal);
+      // --- runtime-governor: message_sending hook ---
+      if (hookRunner?.hasHooks("message_sending") && payloadSummary.text) {
+        const hookResult = await hookRunner.runMessageSending(
+          { to, content: payloadSummary.text },
+          { channelId: channel, accountId: accountId ?? "" },
+        );
+        if (hookResult?.cancel) {
+          continue;
+        }
+        if (hookResult?.content) {
+          payloadSummary.text = hookResult.content;
+          payload.text = hookResult.content;
+        }
+      }
       params.onPayload?.(payloadSummary);
       if (handler.sendPayload && payload.channelData) {
         results.push(await handler.sendPayload(payload));

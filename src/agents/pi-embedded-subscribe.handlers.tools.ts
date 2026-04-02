@@ -1,6 +1,7 @@
 import type { AgentEvent } from "@mariozechner/pi-agent-core";
 
 import { emitAgentEvent } from "../infra/agent-events.js";
+import { getGlobalHookRunner } from "../plugins/hook-runner-global.js";
 import { normalizeTextForComparison } from "./pi-embedded-helpers.js";
 import { isMessagingTool, isMessagingToolSendAction } from "./pi-embedded-messaging.js";
 import type { EmbeddedPiSubscribeContext } from "./pi-embedded-subscribe.handlers.types.js";
@@ -41,6 +42,24 @@ export async function handleToolExecutionStart(
   const toolName = normalizeToolName(rawToolName);
   const toolCallId = String(evt.toolCallId);
   const args = evt.args;
+
+  // --- runtime-governor: before_tool_call hook ---
+  const hookRunner = getGlobalHookRunner();
+  if (hookRunner?.hasHooks("before_tool_call")) {
+    const hookResult = await hookRunner.runBeforeToolCall(
+      {
+        toolName,
+        params: (args && typeof args === "object" ? args : {}) as Record<string, unknown>,
+      },
+      { toolName },
+    );
+    if (hookResult?.block) {
+      ctx.log.warn(
+        `[runtime-governor] tool blocked: ${toolName} — ${hookResult.blockReason ?? "policy"}`,
+      );
+      return;
+    }
+  }
 
   if (toolName === "read") {
     const record = args && typeof args === "object" ? (args as Record<string, unknown>) : {};
