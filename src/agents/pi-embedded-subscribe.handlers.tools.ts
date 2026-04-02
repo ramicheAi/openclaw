@@ -45,11 +45,11 @@ export async function handleToolExecutionStart(
 
   // --- runtime-governor: before_tool_call hook ---
   const hookRunner = getGlobalHookRunner();
-  console.log(
-    `[runtime-governor-debug] hasHooks("before_tool_call") = ${hookRunner?.hasHooks("before_tool_call")} tool=${toolName}`,
+  ctx.log.warn(
+    `[runtime-governor-debug] handleToolExecutionStart tool=${toolName} hasHooks=${hookRunner?.hasHooks("before_tool_call")}`,
   );
   if (hookRunner?.hasHooks("before_tool_call")) {
-    console.log(`[runtime-governor-debug] before_tool_call FIRED for: ${toolName}`);
+    ctx.log.warn(`[runtime-governor-debug] before_tool_call FIRED for: ${toolName}`);
     const hookResult = await hookRunner.runBeforeToolCall(
       {
         toolName,
