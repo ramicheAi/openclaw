@@ -14,6 +14,63 @@ import type {
 
 const PILOT_AGENTS = ["atlas", "shuri", "triage", "main"];
 
+// =========================================================================
+// Environment Gate
+// =========================================================================
+
+type RuntimeEnvironment = "openclaw" | "claude-code" | "cursor" | "peekaboo" | "web" | "unknown";
+
+/** Tools that require OpenClaw runtime (not available in Claude Code, Cursor, etc.) */
+const OPENCLAW_ONLY_TOOLS = new Set([
+  "gateway",
+  "cron",
+  "message",
+  "sessions_send",
+  "sessions_spawn",
+  "nodes",
+]);
+
+/** Tools that require a code editor environment */
+const CODE_EDITOR_TOOLS = new Set<string>([]);
+
+function classifyEnvironment(ctx: PluginHookToolContext): RuntimeEnvironment {
+  const sk = ctx.sessionKey ?? "";
+  if (sk.includes("pi-embedded") || sk.includes("claude-code")) return "claude-code";
+  if (sk.includes("cursor")) return "cursor";
+  if (sk.includes("peekaboo")) return "peekaboo";
+  if (sk.includes("web")) return "web";
+  // Default OpenClaw sessions: agent:*:*
+  if (sk.startsWith("agent:") || sk === "") return "openclaw";
+  return "unknown";
+}
+
+function checkEnvironmentGate(
+  tool: string,
+  env: RuntimeEnvironment,
+  log: Logger,
+  ctx: PluginHookToolContext,
+): PluginHookBeforeToolCallResult | null {
+  if (env !== "openclaw" && OPENCLAW_ONLY_TOOLS.has(tool)) {
+    log.warn(
+      `[runtime-governor] ENV_MISMATCH tool=${tool} env=${env} agent=${ctx.agentId ?? ctx.sessionKey} — requires openclaw runtime`,
+    );
+    return {
+      block: true,
+      blockReason: `tool "${tool}" requires OpenClaw runtime (current: ${env})`,
+    };
+  }
+  if (env !== "cursor" && CODE_EDITOR_TOOLS.has(tool)) {
+    log.warn(
+      `[runtime-governor] ENV_MISMATCH tool=${tool} env=${env} agent=${ctx.agentId ?? ctx.sessionKey} — requires code editor`,
+    );
+    return {
+      block: true,
+      blockReason: `tool "${tool}" requires code editor environment (current: ${env})`,
+    };
+  }
+  return null;
+}
+
 /** Tools that are always allowed without restriction. */
 const SAFE_TOOLS = new Set([
   "read",
@@ -66,6 +123,13 @@ function handleBeforeToolCall(
   if (!isPilotAgent(ctx)) {
     return; // Non-pilot agents: no policy enforcement
   }
+
+  // Environment gate — block tools that don't belong in current runtime
+  const env = classifyEnvironment(ctx);
+  const envBlock = checkEnvironmentGate(tool, env, log, ctx);
+  if (envBlock) return envBlock;
+
+  log.debug?.(`[runtime-governor] env=${env} tool=${tool} agent=${ctx.agentId ?? ctx.sessionKey}`);
 
   // Blocked
   if (BLOCKED_TOOLS.has(tool)) {
