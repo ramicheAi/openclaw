@@ -323,7 +323,13 @@ export async function deliverOutboundPayloads(params: {
     try {
       throwIfAborted(abortSignal);
       // --- runtime-governor: message_sending hook ---
+      console.log(
+        `[runtime-governor-debug] hasHooks("message_sending") = ${hookRunner?.hasHooks("message_sending")}`,
+      );
       if (hookRunner?.hasHooks("message_sending") && payloadSummary.text) {
+        console.log(
+          `[runtime-governor-debug] message_sending FIRED for: ${payloadSummary.text.slice(0, 80)}`,
+        );
         const hookResult = await hookRunner.runMessageSending(
           { to, content: payloadSummary.text },
           { channelId: channel, accountId: accountId ?? "" },
