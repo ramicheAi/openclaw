@@ -8,6 +8,7 @@
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { createHookRunner, type HookRunner } from "./hooks.js";
 import type { PluginRegistry } from "./registry.js";
+import { registerRuntimeGovernorToolPolicy } from "./runtime-governor-tool-policy.js";
 
 const log = createSubsystemLogger("plugins");
 
@@ -29,9 +30,12 @@ export function initializeGlobalHookRunner(registry: PluginRegistry): void {
     catchErrors: true,
   });
 
+  registerRuntimeGovernorToolPolicy(registry, log);
+
   const hookCount = registry.hooks.length;
-  if (hookCount > 0) {
-    log.info(`hook runner initialized with ${hookCount} registered hooks`);
+  const typedHookCount = registry.typedHooks.length;
+  if (hookCount > 0 || typedHookCount > 0) {
+    log.info(`hook runner initialized with ${hookCount} hooks + ${typedHookCount} typed hooks`);
   }
 }
 
