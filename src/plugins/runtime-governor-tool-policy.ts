@@ -107,6 +107,37 @@ type Logger = {
   debug?: (msg: string) => void;
 };
 
+// =========================================================================
+// Metrics
+// =========================================================================
+
+interface PolicyMetric {
+  ts: string;
+  environment: RuntimeEnvironment;
+  agent: string;
+  tool: string;
+  decision: "allow" | "flag" | "block";
+  reason: string;
+  latency_ms: number;
+  estimated_cost: number;
+  blocked_mismatch: boolean;
+}
+
+const TOOL_COST_ESTIMATES: Record<string, number> = {
+  web_search: 0.01,
+  web_fetch: 0.005,
+  browser: 0.02,
+  sessions_spawn: 0.05,
+  gateway: 0.01,
+  image: 0.03,
+  tts: 0.02,
+};
+const DEFAULT_TOOL_COST = 0.001;
+
+function emitMetric(metric: PolicyMetric, log: Logger): void {
+  log.info(`[runtime-governor-metric] ${JSON.stringify(metric)}`);
+}
+
 function isPilotAgent(ctx: PluginHookToolContext): boolean {
   const agentId = ctx.agentId ?? "";
   const sessionKey = ctx.sessionKey ?? "";
@@ -118,40 +149,110 @@ function handleBeforeToolCall(
   ctx: PluginHookToolContext,
   log: Logger,
 ): PluginHookBeforeToolCallResult | void {
+  const t0 = Date.now();
   const tool = event.toolName;
+  const agent = ctx.agentId ?? ctx.sessionKey ?? "unknown";
+  const env = classifyEnvironment(ctx);
 
   if (!isPilotAgent(ctx)) {
     return; // Non-pilot agents: no policy enforcement
   }
 
   // Environment gate — block tools that don't belong in current runtime
-  const env = classifyEnvironment(ctx);
   const envBlock = checkEnvironmentGate(tool, env, log, ctx);
-  if (envBlock) return envBlock;
-
-  log.debug?.(`[runtime-governor] env=${env} tool=${tool} agent=${ctx.agentId ?? ctx.sessionKey}`);
+  if (envBlock) {
+    emitMetric(
+      {
+        ts: new Date().toISOString(),
+        environment: env,
+        agent,
+        tool,
+        decision: "block",
+        reason: envBlock.blockReason ?? "env_mismatch",
+        latency_ms: Date.now() - t0,
+        estimated_cost: TOOL_COST_ESTIMATES[tool] ?? DEFAULT_TOOL_COST,
+        blocked_mismatch: true,
+      },
+      log,
+    );
+    return envBlock;
+  }
 
   // Blocked
   if (BLOCKED_TOOLS.has(tool)) {
-    log.warn(`[runtime-governor] BLOCKED tool=${tool} agent=${ctx.agentId ?? ctx.sessionKey}`);
+    log.warn(`[runtime-governor] BLOCKED tool=${tool} agent=${agent}`);
+    emitMetric(
+      {
+        ts: new Date().toISOString(),
+        environment: env,
+        agent,
+        tool,
+        decision: "block",
+        reason: "blocked_by_policy",
+        latency_ms: Date.now() - t0,
+        estimated_cost: TOOL_COST_ESTIMATES[tool] ?? DEFAULT_TOOL_COST,
+        blocked_mismatch: false,
+      },
+      log,
+    );
     return { block: true, blockReason: `tool "${tool}" is blocked by runtime-governor policy` };
   }
 
   // Flagged (allowed but logged)
   if (FLAGGED_TOOLS.has(tool)) {
-    log.info(`[runtime-governor] FLAGGED tool=${tool} agent=${ctx.agentId ?? ctx.sessionKey}`);
+    log.info(`[runtime-governor] FLAGGED tool=${tool} agent=${agent}`);
+    emitMetric(
+      {
+        ts: new Date().toISOString(),
+        environment: env,
+        agent,
+        tool,
+        decision: "flag",
+        reason: "flagged_tool",
+        latency_ms: Date.now() - t0,
+        estimated_cost: TOOL_COST_ESTIMATES[tool] ?? DEFAULT_TOOL_COST,
+        blocked_mismatch: false,
+      },
+      log,
+    );
     return; // Allow
   }
 
   // Safe
   if (SAFE_TOOLS.has(tool)) {
-    log.debug?.(`[runtime-governor] ALLOWED tool=${tool} agent=${ctx.agentId ?? ctx.sessionKey}`);
+    log.debug?.(`[runtime-governor] ALLOWED tool=${tool} agent=${agent}`);
+    emitMetric(
+      {
+        ts: new Date().toISOString(),
+        environment: env,
+        agent,
+        tool,
+        decision: "allow",
+        reason: "safe_tool",
+        latency_ms: Date.now() - t0,
+        estimated_cost: TOOL_COST_ESTIMATES[tool] ?? DEFAULT_TOOL_COST,
+        blocked_mismatch: false,
+      },
+      log,
+    );
     return; // Allow
   }
 
   // Unknown tool — allow but flag
-  log.info(
-    `[runtime-governor] UNKNOWN tool=${tool} agent=${ctx.agentId ?? ctx.sessionKey} — allowed (unclassified)`,
+  log.info(`[runtime-governor] UNKNOWN tool=${tool} agent=${agent} — allowed (unclassified)`);
+  emitMetric(
+    {
+      ts: new Date().toISOString(),
+      environment: env,
+      agent,
+      tool,
+      decision: "flag",
+      reason: "unknown_tool",
+      latency_ms: Date.now() - t0,
+      estimated_cost: TOOL_COST_ESTIMATES[tool] ?? DEFAULT_TOOL_COST,
+      blocked_mismatch: false,
+    },
+    log,
   );
 }
 
