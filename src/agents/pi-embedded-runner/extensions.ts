@@ -75,6 +75,8 @@ export function buildEmbeddedExtensionPaths(params: {
   model: Model<Api> | undefined;
 }): string[] {
   const paths: string[] = [];
+  // Runtime Governor tool gate — intercepts tool_call events for policy enforcement
+  paths.push(resolvePiExtensionPath("runtime-governor-tool-gate"));
   if (resolveCompactionMode(params.cfg) === "safeguard") {
     const compactionCfg = params.cfg?.agents?.defaults?.compaction;
     setCompactionSafeguardRuntime(params.sessionManager, {
