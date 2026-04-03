@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -88,6 +89,16 @@ export function buildEmbeddedExtensionPaths(params: {
   if (pruning.additionalExtensionPaths) {
     paths.push(...pruning.additionalExtensionPaths);
   }
+  try {
+    const debugLine = `[${new Date().toISOString()}] buildEmbeddedExtensionPaths → ${JSON.stringify(paths)}\n`;
+    fs.appendFileSync("/tmp/openclaw/extension-paths-debug.log", debugLine);
+    for (const p of paths) {
+      fs.appendFileSync(
+        "/tmp/openclaw/extension-paths-debug.log",
+        `  exists: ${fs.existsSync(p)} → ${p}\n`,
+      );
+    }
+  } catch {}
   return paths;
 }
 

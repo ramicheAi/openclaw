@@ -75,7 +75,8 @@ import { prewarmSessionFile, trackSessionManagerAccess } from "../session-manage
 import { prepareSessionManagerForRun } from "../session-manager-init.js";
 import { buildEmbeddedSystemPrompt, createSystemPromptOverride } from "../system-prompt.js";
 import { splitSdkTools } from "../tool-split.js";
-import { toClientToolDefinitions } from "../../pi-tool-definition-adapter.js";
+import { BLOCKED_TOOLS, toClientToolDefinitions } from "../../pi-tool-definition-adapter.js";
+import { normalizeToolName } from "../../tool-policy.js";
 import { buildSystemPromptParams } from "../../system-prompt-params.js";
 import { describeUnknownError, mapThinkingLevel } from "../utils.js";
 import { resolveSandboxRuntimeStatus } from "../../sandbox/runtime-status.js";
@@ -432,9 +433,16 @@ export async function runEmbeddedAttempt(
         model: params.model,
       });
 
+      // Pre-dispatch filter: blocked tools never reach the model
+      const filteredTools = tools.filter((t) => {
+        const n = normalizeToolName(t.name || "");
+        return !BLOCKED_TOOLS.has(n);
+      });
+
       const { builtInTools, customTools } = splitSdkTools({
-        tools,
+        tools: filteredTools,
         sandboxEnabled: !!sandbox?.enabled,
+        policyCtx: { agentId: sessionAgentId, sessionKey: params.sessionKey },
       });
 
       // Add client tools (OpenResponses hosted tools) to customTools

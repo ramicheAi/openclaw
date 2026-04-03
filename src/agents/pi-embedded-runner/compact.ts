@@ -65,6 +65,8 @@ import { buildEmbeddedSandboxInfo } from "./sandbox-info.js";
 import { prewarmSessionFile, trackSessionManagerAccess } from "./session-manager-cache.js";
 import { buildEmbeddedSystemPrompt, createSystemPromptOverride } from "./system-prompt.js";
 import { splitSdkTools } from "./tool-split.js";
+import { BLOCKED_TOOLS } from "../pi-tool-definition-adapter.js";
+import { normalizeToolName } from "../tool-policy.js";
 import type { EmbeddedPiCompactResult } from "./types.js";
 import { formatUserTime, resolveUserTimeFormat, resolveUserTimezone } from "../date-time.js";
 import { describeUnknownError, mapThinkingLevel, resolveExecToolDefaults } from "./utils.js";
@@ -378,9 +380,16 @@ export async function compactEmbeddedPiSessionDirect(
         model,
       });
 
+      // Pre-dispatch filter: blocked tools never reach the model
+      const filteredTools = tools.filter((t) => {
+        const n = normalizeToolName(t.name || "");
+        return !BLOCKED_TOOLS.has(n);
+      });
+
       const { builtInTools, customTools } = splitSdkTools({
-        tools,
+        tools: filteredTools,
         sandboxEnabled: !!sandbox?.enabled,
+        policyCtx: { agentId: sessionAgentId, sessionKey: params.sessionKey },
       });
 
       let session: Awaited<ReturnType<typeof createAgentSession>>["session"];
