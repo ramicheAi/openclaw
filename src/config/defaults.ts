@@ -23,6 +23,13 @@ const DEFAULT_MODEL_ALIASES: Readonly<Record<string, string>> = {
   // Google Gemini (3.x are preview ids in the catalog)
   gemini: "google/gemini-3-pro-preview",
   "gemini-flash": "google/gemini-3-flash-preview",
+
+  // Cost-effective subagent models
+  kimi: "openrouter/moonshotai/kimi-k2.5",
+  gemma4: "ollama/gemma3:4b",
+
+  // Ultra-lightweight local fallback (1-bit-class quantisation)
+  "1bit": "ollama/llama3.2:1b",
 };
 
 const DEFAULT_MODEL_COST: ModelDefinitionConfig["cost"] = {

@@ -262,6 +262,55 @@ export function logLaneDequeue(lane: string, waitMs: number, queueSize: number) 
   markActivity();
 }
 
+export function logTurnCompleted(params: {
+  sessionKey?: string;
+  sessionId?: string;
+  channel?: string;
+  provider?: string;
+  model?: string;
+  durationMs: number;
+  inputTokens?: number;
+  outputTokens?: number;
+  totalTokens?: number;
+  costUsd?: number;
+  isNewSession: boolean;
+  isHeartbeat: boolean;
+  compactionCount?: number;
+  payloadCount: number;
+  secondsSinceLastTurn?: number;
+  inputLengthChars?: number;
+  outputLengthChars?: number;
+  isRapidRetry?: boolean;
+  turnIndex?: number;
+}) {
+  diag.debug(
+    `turn completed: sessionKey=${params.sessionKey ?? "unknown"} model=${params.model ?? "unknown"} duration=${params.durationMs}ms tokens=${params.totalTokens ?? 0} cost=$${(params.costUsd ?? 0).toFixed(4)} payloads=${params.payloadCount}${params.secondsSinceLastTurn != null ? ` sinceLast=${params.secondsSinceLastTurn}s` : ""}${params.isRapidRetry ? " RAPID_RETRY" : ""}${params.turnIndex != null ? ` turn#${params.turnIndex}` : ""}`,
+  );
+  emitDiagnosticEvent({
+    type: "turn.completed",
+    sessionKey: params.sessionKey,
+    sessionId: params.sessionId,
+    channel: params.channel,
+    provider: params.provider,
+    model: params.model,
+    durationMs: params.durationMs,
+    inputTokens: params.inputTokens,
+    outputTokens: params.outputTokens,
+    totalTokens: params.totalTokens,
+    costUsd: params.costUsd,
+    isNewSession: params.isNewSession,
+    isHeartbeat: params.isHeartbeat,
+    compactionCount: params.compactionCount,
+    payloadCount: params.payloadCount,
+    secondsSinceLastTurn: params.secondsSinceLastTurn,
+    inputLengthChars: params.inputLengthChars,
+    outputLengthChars: params.outputLengthChars,
+    isRapidRetry: params.isRapidRetry,
+    turnIndex: params.turnIndex,
+  });
+  markActivity();
+}
+
 export function logRunAttempt(params: SessionRef & { runId: string; attempt: number }) {
   diag.debug(
     `run attempt: sessionId=${params.sessionId ?? "unknown"} sessionKey=${

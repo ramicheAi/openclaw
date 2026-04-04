@@ -76,6 +76,17 @@ export type SessionResetByTypeConfig = {
   thread?: SessionResetConfig;
 };
 
+export type CostBudgetConfig = {
+  /** Max USD per session before the agent stops responding (soft-cap). */
+  sessionMaxUsd?: number;
+  /** USD threshold at which the agent auto-downgrades to the economy model. */
+  downgradeAtUsd?: number;
+  /** Provider/model string for the economy model (e.g. "anthropic/claude-haiku-4-5"). */
+  economyModel?: string;
+  /** Max USD per calendar day across all sessions. */
+  dailyMaxUsd?: number;
+};
+
 export type SessionConfig = {
   scope?: SessionScope;
   /** DM session scoping (default: "main"). */
@@ -97,6 +108,8 @@ export type SessionConfig = {
     /** Max ping-pong turns between requester/target (0–5). Default: 5. */
     maxPingPongTurns?: number;
   };
+  /** Per-session and daily cost budget controls. */
+  costBudget?: CostBudgetConfig;
 };
 
 export type LoggingConfig = {

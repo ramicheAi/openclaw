@@ -82,6 +82,15 @@ export const SessionSchema = z
       })
       .strict()
       .optional(),
+    costBudget: z
+      .object({
+        sessionMaxUsd: z.number().positive().optional(),
+        downgradeAtUsd: z.number().positive().optional(),
+        economyModel: z.string().optional(),
+        dailyMaxUsd: z.number().positive().optional(),
+      })
+      .strict()
+      .optional(),
   })
   .strict()
   .optional();

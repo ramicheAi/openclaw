@@ -127,6 +127,50 @@ export type DiagnosticHeartbeatEvent = DiagnosticBaseEvent & {
   queued: number;
 };
 
+export type DiagnosticTurnCompletedEvent = DiagnosticBaseEvent & {
+  type: "turn.completed";
+  sessionKey?: string;
+  sessionId?: string;
+  channel?: string;
+  provider?: string;
+  model?: string;
+  durationMs: number;
+  inputTokens?: number;
+  outputTokens?: number;
+  totalTokens?: number;
+  costUsd?: number;
+  isNewSession: boolean;
+  isHeartbeat: boolean;
+  compactionCount?: number;
+  payloadCount: number;
+  /** Seconds since the last turn in this session (used to detect rapid re-prompts / retries). */
+  secondsSinceLastTurn?: number;
+  /** Character length of the user's input message. */
+  inputLengthChars?: number;
+  /** Total character length of the assistant's output payloads. */
+  outputLengthChars?: number;
+  /** True when the turn fired within the rapid-retry threshold (≤15 s) of the previous turn. */
+  isRapidRetry?: boolean;
+  /** 1-based sequential turn index within this session (resets per sessionKey). */
+  turnIndex?: number;
+};
+
+export type DiagnosticBudgetExceededEvent = DiagnosticBaseEvent & {
+  type: "budget.exceeded";
+  sessionKey?: string;
+  sessionId?: string;
+  /** Accumulated session cost at the time of the event. */
+  sessionCostUsd: number;
+  /** Accumulated daily cost at the time of the event. */
+  dailyCostUsd: number;
+  /** Human-readable reason the budget was tripped. */
+  reason: string;
+  /** The action taken: "stop" (hard-cap) or "downgrade" (model switch). */
+  action: "stop" | "downgrade";
+  /** The model that was downgraded to, if action is "downgrade". */
+  downgradeModel?: string;
+};
+
 export type DiagnosticEventPayload =
   | DiagnosticUsageEvent
   | DiagnosticWebhookReceivedEvent
@@ -139,7 +183,9 @@ export type DiagnosticEventPayload =
   | DiagnosticLaneEnqueueEvent
   | DiagnosticLaneDequeueEvent
   | DiagnosticRunAttemptEvent
-  | DiagnosticHeartbeatEvent;
+  | DiagnosticHeartbeatEvent
+  | DiagnosticTurnCompletedEvent
+  | DiagnosticBudgetExceededEvent;
 
 export type DiagnosticEventInput = DiagnosticEventPayload extends infer Event
   ? Event extends DiagnosticEventPayload

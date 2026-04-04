@@ -41,6 +41,16 @@ import { incrementCompactionCount } from "./session-updates.js";
 import type { TypingController } from "./typing.js";
 import { createTypingSignaler } from "./typing-mode.js";
 import { emitDiagnosticEvent, isDiagnosticsEnabled } from "../../infra/diagnostic-events.js";
+import { logTurnCompleted } from "../../logging/diagnostic.js";
+import {
+  recordTurnTimestamp,
+  recordTurnIndex,
+  computeIsRapidRetry,
+  accumulateSessionCost,
+  checkBudget,
+  getDailyCostUsd,
+  getSessionCostUsd,
+} from "../../infra/turn-metrics.js";
 
 const BLOCK_REPLY_SEND_TIMEOUT_MS = 15_000;
 
@@ -453,6 +463,86 @@ export async function runReplyAgent(params: {
         costUsd,
         durationMs: Date.now() - runStartedAt,
       });
+    }
+
+    // --- Turn metrics ---
+    {
+      const turnDurationMs = Date.now() - runStartedAt;
+      const input = usage?.input ?? 0;
+      const output = usage?.output ?? 0;
+      const cacheRead = usage?.cacheRead ?? 0;
+      const cacheWrite = usage?.cacheWrite ?? 0;
+      const promptTokens = input + cacheRead + cacheWrite;
+      const turnTotalTokens = usage?.total ?? promptTokens + output;
+      const turnCostConfig = resolveModelCostConfig({
+        provider: providerUsed,
+        model: modelUsed,
+        config: cfg,
+      });
+      const turnCostUsd = estimateUsageCost({ usage: usage ?? {}, cost: turnCostConfig });
+      const secondsSinceLastTurn = sessionKey ? recordTurnTimestamp(sessionKey) : undefined;
+      const turnIndex = sessionKey ? recordTurnIndex(sessionKey) : undefined;
+      const isRapidRetry = computeIsRapidRetry(secondsSinceLastTurn);
+      const inputLengthChars = commandBody.length || undefined;
+      const outputLengthChars =
+        payloadArray.reduce((sum, p) => sum + (p.text?.length ?? 0), 0) || undefined;
+      logTurnCompleted({
+        sessionKey,
+        sessionId: followupRun.run.sessionId,
+        channel: replyToChannel,
+        provider: providerUsed,
+        model: modelUsed,
+        durationMs: turnDurationMs,
+        inputTokens: input || undefined,
+        outputTokens: output || undefined,
+        totalTokens: turnTotalTokens || undefined,
+        costUsd: turnCostUsd,
+        isNewSession: activeIsNewSession,
+        isHeartbeat,
+        compactionCount: activeSessionEntry?.compactionCount,
+        payloadCount: payloadArray.length,
+        secondsSinceLastTurn,
+        inputLengthChars,
+        outputLengthChars,
+        isRapidRetry,
+        turnIndex,
+      });
+
+      // --- Cost budget accumulation + check ---
+      if (sessionKey && turnCostUsd != null) {
+        accumulateSessionCost(sessionKey, turnCostUsd);
+        const budgetResult = checkBudget(sessionKey, cfg.session?.costBudget);
+        if (budgetResult.exceeded) {
+          emitDiagnosticEvent({
+            type: "budget.exceeded",
+            sessionKey,
+            sessionId: followupRun.run.sessionId,
+            sessionCostUsd: getSessionCostUsd(sessionKey),
+            dailyCostUsd: getDailyCostUsd(),
+            reason: budgetResult.reason ?? "budget exceeded",
+            action: "stop",
+          });
+          defaultRuntime.error(
+            `[cost-budget] Session ${sessionKey} stopped: ${budgetResult.reason}`,
+          );
+        } else if (budgetResult.shouldDowngrade && budgetResult.downgradeModel) {
+          // Downgrade the model for subsequent turns in this session.
+          followupRun.run.model = budgetResult.downgradeModel;
+          emitDiagnosticEvent({
+            type: "budget.exceeded",
+            sessionKey,
+            sessionId: followupRun.run.sessionId,
+            sessionCostUsd: getSessionCostUsd(sessionKey),
+            dailyCostUsd: getDailyCostUsd(),
+            reason: budgetResult.reason ?? "downgrade threshold reached",
+            action: "downgrade",
+            downgradeModel: budgetResult.downgradeModel,
+          });
+          defaultRuntime.error(
+            `[cost-budget] Session ${sessionKey} downgraded to ${budgetResult.downgradeModel}: ${budgetResult.reason}`,
+          );
+        }
+      }
     }
 
     const responseUsageRaw =
