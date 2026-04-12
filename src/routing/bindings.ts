@@ -1,6 +1,6 @@
 import { resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { normalizeChatChannelId } from "../channels/registry.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 import type { AgentBinding } from "../config/types.agents.js";
 import { normalizeAccountId, normalizeAgentId } from "./session-key.js";
 

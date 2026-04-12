@@ -22,8 +22,9 @@ import type { ReplyPayload } from "../auto-reply/types.js";
 import { getChannelPlugin } from "../channels/plugins/index.js";
 import type { ChannelHeartbeatDeps } from "../channels/plugins/types.js";
 import { parseDurationMs } from "../cli/parse-duration.js";
-import type { OpenClawConfig } from "../config/config.js";
-import { loadConfig } from "../config/config.js";
+import { loadConfig } from "../config/io.js";
+import { getSessionConfig } from "../config/session.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 import {
   canonicalizeMainSessionAlias,
   loadSessionStore,
@@ -316,7 +317,7 @@ function resolveHeartbeatSession(
   agentId?: string,
   heartbeat?: HeartbeatConfig,
 ) {
-  const sessionCfg = cfg.session;
+  const sessionCfg = getSessionConfig(cfg);
   const scope = sessionCfg?.scope ?? "per-sender";
   const resolvedAgentId = normalizeAgentId(agentId ?? resolveDefaultAgentId(cfg));
   const mainSessionKey =
@@ -343,7 +344,7 @@ function resolveHeartbeatSession(
   const candidate = toAgentStoreSessionKey({
     agentId: resolvedAgentId,
     requestKey: trimmed,
-    mainKey: cfg.session?.mainKey,
+    mainKey: getSessionConfig(cfg)?.mainKey,
   });
   const canonical = canonicalizeMainSessionAlias({
     cfg,

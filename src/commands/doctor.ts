@@ -10,8 +10,12 @@ import {
   resolveHooksGmailModel,
 } from "../agents/model-selection.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/config.js";
-import { CONFIG_PATH, readConfigFileSnapshot, writeConfigFile } from "../config/config.js";
+import {
+  CONFIG_PATH,
+  readConfigFileSnapshot,
+  writeConfigFile,
+  type OpenClawConfig,
+} from "../config/config.js";
 import { logConfigUpdated } from "../config/logging.js";
 import { resolveGatewayService } from "../daemon/service.js";
 import { resolveGatewayAuth } from "../gateway/auth.js";

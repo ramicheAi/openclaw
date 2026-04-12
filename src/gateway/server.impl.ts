@@ -5,14 +5,9 @@ import type { CanvasHostServer } from "../canvas-host/server.js";
 import { type ChannelId, listChannelPlugins } from "../channels/plugins/index.js";
 import { createDefaultDeps } from "../cli/deps.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import {
-  CONFIG_PATH,
-  isNixMode,
-  loadConfig,
-  migrateLegacyConfig,
-  readConfigFileSnapshot,
-  writeConfigFile,
-} from "../config/config.js";
+import { loadConfig, readConfigFileSnapshot, writeConfigFile } from "../config/io.js";
+import { migrateLegacyConfig } from "../config/legacy-migrate.js";
+import { CONFIG_PATH, isNixMode } from "../config/paths.js";
 import { isDiagnosticsEnabled } from "../infra/diagnostic-events.js";
 import { logAcceptedEnvOption } from "../infra/env.js";
 import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";

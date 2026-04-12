@@ -5,7 +5,8 @@ import {
   createWriteTool,
   readTool,
 } from "@mariozechner/pi-coding-agent";
-import type { OpenClawConfig } from "../config/config.js";
+import { getToolsConfig } from "../config/tools.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { isSubagentSessionKey } from "../routing/session-key.js";
 import { resolveGatewayMessageChannel } from "../utils/message-channel.js";
 import { createApplyPatchTool } from "./apply-patch.js";
@@ -79,7 +80,7 @@ function isApplyPatchAllowedForModel(params: {
 }
 
 function resolveExecConfig(cfg: OpenClawConfig | undefined) {
-  const globalExec = cfg?.tools?.exec;
+  const globalExec = cfg ? getToolsConfig(cfg)?.exec : undefined;
   return {
     host: globalExec?.host,
     security: globalExec?.security,

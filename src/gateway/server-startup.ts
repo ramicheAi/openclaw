@@ -6,7 +6,7 @@ import {
   resolveHooksGmailModel,
 } from "../agents/model-selection.js";
 import type { CliDeps } from "../cli/deps.js";
-import type { loadConfig } from "../config/config.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { startGmailWatcher } from "../hooks/gmail-watcher.js";
 import {
@@ -24,7 +24,7 @@ import {
 } from "./server-restart-sentinel.js";
 
 export async function startGatewaySidecars(params: {
-  cfg: ReturnType<typeof loadConfig>;
+  cfg: OpenClawConfig;
   pluginRegistry: ReturnType<typeof loadOpenClawPlugins>;
   defaultWorkspaceDir: string;
   deps: CliDeps;

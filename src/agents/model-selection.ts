@@ -1,4 +1,5 @@
-import type { OpenClawConfig } from "../config/config.js";
+import { getModelsConfig } from "../config/models.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 import type { ModelCatalogEntry } from "./model-catalog.js";
 import { normalizeGoogleModelId } from "./models-config.providers.js";
 import { resolveAgentModelPrimary } from "./agent-scope.js";
@@ -217,7 +218,10 @@ export function buildAllowedModelSet(params: {
   }
 
   const allowedKeys = new Set<string>();
-  const configuredProviders = (params.cfg.models?.providers ?? {}) as Record<string, unknown>;
+  const configuredProviders = (getModelsConfig(params.cfg)?.providers ?? {}) as Record<
+    string,
+    unknown
+  >;
   for (const raw of rawAllowlist) {
     const parsed = parseModelRef(String(raw), params.defaultProvider);
     if (!parsed) continue;

@@ -1,5 +1,5 @@
 import type { Command } from "commander";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../../infra/env.js";
 import { buildParseArgv, getPrimaryCommand, hasHelpOrVersion } from "../argv.js";
 import { resolveActionArgs } from "./helpers.js";
@@ -23,7 +23,7 @@ const shouldEagerRegisterSubcommands = (_argv: string[]) => {
 };
 
 const loadConfig = async (): Promise<OpenClawConfig> => {
-  const mod = await import("../../config/config.js");
+  const mod = await import("../../config/io.js");
   return mod.loadConfig();
 };
 

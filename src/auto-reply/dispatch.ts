@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 import type { FinalizedMsgContext, MsgContext } from "./templating.js";
 import type { GetReplyOptions } from "./types.js";
 import { finalizeInboundContext } from "./reply/inbound-context.js";

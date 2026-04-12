@@ -1,4 +1,5 @@
-import type { OpenClawConfig } from "../config/config.js";
+import { getChannelsConfig } from "../config/channels.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { resolveDiscordAccount } from "../discord/accounts.js";
 import { resolveIMessageAccount } from "../imessage/accounts.js";
 import { resolveSignalAccount } from "../signal/accounts.js";
@@ -114,7 +115,7 @@ const DOCKS: Record<ChatChannelId, ChannelDock> = {
       resolveToolPolicy: resolveTelegramGroupToolPolicy,
     },
     threading: {
-      resolveReplyToMode: ({ cfg }) => cfg.channels?.telegram?.replyToMode ?? "first",
+      resolveReplyToMode: ({ cfg }) => getChannelsConfig(cfg)?.telegram?.replyToMode ?? "first",
       buildToolContext: ({ context, hasRepliedRef }) => {
         const threadId = context.MessageThreadId ?? context.ReplyToId;
         return {
@@ -188,7 +189,7 @@ const DOCKS: Record<ChatChannelId, ChannelDock> = {
       blockStreamingCoalesceDefaults: { minChars: 1500, idleMs: 1000 },
     },
     elevated: {
-      allowFromFallback: ({ cfg }) => cfg.channels?.discord?.dm?.allowFrom,
+      allowFromFallback: ({ cfg }) => getChannelsConfig(cfg)?.discord?.dm?.allowFrom,
     },
     config: {
       resolveAllowFrom: ({ cfg, accountId }) =>
@@ -205,7 +206,7 @@ const DOCKS: Record<ChatChannelId, ChannelDock> = {
       stripPatterns: () => ["<@!?\\d+>"],
     },
     threading: {
-      resolveReplyToMode: ({ cfg }) => cfg.channels?.discord?.replyToMode ?? "off",
+      resolveReplyToMode: ({ cfg }) => getChannelsConfig(cfg)?.discord?.replyToMode ?? "off",
       buildToolContext: ({ context, hasRepliedRef }) => ({
         currentChannelId: context.To?.trim() || undefined,
         currentThreadTs: context.ReplyToId,
@@ -225,7 +226,7 @@ const DOCKS: Record<ChatChannelId, ChannelDock> = {
     outbound: { textChunkLimit: 4000 },
     config: {
       resolveAllowFrom: ({ cfg, accountId }) => {
-        const channel = cfg.channels?.googlechat as
+        const channel = getChannelsConfig(cfg)?.googlechat as
           | {
               accounts?: Record<string, { dm?: { allowFrom?: Array<string | number> } }>;
               dm?: { allowFrom?: Array<string | number> };
@@ -260,7 +261,7 @@ const DOCKS: Record<ChatChannelId, ChannelDock> = {
       resolveToolPolicy: resolveGoogleChatGroupToolPolicy,
     },
     threading: {
-      resolveReplyToMode: ({ cfg }) => cfg.channels?.googlechat?.replyToMode ?? "off",
+      resolveReplyToMode: ({ cfg }) => getChannelsConfig(cfg)?.googlechat?.replyToMode ?? "off",
       buildToolContext: ({ context, hasRepliedRef }) => {
         const threadId = context.MessageThreadId ?? context.ReplyToId;
         return {

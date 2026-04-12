@@ -8,7 +8,7 @@ import { monitorWebChannel } from "./channel-web.js";
 import { createDefaultDeps } from "./cli/deps.js";
 import { promptYesNo } from "./cli/prompt.js";
 import { waitForever } from "./cli/wait.js";
-import { loadConfig } from "./config/config.js";
+import { loadConfig } from "./config/io.js";
 import {
   deriveSessionKey,
   loadSessionStore,
