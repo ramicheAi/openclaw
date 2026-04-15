@@ -50,7 +50,11 @@ import {
   checkBudget,
   getDailyCostUsd,
   getSessionCostUsd,
+  enableTurnMetrics,
 } from "../../infra/turn-metrics.js";
+
+// Activate JSONL turn metrics persistence on first import.
+enableTurnMetrics();
 
 const BLOCK_REPLY_SEND_TIMEOUT_MS = 15_000;
 
