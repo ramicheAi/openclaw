@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { WebSocket, type ClientOptions, type CertMeta } from "ws";
 import { normalizeFingerprint } from "../infra/tls/fingerprint.js";
 import { rawDataToString } from "../infra/ws.js";
-import { logDebug, logError } from "../logger.js";
+import { logDebug, logError, logWarn } from "../logger.js";
 import type { DeviceIdentity } from "../infra/device-identity.js";
 import {
   loadOrCreateDeviceIdentity,
@@ -81,6 +81,8 @@ export class GatewayClient {
   private opts: GatewayClientOptions;
   private pending = new Map<string, Pending>();
   private backoffMs = 1000;
+  private reconnectAttempts = 0;
+  private static readonly MAX_RECONNECT_ATTEMPTS = 10;
   private closed = false;
   private lastSeq: number | null = null;
   private connectNonce: string | null = null;
@@ -252,6 +254,7 @@ export class GatewayClient {
           });
         }
         this.backoffMs = 1000;
+        this.reconnectAttempts = 0;
         this.tickIntervalMs =
           typeof helloOk.policy?.tickIntervalMs === "number"
             ? helloOk.policy.tickIntervalMs
@@ -334,6 +337,18 @@ export class GatewayClient {
     if (this.tickTimer) {
       clearInterval(this.tickTimer);
       this.tickTimer = null;
+    }
+    this.reconnectAttempts += 1;
+    if (this.reconnectAttempts > GatewayClient.MAX_RECONNECT_ATTEMPTS) {
+      logWarn(
+        `gateway client: giving up after ${GatewayClient.MAX_RECONNECT_ATTEMPTS} reconnect attempts`,
+      );
+      this.opts.onConnectError?.(
+        new Error(
+          `gateway reconnect failed after ${GatewayClient.MAX_RECONNECT_ATTEMPTS} attempts`,
+        ),
+      );
+      return;
     }
     const delay = this.backoffMs;
     this.backoffMs = Math.min(this.backoffMs * 2, 30_000);
