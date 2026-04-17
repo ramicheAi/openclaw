@@ -12,6 +12,13 @@ import type { EmbeddedContextFile } from "./pi-embedded-helpers.js";
  */
 export type PromptMode = "full" | "minimal" | "none";
 
+/**
+ * Marker that separates the static (cacheable) portion of the system prompt
+ * from the dynamic (per-session) portion. Providers that support multi-block
+ * system prompts can split at this boundary for prompt caching efficiency.
+ */
+export const DYNAMIC_BOUNDARY = "<!-- DYNAMIC_BOUNDARY -->";
+
 function buildSkillsSection(params: {
   skillsPrompt?: string;
   isMinimal: boolean;
@@ -394,6 +401,10 @@ export function buildAgentSystemPrompt(params: {
       ? params.modelAliasLines.join("\n")
       : "",
     params.modelAliasLines && params.modelAliasLines.length > 0 && !isMinimal ? "" : "",
+    // DYNAMIC_BOUNDARY: everything above is static (tools, skills, rules);
+    // everything below is per-session (workspace, identity, time, context files, runtime).
+    // Providers that support multi-block system prompts can split here for cache efficiency.
+    "<!-- DYNAMIC_BOUNDARY -->",
     "## Workspace",
     `Your working directory is: ${params.workspaceDir}`,
     "Treat this directory as the single global workspace for file operations unless explicitly instructed otherwise.",
@@ -509,7 +520,14 @@ export function buildAgentSystemPrompt(params: {
     }
     lines.push("");
     for (const file of contextFiles) {
-      lines.push(`## ${file.path}`, "", file.content, "");
+      lines.push(
+        `## ${file.path}`,
+        `<!-- origin:workspace-file path="${file.path}" editable="true" -->`,
+        "",
+        file.content,
+        `<!-- /origin:workspace-file -->`,
+        "",
+      );
     }
   }
 
