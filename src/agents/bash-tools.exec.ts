@@ -28,6 +28,7 @@ import {
 import { enqueueSystemEvent } from "../infra/system-events.js";
 import { logInfo, logWarn } from "../logger.js";
 import { formatSpawnError, spawnWithFallback } from "../process/spawn-utils.js";
+import { tickSubscriptions } from "./tools/subscribe-tool.js";
 import {
   type ProcessSession,
   type SessionStdin,
@@ -319,6 +320,8 @@ function maybeNotifyOnExit(session: ProcessSession, status: "completed" | "faile
     : `Exec ${status} (${session.id.slice(0, 8)}, ${exitLabel})`;
   enqueueSystemEvent(summary, { sessionKey });
   requestHeartbeatNow({ reason: `exec:${session.id}:exit` });
+  // Pattern #10: tick subscriptions on exec completion
+  tickSubscriptions();
 }
 
 function createApprovalSlug(id: string) {

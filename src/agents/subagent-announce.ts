@@ -22,6 +22,7 @@ import {
 import { isEmbeddedPiRunActive, queueEmbeddedPiMessage } from "./pi-embedded.js";
 import { type AnnounceQueueItem, enqueueAnnounce } from "./subagent-announce-queue.js";
 import { readLatestAssistantReply } from "./tools/agent-step.js";
+import { notifySubscription } from "./tools/subscribe-tool.js";
 
 function formatDurationShort(valueMs?: number) {
   if (!valueMs || !Number.isFinite(valueMs) || valueMs <= 0) return undefined;
@@ -393,6 +394,12 @@ export async function runSubagentAnnounceFlow(params: {
     }
 
     if (!outcome) outcome = { status: "unknown" };
+
+    // Pattern #10: fire subscription notifications for this subagent
+    notifySubscription(
+      params.childSessionKey,
+      `${outcome.status === "ok" ? "completed" : outcome.status} — ${(reply || "(no output)").slice(0, 200)}`,
+    );
 
     // Build stats
     const statsLine = await buildSubagentStatsLine({
