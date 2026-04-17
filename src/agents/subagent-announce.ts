@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import fs from "node:fs";
 import path from "node:path";
 
 import { loadConfig } from "../config/config.js";
@@ -293,6 +294,33 @@ export function buildSubagentSystemPrompt(params: {
     `- Your session: ${params.childSessionKey}.`,
     "",
   ].filter((line): line is string => line !== undefined);
+
+  // Pattern #7: Auto-inject ULTRAPLAN agent prompt for planning subagents
+  const isUltraplan =
+    typeof params.label === "string" && params.label.toLowerCase().startsWith("ultraplan");
+  if (isUltraplan) {
+    const ultraplanPromptPath = path.join(
+      process.env.HOME ?? "/Users/admin",
+      ".openclaw/workspace/skills/ultraplan/ultraplan-agent-prompt.md",
+    );
+    try {
+      const promptContent = fs.readFileSync(ultraplanPromptPath, "utf-8");
+      lines.push("", "---", "", promptContent.trim(), "");
+    } catch {
+      // Skill file missing — fall back to inline planning instructions
+      lines.push(
+        "",
+        "---",
+        "",
+        "## ULTRAPLAN Mode",
+        "You are a dedicated planning agent. Produce a comprehensive, actionable implementation plan.",
+        "Research the codebase first. Every task must be atomic (2-5 min). Include exact file paths and code snippets.",
+        "Save the plan to docs/superpowers/plans/ in the project directory.",
+        "",
+      );
+    }
+  }
+
   return lines.join("\n");
 }
 
