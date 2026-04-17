@@ -535,6 +535,81 @@ export type ExecCommandAnalysis = {
 
 const DISALLOWED_PIPELINE_TOKENS = new Set([">", "<", "`", "\n", "\r", "(", ")"]);
 
+/**
+ * Pre-analysis sanitizer — catches shell injection vectors that the quote-aware
+ * character-by-character parser might miss because they operate at a different
+ * layer (control characters, encoding tricks, heredocs).
+ *
+ * Runs BEFORE analyzeShellCommand / splitCommandChain so every path is covered.
+ * Returns { ok: true } or { ok: false, reason } with a human-readable rejection.
+ */
+export function preValidateShellCommand(
+  command: string,
+): { ok: true } | { ok: false; reason: string } {
+  // 1. Null bytes — truncate strings in C-based shells
+  if (command.includes("\0")) {
+    return { ok: false, reason: "null byte in command" };
+  }
+
+  // 2. Carriage return outside quotes — can hide commands in terminal display
+  //    (DISALLOWED_PIPELINE_TOKENS catches \r inside pipelines, but splitCommandChain doesn't)
+  if (command.includes("\r")) {
+    return { ok: false, reason: "carriage return in command" };
+  }
+
+  // 3. ANSI escape sequences — terminal manipulation
+  // eslint-disable-next-line no-control-regex
+  if (/\x1b/.test(command)) {
+    return { ok: false, reason: "ANSI escape sequence in command" };
+  }
+
+  // 4. Heredoc / here-string — multi-line injection
+  if (/<<[-~]?\s*['"]?\w/.test(command)) {
+    return { ok: false, reason: "heredoc operator (<<) in command" };
+  }
+  if (/<<</.test(command)) {
+    return { ok: false, reason: "here-string operator (<<<) in command" };
+  }
+
+  // 5. ${...} variable expansion outside quotes — already partially covered by
+  //    iterateQuoteAware rejecting $() but ${} slips through
+  //    Only reject unquoted ${} — inside double quotes the parser handles it
+  {
+    let inSingle = false;
+    let inDouble = false;
+    let escaped = false;
+    for (let i = 0; i < command.length; i++) {
+      const ch = command[i];
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+      if (ch === "\\" && !inSingle) {
+        escaped = true;
+        continue;
+      }
+      if (ch === "'" && !inDouble) {
+        inSingle = !inSingle;
+        continue;
+      }
+      if (ch === '"' && !inSingle) {
+        inDouble = !inDouble;
+        continue;
+      }
+      if (!inSingle && !inDouble && ch === "$" && command[i + 1] === "{") {
+        return { ok: false, reason: "unquoted variable expansion ${} in command" };
+      }
+    }
+  }
+
+  // 6. Bare newlines (belt-and-suspenders — also in DISALLOWED_PIPELINE_TOKENS)
+  if (command.includes("\n")) {
+    return { ok: false, reason: "newline in command" };
+  }
+
+  return { ok: true };
+}
+
 type IteratorAction = "split" | "skip" | "include" | { reject: string };
 
 /**
@@ -748,6 +823,12 @@ export function analyzeShellCommand(params: {
   cwd?: string;
   env?: NodeJS.ProcessEnv;
 }): ExecCommandAnalysis {
+  // Pre-validate: catch injection vectors the character parser misses
+  const preCheck = preValidateShellCommand(params.command);
+  if (!preCheck.ok) {
+    return { ok: false, reason: (preCheck as { ok: false; reason: string }).reason, segments: [] };
+  }
+
   // First try splitting by chain operators (&&, ||, ;)
   const chainParts = splitCommandChain(params.command);
   if (chainParts) {
@@ -1059,6 +1140,12 @@ export function evaluateShellAllowlist(params: {
   skillBins?: Set<string>;
   autoAllowSkills?: boolean;
 }): ExecAllowlistAnalysis {
+  // Pre-validate before any parsing
+  const preCheck = preValidateShellCommand(params.command);
+  if (!preCheck.ok) {
+    return { analysisOk: false, allowlistSatisfied: false, allowlistMatches: [], segments: [] };
+  }
+
   const chainParts = splitCommandChain(params.command);
   if (!chainParts) {
     const analysis = analyzeShellCommand({
