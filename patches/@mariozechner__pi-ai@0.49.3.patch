@@ -1,0 +1,45 @@
+diff --git a/dist/providers/anthropic.js b/dist/providers/anthropic.js
+--- a/dist/providers/anthropic.js
++++ b/dist/providers/anthropic.js
+@@ -350,12 +350,22 @@
+     else if (context.systemPrompt) {
+-        // Add cache control to system prompt for non-OAuth tokens
+-        params.system = [
+-            {
+-                type: "text",
+-                text: sanitizeSurrogates(context.systemPrompt),
+-                cache_control: {
+-                    type: "ephemeral",
++        // Split system prompt at DYNAMIC_BOUNDARY for cache efficiency
++        const boundary = "<!-- DYNAMIC_BOUNDARY -->";
++        const boundaryIndex = context.systemPrompt.indexOf(boundary);
++        if (boundaryIndex !== -1) {
++            const staticPart = context.systemPrompt.slice(0, boundaryIndex).trim();
++            const dynamicPart = context.systemPrompt.slice(boundaryIndex + boundary.length).trim();
++            params.system = [];
++            if (staticPart) {
++                params.system.push({
++                    type: "text",
++                    text: sanitizeSurrogates(staticPart),
++                    cache_control: { type: "ephemeral" },
++                });
++            }
++            if (dynamicPart) {
++                params.system.push({
++                    type: "text",
++                    text: sanitizeSurrogates(dynamicPart),
++                });
++            }
++        }
++        else {
++            params.system = [
++                {
++                    type: "text",
++                    text: sanitizeSurrogates(context.systemPrompt),
++                    cache_control: { type: "ephemeral" },
+                 },
+-            },
+-        ];
++            ];
++        }
+     }

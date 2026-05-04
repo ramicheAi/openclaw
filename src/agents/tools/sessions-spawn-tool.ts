@@ -12,6 +12,7 @@ import {
 } from "../../routing/session-key.js";
 import { normalizeDeliveryContext } from "../../utils/delivery-context.js";
 import type { GatewayMessageChannel } from "../../utils/message-channel.js";
+import { retryAsync } from "../../infra/retry.js";
 import { resolveAgentConfig } from "../agent-scope.js";
 import { AGENT_LANE_SUBAGENT } from "../lanes.js";
 import { optionalStringEnum } from "../schema/typebox.js";
@@ -211,26 +212,50 @@ export function createSessionsSpawnTool(opts?: {
       const childIdem = crypto.randomUUID();
       let childRunId: string = childIdem;
       try {
-        const response = (await callGateway({
-          method: "agent",
-          params: {
-            message: task,
-            sessionKey: childSessionKey,
-            channel: requesterOrigin?.channel,
-            idempotencyKey: childIdem,
-            deliver: false,
-            lane: AGENT_LANE_SUBAGENT,
-            extraSystemPrompt: childSystemPrompt,
-            thinking: thinkingOverride,
-            timeout: runTimeoutSeconds > 0 ? runTimeoutSeconds : undefined,
-            label: label || undefined,
-            spawnedBy: spawnedByKey,
-            groupId: opts?.agentGroupId ?? undefined,
-            groupChannel: opts?.agentGroupChannel ?? undefined,
-            groupSpace: opts?.agentGroupSpace ?? undefined,
+        const response = (await retryAsync(
+          () =>
+            callGateway({
+              method: "agent",
+              params: {
+                message: task,
+                sessionKey: childSessionKey,
+                channel: requesterOrigin?.channel,
+                idempotencyKey: childIdem,
+                deliver: false,
+                lane: AGENT_LANE_SUBAGENT,
+                extraSystemPrompt: childSystemPrompt,
+                thinking: thinkingOverride,
+                timeout: runTimeoutSeconds > 0 ? runTimeoutSeconds : undefined,
+                label: label || undefined,
+                spawnedBy: spawnedByKey,
+                groupId: opts?.agentGroupId ?? undefined,
+                groupChannel: opts?.agentGroupChannel ?? undefined,
+                groupSpace: opts?.agentGroupSpace ?? undefined,
+              },
+              timeoutMs: 10_000,
+            }),
+          {
+            attempts: 3,
+            minDelayMs: 500,
+            maxDelayMs: 5_000,
+            jitter: 0.2,
+            label: `spawn-${targetAgentId}`,
+            shouldRetry: (err) => {
+              const msg = err instanceof Error ? err.message : String(err);
+              // Don't retry auth, permission, or validation errors
+              if (msg.includes("invalid model") || msg.includes("model not allowed")) return false;
+              if (msg.includes("forbidden") || msg.includes("not allowed")) return false;
+              // Retry timeouts and transient network errors
+              return (
+                msg.includes("timeout") ||
+                msg.includes("ECONNREFUSED") ||
+                msg.includes("ECONNRESET") ||
+                msg.includes("socket") ||
+                msg.includes("network")
+              );
+            },
           },
-          timeoutMs: 10_000,
-        })) as { runId?: string };
+        )) as { runId?: string };
         if (typeof response?.runId === "string" && response.runId) {
           childRunId = response.runId;
         }

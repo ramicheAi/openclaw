@@ -57,13 +57,24 @@ export function setLastActiveSessionKey(host: SettingsHost, next: string) {
   applySettings(host, { ...host.settings, lastActiveSessionKey: trimmed });
 }
 
+/** Parse `key=value` pairs from the URL hash (e.g. `#token=…` or `#/path?token=…`). Query string wins on duplicates. */
+function parseHashQueryParams(hash: string): URLSearchParams {
+  if (!hash || hash === "#") return new URLSearchParams();
+  const raw = hash.startsWith("#") ? hash.slice(1) : hash;
+  const qIndex = raw.indexOf("?");
+  const queryPart = qIndex >= 0 ? raw.slice(qIndex + 1) : raw;
+  if (!queryPart.includes("=")) return new URLSearchParams();
+  return new URLSearchParams(queryPart);
+}
+
 export function applySettingsFromUrl(host: SettingsHost) {
-  if (!window.location.search) return;
   const params = new URLSearchParams(window.location.search);
-  const tokenRaw = params.get("token");
-  const passwordRaw = params.get("password");
+  const hashParams = parseHashQueryParams(window.location.hash);
+
+  const tokenRaw = params.get("token") ?? hashParams.get("token");
+  const passwordRaw = params.get("password") ?? hashParams.get("password");
   const sessionRaw = params.get("session");
-  const gatewayUrlRaw = params.get("gatewayUrl");
+  const gatewayUrlRaw = params.get("gatewayUrl") ?? hashParams.get("gatewayUrl");
   let shouldCleanUrl = false;
 
   if (tokenRaw != null) {
@@ -72,6 +83,7 @@ export function applySettingsFromUrl(host: SettingsHost) {
       applySettings(host, { ...host.settings, token });
     }
     params.delete("token");
+    hashParams.delete("token");
     shouldCleanUrl = true;
   }
 
@@ -81,6 +93,7 @@ export function applySettingsFromUrl(host: SettingsHost) {
       (host as { password: string }).password = password;
     }
     params.delete("password");
+    hashParams.delete("password");
     shouldCleanUrl = true;
   }
 
@@ -102,12 +115,15 @@ export function applySettingsFromUrl(host: SettingsHost) {
       host.pendingGatewayUrl = gatewayUrl;
     }
     params.delete("gatewayUrl");
+    hashParams.delete("gatewayUrl");
     shouldCleanUrl = true;
   }
 
   if (!shouldCleanUrl) return;
   const url = new URL(window.location.href);
   url.search = params.toString();
+  const hashNext = hashParams.toString();
+  url.hash = hashNext ? `#${hashNext}` : "";
   window.history.replaceState({}, "", url.toString());
 }
 

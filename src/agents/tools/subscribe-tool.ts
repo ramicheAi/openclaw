@@ -97,6 +97,13 @@ export function pruneSubscriptions(maxAgeMs = 3_600_000): void {
 // Tool definition
 // ---------------------------------------------------------------------------
 
+function subscribeTextResult(text: string): AgentToolResult<unknown> {
+  return {
+    content: [{ type: "text", text }],
+    details: { output: text },
+  };
+}
+
 const subscribeSchema = Type.Object({
   action: Type.Union(
     [
@@ -147,7 +154,9 @@ export function createSubscribeTool(opts?: {
       switch (params.action) {
         case "subscribe": {
           if (!params.target_type || !params.target_id) {
-            return { output: "Error: target_type and target_id are required for subscribe." };
+            return subscribeTextResult(
+              "Error: target_type and target_id are required for subscribe.",
+            );
           }
           const id = generateSubId();
           const sub: Subscription = {
@@ -165,34 +174,36 @@ export function createSubscribeTool(opts?: {
           // Immediately check if already completed
           tickSubscriptions();
           if (sub.notified) {
-            return { output: `Subscribed (${id}) — already completed, notification sent.` };
+            return subscribeTextResult(
+              `Subscribed (${id}) — already completed, notification sent.`,
+            );
           }
-          return {
-            output: `Subscribed (${id}). You'll be notified when "${params.label || params.target_id}" completes.`,
-          };
+          return subscribeTextResult(
+            `Subscribed (${id}). You'll be notified when "${params.label || params.target_id}" completes.`,
+          );
         }
 
         case "list": {
           const active = [...subscriptions.values()].filter((s) => s.sessionKey === sessionKey);
           if (active.length === 0) {
-            return { output: "No active subscriptions." };
+            return subscribeTextResult("No active subscriptions.");
           }
           const lines = active.map(
             (s) =>
               `${s.id}: ${s.targetType}:${s.targetId} ${s.notified ? "(notified)" : "(waiting)"} ${s.label ? `"${s.label}"` : ""}`,
           );
-          return { output: lines.join("\n") };
+          return subscribeTextResult(lines.join("\n"));
         }
 
         case "unsubscribe": {
           const subId = params.subscription_id;
           if (!subId) {
-            return { output: "Error: subscription_id is required for unsubscribe." };
+            return subscribeTextResult("Error: subscription_id is required for unsubscribe.");
           }
           const deleted = subscriptions.delete(subId);
-          return {
-            output: deleted ? `Unsubscribed ${subId}.` : `Subscription ${subId} not found.`,
-          };
+          return subscribeTextResult(
+            deleted ? `Unsubscribed ${subId}.` : `Subscription ${subId} not found.`,
+          );
         }
 
         case "check": {
@@ -203,19 +214,19 @@ export function createSubscribeTool(opts?: {
             (s) => s.sessionKey === sessionKey && !s.notified,
           );
           if (active.length === 0) {
-            return { output: "All subscriptions completed or no active subscriptions." };
+            return subscribeTextResult("All subscriptions completed or no active subscriptions.");
           }
           const lines = active.map(
             (s) =>
               `${s.id}: ${s.targetType}:${s.targetId} (still running) ${s.label ? `"${s.label}"` : ""}`,
           );
-          return { output: `${active.length} active:\n${lines.join("\n")}` };
+          return subscribeTextResult(`${active.length} active:\n${lines.join("\n")}`);
         }
 
         default:
-          return {
-            output: `Unknown action: ${params.action}. Use subscribe, list, check, or unsubscribe.`,
-          };
+          return subscribeTextResult(
+            `Unknown action: ${params.action}. Use subscribe, list, check, or unsubscribe.`,
+          );
       }
     },
   };

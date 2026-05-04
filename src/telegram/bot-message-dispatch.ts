@@ -15,7 +15,8 @@ import { createReplyPrefixContext } from "../channels/reply-prefix.js";
 import { createTypingCallbacks } from "../channels/typing.js";
 import { danger, logVerbose } from "../globals.js";
 import { resolveMarkdownTableMode } from "../config/markdown-tables.js";
-import { deliverReplies } from "./bot/delivery.js";
+import { deliverRepliesCanary as deliverReplies } from "./bot/delivery-canary.js";
+import { traceSend } from "./bot/trace-sends.js";
 import { resolveTelegramDraftStreamingChunking } from "./draft-chunking.js";
 import { createTelegramDraftStream } from "./draft-stream.js";
 import { cacheSticker, describeStickerImage } from "./sticker-cache.js";
@@ -220,6 +221,11 @@ export const dispatchTelegramMessage = async ({
           await flushDraft();
           draftStream?.stop();
         }
+        traceSend(info.kind === "final" ? "deliver.final" : "deliver.block", {
+          chatId: String(chatId),
+          text: payload.text,
+          note: `kind=${info.kind}`,
+        });
         const result = await deliverReplies({
           replies: [payload],
           chatId: String(chatId),
@@ -274,6 +280,11 @@ export const dispatchTelegramMessage = async ({
   draftStream?.stop();
   let sentFallback = false;
   if (!deliveryState.delivered && deliveryState.skippedNonSilent > 0) {
+    traceSend("deliver.empty-fallback", {
+      chatId: String(chatId),
+      text: EMPTY_RESPONSE_FALLBACK,
+      note: `skippedNonSilent=${deliveryState.skippedNonSilent}`,
+    });
     const result = await deliverReplies({
       replies: [{ text: EMPTY_RESPONSE_FALLBACK }],
       chatId: String(chatId),

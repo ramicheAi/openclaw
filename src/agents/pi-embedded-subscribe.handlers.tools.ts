@@ -78,6 +78,11 @@ export async function handleToolExecutionStart(
 
   const meta = extendExecMeta(toolName, args, inferToolMetaFromArgs(toolName, args));
   ctx.state.toolMetaById.set(toolCallId, meta);
+  ctx.state.toolArgsById.set(
+    toolCallId,
+    (args && typeof args === "object" ? args : {}) as Record<string, unknown>,
+  );
+  ctx.state.toolStartTimeById.set(toolCallId, Date.now());
   ctx.log.debug(
     `embedded run tool start: runId=${ctx.params.runId} tool=${toolName} toolCallId=${toolCallId}`,
   );
@@ -175,8 +180,34 @@ export function handleToolExecutionEnd(
   const isToolError = isError || isToolResultError(result);
   const sanitizedResult = sanitizeToolResult(result);
   const meta = ctx.state.toolMetaById.get(toolCallId);
+  const toolArgs = ctx.state.toolArgsById.get(toolCallId) ?? {};
+  const toolStartTime = ctx.state.toolStartTimeById.get(toolCallId);
   ctx.state.toolMetas.push({ toolName, meta });
   ctx.state.toolMetaById.delete(toolCallId);
+  ctx.state.toolArgsById.delete(toolCallId);
+  ctx.state.toolStartTimeById.delete(toolCallId);
+
+  // --- after_tool_call hook (fire-and-forget) ---
+  const hookRunner = getGlobalHookRunner();
+  ctx.log.warn(
+    `[after_tool_call-debug] tool=${toolName} hookRunner=${!!hookRunner} hasHooks=${hookRunner?.hasHooks("after_tool_call")}`,
+  );
+  if (hookRunner?.hasHooks("after_tool_call")) {
+    hookRunner
+      .runAfterToolCall(
+        {
+          toolName,
+          params: toolArgs,
+          result: sanitizedResult,
+          error: isToolError ? extractToolErrorMessage(sanitizedResult) : undefined,
+          durationMs: toolStartTime ? Date.now() - toolStartTime : undefined,
+        },
+        { toolName, sessionKey: ctx.params.sessionKey },
+      )
+      .catch((err) => {
+        ctx.log.warn(`after_tool_call hook failed: ${err}`);
+      });
+  }
   ctx.state.toolSummaryById.delete(toolCallId);
   if (isToolError) {
     const errorMessage = extractToolErrorMessage(sanitizedResult);

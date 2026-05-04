@@ -12,6 +12,7 @@ import {
 import { normalizeMainKey } from "../routing/session-key.js";
 import { resolveQueueSettings } from "../auto-reply/reply/queue.js";
 import { callGateway } from "../gateway/call.js";
+import { retryAsync } from "../infra/retry.js";
 import { defaultRuntime } from "../runtime.js";
 import {
   type DeliveryContext,
@@ -454,24 +455,40 @@ export async function runSubagentAnnounceFlow(params: {
       const { entry } = loadRequesterSessionEntry(params.requesterSessionKey);
       directOrigin = deliveryContextFromSession(entry);
     }
-    await callGateway({
-      method: "agent",
-      params: {
-        sessionKey: params.requesterSessionKey,
-        message: triggerMessage,
-        deliver: true,
-        channel: directOrigin?.channel,
-        accountId: directOrigin?.accountId,
-        to: directOrigin?.to,
-        threadId:
-          directOrigin?.threadId != null && directOrigin.threadId !== ""
-            ? String(directOrigin.threadId)
-            : undefined,
-        idempotencyKey: crypto.randomUUID(),
+    await retryAsync(
+      () =>
+        callGateway({
+          method: "agent",
+          params: {
+            sessionKey: params.requesterSessionKey,
+            message: triggerMessage,
+            deliver: true,
+            channel: directOrigin?.channel,
+            accountId: directOrigin?.accountId,
+            to: directOrigin?.to,
+            threadId:
+              directOrigin?.threadId != null && directOrigin.threadId !== ""
+                ? String(directOrigin.threadId)
+                : undefined,
+            idempotencyKey: crypto.randomUUID(),
+          },
+          expectFinal: true,
+          timeoutMs: 60_000,
+        }),
+      {
+        attempts: 3,
+        minDelayMs: 1_000,
+        maxDelayMs: 10_000,
+        jitter: 0.3,
+        label: `announce-${params.childSessionKey}`,
+        shouldRetry: (err) => {
+          const msg = err instanceof Error ? err.message : String(err);
+          return (
+            msg.includes("timeout") || msg.includes("ECONNREFUSED") || msg.includes("ECONNRESET")
+          );
+        },
       },
-      expectFinal: true,
-      timeoutMs: 60_000,
-    });
+    );
 
     didAnnounce = true;
   } catch (err) {

@@ -293,8 +293,20 @@ export async function runEmbeddedPiAgent(
       }
 
       let overflowCompactionAttempted = false;
+      const MAX_RUN_LOOP_ATTEMPTS = 5;
+      let runLoopAttempt = 0;
       try {
         while (true) {
+          runLoopAttempt += 1;
+          if (runLoopAttempt > MAX_RUN_LOOP_ATTEMPTS) {
+            log.warn(
+              `run loop exceeded ${MAX_RUN_LOOP_ATTEMPTS} attempts for ${provider}/${modelId}; aborting`,
+            );
+            throw new Error(
+              `Retry cap reached (${MAX_RUN_LOOP_ATTEMPTS} attempts) for ${provider}/${modelId}. ` +
+                "Possible causes: repeated auth failures, rate limits, or thinking fallback loops.",
+            );
+          }
           attemptedThinking.add(thinkLevel);
           await fs.mkdir(resolvedWorkspace, { recursive: true });
 

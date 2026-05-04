@@ -14,6 +14,11 @@ import { extractInlineSimpleCommand } from "./reply-inline.js";
 import type { TypingController } from "./typing.js";
 import { listSkillCommandsForWorkspace, resolveSkillCommandInvocation } from "../skill-commands.js";
 import { logVerbose } from "../../globals.js";
+import {
+  recordSkillInvocation,
+  detectCorrection,
+  recordSkillCorrection,
+} from "../../infra/skill-learned-rules.js";
 import { createOpenClawTools } from "../../agents/openclaw-tools.js";
 import { resolveGatewayMessageChannel } from "../../utils/message-channel.js";
 
@@ -156,6 +161,18 @@ export async function handleInlineActions(params: {
       return { kind: "reply", reply: undefined };
     }
 
+    // --- Learned rules: detect corrections and record invocations ---
+    const correctionCheck = detectCorrection(sessionKey, skillInvocation.command.skillName);
+    if (correctionCheck.isCorrection && correctionCheck.previousSkill) {
+      recordSkillCorrection(
+        sessionKey,
+        correctionCheck.previousSkill,
+        skillInvocation.command.skillName,
+      );
+    }
+    const invocationStartTs = Date.now();
+    // --- End learned rules preamble ---
+
     const dispatch = skillInvocation.command.dispatch;
     if (dispatch?.kind === "tool") {
       const rawArgs = (skillInvocation.args ?? "").trim();
@@ -177,6 +194,17 @@ export async function handleInlineActions(params: {
 
       const tool = tools.find((candidate) => candidate.name === dispatch.toolName);
       if (!tool) {
+        recordSkillInvocation({
+          ts: invocationStartTs,
+          sessionKey,
+          channel: ctx.Surface ?? ctx.Provider ?? undefined,
+          skillName: skillInvocation.command.skillName,
+          source: "user",
+          success: false,
+          durationMs: Date.now() - invocationStartTs,
+          feedback: 0,
+          triggerContext: cleanedBody.slice(0, 200),
+        });
         typing.cleanup();
         return { kind: "reply", reply: { text: `❌ Tool not available: ${dispatch.toolName}` } };
       }
@@ -189,14 +217,48 @@ export async function handleInlineActions(params: {
           skillName: skillInvocation.command.skillName,
         } as any);
         const text = extractTextFromToolResult(result) ?? "✅ Done.";
+        recordSkillInvocation({
+          ts: invocationStartTs,
+          sessionKey,
+          channel: ctx.Surface ?? ctx.Provider ?? undefined,
+          skillName: skillInvocation.command.skillName,
+          source: "user",
+          success: true,
+          durationMs: Date.now() - invocationStartTs,
+          feedback: 1,
+          triggerContext: cleanedBody.slice(0, 200),
+        });
         typing.cleanup();
         return { kind: "reply", reply: { text } };
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
+        recordSkillInvocation({
+          ts: invocationStartTs,
+          sessionKey,
+          channel: ctx.Surface ?? ctx.Provider ?? undefined,
+          skillName: skillInvocation.command.skillName,
+          source: "user",
+          success: false,
+          durationMs: Date.now() - invocationStartTs,
+          feedback: 0,
+          triggerContext: cleanedBody.slice(0, 200),
+        });
         typing.cleanup();
         return { kind: "reply", reply: { text: `❌ ${message}` } };
       }
     }
+
+    // Record model-routed skill invocations (non-tool dispatch)
+    recordSkillInvocation({
+      ts: invocationStartTs,
+      sessionKey,
+      channel: ctx.Surface ?? ctx.Provider ?? undefined,
+      skillName: skillInvocation.command.skillName,
+      source: "user",
+      success: true,
+      feedback: 1,
+      triggerContext: cleanedBody.slice(0, 200),
+    });
 
     const promptParts = [
       `Use the "${skillInvocation.command.skillName}" skill for this request.`,

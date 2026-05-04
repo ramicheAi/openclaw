@@ -179,4 +179,35 @@ describe("control UI routing", () => {
     expect(window.location.pathname).toBe("/ui/overview");
     expect(window.location.search).toBe("");
   });
+
+  it("hydrates token from URL hash and strips it", async () => {
+    window.history.replaceState({}, "", "/ui/overview#token=hash-token-xyz");
+    const app = document.createElement("openclaw-app") as OpenClawApp;
+    document.body.append(app);
+    await app.updateComplete;
+
+    expect(app.settings.token).toBe("hash-token-xyz");
+    expect(window.location.hash).toBe("");
+  });
+
+  it("hydrates token from hash when session is in query", async () => {
+    window.history.replaceState({}, "", "/chat?session=main#token=from-hash-99");
+    const app = document.createElement("openclaw-app") as OpenClawApp;
+    document.body.append(app);
+    await app.updateComplete;
+
+    expect(app.settings.token).toBe("from-hash-99");
+    expect(window.location.search).toBe("?session=main");
+    expect(window.location.hash).toBe("");
+  });
+
+  it("prefers query token over hash token", async () => {
+    window.history.replaceState({}, "", "/ui/overview?token=from-query#token=from-hash");
+    const app = document.createElement("openclaw-app") as OpenClawApp;
+    document.body.append(app);
+    await app.updateComplete;
+
+    expect(app.settings.token).toBe("from-query");
+    expect(window.location.hash).toBe("");
+  });
 });

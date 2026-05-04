@@ -33,6 +33,19 @@ Codegen
 - Inspect: `mcporter inspect-cli <path> [--json]`
 - TS: `mcporter emit-ts <server> --mode client|types`
 
+Tool filtering (v0.9.0+)
+- `mcporter call <server.tool> --allowed-tools tool1,tool2` — only expose listed tools
+- `mcporter call <server.tool> --blocked-tools tool3` — hide specific tools
+- Useful for scoping agent access to MCP servers
+
+Image & content (v0.8.0+)
+- `--save-images <dir>` — extract and save image content blocks from tool responses
+- Image content blocks now rendered inline in CLI output
+
+Config format
+- JSONC supported (comments + trailing commas) since v0.8.0
+- `--raw-strings` — disable smart param coercion (treat all values as strings)
+
 Notes
-- Config default: `./config/mcporter.json` (override with `--config`).
+- Config default: `./config/mcporter.json` (override with `--config`). JSONC format supported.
 - Prefer `--output json` for machine-readable results.
