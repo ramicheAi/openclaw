@@ -78,6 +78,8 @@ export function buildEmbeddedExtensionPaths(params: {
   const paths: string[] = [];
   // Runtime Governor tool gate — intercepts tool_call events for policy enforcement
   paths.push(resolvePiExtensionPath("runtime-governor-tool-gate"));
+  // Compaction handoff — writes HANDOFF block to memory before compaction
+  paths.push(resolvePiExtensionPath("compaction-handoff"));
   if (resolveCompactionMode(params.cfg) === "safeguard") {
     const compactionCfg = params.cfg?.agents?.defaults?.compaction;
     setCompactionSafeguardRuntime(params.sessionManager, {

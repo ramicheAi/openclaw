@@ -47,6 +47,20 @@ Swaps injected `SOUL.md` content with `SOUL_EVIL.md` during a purge window or by
 openclaw hooks enable soul-evil
 ```
 
+### 🪝 session-handoff-boot
+
+Injects the latest `## HANDOFF` block (written by the `compaction-handoff` Pi extension before each compaction) into the in-memory `MEMORY.md` bootstrap content so a new session boots with the exact TASK / STATUS / FILES / NEXT from where the previous session was compacted.
+
+**Events**: `agent:bootstrap`
+**What it does**: Reads `<workspace>/memory/YYYY-MM-DD.md`, extracts the last HANDOFF block, prepends it to `MEMORY.md` (in-memory only).
+**Output**: No files written.
+
+**Enable**:
+
+```bash
+openclaw hooks enable session-handoff-boot
+```
+
 ### 🚀 boot-md
 
 Runs `BOOT.md` whenever the gateway starts (after channels start).
