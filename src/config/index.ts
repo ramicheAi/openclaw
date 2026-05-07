@@ -5,6 +5,7 @@ export * from "./tools.js";
 export * from "./cron.js";
 
 export {
+  clearConfigCache,
   createConfigIO,
   loadConfig,
   parseConfigJson5,

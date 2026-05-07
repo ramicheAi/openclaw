@@ -1,6 +1,7 @@
 import chokidar from "chokidar";
 import { type ChannelId, listChannelPlugins } from "../channels/plugins/index.js";
 import { getActivePluginRegistry } from "../plugins/runtime.js";
+import { clearConfigCache } from "../config/io.js";
 import type { OpenClawConfig, ConfigFileSnapshot } from "../config/types.openclaw.js";
 import type { GatewayReloadMode } from "../config/types.gateway.js";
 
@@ -298,6 +299,11 @@ export function startGatewayConfigReloader(opts: {
       currentConfig = nextConfig;
       settings = resolveGatewayReloadSettings(nextConfig);
       if (changedPaths.length === 0) return;
+
+      // Invalidate the loadConfig() TTL cache so callers downstream of this
+      // reload (cron ticks, reply turns, channel handlers) see the new config
+      // immediately instead of waiting up to OPENCLAW_CONFIG_CACHE_MS.
+      clearConfigCache();
 
       opts.log.info(`config change detected; evaluating reload (${changedPaths.join(", ")})`);
       const plan = buildGatewayReloadPlan(changedPaths);
