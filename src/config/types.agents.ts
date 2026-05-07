@@ -17,6 +17,15 @@ export type AgentModelConfig =
       fallbacks?: string[];
     };
 
+export type AgentCapabilitiesConfig = {
+  /**
+   * Tool names this agent must be able to reach. Validated at schedule time
+   * against the resolved tool policy. Group aliases (e.g. "group:web") expand
+   * to "all members must be reachable".
+   */
+  required?: string[];
+};
+
 export type AgentConfig = {
   id: string;
   default?: boolean;
@@ -60,6 +69,7 @@ export type AgentConfig = {
     prune?: SandboxPruneSettings;
   };
   tools?: AgentToolsConfig;
+  capabilities?: AgentCapabilitiesConfig;
 };
 
 export type AgentsConfig = {
