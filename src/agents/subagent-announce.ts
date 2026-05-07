@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -331,6 +332,87 @@ export type SubagentRunOutcome = {
   error?: string;
 };
 
+/**
+ * Verify deliverable gate — runs verify-deliverable.sh on any file paths
+ * found in the subagent reply. If a referenced output file is missing/invalid,
+ * appends a warning to the announce message so the main agent knows the
+ * deliverable was NOT actually produced.
+ *
+ * Returns a warning string (empty if everything verified or no paths detected).
+ */
+function verifyDeliverableGate(reply: string | undefined, task?: string): string {
+  if (!reply) return "";
+
+  // Extract file paths from the reply (absolute paths common in subagent output)
+  const pathMatches = reply.match(
+    /(?:\/[\w./-]+\.(?:html|json|md|png|jpg|svg|css|ts|tsx|js|jsx|pdf))/g,
+  );
+
+  // Also extract paths from the original task description (catches cases where
+  // subagent says "done" without re-stating the output path)
+  const taskPathMatches = task
+    ? task.match(/(?:\/[\w./-]+\.(?:html|json|md|png|jpg|svg|css|ts|tsx|js|jsx|pdf))/g)
+    : null;
+
+  const allPaths = new Set([...(pathMatches || []), ...(taskPathMatches || [])]);
+  if (allPaths.size === 0) return "";
+
+  const verifyScript = path.join(
+    process.env.HOME ?? "/Users/admin",
+    ".openclaw/workspace/scripts/verify-deliverable.sh",
+  );
+
+  // Only run if verify script exists
+  if (!fs.existsSync(verifyScript)) return "";
+
+  const failures: string[] = [];
+
+  for (const filePath of allPaths) {
+    // Determine format from extension
+    const ext = path.extname(filePath).slice(1) || "any";
+    try {
+      execFileSync(verifyScript, [filePath, ext, "100"], {
+        encoding: "utf-8",
+        timeout: 5_000,
+      });
+    } catch (err: unknown) {
+      // Exit code 1 = missing, 2 = invalid
+      const msg =
+        err instanceof Error ? (err as { stdout?: string }).stdout || err.message : String(err);
+      failures.push(`${filePath}: ${msg.trim()}`);
+    }
+  }
+
+  // Log verification result to audit JSONL
+  const auditLog = path.join(
+    process.env.HOME ?? "/Users/admin",
+    ".openclaw/workspace/memory/subagent-audit.jsonl",
+  );
+  try {
+    const entry = JSON.stringify({
+      ts: new Date().toISOString(),
+      gate: "announce_verify",
+      paths_checked: [...allPaths],
+      failures: failures.length,
+      status: failures.length > 0 ? "announced_but_unverified" : "verified",
+    });
+    fs.appendFileSync(auditLog, entry + "\n");
+  } catch {
+    // Best-effort audit logging
+  }
+
+  if (failures.length === 0) return "";
+
+  return [
+    "",
+    "⚠️ DELIVERABLE VERIFICATION FAILED:",
+    ...failures.map((f) => `  - ${f}`),
+    "",
+    "The subagent claimed completion but output files are MISSING or INVALID.",
+    "Do NOT report this as done to the operator. Rebuild in-session or retry.",
+  ].join("\n");
+}
+
 export async function runSubagentAnnounceFlow(params: {
   childSessionKey: string;
   childRunId: string;
@@ -421,15 +503,22 @@ export async function runSubagentAnnounceFlow(params: {
 
     // Build instructional message for main agent
     const taskLabel = params.label || params.task || "background task";
+
+    // Layer 1: Gateway-level deliverable verification gate
+    const deliverableWarning = verifyDeliverableGate(reply, params.task);
+
     const triggerMessage = [
       `A background task "${taskLabel}" just ${statusLabel}.`,
       "",
       "Findings:",
       reply || "(no output)",
+      deliverableWarning,
       "",
       statsLine,
       "",
-      "Summarize this naturally for the user. Keep it brief (1-2 sentences). Flow it into the conversation naturally.",
+      deliverableWarning
+        ? "IMPORTANT: The deliverable files referenced above FAILED verification. Do NOT tell the operator this task succeeded. Report the failure and offer to rebuild."
+        : "Summarize this naturally for the user. Keep it brief (1-2 sentences). Flow it into the conversation naturally.",
       "Do not mention technical details like tokens, stats, or that this was a background task.",
       "You can respond with NO_REPLY if no announcement is needed (e.g., internal task with no user-facing result).",
     ].join("\n");
