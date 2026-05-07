@@ -1,6 +1,10 @@
+import { resolveDefaultAgentId } from "../../agents/agent-scope.js";
+import { validateAgentCapabilities } from "../../agents/capability-check.js";
+import { loadConfig } from "../../config/config.js";
 import { normalizeCronJobCreate, normalizeCronJobPatch } from "../../cron/normalize.js";
 import { readCronRunLogEntries, resolveCronRunLogPath } from "../../cron/run-log.js";
 import type { CronJobCreate, CronJobPatch } from "../../cron/types.js";
+import { normalizeAgentId } from "../../routing/session-key.js";
 import {
   ErrorCodes,
   errorShape,
@@ -15,6 +19,24 @@ import {
   validateWakeParams,
 } from "../protocol/index.js";
 import type { GatewayRequestHandlers } from "./types.js";
+
+function checkScheduledAgentCapabilities(requestedAgentId: string | undefined) {
+  const cfg = loadConfig();
+  const requested =
+    typeof requestedAgentId === "string" && requestedAgentId.trim()
+      ? normalizeAgentId(requestedAgentId)
+      : undefined;
+  const agentId = requested ?? resolveDefaultAgentId(cfg);
+  return validateAgentCapabilities({ config: cfg, agentId });
+}
+
+function capabilityErrorMessage(result: {
+  ok: false;
+  agentId: string;
+  missing: string[];
+}) {
+  return `agent "${result.agentId}" cannot reach required tools: ${result.missing.join(", ")}`;
+}
 
 export const cronHandlers: GatewayRequestHandlers = {
   wake: ({ params, respond, context }) => {
@@ -82,7 +104,19 @@ export const cronHandlers: GatewayRequestHandlers = {
       );
       return;
     }
-    const job = await context.cron.add(normalized as unknown as CronJobCreate);
+    const create = normalized as unknown as CronJobCreate;
+    const capability = checkScheduledAgentCapabilities(create.agentId);
+    if (!capability.ok) {
+      respond(
+        false,
+        undefined,
+        errorShape(ErrorCodes.INVALID_REQUEST, capabilityErrorMessage(capability), {
+          details: { agentId: capability.agentId, missing: capability.missing },
+        }),
+      );
+      return;
+    }
+    const job = await context.cron.add(create);
     respond(true, job, undefined);
   },
   "cron.update": async ({ params, respond, context }) => {
@@ -116,7 +150,24 @@ export const cronHandlers: GatewayRequestHandlers = {
       );
       return;
     }
-    const job = await context.cron.update(jobId, p.patch as unknown as CronJobPatch);
+    const patch = p.patch as unknown as CronJobPatch;
+    // Only validate when the patch changes agentId. Re-validating against the existing
+    // job would require loading it; out of scope for v1. Documented limitation: an
+    // agent's capabilities config can drift after a job is scheduled.
+    if (patch && Object.hasOwn(patch, "agentId")) {
+      const capability = checkScheduledAgentCapabilities(patch.agentId);
+      if (!capability.ok) {
+        respond(
+          false,
+          undefined,
+          errorShape(ErrorCodes.INVALID_REQUEST, capabilityErrorMessage(capability), {
+            details: { agentId: capability.agentId, missing: capability.missing },
+          }),
+        );
+        return;
+      }
+    }
+    const job = await context.cron.update(jobId, patch);
     respond(true, job, undefined);
   },
   "cron.remove": async ({ params, respond, context }) => {

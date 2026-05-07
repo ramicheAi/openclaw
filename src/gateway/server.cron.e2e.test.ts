@@ -359,4 +359,58 @@ describe("gateway server cron", () => {
       }
     }
   }, 45_000);
+
+  test("rejects cron.add when target agent's manifest can't be satisfied", async () => {
+    const prevSkipCron = process.env.OPENCLAW_SKIP_CRON;
+    process.env.OPENCLAW_SKIP_CRON = "0";
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gw-cron-cap-"));
+    testState.cronStorePath = path.join(dir, "cron", "jobs.json");
+    testState.cronEnabled = false;
+    testState.agentsConfig = {
+      list: [
+        {
+          id: "main",
+          tools: { deny: ["write"] },
+          capabilities: { required: ["read", "write"] },
+        },
+      ],
+    };
+    await fs.mkdir(path.dirname(testState.cronStorePath), { recursive: true });
+    await fs.writeFile(testState.cronStorePath, JSON.stringify({ version: 1, jobs: [] }));
+
+    const { server, ws } = await startServerWithClient();
+    await connectOk(ws);
+
+    try {
+      const rejected = await rpcReq(ws, "cron.add", {
+        name: "needs write",
+        enabled: true,
+        schedule: { kind: "every", everyMs: 60_000 },
+        sessionTarget: "main",
+        wakeMode: "next-heartbeat",
+        payload: { kind: "systemEvent", text: "hello" },
+      });
+      expect(rejected.ok).toBe(false);
+      const err = rejected.error as
+        | { code?: unknown; message?: unknown; details?: { agentId?: unknown; missing?: unknown } }
+        | undefined;
+      expect(err?.code).toBe("INVALID_REQUEST");
+      const message = typeof err?.message === "string" ? err.message : "";
+      expect(message.includes("write")).toBe(true);
+      expect(err?.details?.agentId).toBe("main");
+      expect(err?.details?.missing).toEqual(["write"]);
+    } finally {
+      ws.close();
+      await server.close();
+      await rmTempDir(dir);
+      testState.cronStorePath = undefined;
+      testState.cronEnabled = undefined;
+      testState.agentsConfig = undefined;
+      if (prevSkipCron === undefined) {
+        delete process.env.OPENCLAW_SKIP_CRON;
+      } else {
+        process.env.OPENCLAW_SKIP_CRON = prevSkipCron;
+      }
+    }
+  }, 45_000);
 });
