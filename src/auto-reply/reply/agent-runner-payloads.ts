@@ -19,6 +19,9 @@ export function buildReplyPayloads(params: {
   isHeartbeat: boolean;
   didLogHeartbeatStrip: boolean;
   blockStreamingEnabled: boolean;
+  /** When true, a draft stream (e.g. Telegram private chat) delivered the content.
+   *  Final payloads should be dropped to avoid duplicate messages. */
+  draftStreamActive?: boolean;
   blockReplyPipeline: BlockReplyPipeline | null;
   /** Payload keys sent directly (not via pipeline) during tool flush. */
   directlySentBlockKeys?: Set<string>;
@@ -82,12 +85,14 @@ export function buildReplyPayloads(params: {
     })
     .filter(isRenderablePayload);
 
-  // Drop final payloads only when block streaming succeeded end-to-end.
+  // Drop final payloads when block streaming succeeded end-to-end,
+  // or when a draft stream (e.g. Telegram private chat) already delivered the content.
   // If streaming aborted (e.g., timeout), fall back to final payloads.
   const shouldDropFinalPayloads =
-    params.blockStreamingEnabled &&
-    Boolean(params.blockReplyPipeline?.didStream()) &&
-    !params.blockReplyPipeline?.isAborted();
+    (params.blockStreamingEnabled &&
+      Boolean(params.blockReplyPipeline?.didStream()) &&
+      !params.blockReplyPipeline?.isAborted()) ||
+    (params.draftStreamActive && !params.blockStreamingEnabled);
   const messagingToolSentTexts = params.messagingToolSentTexts ?? [];
   const messagingToolSentTargets = params.messagingToolSentTargets ?? [];
   const suppressMessagingToolReplies = shouldSuppressMessagingToolReplies({

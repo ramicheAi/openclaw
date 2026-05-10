@@ -33,6 +33,9 @@ export type GetReplyOptions = {
    * Use this to get model/provider/thinkLevel for responsePrefix template interpolation. */
   onModelSelected?: (ctx: ModelSelectedContext) => void;
   disableBlockStreaming?: boolean;
+  /** When true, a draft stream (e.g. Telegram private chat) is handling delivery.
+   *  Final payloads should be dropped to avoid duplicate messages. */
+  draftStreamActive?: boolean;
   /** Timeout for block reply delivery (ms). */
   blockReplyTimeoutMs?: number;
   /** If provided, only load these skills for this session (empty = no skills). */

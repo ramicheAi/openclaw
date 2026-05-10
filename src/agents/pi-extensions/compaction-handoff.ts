@@ -179,6 +179,50 @@ export default function compactionHandoffExtension(api: ExtensionAPI): void {
         return;
       }
 
+      // Quality threshold — heartbeat/poll sessions fire session_before_compact
+      // constantly with near-empty conversations. Writing HANDOFF blocks for
+      // those bloats the daily log with hundreds of duplicates and dilutes the
+      // real handoffs that session-handoff-boot needs to surface. Require at
+      // least a few meaningful turns of conversation before persisting.
+      const QUALITY_MIN_TURNS = 3;
+      const QUALITY_MIN_CHARS = 300;
+      const meaningful = messages.filter((m) => {
+        const role = (m as { role?: string }).role;
+        if (role !== "user" && role !== "assistant") return false;
+        const text = extractMessageText(m);
+        return !!text && text.trim().length > 20;
+      });
+      const totalChars = meaningful
+        .map((m) => extractMessageText(m) ?? "")
+        .reduce((a, b) => a + b.length, 0);
+      debugLog(`quality: meaningful=${meaningful.length} totalChars=${totalChars}`);
+      if (meaningful.length < QUALITY_MIN_TURNS || totalChars < QUALITY_MIN_CHARS) {
+        debugLog(
+          `Skipping HANDOFF — below quality threshold (need ≥${QUALITY_MIN_TURNS} turns and ≥${QUALITY_MIN_CHARS} chars)`,
+        );
+        return;
+      }
+
+      // Rate limit — Pi fires session_before_compact in rapid bursts (often
+      // multiple times within the same second under sustained load). Without
+      // this guard each firing appends a near-identical HANDOFF block. Cap to
+      // at most one HANDOFF per minute by comparing the most recent
+      // `## HANDOFF — HH:MM` timestamp in the file with the current minute.
+      try {
+        const existing = await fs.readFile(dailyLogPath, "utf-8");
+        const all = [...existing.matchAll(/^## HANDOFF — (\d{2}):(\d{2}) /gm)];
+        if (all.length > 0) {
+          const last = all[all.length - 1]!;
+          const lastStamp = `${last[1]}:${last[2]}`;
+          if (lastStamp === timeStr) {
+            debugLog(`Rate limit — last HANDOFF was at ${lastStamp} (same minute), skipping`);
+            return;
+          }
+        }
+      } catch {
+        // file doesn't exist yet — no rate limit applies
+      }
+
       const handoff = inferHandoff(messages);
       const exchange = extractLastExchange(messages);
 
@@ -218,6 +262,53 @@ export default function compactionHandoffExtension(api: ExtensionAPI): void {
       await fs.appendFile(dailyLogPath, block, "utf-8");
       debugLog(`SUCCESS — Wrote HANDOFF to ${dailyLogPath}`);
       console.log(`[compaction-handoff] Wrote HANDOFF to ${dailyLogPath}`);
+
+      // Self-rotate — keep only the last MAX_HANDOFFS in the daily log so
+      // long sessions (which can rack up hundreds of legitimate HANDOFFs)
+      // don't bloat the file or slow down session-handoff-boot's read.
+      const MAX_HANDOFFS = 20;
+      try {
+        const current = await fs.readFile(dailyLogPath, "utf-8");
+        const fileLines = current.split("\n");
+        const blockStarts: number[] = [];
+        for (let i = 0; i < fileLines.length; i++) {
+          if (fileLines[i]!.startsWith("## HANDOFF —")) blockStarts.push(i);
+        }
+        if (blockStarts.length > MAX_HANDOFFS) {
+          const dropCount = blockStarts.length - MAX_HANDOFFS;
+          const keepFromIdx = blockStarts[dropCount]!;
+          // Find each block's end (next "## " or "---") so we strip whole blocks.
+          const dropRanges: Array<[number, number]> = [];
+          for (let b = 0; b < dropCount; b++) {
+            const start = blockStarts[b]!;
+            let end = fileLines.length;
+            for (let j = start + 1; j < fileLines.length; j++) {
+              const ln = fileLines[j]!;
+              if (ln.startsWith("## ") || ln.trim() === "---") {
+                end = j + 1;
+                break;
+              }
+            }
+            dropRanges.push([start, Math.min(end, keepFromIdx)]);
+          }
+          const drop = new Set<number>();
+          for (const [s, e] of dropRanges) {
+            for (let i = s; i < e; i++) drop.add(i);
+          }
+          const kept = fileLines.filter((_, i) => !drop.has(i));
+          await fs.writeFile(dailyLogPath, kept.join("\n"), "utf-8");
+          debugLog(
+            `Self-rotate — stripped ${dropCount} oldest HANDOFF block(s); kept last ${MAX_HANDOFFS}`,
+          );
+        }
+      } catch (rotateErr) {
+        // Non-fatal — leaving the file as-is is safer than crashing compaction
+        debugLog(
+          `Self-rotate failed (non-fatal): ${
+            rotateErr instanceof Error ? rotateErr.message : String(rotateErr)
+          }`,
+        );
+      }
     } catch (err) {
       // Non-fatal — don't block compaction
       const errMsg = err instanceof Error ? err.message : String(err);

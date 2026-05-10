@@ -124,6 +124,7 @@ export async function runPreparedReply(
     elevatedEnabled,
     elevatedAllowed,
     blockStreamingEnabled,
+    draftStreamActive,
     blockReplyChunking,
     resolvedBlockStreamingBreak,
     modelState,

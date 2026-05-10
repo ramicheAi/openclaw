@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { markdownToTelegramHtml } from "./format.js";
+import { markdownToTelegramChunks, markdownToTelegramHtml } from "./format.js";
 
 describe("markdownToTelegramHtml", () => {
   it("renders basic inline formatting", () => {
@@ -68,5 +68,29 @@ describe("markdownToTelegramHtml", () => {
   it("properly nests bold inside a link", () => {
     const res = markdownToTelegramHtml("[**bold**](https://example.com)");
     expect(res).toBe('<a href="https://example.com"><b>bold</b></a>');
+  });
+});
+
+describe("markdownToTelegramChunks", () => {
+  it("keeps each rendered HTML chunk under the limit even with tag overhead", () => {
+    // 200 link instances; each link adds ~33 chars of HTML overhead.
+    // Plain-text length ~3000 stays below 4000 limit, but rendered HTML is ~9600.
+    const link = "[a](https://example.com/somewhat-long-url)";
+    const markdown = Array.from({ length: 200 }, () => link).join(" ");
+    const chunks = markdownToTelegramChunks(markdown, 4000);
+    expect(chunks.length).toBeGreaterThan(1);
+    for (const chunk of chunks) {
+      expect(chunk.html.length).toBeLessThanOrEqual(4000);
+    }
+  });
+
+  it("does not split when rendered HTML fits within the limit", () => {
+    const chunks = markdownToTelegramChunks("hello **world**", 4000);
+    expect(chunks).toHaveLength(1);
+    expect(chunks[0]?.html).toBe("hello <b>world</b>");
+  });
+
+  it("returns empty array for empty input", () => {
+    expect(markdownToTelegramChunks("", 4000)).toEqual([]);
   });
 });

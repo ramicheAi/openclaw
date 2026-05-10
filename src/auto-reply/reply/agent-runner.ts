@@ -78,6 +78,7 @@ export async function runReplyAgent(params: {
   resolvedVerboseLevel: VerboseLevel;
   isNewSession: boolean;
   blockStreamingEnabled: boolean;
+  draftStreamActive: boolean;
   blockReplyChunking?: {
     minChars: number;
     maxChars: number;
@@ -108,6 +109,7 @@ export async function runReplyAgent(params: {
     resolvedVerboseLevel,
     isNewSession,
     blockStreamingEnabled,
+    draftStreamActive,
     blockReplyChunking,
     resolvedBlockStreamingBreak,
     sessionCtx,
@@ -413,6 +415,7 @@ export async function runReplyAgent(params: {
       isHeartbeat,
       didLogHeartbeatStrip,
       blockStreamingEnabled,
+      draftStreamActive,
       blockReplyPipeline,
       directlySentBlockKeys,
       replyToMode,
