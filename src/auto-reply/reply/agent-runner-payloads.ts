@@ -19,9 +19,15 @@ export function buildReplyPayloads(params: {
   isHeartbeat: boolean;
   didLogHeartbeatStrip: boolean;
   blockStreamingEnabled: boolean;
-  /** When true, a draft stream (e.g. Telegram private chat) delivered the content.
-   *  Final payloads should be dropped to avoid duplicate messages. */
+  /** When true, a draft stream (e.g. Telegram private chat) is wired up. Note: a
+   *  draft stream being "active" does NOT mean it delivered anything — use
+   *  draftStreamDidDeliver() to confirm. Without that confirmation we must keep
+   *  the final payloads, otherwise the user sees no message at all when the
+   *  model produced a non-streaming response. */
   draftStreamActive?: boolean;
+  /** Returns true once the draft stream has actually emitted at least one
+   *  update successfully. Required for the draft-stream drop clause to fire. */
+  draftStreamDidDeliver?: () => boolean;
   blockReplyPipeline: BlockReplyPipeline | null;
   /** Payload keys sent directly (not via pipeline) during tool flush. */
   directlySentBlockKeys?: Set<string>;
@@ -88,11 +94,31 @@ export function buildReplyPayloads(params: {
   // Drop final payloads when block streaming succeeded end-to-end,
   // or when a draft stream (e.g. Telegram private chat) already delivered the content.
   // If streaming aborted (e.g., timeout), fall back to final payloads.
-  const shouldDropFinalPayloads =
-    (params.blockStreamingEnabled &&
-      Boolean(params.blockReplyPipeline?.didStream()) &&
-      !params.blockReplyPipeline?.isAborted()) ||
-    (params.draftStreamActive && !params.blockStreamingEnabled);
+  const dropForBlockStream =
+    params.blockStreamingEnabled &&
+    Boolean(params.blockReplyPipeline?.didStream()) &&
+    !params.blockReplyPipeline?.isAborted();
+  // Draft stream only suppresses final payloads when it actually delivered.
+  // Without the didDeliver check, a non-streaming model response leaves both
+  // the draft and the final empty → the user sees nothing and has to resend.
+  const draftDelivered = params.draftStreamDidDeliver?.() ?? false;
+  const dropForDraftStream =
+    Boolean(params.draftStreamActive) && !params.blockStreamingEnabled && draftDelivered;
+  const shouldDropFinalPayloads = dropForBlockStream || dropForDraftStream;
+  if (shouldDropFinalPayloads) {
+    const clause = dropForBlockStream ? "block-stream" : "draft-stream";
+    logVerbose(
+      `atlas-trace buildReplyPayloads dropFinal clause=${clause} ` +
+        `payloads=${replyTaggedPayloads.length} blockStreamingEnabled=${params.blockStreamingEnabled} ` +
+        `draftStreamActive=${Boolean(params.draftStreamActive)} draftDelivered=${draftDelivered}`,
+    );
+  } else if (replyTaggedPayloads.length > 0) {
+    logVerbose(
+      `atlas-trace buildReplyPayloads keepFinal payloads=${replyTaggedPayloads.length} ` +
+        `blockStreamingEnabled=${params.blockStreamingEnabled} ` +
+        `draftStreamActive=${Boolean(params.draftStreamActive)} draftDelivered=${draftDelivered}`,
+    );
+  }
   const messagingToolSentTexts = params.messagingToolSentTexts ?? [];
   const messagingToolSentTargets = params.messagingToolSentTargets ?? [];
   const suppressMessagingToolReplies = shouldSuppressMessagingToolReplies({

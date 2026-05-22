@@ -43,6 +43,7 @@ export type ReplyDirectiveContinuation = {
   execOverrides?: ExecOverrides;
   blockStreamingEnabled: boolean;
   draftStreamActive: boolean;
+  draftStreamDidDeliver?: () => boolean;
   blockReplyChunking?: {
     minChars: number;
     maxChars: number;
@@ -470,6 +471,7 @@ export async function resolveReplyDirectives(params: {
       execOverrides,
       blockStreamingEnabled,
       draftStreamActive: Boolean(opts?.draftStreamActive),
+      draftStreamDidDeliver: opts?.draftStreamDidDeliver,
       blockReplyChunking,
       resolvedBlockStreamingBreak,
       provider,

@@ -273,6 +273,7 @@ export const dispatchTelegramMessage = async ({
         : undefined,
       disableBlockStreaming,
       draftStreamActive: Boolean(draftStream),
+      draftStreamDidDeliver: draftStream ? () => draftStream.didDeliver() : undefined,
       onModelSelected: (ctx) => {
         prefixContext.onModelSelected(ctx);
       },

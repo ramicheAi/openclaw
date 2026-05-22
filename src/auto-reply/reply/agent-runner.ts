@@ -15,6 +15,7 @@ import {
   updateSessionStoreEntry,
 } from "../../config/sessions.js";
 import type { TypingMode } from "../../config/types.js";
+import { logVerbose } from "../../globals.js";
 import { defaultRuntime } from "../../runtime.js";
 import { estimateUsageCost, resolveModelCostConfig } from "../../utils/usage-format.js";
 import type { OriginatingChannelType, TemplateContext } from "../templating.js";
@@ -79,6 +80,7 @@ export async function runReplyAgent(params: {
   isNewSession: boolean;
   blockStreamingEnabled: boolean;
   draftStreamActive: boolean;
+  draftStreamDidDeliver?: () => boolean;
   blockReplyChunking?: {
     minChars: number;
     maxChars: number;
@@ -110,6 +112,7 @@ export async function runReplyAgent(params: {
     isNewSession,
     blockStreamingEnabled,
     draftStreamActive,
+    draftStreamDidDeliver,
     blockReplyChunking,
     resolvedBlockStreamingBreak,
     sessionCtx,
@@ -122,6 +125,14 @@ export async function runReplyAgent(params: {
   let activeIsNewSession = isNewSession;
 
   const isHeartbeat = opts?.isHeartbeat === true;
+  logVerbose(
+    `atlas-trace runReplyAgent.enter sessionKey=${sessionKey ?? "?"} ` +
+      `channel=${sessionCtx.OriginatingChannel ?? sessionCtx.Surface ?? "?"} ` +
+      `isActive=${isActive} shouldFollowup=${shouldFollowup} shouldSteer=${shouldSteer} ` +
+      `isStreaming=${isStreaming} queueMode=${resolvedQueue.mode} ` +
+      `blockStreamingEnabled=${blockStreamingEnabled} draftStreamActive=${draftStreamActive} ` +
+      `isHeartbeat=${isHeartbeat}`,
+  );
   const typingSignals = createTypingSignaler({
     typing,
     mode: typingMode,
@@ -190,6 +201,9 @@ export async function runReplyAgent(params: {
         }
       }
       typing.cleanup();
+      logVerbose(
+        `atlas-trace runReplyAgent.exit reason=steer-injected sessionKey=${sessionKey ?? "?"}`,
+      );
       return undefined;
     }
   }
@@ -209,6 +223,9 @@ export async function runReplyAgent(params: {
       }
     }
     typing.cleanup();
+    logVerbose(
+      `atlas-trace runReplyAgent.exit reason=enqueued-while-active sessionKey=${sessionKey ?? "?"} queueKey=${queueKey}`,
+    );
     return undefined;
   }
 
@@ -341,6 +358,9 @@ export async function runReplyAgent(params: {
     });
 
     if (runOutcome.kind === "final") {
+      logVerbose(
+        `atlas-trace runReplyAgent.finalize reason=run-outcome-final sessionKey=${sessionKey ?? "?"}`,
+      );
       return finalizeWithFollowup(runOutcome.payload, queueKey, runFollowupTurn);
     }
 
@@ -407,8 +427,12 @@ export async function runReplyAgent(params: {
     // Drain any late tool/block deliveries before deciding there's "nothing to send".
     // Otherwise, a late typing trigger (e.g. from a tool callback) can outlive the run and
     // keep the typing indicator stuck.
-    if (payloadArray.length === 0)
+    if (payloadArray.length === 0) {
+      logVerbose(
+        `atlas-trace runReplyAgent.finalize reason=empty-payload-array sessionKey=${sessionKey ?? "?"}`,
+      );
       return finalizeWithFollowup(undefined, queueKey, runFollowupTurn);
+    }
 
     const payloadResult = buildReplyPayloads({
       payloads: payloadArray,
@@ -416,6 +440,7 @@ export async function runReplyAgent(params: {
       didLogHeartbeatStrip,
       blockStreamingEnabled,
       draftStreamActive,
+      draftStreamDidDeliver,
       blockReplyPipeline,
       directlySentBlockKeys,
       replyToMode,
@@ -430,8 +455,14 @@ export async function runReplyAgent(params: {
     const { replyPayloads } = payloadResult;
     didLogHeartbeatStrip = payloadResult.didLogHeartbeatStrip;
 
-    if (replyPayloads.length === 0)
+    if (replyPayloads.length === 0) {
+      logVerbose(
+        `atlas-trace runReplyAgent.finalize reason=no-reply-payloads-after-build ` +
+          `sessionKey=${sessionKey ?? "?"} payloadArray=${payloadArray.length} ` +
+          `blockStreamingEnabled=${blockStreamingEnabled} draftStreamActive=${draftStreamActive}`,
+      );
       return finalizeWithFollowup(undefined, queueKey, runFollowupTurn);
+    }
 
     await signalTypingIfNeeded(replyPayloads, typingSignals);
 
@@ -599,11 +630,21 @@ export async function runReplyAgent(params: {
       finalPayloads = appendUsageLine(finalPayloads, responseUsageLine);
     }
 
+    logVerbose(
+      `atlas-trace runReplyAgent.finalize reason=normal sessionKey=${sessionKey ?? "?"} ` +
+        `payloads=${finalPayloads.length}`,
+    );
     return finalizeWithFollowup(
       finalPayloads.length === 1 ? finalPayloads[0] : finalPayloads,
       queueKey,
       runFollowupTurn,
     );
+  } catch (err) {
+    logVerbose(
+      `atlas-trace runReplyAgent.threw sessionKey=${sessionKey ?? "?"} ` +
+        `err=${err instanceof Error ? `${err.name}: ${err.message}` : String(err)}`,
+    );
+    throw err;
   } finally {
     blockReplyPipeline?.stop();
     typing.markRunComplete();
