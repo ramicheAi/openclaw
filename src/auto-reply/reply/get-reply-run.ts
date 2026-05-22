@@ -72,6 +72,8 @@ type RunPreparedReplyParams = {
   elevatedEnabled: boolean;
   elevatedAllowed: boolean;
   blockStreamingEnabled: boolean;
+  draftStreamActive?: boolean;
+  draftStreamDidDeliver?: () => boolean;
   blockReplyChunking?: {
     minChars: number;
     maxChars: number;
@@ -125,6 +127,7 @@ export async function runPreparedReply(
     elevatedAllowed,
     blockStreamingEnabled,
     draftStreamActive,
+    draftStreamDidDeliver,
     blockReplyChunking,
     resolvedBlockStreamingBreak,
     modelState,
@@ -421,6 +424,8 @@ export async function runPreparedReply(
     resolvedVerboseLevel: resolvedVerboseLevel ?? "off",
     isNewSession,
     blockStreamingEnabled,
+    draftStreamActive: Boolean(draftStreamActive),
+    draftStreamDidDeliver,
     blockReplyChunking,
     resolvedBlockStreamingBreak,
     sessionCtx,

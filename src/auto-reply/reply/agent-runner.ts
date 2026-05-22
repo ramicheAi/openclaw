@@ -80,6 +80,7 @@ export async function runReplyAgent(params: {
   isNewSession: boolean;
   blockStreamingEnabled: boolean;
   draftStreamActive: boolean;
+  draftStreamDidDeliver?: () => boolean;
   blockReplyChunking?: {
     minChars: number;
     maxChars: number;
@@ -111,6 +112,7 @@ export async function runReplyAgent(params: {
     isNewSession,
     blockStreamingEnabled,
     draftStreamActive,
+    draftStreamDidDeliver,
     blockReplyChunking,
     resolvedBlockStreamingBreak,
     sessionCtx,
@@ -438,6 +440,7 @@ export async function runReplyAgent(params: {
       didLogHeartbeatStrip,
       blockStreamingEnabled,
       draftStreamActive,
+      draftStreamDidDeliver,
       blockReplyPipeline,
       directlySentBlockKeys,
       replyToMode,

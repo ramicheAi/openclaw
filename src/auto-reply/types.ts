@@ -36,6 +36,10 @@ export type GetReplyOptions = {
   /** When true, a draft stream (e.g. Telegram private chat) is handling delivery.
    *  Final payloads should be dropped to avoid duplicate messages. */
   draftStreamActive?: boolean;
+  /** Callback that returns true once the draft stream has actually emitted at
+   *  least one update successfully. Used to gate the final-payload drop so we
+   *  don't go silent when the model produces a non-streaming response. */
+  draftStreamDidDeliver?: () => boolean;
   /** Timeout for block reply delivery (ms). */
   blockReplyTimeoutMs?: number;
   /** If provided, only load these skills for this session (empty = no skills). */
