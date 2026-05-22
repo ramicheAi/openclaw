@@ -7,6 +7,10 @@ export type TelegramDraftStream = {
   update: (text: string) => void;
   flush: () => Promise<void>;
   stop: () => void;
+  // True once at least one sendDraft call has succeeded. Lets the reply
+  // pipeline distinguish "draft delivered content" from "draft existed but
+  // never sent anything" before deciding to drop final payloads.
+  didDeliver: () => boolean;
 };
 
 export function createTelegramDraftStream(params: {
@@ -35,6 +39,7 @@ export function createTelegramDraftStream(params: {
   let inFlight = false;
   let timer: ReturnType<typeof setTimeout> | undefined;
   let stopped = false;
+  let delivered = false;
 
   const sendDraft = async (text: string) => {
     if (stopped) return;
@@ -52,6 +57,10 @@ export function createTelegramDraftStream(params: {
     lastSentAt = Date.now();
     try {
       await params.api.sendMessageDraft(chatId, draftId, trimmed, threadParams);
+      if (!delivered) {
+        delivered = true;
+        params.log?.(`atlas-trace draftStream.delivered draftId=${draftId} chars=${trimmed.length}`);
+      }
     } catch (err) {
       stopped = true;
       params.warn?.(
@@ -113,11 +122,12 @@ export function createTelegramDraftStream(params: {
       clearTimeout(timer);
       timer = undefined;
     }
+    params.log?.(`atlas-trace draftStream.stop draftId=${draftId} didDeliver=${delivered}`);
   };
 
   params.log?.(
     `telegram draft stream ready (draftId=${draftId}, maxChars=${maxChars}, throttleMs=${throttleMs})`,
   );
 
-  return { update, flush, stop };
+  return { update, flush, stop, didDeliver: () => delivered };
 }

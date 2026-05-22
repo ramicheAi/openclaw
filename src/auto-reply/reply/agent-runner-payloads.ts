@@ -88,11 +88,26 @@ export function buildReplyPayloads(params: {
   // Drop final payloads when block streaming succeeded end-to-end,
   // or when a draft stream (e.g. Telegram private chat) already delivered the content.
   // If streaming aborted (e.g., timeout), fall back to final payloads.
-  const shouldDropFinalPayloads =
-    (params.blockStreamingEnabled &&
-      Boolean(params.blockReplyPipeline?.didStream()) &&
-      !params.blockReplyPipeline?.isAborted()) ||
-    (params.draftStreamActive && !params.blockStreamingEnabled);
+  const dropForBlockStream =
+    params.blockStreamingEnabled &&
+    Boolean(params.blockReplyPipeline?.didStream()) &&
+    !params.blockReplyPipeline?.isAborted();
+  const dropForDraftStream = Boolean(params.draftStreamActive) && !params.blockStreamingEnabled;
+  const shouldDropFinalPayloads = dropForBlockStream || dropForDraftStream;
+  if (shouldDropFinalPayloads) {
+    const clause = dropForBlockStream ? "block-stream" : "draft-stream";
+    logVerbose(
+      `atlas-trace buildReplyPayloads dropFinal clause=${clause} ` +
+        `payloads=${replyTaggedPayloads.length} blockStreamingEnabled=${params.blockStreamingEnabled} ` +
+        `draftStreamActive=${Boolean(params.draftStreamActive)}`,
+    );
+  } else if (replyTaggedPayloads.length > 0) {
+    logVerbose(
+      `atlas-trace buildReplyPayloads keepFinal payloads=${replyTaggedPayloads.length} ` +
+        `blockStreamingEnabled=${params.blockStreamingEnabled} ` +
+        `draftStreamActive=${Boolean(params.draftStreamActive)}`,
+    );
+  }
   const messagingToolSentTexts = params.messagingToolSentTexts ?? [];
   const messagingToolSentTargets = params.messagingToolSentTargets ?? [];
   const suppressMessagingToolReplies = shouldSuppressMessagingToolReplies({
