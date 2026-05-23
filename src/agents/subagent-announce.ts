@@ -22,6 +22,7 @@ import {
   normalizeDeliveryContext,
 } from "../utils/delivery-context.js";
 import { isEmbeddedPiRunActive, queueEmbeddedPiMessage } from "./pi-embedded.js";
+import { evaluateDeliverable, formatGateNotice } from "./quality-delegation-gate.js";
 import { type AnnounceQueueItem, enqueueAnnounce } from "./subagent-announce-queue.js";
 import { readLatestAssistantReply } from "./tools/agent-step.js";
 import { notifySubscription } from "./tools/subscribe-tool.js";
@@ -504,8 +505,14 @@ export async function runSubagentAnnounceFlow(params: {
     // Build instructional message for main agent
     const taskLabel = params.label || params.task || "background task";
 
-    // Layer 1: Gateway-level deliverable verification gate
+    // Layer 1: Gateway-level deliverable verification gate (file existence/format)
     const deliverableWarning = verifyDeliverableGate(reply, params.task);
+
+    // Layer 2: Quality & Delegation gate — classify the deliverable, check its
+    // definition-of-done, and route the required independent reviewer (QDP).
+    const qdpResult = evaluateDeliverable({ task: params.task, reply });
+    const qdpNotice = formatGateNotice(qdpResult);
+    const blocked = Boolean(deliverableWarning) || qdpResult.verdict === "block";
 
     const triggerMessage = [
       `A background task "${taskLabel}" just ${statusLabel}.`,
@@ -513,12 +520,15 @@ export async function runSubagentAnnounceFlow(params: {
       "Findings:",
       reply || "(no output)",
       deliverableWarning,
+      qdpNotice,
       "",
       statsLine,
       "",
-      deliverableWarning
-        ? "IMPORTANT: The deliverable files referenced above FAILED verification. Do NOT tell the operator this task succeeded. Report the failure and offer to rebuild."
-        : "Summarize this naturally for the user. Keep it brief (1-2 sentences). Flow it into the conversation naturally.",
+      blocked
+        ? "IMPORTANT: The deliverable above FAILED its quality/verification gate. Do NOT tell the operator this task succeeded. Report the failure and rebuild via the correct owner/reviewer before anything reaches the operator or a client."
+        : qdpResult.verdict === "review"
+          ? "Before reporting done, confirm the required independent reviewer signed off. Then summarize naturally for the user in 1-2 sentences."
+          : "Summarize this naturally for the user. Keep it brief (1-2 sentences). Flow it into the conversation naturally.",
       "Do not mention technical details like tokens, stats, or that this was a background task.",
       "You can respond with NO_REPLY if no announcement is needed (e.g., internal task with no user-facing result).",
     ].join("\n");
