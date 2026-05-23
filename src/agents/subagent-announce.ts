@@ -22,7 +22,13 @@ import {
   normalizeDeliveryContext,
 } from "../utils/delivery-context.js";
 import { isEmbeddedPiRunActive, queueEmbeddedPiMessage } from "./pi-embedded.js";
-import { evaluateDeliverable, formatGateNotice } from "./quality-delegation-gate.js";
+import {
+  type ArtifactEvidence,
+  classifyDeliverable,
+  evaluateDeliverable,
+  formatGateNotice,
+  inspectArtifactText,
+} from "./quality-delegation-gate.js";
 import { type AnnounceQueueItem, enqueueAnnounce } from "./subagent-announce-queue.js";
 import { readLatestAssistantReply } from "./tools/agent-step.js";
 import { notifySubscription } from "./tools/subscribe-tool.js";
@@ -414,6 +420,48 @@ function verifyDeliverableGate(reply: string | undefined, task?: string): string
   ].join("\n");
 }
 
+const ARTIFACT_PATH_PATTERN = /(?:\/[\w./-]+\.(?:html|json|md|css|ts|tsx|js|jsx|svg|txt))/g;
+
+/**
+ * Build ArtifactEvidence by inspecting the ACTUAL deliverable files referenced
+ * in the reply/task, not the agent's chat reply. This closes the keyword-
+ * stuffing hole: an agent cannot clear the brand check by writing "I used the
+ * brand kit" — the produced file must carry the markers. Returns undefined when
+ * no readable text artifact is found (binary like pdf/png) so the gate treats
+ * the brand/placeholder facts as unverified (verification owed), not as passing.
+ */
+function inspectDeliverableArtifacts(
+  reply: string | undefined,
+  task: string,
+): ArtifactEvidence | undefined {
+  const deliverableClass = classifyDeliverable(task, reply);
+  const fromReply = reply ? reply.match(ARTIFACT_PATH_PATTERN) : null;
+  const fromTask = task ? task.match(ARTIFACT_PATH_PATTERN) : null;
+  const paths = [...new Set([...(fromReply ?? []), ...(fromTask ?? [])])].slice(0, 5);
+  if (paths.length === 0) return undefined;
+
+  let combined = "";
+  let readAny = false;
+  for (const filePath of paths) {
+    try {
+      if (!fs.existsSync(filePath)) continue;
+      const stat = fs.statSync(filePath);
+      if (!stat.isFile() || stat.size > 256 * 1024) continue;
+      combined += `\n${fs.readFileSync(filePath, "utf-8")}`;
+      readAny = true;
+    } catch {
+      // Unreadable file — leave its facts unverified.
+    }
+  }
+  if (!readAny) return undefined;
+
+  const signals = inspectArtifactText(deliverableClass, combined);
+  return {
+    placeholdersFound: signals.placeholdersFound,
+    brandAssetsVerified: signals.brandAssetsVerified,
+  };
+}
+
 export async function runSubagentAnnounceFlow(params: {
   childSessionKey: string;
   childRunId: string;
@@ -508,9 +556,12 @@ export async function runSubagentAnnounceFlow(params: {
     // Layer 1: Gateway-level deliverable verification gate (file existence/format)
     const deliverableWarning = verifyDeliverableGate(reply, params.task);
 
-    // Layer 2: Quality & Delegation gate — classify the deliverable, check its
-    // definition-of-done, and route the required independent reviewer (QDP).
-    const qdpResult = evaluateDeliverable({ task: params.task, reply });
+    // Layer 2: Quality & Delegation gate (QDP v2) — classify, infer stakes, and
+    // judge against evidence inspected from the ACTUAL artifact (not the reply).
+    // Missing evidence at S2+ yields "verification owed" (review), never a
+    // silent pass, so text claims can't reach the operator/client.
+    const qdpEvidence = inspectDeliverableArtifacts(reply, params.task);
+    const qdpResult = evaluateDeliverable({ task: params.task, reply, evidence: qdpEvidence });
     const qdpNotice = formatGateNotice(qdpResult);
     const blocked = Boolean(deliverableWarning) || qdpResult.verdict === "block";
 

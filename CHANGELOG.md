@@ -6,7 +6,7 @@ Docs: https://docs.openclaw.ai
 Status: stable.
 
 ### Changes
-- Agents: add Quality & Delegation Gate (QDP) — a deterministic deliverable classifier + RACI routing + definition-of-done check that surfaces a block/review verdict to the orchestrator in the subagent announce flow.
+- Agents: Quality & Delegation Gate (QDP v2) — judge deliverables against evidence inspected from the actual artifact rather than the agent's reply text, fail safe to "verification owed" when evidence is missing, enforce independent review (reviewer != producer; human at S3), and surface delegation as an advisory routing recommendation instead of a hard block.
 - Rebrand: rename the npm package/CLI to `openclaw`, add a `openclaw` compatibility shim, and move extensions to the `@openclaw/*` scope.
 - Onboarding: strengthen security warning copy for beta + access control expectations.
 - Onboarding: add Venice API key to non-interactive flow. (#1893) Thanks @jonisjongithub.

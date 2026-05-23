@@ -1,17 +1,22 @@
 /**
- * Quality & Delegation Gate (QDP) — pure classification + policy primitive.
+ * Quality & Delegation Gate (QDP v2) — pure, evidence-driven quality primitive.
  *
- * Background: the orchestrator ("Atlas") historically shipped client-facing
- * deliverables alone, fast, and off-brand because delegation was discretionary
- * and the only quality check (verifyDeliverableGate) merely confirmed a file
- * existed. This module encodes the RAMICHE Quality & Delegation Protocol as a
- * deterministic, testable function: classify a deliverable, infer its stakes,
- * look up who MUST be involved, run a definition-of-done check, and return a
- * verdict. It is intentionally dependency-free (no fs/config/network) so it can
- * be unit-tested and reused on both the OpenClaw runtime path and the web path.
+ * Reframe from v1: the goal is QUALITY WITH THE RIGHT CONTEXT, not delegation
+ * for its own sake. Delegation is one *means* to quality and carries real cost
+ * (latency, coordination, handoff loss) and can be net-negative when it routes
+ * to a weaker model. So this gate RECOMMENDS specialists but blocks on
+ * quality/context, never on who produced the work.
  *
- * It does not itself block execution — callers decide how to act on the verdict
- * (the subagent announce flow surfaces it to the orchestrator with a directive).
+ * The hard rule that closes the keyword-stuffing hole: at S2+, claims in the
+ * reply text NEVER satisfy the definition-of-done. Only inspected ARTIFACT
+ * EVIDENCE can clear a high-stakes deliverable. Absent evidence, the strongest
+ * verdict is "review" (verification owed) — never "pass". This is fail-safe:
+ * the cheap path (say the right words) can no longer reach the operator/client.
+ *
+ * Pure + dependency-free (no fs/config/network). The caller supplies
+ * ArtifactEvidence from a real inspector at the integration boundary, so the
+ * policy stays unit-testable and honest about its trust boundary: a verdict is
+ * only as strong as the evidence handed to it.
  */
 
 export type DeliverableClass =
@@ -28,22 +33,45 @@ export type StakesTier = "S0" | "S1" | "S2" | "S3";
 export type Verdict = "pass" | "review" | "block";
 
 export interface RaciRule {
-  /** Agent that should produce the work. */
+  /** Specialist recommended to produce the work (advisory — see EvaluateInput). */
   responsible: string;
-  /** Agents that must contribute (domain/brand/data). */
+  /** Specialists that should contribute (domain/brand/data). */
   contributors: string[];
   /** Independent reviewer/critic before ship. */
   reviewer: string;
 }
 
+/**
+ * Facts established by inspecting the ACTUAL artifact (file/render), not the
+ * agent's reply text. Every field is optional and tri-state on purpose:
+ *  - `true`  → inspector confirmed the good state
+ *  - `false` → inspector confirmed the bad state (a hard block at S2+)
+ *  - `undefined` → not inspected ⇒ verification owed (cannot pass at S2+)
+ */
+export interface ArtifactEvidence {
+  /** A real inspector confirmed the brand kit is actually used in the artifact. */
+  brandAssetsVerified?: boolean;
+  /** A real inspector found placeholder/lorem/TODO inside the artifact itself. */
+  placeholdersFound?: boolean;
+  /** An independent reviewer recorded an approve verdict on the artifact. */
+  reviewerSignedOff?: boolean;
+  /** Who reviewed — used to enforce that review is independent of the producer. */
+  reviewedBy?: string;
+  /** S3 requires a human in the loop; set true only when a human approved. */
+  reviewedByHuman?: boolean;
+}
+
 export interface GateResult {
   deliverableClass: DeliverableClass;
   stakes: StakesTier;
+  /** Recommended RACI routing (advisory). */
   raci: RaciRule | null;
-  /** Definition-of-done signals that failed (empty = DoD checks passed). */
-  dodFailures: string[];
   verdict: Verdict;
   reasons: string[];
+  /** Evidence the gate needs but did not receive (drives "review"). */
+  evidenceMissing: string[];
+  /** Advisory routing nudge; null when production location is fine. */
+  recommendation: string | null;
 }
 
 const CREATIVE_HINTS =
@@ -74,12 +102,20 @@ const STAKES_HINTS_S2 =
   /\b(client|customer|prospect|lead|pitch|deck|landing page|launch|public|production|brand|revenue|sale|deal|website|press)\b/i;
 const STAKES_HINTS_S1 = /\b(decide|decision|plan|strategy|roadmap|recommend)\b/i;
 
-/** Infer stakes tier from the task text. Conservative: creative/comms default to S2. */
-export function inferStakes(task: string, deliverableClass?: DeliverableClass): StakesTier {
-  const text = task ?? "";
+/**
+ * Infer stakes tier. Scans the task AND the reply so an agent cannot dodge the
+ * gate by framing a client deliverable as "internal" — if the produced output
+ * shows external/brand markers, stakes are raised. Conservative by design:
+ * creative/comms reach a human outside the team, so they default to S2.
+ */
+export function inferStakes(
+  task: string,
+  deliverableClass?: DeliverableClass,
+  reply?: string,
+): StakesTier {
+  const text = `${task ?? ""}\n${reply ?? ""}`;
   if (STAKES_HINTS_S3.test(text)) return "S3";
   if (STAKES_HINTS_S2.test(text)) return "S2";
-  // Anything that reaches a human outside the team is at least S2 by default.
   if (deliverableClass === "client-facing-creative" || deliverableClass === "external-comms") {
     return "S2";
   }
@@ -87,7 +123,12 @@ export function inferStakes(task: string, deliverableClass?: DeliverableClass): 
   return "S0";
 }
 
-/** RACI routing matrix (QDP-2). Atlas is Accountable but never sole Responsible at S2+. */
+/**
+ * Recommended RACI routing (QDP-2). Advisory, not mandatory: the orchestrator
+ * may keep production in-house when it is on a stronger model than the
+ * specialist — quality is the goal, not the hop count. Independent review,
+ * however, is non-negotiable at S2+ (enforced in evaluateDeliverable).
+ */
 const RACI_MATRIX: Record<Exclude<DeliverableClass, "unknown">, RaciRule> = {
   "client-facing-creative": {
     responsible: "aetherion",
@@ -100,7 +141,7 @@ const RACI_MATRIX: Record<Exclude<DeliverableClass, "unknown">, RaciRule> = {
   "ops-automation": { responsible: "shuri", contributors: [], reviewer: "triage" },
 };
 
-export function requiredSpecialists(deliverableClass: DeliverableClass): RaciRule | null {
+export function recommendedSpecialists(deliverableClass: DeliverableClass): RaciRule | null {
   if (deliverableClass === "unknown") return null;
   return RACI_MATRIX[deliverableClass];
 }
@@ -111,23 +152,25 @@ const BRAND_ASSET_HINT =
   /\b(logo|brand kit|palette|brand guide|style guide|wordmark|#[0-9a-f]{6}|color token|on-brand)\b/i;
 
 /**
- * Definition-of-Done checks (QDP-3). Returns the list of failed signals.
- * Pure text heuristics — they catch the cheapest, most common defects
- * (placeholders shipped to clients, creative with no brand reference).
+ * Extract evidence signals from the ACTUAL artifact content (file body / render
+ * text), not the agent's chat reply. This is what makes the gate hard to game:
+ * the producing agent cannot satisfy it by writing "I used the brand kit" — the
+ * deliverable file itself must carry the markers. Heuristic, not proof: it
+ * catches the cheapest, most common defects (placeholders shipped to clients,
+ * creative with zero brand reference). Pure: caller supplies the artifact text.
  */
-export function checkDefinitionOfDone(
+export function inspectArtifactText(
   deliverableClass: DeliverableClass,
-  text: string,
-): string[] {
-  const failures: string[] = [];
-  const body = text ?? "";
-  if (PLACEHOLDER_PATTERN.test(body)) {
-    failures.push("contains placeholder/lorem/TODO text");
+  artifactText: string,
+): Pick<ArtifactEvidence, "placeholdersFound" | "brandAssetsVerified"> {
+  const body = artifactText ?? "";
+  const evidence: Pick<ArtifactEvidence, "placeholdersFound" | "brandAssetsVerified"> = {
+    placeholdersFound: PLACEHOLDER_PATTERN.test(body),
+  };
+  if (deliverableClass === "client-facing-creative") {
+    evidence.brandAssetsVerified = BRAND_ASSET_HINT.test(body);
   }
-  if (deliverableClass === "client-facing-creative" && !BRAND_ASSET_HINT.test(body)) {
-    failures.push("client-facing creative with no brand-asset reference (logo/palette/brand kit)");
-  }
-  return failures;
+  return evidence;
 }
 
 export interface EvaluateInput {
@@ -135,53 +178,124 @@ export interface EvaluateInput {
   reply?: string;
   /** Short-id of the agent that produced the work, if known (e.g. "atlas"). */
   producer?: string;
+  /** Facts from inspecting the real artifact. Absent ⇒ verification owed at S2+. */
+  evidence?: ArtifactEvidence;
 }
 
 /**
- * Evaluate a finished deliverable against QDP. Verdict:
- *  - block  : S2+ with a DoD failure, OR S2+ creative produced solo by the
- *             orchestrator (delegation skipped) → must rebuild, do not ship.
- *  - review : S2+ that passed DoD but still needs the independent reviewer.
- *  - pass   : low-stakes, or nothing actionable detected.
+ * Evaluate a finished deliverable against QDP. Verdicts:
+ *  - block  : S2+ with an inspected quality/context FAILURE (real placeholders,
+ *             brand kit not actually used, or a non-independent reviewer).
+ *  - review : S2+ that has no inspected failure but is missing the evidence
+ *             needed to clear it (brand check, placeholder scan, or independent
+ *             reviewer sign-off — human sign-off at S3). Verification is owed.
+ *  - pass   : low-stakes, or S2+ where every required fact was inspected good.
+ *
+ * Delegation is never itself a block — it is surfaced as an advisory routing
+ * recommendation, because forcing a weaker specialist can lower quality.
  */
 export function evaluateDeliverable(input: EvaluateInput): GateResult {
   const deliverableClass = classifyDeliverable(input.task, input.reply);
-  const stakes = inferStakes(input.task, deliverableClass);
-  const raci = requiredSpecialists(deliverableClass);
-  const dodFailures = checkDefinitionOfDone(deliverableClass, `${input.task}\n${input.reply ?? ""}`);
-  const reasons: string[] = [];
-  let verdict: Verdict = "pass";
+  const stakes = inferStakes(input.task, deliverableClass, input.reply);
+  const raci = recommendedSpecialists(deliverableClass);
+  const evidence = input.evidence ?? {};
+  const producer = input.producer?.toLowerCase().trim();
+  const reviewedBy = evidence.reviewedBy?.toLowerCase().trim();
 
+  const reasons: string[] = [];
+  const evidenceMissing: string[] = [];
   const highStakes = stakes === "S2" || stakes === "S3";
 
-  if (highStakes && dodFailures.length > 0) {
-    verdict = "block";
-    reasons.push(`Definition-of-Done failed at ${stakes}: ${dodFailures.join("; ")}`);
+  // Advisory routing nudge (applies at any stakes, never blocks on its own).
+  let recommendation: string | null = null;
+  if (highStakes && raci && producer && producer !== raci.responsible) {
+    recommendation =
+      `Consider routing ${deliverableClass} to @${raci.responsible} ` +
+      `(+${raci.contributors.map((c) => `@${c}`).join(", ")}), reviewed by @${raci.reviewer} — ` +
+      `unless the producer is on a stronger model than the specialist, in which case keep ` +
+      `production here and still obtain independent review.`;
   }
 
-  // Delegation enforcement: a high-stakes creative deliverable produced solo by
-  // the orchestrator is the exact failure mode this protocol exists to stop.
-  const producer = input.producer?.toLowerCase().trim();
-  if (
-    highStakes &&
-    deliverableClass === "client-facing-creative" &&
-    raci &&
-    producer &&
-    producer === "atlas" &&
-    producer !== raci.responsible
-  ) {
+  if (!highStakes) {
+    // S0/S1 are ungated; only surface an obviously broken artifact for a glance.
+    if (evidence.placeholdersFound === true) {
+      return {
+        deliverableClass,
+        stakes,
+        raci,
+        verdict: "review",
+        reasons: ["Artifact contains placeholder/lorem/TODO text (low stakes — fix before reuse)."],
+        evidenceMissing: [],
+        recommendation,
+      };
+    }
+    return {
+      deliverableClass,
+      stakes,
+      raci,
+      verdict: "pass",
+      reasons: [],
+      evidenceMissing: [],
+      recommendation,
+    };
+  }
+
+  // --- High stakes: evidence-driven. Reply-text claims do not count. ---
+  let verdict: Verdict = "pass";
+
+  // 1) Hard blocks from inspected negative facts.
+  if (evidence.placeholdersFound === true) {
+    verdict = "block";
+    reasons.push("Inspected artifact contains placeholder/lorem/TODO text.");
+  }
+  if (deliverableClass === "client-facing-creative" && evidence.brandAssetsVerified === false) {
     verdict = "block";
     reasons.push(
-      `Delegation skipped: ${deliverableClass} at ${stakes} must be produced by @${raci.responsible} (+${raci.contributors.map((c) => `@${c}`).join(", ")}) and reviewed by @${raci.reviewer}, not by the orchestrator alone.`,
+      "Inspected artifact does not actually use the brand kit (logo/palette) — naming it in the reply does not count.",
+    );
+  }
+  if (evidence.reviewerSignedOff === true && producer && reviewedBy && reviewedBy === producer) {
+    verdict = "block";
+    reasons.push(
+      `Reviewer @${evidence.reviewedBy} is the producer — review must be independent of the author.`,
     );
   }
 
-  if (verdict === "pass" && highStakes && raci) {
-    verdict = "review";
-    reasons.push(`Requires independent review by @${raci.reviewer} before reaching the operator.`);
+  // 2) Missing evidence at high stakes ⇒ verification owed (cannot pass).
+  if (deliverableClass === "client-facing-creative" && evidence.brandAssetsVerified === undefined) {
+    evidenceMissing.push("brand-kit usage not verified against the artifact");
+  }
+  if (evidence.placeholdersFound === undefined) {
+    evidenceMissing.push("artifact not scanned for placeholder/lorem/TODO");
+  }
+  if (evidence.reviewerSignedOff !== true) {
+    evidenceMissing.push("no independent reviewer sign-off on record");
+  }
+  if (stakes === "S3" && evidence.reviewedByHuman !== true) {
+    evidenceMissing.push("S3 requires a human reviewer sign-off");
   }
 
-  return { deliverableClass, stakes, raci, dodFailures, verdict, reasons };
+  if (verdict !== "block") {
+    if (evidenceMissing.length > 0) {
+      verdict = "review";
+      reasons.push(`Cannot ship at ${stakes} until verified: ${evidenceMissing.join("; ")}.`);
+    } else {
+      reasons.push(
+        `Verified at ${stakes}: artifact checks passed and an independent reviewer approved.`,
+      );
+    }
+  }
+
+  return { deliverableClass, stakes, raci, verdict, reasons, evidenceMissing, recommendation };
+}
+
+/**
+ * Single interlock the send/announce path consults. Only an explicit pass is
+ * shippable to the operator/client; review and block are not. Use this instead
+ * of parsing the prose notice, so the deliverable channel has one hard gate.
+ */
+export function isShippable(result: GateResult): boolean {
+  return result.verdict === "pass";
 }
 
 /** Render a directive block for the orchestrator. Empty when verdict is pass. */
@@ -190,15 +304,22 @@ export function formatGateNotice(result: GateResult): string {
   const header =
     result.verdict === "block"
       ? "QUALITY & DELEGATION GATE — BLOCK (do NOT report this as done):"
-      : "QUALITY & DELEGATION GATE — REVIEW REQUIRED:";
+      : "QUALITY & DELEGATION GATE — VERIFICATION OWED (do NOT report as done yet):";
   const lines = [
     "",
     header,
     `  class=${result.deliverableClass} stakes=${result.stakes}`,
     ...result.reasons.map((r) => `  - ${r}`),
   ];
+  if (result.recommendation) {
+    lines.push(`  routing: ${result.recommendation}`);
+  }
   if (result.verdict === "block") {
-    lines.push("  Rebuild via the correct owner/reviewer before anything reaches the operator.");
+    lines.push("  Rebuild and re-verify before anything reaches the operator or a client.");
+  } else {
+    lines.push(
+      "  Obtain the missing verification above, then re-run the gate before reporting done.",
+    );
   }
   return lines.join("\n");
 }

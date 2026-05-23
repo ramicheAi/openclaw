@@ -1,11 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
-  checkDefinitionOfDone,
   classifyDeliverable,
   evaluateDeliverable,
   formatGateNotice,
   inferStakes,
-  requiredSpecialists,
+  inspectArtifactText,
+  isShippable,
+  recommendedSpecialists,
 } from "./quality-delegation-gate.js";
 
 describe("classifyDeliverable", () => {
@@ -40,73 +41,139 @@ describe("inferStakes", () => {
   it("treats internal scratch as S0", () => {
     expect(inferStakes("jot a quick note to myself")).toBe("S0");
   });
+
+  it("raises stakes when the reply reveals external/brand markers despite an 'internal' framing", () => {
+    expect(
+      inferStakes("internal draft", undefined, "Final deck attached for the client launch"),
+    ).toBe("S2");
+  });
 });
 
-describe("requiredSpecialists", () => {
-  it("routes creative to aetherion as responsible, vee as reviewer", () => {
-    const raci = requiredSpecialists("client-facing-creative");
+describe("recommendedSpecialists", () => {
+  it("recommends aetherion as responsible and vee as reviewer for creative", () => {
+    const raci = recommendedSpecialists("client-facing-creative");
     expect(raci?.responsible).toBe("aetherion");
     expect(raci?.reviewer).toBe("vee");
     expect(raci?.contributors).toContain("vee");
   });
 
-  it("routes code to shuri with triage review", () => {
-    const raci = requiredSpecialists("code");
+  it("recommends shuri with triage review for code", () => {
+    const raci = recommendedSpecialists("code");
     expect(raci?.responsible).toBe("shuri");
     expect(raci?.reviewer).toBe("triage");
   });
 
   it("returns null for unknown", () => {
-    expect(requiredSpecialists("unknown")).toBeNull();
+    expect(recommendedSpecialists("unknown")).toBeNull();
   });
 });
 
-describe("checkDefinitionOfDone", () => {
-  it("flags placeholder text", () => {
-    const failures = checkDefinitionOfDone("external-comms", "Hi [insert name], lorem ipsum");
-    expect(failures.some((f) => /placeholder/i.test(f))).toBe(true);
+describe("inspectArtifactText — evidence from the real artifact, not the reply", () => {
+  it("flags placeholder text found in the artifact", () => {
+    const ev = inspectArtifactText("external-comms", "Hi [insert name], lorem ipsum");
+    expect(ev.placeholdersFound).toBe(true);
   });
 
-  it("flags client creative with no brand reference", () => {
-    const failures = checkDefinitionOfDone(
+  it("reports brand usage as verified when the artifact carries brand markers", () => {
+    const ev = inspectArtifactText(
       "client-facing-creative",
-      "Here is the finished swim pitch.",
+      "<svg fill='#0e0e18'><image href='mettle-logo.svg'/></svg>",
     );
-    expect(failures.some((f) => /brand-asset/i.test(f))).toBe(true);
+    expect(ev.brandAssetsVerified).toBe(true);
+    expect(ev.placeholdersFound).toBe(false);
   });
 
-  it("passes creative that references the brand kit", () => {
-    const failures = checkDefinitionOfDone(
-      "client-facing-creative",
-      "Pitch using the Mettle brand kit, logo and palette #0e0e18.",
-    );
-    expect(failures).toHaveLength(0);
+  it("reports brand usage as NOT verified when the artifact has no brand markers", () => {
+    const ev = inspectArtifactText("client-facing-creative", "<h1>Swim faster</h1><p>Join us.</p>");
+    expect(ev.brandAssetsVerified).toBe(false);
   });
 });
 
 describe("evaluateDeliverable — the swim-pitch incident", () => {
-  it("BLOCKS a high-stakes creative the orchestrator made solo, off-brand", () => {
+  const swimTask = "Make the swim pitch deck for the client";
+
+  it("does NOT block solo creative on delegation alone — it surfaces a routing recommendation", () => {
     const result = evaluateDeliverable({
-      task: "Make the swim pitch deck for the client",
+      task: swimTask,
       reply: "Done — here is the swim pitch.",
       producer: "atlas",
     });
     expect(result.deliverableClass).toBe("client-facing-creative");
     expect(result.stakes).toBe("S2");
-    expect(result.verdict).toBe("block");
-    // Both failure modes should be cited: no brand reference + delegation skipped.
-    expect(result.reasons.join(" ")).toMatch(/brand-asset/i);
-    expect(result.reasons.join(" ")).toMatch(/Delegation skipped/i);
+    // No artifact evidence ⇒ verification owed, not an outright block.
+    expect(result.verdict).toBe("review");
+    expect(result.recommendation).toMatch(/@aetherion/i);
+    expect(result.reasons.join(" ")).not.toMatch(/Delegation skipped/i);
   });
 
-  it("downgrades to REVIEW when the right owner produced an on-brand deliverable", () => {
+  it("BLOCKS when the inspected artifact does not actually use the brand kit", () => {
     const result = evaluateDeliverable({
-      task: "Make the swim pitch deck for the client",
-      reply: "Pitch built with the Mettle brand kit, logo, on-brand palette.",
+      task: swimTask,
+      reply: "Pitch built with the Mettle brand kit and palette #0e0e18.", // claim only
+      producer: "atlas",
+      evidence: { brandAssetsVerified: false, placeholdersFound: false },
+    });
+    expect(result.verdict).toBe("block");
+    expect(result.reasons.join(" ")).toMatch(/does not actually use the brand kit/i);
+  });
+
+  it("text claims in the reply never clear the gate — only inspected evidence can", () => {
+    const result = evaluateDeliverable({
+      task: swimTask,
+      reply: "Pitch built with the Mettle brand kit, logo and on-brand palette #0e0e18.",
       producer: "aetherion",
+      // no evidence supplied
     });
     expect(result.verdict).toBe("review");
-    expect(result.reasons.join(" ")).toMatch(/independent review by @vee/i);
+    expect(result.evidenceMissing.join(" ")).toMatch(/brand-kit usage not verified/i);
+  });
+
+  it("PASSES when every required fact is inspected good and an independent reviewer approved", () => {
+    const result = evaluateDeliverable({
+      task: swimTask,
+      reply: "Pitch ready.",
+      producer: "aetherion",
+      evidence: {
+        brandAssetsVerified: true,
+        placeholdersFound: false,
+        reviewerSignedOff: true,
+        reviewedBy: "vee",
+      },
+    });
+    expect(result.verdict).toBe("pass");
+    expect(isShippable(result)).toBe(true);
+  });
+
+  it("BLOCKS when the reviewer is the same agent that produced the work", () => {
+    const result = evaluateDeliverable({
+      task: swimTask,
+      reply: "Pitch ready.",
+      producer: "aetherion",
+      evidence: {
+        brandAssetsVerified: true,
+        placeholdersFound: false,
+        reviewerSignedOff: true,
+        reviewedBy: "aetherion",
+      },
+    });
+    expect(result.verdict).toBe("block");
+    expect(result.reasons.join(" ")).toMatch(/review must be independent/i);
+  });
+
+  it("requires a HUMAN reviewer at S3 even when an agent signed off", () => {
+    const result = evaluateDeliverable({
+      task: "Review this client contract for compliance before we send it",
+      reply: "Reviewed.",
+      producer: "themis",
+      evidence: {
+        placeholdersFound: false,
+        reviewerSignedOff: true,
+        reviewedBy: "dr-strange",
+      },
+    });
+    expect(result.stakes).toBe("S3");
+    expect(result.verdict).toBe("review");
+    expect(result.evidenceMissing.join(" ")).toMatch(/human reviewer/i);
   });
 
   it("PASSES low-stakes internal scratch", () => {
@@ -115,6 +182,7 @@ describe("evaluateDeliverable — the swim-pitch incident", () => {
       reply: "noted.",
     });
     expect(result.verdict).toBe("pass");
+    expect(isShippable(result)).toBe(true);
   });
 });
 
@@ -129,9 +197,20 @@ describe("formatGateNotice", () => {
       task: "swim pitch deck for client",
       reply: "done",
       producer: "atlas",
+      evidence: { brandAssetsVerified: false, placeholdersFound: false },
     });
     const notice = formatGateNotice(result);
     expect(notice).toMatch(/BLOCK/);
     expect(notice).toMatch(/do NOT report this as done/i);
+  });
+
+  it("renders a VERIFICATION OWED directive when evidence is missing", () => {
+    const result = evaluateDeliverable({
+      task: "swim pitch deck for client",
+      reply: "done",
+      producer: "atlas",
+    });
+    const notice = formatGateNotice(result);
+    expect(notice).toMatch(/VERIFICATION OWED/);
   });
 });
