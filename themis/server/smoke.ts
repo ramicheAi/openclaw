@@ -1,0 +1,143 @@
+// In-process smoke test: builds the app against an in-memory SQLite DB and
+// exercises every endpoint via Hono's request helper. No network, no ports.
+//   run: npm run smoke
+process.env.THEMIS_DB = ":memory:";
+
+import { buildApp } from "./src/index.js";
+
+const app = buildApp();
+const M = "reyes-northwind";
+
+let passed = 0;
+const failures: string[] = [];
+
+function check(name: string, cond: boolean) {
+  if (cond) {
+    passed++;
+    console.log(`  ok   ${name}`);
+  } else {
+    failures.push(name);
+    console.log(`  FAIL ${name}`);
+  }
+}
+
+async function get(path: string) {
+  const res = await app.request(path);
+  return { status: res.status, body: (await res.json()) as any };
+}
+async function send(path: string, method: string, payload?: unknown) {
+  const res = await app.request(path, {
+    method,
+    headers: { "content-type": "application/json", "x-themis-actor": "Smoke Test" },
+    body: payload === undefined ? undefined : JSON.stringify(payload),
+  });
+  return { status: res.status, body: (await res.json()) as any };
+}
+
+console.log("Themis API smoke test\n");
+
+// Health
+{
+  const r = await get("/api/health");
+  check("health 200 + ok", r.status === 200 && r.body.ok === true);
+}
+
+// Matters list + computed counts
+{
+  const r = await get("/api/matters");
+  const reyes = r.body.matters.find((m: any) => m.id === M);
+  check("matters list returns 3", r.body.matters.length === 3);
+  check("reyes hotDocs computed = 4", reyes?.hotDocs === 4);
+  check("reyes privilegeQueue computed = 2", reyes?.privilegeQueue === 2);
+  check("reyes corpus docs = 11920", reyes?.docs === 11920);
+}
+
+// Matter detail
+{
+  const r = await get(`/api/matters/${M}`);
+  check("matter detail 200", r.status === 200);
+  check("matter has caseTheory.claims", Array.isArray(r.body.caseTheory?.claims) && r.body.caseTheory.claims.length === 3);
+  check("matter has 6 ingest stages", r.body.ingestStages?.length === 6);
+  check("matter has 3 gap findings", r.body.gapFindings?.length === 3);
+}
+
+// Documents
+{
+  const r = await get(`/api/matters/${M}/documents`);
+  check("documents list = 6", r.body.documents?.length === 6);
+  const d = await get(`/api/matters/${M}/documents/d1`);
+  check("document d1 bates NW-000847", d.body.bates === "NW-000847");
+}
+
+// Search
+{
+  const r = await get(`/api/matters/${M}/search?q=overtime%20payroll`);
+  const top = r.body.hits?.[0];
+  check("search finds NW-000847 first", top?.doc?.bates === "NW-000847");
+  check("search hit carries matchedTerms", Array.isArray(top?.matchedTerms) && top.matchedTerms.length > 0);
+}
+
+// Chat — grounded, verified citations, excludes privileged
+{
+  const r = await send(`/api/matters/${M}/chat`, "POST", { question: "overtime complaint and termination timeline" });
+  check("chat 200 themis role", r.status === 200 && r.body.role === "themis");
+  check("chat has citations", (r.body.citations?.length ?? 0) > 0);
+  check("chat all citations verified", r.body.citations?.every((c: any) => c.verified === true));
+  check("chat sets confidence", ["high", "medium", "low"].includes(r.body.confidence));
+
+  const bad = await send(`/api/matters/${M}/chat`, "POST", {});
+  check("chat rejects empty question (400)", bad.status === 400);
+
+  const hist = await get(`/api/matters/${M}/chat`);
+  check("chat history includes seed + new turns", hist.body.turns?.length >= 4);
+}
+
+// Chronology accept/reject
+{
+  const r = await send(`/api/matters/${M}/chronology/c4`, "PATCH", { accepted: true });
+  check("chronology accept c4", r.status === 200 && r.body.accepted === true);
+  const reset = await send(`/api/matters/${M}/chronology/c4`, "PATCH", { accepted: null });
+  check("chronology reset c4 to null", reset.body.accepted === null);
+  const bad = await send(`/api/matters/${M}/chronology/c4`, "PATCH", { accepted: "yes" });
+  check("chronology rejects bad accepted (400)", bad.status === 400);
+}
+
+// Privilege decide updates queue + computed count
+{
+  const before = await get(`/api/matters/${M}/privilege`);
+  check("privilege queue = 2 initially", before.body.queue?.length === 2);
+
+  const dec = await send(`/api/matters/${M}/privilege/d4`, "POST", { decision: "cleared" });
+  check("privilege clear d4", dec.status === 200 && dec.body.privilege === "cleared");
+
+  const matters = await get("/api/matters");
+  const reyes = matters.body.matters.find((m: any) => m.id === M);
+  check("privilegeQueue drops to 1 after clear", reyes?.privilegeQueue === 1);
+
+  const scan = await send(`/api/matters/${M}/privilege/scan`, "POST");
+  check("privilege scan returns flags", (scan.body.flags?.length ?? 0) >= 2);
+
+  const bad = await send(`/api/matters/${M}/privilege/d4`, "POST", { decision: "maybe" });
+  check("privilege rejects bad decision (400)", bad.status === 400);
+}
+
+// Audit trail records the mutations above
+{
+  const r = await get(`/api/matters/${M}/audit`);
+  const actions = (r.body.entries ?? []).map((e: any) => e.action);
+  check("audit has chat.query", actions.includes("chat.query"));
+  check("audit has privilege.cleared", actions.includes("privilege.cleared"));
+  check("audit has chronology.accept", actions.includes("chronology.accept"));
+}
+
+// Error handling
+{
+  const r = await get("/api/matters/does-not-exist");
+  check("unknown matter 404", r.status === 404);
+}
+
+console.log(`\n${passed} passed, ${failures.length} failed`);
+if (failures.length) {
+  console.error("FAILURES:\n  - " + failures.join("\n  - "));
+  process.exit(1);
+}

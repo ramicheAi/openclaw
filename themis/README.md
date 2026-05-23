@@ -4,8 +4,7 @@ A frontend prototype for **Themis**, evidence intelligence for litigation parale
 It turns a pile of evidence into a navigable, citable, summarized corpus organized as
 an isolated **case brain** per matter.
 
-This is a UI prototype with mock data — no backend. It exists to make the V2 product
-shape concrete and to serve as a design reference.
+It exists to make the V2 product shape concrete and to serve as a design reference.
 
 ## Run
 
@@ -17,6 +16,23 @@ npm run preview  # serve the production build
 ```
 
 Requires Node 22+.
+
+## Backend
+
+A local API + SQLite backend lives in [`server/`](./server). It models the full
+domain (matters, documents, citations, chronology, entities, privilege, audit)
+and stubs the AI pipeline (search, chat-with-citations, privilege screening)
+behind clean service interfaces. See [`server/README.md`](./server/README.md).
+
+```bash
+cd server && npm install && npm run dev   # http://localhost:8787
+```
+
+The Vite dev server proxies `/api` to `http://localhost:8787` (override with
+`THEMIS_API`). A typed client for every endpoint is in
+[`src/lib/api.ts`](./src/lib/api.ts). The current screens render from mock data
+(`src/data/mock.ts`); the API client is ready for the next iteration of the UI
+to consume in place of the mocks.
 
 ## What it shows
 
