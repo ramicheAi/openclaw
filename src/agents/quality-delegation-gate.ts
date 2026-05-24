@@ -79,7 +79,7 @@ const CREATIVE_HINTS =
 const CODE_HINTS =
   /\b(refactor|implement|bug ?fix|feature|endpoint|api|component|migration|patch|build|deploy|unit test|compile|typescript|react|function)\b/i;
 const COMMS_HINTS =
-  /\b(email|outreach|cold (?:email|dm)|tweet|post|newsletter|press release|sequence|reply to|message to (?:client|customer|lead))\b/i;
+  /\b(?:email|outreach|cold (?:email|dm)|tweet|newsletter|press release|sequence|reply to|message to (?:client|customer|lead))\b|\bposts?\b(?!\s*(?:handler|route|endpoint|request|body|method|api|controller))/i;
 const OPS_HINTS = /\b(cron|schedule|automation|pipeline|sync|backup|index|monitor|heartbeat)\b/i;
 const ANALYSIS_HINTS =
   /\b(analysis|forecast|model|report|research|audit|valuation|pricing|scenario|benchmark|metrics)\b/i;
@@ -164,9 +164,13 @@ export function inspectArtifactText(
   artifactText: string,
 ): Pick<ArtifactEvidence, "placeholdersFound" | "brandAssetsVerified"> {
   const body = artifactText ?? "";
-  const evidence: Pick<ArtifactEvidence, "placeholdersFound" | "brandAssetsVerified"> = {
-    placeholdersFound: PLACEHOLDER_PATTERN.test(body),
-  };
+  const evidence: Pick<ArtifactEvidence, "placeholdersFound" | "brandAssetsVerified"> = {};
+  // Placeholder/lorem/TODO only signals a defect in client-facing polish. In
+  // code, TODO/FIXME/XXX are normal dev markers, so leave the fact unscanned
+  // (undefined) for non-client-facing classes rather than false-blocking them.
+  if (deliverableClass === "client-facing-creative" || deliverableClass === "external-comms") {
+    evidence.placeholdersFound = PLACEHOLDER_PATTERN.test(body);
+  }
   if (deliverableClass === "client-facing-creative") {
     evidence.brandAssetsVerified = BRAND_ASSET_HINT.test(body);
   }
@@ -262,10 +266,12 @@ export function evaluateDeliverable(input: EvaluateInput): GateResult {
   }
 
   // 2) Missing evidence at high stakes ⇒ verification owed (cannot pass).
+  const placeholderRelevant =
+    deliverableClass === "client-facing-creative" || deliverableClass === "external-comms";
   if (deliverableClass === "client-facing-creative" && evidence.brandAssetsVerified === undefined) {
     evidenceMissing.push("brand-kit usage not verified against the artifact");
   }
-  if (evidence.placeholdersFound === undefined) {
+  if (placeholderRelevant && evidence.placeholdersFound === undefined) {
     evidenceMissing.push("artifact not scanned for placeholder/lorem/TODO");
   }
   if (evidence.reviewerSignedOff !== true) {

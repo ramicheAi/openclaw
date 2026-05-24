@@ -27,6 +27,15 @@ describe("classifyDeliverable", () => {
   it("falls back to unknown when nothing matches", () => {
     expect(classifyDeliverable("ponder the universe")).toBe("unknown");
   });
+
+  it("does not misclassify a POST handler/route as external-comms", () => {
+    expect(classifyDeliverable("Refactor the POST handler and add a route")).toBe("code");
+    expect(classifyDeliverable("Implement a POST API endpoint")).toBe("code");
+  });
+
+  it("still classifies a social post as external-comms", () => {
+    expect(classifyDeliverable("Schedule a post for the launch")).toBe("external-comms");
+  });
 });
 
 describe("inferStakes", () => {
@@ -86,6 +95,11 @@ describe("inspectArtifactText — evidence from the real artifact, not the reply
   it("reports brand usage as NOT verified when the artifact has no brand markers", () => {
     const ev = inspectArtifactText("client-facing-creative", "<h1>Swim faster</h1><p>Join us.</p>");
     expect(ev.brandAssetsVerified).toBe(false);
+  });
+
+  it("does NOT flag TODO/FIXME in code as a placeholder defect", () => {
+    const ev = inspectArtifactText("code", "function f() { // TODO: optimize\n return 1; }");
+    expect(ev.placeholdersFound).toBeUndefined();
   });
 });
 
@@ -174,6 +188,19 @@ describe("evaluateDeliverable — the swim-pitch incident", () => {
     expect(result.stakes).toBe("S3");
     expect(result.verdict).toBe("review");
     expect(result.evidenceMissing.join(" ")).toMatch(/human reviewer/i);
+  });
+
+  it("does NOT block high-stakes code just because the artifact contains TODO/FIXME", () => {
+    const result = evaluateDeliverable({
+      task: "Deploy the production endpoint refactor",
+      reply: "Shipped /src/handler.ts",
+      producer: "shuri",
+      // inspector did not flag placeholders for code (placeholdersFound undefined)
+      evidence: { reviewerSignedOff: true, reviewedBy: "triage" },
+    });
+    expect(result.deliverableClass).toBe("code");
+    expect(result.stakes).toBe("S2");
+    expect(result.verdict).toBe("pass");
   });
 
   it("PASSES low-stakes internal scratch", () => {
