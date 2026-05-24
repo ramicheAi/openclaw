@@ -113,3 +113,27 @@ export function recordGateOutcome(params: {
     // Best-effort audit logging.
   }
 }
+
+export type QdpEnforceMode = "on" | "off" | "unset";
+
+/** Read the OPENCLAW_QDP_ENFORCE env into a tri-state. */
+export function qdpEnforceMode(): QdpEnforceMode {
+  const value = process.env.OPENCLAW_QDP_ENFORCE?.trim().toLowerCase();
+  if (!value) return "unset";
+  if (value === "0" || value === "false" || value === "no" || value === "off") return "off";
+  return "on";
+}
+
+/**
+ * Whether a verdict must suppress external delivery. An S3 `block` is suppressed
+ * by default (mandatory — legal/financial/safety must never auto-ship a failed
+ * artifact); lower-stakes blocks suppress only when enforcement is explicitly
+ * on. An explicit `OPENCLAW_QDP_ENFORCE=off` disables all suppression — an
+ * escape hatch for a misfiring heuristic. Pure: the caller passes the mode.
+ */
+export function shouldSuppressDelivery(result: GateResult, mode: QdpEnforceMode): boolean {
+  if (result.verdict !== "block") return false;
+  if (mode === "off") return false;
+  if (result.stakes === "S3") return true;
+  return mode === "on";
+}

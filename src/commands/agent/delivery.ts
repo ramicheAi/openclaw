@@ -1,5 +1,10 @@
 import { AGENT_LANE_NESTED } from "../../agents/lanes.js";
-import { recordGateOutcome, runQualityGate } from "../../agents/quality-gate-runtime.js";
+import {
+  qdpEnforceMode,
+  recordGateOutcome,
+  runQualityGate,
+  shouldSuppressDelivery,
+} from "../../agents/quality-gate-runtime.js";
 import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.js";
 import { createOutboundSendDeps, type CliDeps } from "../../cli/outbound-send-deps.js";
 import type { OpenClawConfig } from "../../config/config.js";
@@ -25,12 +30,6 @@ type RunResult = Awaited<
 >;
 
 const NESTED_LOG_PREFIX = "[agent:nested]";
-
-/** Opt-in: when set, a QDP `block` verdict suppresses external delivery (QDP-5). */
-function isQdpEnforcementEnabled(): boolean {
-  const value = process.env.OPENCLAW_QDP_ENFORCE?.trim().toLowerCase();
-  return value === "1" || value === "true" || value === "yes" || value === "on";
-}
 
 function formatNestedLogPrefix(opts: AgentCommandOpts): string {
   const parts = [NESTED_LOG_PREFIX];
@@ -162,9 +161,10 @@ export async function deliverAgentCommandResult(params: {
       // QDP: gate the main agent's OWN self-produced deliverable before it
       // reaches an external channel — the exact path the off-brand-pitch
       // incident fell through (the subagent gate never sees direct replies).
-      // Coverage (evaluate + record) is always on; hard suppression is opt-in
-      // via OPENCLAW_QDP_ENFORCE so we never silently drop an operator reply by
-      // default. Nested-lane (subagent) deliveries are already gated upstream.
+      // Coverage (evaluate + record) is always on. Suppression: an S3 block is
+      // held by default (mandatory); lower-stakes blocks are held only when
+      // OPENCLAW_QDP_ENFORCE is on; =off disables all suppression. Nested-lane
+      // (subagent) deliveries are already gated upstream.
       let qdpBlocked = false;
       if (opts.lane !== AGENT_LANE_NESTED) {
         const replyText = deliveryPayloads
@@ -180,11 +180,13 @@ export async function deliverAgentCommandResult(params: {
           if (result.verdict !== "pass") {
             recordGateOutcome({ result, origin: "self", producer: opts.agentId });
           }
-          if (result.verdict === "block" && isQdpEnforcementEnabled()) {
+          if (shouldSuppressDelivery(result, qdpEnforceMode())) {
             qdpBlocked = true;
+            const mandatory = result.stakes === "S3";
             const message =
-              `QDP blocked a self-produced ${result.deliverableClass} at ${result.stakes}; ` +
-              `delivery to ${deliveryChannel} suppressed (OPENCLAW_QDP_ENFORCE). ` +
+              `QDP ${mandatory ? "mandatorily " : ""}suppressed a self-produced ` +
+              `${result.deliverableClass} at ${result.stakes} (verdict=block); delivery to ` +
+              `${deliveryChannel} held${mandatory ? " (S3 always)" : " (OPENCLAW_QDP_ENFORCE)"}. ` +
               `Reasons: ${result.reasons.join("; ")}`;
             runtime.error?.(message);
             if (!runtime.error) runtime.log(message);
