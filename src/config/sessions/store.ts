@@ -174,6 +174,37 @@ export function readSessionUpdatedAt(params: {
   }
 }
 
+// `skillsSnapshot.prompt` (full rendered skills text) and
+// `skillsSnapshot.resolvedSkills` (full skill objects) are large and fully
+// regenerable from the workspace. Persisting them inline bloated
+// sessions.json to ~89MB in production (429 entries × ~190KB), which made
+// every message handler time out acquiring the store lock. We keep only the
+// lightweight identity fields on disk; the prompt is rebuilt on load when
+// absent (see ensureSkillSnapshot in auto-reply/reply/session-updates.ts).
+function toPersistableStore(
+  store: Record<string, SessionEntry>,
+): Record<string, SessionEntry> {
+  let cloned: Record<string, SessionEntry> | null = null;
+  for (const [key, entry] of Object.entries(store)) {
+    const snapshot = entry?.skillsSnapshot;
+    const isHeavy = !!snapshot && (!!snapshot.prompt || (snapshot.resolvedSkills?.length ?? 0) > 0);
+    if (!isHeavy) {
+      if (cloned) cloned[key] = entry;
+      continue;
+    }
+    if (!cloned) cloned = { ...store };
+    cloned[key] = {
+      ...entry,
+      // Persist an empty prompt (not the rendered text) and drop resolvedSkills.
+      // SkillSnapshot.prompt is a required string, so we keep the field but
+      // empty it; the empty prompt is what ensureSkillSnapshot uses to detect a
+      // disk-loaded snapshot and rebuild from the workspace.
+      skillsSnapshot: { prompt: "", skills: snapshot.skills, version: snapshot.version },
+    };
+  }
+  return cloned ?? store;
+}
+
 async function saveSessionStoreUnlocked(
   storePath: string,
   store: Record<string, SessionEntry>,
@@ -184,7 +215,7 @@ async function saveSessionStoreUnlocked(
   normalizeSessionStore(store);
 
   await fs.promises.mkdir(path.dirname(storePath), { recursive: true });
-  const json = JSON.stringify(store, null, 2);
+  const json = JSON.stringify(toPersistableStore(store), null, 2);
 
   // Windows: avoid atomic rename swaps (can be flaky under concurrent access).
   // We serialize writers via the session-store lock instead.

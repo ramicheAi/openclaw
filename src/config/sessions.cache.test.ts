@@ -102,6 +102,42 @@ describe("Session Store Cache", () => {
     expect(loaded2["session:1"].skillsSnapshot?.skills?.[0]?.name).toBe("alpha");
   });
 
+  it("strips heavy skillsSnapshot fields (prompt, resolvedSkills) from disk", async () => {
+    const bigPrompt = "x".repeat(200_000);
+    const testStore: Record<string, SessionEntry> = {
+      "session:1": {
+        sessionId: "id-1",
+        updatedAt: Date.now(),
+        skillsSnapshot: {
+          prompt: bigPrompt,
+          skills: [{ name: "alpha", primaryEnv: "node" }],
+          resolvedSkills: [{ name: "alpha" } as never],
+          version: 7,
+        },
+      },
+    };
+
+    await saveSessionStore(storePath, testStore);
+
+    // On disk: heavy fields gone, lightweight identity kept.
+    const raw = fs.readFileSync(storePath, "utf-8");
+    expect(raw).not.toContain(bigPrompt);
+    expect(fs.statSync(storePath).size).toBeLessThan(2_000);
+
+    const loaded = loadSessionStore(storePath);
+    // prompt is emptied (not the rendered text) and resolvedSkills dropped;
+    // the empty prompt is what triggers a rebuild on next use.
+    expect(loaded["session:1"].skillsSnapshot?.prompt ?? "").toBe("");
+    expect(loaded["session:1"].skillsSnapshot?.resolvedSkills).toBeUndefined();
+    expect(loaded["session:1"].skillsSnapshot?.skills?.[0]?.name).toBe("alpha");
+    expect(loaded["session:1"].skillsSnapshot?.version).toBe(7);
+
+    // The in-memory object passed to saveSessionStore must NOT be mutated —
+    // the running process still needs the full prompt for the current turn.
+    expect(testStore["session:1"].skillsSnapshot?.prompt).toBe(bigPrompt);
+    expect(testStore["session:1"].skillsSnapshot?.resolvedSkills).toHaveLength(1);
+  });
+
   it("should refresh cache when store file changes on disk", async () => {
     const testStore: Record<string, SessionEntry> = {
       "session:1": {

@@ -157,8 +157,15 @@ export async function ensureSkillSnapshot(params: {
   const remoteEligibility = getRemoteSkillEligibility();
   const snapshotVersion = getSkillsSnapshotVersion(workspaceDir);
   ensureSkillsWatcher({ workspaceDir, config: cfg });
+  // A persisted snapshot loaded from disk no longer carries `prompt` (it is
+  // stripped on write to keep sessions.json small). Treat a prompt-less
+  // snapshot as stale so the prompt is rebuilt from the workspace instead of
+  // injecting empty skills.
+  const persistedSnapshotMissingPrompt =
+    !!nextEntry?.skillsSnapshot && !nextEntry.skillsSnapshot.prompt?.trim();
   const shouldRefreshSnapshot =
-    snapshotVersion > 0 && (nextEntry?.skillsSnapshot?.version ?? 0) < snapshotVersion;
+    (snapshotVersion > 0 && (nextEntry?.skillsSnapshot?.version ?? 0) < snapshotVersion) ||
+    persistedSnapshotMissingPrompt;
 
   if (isFirstTurnInSession && sessionStore && sessionKey) {
     const current = nextEntry ??
