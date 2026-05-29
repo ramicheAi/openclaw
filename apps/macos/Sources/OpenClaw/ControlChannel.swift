@@ -60,15 +60,18 @@ final class ControlChannel {
             switch self.state {
             case .connected:
                 self.logger.info("control channel state -> connected")
+                self.stopDegradedWatchdog()
             case .connecting:
                 self.logger.info("control channel state -> connecting")
             case .disconnected:
                 self.logger.info("control channel state -> disconnected")
                 self.scheduleRecovery(reason: "disconnected")
+                self.startDegradedWatchdog()
             case let .degraded(message):
                 let detail = message.isEmpty ? "degraded" : "degraded: \(message)"
                 self.logger.info("control channel state -> \(detail, privacy: .public)")
                 self.scheduleRecovery(reason: message)
+                self.startDegradedWatchdog()
             }
         }
     }
@@ -81,6 +84,14 @@ final class ControlChannel {
     private var eventTask: Task<Void, Never>?
     private var recoveryTask: Task<Void, Never>?
     private var lastRecoveryAt: Date?
+    // Re-arms recovery while the channel is .degraded or .disconnected. Without
+    // this, a recovery attempt that finished without flipping state (e.g.
+    // gateway briefly up then down again) leaves no scheduled retry — state
+    // didSet only fires on a *change*. This watchdog kicks scheduleRecovery
+    // every 30s as long as we're not connected, so an outage that outlasts the
+    // single in-flight recovery still self-heals once the gateway is back.
+    private var degradedWatchdog: Task<Void, Never>?
+    private let degradedWatchdogIntervalSeconds: UInt64 = 30
 
     private init() {
         self.startEventStream()
@@ -248,6 +259,28 @@ final class ControlChannel {
         let trimmed = detail.trimmingCharacters(in: .whitespacesAndNewlines)
         if trimmed.lowercased().hasPrefix("gateway error:") { return trimmed }
         return "Gateway error: \(trimmed)"
+    }
+
+    private func startDegradedWatchdog() {
+        guard self.degradedWatchdog == nil else { return }
+        let intervalNs = self.degradedWatchdogIntervalSeconds * 1_000_000_000
+        self.degradedWatchdog = Task { [weak self] in
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: intervalNs)
+                guard let self else { return }
+                // Only the connected state should silence the watchdog. Anything
+                // else means we still owe the operator a working channel and
+                // must keep trying — the throttle in scheduleRecovery keeps
+                // this from busy-looping.
+                if case .connected = self.state { return }
+                self.scheduleRecovery(reason: "degraded-watchdog")
+            }
+        }
+    }
+
+    private func stopDegradedWatchdog() {
+        self.degradedWatchdog?.cancel()
+        self.degradedWatchdog = nil
     }
 
     private func scheduleRecovery(reason: String) {
