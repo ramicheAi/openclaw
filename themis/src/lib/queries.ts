@@ -15,6 +15,7 @@ export const qk = {
   chat: (id: string) => ["matter", id, "chat"] as const,
   audit: (id: string) => ["matter", id, "audit"] as const,
   binders: (id: string) => ["matter", id, "binders"] as const,
+  chains: (id: string) => ["matter", id, "chains"] as const,
 };
 
 export function useMatters() {
@@ -169,5 +170,58 @@ export function useReorderBinder(id: string) {
     mutationFn: ({ binderId, order }: { binderId: string; order: string[] }) =>
       api.reorderBinder(id, binderId, order),
     onSuccess: () => invalidateBinders(qc, id),
+  });
+}
+
+// --- Per-doc review state ---
+
+export function useSetDocReview(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ docId, patch }: { docId: string; patch: { hot?: boolean; reviewed?: boolean } }) =>
+      api.setDocReview(id, docId, patch),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.documents(id) });
+      qc.invalidateQueries({ queryKey: qk.matter(id) });
+      qc.invalidateQueries({ queryKey: qk.matters });
+      qc.invalidateQueries({ queryKey: qk.audit(id) });
+    },
+  });
+}
+
+// --- Causal chains ---
+
+export function useCausalChains(id: string) {
+  return useQuery({ queryKey: qk.chains(id), queryFn: () => api.listChains(id) });
+}
+
+function invalidateChains(qc: ReturnType<typeof useQueryClient>, id: string) {
+  qc.invalidateQueries({ queryKey: qk.chains(id) });
+  qc.invalidateQueries({ queryKey: qk.audit(id) });
+}
+
+export function useCreateChain(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ name, nodes }: { name: string; nodes: import("../types").CausalChainNode[] }) =>
+      api.createChain(id, name, nodes),
+    onSuccess: () => invalidateChains(qc, id),
+  });
+}
+
+export function useUpdateChain(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ chainId, patch }: { chainId: string; patch: { name?: string; nodes?: import("../types").CausalChainNode[] } }) =>
+      api.updateChain(id, chainId, patch),
+    onSuccess: () => invalidateChains(qc, id),
+  });
+}
+
+export function useDeleteChain(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (chainId: string) => api.deleteChain(id, chainId),
+    onSuccess: () => invalidateChains(qc, id),
   });
 }

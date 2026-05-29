@@ -62,7 +62,12 @@ CREATE TABLE IF NOT EXISTS documents (
   ocr_confidence  TEXT NOT NULL DEFAULT 'high',
   body            TEXT NOT NULL DEFAULT '',
   pages           INTEGER NOT NULL DEFAULT 1,
-  sort_order      INTEGER NOT NULL DEFAULT 0
+  sort_order      INTEGER NOT NULL DEFAULT 0,
+  reviewed        INTEGER NOT NULL DEFAULT 0,
+  reviewed_by     TEXT,
+  reviewed_at     TEXT,
+  hot_set_by      TEXT,
+  hot_set_at      TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_documents_matter ON documents(matter_id);
 CREATE INDEX IF NOT EXISTS idx_documents_bates ON documents(matter_id, bates);
@@ -104,6 +109,16 @@ CREATE TABLE IF NOT EXISTS chat_messages (
   created_at     TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_chat_matter ON chat_messages(matter_id, created_at);
+
+CREATE TABLE IF NOT EXISTS causal_chains (
+  id         TEXT PRIMARY KEY,
+  matter_id  TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,
+  name       TEXT NOT NULL,
+  json_nodes TEXT NOT NULL DEFAULT '[]',
+  created_by TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_causal_matter ON causal_chains(matter_id);
 
 CREATE TABLE IF NOT EXISTS binders (
   id         TEXT PRIMARY KEY,

@@ -91,7 +91,33 @@ export function rowToDoc(d: Row): DocItem {
     ocrConfidence: d.ocr_confidence as Confidence,
     body: d.body as string,
     pages: d.pages as number,
+    reviewed: !!d.reviewed,
+    reviewedBy: (d.reviewed_by as string | null) ?? undefined,
+    reviewedAt: (d.reviewed_at as string | null) ?? undefined,
   };
+}
+
+export function setDocReview(
+  db: DB,
+  matterId: string,
+  docId: string,
+  patch: { hot?: boolean; reviewed?: boolean },
+  actor: string,
+): DocItem | null {
+  const exists = !!db.prepare(`SELECT 1 FROM documents WHERE matter_id = ? AND id = ?`).get(matterId, docId);
+  if (!exists) return null;
+  const now = new Date().toISOString();
+  if (typeof patch.hot === "boolean") {
+    db.prepare(
+      `UPDATE documents SET hot = ?, hot_set_by = ?, hot_set_at = ? WHERE matter_id = ? AND id = ?`,
+    ).run(patch.hot ? 1 : 0, patch.hot ? actor : null, patch.hot ? now : null, matterId, docId);
+  }
+  if (typeof patch.reviewed === "boolean") {
+    db.prepare(
+      `UPDATE documents SET reviewed = ?, reviewed_by = ?, reviewed_at = ? WHERE matter_id = ? AND id = ?`,
+    ).run(patch.reviewed ? 1 : 0, patch.reviewed ? actor : null, patch.reviewed ? now : null, matterId, docId);
+  }
+  return getDocument(db, matterId, docId);
 }
 
 export function listDocuments(db: DB, matterId: string): DocItem[] {
@@ -359,4 +385,67 @@ export function renameBinderItem(
   if (!binder) return null;
   db.prepare(`UPDATE binder_items SET label = ? WHERE binder_id = ? AND id = ?`).run(label, binderId, itemId);
   return getBinder(db, matterId, binderId);
+}
+
+// --- Causal chains ---
+import type { CausalChain, CausalChainNode } from "./types.js";
+
+function rowToChain(r: Row): CausalChain {
+  return {
+    id: r.id as string,
+    matterId: r.matter_id as string,
+    name: r.name as string,
+    nodes: jsonOut(r.json_nodes, [] as CausalChainNode[]),
+    createdBy: r.created_by as string,
+    createdAt: r.created_at as string,
+  };
+}
+
+export function listCausalChains(db: DB, matterId: string): CausalChain[] {
+  const rows = db
+    .prepare(`SELECT * FROM causal_chains WHERE matter_id = ? ORDER BY created_at`)
+    .all(matterId) as Row[];
+  return rows.map(rowToChain);
+}
+
+export function getCausalChain(db: DB, matterId: string, chainId: string): CausalChain | null {
+  const row = db
+    .prepare(`SELECT * FROM causal_chains WHERE matter_id = ? AND id = ?`)
+    .get(matterId, chainId) as Row | undefined;
+  return row ? rowToChain(row) : null;
+}
+
+export function createCausalChain(
+  db: DB,
+  matterId: string,
+  name: string,
+  nodes: CausalChainNode[],
+  actor: string,
+): CausalChain {
+  const id = randomUUID();
+  db.prepare(
+    `INSERT INTO causal_chains (id, matter_id, name, json_nodes, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?)`,
+  ).run(id, matterId, name, jsonIn(nodes), actor, new Date().toISOString());
+  return getCausalChain(db, matterId, id)!;
+}
+
+export function updateCausalChain(
+  db: DB,
+  matterId: string,
+  chainId: string,
+  patch: { name?: string; nodes?: CausalChainNode[] },
+): CausalChain | null {
+  const existing = getCausalChain(db, matterId, chainId);
+  if (!existing) return null;
+  db.prepare(`UPDATE causal_chains SET name = ?, json_nodes = ? WHERE matter_id = ? AND id = ?`).run(
+    patch.name ?? existing.name,
+    jsonIn(patch.nodes ?? existing.nodes),
+    matterId,
+    chainId,
+  );
+  return getCausalChain(db, matterId, chainId);
+}
+
+export function deleteCausalChain(db: DB, matterId: string, chainId: string): boolean {
+  return db.prepare(`DELETE FROM causal_chains WHERE matter_id = ? AND id = ?`).run(matterId, chainId).changes > 0;
 }

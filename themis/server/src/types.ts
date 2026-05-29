@@ -70,6 +70,23 @@ export interface DocItem {
   ocrConfidence: Confidence;
   body: string;
   pages: number;
+  reviewed?: boolean;
+  reviewedBy?: string;
+  reviewedAt?: string;
+}
+
+export interface CausalChainNode {
+  kind: "event" | "doc" | "entity";
+  id: string;
+}
+
+export interface CausalChain {
+  id: string;
+  matterId: string;
+  name: string;
+  nodes: CausalChainNode[];
+  createdBy: string;
+  createdAt: string;
 }
 
 export interface SearchHit {

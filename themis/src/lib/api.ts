@@ -5,6 +5,8 @@
 import type {
   AuditEntry,
   Binder,
+  CausalChain,
+  CausalChainNode,
   ChatTurn,
   ChronEvent,
   DocItem,
@@ -134,4 +136,32 @@ export const api = {
 
   removeBinderItem: (id: string, binderId: string, itemId: string) =>
     request<Binder>(`/api/matters/${id}/binders/${binderId}/items/${itemId}`, { method: "DELETE" }),
+
+  // --- Per-doc review state ---
+
+  setDocReview: (id: string, docId: string, patch: { hot?: boolean; reviewed?: boolean }) =>
+    request<DocItem>(`/api/matters/${id}/documents/${docId}/review`, {
+      method: "PATCH",
+      body: JSON.stringify(patch),
+    }),
+
+  // --- Causal chains ---
+
+  listChains: (id: string) =>
+    request<{ chains: CausalChain[] }>(`/api/matters/${id}/chains`).then((r) => r.chains),
+
+  createChain: (id: string, name: string, nodes: CausalChainNode[]) =>
+    request<CausalChain>(`/api/matters/${id}/chains`, {
+      method: "POST",
+      body: JSON.stringify({ name, nodes }),
+    }),
+
+  updateChain: (id: string, chainId: string, patch: { name?: string; nodes?: CausalChainNode[] }) =>
+    request<CausalChain>(`/api/matters/${id}/chains/${chainId}`, {
+      method: "PATCH",
+      body: JSON.stringify(patch),
+    }),
+
+  deleteChain: (id: string, chainId: string) =>
+    request<{ ok: boolean }>(`/api/matters/${id}/chains/${chainId}`, { method: "DELETE" }),
 };

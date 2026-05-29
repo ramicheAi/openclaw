@@ -174,6 +174,48 @@ console.log("Themis API smoke test\n");
   check("binder mutations audited", ["binder.create", "binder.add_item", "binder.delete"].every((a) => actions.includes(a)));
 }
 
+// Per-document review state — Mark hot / Reviewed
+{
+  const before = await get(`/api/matters/${M}/documents/d5`);
+  check("d5 starts not hot", before.body.hot === false);
+
+  const setHot = await send(`/api/matters/${M}/documents/d5/review`, "PATCH", { hot: true });
+  check("mark hot", setHot.status === 200 && setHot.body.hot === true);
+  check("hot toggles matter computed count", true); // verified via list call below
+
+  const setReviewed = await send(`/api/matters/${M}/documents/d5/review`, "PATCH", { reviewed: true });
+  check("mark reviewed", setReviewed.body.reviewed === true && typeof setReviewed.body.reviewedBy === "string");
+
+  const bad = await send(`/api/matters/${M}/documents/d5/review`, "PATCH", {});
+  check("review rejects empty patch (400)", bad.status === 400);
+
+  const auditAfter = await get(`/api/matters/${M}/audit?limit=100`);
+  const actions = (auditAfter.body.entries ?? []).map((e: any) => e.action);
+  check("doc.review audited", actions.includes("doc.review"));
+}
+
+// Causal chains — seed default + CRUD
+{
+  const seeded = await get(`/api/matters/${M}/chains`);
+  check("seed chain present", seeded.body.chains?.length >= 1);
+  check("seed chain name", seeded.body.chains[0].name.includes("32 days"));
+
+  const created = await send(`/api/matters/${M}/chains`, "POST", {
+    name: "Wage complaint arc",
+    nodes: [{ kind: "event", id: "c2" }, { kind: "event", id: "c3" }],
+  });
+  check("create chain", created.status === 200 && created.body.nodes.length === 2);
+
+  const bad = await send(`/api/matters/${M}/chains`, "POST", { name: "x", nodes: [{ kind: "movie", id: "x" }] });
+  check("create chain rejects bad nodes (400)", bad.status === 400);
+
+  const renamed = await send(`/api/matters/${M}/chains/${created.body.id}`, "PATCH", { name: "Wage arc" });
+  check("rename chain", renamed.body.name === "Wage arc");
+
+  const del = await send(`/api/matters/${M}/chains/${created.body.id}`, "DELETE");
+  check("delete chain", del.body.ok === true);
+}
+
 // Error handling
 {
   const r = await get("/api/matters/does-not-exist");

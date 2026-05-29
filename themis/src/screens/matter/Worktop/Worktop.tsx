@@ -1,7 +1,10 @@
 // Worktop — the 3-pane daily work surface. Per design handoff §3 + §5.2–5.4.
 
+import { useState } from "react";
 import { useMatter, useEntities, useChronology, usePrivilegeQueue, useAudit } from "../../../lib/queries";
 import { exportLockForMatter } from "../../../lib/exports";
+import { EntityDossier } from "./EntityDossier";
+import type { Entity } from "../../../types";
 import type { WorktopTab, AppMode } from "../../../lib/router";
 import { CaseSnapshotCard } from "./cards/CaseSnapshotCard";
 import { CastCard } from "./cards/CastCard";
@@ -35,6 +38,8 @@ export function Worktop({
   const { data: priv } = usePrivilegeQueue(matterId);
   const { data: audit } = useAudit(matterId, 10);
 
+  const [dossier, setDossier] = useState<Entity | null>(null);
+
   if (!matter) return <LoadingFrame />;
 
   const tasks = buildTaskQueue(chron ?? [], priv ?? []);
@@ -44,14 +49,14 @@ export function Worktop({
 
   return (
     <div
-      className="grid min-h-0 flex-1"
+      className="relative grid min-h-0 flex-1"
       style={{ gridTemplateColumns: "340px minmax(0, 1fr) 320px" }}
     >
       {/* Left rail */}
       <aside className="flex min-h-0 flex-col gap-3 overflow-y-auto border-r border-line bg-paper px-3 py-3">
         <CompactBrainCard matter={matter} onOpen={() => onMode("brain")} />
         <CaseSnapshotCard matter={matter} />
-        <CastCard entities={entities ?? []} />
+        <CastCard entities={entities ?? []} onSelect={setDossier} />
       </aside>
 
       {/* Center column */}
@@ -97,6 +102,8 @@ export function Worktop({
         <ScalesMini events={chron ?? []} />
         <AuditTrailCard entries={audit ?? []} />
       </aside>
+
+      <EntityDossier entity={dossier} onClose={() => setDossier(null)} />
     </div>
   );
 }

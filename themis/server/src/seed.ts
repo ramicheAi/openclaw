@@ -161,6 +161,25 @@ export function seed(db: DB, { reset = false }: { reset?: boolean } = {}): void 
       });
     });
 
+    // Default causal chain for Reyes (the 32-day retaliation arc).
+    db.prepare(
+      `INSERT INTO causal_chains (id, matter_id, name, json_nodes, created_by, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+    ).run(
+      "reyes-retaliation",
+      "reyes-northwind",
+      "Retaliation: 32 days from complaint to termination",
+      jsonIn([
+        { kind: "event", id: "c2" },
+        { kind: "event", id: "c3" },
+        { kind: "event", id: "c4" },
+        { kind: "event", id: "c5" },
+        { kind: "event", id: "c6" },
+      ]),
+      "themis",
+      new Date(base + 7000_000).toISOString(),
+    );
+
     // A few historical audit entries for the lead matter so the trail isn't empty.
     const reyes = "reyes-northwind";
     const seedAudit: [string, string, string][] = [

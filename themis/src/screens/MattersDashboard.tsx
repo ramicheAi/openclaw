@@ -1,6 +1,7 @@
 import { ArrowRight, FileStack, Files, Plus, ShieldAlert, TriangleAlert } from "lucide-react";
 import { useMatters } from "../lib/queries";
 import { Card, cx, Pill } from "../lib/ui";
+import { DashboardEmpty, FirstRunSplash } from "./States";
 import type { MatterSummary } from "../types";
 
 function fmt(n: number) {
@@ -103,6 +104,16 @@ export function MattersDashboard({ onOpen }: { onOpen: (id: string) => void }) {
   const { data: matters, isLoading } = useMatters();
   const list = matters ?? [];
   const totalPages = list.reduce((s, m) => s + m.pages, 0);
+
+  // Cold-start splash on the very first run (server unreachable / 0 matters)
+  // vs. the polished dashboard-empty when we know the list is genuinely empty.
+  if (!isLoading && list.length === 0 && totalPages === 0 && !matters) {
+    return <FirstRunSplash />;
+  }
+  if (!isLoading && list.length === 0) {
+    return <DashboardEmpty />;
+  }
+
   return (
     <div className="flex h-full flex-col overflow-y-auto">
       <header className="flex items-center justify-between gap-4 border-b border-line bg-surface px-8 py-5">

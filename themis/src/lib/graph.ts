@@ -26,6 +26,8 @@ export interface GraphNode {
   // mutable runtime (set by react-force-graph)
   x?: number;
   y?: number;
+  // ingest assembly reveal timestamp (ms)
+  revealAt?: number;
 }
 
 export interface GraphLink {
@@ -40,15 +42,65 @@ export interface GraphData {
   links: GraphLink[];
 }
 
-// The Reyes causal chain — the 5-node retaliation arc per design handoff §5.5.
-// Other matters won't have this; the Brain mode shows nothing if empty.
-const CAUSAL_CHAIN_BY_MATTER: Record<string, string[]> = {
-  "reyes-northwind": ["c2", "c3", "c4", "c5", "c6"],
+// --- Ingest assembly timing (per design handoff §5.5a) ---
+// Stage progression: 0→1800ms upload, →2800 OCR, →3600 Bates, →4600 dedup,
+// →6800 extract, →8200 privilege, →∞ settled.
+// We bucket nodes by kind into these stages and stagger within the stage.
+const STAGE = {
+  uploadStart: 0,
+  uploadEnd: 1800,
+  ocrEnd: 2800,
+  batesEnd: 3600,
+  dedupEnd: 4600,
+  extractEnd: 6800,
+  privilegeEnd: 8200,
 };
 
-export function causalChainFor(matterId: string): string[] {
-  return CAUSAL_CHAIN_BY_MATTER[matterId] ?? [];
+function revealForNode(n: GraphNode, perKindIdx: Record<NodeKind, number>): number {
+  switch (n.kind) {
+    case "doc": {
+      // Docs stream in during upload-OCR. Privileged retreat in the privilege stage.
+      const i = perKindIdx.doc++;
+      if (n.privileged) return STAGE.dedupEnd + ((STAGE.privilegeEnd - STAGE.dedupEnd) * 0.3);
+      return STAGE.uploadStart + (i * 90) % (STAGE.ocrEnd - STAGE.uploadStart);
+    }
+    case "entity": {
+      const i = perKindIdx.entity++;
+      return STAGE.dedupEnd + (i * 180);
+    }
+    case "event": {
+      const i = perKindIdx.event++;
+      return STAGE.dedupEnd + (i * 220);
+    }
+    case "claim":
+    case "defense": {
+      const i = perKindIdx[n.kind]++;
+      return STAGE.extractEnd + (i * 250);
+    }
+  }
 }
+
+export function annotateRevealTiming(data: GraphData): GraphData {
+  const perKindIdx: Record<NodeKind, number> = { doc: 0, entity: 0, event: 0, claim: 0, defense: 0 };
+  const nodes = data.nodes.map((n) => ({ ...n, revealAt: revealForNode(n, perKindIdx) }));
+  return { nodes, links: data.links };
+}
+
+export function filterToTick(data: GraphData, tick: number | null): GraphData {
+  if (tick === null) return data;
+  const visible = new Set(
+    data.nodes.filter((n) => (n.revealAt ?? 0) <= tick).map((n) => n.id),
+  );
+  const nodes = data.nodes.filter((n) => visible.has(n.id));
+  const links = data.links.filter((l) => {
+    const s = typeof l.source === "string" ? l.source : (l.source as { id: string }).id;
+    const t = typeof l.target === "string" ? l.target : (l.target as { id: string }).id;
+    return visible.has(s) && visible.has(t);
+  });
+  return { nodes, links };
+}
+
+export const ASSEMBLY_DURATION_MS = 9000;
 
 export function buildGraph(
   matter: MatterDetail,

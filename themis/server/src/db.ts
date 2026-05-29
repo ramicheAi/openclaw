@@ -17,9 +17,29 @@ export function getDb(): DB {
   db.pragma("journal_mode = WAL");
   db.pragma("foreign_keys = ON");
   db.exec(SCHEMA);
+  migrate(db);
 
   instance = db;
   return db;
+}
+
+// Lightweight idempotent migrations for columns added after the first release.
+// SQLite ALTER TABLE ADD COLUMN throws if it already exists — swallow.
+function migrate(db: DB) {
+  const adds = [
+    `ALTER TABLE documents ADD COLUMN reviewed INTEGER NOT NULL DEFAULT 0`,
+    `ALTER TABLE documents ADD COLUMN reviewed_by TEXT`,
+    `ALTER TABLE documents ADD COLUMN reviewed_at TEXT`,
+    `ALTER TABLE documents ADD COLUMN hot_set_by TEXT`,
+    `ALTER TABLE documents ADD COLUMN hot_set_at TEXT`,
+  ];
+  for (const sql of adds) {
+    try {
+      db.exec(sql);
+    } catch {
+      // already exists
+    }
+  }
 }
 
 // JSON column helpers — encode/decode the `json_*` text columns.

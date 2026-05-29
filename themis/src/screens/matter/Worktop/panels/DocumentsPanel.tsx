@@ -1,15 +1,23 @@
 import { useMemo, useState } from "react";
 import { CitationChip, HotTag, PrivilegePill, cx } from "../../../../lib/ui";
-import { IconCopy, IconAdd, IconHot, IconReplay, IconSearch } from "../../../../icons";
-import { useDocuments } from "../../../../lib/queries";
+import { IconCopy, IconAdd, IconHot, IconVerified, IconSearch } from "../../../../icons";
+import { useDocuments, useSetDocReview } from "../../../../lib/queries";
 import type { DocItem } from "../../../../types";
 import { PanelHead } from "./PanelHead";
 
 export function DocumentsPanel({ matterId }: { matterId: string }) {
   const { data: docs } = useDocuments(matterId);
+  const review = useSetDocReview(matterId);
   const [filter, setFilter] = useState("");
   const [selA, setSelA] = useState<string | null>(null);
   const [selB, setSelB] = useState<string | null>(null);
+
+  function toggleHot(d: DocItem) {
+    review.mutate({ docId: d.id, patch: { hot: !d.hot } });
+  }
+  function toggleReviewed(d: DocItem) {
+    review.mutate({ docId: d.id, patch: { reviewed: !d.reviewed } });
+  }
 
   const list = docs ?? [];
   const filtered = useMemo(() => {
@@ -77,6 +85,11 @@ export function DocumentsPanel({ matterId }: { matterId: string }) {
                       </span>
                       {d.hot && <HotMini />}
                       <PrivilegePill status={d.privilege} />
+                      {d.reviewed && (
+                        <span className="inline-flex items-center gap-0.5 rounded border border-verify/30 bg-verify-wash px-1 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider text-verify">
+                          <IconVerified size={10} /> rev
+                        </span>
+                      )}
                       <span className="ml-auto font-mono text-[10px] text-ink-faint">{d.date}</span>
                     </div>
                     <div className="line-clamp-1 text-[12.5px] font-medium text-ink">{d.title}</div>
@@ -94,8 +107,8 @@ export function DocumentsPanel({ matterId }: { matterId: string }) {
             </div>
           ) : (
             <div className={cx("grid gap-5", docB && "grid-cols-2")}>
-              <DocView doc={docA} side="A" />
-              {docB && <DocView doc={docB} side="B" />}
+              <DocView doc={docA} side="A" onToggleHot={() => toggleHot(docA)} onToggleReviewed={() => toggleReviewed(docA)} />
+              {docB && <DocView doc={docB} side="B" onToggleHot={() => toggleHot(docB)} onToggleReviewed={() => toggleReviewed(docB)} />}
             </div>
           )}
         </section>
@@ -112,7 +125,17 @@ function HotMini() {
   );
 }
 
-function DocView({ doc, side }: { doc: DocItem; side: "A" | "B" }) {
+function DocView({
+  doc,
+  side,
+  onToggleHot,
+  onToggleReviewed,
+}: {
+  doc: DocItem;
+  side: "A" | "B";
+  onToggleHot: () => void;
+  onToggleReviewed: () => void;
+}) {
   const sideColor = side === "A" ? "bg-brass" : "bg-info";
   return (
     <article className="overflow-hidden rounded-lg border border-line bg-surface">
@@ -146,11 +169,34 @@ function DocView({ doc, side }: { doc: DocItem; side: "A" | "B" }) {
           )}
           <div className="border-t border-line bg-surface px-4 py-2">
             <div className="flex flex-wrap gap-1 text-[11px] text-ink-soft">
-              <ActionLink icon={<IconCopy size={12} />}>Copy Bates cite</ActionLink>
+              <ActionLink
+                icon={<IconCopy size={12} />}
+                onClick={() => navigator.clipboard?.writeText(`${doc.bates}, p.1`).catch(() => {})}
+              >
+                Copy Bates cite
+              </ActionLink>
               <ActionLink icon={<IconAdd size={12} />}>Add to binder</ActionLink>
-              <ActionLink icon={<IconHot size={12} />}>Mark hot</ActionLink>
-              <ActionLink icon={<IconReplay size={12} />}>Reviewed</ActionLink>
+              <ActionLink
+                icon={<IconHot size={12} />}
+                active={doc.hot}
+                onClick={onToggleHot}
+              >
+                {doc.hot ? "Unmark hot" : "Mark hot"}
+              </ActionLink>
+              <ActionLink
+                icon={<IconVerified size={12} />}
+                active={doc.reviewed}
+                onClick={onToggleReviewed}
+              >
+                {doc.reviewed ? "Reviewed ✓" : "Reviewed"}
+              </ActionLink>
             </div>
+            {(doc.reviewed && doc.reviewedBy) && (
+              <div className="mt-1 text-[10px] text-ink-faint">
+                Reviewed by {doc.reviewedBy}
+                {doc.reviewedAt && ` · ${new Date(doc.reviewedAt).toLocaleString()}`}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -184,10 +230,28 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-function ActionLink({ children, icon }: { children: React.ReactNode; icon: React.ReactNode }) {
+function ActionLink({
+  children,
+  icon,
+  onClick,
+  active = false,
+}: {
+  children: React.ReactNode;
+  icon: React.ReactNode;
+  onClick?: () => void;
+  active?: boolean;
+}) {
   return (
-    <button className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 hover:bg-surface-sunken hover:text-ink">
-      <span className="text-brass">{icon}</span>
+    <button
+      onClick={onClick}
+      className={cx(
+        "inline-flex items-center gap-1 rounded px-1.5 py-0.5 transition",
+        active
+          ? "bg-brass-wash text-brass-deep"
+          : "hover:bg-surface-sunken hover:text-ink",
+      )}
+    >
+      <span className={active ? "text-brass-deep" : "text-brass"}>{icon}</span>
       {children}
     </button>
   );

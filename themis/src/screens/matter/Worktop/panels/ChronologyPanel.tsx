@@ -1,7 +1,7 @@
 import { CitationChip, ConfidenceDot, cx } from "../../../../lib/ui";
 import { IconExport, IconVerified, IconClose, IconReplay, IconPrivileged } from "../../../../icons";
 import { useChronology, useMatter, useSetChronologyAccepted } from "../../../../lib/queries";
-import { exportChronologyPdf } from "../../../../lib/exports";
+import { exportChronologyDoc, exportChronologyPdf } from "../../../../lib/exports";
 import { PanelAction, PanelHead } from "./PanelHead";
 
 function dayDelta(a: string, b: string): number {
@@ -36,7 +36,10 @@ export function ChronologyPanel({
         sub="Every event is grounded in a verified citation. Accept to advance the case theory; reject to exclude."
         actions={
           <>
-            <PanelAction disabled={exportsLocked}>
+            <PanelAction
+              disabled={exportsLocked || !matter}
+              onClick={() => matter && exportChronologyDoc(matter, rows)}
+            >
               <IconExport size={13} /> Word
             </PanelAction>
             <PanelAction

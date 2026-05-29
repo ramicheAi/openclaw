@@ -1,16 +1,25 @@
 // Case Brain — cinematic mode. Per design handoff §3 + §5.5.
-// Full force-directed canvas with three layouts, particle flow on verified
-// citation edges, click-to-inspector, and the floating HUD chrome.
+// Force-directed canvas + three layouts + verified-citation particle flow,
+// named causal chains, ingest assembly replay, click-to-Inspector.
 
-import { Suspense, lazy, useState } from "react";
-import { useMatter, useChronology, useEntities, useDocuments } from "../../../lib/queries";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
+import {
+  useCausalChains,
+  useChronology,
+  useDeleteChain,
+  useDocuments,
+  useEntities,
+  useMatter,
+  useUpdateChain,
+} from "../../../lib/queries";
 import { computeScales } from "../Worktop/cards/ScalesMini";
-import { IconArc, IconPause, IconReplay } from "../../../icons";
+import { IconArc, IconClose, IconPause, IconReplay } from "../../../icons";
 import { cx } from "../../../lib/ui";
+import { ASSEMBLY_DURATION_MS } from "../../../lib/graph";
 import { Inspector } from "./Inspector";
+import type { CausalChain } from "../../../types";
 import type { GraphNode, Layout } from "../../../lib/graph";
 
-// react-force-graph-2d pulls in d3 — split it off the main bundle.
 const BrainCanvas = lazy(() =>
   import("./BrainCanvas").then((m) => ({ default: m.BrainCanvas })),
 );
@@ -20,18 +29,62 @@ export function CaseBrain({ matterId }: { matterId: string }) {
   const { data: docs } = useDocuments(matterId);
   const { data: entities } = useEntities(matterId);
   const { data: chron } = useChronology(matterId);
+  const { data: chains } = useCausalChains(matterId);
+  const updateChain = useUpdateChain(matterId);
+  const deleteChain = useDeleteChain(matterId);
   const [layout, setLayout] = useState<Layout>("force");
-  const [causalActive, setCausalActive] = useState(false);
+  const [highlightActive, setHighlightActive] = useState(false);
+  const [activeChainId, setActiveChainId] = useState<string | null>(null);
   const [inspect, setInspect] = useState<GraphNode | null>(null);
+  const [assemblyTick, setAssemblyTick] = useState<number | null>(null);
+  const tickRafRef = useRef<number | null>(null);
+  const tickStartRef = useRef<number>(0);
+
+  // Default to the first chain when available.
+  useEffect(() => {
+    if (!activeChainId && chains && chains[0]) setActiveChainId(chains[0].id);
+  }, [activeChainId, chains]);
+
+  // Ingest replay — animates assemblyTick from 0 to ASSEMBLY_DURATION_MS.
+  function startReplay() {
+    if (tickRafRef.current !== null) cancelAnimationFrame(tickRafRef.current);
+    tickStartRef.current = performance.now();
+    setAssemblyTick(0);
+    const step = () => {
+      const t = performance.now() - tickStartRef.current;
+      if (t >= ASSEMBLY_DURATION_MS) {
+        setAssemblyTick(null);
+        tickRafRef.current = null;
+        return;
+      }
+      setAssemblyTick(t);
+      tickRafRef.current = requestAnimationFrame(step);
+    };
+    tickRafRef.current = requestAnimationFrame(step);
+  }
+  function pauseReplay() {
+    if (tickRafRef.current !== null) {
+      cancelAnimationFrame(tickRafRef.current);
+      tickRafRef.current = null;
+    }
+  }
+  useEffect(() => () => pauseReplay(), []);
 
   if (!matter) return <div className="grid h-full place-items-center text-[12px] text-ink-faint">Loading…</div>;
 
   const documents = docs ?? [];
   const ents = entities ?? [];
   const events = chron ?? [];
+  const allChains = chains ?? [];
+  const activeChain = allChains.find((c) => c.id === activeChainId) ?? null;
+  const highlightNodeIds = computeChainNodeIds(activeChain);
   const hotCount = documents.filter((d) => d.hot).length;
   const flaggedCount = documents.filter((d) => d.privilege === "flagged").length;
-  const verifiedChain = events.filter((e) => e.citation.verified).length;
+  const verifiedChain = activeChain
+    ? activeChain.nodes.filter((n) =>
+        n.kind === "event" ? events.find((e) => e.id === n.id)?.citation.verified : true,
+      ).length
+    : 0;
 
   return (
     <div className="relative min-h-0 flex-1 overflow-hidden bg-[#070b13] text-[--color-ink-dark]">
@@ -45,13 +98,14 @@ export function CaseBrain({ matterId }: { matterId: string }) {
             entities={ents}
             chronology={events}
             layout={layout}
-            highlightCausal={causalActive}
+            highlightNodeIds={highlightNodeIds}
+            highlightActive={highlightActive}
+            assemblyTick={assemblyTick}
             onNodeClick={setInspect}
           />
         </Suspense>
       )}
 
-      {/* Telemetry ribbon */}
       <Telemetry
         pages={matter.pages}
         docs={matter.docs}
@@ -111,25 +165,50 @@ export function CaseBrain({ matterId }: { matterId: string }) {
         <div className="mt-3">
           <Eyebrow>Privilege wall</Eyebrow>
           <div className="mt-1 text-[11px] text-[--color-ink-soft-dark]">
-            {flaggedCount} flagged for review · withheld nodes are quarantined in the canvas.
+            {flaggedCount} flagged for review · withheld nodes are quarantined.
           </div>
         </div>
       </Console>
 
       {/* Bottom strata */}
       <div className="absolute inset-x-0 bottom-0 z-10 border-t border-white/5 bg-[rgba(13,22,34,0.66)] backdrop-blur-md">
-        <CausalChain
-          active={causalActive}
-          onToggle={() => setCausalActive((v) => !v)}
-          verifiedChain={verifiedChain}
-          matterName={matter.name}
+        <CausalChainRibbon
+          chains={allChains}
+          active={activeChain}
+          highlightActive={highlightActive}
+          onHighlightToggle={() => setHighlightActive((v) => !v)}
+          onSelectChain={(id) => {
+            setActiveChainId(id);
+            setHighlightActive(true);
+          }}
+          onRename={(name) => activeChain && updateChain.mutate({ chainId: activeChain.id, patch: { name } })}
+          onDelete={() =>
+            activeChain &&
+            window.confirm(`Delete chain "${activeChain.name}"?`) &&
+            deleteChain.mutate(activeChain.id, { onSuccess: () => setActiveChainId(null) })
+          }
+          verifiedCount={verifiedChain}
+          totalCount={activeChain?.nodes.length ?? 0}
         />
-        <FilterRibbon layout={layout} onLayout={setLayout} />
+        <FilterRibbon
+          layout={layout}
+          onLayout={setLayout}
+          replaying={assemblyTick !== null}
+          onReplay={startReplay}
+          onPause={pauseReplay}
+          tick={assemblyTick}
+        />
       </div>
 
-      {/* Inspector slide-in */}
       <Inspector node={inspect} onClose={() => setInspect(null)} />
     </div>
+  );
+}
+
+function computeChainNodeIds(chain: CausalChain | null): Set<string> {
+  if (!chain) return new Set();
+  return new Set(
+    chain.nodes.map((n) => (n.kind === "event" ? `v:${n.id}` : n.kind === "doc" ? `d:${n.id}` : `e:${n.id}`)),
   );
 }
 
@@ -222,57 +301,128 @@ function BrainScales({ events }: { events: Parameters<typeof computeScales>[0] }
   );
 }
 
-function CausalChain({
+function CausalChainRibbon({
+  chains,
   active,
-  onToggle,
-  verifiedChain,
-  matterName,
+  highlightActive,
+  onHighlightToggle,
+  onSelectChain,
+  onRename,
+  onDelete,
+  verifiedCount,
+  totalCount,
 }: {
-  active: boolean;
-  onToggle: () => void;
-  verifiedChain: number;
-  matterName: string;
+  chains: CausalChain[];
+  active: CausalChain | null;
+  highlightActive: boolean;
+  onHighlightToggle: () => void;
+  onSelectChain: (id: string) => void;
+  onRename: (name: string) => void;
+  onDelete: () => void;
+  verifiedCount: number;
+  totalCount: number;
 }) {
-  // The "32 days" overlay is the Reyes-specific story; other matters get a
-  // muted generic chain count. Could become a named-arc dropdown later.
-  const isReyes = matterName.toLowerCase().includes("reyes");
+  // Reyes default chain gets the cinematic "32" overlay.
+  const isReyesArc = active?.name.toLowerCase().includes("32 days");
   return (
     <div className="flex items-center gap-3 border-b border-white/5 px-4 py-3">
       <button
-        onClick={onToggle}
+        onClick={onHighlightToggle}
+        disabled={!active}
         className={cx(
-          "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] transition",
-          active ? "border-brass bg-brass text-[#070b13]" : "border-brass-soft/40 text-brass-soft hover:border-brass",
+          "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] transition disabled:opacity-40",
+          highlightActive && active
+            ? "border-brass bg-brass text-[#070b13]"
+            : "border-brass-soft/40 text-brass-soft hover:border-brass",
         )}
       >
         <IconArc size={13} /> Highlight causal chain
       </button>
-      {isReyes ? (
-        <>
-          <div className="font-display text-[32px] font-semibold text-brass-light">32</div>
-          <div className="text-[11px] leading-tight text-brass-soft">
-            <div className="font-mono text-[9px] uppercase tracking-[0.18em]">days · complaint → termination</div>
-            <div className="text-[--color-ink-soft-dark]">
-              Wage complaint → HR ack → first negative review → memo → termination
-            </div>
-          </div>
-        </>
+
+      {chains.length === 0 ? (
+        <div className="text-[11px] text-[--color-ink-soft-dark]">
+          No saved causal chains. Create one to bind a story to the case.
+        </div>
       ) : (
-        <div className="text-[11px] text-[--color-ink-soft-dark]">No named causal chain in this matter yet.</div>
+        <>
+          {isReyesArc && <div className="font-display text-[32px] font-semibold text-brass-light">32</div>}
+          <select
+            value={active?.id ?? ""}
+            onChange={(e) => onSelectChain(e.target.value)}
+            className="rounded border border-white/10 bg-[#070b13]/60 px-2 py-1 text-[11px] text-brass-light outline-none focus:border-brass"
+          >
+            {chains.map((c) => (
+              <option key={c.id} value={c.id} className="bg-[#0c1622] text-brass-light">
+                {c.name}
+              </option>
+            ))}
+          </select>
+          {active && (
+            <>
+              <button
+                onClick={() => {
+                  const name = window.prompt("Rename chain", active.name);
+                  if (name && name.trim()) onRename(name.trim());
+                }}
+                className="text-[10px] text-brass-soft hover:text-brass-light"
+              >
+                rename
+              </button>
+              <button
+                onClick={onDelete}
+                aria-label="Delete chain"
+                className="grid h-5 w-5 place-items-center rounded text-brass-soft/60 hover:bg-danger-wash/20 hover:text-danger"
+              >
+                <IconClose size={11} />
+              </button>
+            </>
+          )}
+        </>
       )}
+
       <div className="ml-auto rounded-full border border-verify/30 bg-verify/10 px-2 py-0.5 font-mono text-[10px] text-verify">
-        {verifiedChain}/{verifiedChain} links verified
+        {verifiedCount}/{totalCount} links verified
       </div>
     </div>
   );
 }
 
-function FilterRibbon({ layout, onLayout }: { layout: Layout; onLayout: (l: Layout) => void }) {
+function FilterRibbon({
+  layout,
+  onLayout,
+  replaying,
+  onReplay,
+  onPause,
+  tick,
+}: {
+  layout: Layout;
+  onLayout: (l: Layout) => void;
+  replaying: boolean;
+  onReplay: () => void;
+  onPause: () => void;
+  tick: number | null;
+}) {
   const layouts: { id: Layout; label: string }[] = [
     { id: "force", label: "Force" },
     { id: "orbital", label: "Orbital" },
     { id: "time", label: "Timeline" },
   ];
+  const tickLabel =
+    tick === null
+      ? "settled"
+      : tick < 1800
+        ? "upload"
+        : tick < 2800
+          ? "ocr"
+          : tick < 3600
+            ? "bates"
+            : tick < 4600
+              ? "dedup + thread"
+              : tick < 6800
+                ? "extraction"
+                : tick < 8200
+                  ? "privilege scan"
+                  : "settling";
   return (
     <div className="flex items-center gap-3 px-4 py-2 font-mono text-[10px] uppercase tracking-wider text-brass-soft">
       <span>Layout</span>
@@ -291,12 +441,18 @@ function FilterRibbon({ layout, onLayout }: { layout: Layout; onLayout: (l: Layo
         ))}
       </div>
       <span>·</span>
-      <button className="inline-flex items-center gap-1 hover:text-brass-light">
-        <IconPause size={12} /> Pause
-      </button>
-      <button className="inline-flex items-center gap-1 hover:text-brass-light">
-        <IconReplay size={12} /> Replay ingest
-      </button>
+      {replaying ? (
+        <button onClick={onPause} className="inline-flex items-center gap-1 text-brass-light">
+          <IconPause size={12} /> Pause
+        </button>
+      ) : (
+        <button onClick={onReplay} className="inline-flex items-center gap-1 hover:text-brass-light">
+          <IconReplay size={12} /> Replay ingest
+        </button>
+      )}
+      <span className="ml-2 rounded-full border border-brass-soft/30 bg-brass-soft/10 px-2 py-0.5 text-brass-light">
+        stage · {tickLabel}
+      </span>
     </div>
   );
 }

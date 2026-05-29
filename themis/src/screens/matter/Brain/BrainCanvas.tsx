@@ -6,7 +6,15 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import ForceGraph2D, { type ForceGraphMethods } from "react-force-graph-2d";
-import { applyLayout, buildGraph, causalChainFor, type GraphData, type GraphNode, type Layout } from "../../../lib/graph";
+import {
+  annotateRevealTiming,
+  applyLayout,
+  buildGraph,
+  filterToTick,
+  type GraphData,
+  type GraphNode,
+  type Layout,
+} from "../../../lib/graph";
 import type { ChronEvent, DocItem, Entity, MatterDetail } from "../../../types";
 
 // Canvas2D needs raw colors; CSS vars are inaccessible from the 2d context.
@@ -30,7 +38,9 @@ interface Props {
   entities: Entity[];
   chronology: ChronEvent[];
   layout: Layout;
-  highlightCausal: boolean;
+  highlightNodeIds: Set<string>;
+  highlightActive: boolean;
+  assemblyTick: number | null;
   onNodeClick?: (node: GraphNode) => void;
 }
 
@@ -40,7 +50,9 @@ export function BrainCanvas({
   entities,
   chronology,
   layout,
-  highlightCausal,
+  highlightNodeIds,
+  highlightActive,
+  assemblyTick,
   onNodeClick,
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -59,27 +71,25 @@ export function BrainCanvas({
     return () => ro.disconnect();
   }, []);
 
-  const baseGraph = useMemo(
-    () => buildGraph(matter, documents, entities, chronology),
+  const annotatedGraph = useMemo(
+    () => annotateRevealTiming(buildGraph(matter, documents, entities, chronology)),
     [matter, documents, entities, chronology],
   );
 
-  const data: GraphData = useMemo(
-    () => applyLayout(baseGraph, layout, size.w, size.h),
-    [baseGraph, layout, size.w, size.h],
+  const filtered = useMemo(
+    () => filterToTick(annotatedGraph, assemblyTick),
+    [annotatedGraph, assemblyTick],
   );
 
-  // Causal chain — IDs of nodes/edges to glow.
-  const causalIds = useMemo(() => {
-    const chain = causalChainFor(matter.id);
-    if (chain.length === 0) return new Set<string>();
-    return new Set(chain.map((id) => `v:${id}`));
-  }, [matter.id]);
+  const data: GraphData = useMemo(
+    () => applyLayout(filtered, layout, size.w, size.h),
+    [filtered, layout, size.w, size.h],
+  );
 
-  // Reheat sim on layout change.
+  // Reheat sim on layout change or tick change.
   useEffect(() => {
     fgRef.current?.d3ReheatSimulation();
-  }, [layout]);
+  }, [layout, assemblyTick]);
 
   return (
     <div ref={containerRef} className="absolute inset-0">
@@ -95,10 +105,10 @@ export function BrainCanvas({
         nodeRelSize={4}
         nodeCanvasObjectMode={() => "replace"}
         nodeCanvasObject={(node, ctx, scale) =>
-          drawNode(node as GraphNode, ctx, scale, causalIds, highlightCausal)
+          drawNode(node as GraphNode, ctx, scale, highlightNodeIds, highlightActive)
         }
-        linkColor={(l) => linkColor(l as { type: string; verified?: boolean; source: GraphNode; target: GraphNode }, causalIds, highlightCausal)}
-        linkWidth={(l) => linkWidth(l as { type: string; verified?: boolean; source: GraphNode; target: GraphNode }, causalIds, highlightCausal)}
+        linkColor={(l) => linkColor(l as { type: string; verified?: boolean; source: GraphNode; target: GraphNode }, highlightNodeIds, highlightActive)}
+        linkWidth={(l) => linkWidth(l as { type: string; verified?: boolean; source: GraphNode; target: GraphNode }, highlightNodeIds, highlightActive)}
         linkLineDash={(l) => linkDash(l as { type: string; verified?: boolean })}
         linkDirectionalParticles={(l) => ((l as { type: string; verified?: boolean }).type === "citation" && (l as { verified?: boolean }).verified ? 1 : 0)}
         linkDirectionalParticleSpeed={0.006}
