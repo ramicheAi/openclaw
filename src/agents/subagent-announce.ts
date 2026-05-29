@@ -22,6 +22,8 @@ import {
   normalizeDeliveryContext,
 } from "../utils/delivery-context.js";
 import { isEmbeddedPiRunActive, queueEmbeddedPiMessage } from "./pi-embedded.js";
+import { classifyDeliverable } from "./quality-delegation-gate.js";
+import { recordGateOutcome, runQualityGate } from "./quality-gate-runtime.js";
 import { type AnnounceQueueItem, enqueueAnnounce } from "./subagent-announce-queue.js";
 import { readLatestAssistantReply } from "./tools/agent-step.js";
 import { notifySubscription } from "./tools/subscribe-tool.js";
@@ -248,6 +250,27 @@ async function buildSubagentStatsLine(params: {
   return `Stats: ${parts.join(" \u2022 ")}`;
 }
 
+const BRAND_KIT_PATH = path.join(
+  process.env.HOME ?? "/Users/admin",
+  ".openclaw/workspace/brand/brand-kit.md",
+);
+
+/**
+ * Load the versioned brand kit (logo paths, palette, type, voice) if present.
+ * QDP-1: a creative/comms producer cannot be on-brand without the brand kit in
+ * context — this is the cheapest, hardest-to-game fix for the off-brand
+ * incident. Returns undefined when the workspace has no brand kit yet (graceful
+ * degradation, mirroring the optional ultraplan prompt injection below).
+ */
+function loadBrandKit(): string | undefined {
+  try {
+    const content = fs.readFileSync(BRAND_KIT_PATH, "utf-8").trim();
+    return content.length > 0 ? content : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export function buildSubagentSystemPrompt(params: {
   requesterSessionKey?: string;
   requesterOrigin?: DeliveryContext;
@@ -319,6 +342,28 @@ export function buildSubagentSystemPrompt(params: {
         "You are a dedicated planning agent. Produce a comprehensive, actionable implementation plan.",
         "Research the codebase first. Every task must be atomic (2-5 min). Include exact file paths and code snippets.",
         "Save the plan to docs/superpowers/plans/ in the project directory.",
+        "",
+      );
+    }
+  }
+
+  // QDP-1: inject the brand kit for client-facing creative / external comms so
+  // the producer actually has the assets it needs to be on-brand. Without this,
+  // the quality gate will (correctly) block the output for missing brand usage —
+  // this is the upstream fix that prevents the block in the first place.
+  const deliverableClass = classifyDeliverable(params.task ?? "");
+  if (deliverableClass === "client-facing-creative" || deliverableClass === "external-comms") {
+    const brandKit = loadBrandKit();
+    if (brandKit) {
+      lines.push(
+        "",
+        "---",
+        "",
+        "## Brand Kit — REQUIRED for this deliverable",
+        "This is client-facing work. You MUST use the brand assets below (logo, palette, type, voice).",
+        "Output that does not visibly use them will be blocked by the quality gate before it reaches the operator or a client.",
+        "",
+        brandKit,
         "",
       );
     }
@@ -504,8 +549,20 @@ export async function runSubagentAnnounceFlow(params: {
     // Build instructional message for main agent
     const taskLabel = params.label || params.task || "background task";
 
-    // Layer 1: Gateway-level deliverable verification gate
+    // Layer 1: Gateway-level deliverable verification gate (file existence/format)
     const deliverableWarning = verifyDeliverableGate(reply, params.task);
+
+    // Layer 2: Quality & Delegation gate (QDP v2) — judge against evidence
+    // inspected from the ACTUAL artifact (not the reply). Missing evidence at
+    // S2+ yields "verification owed" (review), never a silent pass.
+    const { result: qdpResult, notice: qdpNotice } = runQualityGate({
+      task: params.task,
+      reply,
+    });
+    if (qdpResult.verdict !== "pass") {
+      recordGateOutcome({ result: qdpResult, origin: "subagent" });
+    }
+    const blocked = Boolean(deliverableWarning) || qdpResult.verdict === "block";
 
     const triggerMessage = [
       `A background task "${taskLabel}" just ${statusLabel}.`,
@@ -513,12 +570,15 @@ export async function runSubagentAnnounceFlow(params: {
       "Findings:",
       reply || "(no output)",
       deliverableWarning,
+      qdpNotice,
       "",
       statsLine,
       "",
-      deliverableWarning
-        ? "IMPORTANT: The deliverable files referenced above FAILED verification. Do NOT tell the operator this task succeeded. Report the failure and offer to rebuild."
-        : "Summarize this naturally for the user. Keep it brief (1-2 sentences). Flow it into the conversation naturally.",
+      blocked
+        ? "IMPORTANT: The deliverable above FAILED its quality/verification gate. Do NOT tell the operator this task succeeded. Report the failure and rebuild via the correct owner/reviewer before anything reaches the operator or a client."
+        : qdpResult.verdict === "review"
+          ? "Before reporting done, confirm the required independent reviewer signed off. Then summarize naturally for the user in 1-2 sentences."
+          : "Summarize this naturally for the user. Keep it brief (1-2 sentences). Flow it into the conversation naturally.",
       "Do not mention technical details like tokens, stats, or that this was a background task.",
       "You can respond with NO_REPLY if no announcement is needed (e.g., internal task with no user-facing result).",
     ].join("\n");

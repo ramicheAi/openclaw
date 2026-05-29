@@ -58,6 +58,13 @@ export type GatewayClientOptions = {
   minProtocol?: number;
   maxProtocol?: number;
   tlsFingerprint?: string;
+  /**
+   * Max reconnect attempts before giving up. Defaults to unlimited (retry
+   * forever with capped backoff) so an always-on client recovers on its own
+   * after a sleep/wake, gateway restart, or network blip. Set a finite number
+   * only for callers that genuinely want to stop trying.
+   */
+  maxReconnectAttempts?: number;
   onEvent?: (evt: EventFrame) => void;
   onHelloOk?: (hello: HelloOk) => void;
   onConnectError?: (err: Error) => void;
@@ -76,13 +83,40 @@ export function describeGatewayCloseCode(code: number): string | undefined {
   return GATEWAY_CLOSE_CODE_HINTS[code];
 }
 
+/** Default ceiling for reconnect backoff (ms). */
+export const GATEWAY_RECONNECT_MAX_BACKOFF_MS = 30_000;
+
+/**
+ * Decide the next reconnect step. By default a gateway client retries FOREVER
+ * with capped exponential backoff — an always-on assistant must recover on its
+ * own after a sleep/wake, gateway restart, or network blip rather than going
+ * permanently dark until a manual restart. A finite `maxAttempts` is opt-in for
+ * callers that genuinely want to give up.
+ */
+export function planGatewayReconnect(params: {
+  attempts: number;
+  maxAttempts: number;
+  backoffMs: number;
+  maxBackoffMs?: number;
+}): { giveUp: boolean; delayMs: number; nextBackoffMs: number } {
+  const maxBackoffMs = params.maxBackoffMs ?? GATEWAY_RECONNECT_MAX_BACKOFF_MS;
+  if (params.attempts > params.maxAttempts) {
+    return { giveUp: true, delayMs: 0, nextBackoffMs: params.backoffMs };
+  }
+  return {
+    giveUp: false,
+    delayMs: params.backoffMs,
+    nextBackoffMs: Math.min(params.backoffMs * 2, maxBackoffMs),
+  };
+}
+
 export class GatewayClient {
   private ws: WebSocket | null = null;
   private opts: GatewayClientOptions;
   private pending = new Map<string, Pending>();
   private backoffMs = 1000;
   private reconnectAttempts = 0;
-  private static readonly MAX_RECONNECT_ATTEMPTS = 10;
+  private readonly maxReconnectAttempts: number;
   private closed = false;
   private lastSeq: number | null = null;
   private connectNonce: string | null = null;
@@ -98,6 +132,9 @@ export class GatewayClient {
       ...opts,
       deviceIdentity: opts.deviceIdentity ?? loadOrCreateDeviceIdentity(),
     };
+    // Default: retry forever (with capped backoff). Reconnecting is what keeps
+    // an always-on assistant alive across sleep/wake and gateway restarts.
+    this.maxReconnectAttempts = opts.maxReconnectAttempts ?? Number.POSITIVE_INFINITY;
   }
 
   start() {
@@ -339,20 +376,20 @@ export class GatewayClient {
       this.tickTimer = null;
     }
     this.reconnectAttempts += 1;
-    if (this.reconnectAttempts > GatewayClient.MAX_RECONNECT_ATTEMPTS) {
-      logWarn(
-        `gateway client: giving up after ${GatewayClient.MAX_RECONNECT_ATTEMPTS} reconnect attempts`,
-      );
+    const plan = planGatewayReconnect({
+      attempts: this.reconnectAttempts,
+      maxAttempts: this.maxReconnectAttempts,
+      backoffMs: this.backoffMs,
+    });
+    if (plan.giveUp) {
+      logWarn(`gateway client: giving up after ${this.maxReconnectAttempts} reconnect attempts`);
       this.opts.onConnectError?.(
-        new Error(
-          `gateway reconnect failed after ${GatewayClient.MAX_RECONNECT_ATTEMPTS} attempts`,
-        ),
+        new Error(`gateway reconnect failed after ${this.maxReconnectAttempts} attempts`),
       );
       return;
     }
-    const delay = this.backoffMs;
-    this.backoffMs = Math.min(this.backoffMs * 2, 30_000);
-    setTimeout(() => this.start(), delay).unref();
+    this.backoffMs = plan.nextBackoffMs;
+    setTimeout(() => this.start(), plan.delayMs).unref();
   }
 
   private flushPendingErrors(err: Error) {

@@ -1,4 +1,10 @@
 import { AGENT_LANE_NESTED } from "../../agents/lanes.js";
+import {
+  qdpEnforceMode,
+  recordGateOutcome,
+  runQualityGate,
+  shouldSuppressDelivery,
+} from "../../agents/quality-gate-runtime.js";
 import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.js";
 import { createOutboundSendDeps, type CliDeps } from "../../cli/outbound-send-deps.js";
 import type { OpenClawConfig } from "../../config/config.js";
@@ -152,19 +158,56 @@ export async function deliverAgentCommandResult(params: {
   }
   if (deliver && deliveryChannel && !isInternalMessageChannel(deliveryChannel)) {
     if (deliveryTarget) {
-      await deliverOutboundPayloads({
-        cfg,
-        channel: deliveryChannel,
-        to: deliveryTarget,
-        accountId: resolvedAccountId,
-        payloads: deliveryPayloads,
-        replyToId: resolvedReplyToId ?? null,
-        threadId: resolvedThreadTarget ?? null,
-        bestEffort: bestEffortDeliver,
-        onError: (err) => logDeliveryError(err),
-        onPayload: logPayload,
-        deps: createOutboundSendDeps(deps),
-      });
+      // QDP: gate the main agent's OWN self-produced deliverable before it
+      // reaches an external channel — the exact path the off-brand-pitch
+      // incident fell through (the subagent gate never sees direct replies).
+      // Coverage (evaluate + record) is always on. Suppression: an S3 block is
+      // held by default (mandatory); lower-stakes blocks are held only when
+      // OPENCLAW_QDP_ENFORCE is on; =off disables all suppression. Nested-lane
+      // (subagent) deliveries are already gated upstream.
+      let qdpBlocked = false;
+      if (opts.lane !== AGENT_LANE_NESTED) {
+        const replyText = deliveryPayloads
+          .map((payload) => payload.text)
+          .filter((text) => Boolean(text && text.trim()))
+          .join("\n");
+        if (replyText) {
+          const { result } = runQualityGate({
+            task: opts.message ?? "",
+            reply: replyText,
+            producer: opts.agentId,
+          });
+          if (result.verdict !== "pass") {
+            recordGateOutcome({ result, origin: "self", producer: opts.agentId });
+          }
+          if (shouldSuppressDelivery(result, qdpEnforceMode())) {
+            qdpBlocked = true;
+            const mandatory = result.stakes === "S3";
+            const message =
+              `QDP ${mandatory ? "mandatorily " : ""}suppressed a self-produced ` +
+              `${result.deliverableClass} at ${result.stakes} (verdict=block); delivery to ` +
+              `${deliveryChannel} held${mandatory ? " (S3 always)" : " (OPENCLAW_QDP_ENFORCE)"}. ` +
+              `Reasons: ${result.reasons.join("; ")}`;
+            runtime.error?.(message);
+            if (!runtime.error) runtime.log(message);
+          }
+        }
+      }
+      if (!qdpBlocked) {
+        await deliverOutboundPayloads({
+          cfg,
+          channel: deliveryChannel,
+          to: deliveryTarget,
+          accountId: resolvedAccountId,
+          payloads: deliveryPayloads,
+          replyToId: resolvedReplyToId ?? null,
+          threadId: resolvedThreadTarget ?? null,
+          bestEffort: bestEffortDeliver,
+          onError: (err) => logDeliveryError(err),
+          onPayload: logPayload,
+          deps: createOutboundSendDeps(deps),
+        });
+      }
     }
   }
 
