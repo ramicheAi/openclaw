@@ -6,6 +6,7 @@ Docs: https://docs.openclaw.ai
 Status: stable.
 
 ### Changes
+- Gateway: fix a reconnect regression where the client gave up permanently after 10 attempts, leaving an always-on connection dark until a manual restart after any sleep/wake, gateway restart, or network blip. Clients now retry forever with capped exponential backoff by default; a finite `maxReconnectAttempts` is opt-in.
 - Agents: Quality & Delegation Gate (QDP v2) — judge deliverables against evidence inspected from the actual artifact rather than the agent's reply text, fail safe to "verification owed" when evidence is missing, enforce independent review (reviewer != producer; human at S3), and surface delegation as an advisory routing recommendation instead of a hard block. The gate now also runs on the main agent's own self-produced replies (not just delegated subagents) and records outcomes for the scorecard. An S3 (legal/financial/safety) block suppresses external delivery by default; lower-stakes blocks suppress only when `OPENCLAW_QDP_ENFORCE` is on, and `OPENCLAW_QDP_ENFORCE=off` disables all suppression as an escape hatch. Creative/comms producers get the versioned brand kit injected into context (QDP-1) so on-brand output is achievable upstream of the gate.
 - Rebrand: rename the npm package/CLI to `openclaw`, add a `openclaw` compatibility shim, and move extensions to the `@openclaw/*` scope.
 - Onboarding: strengthen security warning copy for beta + access control expectations.
