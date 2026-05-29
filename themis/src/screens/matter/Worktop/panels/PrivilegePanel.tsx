@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import { cx } from "../../../../lib/ui";
 import { IconExport, IconPrivileged, IconVerified } from "../../../../icons";
-import { useDecidePrivilege, usePrivilegeQueue } from "../../../../lib/queries";
+import { useDecidePrivilege, useMatter, usePrivilegeQueue } from "../../../../lib/queries";
+import { exportPrivilegeLogPdf } from "../../../../lib/exports";
 import type { DocItem } from "../../../../types";
 import { PanelAction, PanelHead } from "./PanelHead";
 
-export function PrivilegePanel({ matterId }: { matterId: string }) {
+export function PrivilegePanel({
+  matterId,
+  exportsLocked,
+  lockReason,
+}: {
+  matterId: string;
+  exportsLocked: boolean;
+  lockReason?: string;
+}) {
   const { data: queue } = usePrivilegeQueue(matterId);
+  const { data: matter } = useMatter(matterId);
   const decide = useDecidePrivilege(matterId);
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -28,11 +38,22 @@ export function PrivilegePanel({ matterId }: { matterId: string }) {
         title="Review queue"
         sub="Themis flags potential privilege; a human clears or withholds. Every decision is logged."
         actions={
-          <PanelAction primary>
+          <PanelAction
+            primary
+            disabled={exportsLocked || !matter}
+            onClick={() => matter && exportPrivilegeLogPdf(matter, docs)}
+          >
             <IconExport size={13} /> Generate privilege log
           </PanelAction>
         }
       />
+      {exportsLocked && (
+        <div className="flex items-center gap-2 border-b border-flag/30 bg-flag-wash/40 px-6 py-2 text-[11.5px] text-flag">
+          <IconPrivileged size={14} />
+          <span className="font-mono font-semibold uppercase tracking-wider">Draft · ingest incomplete</span>
+          <span className="text-flag/80">{lockReason ?? "Privilege log unlocks when the corpus finishes processing."}</span>
+        </div>
+      )}
       <div className="grid min-h-0 flex-1" style={{ gridTemplateColumns: "320px 1fr" }}>
         <aside className="min-h-0 overflow-y-auto border-r border-line bg-surface px-3 py-3">
           <SectionHeader>Review queue</SectionHeader>

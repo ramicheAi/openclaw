@@ -6,6 +6,7 @@ import { seed } from "./seed.js";
 import { registerMatterRoutes } from "./routes/matters.js";
 import { registerCorpusRoutes } from "./routes/corpus.js";
 import { registerWorkspaceRoutes } from "./routes/workspace.js";
+import { registerBinderRoutes } from "./routes/binders.js";
 
 export function buildApp(db = getDb()) {
   seed(db); // idempotent: seeds only when empty
@@ -18,6 +19,7 @@ export function buildApp(db = getDb()) {
   registerMatterRoutes(app, db);
   registerCorpusRoutes(app, db);
   registerWorkspaceRoutes(app, db);
+  registerBinderRoutes(app, db);
 
   app.notFound((c) => c.json({ error: "not_found", path: c.req.path }, 404));
   app.onError((err, c) => {

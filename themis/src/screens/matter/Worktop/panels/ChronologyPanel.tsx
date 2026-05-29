@@ -1,14 +1,24 @@
 import { CitationChip, ConfidenceDot, cx } from "../../../../lib/ui";
-import { IconExport, IconVerified, IconClose, IconReplay } from "../../../../icons";
-import { useChronology, useSetChronologyAccepted } from "../../../../lib/queries";
+import { IconExport, IconVerified, IconClose, IconReplay, IconPrivileged } from "../../../../icons";
+import { useChronology, useMatter, useSetChronologyAccepted } from "../../../../lib/queries";
+import { exportChronologyPdf } from "../../../../lib/exports";
 import { PanelAction, PanelHead } from "./PanelHead";
 
 function dayDelta(a: string, b: string): number {
   return Math.round((new Date(b).getTime() - new Date(a).getTime()) / 86400000);
 }
 
-export function ChronologyPanel({ matterId }: { matterId: string }) {
+export function ChronologyPanel({
+  matterId,
+  exportsLocked,
+  lockReason,
+}: {
+  matterId: string;
+  exportsLocked: boolean;
+  lockReason?: string;
+}) {
   const { data: events } = useChronology(matterId);
+  const { data: matter } = useMatter(matterId);
   const setAccepted = useSetChronologyAccepted(matterId);
 
   const rows = events ?? [];
@@ -26,15 +36,22 @@ export function ChronologyPanel({ matterId }: { matterId: string }) {
         sub="Every event is grounded in a verified citation. Accept to advance the case theory; reject to exclude."
         actions={
           <>
-            <PanelAction>
+            <PanelAction disabled={exportsLocked}>
               <IconExport size={13} /> Word
             </PanelAction>
-            <PanelAction primary>
+            <PanelAction
+              primary
+              disabled={exportsLocked || !matter}
+              onClick={() => matter && exportChronologyPdf(matter, rows)}
+            >
               <IconExport size={13} /> Court PDF
             </PanelAction>
           </>
         }
       />
+      {exportsLocked && (
+        <DraftWatermark reason={lockReason} />
+      )}
       <div className="grid grid-cols-4 border-b border-line bg-surface px-6 py-3">
         <StatCell label="On timeline" value={accepted} accent="brass" />
         <StatCell label="Pending review" value={pending} accent="flag" />
@@ -171,6 +188,16 @@ function StatusChip({ accepted }: { accepted: boolean | null }) {
     <span className="inline-flex items-center gap-1 rounded-full border border-flag/30 bg-flag-wash px-1.5 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-flag">
       draft
     </span>
+  );
+}
+
+function DraftWatermark({ reason }: { reason?: string }) {
+  return (
+    <div className="flex items-center gap-2 border-b border-flag/30 bg-flag-wash/40 px-6 py-2 text-[11.5px] text-flag">
+      <IconPrivileged size={14} />
+      <span className="font-mono font-semibold uppercase tracking-wider">Draft · ingest incomplete</span>
+      <span className="text-flag/80">{reason ?? "Exports unlock when the corpus finishes processing."}</span>
+    </div>
   );
 }
 

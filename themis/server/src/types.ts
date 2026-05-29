@@ -115,3 +115,21 @@ export interface AuditEntry {
   action: string;
   detail: string;
 }
+
+export interface BinderItem {
+  id: string;
+  docId: string;
+  label: string;
+  bates: string;
+  type: string;
+  date: string;
+}
+
+export interface Binder {
+  id: string;
+  matterId: string;
+  name: string;
+  createdBy: string;
+  createdAt: string;
+  items: BinderItem[];
+}

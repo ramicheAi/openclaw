@@ -105,6 +105,24 @@ CREATE TABLE IF NOT EXISTS chat_messages (
 );
 CREATE INDEX IF NOT EXISTS idx_chat_matter ON chat_messages(matter_id, created_at);
 
+CREATE TABLE IF NOT EXISTS binders (
+  id         TEXT PRIMARY KEY,
+  matter_id  TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,
+  name       TEXT NOT NULL,
+  created_by TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_binders_matter ON binders(matter_id);
+
+CREATE TABLE IF NOT EXISTS binder_items (
+  id        TEXT PRIMARY KEY,
+  binder_id TEXT NOT NULL REFERENCES binders(id) ON DELETE CASCADE,
+  doc_id    TEXT NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
+  label     TEXT NOT NULL,
+  ord       INTEGER NOT NULL DEFAULT 0
+);
+CREATE INDEX IF NOT EXISTS idx_binder_items_binder ON binder_items(binder_id, ord);
+
 CREATE TABLE IF NOT EXISTS audit_log (
   id        INTEGER PRIMARY KEY AUTOINCREMENT,
   matter_id TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,

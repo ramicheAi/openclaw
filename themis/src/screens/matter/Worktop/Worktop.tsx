@@ -1,6 +1,7 @@
 // Worktop — the 3-pane daily work surface. Per design handoff §3 + §5.2–5.4.
 
 import { useMatter, useEntities, useChronology, usePrivilegeQueue, useAudit } from "../../../lib/queries";
+import { exportLockForMatter } from "../../../lib/exports";
 import type { WorktopTab, AppMode } from "../../../lib/router";
 import { CaseSnapshotCard } from "./cards/CaseSnapshotCard";
 import { CastCard } from "./cards/CastCard";
@@ -39,6 +40,7 @@ export function Worktop({
   const tasks = buildTaskQueue(chron ?? [], priv ?? []);
   const pendingChron = (chron ?? []).filter((e) => e.accepted === null).length;
   const flaggedPriv = (priv ?? []).filter((d) => d.privilege === "flagged").length;
+  const lock = exportLockForMatter(matter);
 
   return (
     <div
@@ -61,9 +63,27 @@ export function Worktop({
         />
         <div className="min-h-0 flex-1">
           {tab === "ask" && <AskPanel matterId={matterId} onOpenCmdK={onOpenCmdK} />}
-          {tab === "chronology" && <ChronologyPanel matterId={matterId} />}
-          {tab === "privilege" && <PrivilegePanel matterId={matterId} />}
-          {tab === "binder" && <BinderPanel onOpenCmdK={onOpenCmdK} />}
+          {tab === "chronology" && (
+            <ChronologyPanel
+              matterId={matterId}
+              exportsLocked={!!lock}
+              lockReason={lock?.reason}
+            />
+          )}
+          {tab === "privilege" && (
+            <PrivilegePanel
+              matterId={matterId}
+              exportsLocked={!!lock}
+              lockReason={lock?.reason}
+            />
+          )}
+          {tab === "binder" && (
+            <BinderPanel
+              matterId={matterId}
+              exportsLocked={!!lock}
+              lockReason={lock?.reason}
+            />
+          )}
           {tab === "documents" && <DocumentsPanel matterId={matterId} />}
         </div>
       </div>

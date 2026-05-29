@@ -228,3 +228,135 @@ export function listAudit(db: DB, matterId: string, limit = 50): AuditEntry[] {
 export function matterExists(db: DB, id: string): boolean {
   return !!db.prepare(`SELECT 1 FROM matters WHERE id = ?`).get(id);
 }
+
+// --- Binders ---
+import type { Binder, BinderItem } from "./types.js";
+import { randomUUID } from "node:crypto";
+
+function rowToBinderItem(r: Row): BinderItem {
+  return {
+    id: r.id as string,
+    docId: r.doc_id as string,
+    label: r.label as string,
+    bates: r.bates as string,
+    type: r.type as string,
+    date: r.doc_date as string,
+  };
+}
+
+function fetchBinderItems(db: DB, binderId: string): BinderItem[] {
+  const rows = db
+    .prepare(
+      `SELECT bi.id, bi.doc_id, bi.label, d.bates, d.type, d.doc_date
+       FROM binder_items bi
+       JOIN documents d ON d.id = bi.doc_id
+       WHERE bi.binder_id = ?
+       ORDER BY bi.ord, bi.id`,
+    )
+    .all(binderId) as Row[];
+  return rows.map(rowToBinderItem);
+}
+
+export function listBinders(db: DB, matterId: string): Binder[] {
+  const rows = db
+    .prepare(`SELECT * FROM binders WHERE matter_id = ? ORDER BY created_at`)
+    .all(matterId) as Row[];
+  return rows.map((b) => ({
+    id: b.id as string,
+    matterId: b.matter_id as string,
+    name: b.name as string,
+    createdBy: b.created_by as string,
+    createdAt: b.created_at as string,
+    items: fetchBinderItems(db, b.id as string),
+  }));
+}
+
+export function getBinder(db: DB, matterId: string, binderId: string): Binder | null {
+  const row = db
+    .prepare(`SELECT * FROM binders WHERE matter_id = ? AND id = ?`)
+    .get(matterId, binderId) as Row | undefined;
+  if (!row) return null;
+  return {
+    id: row.id as string,
+    matterId: row.matter_id as string,
+    name: row.name as string,
+    createdBy: row.created_by as string,
+    createdAt: row.created_at as string,
+    items: fetchBinderItems(db, row.id as string),
+  };
+}
+
+export function createBinder(db: DB, matterId: string, name: string, actor: string): Binder {
+  const id = randomUUID();
+  db.prepare(
+    `INSERT INTO binders (id, matter_id, name, created_by, created_at) VALUES (?, ?, ?, ?, ?)`,
+  ).run(id, matterId, name, actor, new Date().toISOString());
+  return getBinder(db, matterId, id)!;
+}
+
+export function renameBinder(db: DB, matterId: string, binderId: string, name: string): Binder | null {
+  const res = db.prepare(`UPDATE binders SET name = ? WHERE matter_id = ? AND id = ?`).run(name, matterId, binderId);
+  if (res.changes === 0) return null;
+  return getBinder(db, matterId, binderId);
+}
+
+export function deleteBinder(db: DB, matterId: string, binderId: string): boolean {
+  return db.prepare(`DELETE FROM binders WHERE matter_id = ? AND id = ?`).run(matterId, binderId).changes > 0;
+}
+
+export function addBinderItem(
+  db: DB,
+  matterId: string,
+  binderId: string,
+  docId: string,
+  label?: string,
+): Binder | null {
+  const binder = db.prepare(`SELECT 1 FROM binders WHERE matter_id = ? AND id = ?`).get(matterId, binderId);
+  if (!binder) return null;
+  const doc = db.prepare(`SELECT title, bates FROM documents WHERE matter_id = ? AND id = ?`).get(matterId, docId) as
+    | { title: string; bates: string }
+    | undefined;
+  if (!doc) return null;
+  const ord =
+    (db.prepare(`SELECT COALESCE(MAX(ord) + 1, 0) AS n FROM binder_items WHERE binder_id = ?`).get(binderId) as { n: number }).n;
+  db.prepare(
+    `INSERT INTO binder_items (id, binder_id, doc_id, label, ord) VALUES (?, ?, ?, ?, ?)`,
+  ).run(randomUUID(), binderId, docId, label ?? doc.title, ord);
+  return getBinder(db, matterId, binderId);
+}
+
+export function removeBinderItem(db: DB, matterId: string, binderId: string, itemId: string): Binder | null {
+  const binder = db.prepare(`SELECT 1 FROM binders WHERE matter_id = ? AND id = ?`).get(matterId, binderId);
+  if (!binder) return null;
+  db.prepare(`DELETE FROM binder_items WHERE binder_id = ? AND id = ?`).run(binderId, itemId);
+  return getBinder(db, matterId, binderId);
+}
+
+export function reorderBinder(
+  db: DB,
+  matterId: string,
+  binderId: string,
+  order: string[],
+): Binder | null {
+  const binder = db.prepare(`SELECT 1 FROM binders WHERE matter_id = ? AND id = ?`).get(matterId, binderId);
+  if (!binder) return null;
+  const upd = db.prepare(`UPDATE binder_items SET ord = ? WHERE binder_id = ? AND id = ?`);
+  const tx = db.transaction(() => {
+    order.forEach((itemId, i) => upd.run(i, binderId, itemId));
+  });
+  tx();
+  return getBinder(db, matterId, binderId);
+}
+
+export function renameBinderItem(
+  db: DB,
+  matterId: string,
+  binderId: string,
+  itemId: string,
+  label: string,
+): Binder | null {
+  const binder = db.prepare(`SELECT 1 FROM binders WHERE matter_id = ? AND id = ?`).get(matterId, binderId);
+  if (!binder) return null;
+  db.prepare(`UPDATE binder_items SET label = ? WHERE binder_id = ? AND id = ?`).run(label, binderId, itemId);
+  return getBinder(db, matterId, binderId);
+}

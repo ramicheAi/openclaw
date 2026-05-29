@@ -14,6 +14,7 @@ export const qk = {
   privilege: (id: string) => ["matter", id, "privilege"] as const,
   chat: (id: string) => ["matter", id, "chat"] as const,
   audit: (id: string) => ["matter", id, "audit"] as const,
+  binders: (id: string) => ["matter", id, "binders"] as const,
 };
 
 export function useMatters() {
@@ -96,5 +97,77 @@ export function useDecidePrivilege(id: string) {
       qc.invalidateQueries({ queryKey: qk.matters });
       qc.invalidateQueries({ queryKey: qk.audit(id) });
     },
+  });
+}
+
+// --- Binders ---
+
+export function useBinders(id: string) {
+  return useQuery({ queryKey: qk.binders(id), queryFn: () => api.listBinders(id) });
+}
+
+function invalidateBinders(qc: ReturnType<typeof useQueryClient>, id: string) {
+  qc.invalidateQueries({ queryKey: qk.binders(id) });
+  qc.invalidateQueries({ queryKey: qk.audit(id) });
+}
+
+export function useCreateBinder(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (name: string) => api.createBinder(id, name),
+    onSuccess: () => invalidateBinders(qc, id),
+  });
+}
+
+export function useRenameBinder(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ binderId, name }: { binderId: string; name: string }) =>
+      api.renameBinder(id, binderId, name),
+    onSuccess: () => invalidateBinders(qc, id),
+  });
+}
+
+export function useDeleteBinder(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (binderId: string) => api.deleteBinder(id, binderId),
+    onSuccess: () => invalidateBinders(qc, id),
+  });
+}
+
+export function useAddBinderItem(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ binderId, docId, label }: { binderId: string; docId: string; label?: string }) =>
+      api.addBinderItem(id, binderId, docId, label),
+    onSuccess: () => invalidateBinders(qc, id),
+  });
+}
+
+export function useRemoveBinderItem(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ binderId, itemId }: { binderId: string; itemId: string }) =>
+      api.removeBinderItem(id, binderId, itemId),
+    onSuccess: () => invalidateBinders(qc, id),
+  });
+}
+
+export function useRenameBinderItem(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ binderId, itemId, label }: { binderId: string; itemId: string; label: string }) =>
+      api.renameBinderItem(id, binderId, itemId, label),
+    onSuccess: () => invalidateBinders(qc, id),
+  });
+}
+
+export function useReorderBinder(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ binderId, order }: { binderId: string; order: string[] }) =>
+      api.reorderBinder(id, binderId, order),
+    onSuccess: () => invalidateBinders(qc, id),
   });
 }

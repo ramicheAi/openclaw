@@ -4,6 +4,7 @@
 
 import type {
   AuditEntry,
+  Binder,
   ChatTurn,
   ChronEvent,
   DocItem,
@@ -92,4 +93,45 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ question }),
     }),
+
+  // --- Binders ---
+
+  listBinders: (id: string) =>
+    request<{ binders: Binder[] }>(`/api/matters/${id}/binders`).then((r) => r.binders),
+
+  createBinder: (id: string, name: string) =>
+    request<Binder>(`/api/matters/${id}/binders`, {
+      method: "POST",
+      body: JSON.stringify({ name }),
+    }),
+
+  renameBinder: (id: string, binderId: string, name: string) =>
+    request<Binder>(`/api/matters/${id}/binders/${binderId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ name }),
+    }),
+
+  reorderBinder: (id: string, binderId: string, order: string[]) =>
+    request<Binder>(`/api/matters/${id}/binders/${binderId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ order }),
+    }),
+
+  deleteBinder: (id: string, binderId: string) =>
+    request<{ ok: boolean }>(`/api/matters/${id}/binders/${binderId}`, { method: "DELETE" }),
+
+  addBinderItem: (id: string, binderId: string, docId: string, label?: string) =>
+    request<Binder>(`/api/matters/${id}/binders/${binderId}/items`, {
+      method: "POST",
+      body: JSON.stringify({ docId, label }),
+    }),
+
+  renameBinderItem: (id: string, binderId: string, itemId: string, label: string) =>
+    request<Binder>(`/api/matters/${id}/binders/${binderId}/items/${itemId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ label }),
+    }),
+
+  removeBinderItem: (id: string, binderId: string, itemId: string) =>
+    request<Binder>(`/api/matters/${id}/binders/${binderId}/items/${itemId}`, { method: "DELETE" }),
 };

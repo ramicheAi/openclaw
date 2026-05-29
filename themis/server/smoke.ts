@@ -130,6 +130,50 @@ console.log("Themis API smoke test\n");
   check("audit has chronology.accept", actions.includes("chronology.accept"));
 }
 
+// Binders — create, add items, reorder, export shape
+{
+  const empty = await get(`/api/matters/${M}/binders`);
+  check("binders list starts empty", Array.isArray(empty.body.binders) && empty.body.binders.length === 0);
+
+  const made = await send(`/api/matters/${M}/binders`, "POST", { name: "MSJ Opp Exhibits" });
+  check("create binder", made.status === 200 && made.body.name === "MSJ Opp Exhibits");
+  const binderId = made.body.id;
+
+  const noName = await send(`/api/matters/${M}/binders`, "POST", {});
+  check("create binder rejects empty name", noName.status === 400);
+
+  await send(`/api/matters/${M}/binders/${binderId}/items`, "POST", { docId: "d1" });
+  const add2 = await send(`/api/matters/${M}/binders/${binderId}/items`, "POST", { docId: "d3", label: "Q1 Review" });
+  check("add 2 items", add2.body.items?.length === 2);
+  check("item label honored", add2.body.items[1].label === "Q1 Review");
+  check("item bates joined from documents", add2.body.items[0].bates === "NW-000847");
+
+  const reordered = await send(
+    `/api/matters/${M}/binders/${binderId}`,
+    "PATCH",
+    { order: [add2.body.items[1].id, add2.body.items[0].id] },
+  );
+  check("reorder binder", reordered.body.items[0].label === "Q1 Review");
+
+  const renamed = await send(`/api/matters/${M}/binders/${binderId}`, "PATCH", { name: "MSJ Opp · Exhibits" });
+  check("rename binder", renamed.body.name === "MSJ Opp · Exhibits");
+
+  const rmItem = await send(
+    `/api/matters/${M}/binders/${binderId}/items/${reordered.body.items[1].id}`,
+    "DELETE",
+  );
+  check("remove item", rmItem.body.items?.length === 1);
+
+  const del = await send(`/api/matters/${M}/binders/${binderId}`, "DELETE");
+  check("delete binder", del.body.ok === true);
+  const after = await get(`/api/matters/${M}/binders`);
+  check("binder removed from list", after.body.binders.length === 0);
+
+  const audit = await get(`/api/matters/${M}/audit?limit=100`);
+  const actions = (audit.body.entries ?? []).map((e: any) => e.action);
+  check("binder mutations audited", ["binder.create", "binder.add_item", "binder.delete"].every((a) => actions.includes(a)));
+}
+
 // Error handling
 {
   const r = await get("/api/matters/does-not-exist");
