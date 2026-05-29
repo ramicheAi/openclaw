@@ -1,5 +1,5 @@
 import { ArrowRight, FileStack, Files, Plus, ShieldAlert, TriangleAlert } from "lucide-react";
-import { matters } from "../data/mock";
+import { useMatters } from "../lib/queries";
 import { Card, cx, Pill } from "../lib/ui";
 import type { MatterSummary } from "../types";
 
@@ -100,15 +100,18 @@ function MatterCard({ m, onOpen }: { m: MatterSummary; onOpen: (id: string) => v
 }
 
 export function MattersDashboard({ onOpen }: { onOpen: (id: string) => void }) {
-  const totalPages = matters.reduce((s, m) => s + m.pages, 0);
+  const { data: matters, isLoading } = useMatters();
+  const list = matters ?? [];
+  const totalPages = list.reduce((s, m) => s + m.pages, 0);
   return (
     <div className="flex h-full flex-col overflow-y-auto">
       <header className="flex items-center justify-between gap-4 border-b border-line bg-surface px-8 py-5">
         <div>
           <h1 className="font-display text-2xl font-semibold text-ink">Matters</h1>
           <p className="mt-0.5 text-[13px] text-ink-soft">
-            {matters.length} active case brains · {fmt(totalPages)} pages under management ·
-            each isolated behind a conflict wall
+            {isLoading
+              ? "Loading…"
+              : `${list.length} active case brains · ${fmt(totalPages)} pages under management · each isolated behind a conflict wall`}
           </p>
         </div>
         <button className="inline-flex items-center gap-2 rounded-lg bg-ink px-3.5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-ink/90">
@@ -125,7 +128,7 @@ export function MattersDashboard({ onOpen }: { onOpen: (id: string) => void }) {
           <Pill>Personal Injury</Pill>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {matters.map((m) => (
+          {list.map((m) => (
             <MatterCard key={m.id} m={m} onOpen={onOpen} />
           ))}
           <button

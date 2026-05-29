@@ -3,6 +3,7 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   /* Core neutrals — warm "paper + ink" legal palette */
   --color-paper: #f7f4ee;
@@ -20,6 +21,7 @@
   --color-brass-deep: #845f27;
   --color-brass-soft: #ddc79a;
   --color-brass-wash: #f3ead8;
+  --color-brass-light: #e9cf95;
 
   /* Semantic */
   --color-verify: #2f7a57;
@@ -30,6 +32,28 @@
   --color-danger-wash: #f8e4e2;
   --color-info: #2f5fa6;
   --color-info-wash: #e6edf7;
+
+  /* Dark-mode tokens — used by Brain canvas always, by Worktop when [data-theme="dark"]. */
+  --color-bg-0: #070b13;
+  --color-bg-1: #0c1622;
+  --color-bg-2: #131e2c;
+  --color-bg-3: #1a2535;
+  --color-ink-dark: #e4eaf1;
+  --color-ink-soft-dark: #9aa6b3;
+  --color-ink-faint-dark: #5f6973;
+}
+
+/* Light theme is the default. Dark theme flips paper/ink tokens. */
+:root[data-theme="dark"] {
+  --color-paper: #070b13;
+  --color-surface: #0c1622;
+  --color-surface-sunken: #131e2c;
+  --color-line: #1a2535;
+  --color-line-strong: #243044;
+
+  --color-ink: #e4eaf1;
+  --color-ink-soft: #9aa6b3;
+  --color-ink-faint: #5f6973;
 }
 
 html,
@@ -79,4 +103,31 @@ body {
 }
 .animate-fade {
   animation: themis-fade 0.22s ease-out both;
+}
+
+/* The Tau breathes on the splash — a 4s loop. */
+@keyframes tau-breathe {
+  0%, 100% { opacity: 0.92; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.03); }
+}
+.animate-tau-breathe {
+  animation: tau-breathe 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Status pip — the verify-green pulsing dot used in the top bar. */
+@keyframes themis-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(47, 122, 87, 0.45); }
+  50%      { box-shadow: 0 0 0 4px rgba(47, 122, 87, 0); }
+}
+.animate-pulse-verify {
+  animation: themis-pulse 1.6s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-tau-breathe,
+  .animate-pulse-verify,
+  .animate-fade {
+    animation: none;
+  }
 }
