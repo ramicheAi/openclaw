@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Themis — Mark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f7f4ee;
+  --ink: #18222e;
+  --ink-soft: #56636f;
+  --ink-faint: #8a93a0;
+  --line: #e6dfd2;
+  --brass: #a67c3a;
+  --brass-deep: #845f27;
+  --brass-light: #e9cf95;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.font-display { font-family: "Fraunces", Georgia, serif; }
+.font-mono { font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; }
+
+.studio { max-width: 1180px; margin: 0 auto; padding: 80px 40px 96px; }
+
+.studio-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 48px;
+  margin-bottom: 80px;
+  border-bottom: 1px solid var(--line);
+}
+.studio-eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--brass);
+}
+.studio-title {
+  font-size: 80px; font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin: 16px 0 0;
+  font-variation-settings: "opsz" 144;
+}
+.studio-meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-faint);
+  text-align: right;
+  line-height: 1.7;
+  letter-spacing: 0.06em;
+}
+
+/* ── HERO ──────────────────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, #131e2c, #070b13);
+  border-radius: 24px;
+  padding: 128px 80px 96px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.hero::before {
+  /* warm spotlight behind the mark */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 38%, rgba(202,160,92,0.18) 0%, transparent 55%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.42em;
+  color: var(--brass-light);
+  margin-bottom: 56px;
+  opacity: 0.55;
+}
+.hero-mark { position: relative; display: inline-block; }
+.hero-wordmark {
+  margin-top: 64px;
+  font-family: "Fraunces", serif;
+  font-size: 56px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--paper);
+  font-variation-settings: "opsz" 144;
+}
+.hero-tag {
+  font-family: "Inter", sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.48em;
+  color: var(--brass-light);
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: 24px;
+}
+
+/* ── THREE TONES ───────────────────────────────────────────── */
+.tritone {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 80px;
+}
+.tone {
+  border-radius: 16px;
+  padding: 72px 36px;
+  text-align: center;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 36px;
+  min-height: 360px;
+  justify-content: center;
+}
+.tone .lbl {
+  position: absolute;
+  top: 18px; left: 22px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.22em;
+}
+.tone-paper { background: var(--paper); border: 1px solid var(--line); }
+.tone-paper .lbl { color: var(--brass); }
+.tone-ink {
+  background: linear-gradient(135deg, #131e2c, #070b13);
+  border: 1px solid #1a2535;
+}
+.tone-ink .lbl { color: var(--brass-light); opacity: 0.65; }
+.tone-brass { background: linear-gradient(135deg, #e9cf95, #a67c3a); }
+.tone-brass .lbl { color: var(--ink); }
+.tone .wm {
+  font-family: "Fraunces", serif;
+  font-size: 28px; font-weight: 500;
+  letter-spacing: 0.06em;
+}
+.tone-paper .wm { color: var(--ink); }
+.tone-ink .wm { color: var(--paper); }
+.tone-brass .wm { color: var(--ink); }
+
+/* ── SCALE ROW ─────────────────────────────────────────────── */
+.scale-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 48px;
+  margin-bottom: 80px;
+}
+.scale-card .h {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 48px;
+}
+.scale-card .h h2 {
+  font-family: "Fraunces", serif;
+  font-size: 24px; font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+.scale-card .h .meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; color: var(--ink-faint);
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+.scale-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 24px;
+}
+.scale-cell {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.scale-cell .px {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
+}
+
+/* ── APPLICATIONS ──────────────────────────────────────────── */
+.apps {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  margin-bottom: 80px;
+}
+.app-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 36px;
+}
+.app-card .h {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 32px;
+}
+.app-card .h-eye {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--brass);
+}
+.app-card .h-meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
+}
+
+/* Business card mockup */
+.bizcard {
+  width: 280px; height: 160px;
+  background: var(--paper);
+  border-radius: 10px;
+  padding: 22px 24px;
+  position: relative;
+  box-shadow: 0 12px 28px rgba(24,34,46,0.10), 0 0 0 1px rgba(24,34,46,0.04);
+  display: flex; flex-direction: column; justify-content: space-between;
+  margin: 0 auto;
+}
+.bizcard::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 22px; right: 22px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--brass), transparent);
+  opacity: 0.5;
+}
+.bizcard-wm {
+  font-family: "Fraunces", serif;
+  font-size: 22px; font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+.bizcard-tag {
+  font-family: "Inter", sans-serif;
+  font-size: 7px; font-weight: 600;
+  letter-spacing: 0.32em;
+  color: var(--brass);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.bizcard-bottom {
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.bizcard-name {
+  font-family: "Fraunces", serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.bizcard-role {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 8.5px;
+  color: var(--ink-faint);
+  letter-spacing: 0.12em;
+  margin-top: 2px;
+}
+.bizcard-foot {
+  text-align: right;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 8px;
+  color: var(--ink-faint);
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+}
+
+/* App icon variants */
+.appicon-row {
+  display: flex; gap: 16px; align-items: flex-end; justify-content: center;
+}
+.appicon { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.appicon-tile {
+  display: grid; place-items: center;
+}
+.appicon .lbl {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
+}
+
+/* Brand line / construction */
+.notes {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 40px 48px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.notes-text {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+.notes-text p { margin: 0 0 16px; }
+.notes-text p:last-child { margin-bottom: 0; }
+.notes-text strong { color: var(--ink); font-weight: 600; }
+.notes-text em { color: var(--brass-deep); font-style: normal; font-weight: 500; }
+.notes-eye {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--brass);
+  margin-bottom: 14px;
+}
+.notes-h {
+  font-family: "Fraunces", serif;
+  font-size: 32px; font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin: 0 0 24px;
+}
+.notes-diagram {
+  background: var(--paper);
+  border-radius: 14px;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+}
+</style>
+</head>
+<body>
+
+<div class="studio">
+
+  <!-- HEAD -->
+  <header class="studio-head">
+    <div>
+      <div class="studio-eyebrow">THEMIS · MARK · v3</div>
+      <h1 class="font-display studio-title">Τ</h1>
+    </div>
+    <div class="studio-meta">
+      ramicheAi / openclaw<br/>
+      themis · evidence intelligence<br/>
+      design rev. 03
+    </div>
+  </header>
+
+  <!-- HERO — the mark alone -->
+  <section class="hero">
+    <div class="hero-eyebrow">PRIMARY MARK</div>
+    <svg class="hero-mark" viewBox="0 0 400 400" width="320" height="320" aria-label="Themis mark">
+      <defs>
+        <linearGradient id="brassMain" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#f0d99d"/>
+          <stop offset="0.5" stop-color="#caa05c"/>
+          <stop offset="1" stop-color="#845f27"/>
+        </linearGradient>
+        <linearGradient id="brassSide" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stop-color="#845f27"/>
+          <stop offset="0.5" stop-color="#caa05c"/>
+          <stop offset="1" stop-color="#e9cf95"/>
+        </linearGradient>
+        <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.35"/>
+        </filter>
+      </defs>
+
+      <!-- Single iconic T: solid brass, asymmetric crossbar.
+           The crossbar is tilted -7°; the LEFT end is a thicker block
+           (the grounded weight); the RIGHT end is a narrower block
+           (the floating weight). The vertical stem stays plumb —
+           truth is fixed; weight is what tips.
+           A small ink fulcrum dot sits at the join. -->
+      <g filter="url(#softShadow)">
+        <!-- Stem (plumb) -->
+        <rect x="186" y="110" width="28" height="210" rx="3" fill="url(#brassMain)"/>
+        <!-- Stem base "anchor" — minimal serif -->
+        <rect x="156" y="310" width="88" height="14" rx="3" fill="url(#brassSide)"/>
+
+        <!-- Crossbar group (rotated -7° about the stem-top center) -->
+        <g transform="rotate(-7 200 110)">
+          <!-- Beam -->
+          <rect x="68" y="92" width="264" height="28" rx="4" fill="url(#brassSide)"/>
+          <!-- Left weight (grounded) — thicker block + protruding cap -->
+          <rect x="48" y="84" width="32" height="44" rx="4" fill="url(#brassMain)"/>
+          <!-- Right weight (floating) — narrower outline -->
+          <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="url(#brassMain)" stroke-width="4" stroke-dasharray="3 4"/>
+        </g>
+
+        <!-- Fulcrum — tiny ink dot at the join -->
+        <circle cx="200" cy="110" r="6" fill="#070b13" stroke="#e9cf95" stroke-width="1.4"/>
+      </g>
+    </svg>
+
+    <div class="hero-wordmark">THEMIS</div>
+    <div class="hero-tag">EVIDENCE INTELLIGENCE</div>
+  </section>
+
+  <!-- THREE TONES — the same mark, three grounds -->
+  <div class="tritone">
+
+    <!-- PAPER -->
+    <div class="tone tone-paper">
+      <div class="lbl">ON PAPER · DEFAULT</div>
+      <svg viewBox="0 0 400 400" width="200" height="200">
+        <defs>
+          <linearGradient id="brassPaper" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#e9cf95"/><stop offset="1" stop-color="#845f27"/>
+          </linearGradient>
+        </defs>
+        <rect x="186" y="110" width="28" height="210" rx="3" fill="url(#brassPaper)"/>
+        <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+        <g transform="rotate(-7 200 110)">
+          <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+          <rect x="48" y="84" width="32" height="44" rx="4" fill="url(#brassPaper)"/>
+          <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#a67c3a" stroke-width="4" stroke-dasharray="3 4"/>
+        </g>
+        <circle cx="200" cy="110" r="6" fill="#18222e"/>
+      </svg>
+      <div class="wm">THEMIS</div>
+    </div>
+
+    <!-- INK -->
+    <div class="tone tone-ink">
+      <div class="lbl">ON INK · INSTRUMENT</div>
+      <svg viewBox="0 0 400 400" width="200" height="200">
+        <defs>
+          <linearGradient id="brassInk" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#f0d99d"/><stop offset="1" stop-color="#a67c3a"/>
+          </linearGradient>
+        </defs>
+        <rect x="186" y="110" width="28" height="210" rx="3" fill="url(#brassInk)"/>
+        <rect x="156" y="310" width="88" height="14" rx="3" fill="#caa05c"/>
+        <g transform="rotate(-7 200 110)">
+          <rect x="68" y="92" width="264" height="28" rx="4" fill="#caa05c"/>
+          <rect x="48" y="84" width="32" height="44" rx="4" fill="url(#brassInk)"/>
+          <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#caa05c" stroke-width="4" stroke-dasharray="3 4"/>
+        </g>
+        <circle cx="200" cy="110" r="6" fill="#070b13" stroke="#e9cf95" stroke-width="1"/>
+      </svg>
+      <div class="wm">THEMIS</div>
+    </div>
+
+    <!-- BRASS -->
+    <div class="tone tone-brass">
+      <div class="lbl">ON BRASS · CEREMONIAL</div>
+      <svg viewBox="0 0 400 400" width="200" height="200">
+        <rect x="186" y="110" width="28" height="210" rx="3" fill="#18222e"/>
+        <rect x="156" y="310" width="88" height="14" rx="3" fill="#18222e"/>
+        <g transform="rotate(-7 200 110)">
+          <rect x="68" y="92" width="264" height="28" rx="4" fill="#18222e"/>
+          <rect x="48" y="84" width="32" height="44" rx="4" fill="#18222e"/>
+          <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#18222e" stroke-width="4" stroke-dasharray="3 4"/>
+        </g>
+        <circle cx="200" cy="110" r="6" fill="#f7f4ee"/>
+      </svg>
+      <div class="wm">THEMIS</div>
+    </div>
+  </div>
+
+  <!-- SCALE ROW -->
+  <div class="scale-card">
+    <div class="h">
+      <h2>One mark · every size</h2>
+      <div class="meta">16 → 256</div>
+    </div>
+    <div class="scale-row">
+      <!-- 256 -->
+      <div class="scale-cell">
+        <svg viewBox="0 0 400 400" width="160" height="160">
+          <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+          <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+          <g transform="rotate(-7 200 110)">
+            <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+            <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+            <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#a67c3a" stroke-width="4" stroke-dasharray="3 4"/>
+          </g>
+          <circle cx="200" cy="110" r="6" fill="#18222e"/>
+        </svg>
+        <div class="px">256</div>
+      </div>
+      <!-- 128 -->
+      <div class="scale-cell">
+        <svg viewBox="0 0 400 400" width="96" height="96">
+          <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+          <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+          <g transform="rotate(-7 200 110)">
+            <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+            <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+            <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#a67c3a" stroke-width="4" stroke-dasharray="3 4"/>
+          </g>
+          <circle cx="200" cy="110" r="6" fill="#18222e"/>
+        </svg>
+        <div class="px">128</div>
+      </div>
+      <!-- 64 -->
+      <div class="scale-cell">
+        <svg viewBox="0 0 400 400" width="64" height="64">
+          <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+          <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+          <g transform="rotate(-7 200 110)">
+            <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+            <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+          </g>
+          <circle cx="200" cy="110" r="6" fill="#18222e"/>
+        </svg>
+        <div class="px">64</div>
+      </div>
+      <!-- 32 — simplified: drop dashed right weight at small sizes -->
+      <div class="scale-cell">
+        <svg viewBox="0 0 400 400" width="32" height="32">
+          <rect x="184" y="108" width="32" height="216" rx="3" fill="#a67c3a"/>
+          <rect x="150" y="306" width="100" height="20" rx="3" fill="#a67c3a"/>
+          <g transform="rotate(-7 200 108)">
+            <rect x="60" y="86" width="280" height="40" rx="5" fill="#a67c3a"/>
+            <rect x="40" y="74" width="40" height="60" rx="5" fill="#a67c3a"/>
+          </g>
+        </svg>
+        <div class="px">32</div>
+      </div>
+      <!-- 16 — most reduced: heavy T with tilted crossbar, no extras -->
+      <div class="scale-cell">
+        <svg viewBox="0 0 400 400" width="16" height="16">
+          <rect x="178" y="100" width="44" height="230" rx="4" fill="#a67c3a"/>
+          <g transform="rotate(-7 200 100)">
+            <rect x="48" y="74" width="304" height="60" rx="8" fill="#a67c3a"/>
+          </g>
+        </svg>
+        <div class="px">16</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATIONS -->
+  <div class="apps">
+
+    <!-- Business card -->
+    <div class="app-card">
+      <div class="h">
+        <div class="h-eye">BUSINESS CARD · 89 × 51 MM</div>
+        <div class="h-meta">PAPER · BRASS FOIL</div>
+      </div>
+      <div class="bizcard">
+        <div>
+          <div class="bizcard-wm">
+            <svg viewBox="0 0 400 400" width="18" height="18" style="vertical-align:-3px; margin-right:4px;">
+              <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+              <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+              <g transform="rotate(-7 200 110)">
+                <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+                <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+              </g>
+            </svg>
+            Themis
+          </div>
+          <div class="bizcard-tag">EVIDENCE INTELLIGENCE</div>
+        </div>
+        <div class="bizcard-bottom">
+          <div>
+            <div class="bizcard-name">D. Okafor</div>
+            <div class="bizcard-role">LEAD COUNSEL · LITIGATION</div>
+          </div>
+          <div class="bizcard-foot">
+            okafor@themis.law<br/>
+            +1 415 555 0145
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App icons -->
+    <div class="app-card">
+      <div class="h">
+        <div class="h-eye">APP ICON · iOS / macOS</div>
+        <div class="h-meta">120 · 80 · 56</div>
+      </div>
+      <div class="appicon-row">
+        <div class="appicon">
+          <div class="appicon-tile" style="width:120px; height:120px; border-radius:26px; background:linear-gradient(135deg,#131e2c,#070b13); box-shadow:0 12px 32px rgba(0,0,0,0.22), inset 0 1px 0 rgba(202,160,92,0.18);">
+            <svg viewBox="0 0 400 400" width="74" height="74">
+              <defs><linearGradient id="brIcon" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#e9cf95"/><stop offset="1" stop-color="#a67c3a"/></linearGradient></defs>
+              <rect x="186" y="110" width="28" height="210" rx="3" fill="url(#brIcon)"/>
+              <rect x="156" y="310" width="88" height="14" rx="3" fill="#caa05c"/>
+              <g transform="rotate(-7 200 110)">
+                <rect x="68" y="92" width="264" height="28" rx="4" fill="#caa05c"/>
+                <rect x="48" y="84" width="32" height="44" rx="4" fill="url(#brIcon)"/>
+              </g>
+              <circle cx="200" cy="110" r="6" fill="#070b13"/>
+            </svg>
+          </div>
+          <div class="lbl">120</div>
+        </div>
+        <div class="appicon">
+          <div class="appicon-tile" style="width:80px; height:80px; border-radius:18px; background:linear-gradient(135deg,#131e2c,#070b13);">
+            <svg viewBox="0 0 400 400" width="50" height="50">
+              <rect x="186" y="110" width="28" height="210" rx="3" fill="#caa05c"/>
+              <rect x="156" y="310" width="88" height="14" rx="3" fill="#caa05c"/>
+              <g transform="rotate(-7 200 110)">
+                <rect x="68" y="92" width="264" height="28" rx="4" fill="#caa05c"/>
+                <rect x="48" y="84" width="32" height="44" rx="4" fill="#caa05c"/>
+              </g>
+            </svg>
+          </div>
+          <div class="lbl">80</div>
+        </div>
+        <div class="appicon">
+          <div class="appicon-tile" style="width:56px; height:56px; border-radius:12px; background:linear-gradient(135deg,#131e2c,#070b13);">
+            <svg viewBox="0 0 400 400" width="36" height="36">
+              <rect x="184" y="108" width="32" height="216" rx="3" fill="#caa05c"/>
+              <rect x="150" y="306" width="100" height="20" rx="3" fill="#caa05c"/>
+              <g transform="rotate(-7 200 108)">
+                <rect x="60" y="86" width="280" height="40" rx="5" fill="#caa05c"/>
+                <rect x="40" y="74" width="40" height="60" rx="5" fill="#caa05c"/>
+              </g>
+            </svg>
+          </div>
+          <div class="lbl">56</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="notes">
+    <div>
+      <div class="notes-eye">CONCEPT</div>
+      <h2 class="notes-h">A Tau. A scale. A single iconic shape.</h2>
+      <div class="notes-text">
+        <p>
+          The mark is a brass <strong>capital T</strong> — for Themis, for Tau, for
+          the simplest possible scale. The vertical stem is <em>plumb</em>: truth is fixed.
+          The horizontal crossbar is <em>tilted seven degrees</em>: weight is being applied.
+        </p>
+        <p>
+          The left end of the beam is a <strong>solid block</strong> — grounded, verified
+          evidence. The right end is a <strong>dashed outline</strong> — floating, pending.
+          A small ink dot at the join marks the <em>fulcrum</em>, the decision point.
+        </p>
+        <p>
+          At 16 pixels the dashed weight disappears. The right block thickens. The mark
+          reduces to a single tilted T — readable from anywhere in the room.
+        </p>
+      </div>
+    </div>
+    <div class="notes-diagram">
+      <svg viewBox="0 0 400 400" width="240" height="240">
+        <defs>
+          <linearGradient id="brNotes" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#e9cf95"/><stop offset="1" stop-color="#845f27"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Construction guides -->
+        <line x1="200" y1="20" x2="200" y2="380" stroke="#e6dfd2" stroke-width="0.8" stroke-dasharray="3 3"/>
+        <line x1="40" y1="110" x2="360" y2="110" stroke="#e6dfd2" stroke-width="0.8" stroke-dasharray="3 3"/>
+        <line x1="200" y1="110" x2="320" y2="95" stroke="#caa05c" stroke-width="0.6" stroke-dasharray="2 3"/>
+        <text x="328" y="86" font-family="JetBrains Mono, monospace" font-size="10" fill="#a67c3a" letter-spacing="0.06em">7°</text>
+        <text x="208" y="40" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a93a0" letter-spacing="0.1em">PLUMB</text>
+        <text x="44" y="104" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a93a0" letter-spacing="0.1em">BEAM</text>
+
+        <!-- Mark -->
+        <rect x="186" y="110" width="28" height="210" rx="3" fill="url(#brNotes)"/>
+        <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+        <g transform="rotate(-7 200 110)">
+          <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+          <rect x="48" y="84" width="32" height="44" rx="4" fill="url(#brNotes)"/>
+          <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#a67c3a" stroke-width="4" stroke-dasharray="3 4"/>
+        </g>
+        <circle cx="200" cy="110" r="6" fill="#18222e"/>
+
+        <!-- Annotations -->
+        <text x="22" y="146" font-family="JetBrains Mono, monospace" font-size="9" fill="#a67c3a" letter-spacing="0.08em">SOLID</text>
+        <text x="22" y="158" font-family="JetBrains Mono, monospace" font-size="9" fill="#a67c3a" letter-spacing="0.08em">GROUNDED</text>
+        <text x="320" y="158" font-family="JetBrains Mono, monospace" font-size="9" fill="#a67c3a" letter-spacing="0.08em">DASHED</text>
+        <text x="320" y="170" font-family="JetBrains Mono, monospace" font-size="9" fill="#a67c3a" letter-spacing="0.08em">PENDING</text>
+        <text x="214" y="116" font-family="JetBrains Mono, monospace" font-size="9" fill="#18222e" letter-spacing="0.08em">FULCRUM</text>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -34,6 +34,19 @@ The Vite dev server proxies `/api` to `http://localhost:8787` (override with
 (`src/data/mock.ts`); the API client is ready for the next iteration of the UI
 to consume in place of the mocks.
 
+## Design handoff
+
+Claude design shipped a full prototype + implementation spec for the V2 UI
+(Worktop + Case Brain modes, the Tau brand mark, a 24-icon family, six
+explicit states, and a 3-sprint plan).
+
+- Spec: [`design/design_handoff_themis_worktop/README.md`](./design/design_handoff_themis_worktop/README.md)
+- Implementation prompt: [`design/design_handoff_themis_worktop/CLAUDE_CODE_PROMPT.md`](./design/design_handoff_themis_worktop/CLAUDE_CODE_PROMPT.md)
+- Live prototype (open in a browser): `Themis Overview.html`, `Themis Logo.html`, `Themis States Icons.html` in the same folder.
+- Working React/JSX reference: `app.jsx`, `worktop.jsx`, `panels.jsx`, `brain.jsx`, `scales.jsx`, `inspector.jsx`, `cmdk.jsx`, `data.js`.
+
+The product brief that the design was built against lives at [`DESIGN_BRIEF.md`](./DESIGN_BRIEF.md).
+
 ## What it shows
 
 - **Matters dashboard** — every case is an isolated brain behind a conflict wall; ingest
