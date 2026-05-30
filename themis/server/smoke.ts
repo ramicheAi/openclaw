@@ -46,7 +46,7 @@ console.log("Themis API smoke test\n");
 {
   const r = await get("/api/matters");
   const reyes = r.body.matters.find((m: any) => m.id === M);
-  check("matters list returns 3", r.body.matters.length === 3);
+  check("matters list returns 4", r.body.matters.length === 4);
   check("reyes hotDocs computed = 4", reyes?.hotDocs === 4);
   check("reyes privilegeQueue computed = 2", reyes?.privilegeQueue === 2);
   check("reyes corpus docs = 11920", reyes?.docs === 11920);
