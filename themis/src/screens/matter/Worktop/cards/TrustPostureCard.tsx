@@ -31,7 +31,9 @@ export function TrustPostureCard({ matterId }: { matterId: string }) {
       : allCitations.reduce((s, c) => s + (c.supportScore ?? 0), 0) / allCitations.length;
   const refusalCount = (audit.data ?? []).filter((e) => e.action === "chat.refused").length;
 
-  const chainOk = chain.data?.broken === false && (chain.data?.entries ?? 0) > 0;
+  const chainBroken = chain.data?.broken === true;
+  const chainEmpty = !chainBroken && (chain.data?.entries ?? 0) === 0;
+  const chainOk = !chainBroken && !chainEmpty;
   const chainLoaded = !chain.isLoading && chain.data;
 
   return (
@@ -50,9 +52,11 @@ export function TrustPostureCard({ matterId }: { matterId: string }) {
             ? "checking…"
             : chainOk
               ? `verified · ${chain.data!.entries} entries`
-              : `BROKEN${chain.data!.brokenAt ? ` at #${chain.data!.brokenAt}` : ""}`
+              : chainEmpty
+                ? "no activity yet"
+                : `BROKEN${chain.data!.brokenAt ? ` at #${chain.data!.brokenAt}` : ""}`
         }
-        tone={!chainLoaded ? "muted" : chainOk ? "verify" : "danger"}
+        tone={!chainLoaded ? "muted" : chainOk ? "verify" : chainEmpty ? "muted" : "danger"}
         sub="SHA-256 hash chain · tamper-evident"
       />
 
