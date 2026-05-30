@@ -6,6 +6,7 @@ Docs: https://docs.openclaw.ai
 Status: stable.
 
 ### Changes
+- Doctor: `--fix` now persists legacy-key migrations to disk (previously it printed the migration but never wrote it when unrelated plugin validation failed, leaving stale configs that broke every subsequent CLI invocation including `gateway restart`).
 - Rebrand: rename the npm package/CLI to `openclaw`, add a `openclaw` compatibility shim, and move extensions to the `@openclaw/*` scope.
 - Onboarding: strengthen security warning copy for beta + access control expectations.
 - Onboarding: add Venice API key to non-interactive flow. (#1893) Thanks @jonisjongithub.

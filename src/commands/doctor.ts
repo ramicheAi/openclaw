@@ -279,11 +279,17 @@ export async function doctorCommand(
   const shouldWriteConfig = prompter.shouldRepair || configResult.shouldWriteConfig;
   if (shouldWriteConfig) {
     cfg = applyWizardMetadata(cfg, { command: "doctor", mode: resolveMode(cfg) });
-    await writeConfigFile(cfg);
-    logConfigUpdated(runtime);
-    const backupPath = `${CONFIG_PATH}.bak`;
-    if (fs.existsSync(backupPath)) {
-      runtime.log(`Backup: ${shortenHomePath(backupPath)}`);
+    try {
+      await writeConfigFile(cfg);
+      logConfigUpdated(runtime);
+      const backupPath = `${CONFIG_PATH}.bak`;
+      if (fs.existsSync(backupPath)) {
+        runtime.log(`Backup: ${shortenHomePath(backupPath)}`);
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      runtime.error(`Failed to write config: ${message}`);
+      runtime.error("Fix the remaining config issues manually, then re-run doctor.");
     }
   } else {
     runtime.log(`Run "${formatCliCommand("openclaw doctor --fix")}" to apply changes.`);
