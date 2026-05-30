@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { getDb, jsonIn, type DB } from "./db.js";
-import { verifyCitation } from "./services.js";
+import { audit } from "./repo.js";
+import { assessCitation, verifyCitation } from "./services.js";
 import {
   chronologyEvents,
   documents,
@@ -141,11 +142,23 @@ export function seed(db: DB, { reset = false }: { reset?: boolean } = {}): void 
       }
 
       (seedChat[m.id] ?? []).forEach((t, i) => {
-        const citations = (t.bates ?? []).map((b) => ({
-          bates: b.bates,
-          page: b.page,
-          verified: verifyCitation(db, m.id, b.bates, b.page),
-        }));
+        // For seeded themis turns, score entailment against the turn's own text
+        // so the demo answer carries honest support metadata, not a green
+        // check based on existence alone.
+        const citations = (t.bates ?? []).map((b) => {
+          const sup = assessCitation(db, m.id, b.bates, b.page, t.text);
+          return {
+            bates: b.bates,
+            page: b.page,
+            verified: sup.existed,
+            entailed: sup.entailed,
+            supportScore: sup.supportScore,
+            matchedKeyTerms: sup.matchedKeyTerms,
+          };
+        });
+        // Keep verifyCitation imported even when entailment is the primary
+        // path, so the existence primitive remains documented and usable.
+        void verifyCitation;
         db.prepare(
           `INSERT INTO chat_messages (id, matter_id, role, text, json_citations, confidence, created_at)
            VALUES (?, ?, ?, ?, ?, ?, ?)`,
@@ -180,18 +193,18 @@ export function seed(db: DB, { reset = false }: { reset?: boolean } = {}): void 
       new Date(base + 7000_000).toISOString(),
     );
 
-    // A few historical audit entries for the lead matter so the trail isn't empty.
+    // A few historical audit entries for the lead matter so the trail isn't
+    // empty. Use the real audit() function so seed entries join the hash chain
+    // (otherwise verify_chain reports a broken chain at the first real entry).
     const reyes = "reyes-northwind";
     const seedAudit: [string, string, string][] = [
-      ["D. Okafor", "chronology.accept", "NW-001120 accepted into chronology"],
-      ["themis", "privilege.flag", "NW-002310 flagged: attorney-client (L. Stein)"],
       ["themis", "ingest.complete", "84,213 pages indexed; dedup + threading applied"],
+      ["themis", "privilege.flag", "NW-002310 flagged: attorney-client (L. Stein)"],
+      ["D. Okafor", "chronology.accept", "NW-001120 accepted into chronology"],
     ];
-    seedAudit.forEach(([actor, action, detail], i) => {
-      db.prepare(
-        `INSERT INTO audit_log (matter_id, ts, actor, action, detail) VALUES (?, ?, ?, ?, ?)`,
-      ).run(reyes, new Date(base + 7200_000 + i * 1000).toISOString(), actor, action, detail);
-    });
+    for (const [actor, action, detail] of seedAudit) {
+      audit(db, reyes, actor, action, detail);
+    }
   });
 
   run();

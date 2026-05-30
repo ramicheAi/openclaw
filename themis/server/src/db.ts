@@ -32,6 +32,8 @@ function migrate(db: DB) {
     `ALTER TABLE documents ADD COLUMN reviewed_at TEXT`,
     `ALTER TABLE documents ADD COLUMN hot_set_by TEXT`,
     `ALTER TABLE documents ADD COLUMN hot_set_at TEXT`,
+    `ALTER TABLE audit_log ADD COLUMN prev_hash TEXT NOT NULL DEFAULT ''`,
+    `ALTER TABLE audit_log ADD COLUMN entry_hash TEXT NOT NULL DEFAULT ''`,
   ];
   for (const sql of adds) {
     try {

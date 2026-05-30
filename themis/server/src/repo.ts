@@ -232,10 +232,65 @@ export function insertChat(db: DB, matterId: string, turn: ChatTurn): void {
   );
 }
 
+import { createHash } from "node:crypto";
+
+// Tamper-evident, hash-chained audit. Each entry's entry_hash = SHA-256 of
+// (matter_id | ts | actor | action | detail | prev_hash) so any rewrite
+// breaks the chain at the point of tampering.
 export function audit(db: DB, matterId: string, actor: string, action: string, detail = ""): void {
+  const ts = new Date().toISOString();
+  const prevRow = db
+    .prepare(`SELECT entry_hash FROM audit_log WHERE matter_id = ? ORDER BY id DESC LIMIT 1`)
+    .get(matterId) as { entry_hash: string } | undefined;
+  const prevHash = prevRow?.entry_hash ?? "";
+  const entryHash = hashAuditEntry({ matterId, ts, actor, action, detail, prevHash });
   db.prepare(
-    `INSERT INTO audit_log (matter_id, ts, actor, action, detail) VALUES (?, ?, ?, ?, ?)`,
-  ).run(matterId, new Date().toISOString(), actor, action, detail);
+    `INSERT INTO audit_log (matter_id, ts, actor, action, detail, prev_hash, entry_hash) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+  ).run(matterId, ts, actor, action, detail, prevHash, entryHash);
+}
+
+export function hashAuditEntry(e: {
+  matterId: string;
+  ts: string;
+  actor: string;
+  action: string;
+  detail: string;
+  prevHash: string;
+}): string {
+  const h = createHash("sha256");
+  h.update(`${e.matterId}${e.ts}${e.actor}${e.action}${e.detail}${e.prevHash}`);
+  return h.digest("hex");
+}
+
+export interface AuditChainStatus {
+  entries: number;
+  broken: boolean;
+  brokenAt?: number;
+  reason?: string;
+}
+
+export function verifyAuditChain(db: DB, matterId: string): AuditChainStatus {
+  const rows = db
+    .prepare(`SELECT * FROM audit_log WHERE matter_id = ? ORDER BY id ASC`)
+    .all(matterId) as Row[];
+  let expectedPrev = "";
+  for (const r of rows) {
+    const ts = r.ts as string;
+    const actor = r.actor as string;
+    const action = r.action as string;
+    const detail = (r.detail as string) ?? "";
+    const prevHash = (r.prev_hash as string) ?? "";
+    const entryHash = (r.entry_hash as string) ?? "";
+    if (prevHash !== expectedPrev) {
+      return { entries: rows.length, broken: true, brokenAt: r.id as number, reason: "prev_hash mismatch" };
+    }
+    const expectedHash = hashAuditEntry({ matterId, ts, actor, action, detail, prevHash });
+    if (entryHash !== expectedHash) {
+      return { entries: rows.length, broken: true, brokenAt: r.id as number, reason: "entry_hash mismatch" };
+    }
+    expectedPrev = entryHash;
+  }
+  return { entries: rows.length, broken: false };
 }
 
 export function listAudit(db: DB, matterId: string, limit = 50): AuditEntry[] {

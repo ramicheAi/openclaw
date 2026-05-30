@@ -30,7 +30,21 @@ export interface MatterSummary {
 export interface Citation {
   bates: string;
   page: number;
+  /** Existence verified: Bates resolves and the page exists. */
   verified: boolean;
+  /** Entailment verified: the source page's body actually supports the claim. */
+  entailed?: boolean;
+  /** Support score 0..1 from the entailment check. */
+  supportScore?: number;
+  /** Up to ~8 distinct claim tokens that appear in the source body. */
+  matchedKeyTerms?: string[];
+}
+
+export interface AuditChainStatus {
+  entries: number;
+  broken: boolean;
+  brokenAt?: number;
+  reason?: string;
 }
 
 export interface DocItem {

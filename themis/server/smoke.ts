@@ -128,6 +128,36 @@ console.log("Themis API smoke test\n");
   check("audit has chat.query", actions.includes("chat.query"));
   check("audit has privilege.cleared", actions.includes("privilege.cleared"));
   check("audit has chronology.accept", actions.includes("chronology.accept"));
+
+  // Hash-chain verification.
+  const verify = await get(`/api/matters/${M}/audit/verify`);
+  check("audit hash chain verifies clean", verify.body.broken === false && verify.body.entries > 0);
+}
+
+// Chat enforces refusal when no source supports the claim
+{
+  const refuse = await send(
+    `/api/matters/${M}/chat`,
+    "POST",
+    { question: "What was the name of Maria Reyes's elementary school?" },
+  );
+  const refused =
+    typeof refuse.body.text === "string" &&
+    (refuse.body.text.includes("declining") || refuse.body.text.includes("none of them actually support"));
+  check("chat refuses on unsupported question", refuse.status === 200 && refused);
+  check("refusal still surfaces citations as 'located not entailed'", Array.isArray(refuse.body.citations));
+}
+
+// Citations now carry entailment metadata
+{
+  const r = await send(
+    `/api/matters/${M}/chat`,
+    "POST",
+    { question: "When did Reyes file her wage complaint?" },
+  );
+  const cs = r.body.citations ?? [];
+  check("citations include supportScore", cs.length > 0 && typeof cs[0].supportScore === "number");
+  check("at least one citation entails", cs.some((c: any) => c.entailed === true));
 }
 
 // Binders — create, add items, reorder, export shape

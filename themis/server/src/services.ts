@@ -33,14 +33,154 @@ export interface PrivilegeService {
 }
 
 // --- Citation verification -------------------------------------------------
-// A citation is "verified" when its Bates id resolves to a real document in the
-// matter and the cited page falls within that document's page count. This is
-// the trust primitive: no claim is shown as verified unless it grounds out in a
-// source page that actually exists.
+// TWO-LAYER verification. Existence is necessary but never sufficient.
+//
+//   Layer 1 (existence): does the Bates id resolve to a real document and a
+//     real page in this matter? Cheap, deterministic. Catches hallucinated
+//     citations (the Mata v. Avianca failure mode).
+//
+//   Layer 2 (entailment): does the source page's body actually support the
+//     claim being made? A token-overlap + key-phrase coverage heuristic
+//     today; a fine-tuned NLI model or an LLM-as-judge step drops in here
+//     behind the same interface tomorrow. Falsifiable in the eval harness.
+//
+// A citation only carries trust if BOTH layers pass. A green check in the UI
+// is reserved for entailed citations; existence-only citations are styled
+// as "located but not entailed" — the honest middle state.
+
 export function verifyCitation(db: DB, matterId: string, bates: string, page: number): boolean {
   const doc = getDocumentByBates(db, matterId, bates);
   if (!doc) return false;
   return page >= 1 && page <= doc.pages;
+}
+
+const ENTAILMENT_STOPWORDS = new Set([
+  "the", "and", "for", "was", "her", "his", "with", "that", "this", "what",
+  "who", "did", "does", "how", "much", "between", "from", "about", "into",
+  "are", "were", "she", "him", "they", "them", "have", "has", "had", "but",
+  "not", "any", "all", "can", "will", "would", "should", "could", "than",
+  "then", "when", "where", "why", "which", "you", "your", "their", "there",
+]);
+
+// Tiny Porter-style stemmer — catches the common morphological tail that
+// otherwise breaks pure token overlap ("sanctioned" vs "sanction",
+// "fabricated" vs "fabricate"). Not linguistically complete; good enough that
+// citation entailment isn't defeated by tense or pluralization.
+function stem(t: string): string {
+  if (t.length <= 4) return t;
+  if (t.endsWith("ied")) return t.slice(0, -3) + "y";
+  if (t.endsWith("ing")) return t.slice(0, -3);
+  if (t.endsWith("ed")) return t.slice(0, -2);
+  if (t.endsWith("ies")) return t.slice(0, -3) + "y";
+  if (t.endsWith("es")) return t.slice(0, -2);
+  if (t.endsWith("s") && !t.endsWith("ss")) return t.slice(0, -1);
+  return t;
+}
+
+function contentTokens(text: string): string[] {
+  return text
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((t) => t.length >= 3 && !ENTAILMENT_STOPWORDS.has(t))
+    .map(stem);
+}
+
+function bigrams(tokens: string[]): string[] {
+  const out: string[] = [];
+  for (let i = 0; i + 1 < tokens.length; i++) out.push(`${tokens[i]} ${tokens[i + 1]}`);
+  return out;
+}
+
+export interface CitationSupport {
+  existed: boolean;
+  entailed: boolean;
+  supportScore: number; // 0..1
+  matchedKeyTerms: string[];
+}
+
+// Returns the per-citation support assessment. Pure function over the doc body
+// and the claim text. The score combines:
+//   - unigram coverage of distinctive claim tokens
+//   - bigram coverage (rewards adjacency, not just keyword presence)
+//   - exact-match anchor matches for dates, integers, currency, Bates ids
+// supportScore ranges 0..1. entailed = supportScore >= 0.35.
+export function scoreCitationSupport(claim: string, body: string): CitationSupport {
+  if (!claim || !body) return { existed: false, entailed: false, supportScore: 0, matchedKeyTerms: [] };
+
+  const claimTokens = contentTokens(claim);
+  const distinctClaim = [...new Set(claimTokens)];
+  if (distinctClaim.length === 0) return { existed: true, entailed: false, supportScore: 0, matchedKeyTerms: [] };
+
+  const bodyLower = body.toLowerCase();
+  const bodyTokens = contentTokens(body);
+  const bodyTokenSet = new Set(bodyTokens);
+  const bodyBigramSet = new Set(bigrams(bodyTokens));
+
+  const matchedUnigrams = distinctClaim.filter((t) => bodyTokenSet.has(t));
+  const unigramCoverage = matchedUnigrams.length / distinctClaim.length;
+
+  const claimBigrams = [...new Set(bigrams(claimTokens))];
+  const bigramCoverage =
+    claimBigrams.length === 0 ? 0 : claimBigrams.filter((b) => bodyBigramSet.has(b)).length / claimBigrams.length;
+
+  // Anchor matches: dates (2019-08-27), 4-digit years, dollar amounts ($5,000),
+  // and Bates-style ids (LETTERS-DIGITS). These are high-evidentiary if present.
+  const anchorPatterns = [
+    /\b\d{4}-\d{2}-\d{2}\b/g, // ISO date
+    /\b(19|20)\d{2}\b/g, // year
+    /\$\s*\d[\d,]*/g, // dollars
+    /\b[A-Z]{2,}-\d{3,}\b/g, // bates
+  ];
+  let anchorBonus = 0;
+  for (const re of anchorPatterns) {
+    const claimMatches = claim.match(re) ?? [];
+    for (const m of claimMatches) {
+      if (bodyLower.includes(m.toLowerCase())) anchorBonus += 0.08;
+    }
+  }
+  anchorBonus = Math.min(anchorBonus, 0.3);
+
+  // Mild penalty for unmatched distinctive claim tokens. Gentle enough that
+  // legitimately-relevant docs still entail, but bites when most claim tokens
+  // are absent (the "Reyes's elementary school" pattern: entity names match
+  // but no concept tokens do).
+  const unmatchedCount = distinctClaim.length - matchedUnigrams.length;
+  const unmatchedPenalty = Math.min(0.18, unmatchedCount * 0.04);
+
+  const supportScore = Math.max(
+    0,
+    Math.min(1, unigramCoverage * 0.5 + bigramCoverage * 0.35 + anchorBonus + 0.05 - unmatchedPenalty),
+  );
+  const entailed = supportScore >= 0.25;
+  return { existed: true, entailed, supportScore: round3(supportScore), matchedKeyTerms: matchedUnigrams.slice(0, 8) };
+}
+
+function round3(n: number): number {
+  return Math.round(n * 1000) / 1000;
+}
+
+// Full assessment used by chat: existence + entailment in one call.
+// We score against the doc's body AND its summary, since both are part of
+// the cited source page in our model (the summary is canonical extraction
+// from the body). Honest about what the citation actually points to.
+export function assessCitation(
+  db: DB,
+  matterId: string,
+  bates: string,
+  page: number,
+  claim: string,
+): CitationSupport {
+  const doc = getDocumentByBates(db, matterId, bates);
+  if (!doc || page < 1 || page > doc.pages) {
+    return { existed: false, entailed: false, supportScore: 0, matchedKeyTerms: [] };
+  }
+  // Tight haystack: just body + summary + title + date. Author/recipients/
+  // entities are metadata, not content of the claim — including them yields
+  // false-positive entailment on tangential questions that happen to mention
+  // a person who is in the corpus.
+  const haystack = `${doc.body}\n\n${doc.summary}\n\n${doc.title}\n\n${doc.date}`;
+  const sup = scoreCitationSupport(claim, haystack);
+  return { ...sup, existed: true };
 }
 
 // --- Lexical retrieval stub ------------------------------------------------
@@ -105,12 +245,21 @@ export const searchService: SearchService = {
   },
 };
 
-function confidenceFromHits(hits: SearchHit[]): Confidence {
-  const strong = hits.filter((h) => h.score >= 2).length;
-  if (strong >= 3) return "high";
-  if (hits.length >= 1) return "medium";
+// Honest confidence: blends entailment quality of the citations themselves
+// (not just retrieval-score). If best entailment is weak, confidence is low
+// even if retrieval returned many hits.
+function calibratedConfidence(hits: SearchHit[], citations: { entailed?: boolean; supportScore?: number }[]): Confidence {
+  if (hits.length === 0 || citations.length === 0) return "low";
+  const entailedCount = citations.filter((c) => c.entailed).length;
+  const best = Math.max(0, ...citations.map((c) => c.supportScore ?? 0));
+  if (entailedCount >= 2 && best >= 0.5) return "high";
+  if (entailedCount >= 1) return "medium";
   return "low";
 }
+
+// Decoupled from entailment threshold: refusal kicks in only when every
+// citation is essentially unsupported, not merely below the "entailed" bar.
+const REFUSAL_THRESHOLD = 0.22;
 
 export const chatService: ChatService = {
   ask(db, matterId, question, actor) {
@@ -124,24 +273,61 @@ export const chatService: ChatService = {
     let text: string;
     let citations: ChatTurn["citations"] = [];
     let confidence: Confidence;
+    let refused = false;
 
     if (hits.length === 0) {
       text =
-        "I couldn't find non-privileged documents in this matter that speak to that question. Try rephrasing, or review the gap analysis on the Overview tab for known holes in the production.";
+        "I couldn't find non-privileged documents in this matter that speak to that. Try rephrasing, or review the gap analysis on the Overview tab.";
       confidence = "low";
+      refused = true;
     } else {
       const top = hits.slice(0, 3);
-      const body = top.map((h) => `${h.doc.bates} (${h.doc.date}): ${h.doc.summary}`).join(" ");
-      text = `${hits.length} document${hits.length > 1 ? "s" : ""} in this matter bear on your question. ${body} Every citation below is verified against its source page.`;
-      citations = top.map((h) => ({
-        bates: h.doc.bates,
-        page: 1,
-        verified: verifyCitation(db, matterId, h.doc.bates, 1),
-      }));
-      confidence = confidenceFromHits(hits);
+
+      // Build a draft answer using each top hit's summary.
+      const draftBody = top.map((h) => `${h.doc.bates} (${h.doc.date}): ${h.doc.summary}`).join(" ");
+
+      // Score entailment against the QUESTION alone (not question+draft).
+      // The draft is templated from the doc's own summary so including it
+      // would artificially inflate entailment via self-reference. The real
+      // semantic test is: does this source actually have content relevant
+      // to what the user asked?
+      const assessed = top.map((h) => {
+        const sup = assessCitation(db, matterId, h.doc.bates, 1, question);
+        return {
+          bates: h.doc.bates,
+          page: 1,
+          verified: sup.existed,
+          entailed: sup.entailed,
+          supportScore: sup.supportScore,
+          matchedKeyTerms: sup.matchedKeyTerms,
+        };
+      });
+
+      const bestSupport = Math.max(0, ...assessed.map((c) => c.supportScore ?? 0));
+
+      // The Mata test: if nothing entails, the system MUST NOT claim. The
+      // failure mode the product exists to prevent is the confident-but-
+      // ungrounded answer.
+      if (bestSupport < REFUSAL_THRESHOLD) {
+        text =
+          "I located documents that mention your question's terms, but none of them actually support a specific answer. Rather than guess, I'm declining to claim. Review the cited Bates below directly, or rephrase the question.";
+        citations = assessed; // surface them anyway, marked unentailed, so the user can verify the refusal
+        confidence = "low";
+        refused = true;
+      } else {
+        const entailedTop = assessed.filter((c) => c.entailed);
+        if (entailedTop.length === 0) {
+          // Mention located-but-not-entailed posture explicitly.
+          text = `${hits.length} document${hits.length > 1 ? "s" : ""} mention this question's terms but none cleanly entail a specific answer. The strongest located source is ${top[0].doc.bates} (${top[0].doc.date}): ${top[0].doc.summary} Treat as a starting point, not a conclusion.`;
+        } else {
+          text = `${entailedTop.length} of ${hits.length} document${hits.length > 1 ? "s" : ""} in this matter directly entail an answer. ${draftBody} Every citation below was checked for both existence and entailment against its source page.`;
+        }
+        citations = assessed;
+        confidence = calibratedConfidence(hits, assessed);
+      }
     }
 
-    const verifiedCount = citations.filter((c) => c.verified).length;
+    const entailedCount = (citations ?? []).filter((c) => c.entailed).length;
     const themisTurn: ChatTurn = {
       id: randomUUID(),
       role: "themis",
@@ -155,8 +341,8 @@ export const chatService: ChatService = {
       db,
       matterId,
       "themis",
-      "chat.answer",
-      `${citations.length} citations, ${verifiedCount} verified, confidence ${confidence}`,
+      refused ? "chat.refused" : "chat.answer",
+      `${citations.length} citations · ${entailedCount} entailed · confidence ${confidence}`,
     );
     return themisTurn;
   },

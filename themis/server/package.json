@@ -9,6 +9,7 @@
     "start": "tsx src/index.ts",
     "seed": "tsx src/seed.ts",
     "smoke": "tsx smoke.ts",
+    "eval": "tsx eval.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

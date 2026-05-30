@@ -12,6 +12,7 @@ import { CompactBrainCard } from "./cards/CompactBrainCard";
 import { TaskQueueCard, buildTaskQueue } from "./cards/TaskQueueCard";
 import { ScalesMini } from "./cards/ScalesMini";
 import { AuditTrailCard } from "./cards/AuditTrailCard";
+import { TrustPostureCard } from "./cards/TrustPostureCard";
 import { TabBar } from "./panels/TabBar";
 import { AskPanel } from "./panels/AskPanel";
 import { ChronologyPanel } from "./panels/ChronologyPanel";
@@ -100,6 +101,7 @@ export function Worktop({
           onGo={(kind) => onTab(kind === "priv" ? "privilege" : "chronology")}
         />
         <ScalesMini events={chron ?? []} />
+        <TrustPostureCard matterId={matterId} />
         <AuditTrailCard entries={audit ?? []} />
       </aside>
 

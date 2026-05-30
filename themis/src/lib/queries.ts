@@ -61,6 +61,13 @@ export function useAudit(id: string, limit = 50) {
   });
 }
 
+export function useAuditChain(id: string) {
+  return useQuery({
+    queryKey: [...qk.audit(id), "verify"],
+    queryFn: () => api.verifyAuditChain(id),
+  });
+}
+
 // --- Mutations: every one invalidates the data it touches AND the audit log.
 
 export function useAskThemis(id: string) {

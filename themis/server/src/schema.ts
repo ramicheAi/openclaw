@@ -139,12 +139,14 @@ CREATE TABLE IF NOT EXISTS binder_items (
 CREATE INDEX IF NOT EXISTS idx_binder_items_binder ON binder_items(binder_id, ord);
 
 CREATE TABLE IF NOT EXISTS audit_log (
-  id        INTEGER PRIMARY KEY AUTOINCREMENT,
-  matter_id TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,
-  ts        TEXT NOT NULL,
-  actor     TEXT NOT NULL,
-  action    TEXT NOT NULL,
-  detail    TEXT NOT NULL DEFAULT ''
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  matter_id   TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,
+  ts          TEXT NOT NULL,
+  actor       TEXT NOT NULL,
+  action      TEXT NOT NULL,
+  detail      TEXT NOT NULL DEFAULT '',
+  prev_hash   TEXT NOT NULL DEFAULT '',
+  entry_hash  TEXT NOT NULL DEFAULT ''
 );
 CREATE INDEX IF NOT EXISTS idx_audit_matter ON audit_log(matter_id, id);
 `;

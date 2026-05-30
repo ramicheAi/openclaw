@@ -3,6 +3,7 @@
 // In dev, Vite proxies /api to the server (see vite.config.ts).
 
 import type {
+  AuditChainStatus,
   AuditEntry,
   Binder,
   CausalChain,
@@ -51,6 +52,8 @@ export const api = {
 
   getAudit: (id: string, limit = 50) =>
     request<{ entries: AuditEntry[] }>(`/api/matters/${id}/audit?limit=${limit}`).then((r) => r.entries),
+
+  verifyAuditChain: (id: string) => request<AuditChainStatus>(`/api/matters/${id}/audit/verify`),
 
   listDocuments: (id: string) =>
     request<{ documents: DocItem[] }>(`/api/matters/${id}/documents`).then((r) => r.documents),

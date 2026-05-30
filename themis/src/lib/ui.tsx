@@ -23,17 +23,33 @@ export function ConfidenceDot({ level, withLabel }: { level: Confidence; withLab
 }
 
 export function CitationChip({ c }: { c: Citation }) {
+  // Three honest states:
+  //   entailed  → solid green check (source page supports the claim)
+  //   verified  → outlined amber (Bates exists but entailment is weak — "located, not entailed")
+  //   unverified → neutral (Bates doesn't resolve at all)
+  const state: "entailed" | "located" | "unverified" =
+    c.entailed === true ? "entailed" : c.verified ? "located" : "unverified";
+  const styles = {
+    entailed: "border-verify/30 bg-verify-wash text-verify",
+    located: "border-flag/30 bg-flag-wash/60 text-flag",
+    unverified: "border-line-strong bg-surface-sunken text-ink-soft",
+  }[state];
+  const title =
+    state === "entailed"
+      ? `Verified · source entails the claim${typeof c.supportScore === "number" ? ` (support ${(c.supportScore * 100).toFixed(0)}%)` : ""}`
+      : state === "located"
+        ? `Located · Bates resolves but entailment is weak${typeof c.supportScore === "number" ? ` (support ${(c.supportScore * 100).toFixed(0)}%)` : ""}`
+        : "Bates does not resolve in this matter";
   return (
     <span
       className={cx(
         "inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 align-middle font-mono text-[11px] leading-none",
-        c.verified
-          ? "border-verify/30 bg-verify-wash text-verify"
-          : "border-line-strong bg-surface-sunken text-ink-soft",
+        styles,
       )}
-      title={c.verified ? "Citation verified against source page" : "Citation not yet verified"}
+      title={title}
     >
-      {c.verified && <BadgeCheck size={12} strokeWidth={2.4} />}
+      {state === "entailed" && <BadgeCheck size={12} strokeWidth={2.4} />}
+      {state === "located" && <ShieldAlert size={12} strokeWidth={2.4} />}
       {c.bates}
     </span>
   );
