@@ -7,6 +7,7 @@ import { api } from "../../../../lib/api";
 import { AddDocumentModal } from "../../../../components/AddDocumentModal";
 import { OcrModal } from "../../../../components/OcrModal";
 import { TranscriptPlayer } from "../../../../components/TranscriptPlayer";
+import { PdfViewer } from "../../../../components/PdfViewer";
 import type { DocItem } from "../../../../types";
 import { PanelAction, PanelHead } from "./PanelHead";
 
@@ -176,6 +177,7 @@ function DocView({
   const isImageOnly = /^\[(?:PDF|File) [^\]]+ — (?:appears to be image-only|could not (?:parse|extract))/m.test(doc.body) || /^\[No text — saved as a record/.test(doc.body);
   const [renaming, setRenaming] = useState(false);
   const [ocring, setOcring] = useState(false);
+  const [viewSource, setViewSource] = useState(false);
   return (
     <article className="overflow-hidden rounded-lg border border-line bg-surface">
       <div className="flex">
@@ -217,11 +219,30 @@ function DocView({
               <div className="font-mono text-[10px] uppercase tracking-wider text-flag">
                 No text layer — chat can't ground until OCR'd
               </div>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => setViewSource((v) => !v)}
+                  className="rounded-md border border-line bg-surface px-2 py-1 text-[11px] font-medium text-ink-soft hover:border-brass-soft hover:text-brass-deep"
+                >
+                  {viewSource ? "Hide source PDF" : "View source PDF"}
+                </button>
+                <button
+                  onClick={() => setOcring(true)}
+                  className="rounded-md border border-brass-soft bg-surface px-2 py-1 text-[11px] font-medium text-brass-deep hover:border-brass"
+                >
+                  Run OCR
+                </button>
+              </div>
+            </div>
+          )}
+          {!isImageOnly && !isTranscript && doc.privilege !== "flagged" && doc.privilege !== "withheld" && (
+            <div className="flex items-center justify-end border-b border-line bg-surface px-4 py-1.5">
               <button
-                onClick={() => setOcring(true)}
-                className="rounded-md border border-brass-soft bg-surface px-2 py-1 text-[11px] font-medium text-brass-deep hover:border-brass"
+                onClick={() => setViewSource((v) => !v)}
+                className="rounded-md border border-line bg-surface px-2 py-0.5 text-[11px] font-medium text-ink-soft hover:border-brass-soft hover:text-brass-deep"
+                title="Open the original PDF in a viewer"
               >
-                Run OCR
+                {viewSource ? "Show extracted text" : "View source PDF"}
               </button>
             </div>
           )}
@@ -231,6 +252,13 @@ function DocView({
             // Inline video player + scrubbable transcript for transcribed
             // media docs. Click any line to scrub to that timestamp.
             <TranscriptPlayer matterId={matterId} docId={doc.id} body={doc.body} />
+          ) : viewSource ? (
+            // Source PDF viewer for any non-transcript doc when the operator
+            // asks for it. Persisted on upload to ~/.themis/media; 404 if the
+            // doc was added before persistence shipped.
+            <div className="h-[600px] border-l-2 border-brass">
+              <PdfViewer matterId={matterId} docId={doc.id} />
+            </div>
           ) : (
             <pre className="border-l-2 border-brass whitespace-pre-wrap bg-paper px-4 py-4 font-mono text-[12px] leading-relaxed text-ink">
               {doc.body}

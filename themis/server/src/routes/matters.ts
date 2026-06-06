@@ -276,6 +276,29 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     return c.json(result);
   });
 
+  // Persist the original binary for a document under
+  // ~/.themis/media/<matter>/<docId>.<ext>. Looked up by Bates id so the
+  // upload modal can call this right after the doc-create POST without
+  // needing the new doc id round-trip.
+  app.put("/api/matters/:id/documents/by-bates/:bates/media", async (c) => {
+    const id = c.req.param("id");
+    const bates = c.req.param("bates");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    const repo = await import("../repo.js");
+    const doc = repo.getDocumentByBates?.(db, id, bates);
+    if (!doc) return c.json({ error: "doc_not_found" }, 404);
+    const form = await c.req.formData();
+    const file = form.get("file");
+    if (!(file instanceof File)) return c.json({ error: "file_required" }, 400);
+    const dir = join(homedir(), ".themis", "media", id);
+    await mkdir(dir, { recursive: true });
+    const ext = file.name.match(/\.([a-zA-Z0-9]+)$/)?.[1] ?? "bin";
+    const buf = await file.arrayBuffer();
+    await writeFile(join(dir, `${doc.id}.${ext}`), Buffer.from(buf));
+    audit(db, id, actor(c), "doc.media.persist", `${doc.bates} · ${file.name}`);
+    return c.json({ ok: true, ext, size: buf.byteLength });
+  });
+
   // Update a document's body. Used by the client-side OCR flow: after the
   // operator runs Tesseract on a scanned PDF, the extracted text comes
   // back here. Idempotent and audited.

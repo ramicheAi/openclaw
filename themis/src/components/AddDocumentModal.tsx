@@ -34,8 +34,9 @@ interface BatchItem {
   confidence: "high" | "medium" | "low";
   status: Status;
   error?: string;
-  // Video transcription (AssemblyAI) — kept here for the video path; the
-  // backend writes the document once transcription completes.
+  // The original binary — kept around so we can persist it on save (PDF
+  // viewer / OCR replay) or upload it (video transcription).
+  file?: File;
   isVideo?: boolean;
   videoFile?: File;
   transcriptId?: string;
@@ -110,6 +111,7 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose }
         body: "",
         confidence: "low",
         status: "parsing",
+        file: f,
         isVideo,
         videoFile: isVideo ? f : undefined,
       };
@@ -189,6 +191,20 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose }
           await saveDocWithRetry(matterId, {
             ...itemToPayload(it, bates),
           }, nextBates);
+          // Best-effort: persist the original file alongside the document
+          // so the PDF viewer + future OCR runs can find it without the
+          // operator re-dropping. Failures here are non-fatal (the doc is
+          // already saved).
+          if (it.file) {
+            try {
+              const fd = new FormData();
+              fd.append("file", it.file);
+              await fetch(`/api/matters/${matterId}/documents/by-bates/${encodeURIComponent(bates)}/media`, {
+                method: "PUT",
+                body: fd,
+              });
+            } catch { /* non-fatal */ }
+          }
           patch(it.key, { status: "saved" });
         }
       } catch (err) {
