@@ -138,6 +138,9 @@ export async function synthesizeAnswer(
     }
 
     const refused = /^I located documents that mention/i.test(body) || /declining to claim/i.test(body);
+    // Clear stale error state — the previous failure shouldn't keep showing
+    // "LLM ERR" in the engine pill once we've had a successful round-trip.
+    lastError = null;
     return { text: body, citationBates, refused };
   } catch (err) {
     logErr("synth", err);
@@ -200,6 +203,7 @@ export async function judgeEntailment(
     if (!jsonMatch) return null;
     const parsed = JSON.parse(jsonMatch[0]) as Partial<EntailmentJudgment>;
     if (typeof parsed.supportScore !== "number") return null;
+    lastError = null;
     return {
       supportScore: Math.max(0, Math.min(1, parsed.supportScore)),
       entailed: parsed.entailed ?? parsed.supportScore >= 0.5,
@@ -219,6 +223,11 @@ export async function judgeEntailment(
 let lastError: string | null = null;
 export function getLastLLMError(): string | null {
   return lastError;
+}
+/** Called by Analyze (and the CLI bridge) after a confirmed successful round-trip
+ * so the engine pill stops showing a stale LLM ERR. */
+export function clearLastLLMError(): void {
+  lastError = null;
 }
 export function getCurrentModel(): string {
   return MODEL;

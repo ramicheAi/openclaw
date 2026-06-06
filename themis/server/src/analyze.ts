@@ -10,7 +10,7 @@
 
 import type { DB } from "./db.js";
 import { getMatter, listDocuments } from "./repo.js";
-import { isLLMReady } from "./llm.js";
+import { clearLastLLMError, isLLMReady } from "./llm.js";
 import Anthropic from "@anthropic-ai/sdk";
 import { randomUUID } from "node:crypto";
 import { callClaudeCode, isClaudeCodeProvider } from "./claude-code.js";
@@ -183,11 +183,36 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
       );
     }
 
-    // Entities: insert new ones, leave existing alone (idempotent).
-    const existingEntities = db.prepare(`SELECT name FROM entities WHERE matter_id = ?`).all(matterId) as { name: string }[];
-    const haveNames = new Set(existingEntities.map((e) => e.name.toLowerCase()));
+    // Entities: insert new ones, leave existing alone (idempotent). Dedup
+    // key normalizes case + punctuation + whitespace so "Gabriel R Oliveira"
+    // / "Gabriel R. Oliveira" / "Gabriel  R  Oliveira" collapse to one row.
+    // The previous exact lowercase compare was leaking obvious duplicates
+    // because the model would emit the same name with and without middle-
+    // initial periods across runs.
+    //
+    // First pass: collapse any duplicates ALREADY in the table (leftovers
+    // from earlier Analyze runs with the looser dedup). Keep the row with
+    // the most mentions; delete the rest.
+    const allExisting = db.prepare(
+      `SELECT id, name, mentions FROM entities WHERE matter_id = ?`,
+    ).all(matterId) as { id: string; name: string; mentions: number }[];
+    const byNorm = new Map<string, { id: string; name: string; mentions: number }>();
+    for (const row of allExisting) {
+      const key = normName(row.name);
+      const prev = byNorm.get(key);
+      if (!prev) { byNorm.set(key, row); continue; }
+      // Keep whichever has more mentions; delete the loser.
+      const loser = prev.mentions >= row.mentions ? row : prev;
+      const keeper = loser === row ? prev : row;
+      db.prepare(`DELETE FROM entities WHERE id = ?`).run(loser.id);
+      byNorm.set(key, keeper);
+    }
+    const haveNames = new Set(byNorm.keys());
     for (const e of parsed.entities ?? []) {
-      if (!e.name || haveNames.has(e.name.toLowerCase())) continue;
+      if (!e.name) continue;
+      const key = normName(e.name);
+      if (haveNames.has(key)) continue;
+      haveNames.add(key);
       const id = `e-${randomUUID().slice(0, 8)}`;
       db.prepare(
         `INSERT INTO entities (id, matter_id, name, role, org, json_aliases, mentions, first_seen, json_relationships)
@@ -258,6 +283,10 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
     return { ok: false, error: `Persistence failed: ${msg}` };
   }
 
+  // Successful round-trip — clear any stale "LLM ERR" left over from earlier
+  // failures so the engine pill stops crying wolf on the next page load.
+  clearLastLLMError();
+
   return {
     ok: true,
     entities: parsed.entities?.length ?? 0,
@@ -266,6 +295,17 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
     gaps: parsed.gaps?.length ?? 0,
     provider: useCLI ? "claude-code" : "api",
   };
+}
+
+// Normalize a person name for dedup: lowercase, strip periods/commas,
+// collapse whitespace. Keeps the original cased version in the row;
+// only the lookup key is normalized.
+function normName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[.,]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function countOccurrences(haystack: string, needle: string): number {
