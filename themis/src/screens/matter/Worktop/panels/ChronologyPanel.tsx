@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CitationChip, ConfidenceDot, cx } from "../../../../lib/ui";
-import { IconExport, IconVerified, IconClose, IconReplay, IconPrivileged } from "../../../../icons";
-import { useChronology, useMatter, useSetChronologyAccepted } from "../../../../lib/queries";
+import { IconExport, IconVerified, IconClose, IconReplay, IconPrivileged, IconAsk } from "../../../../icons";
+import { useChronology, useMatter, useSetChronologyAccepted, qk } from "../../../../lib/queries";
 import { exportChronologyDoc, exportChronologyPdf } from "../../../../lib/exports";
+import { api } from "../../../../lib/api";
 import { PanelAction, PanelHead } from "./PanelHead";
 import { ChronologyExportPreview } from "./ExportPreviewModal";
 
@@ -23,6 +25,19 @@ export function ChronologyPanel({
   const { data: matter } = useMatter(matterId);
   const setAccepted = useSetChronologyAccepted(matterId);
   const [exportFormat, setExportFormat] = useState<null | "pdf" | "docx">(null);
+  const qc = useQueryClient();
+  const analyze = useMutation({
+    mutationFn: () => api.analyzeMatter(matterId),
+    onSuccess: () => {
+      // Light up every dependent surface — chronology, entities, gaps,
+      // case theory, hot docs, dashboard counters.
+      qc.invalidateQueries({ queryKey: qk.chronology(matterId) });
+      qc.invalidateQueries({ queryKey: qk.entities(matterId) });
+      qc.invalidateQueries({ queryKey: qk.documents(matterId) });
+      qc.invalidateQueries({ queryKey: qk.matter(matterId) });
+      qc.invalidateQueries({ queryKey: qk.matters });
+    },
+  });
 
   const rows = events ?? [];
   const accepted = rows.filter((e) => e.accepted === true).length;
@@ -39,6 +54,16 @@ export function ChronologyPanel({
         sub="Every event is grounded in a verified citation. Accept to advance the case theory; reject to exclude."
         actions={
           <>
+            {/* Analyze button — appears when timeline is empty so the
+             * operator has one click to fill the brain after uploading
+             * documents. Disabled in flight; surfaces the upstream error
+             * inline if Claude fails. */}
+            <PanelAction
+              disabled={analyze.isPending}
+              onClick={() => analyze.mutate()}
+            >
+              <IconAsk size={13} /> {analyze.isPending ? "Analyzing…" : "Analyze with Themis"}
+            </PanelAction>
             <PanelAction
               disabled={exportsLocked || !matter}
               onClick={() => setExportFormat("docx")}
@@ -55,6 +80,11 @@ export function ChronologyPanel({
           </>
         }
       />
+      {analyze.isError && (
+        <div className="mx-6 mt-3 rounded-md border border-danger/30 bg-danger-wash p-2 text-[12px] text-danger">
+          Analyze failed: {analyze.error instanceof Error ? analyze.error.message : String(analyze.error)}
+        </div>
+      )}
       {exportFormat && matter && (
         <ChronologyExportPreview
           matter={matter}

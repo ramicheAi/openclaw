@@ -107,6 +107,12 @@ export const api = {
       },
     ),
 
+  analyzeMatter: (matterId: string) =>
+    request<{ ok: true; entities: number; events: number; hot: number; gaps: number }>(
+      `/api/matters/${matterId}/analyze`,
+      { method: "POST" },
+    ),
+
   createDocument: (matterId: string, input: {
     bates: string;
     title: string;

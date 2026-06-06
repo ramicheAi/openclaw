@@ -12,6 +12,7 @@ import {
 } from "../repo.js";
 import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.js";
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
+import { analyzeMatter } from "../analyze.js";
 import { formatTranscript, isAssemblyAIReady, startTranscript, uploadMedia, waitForTranscript, type TranscriptUtterance } from "../assemblyai.js";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
@@ -252,6 +253,25 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     repo.updateDocumentBody?.(db, matterId, docId, newBody);
     audit(db, matterId, actor(c), "transcribe.rename-speakers", `${doc.bates} · ${Object.keys(body.speakers).join(",")}`);
     return c.json({ ok: true, speakers: payload.speakers });
+  });
+
+  // Run the LLM analyzer over a matter's corpus: extract entities, events,
+  // case theory, hot docs, gaps. Persists everything into the existing
+  // tables so the UI lights up on the next refetch (chronology, mini brain,
+  // scales, cast, gaps). Idempotent — repeated runs only add new findings.
+  app.post("/api/matters/:id/analyze", async (c) => {
+    const id = c.req.param("id");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    const result = await analyzeMatter(db, id);
+    if (!result.ok) return c.json({ error: "analyze_failed", message: result.error }, 502);
+    audit(
+      db,
+      id,
+      actor(c),
+      "matter.analyze",
+      `entities ${result.entities} · events ${result.events} · hot ${result.hot} · gaps ${result.gaps}`,
+    );
+    return c.json(result);
   });
 
   // Add a document to an existing matter. Operator pastes / uploads body
