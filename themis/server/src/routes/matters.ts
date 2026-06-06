@@ -13,7 +13,7 @@ import {
 import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.js";
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
 import { analyzeMatter } from "../analyze.js";
-import { isClaudeCodeProvider } from "../claude-code.js";
+import { isClaudeCodeProvider, probeClaudeCode } from "../claude-code.js";
 import { formatTranscript, isAssemblyAIReady, startTranscript, uploadMedia, waitForTranscript, type TranscriptUtterance } from "../assemblyai.js";
 import { mkdir, writeFile, stat } from "node:fs/promises";
 import { join } from "node:path";
@@ -57,7 +57,14 @@ export function registerMatterRoutes(app: Hono, db: DB) {
   // One-shot health check — does the API key + model name actually work?
   // Returns the precise error message on failure (e.g. invalid model,
   // 401 auth, 429 rate limit).
-  app.get("/api/engine/test", async (c) => c.json(await probeLLM()));
+  app.get("/api/engine/test", async (c) => {
+    // Route to whichever provider is configured so the operator gets a
+    // clean yes/no on the same engine they'll use for chat / analyze.
+    if (isClaudeCodeProvider()) {
+      return c.json({ provider: "claude-code", ...(await probeClaudeCode()) });
+    }
+    return c.json({ provider: "api", ...(await probeLLM()) });
+  });
 
   app.get("/api/matters/:id", (c) => {
     const matter = getMatter(db, c.req.param("id"));
