@@ -13,6 +13,7 @@ import {
 import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.js";
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
 import { analyzeMatter } from "../analyze.js";
+import { isClaudeCodeProvider } from "../claude-code.js";
 import { formatTranscript, isAssemblyAIReady, startTranscript, uploadMedia, waitForTranscript, type TranscriptUtterance } from "../assemblyai.js";
 import { mkdir, writeFile, stat } from "node:fs/promises";
 import { join } from "node:path";
@@ -38,17 +39,20 @@ export function registerMatterRoutes(app: Hono, db: DB) {
   // the audit trail) can confirm whether Themis is running Claude or the
   // deterministic fallback. The audit log records the engine on every chat
   // turn; this endpoint just surfaces the current readiness state up-front.
-  app.get("/api/engine", (c) =>
-    c.json({
-      llm: isLLMReady(),
-      engine: isLLMReady() ? "llm" : "deterministic",
-      model: isLLMReady() ? getCurrentModel() : null,
+  app.get("/api/engine", (c) => {
+    const useCLI = isClaudeCodeProvider();
+    const ready = useCLI || isLLMReady();
+    return c.json({
+      llm: ready,
+      engine: ready ? "llm" : "deterministic",
+      provider: useCLI ? "claude-code" : isLLMReady() ? "api" : null,
+      model: useCLI ? "claude (via CLI / Max plan)" : isLLMReady() ? getCurrentModel() : null,
       // Most recent LLM error, if any. Lets the engine pill tooltip explain
       // why answers are falling back to deterministic without forcing the
       // operator to dig through server logs.
       lastError: getLastLLMError(),
-    }),
-  );
+    });
+  });
 
   // One-shot health check — does the API key + model name actually work?
   // Returns the precise error message on failure (e.g. invalid model,

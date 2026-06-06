@@ -13,6 +13,7 @@ import { getMatter, listDocuments } from "./repo.js";
 import { isLLMReady } from "./llm.js";
 import Anthropic from "@anthropic-ai/sdk";
 import { randomUUID } from "node:crypto";
+import { callClaudeCode, isClaudeCodeProvider } from "./claude-code.js";
 
 interface AnalyzeOutput {
   entities: Array<{
@@ -82,8 +83,12 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
   events: number;
   hot: number;
   gaps: number;
+  provider: "api" | "claude-code";
 } | { ok: false; error: string }> {
-  if (!isLLMReady()) return { ok: false, error: "ANTHROPIC_API_KEY not set" };
+  const useCLI = isClaudeCodeProvider();
+  if (!useCLI && !isLLMReady()) {
+    return { ok: false, error: "ANTHROPIC_API_KEY not set (or set THEMIS_LLM_PROVIDER=claude-code to use the CLI)" };
+  }
   const matter = getMatter(db, matterId);
   if (!matter) return { ok: false, error: "matter_not_found" };
   const docs = listDocuments(db, matterId).map((d) => ({
@@ -96,23 +101,28 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
   }));
   if (docs.length === 0) return { ok: false, error: "no documents" };
 
-  const key = process.env.ANTHROPIC_API_KEY!;
-  const client = new Anthropic({ apiKey: key });
-  const model = process.env.THEMIS_LLM_MODEL ?? "claude-sonnet-4-5";
-
+  const userPrompt = buildPrompt(matter.name, docs);
   let raw: string;
   try {
-    const msg = await client.messages.create({
-      model,
-      max_tokens: 4096,
-      system: SYSTEM,
-      messages: [{ role: "user", content: buildPrompt(matter.name, docs) }],
-    });
-    raw = msg.content
-      .filter((b) => b.type === "text")
-      .map((b) => (b as { text: string }).text)
-      .join("")
-      .trim();
+    if (useCLI) {
+      const r = await callClaudeCode(SYSTEM, userPrompt);
+      raw = r.text;
+    } else {
+      const key = process.env.ANTHROPIC_API_KEY!;
+      const client = new Anthropic({ apiKey: key });
+      const model = process.env.THEMIS_LLM_MODEL ?? "claude-sonnet-4-5";
+      const msg = await client.messages.create({
+        model,
+        max_tokens: 4096,
+        system: SYSTEM,
+        messages: [{ role: "user", content: userPrompt }],
+      });
+      raw = msg.content
+        .filter((b) => b.type === "text")
+        .map((b) => (b as { text: string }).text)
+        .join("")
+        .trim();
+    }
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     // Friendlier explanation for the most common failure modes — the user
@@ -237,6 +247,7 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
     events: parsed.events?.length ?? 0,
     hot: parsed.hot?.length ?? 0,
     gaps: parsed.gaps?.length ?? 0,
+    provider: useCLI ? "claude-code" : "api",
   };
 }
 
