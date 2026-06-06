@@ -29,6 +29,7 @@ export interface CommandPaletteProps {
   onToggleTheme: () => void;
   onOpenDoc: (docId: string) => void;
   onAsk: (q: string) => void;
+  onCiteCheck?: () => void;
 }
 
 const CANNED_QUESTIONS = [
@@ -49,6 +50,7 @@ export function CommandPalette({
   onToggleTheme,
   onOpenDoc,
   onAsk,
+  onCiteCheck,
 }: CommandPaletteProps) {
   // Auto-close on route change is the caller's job; we close on selection.
   useEffect(() => {
@@ -135,6 +137,15 @@ export function CommandPalette({
                   <Item icon={<IconAdd size={14} />} onSelect={() => run(() => onTab("binder"))}>
                     New binder
                   </Item>
+                  {onCiteCheck && (
+                    <Item
+                      icon={<IconAsk size={14} />}
+                      onSelect={() => run(onCiteCheck)}
+                      shortcut="⌘⇧V"
+                    >
+                      Cite-check a draft
+                    </Item>
+                  )}
                 </Command.Group>
 
                 <Command.Group heading="Ask Themis">

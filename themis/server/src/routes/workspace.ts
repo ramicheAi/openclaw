@@ -10,7 +10,8 @@ import {
   matterExists,
   setChronologyAccepted,
 } from "../repo.js";
-import { chatService, privilegeService } from "../services.js";
+import { assessCitation, chatService, privilegeService } from "../services.js";
+import { getDocumentByBates } from "../repo.js";
 
 function actor(c: Context): string {
   return c.req.header("x-themis-actor") || "D. Okafor";
@@ -103,4 +104,63 @@ export function registerWorkspaceRoutes(app: Hono, db: DB) {
     const turn = await chatService.ask(db, id, body.question.trim(), actor(c));
     return c.json(turn);
   });
+
+  // Cite-check — paste a draft brief, get back every Bates citation found,
+  // verified against the matter's corpus with entailment scores. Per brief
+  // section 11 sprint 3. Server-side so it can use the same assessCitation
+  // primitive every other surface uses (single source of truth for trust).
+  app.post("/api/matters/:id/cite-check", (c) =>
+    c.req.json().then((body: { text?: unknown }) => {
+      const id = c.req.param("id");
+      if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+      if (typeof body.text !== "string" || body.text.trim().length === 0) {
+        return c.json({ error: "invalid_text" }, 400);
+      }
+      const text = body.text;
+      // Pattern: LETTERS-DIGITS optionally followed by ", p.N" or "p.N".
+      const re = /\b([A-Z]{2,}-\d{3,})(?:\s*[,·]?\s*(?:p\.?|page)\s*(\d{1,4}))?/g;
+      const findings: {
+        bates: string;
+        page: number;
+        index: number;
+        existed: boolean;
+        entailed: boolean;
+        supportScore: number;
+        title?: string;
+        date?: string;
+        privilege?: string;
+      }[] = [];
+      const seen = new Set<string>();
+      let m: RegExpExecArray | null;
+      while ((m = re.exec(text))) {
+        const bates = m[1];
+        const page = m[2] ? Number(m[2]) : 1;
+        const key = `${bates}#${page}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const idx = m.index;
+        const doc = getDocumentByBates(db, id, bates);
+        // Use a window of text around the cite as the "claim" for entailment.
+        const around = text.slice(Math.max(0, idx - 240), Math.min(text.length, idx + 200));
+        const sup = assessCitation(db, id, bates, page, around);
+        findings.push({
+          bates,
+          page,
+          index: idx,
+          existed: sup.existed,
+          entailed: sup.entailed,
+          supportScore: sup.supportScore,
+          title: doc?.title,
+          date: doc?.date,
+          privilege: doc?.privilege,
+        });
+      }
+      return c.json({
+        total: findings.length,
+        existed: findings.filter((f) => f.existed).length,
+        entailed: findings.filter((f) => f.entailed).length,
+        findings,
+      });
+    }),
+  );
 }

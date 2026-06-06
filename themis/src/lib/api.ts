@@ -53,6 +53,28 @@ export const api = {
   getAudit: (id: string, limit = 50) =>
     request<{ entries: AuditEntry[] }>(`/api/matters/${id}/audit?limit=${limit}`).then((r) => r.entries),
 
+  citeCheck: (id: string, text: string) =>
+    request<{
+      total: number;
+      existed: number;
+      entailed: number;
+      findings: {
+        bates: string;
+        page: number;
+        index: number;
+        existed: boolean;
+        entailed: boolean;
+        supportScore: number;
+        title?: string;
+        date?: string;
+        privilege?: string;
+      }[];
+    }>(`/api/matters/${id}/cite-check`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ text }),
+    }),
+
   verifyAuditChain: (id: string) => request<AuditChainStatus>(`/api/matters/${id}/audit/verify`),
 
   listDocuments: (id: string) =>

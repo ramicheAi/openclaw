@@ -7,6 +7,7 @@ import { TopBar } from "./TopBar";
 import { Worktop } from "./Worktop/Worktop";
 import { CaseBrain } from "./Brain/CaseBrain";
 import { CommandPalette } from "../../components/CommandPalette";
+import { CiteCheckModal } from "../../components/CiteCheckModal";
 import { useGlobalShortcuts } from "../../lib/shortcuts";
 import { useTheme } from "../../lib/theme";
 import type { AppMode, WorktopTab } from "../../lib/router";
@@ -39,6 +40,7 @@ export function MatterShell({ matterId, mode, tab, onMode, onTab, onBack }: Prop
   const setAccepted = useSetChronologyAccepted(matterId);
   const [theme, toggleTheme] = useTheme();
   const [cmdkOpen, setCmdkOpen] = useState(false);
+  const [citeCheckOpen, setCiteCheckOpen] = useState(false);
 
   function acceptNext() {
     const next = (chron ?? []).find((e) => e.accepted === null);
@@ -107,6 +109,15 @@ export function MatterShell({ matterId, mode, tab, onMode, onTab, onBack }: Prop
           onTab("documents");
         }}
         onAsk={(q) => ask.mutate(q)}
+        onCiteCheck={() => {
+          setCmdkOpen(false);
+          setCiteCheckOpen(true);
+        }}
+      />
+      <CiteCheckModal
+        open={citeCheckOpen}
+        matterId={matterId}
+        onClose={() => setCiteCheckOpen(false)}
       />
     </div>
   );
