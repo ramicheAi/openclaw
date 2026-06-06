@@ -53,13 +53,31 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, 
   const fileRef = useRef<HTMLInputElement | null>(null);
   const nextBatesRef = useRef<number>(1);
 
-  // When the modal opens, pull the next Bates seed so we don't clash with
-  // existing documents in the matter.
+  // When the prefix changes, re-Bates every row that hasn't been saved yet.
+  // Rebases from the API's next-Bates seed for the new prefix so we don't
+  // collide with existing matter documents.
   useEffect(() => {
     if (!open) return;
     api.nextBates(matterId, prefix).then((r) => {
       const m = r.next.match(/-(\d+)$/);
-      if (m) nextBatesRef.current = Number(m[1]);
+      const start = m ? Number(m[1]) : 1;
+      nextBatesRef.current = start;
+      setItems((xs) => {
+        let n = start;
+        return xs.map((x) => {
+          if (x.status === "saved") return x;
+          const bates = `${prefix}-${String(n).padStart(6, "0")}`;
+          n++;
+          return { ...x, bates };
+        });
+      });
+      // Roll the next-Bates ref forward past any rows we just re-Bates'd so
+      // future drops keep ascending without collision.
+      const unsaved = (s: BatchItem) => s.status !== "saved";
+      setItems((xs) => {
+        nextBatesRef.current = start + xs.filter(unsaved).length;
+        return xs;
+      });
     }).catch(() => {});
   }, [open, matterId, prefix]);
 
@@ -268,10 +286,23 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, 
                     <span className="truncate font-mono text-[11px] text-ink-faint">
                       {it.type} · {it.date}
                     </span>
-                    <span className="font-mono text-[9.5px] uppercase tracking-wider text-ink-faint">
+                    <span className={cx(
+                      "font-mono text-[9.5px] uppercase tracking-wider",
+                      it.status === "error" ? "text-danger" : "text-ink-faint",
+                    )}>
                       {it.status}
                     </span>
                   </button>
+                  {/* Inline error preview so the operator sees WHY this row
+                   * failed without expanding — most common are 'Can't read'
+                   * for unsupported extensions and 'Invalid PDF structure'
+                   * for image-only / encrypted PDFs. */}
+                  {it.status === "error" && it.error && (
+                    <div className="border-t border-danger/20 bg-danger-wash px-3 py-1.5 text-[11px] text-danger">
+                      <span className="font-mono uppercase tracking-wider">why: </span>
+                      {it.error}
+                    </div>
+                  )}
                   {expanded === it.key && <EditRow item={it} onChange={(p) => patch(it.key, p)} />}
                 </li>
               ))}
@@ -374,37 +405,61 @@ function EditRow({ item, onChange }: { item: BatchItem; onChange: (p: Partial<Ba
 }
 
 // Client-side text extraction. Routes by file extension; PDFs go through
-// pdfjs-dist (lazy-imported so it only loads when needed).
+// pdfjs-dist (lazy-imported). Resilient: an image-only / encrypted PDF
+// returns a placeholder body instead of throwing so the row still saves
+// with its metadata + Bates and the operator can OCR it elsewhere.
 async function extractText(file: File): Promise<string> {
-  if (/\.(txt|md|eml)$/i.test(file.name) || file.type.startsWith("text/")) {
+  if (/\.(txt|md|eml|rtf)$/i.test(file.name) || file.type.startsWith("text/")) {
     return await file.text();
   }
-  if (/\.pdf$/i.test(file.name)) {
+  if (/\.pdf$/i.test(file.name) || file.type === "application/pdf") {
     return await extractPdfText(file);
   }
-  throw new Error(`Can't read ${file.name}. Drop a PDF, .txt, .md, .eml, or video.`);
+  // Unknown text-format — try reading as text anyway, fall back to a clear
+  // placeholder. The doc still saves; chat will treat it as 'located, not
+  // entailed' if the body is empty.
+  try {
+    const text = await file.text();
+    if (text && /\S/.test(text)) return text;
+  } catch {
+    /* binary file — fall through */
+  }
+  return `[File ${file.name} — could not extract text client-side. Saved as a record. OCR / convert separately and paste body to enable grounded answers.]`;
 }
 
 async function extractPdfText(file: File): Promise<string> {
   const buf = await file.arrayBuffer();
-  const pdfjs: typeof import("pdfjs-dist") = await import("pdfjs-dist");
+  let pdfjs: typeof import("pdfjs-dist");
+  try {
+    pdfjs = await import("pdfjs-dist");
+  } catch (err) {
+    return `[PDF ${file.name} — pdfjs failed to load (${err instanceof Error ? err.message : String(err)}). Saved as a record.]`;
+  }
   try {
     const workerSrc = (await import("pdfjs-dist/build/pdf.worker.mjs?url")).default;
     (pdfjs as unknown as { GlobalWorkerOptions: { workerSrc: string } }).GlobalWorkerOptions.workerSrc = workerSrc;
   } catch {
     /* fall through to main-thread parse */
   }
-  const pdf = await pdfjs.getDocument({ data: buf }).promise;
-  const pages: string[] = [];
-  for (let i = 1; i <= pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
-    const tc = await page.getTextContent();
-    const text = tc.items
-      .map((it) => ("str" in it ? (it as { str: string }).str : ""))
-      .join(" ")
-      .replace(/\s+/g, " ")
-      .trim();
-    pages.push(text);
+  try {
+    const pdf = await pdfjs.getDocument({ data: buf, disableAutoFetch: true, disableStream: true }).promise;
+    const pages: string[] = [];
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const tc = await page.getTextContent();
+      const text = tc.items
+        .map((it) => ("str" in it ? (it as { str: string }).str : ""))
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim();
+      pages.push(text);
+    }
+    const joined = pages.join("\n\n").trim();
+    if (joined.length === 0) {
+      return `[PDF ${file.name} — appears to be image-only (no text layer). Saved as a record; OCR separately to enable grounded answers.]`;
+    }
+    return joined;
+  } catch (err) {
+    return `[PDF ${file.name} — could not parse (${err instanceof Error ? err.message : String(err)}). Saved as a record.]`;
   }
-  return pages.join("\n\n");
 }
