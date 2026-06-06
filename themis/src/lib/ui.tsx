@@ -128,8 +128,10 @@ export function HotTag() {
 }
 
 export function Card({ children, className }: { children: ReactNode; className?: string }) {
+  // data-card lets the dark theme add a top brass-glow hairline via CSS.
   return (
     <div
+      data-card
       className={cx(
         "rounded-xl border border-line bg-surface shadow-[0_1px_2px_rgba(24,34,46,0.04)]",
         className,

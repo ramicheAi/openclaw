@@ -6,10 +6,37 @@ import { useAskThemis, useChatHistory } from "../../../../lib/queries";
 import type { ChatTurn } from "../../../../types";
 import { PanelHead } from "./PanelHead";
 
-const SUGGESTIONS = [
-  "What's the timeline between the wage complaint and termination?",
-  "Show everything Tom Brandt wrote about Reyes.",
-  "What's our strongest evidence of retaliatory motive?",
+// Matter-tailored prompt seeds. The brain works best on questions where the
+// answer is somewhere in the corpus; these prompt the user toward that shape.
+const SUGGESTIONS_BY_MATTER: Record<string, string[]> = {
+  "reyes-northwind": [
+    "Show me everything about the privilege flags",
+    "What did Tom Brandt write about Reyes?",
+    "Compare NW-000847 and NW-000851",
+    "What's the damages exposure?",
+  ],
+  "mata-avianca": [
+    "What's the timeline between the fabricated affirmation and the sanctions order?",
+    "Which judge sanctioned the lawyers and how much was the sanction?",
+    "List every fabricated citation in the affirmation",
+    "When did Avianca first identify the missing cases?",
+  ],
+  "atlas-merger": [
+    "Show me the integration risk assessment",
+    "What does the Q3 forecast say about churn?",
+    "List the disclosures around customer concentration",
+  ],
+  "calloway-harbor": [
+    "When did Calloway first report the hazard?",
+    "Show me the incident report and the photo evidence",
+    "What does the safety log say about the prior month?",
+  ],
+};
+
+const SUGGESTIONS_DEFAULT = [
+  "What's the strongest evidence in this matter?",
+  "Show me anything flagged for privilege review",
+  "Build a chronology of key events",
 ];
 
 export function AskPanel({ matterId, onOpenCmdK }: { matterId: string; onOpenCmdK: () => void }) {
@@ -19,6 +46,7 @@ export function AskPanel({ matterId, onOpenCmdK }: { matterId: string; onOpenCmd
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const turns = history.data ?? [];
+  const suggestions = SUGGESTIONS_BY_MATTER[matterId] ?? SUGGESTIONS_DEFAULT;
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -47,7 +75,9 @@ export function AskPanel({ matterId, onOpenCmdK }: { matterId: string; onOpenCmd
         }
       />
       <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
-        {turns.length === 0 && !ask.isPending && <FirstRun onPick={submit} />}
+        {turns.length === 0 && !ask.isPending && (
+          <FirstRun onPick={submit} suggestions={suggestions} />
+        )}
         <div className="mx-auto max-w-3xl space-y-5">
           {turns.map((t) => (
             <TurnView key={t.id} turn={t} />
@@ -55,6 +85,9 @@ export function AskPanel({ matterId, onOpenCmdK }: { matterId: string; onOpenCmd
           {ask.isPending && <ThinkingBubble />}
         </div>
       </div>
+      {turns.length > 0 && !ask.isPending && (
+        <TryRow suggestions={suggestions} onPick={submit} />
+      )}
       <InputBar
         value={draft}
         onChange={setDraft}
@@ -151,18 +184,40 @@ function Dot({ delay }: { delay: number }) {
   );
 }
 
-function FirstRun({ onPick }: { onPick: (q: string) => void }) {
+function FirstRun({ onPick, suggestions }: { onPick: (q: string) => void; suggestions: string[] }) {
   return (
     <div className="mx-auto max-w-3xl">
       <div className="rounded-xl border border-dashed border-brass-soft bg-brass-wash/40 px-4 py-3 text-[13px] text-ink-soft">
         Themis answers from the verified evidence in this matter. Try one of these to start, or ask anything:
       </div>
       <div className="mt-3 flex flex-wrap gap-2">
-        {SUGGESTIONS.map((s) => (
+        {suggestions.map((s) => (
           <button
             key={s}
             onClick={() => onPick(s)}
             className="rounded-full border border-line bg-surface px-3 py-1.5 text-[12px] text-ink-soft hover:border-brass-soft hover:text-brass-deep"
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Persistent "TRY" row above the input — appears once at least one turn exists.
+// Surfaces matter-specific prompts so the user always has a next move.
+function TryRow({ suggestions, onPick }: { suggestions: string[]; onPick: (q: string) => void }) {
+  return (
+    <div className="shrink-0 border-t border-line bg-paper px-6 py-2.5">
+      <div className="mx-auto flex max-w-3xl flex-wrap items-center gap-1.5">
+        <span className="mr-1 font-mono text-[9.5px] uppercase tracking-wider text-ink-faint">try</span>
+        {suggestions.map((s) => (
+          <button
+            key={s}
+            onClick={() => onPick(s)}
+            className="truncate rounded-full border border-line bg-surface px-2.5 py-1 text-[11.5px] text-ink-soft hover:border-brass-soft hover:text-brass-deep"
+            title={s}
           >
             {s}
           </button>

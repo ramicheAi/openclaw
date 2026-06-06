@@ -949,17 +949,18 @@ export const seedChat: Record<string, { id: string; role: "user" | "themis"; tex
     {
       id: "q1",
       role: "user",
-      text: "How much time passed between Reyes's wage complaint and her termination?",
+      text: "How much time passed between Reyes's wage complaint and her termination? What's our best evidence for retaliation?",
     },
     {
       id: "a1",
       role: "themis",
       text:
-        "32 days. The first documented internal wage complaint is dated 2021-02-11, and the termination letter is dated 2021-03-15. A negative performance review was created on 2021-02-26, 15 days after the complaint and the first negative review in her file.",
+        "32 days passed between the documented wage complaint (NW-000847, 2021-02-11) and the termination letter (NW-001502, 2021-03-15). The strongest evidence for retaliation is the temporal sequence plus the Brandt memo to file (NW-001498) which references 'the complaint situation' while discussing separation — 14 days before the termination. The first negative review of Reyes (NW-001120) lands exactly 15 days after the complaint, with no prior negative documentation in her file. Every citation below is verified against its source page.",
       confidence: "high",
       bates: [
         { bates: "NW-000847", page: 1 },
         { bates: "NW-001120", page: 1 },
+        { bates: "NW-001498", page: 1 },
         { bates: "NW-001502", page: 1 },
       ],
     },

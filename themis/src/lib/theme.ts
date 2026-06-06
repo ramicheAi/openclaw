@@ -4,8 +4,12 @@ export type Theme = "light" | "dark";
 const KEY = "themis-theme";
 
 function read(): Theme {
-  if (typeof window === "undefined") return "light";
-  return (localStorage.getItem(KEY) as Theme) || "light";
+  if (typeof window === "undefined") return "dark";
+  const saved = localStorage.getItem(KEY) as Theme | null;
+  if (saved === "light" || saved === "dark") return saved;
+  // Default to dark — the BRAIN READY look from the design brief is the
+  // premium-instrument identity. User toggle persists in localStorage.
+  return "dark";
 }
 
 function apply(t: Theme) {

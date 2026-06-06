@@ -140,12 +140,16 @@ export function scoreCitationSupport(claim: string, body: string): CitationSuppo
   }
   anchorBonus = Math.min(anchorBonus, 0.3);
 
-  // Mild penalty for unmatched distinctive claim tokens. Gentle enough that
-  // legitimately-relevant docs still entail, but bites when most claim tokens
-  // are absent (the "Reyes's elementary school" pattern: entity names match
-  // but no concept tokens do).
+  // Unmatched-token penalty exists for the "elementary school" pattern: entity
+  // names match but no concept tokens do. But strong signal should override
+  // it — a doc that shares 4+ distinctive content tokens with the question is
+  // overwhelmingly likely to be relevant even if 6 other question words are
+  // absent. Soft penalty when there's strong overlap, hard penalty otherwise.
   const unmatchedCount = distinctClaim.length - matchedUnigrams.length;
-  const unmatchedPenalty = Math.min(0.18, unmatchedCount * 0.04);
+  const strongOverlap = matchedUnigrams.length >= 4 || unigramCoverage >= 0.45;
+  const unmatchedPenalty = strongOverlap
+    ? Math.min(0.05, unmatchedCount * 0.01)
+    : Math.min(0.18, unmatchedCount * 0.04);
 
   const supportScore = Math.max(
     0,

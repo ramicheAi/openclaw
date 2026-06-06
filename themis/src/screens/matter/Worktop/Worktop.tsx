@@ -1,7 +1,7 @@
 // Worktop — the 3-pane daily work surface. Per design handoff §3 + §5.2–5.4.
 
 import { useState } from "react";
-import { useMatter, useEntities, useChronology, usePrivilegeQueue, useAudit } from "../../../lib/queries";
+import { useMatter, useEntities, useChronology, usePrivilegeQueue, useAudit, useDocuments } from "../../../lib/queries";
 import { exportLockForMatter } from "../../../lib/exports";
 import { EntityDossier } from "./EntityDossier";
 import type { Entity } from "../../../types";
@@ -12,7 +12,6 @@ import { CompactBrainCard } from "./cards/CompactBrainCard";
 import { TaskQueueCard, buildTaskQueue } from "./cards/TaskQueueCard";
 import { ScalesMini } from "./cards/ScalesMini";
 import { AuditTrailCard } from "./cards/AuditTrailCard";
-import { TrustPostureCard } from "./cards/TrustPostureCard";
 import { TabBar } from "./panels/TabBar";
 import { AskPanel } from "./panels/AskPanel";
 import { ChronologyPanel } from "./panels/ChronologyPanel";
@@ -34,6 +33,7 @@ export function Worktop({
   onOpenCmdK: () => void;
 }) {
   const { data: matter } = useMatter(matterId);
+  const { data: documents } = useDocuments(matterId);
   const { data: entities } = useEntities(matterId);
   const { data: chron } = useChronology(matterId);
   const { data: priv } = usePrivilegeQueue(matterId);
@@ -55,7 +55,13 @@ export function Worktop({
     >
       {/* Left rail */}
       <aside className="flex min-h-0 flex-col gap-3 overflow-y-auto border-r border-line bg-paper px-3 py-3">
-        <CompactBrainCard matter={matter} onOpen={() => onMode("brain")} />
+        <CompactBrainCard
+          matter={matter}
+          docs={documents}
+          entities={entities}
+          chron={chron}
+          onOpen={() => onMode("brain")}
+        />
         <CaseSnapshotCard matter={matter} />
         <CastCard entities={entities ?? []} onSelect={setDossier} />
       </aside>
@@ -94,14 +100,13 @@ export function Worktop({
         </div>
       </div>
 
-      {/* Right rail */}
+      {/* Right rail — Your Queue → Scales of Themis → Audit Trail */}
       <aside className="flex min-h-0 flex-col gap-3 overflow-y-auto border-l border-line bg-paper px-3 py-3">
         <TaskQueueCard
           tasks={tasks}
           onGo={(kind) => onTab(kind === "priv" ? "privilege" : "chronology")}
         />
         <ScalesMini events={chron ?? []} />
-        <TrustPostureCard matterId={matterId} />
         <AuditTrailCard entries={audit ?? []} />
       </aside>
 

@@ -43,17 +43,46 @@
   --color-ink-faint-dark: #5f6973;
 }
 
-/* Light theme is the default. Dark theme flips paper/ink tokens. */
+/* Light theme is the default. Dark theme flips paper/ink and re-temperatures
+ * brass so it reads as a warm gold against deep navy (the BRAIN READY look:
+ * Bloomberg terminal meets case file). */
 :root[data-theme="dark"] {
   --color-paper: #070b13;
-  --color-surface: #0c1622;
-  --color-surface-sunken: #131e2c;
-  --color-line: #1a2535;
-  --color-line-strong: #243044;
+  --color-surface: #0d1825;
+  --color-surface-sunken: #131f2e;
+  --color-line: #1c2738;
+  --color-line-strong: #2a3a52;
 
-  --color-ink: #e4eaf1;
-  --color-ink-soft: #9aa6b3;
-  --color-ink-faint: #5f6973;
+  --color-ink: #ece2cd;
+  --color-ink-soft: #b6a98e;
+  --color-ink-faint: #6e6856;
+
+  /* Brass glows hotter on dark — pull the deep + soft up so it reads gold,
+   * not muddy bronze. wash stays a low-alpha glow tint. */
+  --color-brass: #d0a45a;
+  --color-brass-deep: #c39044;
+  --color-brass-soft: #6b502a;
+  --color-brass-wash: #1f1a10;
+  --color-brass-light: #f1d091;
+
+  /* Semantics — desaturate the washes so they don't blow out on dark. */
+  --color-verify: #5fc89f;
+  --color-verify-wash: #0f2a1f;
+  --color-flag: #e0a350;
+  --color-flag-wash: #2a1e0d;
+  --color-danger: #e6716a;
+  --color-danger-wash: #2a1010;
+  --color-info: #74a4ea;
+  --color-info-wash: #0f1d33;
+}
+
+/* Cards in dark mode get a brass-glow hairline on the top edge — the
+ * "premium instrument" feel from the brief. */
+:root[data-theme="dark"] [data-card] {
+  box-shadow:
+    inset 0 1px 0 0 rgba(208, 164, 90, 0.08),
+    0 1px 0 0 rgba(208, 164, 90, 0.02);
+  background-image: linear-gradient(180deg, rgba(208, 164, 90, 0.02), transparent 24%);
 }
 
 html,
