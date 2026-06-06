@@ -1,12 +1,30 @@
-// Entity dossier — slide-in panel over the Worktop. Reuses the Inspector
-// content but rendered in the paper/ink theme to live in the Worktop layer.
+// Entity dossier — slide-in panel over the Worktop. Per design brief
+// section 5.2c and sprint 3 ("Entity dossier panel"). Shows the entity's
+// header, key stats, aliases, relationships, every document they appear
+// in (with hot/privilege state), and a one-click "open in Documents" CTA
+// that drops the user into the filtered Documents tab.
 
-import { Card, SectionLabel, cx } from "../../../lib/ui";
+import { useMemo } from "react";
+import { Card, SectionLabel, HotTag, PrivilegePill, cx } from "../../../lib/ui";
 import { IconClose, IconEntity } from "../../../icons";
+import { useDocuments } from "../../../lib/queries";
 import type { Entity } from "../../../types";
 
-export function EntityDossier({ entity, onClose }: { entity: Entity | null; onClose: () => void }) {
+interface Props {
+  entity: Entity | null;
+  matterId: string;
+  onClose: () => void;
+  onJumpDocuments?: (entityName: string) => void;
+}
+
+export function EntityDossier({ entity, matterId, onClose, onJumpDocuments }: Props) {
+  const { data: docs } = useDocuments(matterId);
   const open = !!entity;
+  const docsByEntity = useMemo(() => {
+    if (!entity || !docs) return [];
+    const names = new Set<string>([entity.name, ...entity.aliases]);
+    return docs.filter((d) => d.entities.some((e) => names.has(e)));
+  }, [docs, entity]);
   return (
     <div
       className={cx(
@@ -56,6 +74,42 @@ export function EntityDossier({ entity, onClose }: { entity: Entity | null; onCl
                   </li>
                 ))}
               </ul>
+            </Card>
+          )}
+
+          {/* Documents this entity appears in — the workhorse view that turns
+           * a dossier into a navigation surface. */}
+          {docsByEntity.length > 0 && (
+            <Card className="mt-3 p-3">
+              <div className="flex items-baseline justify-between">
+                <SectionLabel>Appears in</SectionLabel>
+                <span className="font-mono text-[10px] text-ink-faint">{docsByEntity.length} docs</span>
+              </div>
+              <ul className="mt-1 max-h-[260px] space-y-1 overflow-y-auto">
+                {docsByEntity.slice(0, 16).map((d) => (
+                  <li key={d.id}>
+                    <div className="flex items-center gap-1.5 rounded px-1.5 py-1 text-[12px] hover:bg-surface-sunken">
+                      <span className="rounded border border-line bg-surface px-1 py-0.5 font-mono text-[9.5px] text-ink-soft">
+                        {d.bates}
+                      </span>
+                      {d.hot && <HotTag />}
+                      <PrivilegePill status={d.privilege} />
+                      <span className="ml-1 min-w-0 flex-1 truncate text-ink" title={d.title}>
+                        {d.title}
+                      </span>
+                      <span className="font-mono text-[9.5px] text-ink-faint">{d.date}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              {onJumpDocuments && (
+                <button
+                  onClick={() => onJumpDocuments(entity.name)}
+                  className="mt-2 inline-flex items-center gap-1 rounded-md border border-brass-soft bg-brass-wash px-2 py-1 text-[11px] font-semibold text-brass-deep hover:border-brass"
+                >
+                  Open Documents filtered to this entity ›
+                </button>
+              )}
             </Card>
           )}
         </div>

@@ -110,7 +110,15 @@ export function Worktop({
         <AuditTrailCard entries={audit ?? []} />
       </aside>
 
-      <EntityDossier entity={dossier} onClose={() => setDossier(null)} />
+      <EntityDossier
+        entity={dossier}
+        matterId={matterId}
+        onClose={() => setDossier(null)}
+        onJumpDocuments={() => {
+          setDossier(null);
+          onTab("documents");
+        }}
+      />
     </div>
   );
 }
