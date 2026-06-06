@@ -159,6 +159,58 @@ body {
   animation: themis-pulse 1.6s ease-out infinite;
 }
 
+/* Export preview paper — the court-style document inside the export modal.
+ * Always renders on the warm paper palette regardless of root theme, so the
+ * preview reads as the final paper artifact rather than a UI panel. */
+.export-paper {
+  background: #f7f4ee;
+  color: #18222e;
+  font-family: Georgia, "Times New Roman", serif;
+  padding: 32px 36px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.export-paper-head {
+  border-bottom: 1px solid #c9b89a;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+.export-paper-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: 8px;
+}
+.export-paper-table th {
+  text-align: left;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #845f27;
+  border-bottom: 1.5px solid #845f27;
+  padding: 6px 8px;
+}
+.export-paper-table td {
+  padding: 8px;
+  border-bottom: 1px solid #e6dfd2;
+  vertical-align: top;
+  line-height: 1.45;
+}
+.export-paper-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.export-paper-foot {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid #c9b89a;
+  font-size: 11px;
+  font-style: italic;
+  color: #56636f;
+  line-height: 1.55;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-tau-breathe,
   .animate-pulse-verify,

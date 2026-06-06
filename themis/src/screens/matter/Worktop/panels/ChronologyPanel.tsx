@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { CitationChip, ConfidenceDot, cx } from "../../../../lib/ui";
 import { IconExport, IconVerified, IconClose, IconReplay, IconPrivileged } from "../../../../icons";
 import { useChronology, useMatter, useSetChronologyAccepted } from "../../../../lib/queries";
 import { exportChronologyDoc, exportChronologyPdf } from "../../../../lib/exports";
 import { PanelAction, PanelHead } from "./PanelHead";
+import { ChronologyExportPreview } from "./ExportPreviewModal";
 
 function dayDelta(a: string, b: string): number {
   return Math.round((new Date(b).getTime() - new Date(a).getTime()) / 86400000);
@@ -20,6 +22,7 @@ export function ChronologyPanel({
   const { data: events } = useChronology(matterId);
   const { data: matter } = useMatter(matterId);
   const setAccepted = useSetChronologyAccepted(matterId);
+  const [exportFormat, setExportFormat] = useState<null | "pdf" | "docx">(null);
 
   const rows = events ?? [];
   const accepted = rows.filter((e) => e.accepted === true).length;
@@ -38,20 +41,33 @@ export function ChronologyPanel({
           <>
             <PanelAction
               disabled={exportsLocked || !matter}
-              onClick={() => matter && exportChronologyDoc(matter, rows)}
+              onClick={() => setExportFormat("docx")}
             >
               <IconExport size={13} /> Word
             </PanelAction>
             <PanelAction
               primary
               disabled={exportsLocked || !matter}
-              onClick={() => matter && exportChronologyPdf(matter, rows)}
+              onClick={() => setExportFormat("pdf")}
             >
               <IconExport size={13} /> Court PDF
             </PanelAction>
           </>
         }
       />
+      {exportFormat && matter && (
+        <ChronologyExportPreview
+          matter={matter}
+          format={exportFormat}
+          events={rows}
+          onClose={() => setExportFormat(null)}
+          onDownload={() => {
+            if (exportFormat === "pdf") exportChronologyPdf(matter, rows);
+            else exportChronologyDoc(matter, rows);
+            setExportFormat(null);
+          }}
+        />
+      )}
       {exportsLocked && (
         <DraftWatermark reason={lockReason} />
       )}

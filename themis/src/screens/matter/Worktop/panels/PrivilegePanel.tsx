@@ -5,6 +5,7 @@ import { useDecidePrivilege, useMatter, usePrivilegeQueue } from "../../../../li
 import { exportPrivilegeLogPdf } from "../../../../lib/exports";
 import type { DocItem } from "../../../../types";
 import { PanelAction, PanelHead } from "./PanelHead";
+import { PrivilegeLogPreview } from "./ExportPreviewModal";
 
 export function PrivilegePanel({
   matterId,
@@ -19,6 +20,7 @@ export function PrivilegePanel({
   const { data: matter } = useMatter(matterId);
   const decide = useDecidePrivilege(matterId);
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [showLog, setShowLog] = useState(false);
 
   const docs = queue ?? [];
   const flagged = docs.filter((d) => d.privilege === "flagged");
@@ -41,12 +43,25 @@ export function PrivilegePanel({
           <PanelAction
             primary
             disabled={exportsLocked || !matter}
-            onClick={() => matter && exportPrivilegeLogPdf(matter, docs)}
+            onClick={() => setShowLog(true)}
           >
             <IconExport size={13} /> Generate privilege log
           </PanelAction>
         }
       />
+      {showLog && matter && (
+        <PrivilegeLogPreview
+          matter={matter}
+          format="pdf"
+          flags={[]}
+          documents={docs}
+          onClose={() => setShowLog(false)}
+          onDownload={() => {
+            exportPrivilegeLogPdf(matter, docs);
+            setShowLog(false);
+          }}
+        />
+      )}
       {exportsLocked && (
         <div className="flex items-center gap-2 border-b border-flag/30 bg-flag-wash/40 px-6 py-2 text-[11.5px] text-flag">
           <IconPrivileged size={14} />
