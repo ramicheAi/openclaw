@@ -14,9 +14,11 @@ import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.j
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
 import { analyzeMatter } from "../analyze.js";
 import { formatTranscript, isAssemblyAIReady, startTranscript, uploadMedia, waitForTranscript, type TranscriptUtterance } from "../assemblyai.js";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, writeFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 import { homedir } from "node:os";
+import { createReadStream, existsSync, readdirSync } from "node:fs";
+import { Readable } from "node:stream";
 
 function slug(s: string): string {
   return s
@@ -272,6 +274,83 @@ export function registerMatterRoutes(app: Hono, db: DB) {
       `entities ${result.entities} · events ${result.events} · hot ${result.hot} · gaps ${result.gaps}`,
     );
     return c.json(result);
+  });
+
+  // Update a document's body. Used by the client-side OCR flow: after the
+  // operator runs Tesseract on a scanned PDF, the extracted text comes
+  // back here. Idempotent and audited.
+  app.patch("/api/matters/:id/documents/:docId/body", async (c) => {
+    const id = c.req.param("id");
+    const docId = c.req.param("docId");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    const repo = await import("../repo.js");
+    const doc = repo.getDocumentById?.(db, id, docId);
+    if (!doc) return c.json({ error: "doc_not_found" }, 404);
+    const body = (await c.req.json().catch(() => ({}))) as { body?: string; signal?: string };
+    if (typeof body.body !== "string") {
+      return c.json({ error: "body_required" }, 400);
+    }
+    repo.updateDocumentBody?.(db, id, docId, body.body);
+    audit(db, id, actor(c), "doc.body.update", `${doc.bates} · ${body.signal ?? "manual"} · ${body.body.length} chars`);
+    return c.json({ ok: true, length: body.body.length });
+  });
+
+  // Stream the persisted media file for a transcript document — the video
+  // player on the doc viewer fetches this URL to scrub against citation
+  // timestamps. Looks up ~/.themis/media/<matter>/<docId>.<any-ext>.
+  app.get("/api/matters/:id/documents/:docId/media", async (c) => {
+    const id = c.req.param("id");
+    const docId = c.req.param("docId");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    const dir = join(homedir(), ".themis", "media", id);
+    if (!existsSync(dir)) return c.json({ error: "no_media" }, 404);
+    // Find the file matching <docId>.<ext> (we don't know the extension).
+    const match = readdirSync(dir).find((f) => f.startsWith(`${docId}.`) && !f.endsWith(".speakers.json"));
+    if (!match) return c.json({ error: "media_not_found" }, 404);
+    const path = join(dir, match);
+    const s = await stat(path);
+    const ext = match.split(".").pop()?.toLowerCase() ?? "bin";
+    const contentType =
+      ext === "mp4" ? "video/mp4" :
+      ext === "mov" ? "video/quicktime" :
+      ext === "webm" ? "video/webm" :
+      ext === "m4v" ? "video/mp4" :
+      ext === "mp3" ? "audio/mpeg" :
+      ext === "m4a" ? "audio/mp4" :
+      ext === "wav" ? "audio/wav" :
+      ext === "pdf" ? "application/pdf" :
+      "application/octet-stream";
+    // Handle HTTP Range requests so the browser can seek inside the video
+    // without downloading the whole file first — required for click-to-scrub.
+    const range = c.req.header("range");
+    if (range) {
+      const m = range.match(/bytes=(\d+)-(\d*)/);
+      if (m) {
+        const start = Number(m[1]);
+        const end = m[2] ? Number(m[2]) : Math.min(start + 1024 * 1024, s.size - 1);
+        const stream = createReadStream(path, { start, end });
+        const web = Readable.toWeb(stream) as unknown as ReadableStream;
+        return new Response(web, {
+          status: 206,
+          headers: {
+            "Content-Type": contentType,
+            "Content-Length": String(end - start + 1),
+            "Content-Range": `bytes ${start}-${end}/${s.size}`,
+            "Accept-Ranges": "bytes",
+          },
+        });
+      }
+    }
+    const stream = createReadStream(path);
+    const web = Readable.toWeb(stream) as unknown as ReadableStream;
+    return new Response(web, {
+      status: 200,
+      headers: {
+        "Content-Type": contentType,
+        "Content-Length": String(s.size),
+        "Accept-Ranges": "bytes",
+      },
+    });
   });
 
   // Add a document to an existing matter. Operator pastes / uploads body

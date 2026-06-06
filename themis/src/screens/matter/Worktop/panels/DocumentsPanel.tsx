@@ -5,6 +5,8 @@ import { IconCopy, IconAdd, IconHot, IconVerified, IconSearch } from "../../../.
 import { useDocuments, useSetDocReview, qk } from "../../../../lib/queries";
 import { api } from "../../../../lib/api";
 import { AddDocumentModal } from "../../../../components/AddDocumentModal";
+import { OcrModal } from "../../../../components/OcrModal";
+import { TranscriptPlayer } from "../../../../components/TranscriptPlayer";
 import type { DocItem } from "../../../../types";
 import { PanelAction, PanelHead } from "./PanelHead";
 
@@ -168,7 +170,12 @@ function DocView({
   // timestamp + "SPEAKER X:" label. If so, we surface the Rename Speakers UI.
   const isTranscript = /^\[\d{2}:\d{2}:\d{2}\]\s+\S/m.test(doc.body);
   const speakers = isTranscript ? extractSpeakers(doc.body) : [];
+  // Image-only / unparseable PDFs save with a [PDF X — appears to be
+  // image-only ...] body. Surface a 'Run OCR' button on the doc head so
+  // the operator can drop the PDF back in and Tesseract it.
+  const isImageOnly = /^\[(?:PDF|File) [^\]]+ — (?:appears to be image-only|could not (?:parse|extract))/m.test(doc.body) || /^\[No text — saved as a record/.test(doc.body);
   const [renaming, setRenaming] = useState(false);
+  const [ocring, setOcring] = useState(false);
   return (
     <article className="overflow-hidden rounded-lg border border-line bg-surface">
       <div className="flex">
@@ -205,12 +212,38 @@ function DocView({
               </button>
             </div>
           )}
+          {isImageOnly && (
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-flag-wash/60 px-4 py-2">
+              <div className="font-mono text-[10px] uppercase tracking-wider text-flag">
+                No text layer — chat can't ground until OCR'd
+              </div>
+              <button
+                onClick={() => setOcring(true)}
+                className="rounded-md border border-brass-soft bg-surface px-2 py-1 text-[11px] font-medium text-brass-deep hover:border-brass"
+              >
+                Run OCR
+              </button>
+            </div>
+          )}
           {doc.privilege === "flagged" || doc.privilege === "withheld" ? (
             <PrivilegeWall basis={doc.privilegeBasis} />
+          ) : isTranscript ? (
+            // Inline video player + scrubbable transcript for transcribed
+            // media docs. Click any line to scrub to that timestamp.
+            <TranscriptPlayer matterId={matterId} docId={doc.id} body={doc.body} />
           ) : (
             <pre className="border-l-2 border-brass whitespace-pre-wrap bg-paper px-4 py-4 font-mono text-[12px] leading-relaxed text-ink">
               {doc.body}
             </pre>
+          )}
+          {ocring && (
+            <OcrModal
+              open={ocring}
+              matterId={matterId}
+              docId={doc.id}
+              docTitle={doc.title}
+              onClose={() => setOcring(false)}
+            />
           )}
           {renaming && (
             <RenameSpeakers

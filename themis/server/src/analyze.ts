@@ -114,7 +114,22 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
       .join("")
       .trim();
   } catch (err) {
-    return { ok: false, error: err instanceof Error ? err.message : String(err) };
+    const msg = err instanceof Error ? err.message : String(err);
+    // Friendlier explanation for the most common failure modes — the user
+    // shouldn't have to parse 400 JSON blobs to know what to do.
+    if (/credit balance is too low/i.test(msg)) {
+      return {
+        ok: false,
+        error: "Anthropic credit balance is too low. Top up at https://console.anthropic.com/settings/billing then click Analyze again. (No data was sent for this attempt; the API rejected the call.)",
+      };
+    }
+    if (/rate.?limit/i.test(msg)) {
+      return { ok: false, error: "Anthropic rate-limited this request. Wait 30 seconds and click Analyze again." };
+    }
+    if (/invalid x-api-key|authentication/i.test(msg)) {
+      return { ok: false, error: "ANTHROPIC_API_KEY is invalid or revoked. Replace it in ~/.themis-env and restart the server." };
+    }
+    return { ok: false, error: msg };
   }
 
   // Extract JSON from the response — Claude sometimes wraps with prose
