@@ -19,6 +19,7 @@ import { ASSEMBLY_DURATION_MS, annotateRevealTiming, buildGraph } from "../../..
 import { Inspector } from "./Inspector";
 import { CinematicStageHUD } from "./CinematicStageHUD";
 import { CausalCinematic } from "./CausalCinematic";
+import { TimeScrubber } from "./TimeScrubber";
 import type { CausalChain } from "../../../types";
 import type { GraphNode, Layout } from "../../../lib/graph";
 
@@ -39,6 +40,7 @@ export function CaseBrain({ matterId }: { matterId: string }) {
   const [activeChainId, setActiveChainId] = useState<string | null>(null);
   const [inspect, setInspect] = useState<GraphNode | null>(null);
   const [assemblyTick, setAssemblyTick] = useState<number | null>(null);
+  const [timeCursor, setTimeCursor] = useState<string | null>(null);
   const tickRafRef = useRef<number | null>(null);
   const tickStartRef = useRef<number>(0);
 
@@ -108,6 +110,7 @@ export function CaseBrain({ matterId }: { matterId: string }) {
             highlightNodeIds={highlightNodeIds}
             highlightActive={highlightActive}
             assemblyTick={assemblyTick}
+            timeCursor={timeCursor}
             onNodeClick={setInspect}
           />
         </Suspense>
@@ -220,6 +223,16 @@ export function CaseBrain({ matterId }: { matterId: string }) {
           onReplay={startReplay}
           onPause={pauseReplay}
           tick={assemblyTick}
+          scrubber={
+            layout === "time" ? (
+              <TimeScrubber
+                documents={documents}
+                chronology={events}
+                value={timeCursor}
+                onChange={setTimeCursor}
+              />
+            ) : null
+          }
         />
       </div>
 
@@ -417,6 +430,7 @@ function FilterRibbon({
   onReplay,
   onPause,
   tick,
+  scrubber,
 }: {
   layout: Layout;
   onLayout: (l: Layout) => void;
@@ -424,6 +438,7 @@ function FilterRibbon({
   onReplay: () => void;
   onPause: () => void;
   tick: number | null;
+  scrubber?: React.ReactNode;
 }) {
   const layouts: { id: Layout; label: string }[] = [
     { id: "force", label: "Force" },
@@ -476,6 +491,7 @@ function FilterRibbon({
       <span className="ml-2 rounded-full border border-brass-soft/30 bg-brass-soft/10 px-2 py-0.5 text-brass-light">
         stage · {tickLabel}
       </span>
+      {scrubber}
     </div>
   );
 }

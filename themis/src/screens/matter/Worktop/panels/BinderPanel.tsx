@@ -272,24 +272,58 @@ function ExhibitRow({
   onRelabel: (label: string) => void;
   onDragReorder: (toIdx: number) => void;
 }) {
+  const [dragging, setDragging] = useState(false);
+  const [dragOver, setDragOver] = useState<"none" | "before" | "after">("none");
+
   function handleDragStart(e: React.DragEvent) {
     e.dataTransfer.setData("text/plain", String(index));
     e.dataTransfer.effectAllowed = "move";
+    setDragging(true);
+  }
+  function handleDragEnd() {
+    setDragging(false);
+    setDragOver("none");
+  }
+  function handleDragOver(e: React.DragEvent) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const midpoint = rect.top + rect.height / 2;
+    setDragOver(e.clientY < midpoint ? "before" : "after");
+  }
+  function handleDragLeave() {
+    setDragOver("none");
   }
   function handleDrop(e: React.DragEvent) {
     e.preventDefault();
     const from = Number(e.dataTransfer.getData("text/plain"));
-    if (!Number.isNaN(from)) onDragReorder(index);
-    void from;
+    if (Number.isNaN(from)) return;
+    const toIdx = dragOver === "after" ? index + 1 : index;
+    // Account for the source being removed before the target.
+    onDragReorder(from < toIdx ? toIdx - 1 : toIdx);
+    setDragOver("none");
   }
   return (
     <li
       draggable
       onDragStart={handleDragStart}
-      onDragOver={(e) => e.preventDefault()}
+      onDragEnd={handleDragEnd}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className="group flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-2"
+      className={cx(
+        "group relative flex items-center gap-2 rounded-lg border bg-surface px-3 py-2 transition",
+        dragging ? "border-brass opacity-50" : "border-line",
+      )}
     >
+      {/* Drop indicator — a brass hairline above or below the row depending on
+       * which half the cursor is in. Lets the user aim drops precisely. */}
+      {dragOver === "before" && (
+        <span className="pointer-events-none absolute inset-x-2 top-[-2px] h-[2px] rounded-full bg-brass" />
+      )}
+      {dragOver === "after" && (
+        <span className="pointer-events-none absolute inset-x-2 bottom-[-2px] h-[2px] rounded-full bg-brass" />
+      )}
       <span className="cursor-grab font-mono text-[11px] text-ink-faint">⋮⋮</span>
       <span className="font-mono text-[11px] font-semibold text-brass">{String(index + 1).padStart(2, "0")}</span>
       <InlineEdit

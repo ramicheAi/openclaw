@@ -100,6 +100,31 @@ export function filterToTick(data: GraphData, tick: number | null): GraphData {
   return { nodes, links };
 }
 
+// Brain mode time-scrubber filter. Hides any dated node whose date is strictly
+// after the cursor, keeping undated metaphysical nodes (claims/defenses)
+// always visible. Per design brief section 5.5: drag thumb across 2019–2021;
+// canvas nodes appear/disappear by date.
+export function filterToDate(data: GraphData, cursor: string | null): GraphData {
+  if (!cursor) return data;
+  const cursorMs = new Date(cursor).getTime();
+  if (Number.isNaN(cursorMs)) return data;
+  const visible = new Set(
+    data.nodes
+      .filter((n) => {
+        if (!n.date) return true; // undated nodes (claims, defenses) always visible
+        return new Date(n.date).getTime() <= cursorMs;
+      })
+      .map((n) => n.id),
+  );
+  const nodes = data.nodes.filter((n) => visible.has(n.id));
+  const links = data.links.filter((l) => {
+    const s = typeof l.source === "string" ? l.source : (l.source as { id: string }).id;
+    const t = typeof l.target === "string" ? l.target : (l.target as { id: string }).id;
+    return visible.has(s) && visible.has(t);
+  });
+  return { nodes, links };
+}
+
 export const ASSEMBLY_DURATION_MS = 9000;
 
 export function buildGraph(

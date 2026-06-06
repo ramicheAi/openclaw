@@ -11,6 +11,7 @@ import {
   applyLayout,
   buildGraph,
   filterToTick,
+  filterToDate,
   type GraphData,
   type GraphNode,
   type Layout,
@@ -41,6 +42,8 @@ interface Props {
   highlightNodeIds: Set<string>;
   highlightActive: boolean;
   assemblyTick: number | null;
+  /** Time-scrubber cursor (ISO YYYY-MM-DD); when set, only nodes on/before it render. */
+  timeCursor?: string | null;
   onNodeClick?: (node: GraphNode) => void;
 }
 
@@ -53,6 +56,7 @@ export function BrainCanvas({
   highlightNodeIds,
   highlightActive,
   assemblyTick,
+  timeCursor,
   onNodeClick,
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -76,10 +80,13 @@ export function BrainCanvas({
     [matter, documents, entities, chronology],
   );
 
-  const filtered = useMemo(
-    () => filterToTick(annotatedGraph, assemblyTick),
-    [annotatedGraph, assemblyTick],
-  );
+  const filtered = useMemo(() => {
+    let g = filterToTick(annotatedGraph, assemblyTick);
+    // Time-scrubber active in Timeline layout only — applying it elsewhere
+    // would silently hide nodes the user isn't expecting to disappear.
+    if (layout === "time" && timeCursor) g = filterToDate(g, timeCursor);
+    return g;
+  }, [annotatedGraph, assemblyTick, layout, timeCursor]);
 
   const data: GraphData = useMemo(
     () => applyLayout(filtered, layout, size.w, size.h),
