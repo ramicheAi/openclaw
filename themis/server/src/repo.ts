@@ -307,23 +307,23 @@ export function createDocument(db: DB, matterId: string, input: CreateDocumentIn
   const nextOrder = (db.prepare(`SELECT COALESCE(MAX(sort_order), 0) AS m FROM documents WHERE matter_id = ?`).get(matterId) as { m: number }).m + 1;
   db.prepare(
     `INSERT INTO documents
-      (id, matter_id, bates, title, doc_type, doc_date, author, recipients, summary, body,
-       entities, pages, hot, privilege, ocr_confidence, thread_id, thread_pos, thread_len,
+      (id, matter_id, bates, title, type, doc_date, author, json_recipients, summary, body,
+       json_entities, pages, hot, privilege, ocr_confidence, thread_id, thread_pos, thread_len,
        duplicates, sort_order)
-     VALUES (@id, @matter_id, @bates, @title, @doc_type, @doc_date, @author, @recipients,
-       @summary, @body, @entities, @pages, @hot, 'none', 'high', NULL, NULL, NULL, 0, @sort_order)`,
+     VALUES (@id, @matter_id, @bates, @title, @type, @doc_date, @author, @json_recipients,
+       @summary, @body, @json_entities, @pages, @hot, 'none', 'high', NULL, NULL, NULL, 0, @sort_order)`,
   ).run({
     id,
     matter_id: matterId,
     bates: input.bates,
     title: input.title,
-    doc_type: input.type,
+    type: input.type,
     doc_date: input.date,
     author: input.author,
-    recipients: JSON.stringify(input.recipients ?? []),
+    json_recipients: JSON.stringify(input.recipients ?? []),
     summary: input.summary,
     body: input.body,
-    entities: JSON.stringify(input.entities ?? []),
+    json_entities: JSON.stringify(input.entities ?? []),
     pages,
     hot: input.hot ? 1 : 0,
     sort_order: nextOrder,
