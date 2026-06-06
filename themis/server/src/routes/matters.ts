@@ -167,11 +167,20 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     await mkdir(mediaDir, { recursive: true });
     const ext = file.name.match(/\.([a-zA-Z0-9]+)$/)?.[1] ?? "bin";
 
-    // 2) Upload to AssemblyAI + transcribe with speaker labels.
+    // 2) Upload to AssemblyAI + transcribe with speaker labels. Catch every
+    // upstream error and surface it so the operator can see whether the
+    // key is bad, the file's too short, the model rejected the audio, etc.
     const buf = await file.arrayBuffer();
-    const uploadUrl = await uploadMedia(buf);
-    const transcriptId = await startTranscript(uploadUrl);
-    const result = await waitForTranscript(transcriptId);
+    let result;
+    try {
+      const uploadUrl = await uploadMedia(buf);
+      const transcriptId = await startTranscript(uploadUrl);
+      result = await waitForTranscript(transcriptId);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("[transcribe] AssemblyAI error:", message);
+      return c.json({ error: "transcription_upstream_failed", message }, 502);
+    }
     if (result.status !== "completed" || !result.utterances) {
       return c.json({ error: "transcription_failed", detail: result.error ?? "no utterances" }, 502);
     }
@@ -262,22 +271,47 @@ export function registerMatterRoutes(app: Hono, db: DB) {
       entities?: string[];
       pages?: number;
     };
-    if (!body.bates?.trim() || !body.title?.trim() || !body.body?.trim()) {
-      return c.json({ error: "bates_title_body_required" }, 400);
+    // Bates + title required; body can be empty (image-only PDFs save as
+    // a record even when extractText returned a placeholder).
+    if (!body.bates?.trim() || !body.title?.trim()) {
+      return c.json({ error: "bates_and_title_required" }, 400);
     }
-    const doc = createDocument(db, id, {
-      bates: body.bates.trim(),
-      title: body.title.trim(),
-      type: body.type?.trim() || "Document",
-      date: body.date?.trim() || new Date().toISOString().slice(0, 10),
-      author: body.author?.trim() || "—",
-      recipients: body.recipients ?? [],
-      summary: body.summary?.trim() || body.body.slice(0, 240),
-      body: body.body,
-      entities: body.entities,
-      pages: body.pages,
-    });
-    audit(db, id, actor(c), "doc.create", `${doc.bates} · ${doc.title}`);
-    return c.json(doc, 201);
+    try {
+      const docBody = (body.body ?? "").length > 0
+        ? body.body!
+        : `[No text — saved as a record. OCR / paste body to enable grounded answers.]`;
+      const doc = createDocument(db, id, {
+        bates: body.bates.trim(),
+        title: body.title.trim(),
+        type: body.type?.trim() || "Document",
+        date: body.date?.trim() || new Date().toISOString().slice(0, 10),
+        author: body.author?.trim() || "—",
+        recipients: body.recipients ?? [],
+        summary: body.summary?.trim() || docBody.slice(0, 240),
+        body: docBody,
+        entities: body.entities,
+        pages: body.pages,
+      });
+      audit(db, id, actor(c), "doc.create", `${doc.bates} · ${doc.title}`);
+      return c.json(doc, 201);
+    } catch (err) {
+      // Surface the real SQLite / system error so the operator sees what's
+      // wrong instead of an opaque 500. Map UNIQUE constraint to a clear
+      // 'bates_already_exists' code that the modal can handle (auto-bump
+      // the Bates and retry).
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("[doc.create] failed:", message);
+      if (/UNIQUE constraint failed/i.test(message)) {
+        return c.json(
+          {
+            error: "bates_already_exists",
+            bates: body.bates,
+            message: `Bates ${body.bates} is already used in this matter. Pick a different prefix or bump the number.`,
+          },
+          409,
+        );
+      }
+      return c.json({ error: "doc_create_failed", message }, 500);
+    }
   });
 }

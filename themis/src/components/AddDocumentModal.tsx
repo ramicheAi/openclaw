@@ -43,7 +43,9 @@ interface BatchItem {
 
 const DOC_TYPES = ["Email", "Memo", "Letter", "Contract", "Deposition", "Pleading", "Report", "Note", "Document"];
 
-export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, onCreated }: Props) {
+export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose }: Props) {
+  // onCreated callback removed from per-doc events; the batch is committed
+  // via qc.invalidateQueries on saveAll completion.
   const qc = useQueryClient();
   const [prefix, setPrefix] = useState<string>(defaultBatesPrefix ?? "DOC");
   const [items, setItems] = useState<BatchItem[]>([]);
@@ -145,34 +147,49 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, 
 
   async function saveAll() {
     setSavingAll(true);
+    // Re-seed the next-Bates pointer from the server right before saving so
+    // we don't collide with anything that landed since the modal opened.
+    let seed = nextBatesRef.current;
+    try {
+      const r = await api.nextBates(matterId, prefix);
+      const m = r.next.match(/-(\d+)$/);
+      if (m) seed = Math.max(seed, Number(m[1]));
+    } catch {
+      /* fall back to current ref */
+    }
+
+    function nextBates(): string {
+      const n = seed++;
+      nextBatesRef.current = seed;
+      return `${prefix}-${String(n).padStart(6, "0")}`;
+    }
+
     for (const it of items) {
       if (it.status === "saved") continue;
-      patch(it.key, { status: "saving" });
+      // Re-Bates each row right before save against the freshest seed —
+      // belt-and-suspenders against collisions if the user changed prefix
+      // mid-batch or if a previous save happened in another tab.
+      const bates = nextBates();
+      patch(it.key, { status: "saving", bates });
       try {
         if (it.isVideo && it.videoFile) {
-          // Transcribe via backend (AssemblyAI). The backend creates the
-          // document row on success with the formatted transcript as body.
           const fd = new FormData();
           fd.append("file", it.videoFile);
-          fd.append("bates", it.bates);
+          fd.append("bates", bates);
           fd.append("title", it.title);
           fd.append("type", it.type);
           fd.append("date", it.date);
           const r = await fetch(`/api/matters/${matterId}/transcribe`, { method: "POST", body: fd });
-          if (!r.ok) throw new Error(await r.text());
+          if (!r.ok) {
+            const detail = await r.text();
+            throw new Error(parseServerError(detail));
+          }
           patch(it.key, { status: "saved" });
         } else {
-          const doc = await api.createDocument(matterId, {
-            bates: it.bates,
-            title: it.title,
-            type: it.type,
-            date: it.date,
-            author: it.author,
-            recipients: it.recipients.split(",").map((s) => s.trim()).filter(Boolean),
-            body: it.body,
-          });
+          await saveDocWithRetry(matterId, {
+            ...itemToPayload(it, bates),
+          }, nextBates);
           patch(it.key, { status: "saved" });
-          onCreated?.(doc.id);
         }
       } catch (err) {
         patch(it.key, { status: "error", error: err instanceof Error ? err.message : String(err) });
@@ -182,6 +199,18 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, 
     qc.invalidateQueries({ queryKey: qk.documents(matterId) });
     qc.invalidateQueries({ queryKey: qk.matter(matterId) });
     qc.invalidateQueries({ queryKey: qk.matters });
+  }
+
+  function itemToPayload(it: BatchItem, bates: string) {
+    return {
+      bates,
+      title: it.title,
+      type: it.type,
+      date: it.date,
+      author: it.author,
+      recipients: it.recipients.split(",").map((s) => s.trim()).filter(Boolean),
+      body: it.body,
+    };
   }
 
   const readyCount = items.filter((i) => i.status === "ready").length;
@@ -402,6 +431,40 @@ function EditRow({ item, onChange }: { item: BatchItem; onChange: (p: Partial<Ba
       {item.error && <div className="col-span-2 text-[11px] text-danger">{item.error}</div>}
     </div>
   );
+}
+
+// Save a doc; on Bates conflict, bump to the next id and retry once. The
+// server returns 409 { error: 'bates_already_exists' } when it spots a
+// UNIQUE collision; we re-Bates from the local seed and try again.
+async function saveDocWithRetry(
+  matterId: string,
+  payload: { bates: string; title: string; type: string; date: string; author: string; recipients: string[]; body: string },
+  nextBates: () => string,
+  attemptsLeft = 3,
+): Promise<void> {
+  try {
+    await api.createDocument(matterId, payload);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (attemptsLeft > 0 && /bates_already_exists|UNIQUE/i.test(msg)) {
+      // Bump and retry once.
+      await saveDocWithRetry(matterId, { ...payload, bates: nextBates() }, nextBates, attemptsLeft - 1);
+      return;
+    }
+    throw new Error(parseServerError(msg));
+  }
+}
+
+// Server returns either a JSON-encoded error body or a plain message. Pull
+// out the human-readable bit so the row's WHY strip reads cleanly.
+function parseServerError(raw: string): string {
+  try {
+    const obj = JSON.parse(raw);
+    if (obj && typeof obj === "object") {
+      return obj.message ?? obj.detail ?? obj.error ?? raw;
+    }
+  } catch { /* not JSON */ }
+  return raw.length > 200 ? raw.slice(0, 200) + "…" : raw;
 }
 
 // Client-side text extraction. Routes by file extension; PDFs go through

@@ -40,7 +40,12 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    throw new ApiError(res.status, (data as { error?: string }).error ?? "error", (data as { hint?: string }).hint);
+    const d = data as { error?: string; message?: string; hint?: string; detail?: string };
+    // Surface the human-readable message when the server provides one so
+    // the UI can show 'Bates X is already used in this matter' instead of
+    // an opaque code.
+    const msg = d.message ?? d.detail ?? d.hint ?? d.error ?? "error";
+    throw new ApiError(res.status, d.error ?? "error", msg);
   }
   return data as T;
 }
