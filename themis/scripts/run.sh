@@ -70,10 +70,11 @@ stop_all() {
 }
 
 start_api() {
-  if [ ! -d "server/node_modules" ]; then
-    echo "→ installing server dependencies"
-    (cd server && npm install)
-  fi
+  # Always run npm install — it's a 1–2s no-op when up to date, and catches
+  # the case where the user pulled new commits that added a dependency
+  # (e.g. @anthropic-ai/sdk) without nuking node_modules first.
+  echo "→ checking server dependencies"
+  (cd server && npm install --no-audit --no-fund --silent)
   echo "→ starting API on http://localhost:${API_PORT}"
   if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
     echo "  · ANTHROPIC_API_KEY detected — chat synthesis will use Claude"
@@ -99,10 +100,8 @@ start_api() {
 }
 
 start_vite() {
-  if [ ! -d "node_modules" ]; then
-    echo "→ installing frontend dependencies"
-    npm install
-  fi
+  echo "→ checking frontend dependencies"
+  npm install --no-audit --no-fund --silent
   echo "→ starting Vite on http://localhost:${WEB_PORT}"
   nohup npm run dev -- --host 0.0.0.0 --port "$WEB_PORT" >"$LOG_DIR/vite.log" 2>&1 &
   echo $! >"$LOG_DIR/vite.pid"
