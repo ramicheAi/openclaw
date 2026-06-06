@@ -1,11 +1,9 @@
-// Scales of Themis — mini. The beam tilts as verified, accepted evidence
-// accrues to plaintiff vs defense. Spring 800ms cubic-bezier per spec.
-//
-// Weight model: each chronology event where accepted === true contributes
-// weight by confidence (high=3, medium=2, low=1). Side is decided by issue
-// tags — plaintiff theory tags weigh plaintiff; defense tags otherwise.
-// Unverified or pending events show as translucent and weightless — the
-// brand promise restated.
+// Scales of Themis — mini. Per Claude Design source (worktop.jsx §ScalesMini)
+// and design brief §5.4b. The beam tilts as accepted-and-verified evidence
+// accrues to plaintiff vs defense; unverified is weightless. 800ms cubic-
+// bezier spring on the rotation. Below the SVG: PLAINTIFF and DEFENSE pills
+// flank a horizontal weight ratio bar with the big Fraunces numerals on the
+// outside.
 
 import { Card, SectionLabel } from "../../../../lib/ui";
 import type { ChronEvent } from "../../../../types";
@@ -42,7 +40,8 @@ export function computeScales(events: ChronEvent[]) {
     else defense += w;
   }
   const total = plaintiff + defense;
-  const tilt = total === 0 ? 0 : ((plaintiff - defense) / total) * 12; // ±12° max
+  // Match the design source: ratio drives a tilt up to ±14°.
+  const tilt = total === 0 ? 0 : ((plaintiff - defense) / total) * 14;
   return { plaintiff, defense, pending, tilt };
 }
 
@@ -50,60 +49,51 @@ export function ScalesMini({ events }: { events: ChronEvent[] }) {
   const { plaintiff, defense, pending, tilt } = computeScales(events);
   const total = plaintiff + defense;
   const ratio = total === 0 ? 0.5 : plaintiff / total;
-  const tiltLabel =
-    total === 0 ? `${pending} pending` : `tipped ${Math.abs(tilt).toFixed(1)}°`;
+  const tiltLabel = total === 0 ? (pending > 0 ? `${pending} pending` : "even") : `tipped ${Math.abs(tilt).toFixed(1)}°`;
 
   return (
     <Card className="p-4">
       <div className="flex items-center justify-between">
         <SectionLabel>Scales of Themis</SectionLabel>
-        <span className="font-mono text-[9.5px] uppercase tracking-wider text-ink-faint">
-          {tiltLabel}
-        </span>
+        <span className="font-mono text-[9.5px] uppercase tracking-wider text-ink-faint">{tiltLabel}</span>
       </div>
 
-      {/* The scale — larger, more dramatic. Filled brass pans render the weight. */}
-      <svg viewBox="0 0 220 130" className="mt-3 w-full" aria-label="Scales of Themis">
-        {/* Plumb */}
-        <line x1={110} y1={14} x2={110} y2={104} stroke="currentColor" className="text-brass" strokeWidth={2} opacity={0.55} />
-        <rect x={84} y={102} width={52} height={6} rx={1.5} fill="currentColor" className="text-brass-deep" opacity={0.7} />
-        <rect x={70} y={108} width={80} height={3} rx={1.5} fill="currentColor" className="text-brass" opacity={0.35} />
+      {/* SVG composition follows worktop.jsx §ScalesMini exactly: linear-
+       * gradient brass on the beam + pans, hairline chains, ellipse pans,
+       * stem and base from a separate gradient, fulcrum dot. */}
+      <div className="mt-2.5 w-full">
+        <svg viewBox="0 0 200 100" className="w-full" aria-label="Scales of Themis">
+          <defs>
+            <linearGradient id="brassMini" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stopColor="#e9cf95" />
+              <stop offset="1" stopColor="#a67c3a" />
+            </linearGradient>
+          </defs>
+          {/* Base + plumb (static — the foundation never moves) */}
+          <rect x={90} y={80} width={20} height={6} rx={1} fill="url(#brassMini)" />
+          <rect x={96} y={22} width={8} height={60} fill="url(#brassMini)" />
+          <circle cx={100} cy={22} r={5} fill="url(#brassMini)" stroke="#3a2a14" strokeWidth={0.6} />
 
-        {/* Beam — tilts with spring */}
-        <g
-          style={{
-            transformOrigin: "110px 20px",
-            transform: `rotate(${-tilt}deg)`,
-            transition: "transform 800ms cubic-bezier(.4,1.6,.4,1)",
-          }}
-        >
-          <line x1={20} y1={20} x2={200} y2={20} stroke="currentColor" className="text-brass" strokeWidth={2.4} />
-          {/* Left pan — plaintiff (filled brass scallop, the brand) */}
-          <line x1={46} y1={20} x2={46} y2={56} stroke="currentColor" className="text-brass" strokeWidth={1.4} opacity={0.85} />
-          <path
-            d="M22 56 Q46 78 70 56 L66 60 Q46 70 26 60 Z"
-            fill="currentColor"
-            className="text-brass"
-            opacity={total === 0 ? 0.25 : 0.85}
-          />
-          <path d="M22 56 Q46 78 70 56" fill="none" stroke="currentColor" className="text-brass-deep" strokeWidth={1.4} />
-          {/* Right pan — defense */}
-          <line x1={174} y1={20} x2={174} y2={56} stroke="currentColor" className="text-brass" strokeWidth={1.4} opacity={0.85} />
-          <path
-            d="M150 56 Q174 78 198 56 L194 60 Q174 70 154 60 Z"
-            fill="currentColor"
-            className="text-brass"
-            opacity={total === 0 ? 0.25 : 0.85}
-          />
-          <path d="M150 56 Q174 78 198 56" fill="none" stroke="currentColor" className="text-brass-deep" strokeWidth={1.4} />
-          {/* Fulcrum */}
-          <circle cx={110} cy={20} r={3.5} fill="currentColor" className="text-brass-deep" />
-        </g>
-      </svg>
+          {/* Beam group — tilts with the spring. Origin at fulcrum (100,22). */}
+          <g
+            style={{
+              transformOrigin: "100px 22px",
+              transform: `rotate(${tilt}deg)`,
+              transition: "transform 800ms cubic-bezier(.4,1.6,.4,1)",
+            }}
+          >
+            <rect x={20} y={20} width={160} height={4} rx={1.5} fill="url(#brassMini)" />
+            <line x1={40} y1={22} x2={40} y2={50} stroke="#caa05c" strokeWidth={0.8} />
+            <line x1={160} y1={22} x2={160} y2={50} stroke="#caa05c" strokeWidth={0.8} />
+            <ellipse cx={40} cy={56} rx={22} ry={5} fill="#e9cf95" stroke="#7a5c2a" strokeWidth={0.6} />
+            <ellipse cx={160} cy={56} rx={22} ry={5} fill="#e9cf95" stroke="#7a5c2a" strokeWidth={0.6} />
+          </g>
+        </svg>
+      </div>
 
-      {/* Bottom row — labels on outside, big numbers on outside, weight bar between */}
+      {/* Readout — PLAINTIFF pill + big numeral · weight bar · DEFENSE pill */}
       <div className="mt-3 grid grid-cols-[auto_1fr_auto] items-end gap-3">
-        <div className="text-left">
+        <div>
           <div className="font-mono text-[9.5px] uppercase tracking-wider text-brass-deep">▲ Plaintiff</div>
           <div className="mt-1 font-display text-[28px] font-semibold leading-none text-ink">{plaintiff}</div>
         </div>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { CitationChip, ConfidenceDot, cx } from "../../../../lib/ui";
 import { Tau } from "../../../../components/BrandMark";
 import { IconAsk, IconCopy, IconAdd, IconExport, IconCmdK } from "../../../../icons";
-import { useAskThemis, useChatHistory } from "../../../../lib/queries";
+import { useAskThemis, useChatHistory, useMatter } from "../../../../lib/queries";
 import type { ChatTurn } from "../../../../types";
 import { PanelHead } from "./PanelHead";
 
@@ -42,11 +42,13 @@ const SUGGESTIONS_DEFAULT = [
 export function AskPanel({ matterId, onOpenCmdK }: { matterId: string; onOpenCmdK: () => void }) {
   const history = useChatHistory(matterId);
   const ask = useAskThemis(matterId);
+  const matter = useMatter(matterId).data;
   const [draft, setDraft] = useState("");
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const turns = history.data ?? [];
   const suggestions = SUGGESTIONS_BY_MATTER[matterId] ?? SUGGESTIONS_DEFAULT;
+  const docCount = matter?.docs;
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -82,7 +84,7 @@ export function AskPanel({ matterId, onOpenCmdK }: { matterId: string; onOpenCmd
           {turns.map((t) => (
             <TurnView key={t.id} turn={t} />
           ))}
-          {ask.isPending && <ThinkingBubble />}
+          {ask.isPending && <ThinkingBubble docCount={docCount} />}
         </div>
       </div>
       {turns.length > 0 && !ask.isPending && (
@@ -156,7 +158,10 @@ function ActionLink({ children, icon }: { children: React.ReactNode; icon: React
   );
 }
 
-function ThinkingBubble() {
+function ThinkingBubble({ docCount }: { docCount?: number }) {
+  // Per design brief §5.3b: "Resolving across N documents…" — restates the
+  // scale of the corpus the brain is grounding against. Sub-line "verifying
+  // citations · checking privilege wall" restates the trust thesis under load.
   return (
     <div className="flex items-start gap-3">
       <div className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-md bg-ink">
@@ -168,7 +173,9 @@ function ThinkingBubble() {
           <Dot delay={120} />
           <Dot delay={240} />
         </div>
-        <div className="mt-1 text-[12px] text-ink-soft">Resolving across the corpus…</div>
+        <div className="mt-1 text-[12px] text-ink-soft">
+          Resolving across {docCount ? docCount.toLocaleString() + " documents" : "the corpus"}…
+        </div>
         <div className="mt-0.5 text-[10.5px] text-ink-faint">verifying citations · checking privilege wall</div>
       </div>
     </div>
