@@ -18,6 +18,7 @@ import { cx } from "../../../lib/ui";
 import { ASSEMBLY_DURATION_MS, annotateRevealTiming, buildGraph } from "../../../lib/graph";
 import { Inspector } from "./Inspector";
 import { CinematicStageHUD } from "./CinematicStageHUD";
+import { CausalCinematic } from "./CausalCinematic";
 import type { CausalChain } from "../../../types";
 import type { GraphNode, Layout } from "../../../lib/graph";
 
@@ -88,7 +89,12 @@ export function CaseBrain({ matterId }: { matterId: string }) {
     : 0;
 
   return (
-    <div className="relative min-h-0 flex-1 overflow-hidden bg-[#070b13] text-[--color-ink-dark]">
+    // Brain mode is the dark "instrument" per design brief section 5.5 — the
+    // canvas + glass consoles always render against deep ink, regardless of
+    // the user's root light/dark preference. data-theme="dark" forces every
+    // utility-class token inside this subtree (surface, ink, line, etc.) to
+    // the dark palette, so consoles stay legible against the canvas.
+    <div data-theme="dark" className="relative min-h-0 flex-1 overflow-hidden bg-[#070b13] text-ink">
       {documents.length === 0 ? (
         <BrainEmpty />
       ) : (
@@ -112,6 +118,15 @@ export function CaseBrain({ matterId }: { matterId: string }) {
         graph={annotateRevealTiming(buildGraph(matter, documents, ents, events))}
         totalDocs={matter.docs}
         totalPages={matter.pages}
+      />
+
+      <CausalCinematic
+        chain={activeChain}
+        events={events}
+        active={highlightActive}
+        docCount={documents.length}
+        verifiedCount={verifiedChain}
+        flaggedCount={flaggedCount}
       />
 
       <Telemetry
