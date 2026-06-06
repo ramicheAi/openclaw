@@ -8,6 +8,7 @@ import { Worktop } from "./Worktop/Worktop";
 import { CaseBrain } from "./Brain/CaseBrain";
 import { CommandPalette } from "../../components/CommandPalette";
 import { CiteCheckModal } from "../../components/CiteCheckModal";
+import { OnboardingTour, shouldShowTour } from "../../components/OnboardingTour";
 import { useGlobalShortcuts } from "../../lib/shortcuts";
 import { useTheme } from "../../lib/theme";
 import type { AppMode, WorktopTab } from "../../lib/router";
@@ -41,6 +42,9 @@ export function MatterShell({ matterId, mode, tab, onMode, onTab, onBack }: Prop
   const [theme, toggleTheme] = useTheme();
   const [cmdkOpen, setCmdkOpen] = useState(false);
   const [citeCheckOpen, setCiteCheckOpen] = useState(false);
+  // Onboarding tour: auto-fire on first run (no localStorage flag yet).
+  // Cmd+K -> "Replay onboarding tour" re-opens it any time.
+  const [tourOpen, setTourOpen] = useState<boolean>(() => shouldShowTour());
 
   function acceptNext() {
     const next = (chron ?? []).find((e) => e.accepted === null);
@@ -113,12 +117,17 @@ export function MatterShell({ matterId, mode, tab, onMode, onTab, onBack }: Prop
           setCmdkOpen(false);
           setCiteCheckOpen(true);
         }}
+        onReplayTour={() => {
+          setCmdkOpen(false);
+          setTourOpen(true);
+        }}
       />
       <CiteCheckModal
         open={citeCheckOpen}
         matterId={matterId}
         onClose={() => setCiteCheckOpen(false)}
       />
+      <OnboardingTour open={tourOpen} onClose={() => setTourOpen(false)} />
     </div>
   );
 }

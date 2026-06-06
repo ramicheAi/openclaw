@@ -56,13 +56,15 @@ export function Worktop({
     >
       {/* Left rail */}
       <aside className="flex min-h-0 flex-col gap-3 overflow-y-auto border-r border-line bg-paper px-3 py-3">
-        <CompactBrainCard
-          matter={matter}
-          docs={documents}
-          entities={entities}
-          chron={chron}
-          onOpen={() => onMode("brain")}
-        />
+        <div data-tour="brain-mini">
+          <CompactBrainCard
+            matter={matter}
+            docs={documents}
+            entities={entities}
+            chron={chron}
+            onOpen={() => onMode("brain")}
+          />
+        </div>
         <CaseSnapshotCard matter={matter} />
         <CastCard entities={entities ?? []} onSelect={setDossier} />
       </aside>
@@ -74,7 +76,7 @@ export function Worktop({
           onChange={onTab}
           badges={{ chronology: pendingChron, privilege: flaggedPriv }}
         />
-        <div className="min-h-0 flex-1">
+        <div className="min-h-0 flex-1" data-tour="ask">
           {tab === "ask" && <AskPanel matterId={matterId} onOpenCmdK={onOpenCmdK} />}
           {tab === "chronology" && (
             <ChronologyPanel
@@ -103,12 +105,18 @@ export function Worktop({
 
       {/* Right rail — Your Queue → Scales of Themis → Audit Trail */}
       <aside className="flex min-h-0 flex-col gap-3 overflow-y-auto border-l border-line bg-paper px-3 py-3">
-        <TaskQueueCard
-          tasks={tasks}
-          onGo={(kind) => onTab(kind === "priv" ? "privilege" : "chronology")}
-        />
-        <ScalesMini events={chron ?? []} />
-        <AuditTrailCard entries={audit ?? []} />
+        <div data-tour="queue">
+          <TaskQueueCard
+            tasks={tasks}
+            onGo={(kind) => onTab(kind === "priv" ? "privilege" : "chronology")}
+          />
+        </div>
+        <div data-tour="scales">
+          <ScalesMini events={chron ?? []} />
+        </div>
+        <div data-tour="audit">
+          <AuditTrailCard entries={audit ?? []} />
+        </div>
       </aside>
 
       <EntityDossier

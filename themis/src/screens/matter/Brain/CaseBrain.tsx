@@ -20,6 +20,7 @@ import { Inspector } from "./Inspector";
 import { CinematicStageHUD } from "./CinematicStageHUD";
 import { CausalCinematic } from "./CausalCinematic";
 import { TimeScrubber } from "./TimeScrubber";
+import { NewChainModal } from "./NewChainModal";
 import type { CausalChain } from "../../../types";
 import type { GraphNode, Layout } from "../../../lib/graph";
 
@@ -41,6 +42,7 @@ export function CaseBrain({ matterId }: { matterId: string }) {
   const [inspect, setInspect] = useState<GraphNode | null>(null);
   const [assemblyTick, setAssemblyTick] = useState<number | null>(null);
   const [timeCursor, setTimeCursor] = useState<string | null>(null);
+  const [newChainOpen, setNewChainOpen] = useState(false);
   const tickRafRef = useRef<number | null>(null);
   const tickStartRef = useRef<number>(0);
 
@@ -207,6 +209,7 @@ export function CaseBrain({ matterId }: { matterId: string }) {
             setActiveChainId(id);
             setHighlightActive(true);
           }}
+          onNewChain={() => setNewChainOpen(true)}
           onRename={(name) => activeChain && updateChain.mutate({ chainId: activeChain.id, patch: { name } })}
           onDelete={() =>
             activeChain &&
@@ -237,6 +240,18 @@ export function CaseBrain({ matterId }: { matterId: string }) {
       </div>
 
       <Inspector node={inspect} onClose={() => setInspect(null)} />
+
+      <NewChainModal
+        open={newChainOpen}
+        matterId={matterId}
+        events={events}
+        documents={documents}
+        onClose={() => setNewChainOpen(false)}
+        onCreated={(id) => {
+          setActiveChainId(id);
+          setHighlightActive(true);
+        }}
+      />
     </div>
   );
 }
@@ -343,6 +358,7 @@ function CausalChainRibbon({
   highlightActive,
   onHighlightToggle,
   onSelectChain,
+  onNewChain,
   onRename,
   onDelete,
   verifiedCount,
@@ -353,6 +369,7 @@ function CausalChainRibbon({
   highlightActive: boolean;
   onHighlightToggle: () => void;
   onSelectChain: (id: string) => void;
+  onNewChain: () => void;
   onRename: (name: string) => void;
   onDelete: () => void;
   verifiedCount: number;
@@ -415,6 +432,16 @@ function CausalChainRibbon({
           )}
         </>
       )}
+
+      {/* "+ New chain" — saves another narrative arc for this matter.
+       * Per design brief sprint 3: causal-chain management as multi-arc
+       * save/name/load. Available whether or not chains exist. */}
+      <button
+        onClick={onNewChain}
+        className="inline-flex items-center gap-1 rounded border border-brass-soft/30 px-1.5 py-0.5 font-mono text-[10px] text-brass-soft hover:border-brass hover:text-brass-light"
+      >
+        + new chain
+      </button>
 
       <div className="ml-auto rounded-full border border-verify/30 bg-verify/10 px-2 py-0.5 font-mono text-[10px] text-verify">
         {verifiedCount}/{totalCount} links verified

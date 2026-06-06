@@ -30,6 +30,7 @@ export interface CommandPaletteProps {
   onOpenDoc: (docId: string) => void;
   onAsk: (q: string) => void;
   onCiteCheck?: () => void;
+  onReplayTour?: () => void;
 }
 
 const CANNED_QUESTIONS = [
@@ -51,6 +52,7 @@ export function CommandPalette({
   onOpenDoc,
   onAsk,
   onCiteCheck,
+  onReplayTour,
 }: CommandPaletteProps) {
   // Auto-close on route change is the caller's job; we close on selection.
   useEffect(() => {
@@ -144,6 +146,11 @@ export function CommandPalette({
                       shortcut="⌘⇧V"
                     >
                       Cite-check a draft
+                    </Item>
+                  )}
+                  {onReplayTour && (
+                    <Item icon={<IconReplay size={14} />} onSelect={() => run(onReplayTour)}>
+                      Replay onboarding tour
                     </Item>
                   )}
                 </Command.Group>

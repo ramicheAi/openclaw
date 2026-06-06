@@ -174,23 +174,73 @@ export function seed(db: DB, { reset = false }: { reset?: boolean } = {}): void 
       });
     });
 
-    // Default causal chain for Reyes (the 32-day retaliation arc).
-    db.prepare(
+    // Seeded causal chains — three for Reyes, two for Mata. The user can
+    // build more from the brain mode "+ new chain" action.
+    const chainInsert = db.prepare(
       `INSERT INTO causal_chains (id, matter_id, name, json_nodes, created_by, created_at)
        VALUES (?, ?, ?, ?, ?, ?)`,
-    ).run(
-      "reyes-retaliation",
-      "reyes-northwind",
-      "Retaliation: 32 days from complaint to termination",
-      jsonIn([
-        { kind: "event", id: "c2" },
-        { kind: "event", id: "c3" },
-        { kind: "event", id: "c4" },
-        { kind: "event", id: "c5" },
-        { kind: "event", id: "c6" },
-      ]),
-      "themis",
-      new Date(base + 7000_000).toISOString(),
+    );
+    const seedChains: [string, string, string, { kind: "event" | "doc"; id: string }[]][] = [
+      // Reyes
+      [
+        "reyes-retaliation",
+        "reyes-northwind",
+        "Retaliation: 32 days from complaint to termination",
+        [
+          { kind: "event", id: "c2" },
+          { kind: "event", id: "c3" },
+          { kind: "event", id: "c4" },
+          { kind: "event", id: "c5" },
+          { kind: "event", id: "c6" },
+        ],
+      ],
+      [
+        "reyes-pretext",
+        "reyes-northwind",
+        "Pretext: first-ever negative review 15 days after protected complaint",
+        [
+          { kind: "event", id: "c2" },
+          { kind: "event", id: "c4" },
+          { kind: "doc", id: "d3" },
+        ],
+      ],
+      [
+        "reyes-knowledge",
+        "reyes-northwind",
+        "Employer knowledge: who knew the complaint, and when",
+        [
+          { kind: "event", id: "c2" },
+          { kind: "event", id: "c3" },
+          { kind: "event", id: "c5" },
+          { kind: "doc", id: "d4" },
+        ],
+      ],
+      // Mata
+      [
+        "mata-fabrication",
+        "mata-avianca",
+        "The fabrication: ChatGPT cases drafted and filed",
+        [
+          { kind: "event", id: "mc5" },
+          { kind: "event", id: "mc6" },
+          { kind: "event", id: "mc7" },
+        ],
+      ],
+      [
+        "mata-bad-faith",
+        "mata-avianca",
+        "Bad-faith doubling-down: from challenge to sanctions",
+        [
+          { kind: "event", id: "mc6" },
+          { kind: "event", id: "mc7" },
+          { kind: "event", id: "mc8" },
+          { kind: "event", id: "mc9" },
+          { kind: "event", id: "mc10" },
+        ],
+      ],
+    ];
+    seedChains.forEach(([id, matterId, name, nodes], i) =>
+      chainInsert.run(id, matterId, name, jsonIn(nodes), "themis", new Date(base + 7000_000 + i * 1000).toISOString()),
     );
 
     // A few historical audit entries for the lead matter so the trail isn't
