@@ -71,6 +71,37 @@ export const api = {
       body: JSON.stringify(input),
     }),
 
+  nextBates: (matterId: string, prefix?: string) =>
+    request<{ prefix: string; next: string; count: number }>(
+      `/api/matters/${matterId}/next-bates${prefix ? `?prefix=${encodeURIComponent(prefix)}` : ""}`,
+    ),
+
+  extractMetadata: (text: string, filename?: string) =>
+    request<{
+      title?: string;
+      type?: string;
+      date?: string;
+      author?: string;
+      recipients?: string[];
+      summary?: string;
+      confidence: "high" | "medium" | "low";
+      signals: string[];
+    }>(`/api/extract-metadata`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ text, filename }),
+    }),
+
+  renameSpeakers: (matterId: string, docId: string, speakers: Record<string, string>) =>
+    request<{ ok: boolean; speakers: Record<string, string> }>(
+      `/api/matters/${matterId}/documents/${docId}/speakers`,
+      {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ speakers }),
+      },
+    ),
+
   createDocument: (matterId: string, input: {
     bates: string;
     title: string;

@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { CitationChip, HotTag, PrivilegePill, cx } from "../../../../lib/ui";
 import { IconCopy, IconAdd, IconHot, IconVerified, IconSearch } from "../../../../icons";
-import { useDocuments, useSetDocReview } from "../../../../lib/queries";
+import { useDocuments, useSetDocReview, qk } from "../../../../lib/queries";
+import { api } from "../../../../lib/api";
 import { AddDocumentModal } from "../../../../components/AddDocumentModal";
 import type { DocItem } from "../../../../types";
 import { PanelAction, PanelHead } from "./PanelHead";
@@ -130,8 +132,8 @@ export function DocumentsPanel({ matterId, initialFilter }: { matterId: string; 
             </div>
           ) : (
             <div className={cx("grid gap-5", docB && "grid-cols-2")}>
-              <DocView doc={docA} side="A" onToggleHot={() => toggleHot(docA)} onToggleReviewed={() => toggleReviewed(docA)} />
-              {docB && <DocView doc={docB} side="B" onToggleHot={() => toggleHot(docB)} onToggleReviewed={() => toggleReviewed(docB)} />}
+              <DocView doc={docA} matterId={matterId} side="A" onToggleHot={() => toggleHot(docA)} onToggleReviewed={() => toggleReviewed(docA)} />
+              {docB && <DocView doc={docB} matterId={matterId} side="B" onToggleHot={() => toggleHot(docB)} onToggleReviewed={() => toggleReviewed(docB)} />}
             </div>
           )}
         </section>
@@ -150,16 +152,23 @@ function HotMini() {
 
 function DocView({
   doc,
+  matterId,
   side,
   onToggleHot,
   onToggleReviewed,
 }: {
   doc: DocItem;
+  matterId: string;
   side: "A" | "B";
   onToggleHot: () => void;
   onToggleReviewed: () => void;
 }) {
   const sideColor = side === "A" ? "bg-brass" : "bg-info";
+  // Detect a transcript-style body: every line starts with a [HH:MM:SS]
+  // timestamp + "SPEAKER X:" label. If so, we surface the Rename Speakers UI.
+  const isTranscript = /^\[\d{2}:\d{2}:\d{2}\]\s+\S/m.test(doc.body);
+  const speakers = isTranscript ? extractSpeakers(doc.body) : [];
+  const [renaming, setRenaming] = useState(false);
   return (
     <article className="overflow-hidden rounded-lg border border-line bg-surface">
       <div className="flex">
@@ -183,12 +192,33 @@ function DocView({
               <Field label="OCR">{doc.ocrConfidence}</Field>
             </div>
           </header>
+          {isTranscript && (
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-brass-wash/40 px-4 py-2">
+              <div className="font-mono text-[10px] uppercase tracking-wider text-brass-deep">
+                Transcript · {speakers.length} speaker{speakers.length === 1 ? "" : "s"} · {speakers.join(", ")}
+              </div>
+              <button
+                onClick={() => setRenaming(true)}
+                className="rounded-md border border-brass-soft bg-surface px-2 py-1 text-[11px] font-medium text-brass-deep hover:border-brass"
+              >
+                Rename speakers
+              </button>
+            </div>
+          )}
           {doc.privilege === "flagged" || doc.privilege === "withheld" ? (
             <PrivilegeWall basis={doc.privilegeBasis} />
           ) : (
             <pre className="border-l-2 border-brass whitespace-pre-wrap bg-paper px-4 py-4 font-mono text-[12px] leading-relaxed text-ink">
               {doc.body}
             </pre>
+          )}
+          {renaming && (
+            <RenameSpeakers
+              matterId={matterId}
+              docId={doc.id}
+              speakers={speakers}
+              onClose={() => setRenaming(false)}
+            />
           )}
           <div className="border-t border-line bg-surface px-4 py-2">
             <div className="flex flex-wrap gap-1 text-[11px] text-ink-soft">
@@ -279,3 +309,102 @@ function ActionLink({
     </button>
   );
 }
+
+// ── Transcript helpers ─────────────────────────────────────────────────
+// extractSpeakers walks the body looking for "[HH:MM:SS]  NAME:" lines and
+// returns the unique set of speaker names in first-seen order.
+function extractSpeakers(body: string): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  const re = /^\[\d{2}:\d{2}:\d{2}\]\s+([A-Z][A-Z .'-]*?):/gm;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(body))) {
+    const name = m[1].trim();
+    if (!seen.has(name)) {
+      seen.add(name);
+      out.push(name);
+    }
+  }
+  return out;
+}
+
+function RenameSpeakers({
+  matterId,
+  docId,
+  speakers,
+  onClose,
+}: {
+  matterId: string;
+  docId: string;
+  speakers: string[];
+  onClose: () => void;
+}) {
+  // Per-line rename input. Keys are the original NAMEs (e.g. "SPEAKER A");
+  // values are what the operator wants ("ROBERTO MATA"). Submit hits
+  // PATCH /documents/:docId/speakers; the backend rewrites the body so chat
+  // citations + binder + exports all read the chosen names.
+  const [vals, setVals] = useState<Record<string, string>>(
+    Object.fromEntries(speakers.map((s) => [s, s])),
+  );
+  const [saving, setSaving] = useState(false);
+  const qc = useQueryClient();
+  async function save() {
+    setSaving(true);
+    try {
+      // Map original NAME -> the leading letter (the backend keys on the
+      // letter from AssemblyAI: "Speaker A" -> "A"). If the body shows
+      // "SPEAKER A", we send {A: <new name>}.
+      const payload: Record<string, string> = {};
+      for (const [orig, val] of Object.entries(vals)) {
+        const letter = orig.match(/SPEAKER\s+([A-Z])/i)?.[1] ?? orig;
+        if (val.trim() && val.trim() !== orig) payload[letter] = val.trim();
+      }
+      await api.renameSpeakers(matterId, docId, payload);
+      qc.invalidateQueries({ queryKey: qk.documents(matterId) });
+      qc.invalidateQueries({ queryKey: qk.document(matterId, docId) });
+      onClose();
+    } finally {
+      setSaving(false);
+    }
+  }
+  return (
+    <div onClick={onClose} className="fixed inset-0 z-50 grid place-items-center bg-black/55 px-6 py-10">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-[520px] max-w-full overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_40px_120px_rgba(0,0,0,0.45)]"
+      >
+        <header className="border-b border-line bg-surface-sunken px-5 py-4">
+          <div className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-brass-deep">
+            Speakers
+          </div>
+          <h3 className="mt-0.5 font-display text-[17px] font-semibold leading-tight text-ink">Name the speakers</h3>
+          <p className="mt-0.5 text-[12px] text-ink-soft">
+            Themis rewrites every line in the transcript and every chat citation will read the chosen names. Timestamps stay valid.
+          </p>
+        </header>
+        <div className="space-y-2 px-5 py-4">
+          {speakers.map((s) => (
+            <div key={s} className="grid grid-cols-[120px_1fr] items-center gap-3">
+              <div className="font-mono text-[11.5px] text-ink-soft">{s}</div>
+              <input
+                value={vals[s] ?? ""}
+                onChange={(e) => setVals({ ...vals, [s]: e.target.value })}
+                placeholder="Roberto Mata"
+                className="rounded-md border border-line bg-paper px-2 py-1.5 text-[13px] text-ink outline-none focus:border-brass"
+              />
+            </div>
+          ))}
+        </div>
+        <footer className="flex items-center justify-end gap-2 border-t border-line bg-surface-sunken px-5 py-3">
+          <button onClick={onClose} className="rounded-md border border-line bg-surface px-3 py-1.5 text-[12.5px] font-medium text-ink-soft hover:border-line-strong hover:text-ink">
+            Cancel
+          </button>
+          <button onClick={save} disabled={saving} className="rounded-md bg-brass px-3 py-1.5 text-[12.5px] font-semibold text-paper hover:bg-brass-deep disabled:opacity-50">
+            {saving ? "Saving…" : "Save names"}
+          </button>
+        </footer>
+      </div>
+    </div>
+  );
+}
+

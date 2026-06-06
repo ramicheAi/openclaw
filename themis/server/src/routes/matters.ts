@@ -11,6 +11,11 @@ import {
   audit,
 } from "../repo.js";
 import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.js";
+import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
+import { formatTranscript, isAssemblyAIReady, startTranscript, uploadMedia, waitForTranscript, type TranscriptUtterance } from "../assemblyai.js";
+import { mkdir, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { homedir } from "node:os";
 
 function slug(s: string): string {
   return s
@@ -93,6 +98,151 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     audit(db, id, actor(c), "matter.create", `${body.name} · ${body.client}`);
     const matter = getMatter(db, id);
     return c.json({ matter, id }, 201);
+  });
+
+  // Suggest the next Bates id for a matter. The operator picks (or accepts)
+  // the prefix; the server returns prefix + zero-padded next number based on
+  // the highest existing Bates with that prefix.
+  app.get("/api/matters/:id/next-bates", async (c) => {
+    const id = c.req.param("id");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    const matter = getMatter(db, id);
+    const prefix = (c.req.query("prefix") || defaultBatesPrefix(matter?.name ?? id)).toUpperCase();
+    const docs = (await import("../repo.js")).listDocuments(db, id);
+    const re = new RegExp(`^${prefix.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}-(\\d+)$`);
+    let max = 0;
+    for (const d of docs) {
+      const m = d.bates.match(re);
+      if (m) max = Math.max(max, Number(m[1]));
+    }
+    const next = max + 1;
+    return c.json({ prefix, next: `${prefix}-${String(next).padStart(6, "0")}`, count: docs.length });
+  });
+
+  // Extract suggested metadata (title, type, date, author, recipients,
+  // summary) from a document's text body + filename. Pure regex/heuristics
+  // server-side so the operator-side AddDocumentModal can auto-fill before
+  // saving, no LLM call required.
+  app.post("/api/extract-metadata", async (c) => {
+    const body = (await c.req.json().catch(() => ({}))) as { text?: string; filename?: string };
+    if (typeof body.text !== "string" || body.text.length === 0) {
+      return c.json({ error: "text_required" }, 400);
+    }
+    return c.json(proposeMetadata(body.text, body.filename ?? ""));
+  });
+
+  // Transcribe an uploaded video / audio file via AssemblyAI and store the
+  // result as a new document in the matter. Multipart upload — the operator
+  // drops a video, the backend uploads it to AssemblyAI, polls for the
+  // result, formats the diarized transcript with [HH:MM:SS] timestamps + a
+  // SPEAKER A/B prefix per utterance, and persists as a doc whose body is
+  // grounded just like any other source.
+  //
+  // The original media file is saved to ~/.themis/media/<matter>/<docId>.<ext>
+  // so the player surface can scrub to citation timestamps. Speaker labels
+  // can be renamed after the fact via PATCH /documents/:docId/speakers.
+  app.post("/api/matters/:id/transcribe", async (c) => {
+    const matterId = c.req.param("id");
+    if (!matterExists(db, matterId)) return c.json({ error: "matter_not_found" }, 404);
+    if (!isAssemblyAIReady()) {
+      return c.json(
+        {
+          error: "assemblyai_not_configured",
+          hint: "Add ASSEMBLYAI_API_KEY=… to ~/.themis-env then restart. Sign up at https://www.assemblyai.com — free tier covers light testing.",
+        },
+        503,
+      );
+    }
+    const form = await c.req.formData();
+    const file = form.get("file");
+    if (!(file instanceof File)) return c.json({ error: "file_required" }, 400);
+    const bates = String(form.get("bates") ?? "").trim();
+    const title = String(form.get("title") ?? file.name).trim();
+    const type = String(form.get("type") ?? "Deposition").trim();
+    const date = String(form.get("date") ?? new Date().toISOString().slice(0, 10)).trim();
+    if (!bates) return c.json({ error: "bates_required" }, 400);
+
+    // 1) Persist the original media for later playback.
+    const mediaDir = join(homedir(), ".themis", "media", matterId);
+    await mkdir(mediaDir, { recursive: true });
+    const ext = file.name.match(/\.([a-zA-Z0-9]+)$/)?.[1] ?? "bin";
+
+    // 2) Upload to AssemblyAI + transcribe with speaker labels.
+    const buf = await file.arrayBuffer();
+    const uploadUrl = await uploadMedia(buf);
+    const transcriptId = await startTranscript(uploadUrl);
+    const result = await waitForTranscript(transcriptId);
+    if (result.status !== "completed" || !result.utterances) {
+      return c.json({ error: "transcription_failed", detail: result.error ?? "no utterances" }, 502);
+    }
+
+    // 3) Build the body (timestamped + speaker labeled) and the speaker map.
+    const body = formatTranscript(result.utterances);
+    const speakerLabels = [...new Set(result.utterances.map((u) => u.speaker))];
+    const speakers = Object.fromEntries(speakerLabels.map((s) => [s, `Speaker ${s}`])) as Record<string, string>;
+
+    // 4) Create the doc row + save speaker map + save the file on disk under
+    //    the doc id so the player can find it.
+    const doc = (await import("../repo.js")).createDocument(db, matterId, {
+      bates,
+      title,
+      type,
+      date,
+      author: speakerLabels.map((s) => `Speaker ${s}`).join(", "),
+      recipients: [],
+      summary: result.text.slice(0, 240),
+      body,
+      pages: Math.max(1, Math.ceil(body.length / 2400)),
+    });
+    // Persist media + speaker map keyed on the new doc id.
+    await writeFile(join(mediaDir, `${doc.id}.${ext}`), Buffer.from(buf));
+    await writeFile(
+      join(mediaDir, `${doc.id}.speakers.json`),
+      JSON.stringify({ speakers, utterances: result.utterances }, null, 2),
+    );
+    audit(db, matterId, actor(c), "transcribe.complete", `${doc.bates} · ${title} · ${result.durationSec ?? "?"}s`);
+    return c.json(
+      {
+        doc,
+        durationSec: result.durationSec,
+        speakers,
+        utteranceCount: result.utterances.length,
+      },
+      201,
+    );
+  });
+
+  // Rename speakers on a transcribed doc. Operator says "Speaker A is
+  // Roberto Mata"; we rewrite the body so every "[HH:MM:SS]  SPEAKER A:"
+  // line becomes "[HH:MM:SS]  ROBERTO MATA:". Citations stay valid because
+  // the timestamps are unchanged.
+  app.patch("/api/matters/:id/documents/:docId/speakers", async (c) => {
+    const matterId = c.req.param("id");
+    const docId = c.req.param("docId");
+    if (!matterExists(db, matterId)) return c.json({ error: "matter_not_found" }, 404);
+    const repo = await import("../repo.js");
+    const doc = repo.getDocumentById?.(db, matterId, docId);
+    if (!doc) return c.json({ error: "doc_not_found" }, 404);
+    const body = (await c.req.json().catch(() => ({}))) as { speakers?: Record<string, string> };
+    if (!body.speakers || typeof body.speakers !== "object") {
+      return c.json({ error: "speakers_required" }, 400);
+    }
+    const mediaDir = join(homedir(), ".themis", "media", matterId);
+    const mapPath = join(mediaDir, `${docId}.speakers.json`);
+    let payload: { speakers: Record<string, string>; utterances: TranscriptUtterance[] };
+    try {
+      payload = JSON.parse(await (await import("node:fs/promises")).readFile(mapPath, "utf8"));
+    } catch {
+      return c.json({ error: "speaker_map_not_found" }, 404);
+    }
+    payload.speakers = { ...payload.speakers, ...body.speakers };
+    await writeFile(mapPath, JSON.stringify(payload, null, 2));
+    // Rewrite the doc body so the new speaker names show up in chat
+    // citations + binder + exports. Citation timestamps stay valid.
+    const newBody = formatTranscript(payload.utterances, payload.speakers);
+    repo.updateDocumentBody?.(db, matterId, docId, newBody);
+    audit(db, matterId, actor(c), "transcribe.rename-speakers", `${doc.bates} · ${Object.keys(body.speakers).join(",")}`);
+    return c.json({ ok: true, speakers: payload.speakers });
   });
 
   // Add a document to an existing matter. Operator pastes / uploads body

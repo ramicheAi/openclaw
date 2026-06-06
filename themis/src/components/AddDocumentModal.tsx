@@ -1,13 +1,15 @@
-// AddDocumentModal — paste / drop a document into an existing matter.
-// Accepts: pasted text, .txt / .md drop, or a PDF that we text-extract
-// client-side via pdfjs-dist. Operator fills minimal metadata (Bates,
-// title, type, date, author) and clicks Save.
+// AddDocumentModal — drop ANY number of files (PDFs, .txt, .md, video).
+// For each: extract text → auto-suggest metadata → auto-assign next Bates.
+// Operator reviews + edits any low-confidence fields, then "Save all" in one
+// click commits the whole batch. Videos route to the AssemblyAI transcribe
+// path instead of the direct doc-create path.
 
-import { useRef, useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { api } from "../lib/api";
 import { qk } from "../lib/queries";
-import { IconAdd, IconClose } from "../icons";
+import { cx } from "../lib/ui";
+import { IconAdd, IconClose, IconVerified } from "../icons";
 
 interface Props {
   open: boolean;
@@ -17,76 +19,156 @@ interface Props {
   onCreated?: (docId: string) => void;
 }
 
+type Status = "parsing" | "ready" | "saving" | "saved" | "error";
+
+interface BatchItem {
+  key: string;
+  filename: string;
+  bates: string;
+  title: string;
+  type: string;
+  date: string;
+  author: string;
+  recipients: string; // comma-separated
+  body: string;
+  confidence: "high" | "medium" | "low";
+  status: Status;
+  error?: string;
+  // Video transcription (AssemblyAI) — kept here for the video path; the
+  // backend writes the document once transcription completes.
+  isVideo?: boolean;
+  videoFile?: File;
+  transcriptId?: string;
+}
+
 const DOC_TYPES = ["Email", "Memo", "Letter", "Contract", "Deposition", "Pleading", "Report", "Note", "Document"];
 
 export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, onCreated }: Props) {
   const qc = useQueryClient();
-  const [bates, setBates] = useState("");
-  const [title, setTitle] = useState("");
-  const [type, setType] = useState("Document");
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-  const [author, setAuthor] = useState("");
-  const [recipientsCsv, setRecipientsCsv] = useState("");
-  const [body, setBody] = useState("");
-  const [parsing, setParsing] = useState(false);
-  const [parseError, setParseError] = useState<string | null>(null);
+  const [prefix, setPrefix] = useState<string>(defaultBatesPrefix ?? "DOC");
+  const [items, setItems] = useState<BatchItem[]>([]);
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const [parsingCount, setParsingCount] = useState(0);
+  const [savingAll, setSavingAll] = useState(false);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const nextBatesRef = useRef<number>(1);
 
-  const create = useMutation({
-    mutationFn: () =>
-      api.createDocument(matterId, {
-        bates: bates.trim(),
-        title: title.trim(),
-        type,
-        date,
-        author: author.trim(),
-        recipients: recipientsCsv
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean),
-        body,
-      }),
-    onSuccess: (doc) => {
-      qc.invalidateQueries({ queryKey: qk.documents(matterId) });
-      qc.invalidateQueries({ queryKey: qk.matter(matterId) });
-      qc.invalidateQueries({ queryKey: qk.matters });
-      // Reset for next paste — keep the Bates prefix incremented automatically.
-      setBates(autoIncBates(bates));
-      setTitle("");
-      setBody("");
-      setRecipientsCsv("");
-      onCreated?.(doc.id);
-    },
-  });
+  // When the modal opens, pull the next Bates seed so we don't clash with
+  // existing documents in the matter.
+  useEffect(() => {
+    if (!open) return;
+    api.nextBates(matterId, prefix).then((r) => {
+      const m = r.next.match(/-(\d+)$/);
+      if (m) nextBatesRef.current = Number(m[1]);
+    }).catch(() => {});
+  }, [open, matterId, prefix]);
 
   if (!open) return null;
-  const canSubmit = bates.trim().length > 0 && title.trim().length > 0 && body.trim().length > 0 && !create.isPending;
 
-  async function handleFile(file: File) {
-    setParseError(null);
-    setParsing(true);
-    try {
-      if (/\.txt$|\.md$/i.test(file.name)) {
-        const text = await file.text();
-        setBody(text);
-        if (!title) setTitle(file.name.replace(/\.[^.]+$/, ""));
-      } else if (/\.pdf$/i.test(file.name)) {
-        const text = await extractPdfText(file);
-        setBody(text);
-        if (!title) setTitle(file.name.replace(/\.[^.]+$/, ""));
-      } else if (file.type.startsWith("text/")) {
-        const text = await file.text();
-        setBody(text);
-        if (!title) setTitle(file.name.replace(/\.[^.]+$/, ""));
-      } else {
-        setParseError("Unsupported file. Drop a PDF, .txt, or .md — or paste the text directly.");
+  function freshBates(): string {
+    const n = nextBatesRef.current++;
+    return `${prefix}-${String(n).padStart(6, "0")}`;
+  }
+
+  async function ingestFiles(files: FileList | File[]) {
+    const arr = Array.from(files);
+    setParsingCount((c) => c + arr.length);
+    for (const f of arr) {
+      const key = `${f.name}-${f.size}-${f.lastModified}-${Math.random()}`;
+      const isVideo = /^video\//i.test(f.type) || /\.(mp4|mov|m4v|webm|m4a|mp3|wav)$/i.test(f.name);
+      // Push the placeholder row immediately so the UI feels alive while we
+      // parse and call the extractor.
+      const placeholder: BatchItem = {
+        key,
+        filename: f.name,
+        bates: freshBates(),
+        title: f.name.replace(/\.[^.]+$/, ""),
+        type: isVideo ? "Deposition" : "Document",
+        date: new Date().toISOString().slice(0, 10),
+        author: "",
+        recipients: "",
+        body: "",
+        confidence: "low",
+        status: "parsing",
+        isVideo,
+        videoFile: isVideo ? f : undefined,
+      };
+      setItems((xs) => [...xs, placeholder]);
+      try {
+        if (isVideo) {
+          // Video path: defer body extraction to the transcribe call on save.
+          // Show a clear placeholder so the operator knows what's queued.
+          patch(key, { body: `[Video — will transcribe via AssemblyAI on Save: ${f.name}]`, status: "ready", confidence: "medium" });
+        } else {
+          const text = await extractText(f);
+          const meta = await api.extractMetadata(text, f.name).catch(() => null);
+          patch(key, {
+            body: text,
+            title: meta?.title ?? placeholder.title,
+            type: meta?.type ?? placeholder.type,
+            date: meta?.date ?? placeholder.date,
+            author: meta?.author ?? "",
+            recipients: (meta?.recipients ?? []).join(", "),
+            confidence: meta?.confidence ?? "low",
+            status: "ready",
+          });
+        }
+      } catch (err) {
+        patch(key, { status: "error", error: err instanceof Error ? err.message : String(err) });
+      } finally {
+        setParsingCount((c) => c - 1);
       }
-    } catch (err) {
-      setParseError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setParsing(false);
     }
   }
+
+  function patch(key: string, p: Partial<BatchItem>) {
+    setItems((xs) => xs.map((x) => (x.key === key ? { ...x, ...p } : x)));
+  }
+
+  async function saveAll() {
+    setSavingAll(true);
+    for (const it of items) {
+      if (it.status === "saved") continue;
+      patch(it.key, { status: "saving" });
+      try {
+        if (it.isVideo && it.videoFile) {
+          // Transcribe via backend (AssemblyAI). The backend creates the
+          // document row on success with the formatted transcript as body.
+          const fd = new FormData();
+          fd.append("file", it.videoFile);
+          fd.append("bates", it.bates);
+          fd.append("title", it.title);
+          fd.append("type", it.type);
+          fd.append("date", it.date);
+          const r = await fetch(`/api/matters/${matterId}/transcribe`, { method: "POST", body: fd });
+          if (!r.ok) throw new Error(await r.text());
+          patch(it.key, { status: "saved" });
+        } else {
+          const doc = await api.createDocument(matterId, {
+            bates: it.bates,
+            title: it.title,
+            type: it.type,
+            date: it.date,
+            author: it.author,
+            recipients: it.recipients.split(",").map((s) => s.trim()).filter(Boolean),
+            body: it.body,
+          });
+          patch(it.key, { status: "saved" });
+          onCreated?.(doc.id);
+        }
+      } catch (err) {
+        patch(it.key, { status: "error", error: err instanceof Error ? err.message : String(err) });
+      }
+    }
+    setSavingAll(false);
+    qc.invalidateQueries({ queryKey: qk.documents(matterId) });
+    qc.invalidateQueries({ queryKey: qk.matter(matterId) });
+    qc.invalidateQueries({ queryKey: qk.matters });
+  }
+
+  const readyCount = items.filter((i) => i.status === "ready").length;
+  const savedCount = items.filter((i) => i.status === "saved").length;
+  const errorCount = items.filter((i) => i.status === "error").length;
 
   return (
     <div
@@ -95,18 +177,18 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, 
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex max-h-full w-[840px] max-w-full flex-col overflow-hidden rounded-[14px] border border-line bg-surface shadow-[0_40px_120px_rgba(0,0,0,0.45)]"
+        className="flex max-h-full w-[1040px] max-w-full flex-col overflow-hidden rounded-[14px] border border-line bg-surface shadow-[0_40px_120px_rgba(0,0,0,0.45)]"
       >
         <header className="flex items-start justify-between gap-4 border-b border-line bg-surface-sunken px-5 py-4">
           <div>
             <div className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-brass-deep">
-              Add document
+              Add documents
             </div>
             <h3 className="mt-0.5 font-display text-[18px] font-semibold leading-snug text-ink">
-              Drop a PDF or paste the text
+              Drop one or many files
             </h3>
             <p className="mt-0.5 text-[12px] text-ink-soft">
-              The body is what Themis grounds answers against. Pick a Bates id (any prefix you like — e.g. {defaultBatesPrefix ?? "DOC"}-000001).
+              Themis auto-extracts metadata, auto-assigns Bates, and saves the whole batch in one click. Videos transcribe via AssemblyAI.
             </p>
           </div>
           <button
@@ -118,9 +200,9 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, 
           </button>
         </header>
 
-        <div className="grid min-h-0 flex-1 grid-cols-[1fr_240px] gap-4 overflow-hidden px-5 py-4">
-          {/* Body + dropzone */}
-          <div className="flex min-h-0 flex-col">
+        {/* Dropzone + prefix */}
+        <div className="border-b border-line bg-paper px-5 py-3">
+          <div className="flex items-center gap-3">
             <div
               onDragOver={(e) => {
                 e.preventDefault();
@@ -128,105 +210,85 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, 
               }}
               onDrop={(e) => {
                 e.preventDefault();
-                const f = e.dataTransfer.files?.[0];
-                if (f) void handleFile(f);
+                if (e.dataTransfer.files?.length) void ingestFiles(e.dataTransfer.files);
               }}
-              className="mb-2 flex items-center justify-between gap-2 rounded-md border border-dashed border-line-strong bg-surface-sunken/40 px-3 py-2 text-[11.5px] text-ink-soft"
+              className="flex-1 rounded-md border border-dashed border-line-strong bg-surface-sunken/40 px-4 py-3 text-[12px] text-ink-soft"
             >
-              <span>
-                {parsing
-                  ? "Parsing PDF…"
-                  : "Drop a PDF / .txt / .md here, or paste the body directly →"}
-              </span>
-              <button
-                onClick={() => fileRef.current?.click()}
-                className="rounded-md border border-line bg-surface px-2 py-1 text-[11px] font-medium text-ink hover:border-brass-soft"
-              >
-                Choose file
+              <span className="font-medium text-ink">Drop files here</span> — PDFs, .txt, .md, videos. Or{" "}
+              <button onClick={() => fileRef.current?.click()} className="underline decoration-brass-soft text-brass-deep">
+                choose files
               </button>
+              .
               <input
                 ref={fileRef}
                 type="file"
-                accept=".pdf,.txt,.md,text/plain"
+                multiple
                 hidden
+                accept=".pdf,.txt,.md,.eml,.mp4,.mov,.m4v,.webm,.m4a,.mp3,.wav,text/plain,video/*,audio/*"
                 onChange={(e) => {
-                  const f = e.target.files?.[0];
-                  if (f) void handleFile(f);
+                  if (e.target.files?.length) void ingestFiles(e.target.files);
                   e.target.value = "";
                 }}
               />
             </div>
-            {parseError && (
-              <div className="mb-2 rounded-md border border-danger/30 bg-danger-wash p-2 text-[12px] text-danger">
-                {parseError}
-              </div>
-            )}
-            <label className="block font-mono text-[10px] font-semibold uppercase tracking-wider text-ink-soft">
-              Body *
-            </label>
-            <textarea
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-              placeholder="Paste the document text here. Themis grounds every answer against this body."
-              className="mt-1 flex-1 min-h-[260px] resize-none rounded-md border border-line bg-paper px-3 py-2 font-mono text-[12px] leading-relaxed text-ink placeholder:text-ink-faint focus:border-brass focus:outline-none"
-            />
-            <div className="mt-1 text-[10px] text-ink-faint">
-              {body.length.toLocaleString()} chars · ~{Math.max(1, Math.ceil(body.length / 2400))} pages
+            <div className="flex items-center gap-2 rounded-md border border-line bg-surface px-3 py-2 text-[12px]">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-ink-soft">Bates</span>
+              <input
+                value={prefix}
+                onChange={(e) => setPrefix(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))}
+                className="w-24 bg-transparent font-mono text-[12px] text-ink outline-none"
+              />
+              <span className="font-mono text-[11px] text-ink-faint">— next: {String(nextBatesRef.current).padStart(6, "0")}</span>
             </div>
           </div>
-
-          {/* Metadata */}
-          <aside className="flex min-h-0 flex-col gap-2 overflow-y-auto">
-            <Field label="Bates *">
-              <input
-                value={bates}
-                onChange={(e) => setBates(e.target.value)}
-                placeholder={`${defaultBatesPrefix ?? "DOC"}-000001`}
-                className="input font-mono"
-              />
-            </Field>
-            <Field label="Title *">
-              <input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Email · Reply re: contract"
-                className="input"
-              />
-            </Field>
-            <Field label="Type">
-              <select value={type} onChange={(e) => setType(e.target.value)} className="input">
-                {DOC_TYPES.map((t) => (
-                  <option key={t}>{t}</option>
-                ))}
-              </select>
-            </Field>
-            <Field label="Date">
-              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="input font-mono" />
-            </Field>
-            <Field label="Author">
-              <input value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Jane Smith" className="input" />
-            </Field>
-            <Field label="Recipients" hint="Comma-separated">
-              <input
-                value={recipientsCsv}
-                onChange={(e) => setRecipientsCsv(e.target.value)}
-                placeholder="Alice, Bob, Counsel"
-                className="input"
-              />
-            </Field>
-          </aside>
         </div>
 
-        {create.isError && (
-          <div className="mx-5 mb-2 rounded-md border border-danger/30 bg-danger-wash p-2 text-[12px] text-danger">
-            Save failed — check the Bates id (must be unique) and try again.
-          </div>
-        )}
+        {/* Batch list */}
+        <div className="min-h-[280px] flex-1 overflow-y-auto px-5 py-3">
+          {items.length === 0 ? (
+            <div className="grid h-full place-items-center text-[12.5px] text-ink-soft">
+              Drop files to start. Each one gets a Bates, title, author, and recipients auto-filled.
+            </div>
+          ) : (
+            <ul className="space-y-1.5">
+              {items.map((it) => (
+                <li key={it.key} className={cx("rounded-md border bg-surface", borderForStatus(it.status))}>
+                  <button
+                    onClick={() => setExpanded(expanded === it.key ? null : it.key)}
+                    className="grid w-full grid-cols-[auto_120px_1fr_120px_140px_auto] items-center gap-3 px-3 py-2 text-left"
+                  >
+                    <StatusDot status={it.status} confidence={it.confidence} />
+                    <span className="font-mono text-[11px] text-brass-deep">{it.bates}</span>
+                    <span className="min-w-0 truncate text-[12.5px] font-medium text-ink" title={it.title}>
+                      {it.title}
+                    </span>
+                    <span className="truncate text-[11px] text-ink-soft" title={it.author}>
+                      {it.author || (it.isVideo ? "Video / audio" : "—")}
+                    </span>
+                    <span className="truncate font-mono text-[11px] text-ink-faint">
+                      {it.type} · {it.date}
+                    </span>
+                    <span className="font-mono text-[9.5px] uppercase tracking-wider text-ink-faint">
+                      {it.status}
+                    </span>
+                  </button>
+                  {expanded === it.key && <EditRow item={it} onChange={(p) => patch(it.key, p)} />}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
 
-        <footer className="flex items-center justify-between border-t border-line bg-surface-sunken px-5 py-3">
-          <span className="text-[11px] text-ink-soft">
-            {create.data ? `Saved · ${create.data.bates}` : "* required"}
-          </span>
+        <footer className="flex items-center justify-between gap-3 border-t border-line bg-surface-sunken px-5 py-3">
+          <div className="text-[11.5px] text-ink-soft">
+            {items.length === 0 ? "Drop to start." : (
+              <span>
+                {readyCount} ready · {savedCount} saved
+                {errorCount > 0 ? ` · ${errorCount} error${errorCount === 1 ? "" : "s"}` : ""}
+                {parsingCount > 0 ? ` · ${parsingCount} parsing` : ""}
+              </span>
+            )}
+          </div>
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
@@ -235,11 +297,11 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, 
               Done
             </button>
             <button
-              onClick={() => create.mutate()}
-              disabled={!canSubmit}
+              onClick={saveAll}
+              disabled={readyCount === 0 || savingAll}
               className="inline-flex items-center gap-1.5 rounded-md bg-brass px-3 py-1.5 text-[12.5px] font-semibold text-paper hover:bg-brass-deep disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <IconAdd size={13} /> {create.isPending ? "Saving…" : "Save document"}
+              <IconAdd size={13} /> {savingAll ? "Saving…" : `Save all (${readyCount})`}
             </button>
           </div>
         </footer>
@@ -250,44 +312,82 @@ export function AddDocumentModal({ open, matterId, defaultBatesPrefix, onClose, 
   );
 }
 
-function Field({
-  label,
-  hint,
-  children,
-}: {
-  label: string;
-  hint?: string;
-  children: React.ReactNode;
-}) {
+function borderForStatus(s: Status): string {
+  if (s === "saved") return "border-verify/30";
+  if (s === "error") return "border-danger/30";
+  if (s === "ready") return "border-line";
+  return "border-line bg-surface-sunken/40";
+}
+
+function StatusDot({ status, confidence }: { status: Status; confidence: BatchItem["confidence"] }) {
+  if (status === "saved") return <IconVerified size={14} className="text-verify" />;
+  if (status === "error") return <span className="h-2.5 w-2.5 rounded-full bg-danger" />;
+  if (status === "parsing" || status === "saving")
+    return <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-brass" />;
+  const tone = confidence === "high" ? "bg-verify" : confidence === "medium" ? "bg-flag" : "bg-ink-faint";
+  return <span className={cx("h-2.5 w-2.5 rounded-full", tone)} title={`Confidence: ${confidence}`} />;
+}
+
+function EditRow({ item, onChange }: { item: BatchItem; onChange: (p: Partial<BatchItem>) => void }) {
   return (
-    <div>
-      <label className="block font-mono text-[10px] font-semibold uppercase tracking-wider text-ink-soft">
-        {label}
+    <div className="grid grid-cols-2 gap-3 border-t border-line bg-paper px-3 py-3">
+      <label className="text-[11px] text-ink-soft">
+        Title
+        <input className="input mt-1" value={item.title} onChange={(e) => onChange({ title: e.target.value })} />
       </label>
-      <div className="mt-1">{children}</div>
-      {hint && <div className="mt-0.5 text-[10px] text-ink-faint">{hint}</div>}
+      <label className="text-[11px] text-ink-soft">
+        Bates
+        <input className="input mt-1 font-mono" value={item.bates} onChange={(e) => onChange({ bates: e.target.value })} />
+      </label>
+      <label className="text-[11px] text-ink-soft">
+        Type
+        <select className="input mt-1" value={item.type} onChange={(e) => onChange({ type: e.target.value })}>
+          {DOC_TYPES.map((t) => (<option key={t}>{t}</option>))}
+        </select>
+      </label>
+      <label className="text-[11px] text-ink-soft">
+        Date
+        <input type="date" className="input mt-1 font-mono" value={item.date} onChange={(e) => onChange({ date: e.target.value })} />
+      </label>
+      <label className="text-[11px] text-ink-soft">
+        Author
+        <input className="input mt-1" value={item.author} onChange={(e) => onChange({ author: e.target.value })} />
+      </label>
+      <label className="text-[11px] text-ink-soft">
+        Recipients (comma-separated)
+        <input className="input mt-1" value={item.recipients} onChange={(e) => onChange({ recipients: e.target.value })} />
+      </label>
+      {!item.isVideo && (
+        <label className="col-span-2 text-[11px] text-ink-soft">
+          Body
+          <textarea
+            className="input mt-1 font-mono text-[11.5px] leading-relaxed"
+            rows={6}
+            value={item.body}
+            onChange={(e) => onChange({ body: e.target.value })}
+          />
+        </label>
+      )}
+      {item.error && <div className="col-span-2 text-[11px] text-danger">{item.error}</div>}
     </div>
   );
 }
 
-function autoIncBates(prev: string): string {
-  // Best-effort auto-increment for repeat adds: "ACME-000004" -> "ACME-000005".
-  const m = prev.match(/^(.*?)(\d+)$/);
-  if (!m) return prev;
-  const [, prefix, num] = m;
-  const next = String(Number(num) + 1).padStart(num.length, "0");
-  return `${prefix}${next}`;
+// Client-side text extraction. Routes by file extension; PDFs go through
+// pdfjs-dist (lazy-imported so it only loads when needed).
+async function extractText(file: File): Promise<string> {
+  if (/\.(txt|md|eml)$/i.test(file.name) || file.type.startsWith("text/")) {
+    return await file.text();
+  }
+  if (/\.pdf$/i.test(file.name)) {
+    return await extractPdfText(file);
+  }
+  throw new Error(`Can't read ${file.name}. Drop a PDF, .txt, .md, .eml, or video.`);
 }
 
-// Client-side PDF text extraction. Loads pdfjs from the bundled
-// dependency (already pulled in via the binder export path) lazily so
-// it only fires when the user actually drops a PDF.
 async function extractPdfText(file: File): Promise<string> {
   const buf = await file.arrayBuffer();
-  // Vite handles the ESM build at runtime; the worker is co-resolved.
   const pdfjs: typeof import("pdfjs-dist") = await import("pdfjs-dist");
-  // Workers are configured by pdfjs-dist itself in modern builds. If
-  // worker resolution fails, fall back to running on the main thread.
   try {
     const workerSrc = (await import("pdfjs-dist/build/pdf.worker.mjs?url")).default;
     (pdfjs as unknown as { GlobalWorkerOptions: { workerSrc: string } }).GlobalWorkerOptions.workerSrc = workerSrc;
