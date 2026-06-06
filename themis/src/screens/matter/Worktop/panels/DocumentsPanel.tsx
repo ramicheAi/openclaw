@@ -1,14 +1,21 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CitationChip, HotTag, PrivilegePill, cx } from "../../../../lib/ui";
 import { IconCopy, IconAdd, IconHot, IconVerified, IconSearch } from "../../../../icons";
 import { useDocuments, useSetDocReview } from "../../../../lib/queries";
 import type { DocItem } from "../../../../types";
 import { PanelHead } from "./PanelHead";
 
-export function DocumentsPanel({ matterId }: { matterId: string }) {
+export function DocumentsPanel({ matterId, initialFilter }: { matterId: string; initialFilter?: string }) {
   const { data: docs } = useDocuments(matterId);
   const review = useSetDocReview(matterId);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState(initialFilter ?? "");
+  // When a new initialFilter arrives (e.g. user clicked through from an
+  // entity dossier), adopt it without clobbering manual edits the user
+  // makes afterward.
+  useEffect(() => {
+    if (initialFilter) setFilter(initialFilter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialFilter]);
   const [selA, setSelA] = useState<string | null>(null);
   const [selB, setSelB] = useState<string | null>(null);
 

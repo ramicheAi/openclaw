@@ -40,6 +40,7 @@ export function Worktop({
   const { data: audit } = useAudit(matterId, 10);
 
   const [dossier, setDossier] = useState<Entity | null>(null);
+  const [docFilter, setDocFilter] = useState<string>("");
 
   if (!matter) return <LoadingFrame />;
 
@@ -96,7 +97,7 @@ export function Worktop({
               lockReason={lock?.reason}
             />
           )}
-          {tab === "documents" && <DocumentsPanel matterId={matterId} />}
+          {tab === "documents" && <DocumentsPanel matterId={matterId} initialFilter={docFilter} />}
         </div>
       </div>
 
@@ -114,7 +115,8 @@ export function Worktop({
         entity={dossier}
         matterId={matterId}
         onClose={() => setDossier(null)}
-        onJumpDocuments={() => {
+        onJumpDocuments={(name) => {
+          setDocFilter(name);
           setDossier(null);
           onTab("documents");
         }}
