@@ -24,10 +24,11 @@ import { exportBinderPdf } from "../../../../lib/exports";
 import type { Binder, BinderItem, DocItem } from "../../../../types";
 import { PanelAction, PanelHead } from "./PanelHead";
 
-export function BinderPanel({ matterId, exportsLocked, lockReason }: {
+export function BinderPanel({ matterId, exportsLocked, lockReason, onJumpDoc }: {
   matterId: string;
   exportsLocked: boolean;
   lockReason?: string;
+  onJumpDoc?: (docId: string) => void;
 }) {
   const { data: binders } = useBinders(matterId);
   const { data: docs } = useDocuments(matterId);
@@ -119,6 +120,7 @@ export function BinderPanel({ matterId, exportsLocked, lockReason }: {
                 onRemoveItem={(itemId) => removeItem.mutate({ binderId: active.id, itemId })}
                 onRelabel={(itemId, label) => renameItem.mutate({ binderId: active.id, itemId, label })}
                 onReorder={(order) => reorder.mutate({ binderId: active.id, order })}
+                onOpenDoc={onJumpDoc}
                 exportsLocked={exportsLocked}
                 lockReason={lockReason}
               />
@@ -174,6 +176,7 @@ function Workarea({
   onRemoveItem,
   onRelabel,
   onReorder,
+  onOpenDoc,
   exportsLocked,
   lockReason,
 }: {
@@ -184,6 +187,7 @@ function Workarea({
   onRemoveItem: (itemId: string) => void;
   onRelabel: (itemId: string, label: string) => void;
   onReorder: (order: string[]) => void;
+  onOpenDoc?: (docId: string) => void;
   exportsLocked: boolean;
   lockReason?: string;
 }) {
@@ -214,6 +218,7 @@ function Workarea({
             index={i}
             onRemove={() => onRemoveItem(item.id)}
             onRelabel={(label) => onRelabel(item.id, label)}
+            onOpen={onOpenDoc ? () => onOpenDoc(item.docId) : undefined}
             onDragReorder={(toIdx) => {
               if (toIdx === i) return;
               const ids = binder.items.map((x) => x.id);
@@ -264,12 +269,14 @@ function ExhibitRow({
   index,
   onRemove,
   onRelabel,
+  onOpen,
   onDragReorder,
 }: {
   item: BinderItem;
   index: number;
   onRemove: () => void;
   onRelabel: (label: string) => void;
+  onOpen?: () => void;
   onDragReorder: (toIdx: number) => void;
 }) {
   const [dragging, setDragging] = useState(false);
@@ -334,7 +341,14 @@ function ExhibitRow({
       <span className="hidden font-mono text-[10.5px] text-ink-faint md:inline">
         {item.bates} · {item.type} · {item.date}
       </span>
-      <button className="text-[10.5px] text-brass hover:underline">open ›</button>
+      <button
+        onClick={onOpen}
+        disabled={!onOpen}
+        className="text-[10.5px] text-brass hover:underline disabled:cursor-not-allowed disabled:opacity-40"
+        title={onOpen ? "Open in Documents" : ""}
+      >
+        open ›
+      </button>
       <button
         onClick={onRemove}
         aria-label="Remove from binder"

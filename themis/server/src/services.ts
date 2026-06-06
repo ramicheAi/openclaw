@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import type { DB } from "./db.js";
 import type { ChatTurn, Confidence, DocItem, PrivilegeStatus, SearchHit } from "./types.js";
 import { audit, getDocumentByBates, insertChat, listDocuments, setPrivilege } from "./repo.js";
-import { isLLMReady, judgeEntailment, synthesizeAnswer } from "./llm.js";
+import { getLastLLMError, isLLMReady, judgeEntailment, synthesizeAnswer } from "./llm.js";
 
 // ---------------------------------------------------------------------------
 // These interfaces define the "AI pipeline" seam. The implementations below
@@ -303,8 +303,12 @@ export const chatService: ChatService = {
       }));
       const synth = await synthesizeAnswer(question, sources);
       if (!synth) {
-        // LLM transient failure — fall back to deterministic engine for this turn.
-        return runDeterministic(db, matterId, question, userTurn, hits, actor);
+        // LLM call failed — fall back to deterministic engine for this turn,
+        // and surface WHY the LLM failed in the audit detail. The previous
+        // silent fallback was a footgun: operator sees a refusal trail with
+        // no diagnostic of what the actual upstream error was.
+        const llmErr = getLastLLMError();
+        return runDeterministic(db, matterId, question, userTurn, hits, actor, llmErr);
       }
       text = synth.text;
       refused = synth.refused;
@@ -423,6 +427,7 @@ async function runDeterministic(
   _userTurn: ChatTurn,
   hits: SearchHit[],
   _actor: string,
+  llmError?: string | null,
 ): Promise<ChatTurn> {
   const det = runDeterministicSync(db, matterId, question, hits);
   const themisTurn: ChatTurn = {
@@ -435,14 +440,22 @@ async function runDeterministic(
   };
   insertChat(db, matterId, themisTurn);
   const entailedCount = det.citations.filter((c) => c.entailed).length;
+  // Surface the LLM error in audit detail when we fell back from LLM —
+  // turns "deterministic (llm fallback)" into something diagnosable like
+  // "deterministic (llm err: 404 model_not_found: claude-sonnet-4-6)".
+  const reason = llmError ? `llm err: ${truncate(llmError, 80)}` : "llm fallback";
   audit(
     db,
     matterId,
     "themis",
     det.refused ? "chat.refused" : "chat.answer",
-    `deterministic (llm fallback) · ${det.citations.length} citations · ${entailedCount} entailed · confidence ${det.confidence}`,
+    `deterministic (${reason}) · ${det.citations.length} citations · ${entailedCount} entailed · confidence ${det.confidence}`,
   );
   return themisTurn;
+}
+
+function truncate(s: string, n: number): string {
+  return s.length <= n ? s : s.slice(0, n - 1) + "…";
 }
 
 const COUNSEL_SIGNALS = [

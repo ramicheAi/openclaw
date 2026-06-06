@@ -22,13 +22,20 @@ export function isLLMReady(): boolean {
   return getClient() !== null;
 }
 
-// Hide Claude logging at call-sites; toggle via THEMIS_LLM_LOG=1.
+// Hide noisy debug at call-sites; toggle via THEMIS_LLM_LOG=1. Errors are
+// ALWAYS surfaced (the silent-fallback bug had the operator staring at
+// 'REFUSED deterministic (llm fallback)' with no clue why).
 function log(...args: unknown[]): void {
   if (process.env.THEMIS_LLM_LOG === "1") console.log("[llm]", ...args);
 }
+function logErr(label: string, err: unknown): void {
+  const msg = err instanceof Error ? err.message : String(err);
+  console.error(`[llm] ${label}: ${msg}`);
+}
 
-// Default model — Sonnet 4.6 is fast enough for chat synthesis + judge passes.
-const MODEL = process.env.THEMIS_LLM_MODEL ?? "claude-sonnet-4-6";
+// Default model. THEMIS_LLM_MODEL env var overrides if your API tier needs
+// something different (older versions, or a model your org has access to).
+const MODEL = process.env.THEMIS_LLM_MODEL ?? "claude-sonnet-4-5";
 const SYNTH_MAX_TOKENS = 1024;
 const JUDGE_MAX_TOKENS = 256;
 
@@ -118,7 +125,8 @@ export async function synthesizeAnswer(
     const refused = /^I located documents that mention/i.test(body) || /declining to claim/i.test(body);
     return { text: body, citationBates, refused };
   } catch (err) {
-    log("synth error", err);
+    logErr("synth", err);
+    lastError = err instanceof Error ? err.message : String(err);
     return null;
   }
 }
@@ -180,7 +188,46 @@ export async function judgeEntailment(
       reason: parsed.reason ?? "",
     };
   } catch (err) {
-    log("judge error", err);
+    logErr("judge", err);
+    lastError = err instanceof Error ? err.message : String(err);
     return null;
+  }
+}
+
+// Last LLM error, exposed via /api/engine for one-glance diagnostics. Surfaces
+// to the engine pill tooltip so the operator sees the actual reason the chat
+// is falling back (wrong model name, key denied, rate limit, etc.) instead
+// of staring at silent refusals.
+let lastError: string | null = null;
+export function getLastLLMError(): string | null {
+  return lastError;
+}
+export function getCurrentModel(): string {
+  return MODEL;
+}
+
+// One-shot LLM health check. Calls the API with a tiny prompt and reports
+// {ok, error?, model}. Wired to GET /api/engine/test so the operator can
+// confirm the SDK actually works end-to-end before debugging chat.
+export async function probeLLM(): Promise<{ ok: boolean; model: string; error?: string }> {
+  const c = getClient();
+  if (!c) return { ok: false, model: MODEL, error: "ANTHROPIC_API_KEY not set" };
+  try {
+    const msg = await c.messages.create({
+      model: MODEL,
+      max_tokens: 16,
+      messages: [{ role: "user", content: "Reply with exactly: ok" }],
+    });
+    const text = msg.content
+      .filter((b) => b.type === "text")
+      .map((b) => (b as { text: string }).text)
+      .join("")
+      .trim();
+    lastError = null;
+    return { ok: text.toLowerCase().includes("ok"), model: MODEL };
+  } catch (err) {
+    const error = err instanceof Error ? err.message : String(err);
+    lastError = error;
+    return { ok: false, model: MODEL, error };
   }
 }

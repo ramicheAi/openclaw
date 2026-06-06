@@ -51,7 +51,12 @@ export const api = {
   getMatter: (id: string) => request<MatterDetail>(`/api/matters/${id}`),
 
   getEngineStatus: () =>
-    request<{ llm: boolean; engine: "llm" | "deterministic"; model: string | null }>(`/api/engine`),
+    request<{
+      llm: boolean;
+      engine: "llm" | "deterministic";
+      model: string | null;
+      lastError: string | null;
+    }>(`/api/engine`),
 
   getAudit: (id: string, limit = 50) =>
     request<{ entries: AuditEntry[] }>(`/api/matters/${id}/audit?limit=${limit}`).then((r) => r.entries),

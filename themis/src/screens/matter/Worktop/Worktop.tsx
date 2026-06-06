@@ -97,6 +97,13 @@ export function Worktop({
               matterId={matterId}
               exportsLocked={!!lock}
               lockReason={lock?.reason}
+              onJumpDoc={(docId) => {
+                // Find the doc's Bates and seed the Documents filter with it
+                // so the user lands on the right row.
+                const bates = documents?.find((d) => d.id === docId)?.bates;
+                if (bates) setDocFilter(bates);
+                onTab("documents");
+              }}
             />
           )}
           {tab === "documents" && <DocumentsPanel matterId={matterId} initialFilter={docFilter} />}

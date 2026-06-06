@@ -149,14 +149,23 @@ function EnginePill() {
   const { data } = useEngineStatus();
   if (!data) return null;
   const isLLM = data.llm;
-  const cls = isLLM
-    ? "border-verify/30 bg-verify-wash text-verify"
-    : "border-flag/30 bg-flag-wash text-flag";
-  const dot = isLLM ? "bg-verify" : "bg-flag";
-  const label = isLLM ? "ENGINE · LLM" : "ENGINE · LOCAL";
-  const title = isLLM
-    ? `Chat synthesis runs through ${data.model}. Citation entailment uses LLM-as-judge.`
-    : "ANTHROPIC_API_KEY not set. Chat runs the deterministic token-overlap engine. Set the key and restart to enable Claude.";
+  // Three states: LLM working, LLM configured but erroring, deterministic.
+  // The "LLM err" state is the new one — the key is set, so engine=llm, but
+  // every actual call is failing. Show amber so the operator knows something
+  // is wrong; tooltip carries the exact error message.
+  const hasErr = isLLM && !!data.lastError;
+  const cls = hasErr
+    ? "border-danger/30 bg-danger-wash text-danger"
+    : isLLM
+      ? "border-verify/30 bg-verify-wash text-verify"
+      : "border-flag/30 bg-flag-wash text-flag";
+  const dot = hasErr ? "bg-danger" : isLLM ? "bg-verify" : "bg-flag";
+  const label = hasErr ? "ENGINE · LLM ERR" : isLLM ? "ENGINE · LLM" : "ENGINE · LOCAL";
+  const title = hasErr
+    ? `Chat synthesis failing — falling back to deterministic.\n\nLast error: ${data.lastError}\n\nVisit /api/engine/test for a one-shot probe.`
+    : isLLM
+      ? `Chat synthesis runs through ${data.model}. Citation entailment uses LLM-as-judge.`
+      : "ANTHROPIC_API_KEY not set. Chat runs the deterministic token-overlap engine. Set the key and restart to enable Claude.";
   return (
     <span
       title={title}
