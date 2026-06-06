@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { ArrowRight, FileStack, Files, Plus, ShieldAlert, TriangleAlert } from "lucide-react";
 import { useMatters } from "../lib/queries";
 import { Card, cx, Pill } from "../lib/ui";
 import { DashboardEmpty, FirstRunSplash } from "./States";
+import { NewMatterModal } from "../components/NewMatterModal";
 import type { MatterSummary } from "../types";
 
 function fmt(n: number) {
@@ -194,6 +196,7 @@ export function MattersDashboard({ onOpen }: { onOpen: (id: string) => void }) {
   const { data: matters, isLoading } = useMatters();
   const list = matters ?? [];
   const totalPages = list.reduce((s, m) => s + m.pages, 0);
+  const [newMatterOpen, setNewMatterOpen] = useState(false);
 
   // Cold-start splash on the very first run (server unreachable / 0 matters)
   // vs. the polished dashboard-empty when we know the list is genuinely empty.
@@ -215,7 +218,10 @@ export function MattersDashboard({ onOpen }: { onOpen: (id: string) => void }) {
               : `${list.length} active case brains · ${fmt(totalPages)} pages under management · each isolated behind a conflict wall`}
           </p>
         </div>
-        <button className="inline-flex items-center gap-2 rounded-lg bg-ink px-3.5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-ink/90">
+        <button
+          onClick={() => setNewMatterOpen(true)}
+          className="inline-flex items-center gap-2 rounded-lg bg-ink px-3.5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-ink/90"
+        >
           <Plus size={17} strokeWidth={2.4} />
           New Matter
         </button>
@@ -233,6 +239,7 @@ export function MattersDashboard({ onOpen }: { onOpen: (id: string) => void }) {
             <MatterCard key={m.id} m={m} onOpen={onOpen} />
           ))}
           <button
+            onClick={() => setNewMatterOpen(true)}
             className="grid min-h-[230px] place-items-center rounded-xl border border-dashed border-line-strong text-ink-faint transition-colors hover:border-brass hover:text-brass"
           >
             <div className="flex flex-col items-center gap-2">
@@ -242,6 +249,11 @@ export function MattersDashboard({ onOpen }: { onOpen: (id: string) => void }) {
           </button>
         </div>
       </div>
+      <NewMatterModal
+        open={newMatterOpen}
+        onClose={() => setNewMatterOpen(false)}
+        onCreated={(id) => onOpen(id)}
+      />
     </div>
   );
 }

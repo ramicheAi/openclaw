@@ -58,6 +58,37 @@ export const api = {
       lastError: string | null;
     }>(`/api/engine`),
 
+  createMatter: (input: {
+    name: string;
+    client: string;
+    matterType?: string;
+    leadAttorney?: string;
+    posture?: string;
+  }) =>
+    request<{ matter: MatterDetail; id: string }>(`/api/matters`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(input),
+    }),
+
+  createDocument: (matterId: string, input: {
+    bates: string;
+    title: string;
+    type?: string;
+    date?: string;
+    author?: string;
+    recipients?: string[];
+    summary?: string;
+    body: string;
+    entities?: string[];
+    pages?: number;
+  }) =>
+    request<DocItem>(`/api/matters/${matterId}/documents`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(input),
+    }),
+
   getAudit: (id: string, limit = 50) =>
     request<{ entries: AuditEntry[] }>(`/api/matters/${id}/audit?limit=${limit}`).then((r) => r.entries),
 

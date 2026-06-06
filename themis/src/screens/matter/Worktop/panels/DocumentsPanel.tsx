@@ -2,13 +2,18 @@ import { useEffect, useMemo, useState } from "react";
 import { CitationChip, HotTag, PrivilegePill, cx } from "../../../../lib/ui";
 import { IconCopy, IconAdd, IconHot, IconVerified, IconSearch } from "../../../../icons";
 import { useDocuments, useSetDocReview } from "../../../../lib/queries";
+import { AddDocumentModal } from "../../../../components/AddDocumentModal";
 import type { DocItem } from "../../../../types";
-import { PanelHead } from "./PanelHead";
+import { PanelAction, PanelHead } from "./PanelHead";
 
 export function DocumentsPanel({ matterId, initialFilter }: { matterId: string; initialFilter?: string }) {
   const { data: docs } = useDocuments(matterId);
   const review = useSetDocReview(matterId);
   const [filter, setFilter] = useState(initialFilter ?? "");
+  const [addOpen, setAddOpen] = useState(false);
+  // Best-effort Bates prefix from any existing document — keeps newly added
+  // docs grouped under the same prefix the user is already using.
+  const batesPrefix = (docs?.[0]?.bates ?? "").match(/^([A-Z]{2,})-/)?.[1];
   // When a new initialFilter arrives (e.g. user clicked through from an
   // entity dossier), adopt it without clobbering manual edits the user
   // makes afterward.
@@ -56,6 +61,17 @@ export function DocumentsPanel({ matterId, initialFilter }: { matterId: string; 
         eyebrow="Documents · Corpus"
         title="Browse the source"
         sub="Click a row to open. Shift-click another row to compare side-by-side."
+        actions={
+          <PanelAction primary onClick={() => setAddOpen(true)}>
+            <IconAdd size={13} /> Add document
+          </PanelAction>
+        }
+      />
+      <AddDocumentModal
+        open={addOpen}
+        matterId={matterId}
+        defaultBatesPrefix={batesPrefix}
+        onClose={() => setAddOpen(false)}
       />
       <div className="grid min-h-0 flex-1" style={{ gridTemplateColumns: "280px 1fr" }}>
         <aside className="flex min-h-0 flex-col border-r border-line bg-surface">

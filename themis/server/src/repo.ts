@@ -234,6 +234,100 @@ export function insertChat(db: DB, matterId: string, turn: ChatTurn): void {
 
 import { createHash } from "node:crypto";
 
+// Create a brand-new matter from operator-supplied minimal metadata. Inserts
+// the matters row + default ingest_stages (all done — this is a manual-add
+// flow, no real ingest pipeline) so the existing matter detail endpoint
+// works out of the box.
+export interface CreateMatterInput {
+  id: string;
+  name: string;
+  client: string;
+  matterType: string;
+  leadAttorney: string;
+  posture?: string;
+}
+export function createMatter(db: DB, input: CreateMatterInput): void {
+  const now = new Date().toISOString();
+  db.prepare(
+    `INSERT INTO matters
+      (id, name, client, matter_type, lead_attorney, status, pages, docs, ingest_percent,
+       last_activity, posture, json_claims, json_defenses, json_key_dates, created_at)
+     VALUES (@id, @name, @client, @matter_type, @lead_attorney, @status, 0, 0, 100,
+       'just now', @posture, '[]', '[]', '[]', @created_at)`,
+  ).run({
+    id: input.id,
+    name: input.name,
+    client: input.client,
+    matter_type: input.matterType,
+    lead_attorney: input.leadAttorney,
+    status: "In Review",
+    posture: input.posture ?? "",
+    created_at: now,
+  });
+  // Synthetic ingest stages — manual-add flow ships everything as complete
+  // so the matter is immediately work-eligible (chronology, privilege,
+  // exports all unlock).
+  const stages = ["Upload", "OCR · Azure DI", "Bates stamp", "Dedup + threading", "Extraction", "Privilege scan"];
+  stages.forEach((label, ord) =>
+    db.prepare(`INSERT INTO ingest_stages (matter_id, ord, label, done) VALUES (?, ?, ?, ?)`).run(input.id, ord, label, 1),
+  );
+}
+
+// Insert a document into a matter from a manual-add payload. Recomputes the
+// matter's docs/pages totals after. Returns the inserted DocItem.
+export interface CreateDocumentInput {
+  bates: string;
+  title: string;
+  type: string;
+  date: string;
+  author: string;
+  recipients: string[];
+  summary: string;
+  body: string;
+  entities?: string[];
+  pages?: number;
+  hot?: boolean;
+}
+export function createDocument(db: DB, matterId: string, input: CreateDocumentInput): DocItem {
+  const id = `u-${createHash("sha1").update(`${matterId}:${input.bates}:${Date.now()}`).digest("hex").slice(0, 8)}`;
+  const pages = input.pages ?? Math.max(1, Math.ceil(input.body.length / 2400));
+  // Order by sort_order is current behavior; new docs go to the end.
+  const nextOrder = (db.prepare(`SELECT COALESCE(MAX(sort_order), 0) AS m FROM documents WHERE matter_id = ?`).get(matterId) as { m: number }).m + 1;
+  db.prepare(
+    `INSERT INTO documents
+      (id, matter_id, bates, title, doc_type, doc_date, author, recipients, summary, body,
+       entities, pages, hot, privilege, ocr_confidence, thread_id, thread_pos, thread_len,
+       duplicates, sort_order)
+     VALUES (@id, @matter_id, @bates, @title, @doc_type, @doc_date, @author, @recipients,
+       @summary, @body, @entities, @pages, @hot, 'none', 'high', NULL, NULL, NULL, 0, @sort_order)`,
+  ).run({
+    id,
+    matter_id: matterId,
+    bates: input.bates,
+    title: input.title,
+    doc_type: input.type,
+    doc_date: input.date,
+    author: input.author,
+    recipients: JSON.stringify(input.recipients ?? []),
+    summary: input.summary,
+    body: input.body,
+    entities: JSON.stringify(input.entities ?? []),
+    pages,
+    hot: input.hot ? 1 : 0,
+    sort_order: nextOrder,
+  });
+  // Recompute matter totals so the dashboard card + telemetry show the
+  // right numbers after each upload.
+  db.prepare(
+    `UPDATE matters SET
+       docs = (SELECT COUNT(*) FROM documents WHERE matter_id = ?),
+       pages = (SELECT COALESCE(SUM(pages),0) FROM documents WHERE matter_id = ?),
+       last_activity = 'just now'
+     WHERE id = ?`,
+  ).run(matterId, matterId, matterId);
+  return getDocumentByBates(db, matterId, input.bates)!;
+}
+
 // Tamper-evident, hash-chained audit. Each entry's entry_hash = SHA-256 of
 // (matter_id | ts | actor | action | detail | prev_hash) so any rewrite
 // breaks the chain at the point of tampering.
