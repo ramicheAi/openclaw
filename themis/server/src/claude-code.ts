@@ -45,9 +45,22 @@ export async function callClaudeCode(systemPrompt: string, userPrompt: string): 
   return new Promise<CCResult>((resolve, reject) => {
     let child;
     try {
+      // CRITICAL: scrub ANTHROPIC_API_KEY from the CLI's environment.
+      // When `claude` sees that env var it uses API-key auth (and the
+      // pay-as-you-go API balance) instead of the Max-plan OAuth token
+      // created by `claude login`. Since we routed here specifically to
+      // bypass the API balance, leaving the var set would defeat the
+      // whole purpose. The Themis server still uses ANTHROPIC_API_KEY
+      // for its own SDK calls — only this child process loses it.
+      const childEnv: Record<string, string> = {};
+      for (const [k, v] of Object.entries(process.env)) {
+        if (v === undefined) continue;
+        if (k === "ANTHROPIC_API_KEY" || k === "ANTHROPIC_AUTH_TOKEN") continue;
+        childEnv[k] = v;
+      }
       child = spawn("claude", args, {
         stdio: ["ignore", "pipe", "pipe"],
-        env: process.env,
+        env: childEnv,
       });
     } catch (err) {
       return reject(
