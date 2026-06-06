@@ -29,6 +29,31 @@ if [ -f "$HOME/.themis-env" ]; then
   set +a
 fi
 
+# If we still don't have a key and we're attached to a terminal, prompt for one
+# once and save it. Writes ~/.themis-env with mode 600 (owner read/write only),
+# so subsequent boots pick it up automatically. Skip the prompt when the env
+# var is already set, when stdin isn't a TTY (CI/non-interactive), or when the
+# action is --stop/--status (no key needed for those).
+if [ -z "${ANTHROPIC_API_KEY:-}" ] && [ -t 0 ] && [ "${1:-}" != "--stop" ] && [ "${1:-}" != "stop" ]; then
+  echo ""
+  echo "→ No ANTHROPIC_API_KEY found in environment or ~/.themis-env."
+  echo "  Themis will fall back to the deterministic engine without one."
+  echo "  Paste your sk-ant-... key now (or just press Enter to skip):"
+  echo -n "  ANTHROPIC_API_KEY: "
+  # -s hides the input; -r prevents backslash interpretation. Falls back to a
+  # visible read on older shells without -s.
+  if read -rs key 2>/dev/null; then echo ""; else read -r key; fi
+  if [ -n "${key:-}" ]; then
+    umask 077
+    echo "ANTHROPIC_API_KEY=$key" >"$HOME/.themis-env"
+    chmod 600 "$HOME/.themis-env"
+    export ANTHROPIC_API_KEY="$key"
+    echo "  · saved to ~/.themis-env (mode 600)"
+  else
+    echo "  · skipped — running deterministic engine"
+  fi
+fi
+
 ACTION="${1:---start}"
 
 stop_all() {
