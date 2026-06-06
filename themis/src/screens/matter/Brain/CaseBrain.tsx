@@ -15,8 +15,9 @@ import {
 import { computeScales } from "../Worktop/cards/ScalesMini";
 import { IconArc, IconClose, IconPause, IconReplay } from "../../../icons";
 import { cx } from "../../../lib/ui";
-import { ASSEMBLY_DURATION_MS } from "../../../lib/graph";
+import { ASSEMBLY_DURATION_MS, annotateRevealTiming, buildGraph } from "../../../lib/graph";
 import { Inspector } from "./Inspector";
+import { CinematicStageHUD } from "./CinematicStageHUD";
 import type { CausalChain } from "../../../types";
 import type { GraphNode, Layout } from "../../../lib/graph";
 
@@ -105,6 +106,13 @@ export function CaseBrain({ matterId }: { matterId: string }) {
           />
         </Suspense>
       )}
+
+      <CinematicStageHUD
+        tick={assemblyTick}
+        graph={annotateRevealTiming(buildGraph(matter, documents, ents, events))}
+        totalDocs={matter.docs}
+        totalPages={matter.pages}
+      />
 
       <Telemetry
         pages={matter.pages}
