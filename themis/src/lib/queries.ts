@@ -22,6 +22,15 @@ export function useMatters() {
   return useQuery({ queryKey: qk.matters, queryFn: api.listMatters });
 }
 
+export function useEngineStatus() {
+  return useQuery({
+    queryKey: ["engine"],
+    queryFn: api.getEngineStatus,
+    refetchOnWindowFocus: true,
+    staleTime: 30_000,
+  });
+}
+
 export function useMatter(id: string) {
   return useQuery({ queryKey: qk.matter(id), queryFn: () => api.getMatter(id) });
 }

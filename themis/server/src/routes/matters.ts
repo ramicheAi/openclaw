@@ -1,9 +1,22 @@
 import type { Hono } from "hono";
 import type { DB } from "../db.js";
 import { getMatter, listAudit, listMatters, matterExists, verifyAuditChain } from "../repo.js";
+import { isLLMReady } from "../llm.js";
 
 export function registerMatterRoutes(app: Hono, db: DB) {
   app.get("/api/matters", (c) => c.json({ matters: listMatters(db) }));
+
+  // Transparent engine status — the user (and any third party reading via
+  // the audit trail) can confirm whether Themis is running Claude or the
+  // deterministic fallback. The audit log records the engine on every chat
+  // turn; this endpoint just surfaces the current readiness state up-front.
+  app.get("/api/engine", (c) =>
+    c.json({
+      llm: isLLMReady(),
+      engine: isLLMReady() ? "llm" : "deterministic",
+      model: isLLMReady() ? process.env.THEMIS_LLM_MODEL ?? "claude-sonnet-4-6" : null,
+    }),
+  );
 
   app.get("/api/matters/:id", (c) => {
     const matter = getMatter(db, c.req.param("id"));

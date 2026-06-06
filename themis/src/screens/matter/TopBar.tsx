@@ -4,6 +4,7 @@
 import { Tau } from "../../components/BrandMark";
 import { cx } from "../../lib/ui";
 import { IconArrow, IconCmdK } from "../../icons";
+import { useEngineStatus } from "../../lib/queries";
 import type { MatterSummary } from "../../types";
 import type { AppMode } from "../../lib/router";
 import type { Theme } from "../../lib/theme";
@@ -60,6 +61,7 @@ export function TopBar({ matter, mode, theme, onMode, onBack, onOpenCmdK, onTogg
 
       {/* Right: cmd-K + theme */}
       <div className="flex items-center justify-end gap-2">
+        <EnginePill />
         <button
           onClick={onOpenCmdK}
           className="flex h-9 min-w-[260px] items-center gap-2 rounded-full border border-line bg-surface px-3 text-left text-[13px] text-ink-soft transition hover:border-line-strong hover:text-ink"
@@ -130,6 +132,37 @@ function StatusPip({ status }: { status: MatterSummary["status"] }) {
       className={cx(
         "inline-flex items-center gap-1.5 rounded-full border px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-[0.12em]",
         tone,
+      )}
+    >
+      <span className={cx("h-1.5 w-1.5 rounded-full", dot)} />
+      {label}
+    </span>
+  );
+}
+
+// EnginePill — transparent indicator of whether the chat engine is the
+// real Claude API or the deterministic fallback. Reads /api/engine.
+// Verify-green when LLM is ready (with the model name as a tooltip);
+// flag-amber for deterministic. Reinforces the trust thesis: the user
+// always knows which engine answered their question.
+function EnginePill() {
+  const { data } = useEngineStatus();
+  if (!data) return null;
+  const isLLM = data.llm;
+  const cls = isLLM
+    ? "border-verify/30 bg-verify-wash text-verify"
+    : "border-flag/30 bg-flag-wash text-flag";
+  const dot = isLLM ? "bg-verify" : "bg-flag";
+  const label = isLLM ? "ENGINE · LLM" : "ENGINE · LOCAL";
+  const title = isLLM
+    ? `Chat synthesis runs through ${data.model}. Citation entailment uses LLM-as-judge.`
+    : "ANTHROPIC_API_KEY not set. Chat runs the deterministic token-overlap engine. Set the key and restart to enable Claude.";
+  return (
+    <span
+      title={title}
+      className={cx(
+        "hidden items-center gap-1.5 rounded-full border px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-[0.12em] xl:inline-flex",
+        cls,
       )}
     >
       <span className={cx("h-1.5 w-1.5 rounded-full", dot)} />
