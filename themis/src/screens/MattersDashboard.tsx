@@ -8,6 +8,89 @@ function fmt(n: number) {
   return n.toLocaleString("en-US");
 }
 
+// Deterministic mini-constellation per matter card. Per design brief §5
+// ("each card a miniature brain preview + status"). Density encodes corpus
+// size; hot-doc and privilege counts drive the gold/lock node mix. Same
+// matter id → same constellation every render (FNV-1a hash on position).
+function hash(s: string, salt: number): number {
+  let h = 2166136261 ^ salt;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619) >>> 0;
+  }
+  return h;
+}
+function MatterCardBrain({ m }: { m: MatterSummary }) {
+  const cx0 = 100;
+  const cy = 56;
+  // Density: small for tiny corpora, capped for legibility.
+  const total = Math.min(28, 8 + Math.floor(Math.log2(Math.max(2, m.pages / 100))));
+  const hotIdx = new Set<number>();
+  const privIdx = new Set<number>();
+  for (let i = 0; i < Math.min(m.hotDocs, total); i++) hotIdx.add((hash(m.id, 7 + i) % total));
+  for (let i = 0; i < Math.min(m.privilegeQueue, total); i++) privIdx.add((hash(m.id, 31 + i) % total));
+
+  const pts: { x: number; y: number; r: number; hot: boolean; priv: boolean }[] = [];
+  for (let i = 0; i < total; i++) {
+    const h = hash(m.id, i * 13);
+    const angle = ((h & 0xfff) / 0xfff) * Math.PI * 2;
+    const ring = (((h >>> 12) & 0xff) / 0xff) * 36 + 14;
+    const x = cx0 + Math.cos(angle) * ring;
+    const y = cy + Math.sin(angle) * ring * 0.7;
+    pts.push({
+      x,
+      y,
+      r: hotIdx.has(i) ? 3.2 : 2,
+      hot: hotIdx.has(i),
+      priv: privIdx.has(i),
+    });
+  }
+  // Centroid claim
+  pts.push({ x: cx0, y: cy, r: 3.8, hot: false, priv: false });
+  // Edges — connect a few pts to the centroid + each other for the constellation feel.
+  const edges: { a: number; b: number }[] = [];
+  for (let i = 0; i < total; i++) {
+    if ((hash(m.id, i * 7 + 1) & 0x3) === 0) edges.push({ a: i, b: total });
+  }
+  for (let i = 0; i < total - 1; i++) {
+    if ((hash(m.id, i * 5 + 2) & 0x7) === 0) edges.push({ a: i, b: (i + 3) % total });
+  }
+  return (
+    <svg viewBox="0 0 200 112" className="h-[100px] w-full" aria-hidden>
+      <defs>
+        <radialGradient id={`glow-${m.id}`} cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="rgba(208,164,90,0.18)" />
+          <stop offset="70%" stopColor="rgba(208,164,90,0)" />
+        </radialGradient>
+      </defs>
+      <rect width={200} height={112} fill={`url(#glow-${m.id})`} />
+      {edges.map((e, i) => (
+        <line
+          key={`e-${i}`}
+          x1={pts[e.a].x}
+          y1={pts[e.a].y}
+          x2={pts[e.b].x}
+          y2={pts[e.b].y}
+          stroke="rgba(208,164,90,0.18)"
+          strokeWidth={0.6}
+        />
+      ))}
+      {pts.map((p, i) => (
+        <g key={i}>
+          {p.hot && <circle cx={p.x} cy={p.y} r={p.r + 3} fill="rgba(208,164,90,0.18)" />}
+          <circle
+            cx={p.x}
+            cy={p.y}
+            r={p.r}
+            fill={p.hot ? "#d0a45a" : p.priv ? "#3a3a40" : i === total ? "#d0a45a" : "#74a4ea"}
+            opacity={i === total ? 0.95 : 0.7}
+          />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 const statusTone: Record<MatterSummary["status"], string> = {
   Ingesting: "border-info/25 bg-info-wash text-info",
   Ready: "border-verify/25 bg-verify-wash text-verify",
@@ -20,7 +103,13 @@ function MatterCard({ m, onOpen }: { m: MatterSummary; onOpen: (id: string) => v
       onClick={() => onOpen(m.id)}
       className="group text-left focus:outline-none"
     >
-      <Card className="h-full p-5 transition-all hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_8px_24px_rgba(24,34,46,0.08)]">
+      <Card className="h-full overflow-hidden p-0 transition-all hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_8px_24px_rgba(24,34,46,0.08)]">
+        {/* Mini brain preview — the brief's "miniature brain per card" */}
+        <div className="relative bg-gradient-to-b from-[#0c1622] to-[#070b13]">
+          <MatterCardBrain m={m} />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(208,164,90,0.10),transparent_70%)]" />
+        </div>
+        <div className="p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
             <span
@@ -95,6 +184,7 @@ function MatterCard({ m, onOpen }: { m: MatterSummary; onOpen: (id: string) => v
         )}
 
         <div className="mt-3 text-[11px] text-ink-faint">Updated {m.lastActivity}</div>
+        </div>
       </Card>
     </button>
   );

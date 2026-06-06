@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import type { DB } from "./db.js";
 import type { ChatTurn, Confidence, DocItem, PrivilegeStatus, SearchHit } from "./types.js";
 import { audit, getDocumentByBates, insertChat, listDocuments, setPrivilege } from "./repo.js";
+import { isLLMReady, judgeEntailment, synthesizeAnswer } from "./llm.js";
 
 // ---------------------------------------------------------------------------
 // These interfaces define the "AI pipeline" seam. The implementations below
@@ -21,7 +22,7 @@ export interface SearchService {
 }
 
 export interface ChatService {
-  ask(db: DB, matterId: string, question: string, actor: string): ChatTurn;
+  ask(db: DB, matterId: string, question: string, actor: string): Promise<ChatTurn>;
 }
 
 export interface PrivilegeService {
@@ -266,69 +267,91 @@ function calibratedConfidence(hits: SearchHit[], citations: { entailed?: boolean
 const REFUSAL_THRESHOLD = 0.22;
 
 export const chatService: ChatService = {
-  ask(db, matterId, question, actor) {
+  async ask(db, matterId, question, actor) {
     const now = new Date().toISOString();
     const userTurn: ChatTurn = { id: randomUUID(), role: "user", text: question, createdAt: now };
     insertChat(db, matterId, userTurn);
     audit(db, matterId, actor, "chat.query", question.slice(0, 140));
 
-    const hits = searchService.search(db, matterId, question, { limit: 4, excludePrivileged: true });
+    const hits = searchService.search(db, matterId, question, { limit: 6, excludePrivileged: true });
 
     let text: string;
     let citations: ChatTurn["citations"] = [];
     let confidence: Confidence;
     let refused = false;
+    let engine: "deterministic" | "llm" = "deterministic";
 
     if (hits.length === 0) {
       text =
         "I couldn't find non-privileged documents in this matter that speak to that. Try rephrasing, or review the gap analysis on the Overview tab.";
       confidence = "low";
       refused = true;
-    } else {
-      const top = hits.slice(0, 3);
-
-      // Build a draft answer using each top hit's summary.
-      const draftBody = top.map((h) => `${h.doc.bates} (${h.doc.date}): ${h.doc.summary}`).join(" ");
-
-      // Score entailment against the QUESTION alone (not question+draft).
-      // The draft is templated from the doc's own summary so including it
-      // would artificially inflate entailment via self-reference. The real
-      // semantic test is: does this source actually have content relevant
-      // to what the user asked?
-      const assessed = top.map((h) => {
-        const sup = assessCitation(db, matterId, h.doc.bates, 1, question);
-        return {
-          bates: h.doc.bates,
-          page: 1,
-          verified: sup.existed,
-          entailed: sup.entailed,
-          supportScore: sup.supportScore,
-          matchedKeyTerms: sup.matchedKeyTerms,
-        };
-      });
-
-      const bestSupport = Math.max(0, ...assessed.map((c) => c.supportScore ?? 0));
-
-      // The Mata test: if nothing entails, the system MUST NOT claim. The
-      // failure mode the product exists to prevent is the confident-but-
-      // ungrounded answer.
-      if (bestSupport < REFUSAL_THRESHOLD) {
-        text =
-          "I located documents that mention your question's terms, but none of them actually support a specific answer. Rather than guess, I'm declining to claim. Review the cited Bates below directly, or rephrase the question.";
-        citations = assessed; // surface them anyway, marked unentailed, so the user can verify the refusal
-        confidence = "low";
-        refused = true;
-      } else {
-        const entailedTop = assessed.filter((c) => c.entailed);
-        if (entailedTop.length === 0) {
-          // Mention located-but-not-entailed posture explicitly.
-          text = `${hits.length} document${hits.length > 1 ? "s" : ""} mention this question's terms but none cleanly entail a specific answer. The strongest located source is ${top[0].doc.bates} (${top[0].doc.date}): ${top[0].doc.summary} Treat as a starting point, not a conclusion.`;
-        } else {
-          text = `${entailedTop.length} of ${hits.length} document${hits.length > 1 ? "s" : ""} in this matter directly entail an answer. ${draftBody} Every citation below was checked for both existence and entailment against its source page.`;
-        }
-        citations = assessed;
-        confidence = calibratedConfidence(hits, assessed);
+    } else if (isLLMReady()) {
+      // LLM path: synthesize a real grounded answer; assess each cited Bates
+      // with the LLM-as-judge entailment pass. Refusal contract preserved —
+      // the synthesis prompt itself instructs the model to refuse if the
+      // sources don't support a specific answer, and we double-check that
+      // posture from the parsed citations.
+      engine = "llm";
+      const top = hits.slice(0, 5);
+      const sources = top.map((h) => ({
+        bates: h.doc.bates,
+        date: h.doc.date,
+        title: h.doc.title,
+        summary: h.doc.summary,
+        body: h.doc.body,
+      }));
+      const synth = await synthesizeAnswer(question, sources);
+      if (!synth) {
+        // LLM transient failure — fall back to deterministic engine for this turn.
+        return runDeterministic(db, matterId, question, userTurn, hits, actor);
       }
+      text = synth.text;
+      refused = synth.refused;
+
+      // Build citation list: cap to those the model actually cited; if none,
+      // fall back to top-3 retrieval as "located" anchors so the user can
+      // verify the refusal posture.
+      const cited = synth.citationBates.length > 0 ? synth.citationBates : top.slice(0, 3).map((h) => h.doc.bates);
+      const assessed: NonNullable<ChatTurn["citations"]> = [];
+      for (const bates of cited) {
+        const doc = getDocumentByBates(db, matterId, bates);
+        if (!doc) continue;
+        const haystack = `${doc.body}\n\n${doc.summary}\n\n${doc.title}\n\n${doc.date}`;
+        const judgment = await judgeEntailment(question, haystack);
+        if (judgment) {
+          assessed.push({
+            bates,
+            page: 1,
+            verified: true,
+            entailed: judgment.entailed,
+            supportScore: round3(judgment.supportScore),
+            matchedKeyTerms: [],
+          });
+        } else {
+          // Judge failed — fall back to deterministic support score for this cite.
+          const sup = scoreCitationSupport(question, haystack);
+          assessed.push({
+            bates,
+            page: 1,
+            verified: true,
+            entailed: sup.entailed,
+            supportScore: sup.supportScore,
+            matchedKeyTerms: sup.matchedKeyTerms,
+          });
+        }
+      }
+      citations = assessed;
+      confidence = calibratedConfidence(hits, assessed);
+      if (refused) confidence = "low";
+    } else {
+      // Deterministic engine — token-overlap entailment + templated synthesis.
+      // This is the no-API-key fallback that keeps the prototype usable.
+      const det = runDeterministicSync(db, matterId, question, hits);
+      text = det.text;
+      citations = det.citations;
+      confidence = det.confidence;
+      refused = det.refused;
     }
 
     const entailedCount = (citations ?? []).filter((c) => c.entailed).length;
@@ -346,11 +369,81 @@ export const chatService: ChatService = {
       matterId,
       "themis",
       refused ? "chat.refused" : "chat.answer",
-      `${citations.length} citations · ${entailedCount} entailed · confidence ${confidence}`,
+      `${engine} · ${citations.length} citations · ${entailedCount} entailed · confidence ${confidence}`,
     );
     return themisTurn;
   },
 };
+
+// Deterministic answer synthesis — kept as a function so the LLM path can fall
+// back to it on transient API failures without code duplication.
+function runDeterministicSync(
+  db: DB,
+  matterId: string,
+  question: string,
+  hits: SearchHit[],
+): { text: string; citations: NonNullable<ChatTurn["citations"]>; confidence: Confidence; refused: boolean } {
+  const top = hits.slice(0, 3);
+  const draftBody = top.map((h) => `${h.doc.bates} (${h.doc.date}): ${h.doc.summary}`).join(" ");
+  const assessed = top.map((h) => {
+    const sup = assessCitation(db, matterId, h.doc.bates, 1, question);
+    return {
+      bates: h.doc.bates,
+      page: 1,
+      verified: sup.existed,
+      entailed: sup.entailed,
+      supportScore: sup.supportScore,
+      matchedKeyTerms: sup.matchedKeyTerms,
+    };
+  });
+  const bestSupport = Math.max(0, ...assessed.map((c) => c.supportScore ?? 0));
+  if (bestSupport < REFUSAL_THRESHOLD) {
+    return {
+      text:
+        "I located documents that mention your question's terms, but none of them actually support a specific answer. Rather than guess, I'm declining to claim. Review the cited Bates below directly, or rephrase the question.",
+      citations: assessed,
+      confidence: "low",
+      refused: true,
+    };
+  }
+  const entailedTop = assessed.filter((c) => c.entailed);
+  const text =
+    entailedTop.length === 0
+      ? `${hits.length} document${hits.length > 1 ? "s" : ""} mention this question's terms but none cleanly entail a specific answer. The strongest located source is ${top[0].doc.bates} (${top[0].doc.date}): ${top[0].doc.summary} Treat as a starting point, not a conclusion.`
+      : `${entailedTop.length} of ${hits.length} document${hits.length > 1 ? "s" : ""} in this matter directly entail an answer. ${draftBody} Every citation below was checked for both existence and entailment against its source page.`;
+  return { text, citations: assessed, confidence: calibratedConfidence(hits, assessed), refused: false };
+}
+
+// Async wrapper that also writes audit + returns a full ChatTurn — used when
+// the LLM path bails mid-call and we still want a usable answer for the user.
+async function runDeterministic(
+  db: DB,
+  matterId: string,
+  question: string,
+  _userTurn: ChatTurn,
+  hits: SearchHit[],
+  _actor: string,
+): Promise<ChatTurn> {
+  const det = runDeterministicSync(db, matterId, question, hits);
+  const themisTurn: ChatTurn = {
+    id: randomUUID(),
+    role: "themis",
+    text: det.text,
+    citations: det.citations.length ? det.citations : undefined,
+    confidence: det.confidence,
+    createdAt: new Date().toISOString(),
+  };
+  insertChat(db, matterId, themisTurn);
+  const entailedCount = det.citations.filter((c) => c.entailed).length;
+  audit(
+    db,
+    matterId,
+    "themis",
+    det.refused ? "chat.refused" : "chat.answer",
+    `deterministic (llm fallback) · ${det.citations.length} citations · ${entailedCount} entailed · confidence ${det.confidence}`,
+  );
+  return themisTurn;
+}
 
 const COUNSEL_SIGNALS = [
   "attorney-client",

@@ -100,7 +100,7 @@ export function registerWorkspaceRoutes(app: Hono, db: DB) {
     if (typeof body.question !== "string" || body.question.trim().length === 0) {
       return c.json({ error: "invalid_question" }, 400);
     }
-    const turn = chatService.ask(db, id, body.question.trim(), actor(c));
+    const turn = await chatService.ask(db, id, body.question.trim(), actor(c));
     return c.json(turn);
   });
 }

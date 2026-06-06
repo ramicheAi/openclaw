@@ -3,6 +3,7 @@ import { Archive, FolderLock, LayoutGrid, ScrollText, Settings } from "lucide-re
 import { BrandMark, Tau } from "./components/BrandMark";
 import { cx } from "./lib/ui";
 import { useRoute } from "./lib/router";
+import { useTheme } from "./lib/theme";
 import { MattersDashboard } from "./screens/MattersDashboard";
 import { MatterShell } from "./screens/matter/MatterShell";
 
@@ -32,6 +33,9 @@ export function App() {
 
 function Shell() {
   const [route, setRoute] = useRoute();
+  // Initialize the theme at the root so even the dashboard (which has no
+  // MatterShell) gets the BRAIN READY dark mode by default.
+  useTheme();
   const inMatter = !!route.matterId;
 
   return (
