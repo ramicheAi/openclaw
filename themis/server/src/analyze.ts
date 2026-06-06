@@ -208,8 +208,8 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
       const id = `c-${randomUUID().slice(0, 8)}`;
       db.prepare(
         `INSERT INTO chronology_events
-          (id, matter_id, event_date, description, citation_bates, citation_page, citation_verified, confidence, accepted, json_issue_tags, created_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?)`,
+          (id, matter_id, event_date, description, citation_bates, citation_page, citation_verified, confidence, accepted, json_issue_tags)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL, ?)`,
       ).run(
         id,
         matterId,
@@ -220,7 +220,6 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
         verified ? 1 : 0,
         ev.confidence ?? "medium",
         JSON.stringify(ev.issueTags ?? []),
-        new Date().toISOString(),
       );
     }
 
@@ -239,7 +238,17 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
       ).run(randomUUID(), matterId, g.severity ?? "low", g.text);
     }
   });
-  tx();
+  try {
+    tx();
+  } catch (err) {
+    // Surface SQLite errors with the full column / constraint message
+    // instead of letting them bubble up as opaque 500s. The previous
+    // 'created_at' missing-column bug took two screenshots to find
+    // because Hono swallowed it as 'internal_error'.
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("[analyze] persistence failed:", msg);
+    return { ok: false, error: `Persistence failed: ${msg}` };
+  }
 
   return {
     ok: true,

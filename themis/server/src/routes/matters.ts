@@ -275,16 +275,24 @@ export function registerMatterRoutes(app: Hono, db: DB) {
   app.post("/api/matters/:id/analyze", async (c) => {
     const id = c.req.param("id");
     if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
-    const result = await analyzeMatter(db, id);
-    if (!result.ok) return c.json({ error: "analyze_failed", message: result.error }, 502);
-    audit(
-      db,
-      id,
-      actor(c),
-      "matter.analyze",
-      `entities ${result.entities} · events ${result.events} · hot ${result.hot} · gaps ${result.gaps}`,
-    );
-    return c.json(result);
+    try {
+      const result = await analyzeMatter(db, id);
+      if (!result.ok) return c.json({ error: "analyze_failed", message: result.error }, 502);
+      audit(
+        db,
+        id,
+        actor(c),
+        "matter.analyze",
+        `entities ${result.entities} · events ${result.events} · hot ${result.hot} · gaps ${result.gaps} · provider:${result.provider}`,
+      );
+      return c.json(result);
+    } catch (err) {
+      // Anything thrown outside analyzeMatter's own try/catch — return
+      // the actual message instead of letting Hono swallow it as 500.
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("[analyze] route error:", message, err instanceof Error ? err.stack : "");
+      return c.json({ error: "analyze_route_failed", message }, 500);
+    }
   });
 
   // Persist the original binary for a document under
