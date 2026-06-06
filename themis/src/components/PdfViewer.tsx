@@ -8,34 +8,41 @@
 import { useEffect, useRef, useState } from "react";
 import { cx } from "../lib/ui";
 import { IconArrow, IconClose } from "../icons";
+import { MediaReattach } from "./MediaReattach";
 
 interface Props {
   matterId: string;
   docId: string;
+  /** Bates id of the doc — required so the re-attach dropzone can target it. */
+  bates: string;
   /** Optional page to land on; defaults to 1. */
   initialPage?: number;
   /** When provided, shows a Close X — embed mode hides it. */
   onClose?: () => void;
 }
 
-export function PdfViewer({ matterId, docId, initialPage = 1, onClose }: Props) {
+export function PdfViewer({ matterId, docId, bates, initialPage = 1, onClose }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [pdf, setPdf] = useState<import("pdfjs-dist").PDFDocumentProxy | null>(null);
   const [page, setPage] = useState(initialPage);
   const [scale, setScale] = useState(1.25);
   const [error, setError] = useState<string | null>(null);
+  const [missing, setMissing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       setLoading(true);
       setError(null);
+      setMissing(false);
       try {
         const res = await fetch(`/api/matters/${matterId}/documents/${docId}/media`);
         if (!res.ok) {
           if (res.status === 404) {
-            throw new Error("No source PDF on file. (Older doc — uploaded before file persistence shipped.)");
+            if (!cancelled) setMissing(true);
+            return;
           }
           throw new Error(`Could not load PDF: ${res.status}`);
         }
@@ -56,7 +63,7 @@ export function PdfViewer({ matterId, docId, initialPage = 1, onClose }: Props) 
       }
     })();
     return () => { cancelled = true; };
-  }, [matterId, docId, initialPage]);
+  }, [matterId, docId, initialPage, reloadKey]);
 
   useEffect(() => {
     if (!pdf || !canvasRef.current) return;
@@ -111,13 +118,21 @@ export function PdfViewer({ matterId, docId, initialPage = 1, onClose }: Props) 
         </div>
       </header>
       <div className="min-h-0 flex-1 overflow-auto bg-[#1a1a1a]">
-        {loading && <div className="grid h-full place-items-center text-[12.5px] text-ink-faint">Loading PDF…</div>}
+        {loading && !missing && <div className="grid h-full place-items-center text-[12.5px] text-ink-faint">Loading PDF…</div>}
         {error && (
           <div className="mx-auto mt-10 max-w-md rounded-md border border-flag/30 bg-flag-wash p-3 text-[12px] text-flag">
             {error}
           </div>
         )}
-        {!error && (
+        {missing && (
+          <MediaReattach
+            matterId={matterId}
+            bates={bates}
+            kind="pdf"
+            onReattached={() => setReloadKey((k) => k + 1)}
+          />
+        )}
+        {!error && !missing && (
           <div className="grid place-items-center py-4">
             <canvas ref={canvasRef} className={cx("rounded shadow-[0_8px_24px_rgba(0,0,0,0.4)]", loading && "opacity-0")} />
           </div>

@@ -99,9 +99,15 @@ function extractIncident(text: string): Partial<MetadataSuggestion> | null {
     head.match(/incident\s+date[^\d]{0,12}(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4})/i)?.[1] ??
     head.match(/report(?:\s+date)?[^\d]{0,12}(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4})/i)?.[1] ??
     head.match(/\b(\d{1,2}\/\d{1,2}\/\d{2,4})\b/)?.[1];
+  // Author = the reporting officer. Only accept strong signals — the
+  // previous version grabbed "Caller: X" (the 911 caller, not the
+  // author) and any "Reporter: X" line (sometimes the receiving clerk),
+  // which polluted the docs panel with the wrong name. Empty beats wrong;
+  // the operator can fill it from the doc list.
   const officer =
-    head.match(/(?:officer|deputy|reporting officer|reporter)\s*:?\s*([A-Z][A-Za-z .'-]{2,40})/i)?.[1] ??
-    head.match(/\bcaller\b[^\n]{0,40}\b([A-Z][A-Z .'-]+)\b/)?.[1];
+    head.match(/reporting\s+officer\s*:?\s*([A-Z][A-Za-z .'-]{2,40})/i)?.[1] ??
+    head.match(/^\s*officer\s*:\s*([A-Z][A-Za-z .'-]{2,40})\s*$/im)?.[1] ??
+    head.match(/^\s*deputy\s*:\s*([A-Z][A-Za-z .'-]{2,40})\s*$/im)?.[1];
   // Try to guess a title from "Incident Type" or first heading.
   const incidentType =
     head.match(/incident\s+type\s*:?\s*([^\n]{3,60})/i)?.[1] ??

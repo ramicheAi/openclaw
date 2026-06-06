@@ -19,7 +19,9 @@ import {
 import type { ChronEvent, DocItem, Entity, MatterDetail } from "../../../types";
 
 // Canvas2D needs raw colors; CSS vars are inaccessible from the 2d context.
-const C = {
+// Dark = the cinematic deep-ink instrument (design brief §5.5).
+// Light = warm paper canvas so the graph reads in a sunlit office.
+const C_DARK = {
   bg: "#070b13",
   brass: "#a67c3a",
   brassLight: "#e9cf95",
@@ -31,6 +33,19 @@ const C = {
   ink: "#cdd6e0",
   inkSoft: "#8a98a8",
   inkFaint: "#5f6973",
+};
+const C_LIGHT = {
+  bg: "#f4ecda",
+  brass: "#8a5a1f",
+  brassLight: "#7c5621",
+  brassSoft: "#9d743a",
+  info: "#2f5e9e",
+  verify: "#2c7e5a",
+  flag: "#a5631f",
+  danger: "#b53d36",
+  ink: "#1f1a14",
+  inkSoft: "#5b5141",
+  inkFaint: "#8a7f6c",
 };
 
 interface Props {
@@ -45,6 +60,7 @@ interface Props {
   /** Time-scrubber cursor (ISO YYYY-MM-DD); when set, only nodes on/before it render. */
   timeCursor?: string | null;
   onNodeClick?: (node: GraphNode) => void;
+  theme?: "light" | "dark";
 }
 
 export function BrainCanvas({
@@ -58,7 +74,9 @@ export function BrainCanvas({
   assemblyTick,
   timeCursor,
   onNodeClick,
+  theme = "dark",
 }: Props) {
+  const C = theme === "light" ? C_LIGHT : C_DARK;
   const containerRef = useRef<HTMLDivElement | null>(null);
   const fgRef = useRef<ForceGraphMethods<GraphNode> | undefined>(undefined);
   const [size, setSize] = useState({ w: 800, h: 600 });
@@ -112,9 +130,9 @@ export function BrainCanvas({
         nodeRelSize={4}
         nodeCanvasObjectMode={() => "replace"}
         nodeCanvasObject={(node, ctx, scale) =>
-          drawNode(node as GraphNode, ctx, scale, highlightNodeIds, highlightActive)
+          drawNode(node as GraphNode, ctx, scale, highlightNodeIds, highlightActive, C)
         }
-        linkColor={(l) => linkColor(l as { type: string; verified?: boolean; source: GraphNode; target: GraphNode }, highlightNodeIds, highlightActive)}
+        linkColor={(l) => linkColor(l as { type: string; verified?: boolean; source: GraphNode; target: GraphNode }, highlightNodeIds, highlightActive, C)}
         linkWidth={(l) => linkWidth(l as { type: string; verified?: boolean; source: GraphNode; target: GraphNode }, highlightNodeIds, highlightActive)}
         linkLineDash={(l) => linkDash(l as { type: string; verified?: boolean })}
         linkDirectionalParticles={(l) => ((l as { type: string; verified?: boolean }).type === "citation" && (l as { verified?: boolean }).verified ? 1 : 0)}
@@ -130,7 +148,8 @@ export function BrainCanvas({
   );
 }
 
-function nodeStyle(node: GraphNode): { r: number; fill: string; ring?: string; ringDashed?: boolean; label?: boolean } {
+type Palette = typeof C_DARK;
+function nodeStyle(node: GraphNode, C: Palette): { r: number; fill: string; ring?: string; ringDashed?: boolean; label?: boolean } {
   switch (node.kind) {
     case "entity":
       return { r: 9, fill: C.info, label: true };
@@ -161,8 +180,9 @@ function drawNode(
   scale: number,
   causalIds: Set<string>,
   causalActive: boolean,
+  C: Palette,
 ) {
-  const s = nodeStyle(node);
+  const s = nodeStyle(node, C);
   const x = node.x ?? 0;
   const y = node.y ?? 0;
   const inCausal = causalIds.has(node.id);
@@ -225,9 +245,10 @@ function drawNode(
     const m = ctx.measureText(label);
     const pad = 4;
     const yL = y + s.r + 5;
-    ctx.fillStyle = "rgba(7,11,19,0.7)";
+    // Label backing pill — match the canvas bg so labels read against either palette.
+    ctx.fillStyle = C.bg === "#070b13" ? "rgba(7,11,19,0.7)" : "rgba(244,236,218,0.85)";
     ctx.fillRect(x - m.width / 2 - pad, yL - 1, m.width + pad * 2, fontSize + 4);
-    ctx.fillStyle = node.kind === "defense" ? C.ink : C.brassLight;
+    ctx.fillStyle = node.kind === "defense" ? C.ink : C.brass;
     ctx.fillText(label, x, yL + 1);
   }
 }
@@ -236,6 +257,7 @@ function linkColor(
   l: { type: string; verified?: boolean; source: GraphNode; target: GraphNode },
   causalIds: Set<string>,
   causalActive: boolean,
+  C: Palette,
 ): string {
   if (causalActive && causalIds.has(l.source.id) && causalIds.has(l.target.id)) return C.brassLight;
   switch (l.type) {

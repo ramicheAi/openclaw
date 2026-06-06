@@ -12,6 +12,7 @@ import {
   useMatter,
   useUpdateChain,
 } from "../../../lib/queries";
+import { useTheme } from "../../../lib/theme";
 import { computeScales } from "../Worktop/cards/ScalesMini";
 import { IconArc, IconClose, IconPause, IconReplay } from "../../../icons";
 import { cx } from "../../../lib/ui";
@@ -36,6 +37,10 @@ export function CaseBrain({ matterId }: { matterId: string }) {
   const { data: chains } = useCausalChains(matterId);
   const updateChain = useUpdateChain(matterId);
   const deleteChain = useDeleteChain(matterId);
+  // Honor the app theme — when the operator is in light mode we render the
+  // canvas + consoles on warm paper instead of forcing the deep-ink look.
+  const [theme] = useTheme();
+  const isLight = theme === "light";
   const [layout, setLayout] = useState<Layout>("force");
   const [highlightActive, setHighlightActive] = useState(false);
   const [activeChainId, setActiveChainId] = useState<string | null>(null);
@@ -93,12 +98,18 @@ export function CaseBrain({ matterId }: { matterId: string }) {
     : 0;
 
   return (
-    // Brain mode is the dark "instrument" per design brief section 5.5 — the
-    // canvas + glass consoles always render against deep ink, regardless of
-    // the user's root light/dark preference. data-theme="dark" forces every
-    // utility-class token inside this subtree (surface, ink, line, etc.) to
-    // the dark palette, so consoles stay legible against the canvas.
-    <div data-theme="dark" className="relative min-h-0 flex-1 overflow-hidden bg-[#070b13] text-ink">
+    // Brain mode honors the app theme. Dark = the cinematic instrument from
+    // the design brief (deep-ink canvas, glass consoles). Light = warm paper
+    // canvas so paralegals in bright offices can read it. The data-theme
+    // attribute pins every utility-class token (surface, ink, line, etc.) to
+    // the chosen palette so consoles + HUD remain legible either way.
+    <div
+      data-theme={isLight ? "light" : "dark"}
+      className={cx(
+        "relative min-h-0 flex-1 overflow-hidden text-ink",
+        isLight ? "bg-[#f4ecda]" : "bg-[#070b13]",
+      )}
+    >
       {documents.length === 0 ? (
         <BrainEmpty />
       ) : (
@@ -114,6 +125,7 @@ export function CaseBrain({ matterId }: { matterId: string }) {
             assemblyTick={assemblyTick}
             timeCursor={timeCursor}
             onNodeClick={setInspect}
+            theme={isLight ? "light" : "dark"}
           />
         </Suspense>
       )}
@@ -146,14 +158,14 @@ export function CaseBrain({ matterId }: { matterId: string }) {
       <Console className="left-4 top-20 w-[332px]">
         <Eyebrow>Case theory</Eyebrow>
         <div className="mt-1 font-display text-[15px] font-semibold leading-snug">{matter.name}</div>
-        <p className="mt-1.5 text-[11.5px] leading-relaxed text-[--color-ink-soft-dark]">{matter.caseTheory.posture}</p>
+        <p className="mt-1.5 text-[11.5px] leading-relaxed text-ink-soft">{matter.caseTheory.posture}</p>
         <div className="mt-3">
           <Eyebrow>Ingest pipeline</Eyebrow>
           <ul className="mt-1 space-y-1">
             {matter.ingestStages.map((s) => (
               <li key={s.label} className="flex items-center gap-2 text-[11px]">
                 <span className={cx("h-1.5 w-1.5 rounded-full", s.done ? "bg-verify" : "bg-brass-soft/30")} />
-                <span className={s.done ? "" : "text-[--color-ink-faint-dark]"}>{s.label}</span>
+                <span className={s.done ? "" : "text-ink-faint"}>{s.label}</span>
               </li>
             ))}
           </ul>
@@ -163,7 +175,7 @@ export function CaseBrain({ matterId }: { matterId: string }) {
             <Eyebrow>Gaps</Eyebrow>
             <ul className="mt-1 space-y-1.5">
               {matter.gapFindings.map((g, i) => (
-                <li key={i} className="text-[11px] leading-snug text-[--color-ink-soft-dark]">
+                <li key={i} className="text-[11px] leading-snug text-ink-soft">
                   <span
                     className={cx(
                       "mr-1 font-mono text-[9px] uppercase",
@@ -186,20 +198,25 @@ export function CaseBrain({ matterId }: { matterId: string }) {
         <BrainScales events={events} />
         <div className="mt-3">
           <Eyebrow>Hot documents</Eyebrow>
-          <div className="mt-1 text-[11px] text-[--color-ink-soft-dark]">
+          <div className="mt-1 text-[11px] text-ink-soft">
             {hotCount} flagged hot · click any node to inspect.
           </div>
         </div>
         <div className="mt-3">
           <Eyebrow>Privilege wall</Eyebrow>
-          <div className="mt-1 text-[11px] text-[--color-ink-soft-dark]">
+          <div className="mt-1 text-[11px] text-ink-soft">
             {flaggedCount} flagged for review · withheld nodes are quarantined.
           </div>
         </div>
       </Console>
 
       {/* Bottom strata */}
-      <div className="absolute inset-x-0 bottom-0 z-10 border-t border-white/5 bg-[rgba(13,22,34,0.66)] backdrop-blur-md">
+      <div
+        className={cx(
+          "absolute inset-x-0 bottom-0 z-10 border-t backdrop-blur-md",
+          isLight ? "border-line/40 bg-[rgba(248,242,229,0.78)]" : "border-white/5 bg-[rgba(13,22,34,0.66)]",
+        )}
+      >
         <CausalChainRibbon
           chains={allChains}
           active={activeChain}
@@ -267,10 +284,12 @@ function Console({ children, className }: { children: React.ReactNode; className
   return (
     <div
       className={cx(
-        "absolute z-10 rounded-xl border border-white/10 px-3.5 py-3 text-[--color-ink-dark] shadow-[0_8px_24px_-12px_rgba(0,0,0,0.6)]",
+        "absolute z-10 rounded-xl border px-3.5 py-3 text-ink shadow-[0_8px_24px_-12px_rgba(0,0,0,0.4)]",
+        "border-[color-mix(in_srgb,var(--color-line)_60%,transparent)]",
+        "bg-[color-mix(in_srgb,var(--color-surface)_85%,transparent)]",
+        "backdrop-blur-[18px] backdrop-saturate-150",
         className,
       )}
-      style={{ background: "rgba(13,22,34,0.66)", backdropFilter: "blur(18px) saturate(140%)" }}
     >
       {children}
     </div>
@@ -305,8 +324,7 @@ function Telemetry({
   ];
   return (
     <div
-      className="absolute left-1/2 top-4 z-10 -translate-x-1/2 rounded-xl border border-white/10 px-4 py-2"
-      style={{ background: "rgba(13,22,34,0.66)", backdropFilter: "blur(18px)" }}
+      className="absolute left-1/2 top-4 z-10 -translate-x-1/2 rounded-xl border border-[color-mix(in_srgb,var(--color-line)_60%,transparent)] bg-[color-mix(in_srgb,var(--color-surface)_85%,transparent)] px-4 py-2 backdrop-blur-[18px]"
     >
       <div className="flex items-center gap-5">
         {cells.map((c) => (
@@ -393,7 +411,7 @@ function CausalChainRibbon({
       </button>
 
       {chains.length === 0 ? (
-        <div className="text-[11px] text-[--color-ink-soft-dark]">
+        <div className="text-[11px] text-ink-soft">
           No saved causal chains. Create one to bind a story to the case.
         </div>
       ) : (
@@ -528,7 +546,7 @@ function BrainEmpty() {
     <div className="absolute inset-0 grid place-items-center">
       <div className="text-center text-[12px] text-brass-soft">
         <div className="font-mono uppercase tracking-[0.18em]">Ingest incomplete</div>
-        <div className="mt-1 text-[--color-ink-soft-dark]">
+        <div className="mt-1 text-ink-soft">
           The brain will assemble itself as documents finish processing.
         </div>
       </div>

@@ -46,7 +46,7 @@ const SYSTEM = `You are Themis, an evidence-intelligence engine. You read a matt
 Hard rules:
 1. Every event MUST cite a Bates id that appears in the corpus. Do not invent Bates ids.
 2. Dates MUST be ISO YYYY-MM-DD.
-3. Be conservative — if you're not confident a fact is in the corpus, omit it.
+3. Be conservative on facts — if you're not confident a FACT is in the corpus, omit it. Be EXHAUSTIVE on entities — if a person is named in any document (caption, signature block, witness list, narrative, attorney letterhead, EMT roster, transcript speakers), include them. The case caption (matter name "X VS Y") names the plaintiff and defendant — they MUST appear as entities even if briefly mentioned. Every attorney, counsel, paralegal, or law firm named in any document MUST appear as an entity with role like "Plaintiff counsel" / "Defense counsel" / "Counsel — unknown side". Every police officer, deputy, EMT, witness, 911 caller, or treating physician named MUST appear.
 4. Output ONLY a single JSON object. No prose. No markdown. Strict JSON, the schema below.
 
 Schema:
@@ -74,7 +74,15 @@ function buildPrompt(matterName: string, docs: { bates: string; title: string; t
         `=== ${d.bates} | ${d.type} | ${d.date} | from: ${d.author || "—"} | ${d.title} ===\n${d.body.slice(0, 8000)}`,
     )
     .join("\n\n");
-  return `MATTER: ${matterName}\n\nCORPUS:\n\n${corpus}\n\n---\n\nAnalyze the corpus per the schema. Output strict JSON only.`;
+  // Parse the case caption from the matter name. "OLIVEIRA VS RAMIREZ" →
+  // plaintiff Oliveira, defendant Ramirez. Surface to the model so it
+  // knows to look for these parties in every doc and include them as
+  // entities even if briefly mentioned.
+  const cap = matterName.match(/^(.+?)\s+(?:VS?\.?|V\.?)\s+(.+?)$/i);
+  const captionHint = cap
+    ? `Case caption: plaintiff "${cap[1].trim()}", defendant "${cap[2].trim()}" — both MUST appear in the entities list.\n\n`
+    : "";
+  return `MATTER: ${matterName}\n\n${captionHint}CORPUS:\n\n${corpus}\n\n---\n\nAnalyze the corpus per the schema. Output strict JSON only.`;
 }
 
 export async function analyzeMatter(db: DB, matterId: string): Promise<{

@@ -4,6 +4,7 @@
 // locally without an API key, and lights up the moment a key is present.
 
 import Anthropic from "@anthropic-ai/sdk";
+import { callClaudeCode, isClaudeCodeProvider } from "./claude-code.js";
 
 let client: Anthropic | null | undefined; // undefined = not yet probed; null = no key
 
@@ -19,7 +20,9 @@ function getClient(): Anthropic | null {
 }
 
 export function isLLMReady(): boolean {
-  return getClient() !== null;
+  // CLI provider doesn't need an API key — the operator's Max plan auth
+  // lives in `claude login`'s keychain. Either path counts as "ready".
+  return isClaudeCodeProvider() || getClient() !== null;
 }
 
 // Hide noisy debug at call-sites; toggle via THEMIS_LLM_LOG=1. Errors are
@@ -75,10 +78,14 @@ listing every Bates id you cited, in order of importance. If you refused, leave 
 You are answering on behalf of the firm representing the plaintiff in this matter. Treat the privilege wall as inviolable: if a document is flagged or withheld, it will not appear in your sources.`;
 
 function formatSources(sources: SourceForSynthesis[]): string {
+  // Body slice was 2400 chars/source — too tight for police reports and
+  // depositions, which dropped litigant names off the back. CLI argv has a
+  // ~110KB ceiling and the SDK is generous, so 8K/source (about 50K total
+  // for 5-doc retrieval) keeps full context for the model.
   return sources
     .map(
       (s, i) =>
-        `SOURCE ${i + 1} — ${s.bates} (${s.date}) — ${s.title}\nSummary: ${s.summary}\nBody: ${s.body.slice(0, 2400)}`,
+        `SOURCE ${i + 1} — ${s.bates} (${s.date}) — ${s.title}\nSummary: ${s.summary}\nBody: ${s.body.slice(0, 8000)}`,
     )
     .join("\n\n---\n\n");
 }
@@ -87,25 +94,33 @@ export async function synthesizeAnswer(
   question: string,
   sources: SourceForSynthesis[],
 ): Promise<SynthesisResult | null> {
-  const c = getClient();
-  if (!c || sources.length === 0) return null;
+  if (sources.length === 0) return null;
+  const useCLI = isClaudeCodeProvider();
+  const c = useCLI ? null : getClient();
+  if (!useCLI && !c) return null;
 
   const sourcesBlock = formatSources(sources);
   const userMessage = `SOURCES:\n\n${sourcesBlock}\n\n---\n\nUSER QUESTION: ${question}\n\nAnswer following all rules. Lead with the answer; cite Bates ids in-line; end with the CITATIONS line.`;
 
   try {
-    log("synth", { question: question.slice(0, 60), sources: sources.length });
-    const msg = await c.messages.create({
-      model: MODEL,
-      max_tokens: SYNTH_MAX_TOKENS,
-      system: SYSTEM_PROMPT,
-      messages: [{ role: "user", content: userMessage }],
-    });
-    const text = msg.content
-      .filter((b) => b.type === "text")
-      .map((b) => (b as { text: string }).text)
-      .join("")
-      .trim();
+    log("synth", { question: question.slice(0, 60), sources: sources.length, provider: useCLI ? "claude-code" : "api" });
+    let text: string;
+    if (useCLI) {
+      const r = await callClaudeCode(SYSTEM_PROMPT, userMessage);
+      text = r.text.trim();
+    } else {
+      const msg = await c!.messages.create({
+        model: MODEL,
+        max_tokens: SYNTH_MAX_TOKENS,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: "user", content: userMessage }],
+      });
+      text = msg.content
+        .filter((b) => b.type === "text")
+        .map((b) => (b as { text: string }).text)
+        .join("")
+        .trim();
+    }
 
     // Split out the trailing CITATIONS line.
     const m = text.match(/^([\s\S]*?)\n?CITATIONS:\s*(.*)$/m);
@@ -159,25 +174,28 @@ export async function judgeEntailment(
   claim: string,
   sourceText: string,
 ): Promise<EntailmentJudgment | null> {
-  const c = getClient();
-  if (!c) return null;
+  const useCLI = isClaudeCodeProvider();
+  const c = useCLI ? null : getClient();
+  if (!useCLI && !c) return null;
   try {
-    const msg = await c.messages.create({
-      model: MODEL,
-      max_tokens: JUDGE_MAX_TOKENS,
-      system: JUDGE_SYSTEM,
-      messages: [
-        {
-          role: "user",
-          content: `CLAIM: ${claim}\n\nSOURCE TEXT:\n${sourceText.slice(0, 3000)}\n\nRespond with the JSON object only.`,
-        },
-      ],
-    });
-    const text = msg.content
-      .filter((b) => b.type === "text")
-      .map((b) => (b as { text: string }).text)
-      .join("")
-      .trim();
+    const userMsg = `CLAIM: ${claim}\n\nSOURCE TEXT:\n${sourceText.slice(0, 3000)}\n\nRespond with the JSON object only.`;
+    let text: string;
+    if (useCLI) {
+      const r = await callClaudeCode(JUDGE_SYSTEM, userMsg);
+      text = r.text.trim();
+    } else {
+      const msg = await c!.messages.create({
+        model: MODEL,
+        max_tokens: JUDGE_MAX_TOKENS,
+        system: JUDGE_SYSTEM,
+        messages: [{ role: "user", content: userMsg }],
+      });
+      text = msg.content
+        .filter((b) => b.type === "text")
+        .map((b) => (b as { text: string }).text)
+        .join("")
+        .trim();
+    }
     const jsonMatch = text.match(/\{[\s\S]*?\}/);
     if (!jsonMatch) return null;
     const parsed = JSON.parse(jsonMatch[0]) as Partial<EntailmentJudgment>;
