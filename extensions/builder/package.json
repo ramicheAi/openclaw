@@ -1,0 +1,11 @@
+{
+  "name": "@openclaw/builder",
+  "version": "2026.1.29",
+  "type": "module",
+  "description": "OpenClaw Builder plugin — dispatch coding/design tasks to a tool-enabled Claude Code via the local Claude Max proxy.",
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

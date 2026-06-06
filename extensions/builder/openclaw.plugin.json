@@ -1,0 +1,32 @@
+{
+  "id": "builder",
+  "name": "Builder (Claude Code + Design)",
+  "description": "Lets fleet agents dispatch autonomous coding and design tasks to a tool-enabled Claude Code instance (via the local Claude Max proxy). Internal use only.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "proxyUrl": {
+        "type": "string",
+        "description": "OpenAI-compatible chat-completions endpoint of the Claude Max proxy that wraps a tool-enabled Claude Code CLI. Default http://127.0.0.1:3456/v1/chat/completions."
+      },
+      "defaultModel": {
+        "type": "string",
+        "description": "Default model alias for build tasks (e.g. claude-sonnet-4-5, claude-opus-4-6)."
+      },
+      "designModel": {
+        "type": "string",
+        "description": "Default model alias for design tasks. Falls back to defaultModel."
+      },
+      "timeoutMs": {
+        "type": "number",
+        "description": "Default per-task timeout in milliseconds. Builds can be long; default 600000 (10m)."
+      },
+      "allowedRoots": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Absolute path prefixes the builder is permitted to operate within. If set and non-empty, any task whose workingDir is outside every root is rejected. Strongly recommended because the underlying CLI runs with skipped permissions."
+      }
+    }
+  }
+}
