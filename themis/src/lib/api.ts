@@ -17,6 +17,7 @@ import type {
   PrivilegeFlag,
   SearchHit,
   VerifyResult,
+  DepoOutline,
 } from "../types";
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
@@ -213,6 +214,14 @@ export const api = {
 
   getVerifyStatus: () =>
     request<{ courtListenerConfigured: boolean }>(`/api/verify/status`),
+
+  // --- Deposition outline ---
+
+  buildDepositionOutline: (id: string, witness: string) =>
+    request<DepoOutline>(`/api/matters/${id}/deposition-outline`, {
+      method: "POST",
+      body: JSON.stringify({ witness }),
+    }),
 
   // --- Binders ---
 

@@ -4,10 +4,11 @@
 // in (with hot/privilege state), and a one-click "open in Documents" CTA
 // that drops the user into the filtered Documents tab.
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Card, SectionLabel, HotTag, PrivilegePill, cx } from "../../../lib/ui";
-import { IconClose, IconEntity } from "../../../icons";
+import { IconClose, IconEntity, IconChron } from "../../../icons";
 import { useDocuments } from "../../../lib/queries";
+import { DepositionOutlineModal } from "../../../components/DepositionOutlineModal";
 import type { Entity } from "../../../types";
 
 interface Props {
@@ -19,6 +20,7 @@ interface Props {
 
 export function EntityDossier({ entity, matterId, onClose, onJumpDocuments }: Props) {
   const { data: docs } = useDocuments(matterId);
+  const [depoFor, setDepoFor] = useState<string | null>(null);
   const open = !!entity;
   const docsByEntity = useMemo(() => {
     if (!entity || !docs) return [];
@@ -53,6 +55,12 @@ export function EntityDossier({ entity, matterId, onClose, onJumpDocuments }: Pr
             {entity.role}
             {entity.org && entity.org !== "—" ? <> · {entity.org}</> : null}
           </div>
+          <button
+            onClick={() => setDepoFor(entity.name)}
+            className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-md border border-brass bg-brass px-3 py-2 text-[12.5px] font-semibold text-paper transition hover:bg-brass-deep"
+          >
+            <IconChron size={13} /> Build deposition outline
+          </button>
           <div className="mt-4 grid grid-cols-2 gap-3">
             <Stat label="Mentions" value={entity.mentions.toLocaleString()} />
             <Stat label="First seen" value={entity.firstSeen} mono />
@@ -113,6 +121,9 @@ export function EntityDossier({ entity, matterId, onClose, onJumpDocuments }: Pr
             </Card>
           )}
         </div>
+      )}
+      {depoFor && (
+        <DepositionOutlineModal matterId={matterId} witness={depoFor} onClose={() => setDepoFor(null)} />
       )}
     </div>
   );

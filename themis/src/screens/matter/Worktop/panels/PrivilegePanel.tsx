@@ -235,7 +235,7 @@ function Reviewer({
           </PanelAction>
         </div>
         <div className="text-[10.5px] text-ink-faint">
-          decided by D. Okafor · logged to audit
+          decision logged to audit trail
         </div>
       </div>
     </article>

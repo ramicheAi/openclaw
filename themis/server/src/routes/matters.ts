@@ -13,6 +13,7 @@ import {
 import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.js";
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
 import { analyzeMatter } from "../analyze.js";
+import { buildDepositionOutline } from "../deposition.js";
 import { isClaudeCodeProvider, probeClaudeCode } from "../claude-code.js";
 import { formatTranscript, isAssemblyAIReady, startTranscript, uploadMedia, waitForTranscript, type TranscriptUtterance } from "../assemblyai.js";
 import { mkdir, writeFile, stat } from "node:fs/promises";
@@ -292,6 +293,28 @@ export function registerMatterRoutes(app: Hono, db: DB) {
       const message = err instanceof Error ? err.message : String(err);
       console.error("[analyze] route error:", message, err instanceof Error ? err.stack : "");
       return c.json({ error: "analyze_route_failed", message }, 500);
+    }
+  });
+
+  // Deposition outline — generate an examination outline for one witness from
+  // the chronology + entity graph + documents. Witness identified by name
+  // (matches an entity, case-insensitive).
+  app.post("/api/matters/:id/deposition-outline", async (c) => {
+    const id = c.req.param("id");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    const body = (await c.req.json().catch(() => ({}))) as { witness?: unknown };
+    if (typeof body.witness !== "string" || body.witness.trim().length === 0) {
+      return c.json({ error: "invalid_witness", hint: "pass the witness name" }, 400);
+    }
+    try {
+      const result = await buildDepositionOutline(db, id, body.witness.trim());
+      if (!result.ok) return c.json({ error: "deposition_failed", message: result.error }, 502);
+      audit(db, id, actor(c), "deposition.outline", `${result.outline.witness} · ${result.outline.topics.length} topics`);
+      return c.json(result.outline);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("[deposition] route error:", message);
+      return c.json({ error: "deposition_route_failed", message }, 500);
     }
   });
 

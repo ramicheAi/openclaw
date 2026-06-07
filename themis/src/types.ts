@@ -147,6 +147,22 @@ export interface BatesFinding {
   privilege?: string;
 }
 
+// --- Deposition outline ---
+
+export interface DepoTopic {
+  topic: string;
+  goal: string;
+  questions: string[];
+  exhibits: string[];
+}
+
+export interface DepoOutline {
+  witness: string;
+  role: string;
+  background: string;
+  topics: DepoTopic[];
+}
+
 export interface VerifyResult {
   bates: {
     total: number;

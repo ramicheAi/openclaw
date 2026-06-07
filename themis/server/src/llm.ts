@@ -43,6 +43,46 @@ const SYNTH_MAX_TOKENS = 1024;
 const JUDGE_MAX_TOKENS = 256;
 
 // ---------------------------------------------------------------------------
+// Generic completion — provider-switched (Claude Code CLI vs Anthropic SDK).
+// Shared by feature generators (deposition outlines, deadline extraction)
+// that need a one-shot system+user call returning raw text. Returns null when
+// no provider is ready so callers can surface a clean "engine not configured"
+// message instead of throwing.
+// ---------------------------------------------------------------------------
+export async function llmComplete(
+  system: string,
+  user: string,
+  maxTokens = 2048,
+): Promise<string | null> {
+  const useCLI = isClaudeCodeProvider();
+  const c = useCLI ? null : getClient();
+  if (!useCLI && !c) return null;
+  try {
+    if (useCLI) {
+      const r = await callClaudeCode(system, user);
+      lastError = null;
+      return r.text.trim();
+    }
+    const msg = await c!.messages.create({
+      model: MODEL,
+      max_tokens: maxTokens,
+      system,
+      messages: [{ role: "user", content: user }],
+    });
+    lastError = null;
+    return msg.content
+      .filter((b) => b.type === "text")
+      .map((b) => (b as { text: string }).text)
+      .join("")
+      .trim();
+  } catch (err) {
+    logErr("complete", err);
+    lastError = err instanceof Error ? err.message : String(err);
+    return null;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Synthesis — generate a grounded answer from retrieved sources. Caller
 // supplies the question + a structured source list. We constrain the model
 // to (a) ground every claim in cited Bates ids, (b) refuse if no source
