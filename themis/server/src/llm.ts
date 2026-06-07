@@ -117,6 +117,16 @@ listing every Bates id you cited, in order of importance. If you refused, leave 
 
 You are answering on behalf of the firm representing the plaintiff in this matter. Treat the privilege wall as inviolable: if a document is flagged or withheld, it will not appear in your sources.`;
 
+// PDF text extraction commonly leaks NUL + other control bytes inside body
+// text. spawn() rejects strings with NUL, and Anthropic's tokenizer chokes
+// on stray controls — strip everything except \t \n \r before prompting.
+function sanitize(s: string): string {
+  return s
+    .replace(/\r\n?/g, "\n")
+    // eslint-disable-next-line no-control-regex
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
+}
+
 function formatSources(sources: SourceForSynthesis[]): string {
   // Body slice was 2400 chars/source — too tight for police reports and
   // depositions, which dropped litigant names off the back. CLI argv has a
@@ -125,7 +135,7 @@ function formatSources(sources: SourceForSynthesis[]): string {
   return sources
     .map(
       (s, i) =>
-        `SOURCE ${i + 1} — ${s.bates} (${s.date}) — ${s.title}\nSummary: ${s.summary}\nBody: ${s.body.slice(0, 8000)}`,
+        `SOURCE ${i + 1} — ${s.bates} (${s.date}) — ${s.title}\nSummary: ${sanitize(s.summary)}\nBody: ${sanitize(s.body).slice(0, 8000)}`,
     )
     .join("\n\n---\n\n");
 }
@@ -221,7 +231,7 @@ export async function judgeEntailment(
   const c = useCLI ? null : getClient();
   if (!useCLI && !c) return null;
   try {
-    const userMsg = `CLAIM: ${claim}\n\nSOURCE TEXT:\n${sourceText.slice(0, 3000)}\n\nRespond with the JSON object only.`;
+    const userMsg = `CLAIM: ${sanitize(claim)}\n\nSOURCE TEXT:\n${sanitize(sourceText).slice(0, 3000)}\n\nRespond with the JSON object only.`;
     let text: string;
     if (useCLI) {
       const r = await callClaudeCode(JUDGE_SYSTEM, userMsg);

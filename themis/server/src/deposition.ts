@@ -12,6 +12,15 @@ import type { DB } from "./db.js";
 import { getMatter, listChronology, listDocuments, listEntities } from "./repo.js";
 import { llmComplete } from "./llm.js";
 
+// Same control-byte scrub the LLM prompt builders use — PDF text extraction
+// leaks NUL bytes that crash spawn() and confuse the SDK tokenizer.
+function sanitize(s: string): string {
+  return s
+    .replace(/\r\n?/g, "\n")
+    // eslint-disable-next-line no-control-regex
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
+}
+
 export interface DepoTopic {
   topic: string;
   goal: string; // what the examiner is trying to establish
@@ -83,11 +92,11 @@ export async function buildDepositionOutline(
 
   const docBlock = relevantDocs
     .slice(0, 40)
-    .map((d) => `- ${d.bates} | ${d.type} | ${d.date} | ${d.title}${d.hot ? " [HOT]" : ""}\n  ${d.summary || d.body.slice(0, 400)}`)
+    .map((d) => `- ${d.bates} | ${d.type} | ${d.date} | ${d.title}${d.hot ? " [HOT]" : ""}\n  ${sanitize(d.summary || d.body.slice(0, 400))}`)
     .join("\n");
   const eventBlock = events
     .slice(0, 60)
-    .map((ev) => `- ${ev.date} — ${ev.description} (cite ${ev.citation.bates})`)
+    .map((ev) => `- ${ev.date} — ${sanitize(ev.description)} (cite ${ev.citation.bates})`)
     .join("\n");
 
   const user = `MATTER: ${matter.name}

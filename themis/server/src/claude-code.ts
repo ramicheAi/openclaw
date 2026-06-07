@@ -29,7 +29,18 @@ export async function callClaudeCode(systemPrompt: string, userPrompt: string): 
   // We can't pass a separate system prompt across CLI versions reliably,
   // so we prepend it as instructions and let the model treat the whole
   // thing as the user message.
-  const fullPrompt = `${systemPrompt}\n\n----\n\n${userPrompt}`;
+  const rawPrompt = `${systemPrompt}\n\n----\n\n${userPrompt}`;
+
+  // Sanitize for argv: spawn() rejects strings containing NUL bytes (and
+  // other low control characters often misbehave). PDF text extraction
+  // commonly leaks U+0000 inside body content, which made Analyze fail with
+  // "argument 'args[1]' must be a string without null bytes". Strip every
+  // ASCII control char except the ones we actually need (\t, \n, \r). Also
+  // normalize CRLF → LF to keep the prompt portable.
+  const fullPrompt = rawPrompt
+    .replace(/\r\n?/g, "\n")
+    // eslint-disable-next-line no-control-regex
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
 
   // Sanity check: argv limit varies by OS but ~128KB is the common floor.
   if (Buffer.byteLength(fullPrompt, "utf8") > 110_000) {

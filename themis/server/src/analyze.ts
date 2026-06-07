@@ -67,11 +67,21 @@ Schema:
   "hot": ["BATES-IDS"]
 }`;
 
+// Strip ASCII control bytes (except \t \n \r) that leak in from PDF text
+// extraction. NUL bytes in particular crash the Claude Code CLI bridge
+// (spawn() rejects them) and confuse the Anthropic API tokenizer.
+function sanitizeBody(body: string): string {
+  return body
+    .replace(/\r\n?/g, "\n")
+    // eslint-disable-next-line no-control-regex
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
+}
+
 function buildPrompt(matterName: string, docs: { bates: string; title: string; type: string; date: string; author: string; body: string }[]): string {
   const corpus = docs
     .map(
       (d) =>
-        `=== ${d.bates} | ${d.type} | ${d.date} | from: ${d.author || "—"} | ${d.title} ===\n${d.body.slice(0, 8000)}`,
+        `=== ${d.bates} | ${d.type} | ${d.date} | from: ${d.author || "—"} | ${d.title} ===\n${sanitizeBody(d.body).slice(0, 8000)}`,
     )
     .join("\n\n");
   // Parse the case caption from the matter name. "OLIVEIRA VS RAMIREZ" →

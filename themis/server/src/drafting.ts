@@ -20,6 +20,16 @@ import { getMatter, listChronology } from "./repo.js";
 import { llmComplete } from "./llm.js";
 import { listDamages, type DamagesCategory } from "./damages.js";
 
+// PDF extraction leaks NUL + other low ASCII control bytes that crash the
+// CLI bridge's spawn() and confuse the SDK tokenizer. Scrub at every prompt
+// site that pulls from document-derived text (descriptions, posture, etc.).
+function sanitize(s: string): string {
+  return s
+    .replace(/\r\n?/g, "\n")
+    // eslint-disable-next-line no-control-regex
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
+}
+
 export type DraftKind =
   | "demand-letter"
   | "complaint"
@@ -97,7 +107,7 @@ export async function generateDraft(
 
   const eventBlock = picked
     .slice(0, 100)
-    .map((e) => `- ${e.date} — ${e.description} (${e.citation.bates}, p.${e.citation.page})`)
+    .map((e) => `- ${e.date} — ${sanitize(e.description)} (${e.citation.bates}, p.${e.citation.page})`)
     .join("\n");
 
   // For settlement statements and demand letters, surface the damages model
@@ -109,7 +119,7 @@ export async function generateDraft(
   const theory = matter.caseTheory;
   const theoryBlock = theory
     ? [
-        theory.posture ? `Posture: ${theory.posture}` : "",
+        theory.posture ? `Posture: ${sanitize(theory.posture)}` : "",
         theory.claims?.length ? `Claims:\n${theory.claims.map((c) => `- ${c}`).join("\n")}` : "",
         theory.defenses?.length ? `Anticipated defenses:\n${theory.defenses.map((d) => `- ${d}`).join("\n")}` : "",
       ].filter(Boolean).join("\n\n")
