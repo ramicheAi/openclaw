@@ -70,6 +70,16 @@ function authorFor(detail: string, documents: DocItem[]): string | null {
   return a;
 }
 
+// "D. Okafor" was the demo persona used as the seed/default actor before we
+// flipped the default to "you". Old audit rows still bear that name and
+// they're hash-chained so we can't mutate them in the DB. Display-only swap
+// keeps the trail honest without breaking the chain.
+function displayActor(raw: string): string {
+  if (!raw) return "—";
+  if (raw === "D. Okafor") return "you";
+  return raw;
+}
+
 export function AuditTrailCard({ entries, documents = [] }: { entries: AuditEntry[]; documents?: DocItem[] }) {
   return (
     <Card className="p-4">
@@ -101,10 +111,10 @@ export function AuditTrailCard({ entries, documents = [] }: { entries: AuditEntr
                     <span>
                       <span className="text-ink">{author}</span>
                       <span className="text-ink-faint"> · authored</span>
-                      <span className="text-ink-faint"> · {e.actor}</span>
+                      <span className="text-ink-faint"> · {displayActor(e.actor)}</span>
                     </span>
                   ) : (
-                    <span title={e.actor}>{e.actor}</span>
+                    <span title={e.actor}>{displayActor(e.actor)}</span>
                   )}
                 </div>
               </li>

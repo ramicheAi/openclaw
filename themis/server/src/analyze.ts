@@ -208,12 +208,37 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
       byNorm.set(key, keeper);
     }
     const haveNames = new Set(byNorm.keys());
+
+    // Recount mentions for ALL existing rows under the fuzzy counter — fixes
+    // the "0 mentions" cast members from earlier Analyze runs that used the
+    // strict exact-substring counter.
+    const allRows = db.prepare(
+      `SELECT id, name, json_aliases FROM entities WHERE matter_id = ?`,
+    ).all(matterId) as { id: string; name: string; json_aliases: string }[];
+    const updateMentions = db.prepare(
+      `UPDATE entities SET mentions = ?, first_seen = ? WHERE id = ?`,
+    );
+    for (const row of allRows) {
+      let aliases: string[] = [];
+      try { aliases = JSON.parse(row.json_aliases || "[]"); } catch { aliases = []; }
+      const m = docs.reduce((n, d) => n + countMentions(d.body, row.name, aliases), 0);
+      const fs = docs.find((d) => countMentions(d.body, row.name, aliases) > 0)?.bates ?? "";
+      updateMentions.run(m, fs, row.id);
+    }
     for (const e of parsed.entities ?? []) {
       if (!e.name) continue;
       const key = normName(e.name);
       if (haveNames.has(key)) continue;
       haveNames.add(key);
       const id = `e-${randomUUID().slice(0, 8)}`;
+      // Mentions estimate is fuzzy: full-name match, "First Last" without
+      // middle parts, AND "first … last" within 60 chars. Previously we
+      // counted exact substring of the full canonical name, which missed
+      // "Manuel Alvarez" / "M. Alvarez" / "Alvarez" when the canonical was
+      // "Manuel A. Alvarez" — so deputies who were clearly in the report
+      // showed up as 0 mentions in the cast.
+      const mentionsCount = docs.reduce((n, d) => n + countMentions(d.body, e.name, e.aliases ?? []), 0);
+      const firstSeen = docs.find((d) => countMentions(d.body, e.name, e.aliases ?? []) > 0)?.bates ?? "";
       db.prepare(
         `INSERT INTO entities (id, matter_id, name, role, org, json_aliases, mentions, first_seen, json_relationships)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -224,9 +249,8 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
         e.role ?? "—",
         e.org ?? "—",
         JSON.stringify(e.aliases ?? []),
-        // Cheap mentions estimate: count case-insensitive substring hits in corpus.
-        docs.reduce((n, d) => n + countOccurrences(d.body.toLowerCase(), e.name.toLowerCase()), 0),
-        docs.find((d) => d.body.toLowerCase().includes(e.name.toLowerCase()))?.bates ?? "",
+        mentionsCount,
+        firstSeen,
         JSON.stringify(e.relationships ?? []),
       );
     }
@@ -317,4 +341,59 @@ function countOccurrences(haystack: string, needle: string): number {
     i += needle.length;
   }
   return n;
+}
+
+// Count fuzzy mentions of a person. Order of preference, scored by sum:
+//   - full canonical hits (highest fidelity)
+//   - "First Last" without middle initials/names
+//   - last-name hits adjacent to first-name within a 60-char window
+//   - declared aliases (each as a substring)
+// Names shorter than 3 chars are skipped (too noisy — "Al", "J.", etc.).
+function countMentions(body: string, canonical: string, aliases: string[]): number {
+  if (!canonical) return 0;
+  const lower = body.toLowerCase();
+  // Strip honorifics and punctuation from the canonical for tokenizing.
+  const clean = canonical
+    .replace(/^(mr\.?|mrs\.?|ms\.?|dr\.?|officer|deputy|d\/s|inv\.?|sgt\.?|det\.?)\s+/i, "")
+    .replace(/[.,]/g, "")
+    .trim();
+  const tokens = clean.split(/\s+/).filter((t) => t.length >= 2);
+  if (tokens.length === 0) return 0;
+
+  let total = 0;
+  // 1) Full canonical hits.
+  const fullKey = canonical.toLowerCase().trim();
+  if (fullKey.length >= 3) total += countOccurrences(lower, fullKey);
+
+  // 2) First + Last without middles.
+  if (tokens.length >= 2) {
+    const first = tokens[0].toLowerCase();
+    const last = tokens[tokens.length - 1].toLowerCase();
+    const flKey = `${first} ${last}`;
+    if (flKey !== fullKey && flKey.length >= 3) total += countOccurrences(lower, flKey);
+
+    // 3) "first ... last" within 60 chars (handles "Manuel A. Alvarez" matching
+    //    "Manuel Antonio Alvarez", "Manuel A Alvarez", "Manuel, who is also
+    //    Alvarez", etc.) Only count if last name is unique-ish (>=4 chars) so
+    //    common words like "King" don't false-positive.
+    if (last.length >= 4) {
+      const re = new RegExp(
+        `\\b${escapeReg(first)}\\b[\\s\\S]{0,60}?\\b${escapeReg(last)}\\b`,
+        "gi",
+      );
+      while (re.exec(body) !== null) total++;
+    }
+  }
+
+  // 4) Declared aliases — each as a substring hit.
+  for (const a of aliases) {
+    const k = a.toLowerCase().trim();
+    if (k.length >= 3 && k !== fullKey) total += countOccurrences(lower, k);
+  }
+
+  return total;
+}
+
+function escapeReg(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
