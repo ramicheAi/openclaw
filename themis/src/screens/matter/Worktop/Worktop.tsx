@@ -122,7 +122,7 @@ export function Worktop({
           <ScalesMini events={chron ?? []} />
         </div>
         <div data-tour="audit">
-          <AuditTrailCard entries={audit ?? []} />
+          <AuditTrailCard entries={audit ?? []} documents={documents ?? []} />
         </div>
       </aside>
 

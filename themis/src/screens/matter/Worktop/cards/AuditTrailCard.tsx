@@ -3,7 +3,7 @@
 // but the user-facing tag is the verb only ("ACCEPTED", "FLAGGED", "ASKED").
 
 import { Card, SectionLabel } from "../../../../lib/ui";
-import type { AuditEntry } from "../../../../types";
+import type { AuditEntry, DocItem } from "../../../../types";
 
 function relTime(iso: string): string {
   const ms = Date.now() - new Date(iso).getTime();
@@ -55,7 +55,22 @@ function leadOf(detail: string): string {
   return detail.split(/[·:]/, 1)[0]?.trim() || detail.slice(0, 32);
 }
 
-export function AuditTrailCard({ entries }: { entries: AuditEntry[] }) {
+// When the audit row is about a specific document (ACCEPTED OLIV-000016,
+// doc.body.update, etc.), the trust-relevant attribution isn't who clicked
+// the button — it's who AUTHORED the underlying evidence. Show the author
+// inline next to the operator. Falls back to operator-only when no Bates
+// resolves (chat queries, binder ops, ingest events).
+function authorFor(detail: string, documents: DocItem[]): string | null {
+  const m = detail.match(/[A-Z]{2,}-\d{3,}/);
+  if (!m) return null;
+  const doc = documents.find((d) => d.bates === m[0]);
+  if (!doc) return null;
+  const a = doc.author?.trim();
+  if (!a || a === "—") return null;
+  return a;
+}
+
+export function AuditTrailCard({ entries, documents = [] }: { entries: AuditEntry[]; documents?: DocItem[] }) {
   return (
     <Card className="p-4">
       <div className="flex items-center justify-between">
@@ -66,24 +81,35 @@ export function AuditTrailCard({ entries }: { entries: AuditEntry[] }) {
         <div className="mt-2 text-[12px] text-ink-faint">No activity yet.</div>
       ) : (
         <ul className="mt-2 divide-y divide-line">
-          {entries.slice(0, 5).map((e) => (
-            <li key={e.id} className="py-2 first:pt-1 last:pb-1">
-              <div className="grid grid-cols-[auto_1fr_auto] items-baseline gap-2">
-                <span className="font-mono text-[9.5px] font-semibold uppercase tracking-wider text-brass-deep">
-                  {tagOf(e.action)}
-                </span>
-                <span className="truncate font-mono text-[11px] text-ink" title={e.detail}>
-                  {leadOf(e.detail)}
-                </span>
-                <span className="font-mono text-[10px] text-ink-faint" title={e.ts}>
-                  {relTime(e.ts)}
-                </span>
-              </div>
-              <div className="mt-0.5 ml-[0px] truncate text-[10.5px] text-ink-soft" title={e.actor}>
-                {e.actor}
-              </div>
-            </li>
-          ))}
+          {entries.slice(0, 5).map((e) => {
+            const author = authorFor(e.detail, documents);
+            return (
+              <li key={e.id} className="py-2 first:pt-1 last:pb-1">
+                <div className="grid grid-cols-[auto_1fr_auto] items-baseline gap-2">
+                  <span className="font-mono text-[9.5px] font-semibold uppercase tracking-wider text-brass-deep">
+                    {tagOf(e.action)}
+                  </span>
+                  <span className="truncate font-mono text-[11px] text-ink" title={e.detail}>
+                    {leadOf(e.detail)}
+                  </span>
+                  <span className="font-mono text-[10px] text-ink-faint" title={e.ts}>
+                    {relTime(e.ts)}
+                  </span>
+                </div>
+                <div className="mt-0.5 truncate text-[10.5px] text-ink-soft">
+                  {author ? (
+                    <span>
+                      <span className="text-ink">{author}</span>
+                      <span className="text-ink-faint"> · authored</span>
+                      <span className="text-ink-faint"> · {e.actor}</span>
+                    </span>
+                  ) : (
+                    <span title={e.actor}>{e.actor}</span>
+                  )}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
     </Card>
