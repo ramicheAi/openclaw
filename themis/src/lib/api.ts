@@ -28,6 +28,8 @@ import type {
   ShareLink,
   ShareScope,
   SharedView,
+  DamagesItem,
+  DamagesCategory,
 } from "../types";
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
@@ -257,6 +259,49 @@ export const api = {
 
   listDraftKinds: () =>
     request<{ kinds: DraftKindOption[] }>(`/api/draft-kinds`).then((r) => r.kinds),
+
+  // --- Damages ---
+
+  listDamages: (id: string) =>
+    request<{ items: DamagesItem[] }>(`/api/matters/${id}/damages`).then((r) => r.items),
+
+  createDamagesItem: (
+    id: string,
+    item: {
+      category: DamagesCategory;
+      description: string;
+      amountCents: number;
+      multiplier?: number;
+      dateIncurred?: string;
+      citationBates?: string;
+      notes?: string;
+    },
+  ) =>
+    request<DamagesItem>(`/api/matters/${id}/damages`, {
+      method: "POST",
+      body: JSON.stringify(item),
+    }),
+
+  updateDamagesItem: (
+    id: string,
+    itemId: string,
+    patch: Partial<{
+      category: DamagesCategory;
+      description: string;
+      amountCents: number;
+      multiplier: number;
+      dateIncurred: string;
+      citationBates: string;
+      notes: string;
+    }>,
+  ) =>
+    request<DamagesItem>(`/api/matters/${id}/damages/${itemId}`, {
+      method: "PATCH",
+      body: JSON.stringify(patch),
+    }),
+
+  deleteDamagesItem: (id: string, itemId: string) =>
+    request<{ ok: boolean }>(`/api/matters/${id}/damages/${itemId}`, { method: "DELETE" }),
 
   // --- Sharing ---
 

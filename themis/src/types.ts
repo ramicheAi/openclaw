@@ -162,6 +162,29 @@ export interface ConflictHit {
   org: string;
 }
 
+// --- Damages ---
+
+export type DamagesCategory =
+  | "medical"
+  | "lost_wages"
+  | "property"
+  | "pain_suffering"
+  | "future_care"
+  | "other";
+
+export interface DamagesItem {
+  id: string;
+  category: DamagesCategory;
+  description: string;
+  amountCents: number;
+  multiplier: number;
+  dateIncurred?: string;
+  citationBates?: string;
+  notes: string;
+  sortOrder: number;
+  createdAt: string;
+}
+
 // --- Sharing ---
 
 export type ShareScope = "matter" | "binder";

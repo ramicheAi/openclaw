@@ -18,6 +18,7 @@
 import type { DB } from "./db.js";
 import { getMatter, listChronology } from "./repo.js";
 import { llmComplete } from "./llm.js";
+import { listDamages, type DamagesCategory } from "./damages.js";
 
 export type DraftKind =
   | "demand-letter"
@@ -99,6 +100,12 @@ export async function generateDraft(
     .map((e) => `- ${e.date} — ${e.description} (${e.citation.bates}, p.${e.citation.page})`)
     .join("\n");
 
+  // For settlement statements and demand letters, surface the damages model
+  // (line items + per-category subtotals + grand total) so the draft can
+  // pull real numbers instead of placeholders.
+  const wantsDamages = req.kind === "settlement-statement" || req.kind === "demand-letter";
+  const damagesBlock = wantsDamages ? formatDamages(db, matterId) : "";
+
   const theory = matter.caseTheory;
   const theoryBlock = theory
     ? [
@@ -120,7 +127,7 @@ ${theoryBlock}
 
 SELECTED EVENTS (each line is a fact you may cite by its Bates id):
 ${eventBlock}
-
+${damagesBlock ? `\nDAMAGES MODEL (use these numbers verbatim in the damages paragraph; do not invent):\n${damagesBlock}\n` : ""}
 Write the first draft now. Every factual sentence must end with the relevant (BATES-ID). Use [AUTHORITY: ...] placeholders for any case law / statute / rule needed.`;
 
   const text = await llmComplete(SYSTEM, user, 4096);
@@ -132,4 +139,36 @@ Write the first draft now. Every factual sentence must end with the relevant (BA
 
 export function listDraftKinds(): { id: DraftKind; label: string }[] {
   return (Object.keys(KIND_INSTRUCTIONS) as DraftKind[]).map((id) => ({ id, label: KIND_INSTRUCTIONS[id].label }));
+}
+
+const CATEGORY_LABEL: Record<DamagesCategory, string> = {
+  medical: "Medical",
+  lost_wages: "Lost wages",
+  property: "Property",
+  pain_suffering: "Pain & suffering",
+  future_care: "Future care",
+  other: "Other",
+};
+
+function formatDamages(db: DB, matterId: string): string {
+  const items = listDamages(db, matterId);
+  if (items.length === 0) return "";
+  const lines: string[] = [];
+  const subtotals = new Map<DamagesCategory, number>();
+  let total = 0;
+  for (const it of items) {
+    const eff = Math.round(it.amountCents * (it.multiplier || 1));
+    total += eff;
+    subtotals.set(it.category, (subtotals.get(it.category) ?? 0) + eff);
+    const dollars = `$${(eff / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    const anchor = it.citationBates ? ` (${it.citationBates})` : "";
+    const mult = it.multiplier !== 1 ? ` [×${it.multiplier}]` : "";
+    lines.push(`- ${CATEGORY_LABEL[it.category]}: ${it.description} — ${dollars}${mult}${anchor}`);
+  }
+  lines.push("");
+  for (const [cat, sub] of subtotals) {
+    lines.push(`${CATEGORY_LABEL[cat]} subtotal: $${(sub / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+  }
+  lines.push(`TOTAL DAMAGES: $${(total / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+  return lines.join("\n");
 }

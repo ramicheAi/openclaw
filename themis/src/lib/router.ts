@@ -4,7 +4,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 export type AppMode = "worktop" | "brain";
-export type WorktopTab = "ask" | "chronology" | "privilege" | "binder" | "documents" | "verify" | "draft";
+export type WorktopTab = "ask" | "chronology" | "privilege" | "binder" | "documents" | "verify" | "draft" | "damages";
 
 export interface RouteState {
   matterId: string | null;

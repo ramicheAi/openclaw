@@ -18,6 +18,7 @@ export const qk = {
   chains: (id: string) => ["matter", id, "chains"] as const,
   deadlines: (id: string) => ["matter", id, "deadlines"] as const,
   productions: (id: string) => ["matter", id, "productions"] as const,
+  damages: (id: string) => ["matter", id, "damages"] as const,
 };
 
 export function useMatters() {
@@ -303,5 +304,41 @@ export function useDeleteProduction(id: string) {
   return useMutation({
     mutationFn: (prodId: string) => api.deleteProduction(id, prodId),
     onSuccess: () => invalidateProductions(qc, id),
+  });
+}
+
+// --- Damages ---
+
+export function useDamages(id: string) {
+  return useQuery({ queryKey: qk.damages(id), queryFn: () => api.listDamages(id) });
+}
+
+function invalidateDamages(qc: ReturnType<typeof useQueryClient>, id: string) {
+  qc.invalidateQueries({ queryKey: qk.damages(id) });
+  qc.invalidateQueries({ queryKey: qk.audit(id) });
+}
+
+export function useCreateDamages(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (item: Parameters<typeof api.createDamagesItem>[1]) => api.createDamagesItem(id, item),
+    onSuccess: () => invalidateDamages(qc, id),
+  });
+}
+
+export function useUpdateDamages(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ itemId, patch }: { itemId: string; patch: Parameters<typeof api.updateDamagesItem>[2] }) =>
+      api.updateDamagesItem(id, itemId, patch),
+    onSuccess: () => invalidateDamages(qc, id),
+  });
+}
+
+export function useDeleteDamages(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (itemId: string) => api.deleteDamagesItem(id, itemId),
+    onSuccess: () => invalidateDamages(qc, id),
   });
 }

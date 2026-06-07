@@ -21,7 +21,7 @@ import {
   useSetChronologyAccepted,
 } from "../../lib/queries";
 
-const TAB_ORDER: WorktopTab[] = ["ask", "chronology", "privilege", "binder", "documents", "verify", "draft"];
+const TAB_ORDER: WorktopTab[] = ["ask", "chronology", "privilege", "binder", "documents", "verify", "draft", "damages"];
 
 interface Props {
   matterId: string;

@@ -22,6 +22,7 @@ import { BinderPanel } from "./panels/BinderPanel";
 import { DocumentsPanel } from "./panels/DocumentsPanel";
 import { CiteCheckPanel } from "./panels/CiteCheckPanel";
 import { DraftPanel } from "./panels/DraftPanel";
+import { DamagesPanel } from "./panels/DamagesPanel";
 
 export function Worktop({
   matterId,
@@ -113,6 +114,7 @@ export function Worktop({
           {tab === "documents" && <DocumentsPanel matterId={matterId} initialFilter={docFilter} />}
           {tab === "verify" && <CiteCheckPanel matterId={matterId} />}
           {tab === "draft" && <DraftPanel matterId={matterId} />}
+          {tab === "damages" && <DamagesPanel matterId={matterId} />}
         </div>
       </div>
 

@@ -119,6 +119,12 @@ export function CommandPalette({
                   <Item icon={<IconCite size={14} />} onSelect={() => run(() => onTab("verify"))} shortcut="⌘6">
                     Cite Check
                   </Item>
+                  <Item icon={<IconExport size={14} />} onSelect={() => run(() => onTab("draft"))} shortcut="⌘7">
+                    Draft Studio
+                  </Item>
+                  <Item icon={<IconAdd size={14} />} onSelect={() => run(() => onTab("damages"))} shortcut="⌘8">
+                    Damages
+                  </Item>
                 </Command.Group>
 
                 <Command.Group heading="Mode">

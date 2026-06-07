@@ -138,6 +138,21 @@ CREATE TABLE IF NOT EXISTS binder_items (
 );
 CREATE INDEX IF NOT EXISTS idx_binder_items_binder ON binder_items(binder_id, ord);
 
+CREATE TABLE IF NOT EXISTS damages_items (
+  id              TEXT PRIMARY KEY,
+  matter_id       TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,
+  category        TEXT NOT NULL,           -- 'medical' | 'lost_wages' | 'property' | 'pain_suffering' | 'future_care' | 'other'
+  description     TEXT NOT NULL,
+  amount_cents    INTEGER NOT NULL DEFAULT 0,   -- dollars * 100
+  multiplier      REAL NOT NULL DEFAULT 1,      -- e.g. 2.5x for pain & suffering
+  date_incurred   TEXT,                         -- ISO YYYY-MM-DD
+  citation_bates  TEXT,                         -- optional anchor doc
+  notes           TEXT NOT NULL DEFAULT '',
+  sort_order      INTEGER NOT NULL DEFAULT 0,
+  created_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_damages_matter ON damages_items(matter_id);
+
 CREATE TABLE IF NOT EXISTS share_links (
   token        TEXT PRIMARY KEY,        -- url-safe random
   matter_id    TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,
