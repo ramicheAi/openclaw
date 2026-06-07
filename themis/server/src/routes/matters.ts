@@ -14,6 +14,7 @@ import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.j
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
 import { analyzeMatter } from "../analyze.js";
 import { buildDepositionOutline } from "../deposition.js";
+import { listSpokenLines } from "../speakers.js";
 import { isClaudeCodeProvider, probeClaudeCode } from "../claude-code.js";
 import { formatTranscript, isAssemblyAIReady, startTranscript, uploadMedia, waitForTranscript, type TranscriptUtterance } from "../assemblyai.js";
 import { mkdir, writeFile, stat } from "node:fs/promises";
@@ -294,6 +295,19 @@ export function registerMatterRoutes(app: Hono, db: DB) {
       console.error("[analyze] route error:", message, err instanceof Error ? err.stack : "");
       return c.json({ error: "analyze_route_failed", message }, 500);
     }
+  });
+
+  // Speaker timeline — every line in every transcript spoken by the entity.
+  // Accepts ?aliases=Name1,Name2 so the client can include the entity's
+  // declared alias list without a separate round-trip.
+  app.get("/api/matters/:id/entities/:name/quotes", (c) => {
+    const id = c.req.param("id");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    const name = decodeURIComponent(c.req.param("name"));
+    const aliasesRaw = c.req.query("aliases") ?? "";
+    const aliases = aliasesRaw.split(",").map((s) => s.trim()).filter(Boolean);
+    const lines = listSpokenLines(db, id, name, aliases);
+    return c.json({ name, lines });
   });
 
   // Deposition outline — generate an examination outline for one witness from

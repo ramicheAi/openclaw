@@ -4,9 +4,10 @@
 // a grand total. The same numbers feed the settlement-statement draft.
 
 import { useMemo, useState } from "react";
-import { useDamages, useCreateDamages, useUpdateDamages, useDeleteDamages, useDocuments } from "../../../../lib/queries";
+import { useDamages, useCreateDamages, useUpdateDamages, useDeleteDamages, useDocuments, useMatter } from "../../../../lib/queries";
 import { cx } from "../../../../lib/ui";
 import { IconAdd, IconClose, IconExport } from "../../../../icons";
+import { exportDamagesPdf } from "../../../../lib/exports";
 import type { DamagesCategory, DamagesItem } from "../../../../types";
 import { PanelAction, PanelHead } from "./PanelHead";
 
@@ -37,6 +38,7 @@ function effectiveCents(it: DamagesItem) {
 export function DamagesPanel({ matterId }: { matterId: string }) {
   const { data: items } = useDamages(matterId);
   const { data: docs } = useDocuments(matterId);
+  const { data: matter } = useMatter(matterId);
   const create = useCreateDamages(matterId);
   const update = useUpdateDamages(matterId);
   const del = useDeleteDamages(matterId);
@@ -65,9 +67,17 @@ export function DamagesPanel({ matterId }: { matterId: string }) {
         title="Itemized line items"
         sub="Group by category. Anchor each line to a Bates document where possible. Pain & suffering carries a multiplier so you can model alternative theories without hardcoding."
         actions={
-          <PanelAction primary onClick={() => setAdding("medical")}>
-            <IconAdd size={13} /> Add line item
-          </PanelAction>
+          <>
+            <PanelAction
+              disabled={!matter || list.length === 0}
+              onClick={() => matter && exportDamagesPdf(matter, list)}
+            >
+              <IconExport size={13} /> Export PDF
+            </PanelAction>
+            <PanelAction primary onClick={() => setAdding("medical")}>
+              <IconAdd size={13} /> Add line item
+            </PanelAction>
+          </>
         }
       />
 

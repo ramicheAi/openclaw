@@ -39,7 +39,15 @@ const SUGGESTIONS_DEFAULT = [
   "Build a chronology of key events",
 ];
 
-export function AskPanel({ matterId, onOpenCmdK }: { matterId: string; onOpenCmdK: () => void }) {
+export function AskPanel({
+  matterId,
+  onOpenCmdK,
+  onOpenCitation,
+}: {
+  matterId: string;
+  onOpenCmdK: () => void;
+  onOpenCitation?: (bates: string, page?: number) => void;
+}) {
   const history = useChatHistory(matterId);
   const ask = useAskThemis(matterId);
   const matter = useMatter(matterId).data;
@@ -82,7 +90,7 @@ export function AskPanel({ matterId, onOpenCmdK }: { matterId: string; onOpenCmd
         )}
         <div className="mx-auto max-w-3xl space-y-5">
           {turns.map((t) => (
-            <TurnView key={t.id} turn={t} />
+            <TurnView key={t.id} turn={t} onOpenCitation={onOpenCitation} />
           ))}
           {ask.isPending && <ThinkingBubble docCount={docCount} />}
         </div>
@@ -100,7 +108,7 @@ export function AskPanel({ matterId, onOpenCmdK }: { matterId: string; onOpenCmd
   );
 }
 
-function TurnView({ turn }: { turn: ChatTurn }) {
+function TurnView({ turn, onOpenCitation }: { turn: ChatTurn; onOpenCitation?: (bates: string, page?: number) => void }) {
   if (turn.role === "user") {
     return (
       <div className="flex justify-end">
@@ -124,7 +132,7 @@ function TurnView({ turn }: { turn: ChatTurn }) {
             {turn.confidence && <ConfidenceDot level={turn.confidence} withLabel />}
           </div>
           <div className="border-l-2 border-brass px-3.5 py-3 text-[13px] leading-relaxed text-ink">
-            <AnswerMarkdown text={turn.text} />
+            <AnswerMarkdown text={turn.text} onOpenCitation={onOpenCitation} />
           </div>
           {turn.citations && turn.citations.length > 0 && (
             <div className="border-t border-line bg-surface-sunken/60 px-3.5 py-2.5">
@@ -133,7 +141,11 @@ function TurnView({ turn }: { turn: ChatTurn }) {
               </div>
               <div className="mt-1.5 flex flex-wrap gap-1.5">
                 {turn.citations.map((c) => (
-                  <CitationChip key={`${c.bates}-${c.page}`} c={c} />
+                  <CitationChip
+                    key={`${c.bates}-${c.page}`}
+                    c={c}
+                    onClick={onOpenCitation ? () => onOpenCitation(c.bates, c.page) : undefined}
+                  />
                 ))}
               </div>
             </div>
@@ -239,25 +251,25 @@ function TryRow({ suggestions, onPick }: { suggestions: string[]; onPick: (q: st
 // (- or *), numbered lists (1. 2.), inline `code`, and Bates ids as styled
 // chips. Tiny on-purpose — no markdown library, no XSS surface (we walk tokens
 // and emit React nodes, never inject HTML).
-function AnswerMarkdown({ text }: { text: string }) {
+function AnswerMarkdown({ text, onOpenCitation }: { text: string; onOpenCitation?: (bates: string, page?: number) => void }) {
   const blocks = parseAnswer(text);
   return (
     <div className="space-y-2.5">
       {blocks.map((b, i) => {
-        if (b.kind === "h2") return <h3 key={i} className="mt-3 font-display text-[15.5px] font-semibold leading-snug text-ink first:mt-0">{renderInline(b.text)}</h3>;
-        if (b.kind === "h3") return <h4 key={i} className="mt-2.5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-brass-deep first:mt-0">{renderInline(b.text)}</h4>;
+        if (b.kind === "h2") return <h3 key={i} className="mt-3 font-display text-[15.5px] font-semibold leading-snug text-ink first:mt-0">{renderInline(b.text, onOpenCitation)}</h3>;
+        if (b.kind === "h3") return <h4 key={i} className="mt-2.5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-brass-deep first:mt-0">{renderInline(b.text, onOpenCitation)}</h4>;
         if (b.kind === "ul") return (
           <ul key={i} className="ml-4 list-disc space-y-1 marker:text-brass">
-            {b.items.map((it, j) => <li key={j} className="leading-relaxed text-ink">{renderInline(it)}</li>)}
+            {b.items.map((it, j) => <li key={j} className="leading-relaxed text-ink">{renderInline(it, onOpenCitation)}</li>)}
           </ul>
         );
         if (b.kind === "ol") return (
           <ol key={i} className="ml-5 list-decimal space-y-1 marker:font-mono marker:text-brass-deep">
-            {b.items.map((it, j) => <li key={j} className="leading-relaxed text-ink">{renderInline(it)}</li>)}
+            {b.items.map((it, j) => <li key={j} className="leading-relaxed text-ink">{renderInline(it, onOpenCitation)}</li>)}
           </ol>
         );
         // paragraph (the only remaining kind)
-        if (b.kind === "p") return <p key={i} className="leading-relaxed text-ink">{renderInline(b.text)}</p>;
+        if (b.kind === "p") return <p key={i} className="leading-relaxed text-ink">{renderInline(b.text, onOpenCitation)}</p>;
         return null;
       })}
     </div>
@@ -317,11 +329,13 @@ function parseAnswer(raw: string): Block[] {
 }
 
 // Inline pass: **bold**, `code`, Bates ids → chips. Renders to a React fragment.
-function renderInline(text: string): React.ReactNode {
+// When onOpenCitation is provided, Bates chips render as buttons that jump
+// to the Documents tab with the PDF viewer open at the cited page.
+function renderInline(text: string, onOpenCitation?: (bates: string, page?: number) => void): React.ReactNode {
   const nodes: React.ReactNode[] = [];
   // Tokenize: bold, code, bates, plain.
   // Order matters — match longest patterns first within each pass.
-  const re = /(\*\*[^*]+\*\*|`[^`]+`|\b[A-Z]{2,}-\d{3,}(?:[,;]?\s*p\.?\s*\d+)?)/g;
+  const re = /(\*\*[^*]+\*\*|`[^`]+`|\b([A-Z]{2,}-\d{3,})(?:[,;]?\s*p\.?\s*(\d+))?)/g;
   let last = 0;
   let m: RegExpExecArray | null;
   let key = 0;
@@ -333,15 +347,24 @@ function renderInline(text: string): React.ReactNode {
     } else if (tok.startsWith("`")) {
       nodes.push(<code key={key++} className="rounded bg-surface-sunken px-1 py-0.5 font-mono text-[11.5px] text-ink">{tok.slice(1, -1)}</code>);
     } else {
-      // Bates id (with optional page like "OLIV-000014, p. 3")
-      nodes.push(
-        <span
-          key={key++}
-          className="inline-flex items-center gap-0.5 rounded border border-brass-soft bg-brass-wash px-1 py-px font-mono text-[10.5px] text-brass-deep"
-        >
-          {tok.replace(/\s+/g, " ")}
-        </span>,
-      );
+      const bates = m[2];
+      const page = m[3] ? Number(m[3]) : undefined;
+      const label = tok.replace(/\s+/g, " ");
+      const cls = "inline-flex items-center gap-0.5 rounded border border-brass-soft bg-brass-wash px-1 py-px font-mono text-[10.5px] text-brass-deep align-middle";
+      if (onOpenCitation && bates) {
+        nodes.push(
+          <button
+            key={key++}
+            onClick={() => onOpenCitation(bates, page)}
+            title={`Open ${bates}${page ? ", p." + page : ""}`}
+            className={cx(cls, "transition hover:brightness-[0.95] focus:outline-none focus:ring-2 focus:ring-brass/30")}
+          >
+            {label}
+          </button>,
+        );
+      } else {
+        nodes.push(<span key={key++} className={cls}>{label}</span>);
+      }
     }
     last = m.index + tok.length;
   }

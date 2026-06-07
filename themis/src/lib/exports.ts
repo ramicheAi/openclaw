@@ -7,7 +7,7 @@
 // imported on first export so the initial bundle stays lean.
 
 import type { jsPDF as JsPDFType } from "jspdf";
-import type { Binder, ChronEvent, DocItem, MatterDetail } from "../types";
+import type { Binder, ChronEvent, DamagesItem, DocItem, MatterDetail } from "../types";
 
 async function loadJsPdf() {
   const mod = await import("jspdf");
@@ -245,4 +245,135 @@ export async function exportBinderPdf(binder: Binder) {
     y += lines.length * 12 + 8;
   });
   doc.save(`${binder.name.replace(/\s+/g, "-")}.pdf`);
+}
+
+// Damages model — court-style itemized PDF with per-category subtotals, the
+// multiplier applied to pain & suffering (or anywhere it's > 1), and a grand
+// total. Anchor Bates ids print in courier so they're recognizable as
+// citations. Mirrors how a damages worksheet looks at mediation.
+const DAMAGES_CATEGORY_LABEL: Record<DamagesItem["category"], string> = {
+  medical: "Medical",
+  lost_wages: "Lost wages",
+  property: "Property",
+  pain_suffering: "Pain & suffering",
+  future_care: "Future care",
+  other: "Other",
+};
+const DAMAGES_CATEGORY_ORDER: DamagesItem["category"][] = [
+  "medical",
+  "lost_wages",
+  "property",
+  "future_care",
+  "pain_suffering",
+  "other",
+];
+
+function fmtCents(cents: number) {
+  return `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+export async function exportDamagesPdf(matter: MatterDetail, items: DamagesItem[]) {
+  const Ctor = await loadJsPdf();
+  const doc = new Ctor({ unit: "pt", format: "letter" });
+  pdfHeader(doc, matter, "Damages Itemization");
+  let y = 130;
+
+  doc.setFont("times", "bold");
+  doc.setFontSize(10);
+  doc.text("Description", 40, y);
+  doc.text("Date", 320, y);
+  doc.text("Bates", 380, y);
+  doc.text("Amount", 470, y);
+  doc.text("Total", 525, y);
+  y += 8;
+  doc.setLineWidth(0.3);
+  doc.line(40, y, 555, y);
+  y += 14;
+  doc.setFont("times", "normal");
+  doc.setFontSize(10);
+
+  let grandTotal = 0;
+  let economic = 0;
+  let nonEconomic = 0;
+
+  for (const cat of DAMAGES_CATEGORY_ORDER) {
+    const rows = items.filter((it) => it.category === cat);
+    if (rows.length === 0) continue;
+
+    if (y > 720) {
+      doc.addPage();
+      y = 60;
+    }
+
+    doc.setFont("times", "bold");
+    doc.setFontSize(11);
+    doc.text(DAMAGES_CATEGORY_LABEL[cat], 40, y);
+    y += 14;
+    doc.setFont("times", "normal");
+    doc.setFontSize(10);
+
+    let subtotal = 0;
+    for (const it of rows) {
+      if (y > 760) {
+        doc.addPage();
+        y = 60;
+      }
+      const eff = Math.round(it.amountCents * (it.multiplier || 1));
+      subtotal += eff;
+      const descLines = doc.splitTextToSize(it.description, 270) as string[];
+      doc.text(descLines, 40, y);
+      doc.text(it.dateIncurred ?? "—", 320, y);
+      if (it.citationBates) {
+        doc.setFont("courier", "normal");
+        doc.setFontSize(9);
+        doc.text(it.citationBates, 380, y);
+        doc.setFont("times", "normal");
+        doc.setFontSize(10);
+      } else {
+        doc.text("—", 380, y);
+      }
+      doc.text(fmtCents(it.amountCents), 470, y, { align: "right" } as never);
+      if (it.multiplier !== 1) {
+        doc.setFont("times", "italic");
+        doc.text(`×${it.multiplier}`, 503, y);
+        doc.setFont("times", "normal");
+      }
+      doc.text(fmtCents(eff), 555, y, { align: "right" } as never);
+      y += descLines.length * 12 + 6;
+    }
+    doc.setLineWidth(0.3);
+    doc.line(380, y - 2, 555, y - 2);
+    doc.setFont("times", "bold");
+    doc.text(`${DAMAGES_CATEGORY_LABEL[cat]} subtotal`, 380, y + 10);
+    doc.text(fmtCents(subtotal), 555, y + 10, { align: "right" } as never);
+    doc.setFont("times", "normal");
+    y += 26;
+
+    grandTotal += subtotal;
+    if (cat === "pain_suffering") nonEconomic += subtotal;
+    else economic += subtotal;
+  }
+
+  if (y > 700) {
+    doc.addPage();
+    y = 60;
+  }
+  doc.setLineWidth(0.6);
+  doc.line(40, y, 555, y);
+  y += 18;
+  doc.setFont("times", "normal");
+  doc.setFontSize(10);
+  doc.text("Economic damages", 380, y);
+  doc.text(fmtCents(economic), 555, y, { align: "right" } as never);
+  y += 14;
+  doc.text("Non-economic damages", 380, y);
+  doc.text(fmtCents(nonEconomic), 555, y, { align: "right" } as never);
+  y += 18;
+  doc.setFont("times", "bold");
+  doc.setFontSize(13);
+  doc.text("TOTAL DAMAGES", 380, y);
+  doc.text(fmtCents(grandTotal), 555, y, { align: "right" } as never);
+
+  pdfFooter(doc, items.length, "Damages itemization · prepared with Themis.");
+  doc.save(`${matter.id}-damages.pdf`);
 }

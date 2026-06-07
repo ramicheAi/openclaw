@@ -162,6 +162,18 @@ export interface ConflictHit {
   org: string;
 }
 
+// --- Speaker timeline ---
+
+export interface SpokenLine {
+  docId: string;
+  bates: string;
+  docTitle: string;
+  speaker: string;
+  timestampSeconds: number;
+  timestamp: string;
+  text: string;
+}
+
 // --- Damages ---
 
 export type DamagesCategory =

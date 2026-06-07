@@ -5,9 +5,11 @@
 // that drops the user into the filtered Documents tab.
 
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Card, SectionLabel, HotTag, PrivilegePill, cx } from "../../../lib/ui";
 import { IconClose, IconEntity, IconChron } from "../../../icons";
 import { useDocuments } from "../../../lib/queries";
+import { api } from "../../../lib/api";
 import { DepositionOutlineModal } from "../../../components/DepositionOutlineModal";
 import type { Entity } from "../../../types";
 
@@ -16,9 +18,10 @@ interface Props {
   matterId: string;
   onClose: () => void;
   onJumpDocuments?: (entityName: string) => void;
+  onOpenCitation?: (bates: string, page?: number) => void;
 }
 
-export function EntityDossier({ entity, matterId, onClose, onJumpDocuments }: Props) {
+export function EntityDossier({ entity, matterId, onClose, onJumpDocuments, onOpenCitation }: Props) {
   const { data: docs } = useDocuments(matterId);
   const [depoFor, setDepoFor] = useState<string | null>(null);
   const open = !!entity;
@@ -27,6 +30,14 @@ export function EntityDossier({ entity, matterId, onClose, onJumpDocuments }: Pr
     const names = new Set<string>([entity.name, ...entity.aliases]);
     return docs.filter((d) => d.entities.some((e) => names.has(e)));
   }, [docs, entity]);
+
+  // Pull every transcript line spoken by this entity across the matter.
+  // Disabled when the dossier is closed so we don't spam the server.
+  const quotes = useQuery({
+    queryKey: ["entity-quotes", matterId, entity?.name ?? "", (entity?.aliases ?? []).join(",")],
+    queryFn: () => api.listSpokenLines(matterId, entity!.name, entity?.aliases ?? []),
+    enabled: open && !!entity,
+  });
   return (
     <div
       className={cx(
@@ -87,6 +98,38 @@ export function EntityDossier({ entity, matterId, onClose, onJumpDocuments }: Pr
 
           {/* Documents this entity appears in — the workhorse view that turns
            * a dossier into a navigation surface. */}
+          {/* Spoken-in-transcripts timeline. Lit up automatically when the
+              corpus has transcribed audio/video with this entity as a speaker. */}
+          {(quotes.data?.length ?? 0) > 0 && (
+            <Card className="mt-3 p-3">
+              <div className="flex items-baseline justify-between">
+                <SectionLabel>Spoken in transcripts</SectionLabel>
+                <span className="font-mono text-[10px] text-ink-faint">{quotes.data!.length} lines</span>
+              </div>
+              <ul className="mt-1 max-h-[260px] space-y-1.5 overflow-y-auto">
+                {quotes.data!.slice(0, 50).map((q, i) => (
+                  <li key={i}>
+                    <button
+                      onClick={() => onOpenCitation?.(q.bates)}
+                      className="block w-full rounded px-1.5 py-1 text-left hover:bg-surface-sunken"
+                      title={`Open ${q.bates} (${q.docTitle})`}
+                    >
+                      <div className="flex items-center gap-1 font-mono text-[9.5px] text-brass-deep">
+                        <span>{q.timestamp}</span>
+                        <span className="text-ink-faint">·</span>
+                        <span className="rounded border border-line bg-surface px-1 py-px text-[9px] text-ink-soft">{q.bates}</span>
+                      </div>
+                      <div className="mt-0.5 line-clamp-2 text-[11.5px] leading-snug text-ink">{q.text}</div>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              {quotes.data!.length > 50 && (
+                <div className="mt-1 text-[10px] text-ink-faint">+ {quotes.data!.length - 50} more lines</div>
+              )}
+            </Card>
+          )}
+
           {docsByEntity.length > 0 && (
             <Card className="mt-3 p-3">
               <div className="flex items-baseline justify-between">

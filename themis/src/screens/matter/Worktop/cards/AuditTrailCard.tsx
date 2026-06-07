@@ -2,6 +2,7 @@
 // form server-side (e.g. "chronology.accept", "privilege.flag", "chat.query")
 // but the user-facing tag is the verb only ("ACCEPTED", "FLAGGED", "ASKED").
 
+import { useState } from "react";
 import { Card, SectionLabel } from "../../../../lib/ui";
 import type { AuditEntry, DocItem } from "../../../../types";
 
@@ -81,6 +82,8 @@ function displayActor(raw: string): string {
 }
 
 export function AuditTrailCard({ entries, documents = [] }: { entries: AuditEntry[]; documents?: DocItem[] }) {
+  const [expanded, setExpanded] = useState(false);
+  const limit = expanded ? entries.length : 5;
   return (
     <Card className="p-4">
       <div className="flex items-center justify-between">
@@ -90,8 +93,8 @@ export function AuditTrailCard({ entries, documents = [] }: { entries: AuditEntr
       {entries.length === 0 ? (
         <div className="mt-2 text-[12px] text-ink-faint">No activity yet.</div>
       ) : (
-        <ul className="mt-2 divide-y divide-line">
-          {entries.slice(0, 5).map((e) => {
+        <ul className={expanded ? "mt-2 max-h-[420px] divide-y divide-line overflow-y-auto" : "mt-2 divide-y divide-line"}>
+          {entries.slice(0, limit).map((e) => {
             const author = authorFor(e.detail, documents);
             return (
               <li key={e.id} className="py-2 first:pt-1 last:pb-1">
@@ -121,6 +124,14 @@ export function AuditTrailCard({ entries, documents = [] }: { entries: AuditEntr
             );
           })}
         </ul>
+      )}
+      {entries.length > 5 && (
+        <button
+          onClick={() => setExpanded((v) => !v)}
+          className="mt-2 font-mono text-[9.5px] uppercase tracking-wider text-ink-faint hover:text-ink-soft"
+        >
+          {expanded ? `Show 5 most recent` : `Show all ${entries.length}`}
+        </button>
       )}
     </Card>
   );

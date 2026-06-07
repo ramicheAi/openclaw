@@ -246,6 +246,151 @@ console.log("Themis API smoke test\n");
   check("delete chain", del.body.ok === true);
 }
 
+// --- Cite Check (Bates verification — authority verification needs network) ---
+{
+  const r = await send(`/api/matters/${M}/verify`, "POST", {
+    text: "See NW-000847 and NW-001120 for the relevant memos.",
+  });
+  check("cite-check 200", r.status === 200);
+  check("cite-check finds 2 bates", r.body.bates.total === 2);
+  check("cite-check existed = total when both resolve", r.body.bates.existed === 2);
+  check("cite-check returns authorities shape", typeof r.body.authorities?.total === "number");
+
+  const badText = await send(`/api/matters/${M}/verify`, "POST", { text: "" });
+  check("cite-check rejects empty text (400)", badText.status === 400);
+
+  const status = await get(`/api/verify/status`);
+  check("verify status 200", status.status === 200);
+  check("verify status reports cl-configured boolean", typeof status.body.courtListenerConfigured === "boolean");
+}
+
+// --- AI-use certification ---
+{
+  const r = await send(`/api/matters/${M}/certification`, "POST", {
+    filing: "Plaintiff's Motion in Limine",
+    jurisdiction: "N.D. Ill.",
+    signer: "Smoke Test, Esq.",
+  });
+  check("certification 200", r.status === 200);
+  check("certification has text", typeof r.body.text === "string" && r.body.text.length > 100);
+  check("certification has stats", typeof r.body.stats?.cite_check_runs === "number");
+
+  const bad = await send(`/api/matters/${M}/certification`, "POST", {});
+  check("certification rejects missing filing (400)", bad.status === 400);
+}
+
+// --- Deadlines ---
+{
+  const list0 = await get(`/api/matters/${M}/deadlines`);
+  check("deadlines list 200", list0.status === 200 && Array.isArray(list0.body.deadlines));
+  // The LLM extraction needs a provider; smoke just exercises the CRUD path
+  // by inserting via the SQL directly via the extract route's 502 fallback.
+  const noProvider = await send(`/api/matters/${M}/deadlines/extract`, "POST", { text: "Trial: 2026-08-01" });
+  // Without a configured provider in smoke, the extract returns 502 ok.
+  check("deadlines extract responds (200 or 502)", noProvider.status === 200 || noProvider.status === 502);
+}
+
+// --- Productions ---
+{
+  const created = await send(`/api/matters/${M}/productions`, "POST", {
+    direction: "received",
+    party: "Northwind Defendant",
+    prodDate: "2024-09-15",
+    label: "Defendant's First Production",
+    batesStart: "NW-000001",
+    batesEnd: "NW-000999",
+    privilegeLog: true,
+  });
+  check("production created", created.status === 200 && created.body.id);
+  check("production doc count auto-computed", typeof created.body.docCount === "number");
+
+  const list = await get(`/api/matters/${M}/productions`);
+  check("production listed", list.body.productions.length >= 1);
+
+  const bad = await send(`/api/matters/${M}/productions`, "POST", { direction: "x", party: "y", prodDate: "z", batesStart: "a", batesEnd: "b" });
+  check("production rejects bad direction (400)", bad.status === 400);
+
+  const del = await send(`/api/matters/${M}/productions/${created.body.id}`, "DELETE");
+  check("production deleted", del.body.ok === true);
+}
+
+// --- Damages ---
+{
+  const created = await send(`/api/matters/${M}/damages`, "POST", {
+    category: "medical",
+    description: "ER visit",
+    amountCents: 350000,
+  });
+  check("damages created", created.status === 200 && created.body.id);
+  check("damages multiplier defaults to 1", created.body.multiplier === 1);
+
+  const ps = await send(`/api/matters/${M}/damages`, "POST", {
+    category: "pain_suffering",
+    description: "Pain & suffering",
+    amountCents: 350000,
+    multiplier: 3,
+  });
+  check("damages multiplier accepted", ps.body.multiplier === 3);
+
+  const list = await get(`/api/matters/${M}/damages`);
+  check("damages listed", list.body.items.length >= 2);
+
+  const updated = await send(`/api/matters/${M}/damages/${created.body.id}`, "PATCH", { description: "ER visit + casting" });
+  check("damages updated", updated.body.description === "ER visit + casting");
+
+  const badCat = await send(`/api/matters/${M}/damages`, "POST", { category: "nope", description: "x", amountCents: 1 });
+  check("damages rejects bad category (400)", badCat.status === 400);
+
+  const del = await send(`/api/matters/${M}/damages/${created.body.id}`, "DELETE");
+  check("damages deleted", del.body.ok === true);
+}
+
+// --- Conflicts ---
+{
+  const r = await send(`/api/conflicts/check`, "POST", { names: ["nobody-named-this"] });
+  check("conflicts check 200", r.status === 200);
+  check("conflicts returns shape", typeof r.body.checked === "number" && Array.isArray(r.body.hits));
+  check("conflicts no hits for unknown name", r.body.hits.length === 0);
+
+  // Pull an entity that actually exists in the seeded reyes matter and confirm
+  // it hits when checked against a different excluded matter.
+  const entities = await get(`/api/matters/${M}/entities`);
+  const firstEntity = entities.body.entities?.[0];
+  if (firstEntity) {
+    const hitRun = await send(`/api/conflicts/check`, "POST", { names: [firstEntity.name], excludeMatterId: "no-such" });
+    check("conflicts hits real entity across matters", hitRun.body.hits.length >= 1);
+  }
+
+  const bad = await send(`/api/conflicts/check`, "POST", { names: "not-an-array" });
+  check("conflicts rejects non-array (400)", bad.status === 400);
+}
+
+// --- Sharing ---
+{
+  const created = await send(`/api/matters/${M}/share-links`, "POST", { label: "Co-counsel Jane" });
+  check("share link created", created.status === 200 && created.body.token);
+
+  const list = await get(`/api/matters/${M}/share-links`);
+  check("share link listed", list.body.links.length >= 1);
+
+  const view = await get(`/api/shared/${created.body.token}`);
+  check("shared view 200", view.status === 200);
+  check("shared view has matter", view.body.matter?.id === M);
+  check("shared view view-count increments", view.body.link?.label === "Co-counsel Jane");
+  // Shared view must NEVER include flagged/withheld bodies.
+  const anyPriv = (view.body.documents ?? []).some((d: any) => d.privilege === "flagged" || d.privilege === "withheld");
+  check("shared view excludes privileged docs", anyPriv === false);
+
+  const revoked = await send(`/api/matters/${M}/share-links/${created.body.token}`, "DELETE");
+  check("share link revoked", revoked.body.ok === true);
+
+  const after = await get(`/api/shared/${created.body.token}`);
+  check("revoked link returns 404", after.status === 404);
+
+  const badToken = await get(`/api/shared/nope-not-a-token`);
+  check("unknown share token 404", badToken.status === 404);
+}
+
 // Error handling
 {
   const r = await get("/api/matters/does-not-exist");

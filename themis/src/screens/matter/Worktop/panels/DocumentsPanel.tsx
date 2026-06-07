@@ -11,10 +11,21 @@ import { PdfViewer } from "../../../../components/PdfViewer";
 import type { DocItem } from "../../../../types";
 import { PanelAction, PanelHead } from "./PanelHead";
 
-export function DocumentsPanel({ matterId, initialFilter }: { matterId: string; initialFilter?: string }) {
+export function DocumentsPanel({
+  matterId,
+  initialFilter,
+  initialPage,
+}: {
+  matterId: string;
+  initialFilter?: string;
+  initialPage?: number;
+}) {
   const { data: docs } = useDocuments(matterId);
   const review = useSetDocReview(matterId);
   const [filter, setFilter] = useState(initialFilter ?? "");
+  // When a citation jump-in arrives with a page, remember it so the right
+  // pane auto-opens the PDF viewer at that page.
+  const [pendingPage, setPendingPage] = useState<number | undefined>(initialPage);
   const [addOpen, setAddOpen] = useState(false);
   // Best-effort Bates prefix from any existing document — keeps newly added
   // docs grouped under the same prefix the user is already using.
@@ -26,6 +37,11 @@ export function DocumentsPanel({ matterId, initialFilter }: { matterId: string; 
     if (initialFilter) setFilter(initialFilter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialFilter]);
+  // Pick up new initialPage when caller re-fires a click on the same Bates
+  // with a different page.
+  useEffect(() => {
+    if (typeof initialPage === "number") setPendingPage(initialPage);
+  }, [initialPage]);
   const [selA, setSelA] = useState<string | null>(null);
   const [selB, setSelB] = useState<string | null>(null);
 
@@ -135,7 +151,15 @@ export function DocumentsPanel({ matterId, initialFilter }: { matterId: string; 
             </div>
           ) : (
             <div className={cx("grid gap-5", docB && "grid-cols-2")}>
-              <DocView doc={docA} matterId={matterId} side="A" onToggleHot={() => toggleHot(docA)} onToggleReviewed={() => toggleReviewed(docA)} />
+              <DocView
+                doc={docA}
+                matterId={matterId}
+                side="A"
+                initialPage={pendingPage}
+                onPageConsumed={() => setPendingPage(undefined)}
+                onToggleHot={() => toggleHot(docA)}
+                onToggleReviewed={() => toggleReviewed(docA)}
+              />
               {docB && <DocView doc={docB} matterId={matterId} side="B" onToggleHot={() => toggleHot(docB)} onToggleReviewed={() => toggleReviewed(docB)} />}
             </div>
           )}
@@ -157,12 +181,16 @@ function DocView({
   doc,
   matterId,
   side,
+  initialPage,
+  onPageConsumed,
   onToggleHot,
   onToggleReviewed,
 }: {
   doc: DocItem;
   matterId: string;
   side: "A" | "B";
+  initialPage?: number;
+  onPageConsumed?: () => void;
   onToggleHot: () => void;
   onToggleReviewed: () => void;
 }) {
@@ -178,6 +206,14 @@ function DocView({
   const [renaming, setRenaming] = useState(false);
   const [ocring, setOcring] = useState(false);
   const [viewSource, setViewSource] = useState(false);
+  // Arriving via a citation jump pre-opens the PDF viewer at the cited page.
+  useEffect(() => {
+    if (typeof initialPage === "number" && initialPage > 0) {
+      setViewSource(true);
+      onPageConsumed?.();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialPage, doc.id]);
   return (
     <article className="overflow-hidden rounded-lg border border-line bg-surface">
       <div className="flex">
@@ -258,7 +294,7 @@ function DocView({
             // doc was added before persistence shipped (we surface a
             // re-attach dropzone there so the operator can drop the original).
             <div className="h-[600px] border-l-2 border-brass">
-              <PdfViewer matterId={matterId} docId={doc.id} bates={doc.bates} />
+              <PdfViewer matterId={matterId} docId={doc.id} bates={doc.bates} initialPage={initialPage} />
             </div>
           ) : (
             <FormattedBody body={doc.body} />

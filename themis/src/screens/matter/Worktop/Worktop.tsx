@@ -42,10 +42,18 @@ export function Worktop({
   const { data: entities } = useEntities(matterId);
   const { data: chron } = useChronology(matterId);
   const { data: priv } = usePrivilegeQueue(matterId);
-  const { data: audit } = useAudit(matterId, 10);
+  const { data: audit } = useAudit(matterId, 200);
 
   const [dossier, setDossier] = useState<Entity | null>(null);
   const [docFilter, setDocFilter] = useState<string>("");
+  // When a citation chip is clicked anywhere, we jump to Documents filtered
+  // to that Bates and open the PDF viewer at the cited page.
+  const [docInitialPage, setDocInitialPage] = useState<number | undefined>(undefined);
+  const openCitation = (bates: string, page = 1) => {
+    setDocFilter(bates);
+    setDocInitialPage(page);
+    onTab("documents");
+  };
 
   if (!matter) return <LoadingFrame />;
 
@@ -82,7 +90,7 @@ export function Worktop({
           badges={{ chronology: pendingChron, privilege: flaggedPriv }}
         />
         <div className="min-h-0 flex-1" data-tour="ask">
-          {tab === "ask" && <AskPanel matterId={matterId} onOpenCmdK={onOpenCmdK} />}
+          {tab === "ask" && <AskPanel matterId={matterId} onOpenCmdK={onOpenCmdK} onOpenCitation={openCitation} />}
           {tab === "chronology" && (
             <ChronologyPanel
               matterId={matterId}
@@ -111,7 +119,7 @@ export function Worktop({
               }}
             />
           )}
-          {tab === "documents" && <DocumentsPanel matterId={matterId} initialFilter={docFilter} />}
+          {tab === "documents" && <DocumentsPanel matterId={matterId} initialFilter={docFilter} initialPage={docInitialPage} />}
           {tab === "verify" && <CiteCheckPanel matterId={matterId} />}
           {tab === "draft" && <DraftPanel matterId={matterId} />}
           {tab === "damages" && <DamagesPanel matterId={matterId} />}
@@ -148,6 +156,10 @@ export function Worktop({
           setDocFilter(name);
           setDossier(null);
           onTab("documents");
+        }}
+        onOpenCitation={(bates, page) => {
+          setDossier(null);
+          openCitation(bates, page);
         }}
       />
     </div>

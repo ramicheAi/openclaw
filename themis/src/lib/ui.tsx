@@ -22,7 +22,7 @@ export function ConfidenceDot({ level, withLabel }: { level: Confidence; withLab
   );
 }
 
-export function CitationChip({ c }: { c: Citation }) {
+export function CitationChip({ c, onClick }: { c: Citation; onClick?: () => void }) {
   // Three honest states:
   //   entailed  → solid green check (source page supports the claim)
   //   verified  → outlined amber (Bates exists but entailment is weak — "located, not entailed")
@@ -36,21 +36,32 @@ export function CitationChip({ c }: { c: Citation }) {
   }[state];
   const title =
     state === "entailed"
-      ? `Verified · source entails the claim${typeof c.supportScore === "number" ? ` (support ${(c.supportScore * 100).toFixed(0)}%)` : ""}`
+      ? `Open ${c.bates}, p.${c.page} · source entails the claim${typeof c.supportScore === "number" ? ` (support ${(c.supportScore * 100).toFixed(0)}%)` : ""}`
       : state === "located"
-        ? `Located · Bates resolves but entailment is weak${typeof c.supportScore === "number" ? ` (support ${(c.supportScore * 100).toFixed(0)}%)` : ""}`
-        : "Bates does not resolve in this matter";
-  return (
-    <span
-      className={cx(
-        "inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 align-middle font-mono text-[11px] leading-none",
-        styles,
-      )}
-      title={title}
-    >
+        ? `Open ${c.bates}, p.${c.page} · entailment is weak${typeof c.supportScore === "number" ? ` (support ${(c.supportScore * 100).toFixed(0)}%)` : ""}`
+        : `${c.bates} does not resolve in this matter`;
+  const inner = (
+    <>
       {state === "entailed" && <BadgeCheck size={12} strokeWidth={2.4} />}
       {state === "located" && <ShieldAlert size={12} strokeWidth={2.4} />}
       {c.bates}
+      {c.page > 1 && <span className="opacity-70">·p{c.page}</span>}
+    </>
+  );
+  const base = cx(
+    "inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 align-middle font-mono text-[11px] leading-none",
+    styles,
+  );
+  if (onClick && c.verified) {
+    return (
+      <button onClick={onClick} title={title} className={cx(base, "transition hover:brightness-[0.95] focus:outline-none focus:ring-2 focus:ring-brass/30")}>
+        {inner}
+      </button>
+    );
+  }
+  return (
+    <span className={base} title={title}>
+      {inner}
     </span>
   );
 }

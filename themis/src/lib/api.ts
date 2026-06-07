@@ -30,6 +30,7 @@ import type {
   SharedView,
   DamagesItem,
   DamagesCategory,
+  SpokenLine,
 } from "../types";
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
@@ -245,6 +246,13 @@ export const api = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
+
+  // --- Speaker timeline ---
+
+  listSpokenLines: (id: string, entityName: string, aliases: string[] = []) =>
+    request<{ name: string; lines: SpokenLine[] }>(
+      `/api/matters/${id}/entities/${encodeURIComponent(entityName)}/quotes${aliases.length ? `?aliases=${encodeURIComponent(aliases.join(","))}` : ""}`,
+    ).then((r) => r.lines),
 
   // --- Deposition outline ---
 
