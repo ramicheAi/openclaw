@@ -4,7 +4,7 @@ import { audit, getDocument, listDocuments, matterExists, setDocReview } from ".
 import { searchService } from "../services.js";
 
 function actor(c: Context): string {
-  return c.req.header("x-themis-actor") || "D. Okafor";
+  return c.req.header("x-themis-actor") || "you";
 }
 
 export function registerCorpusRoutes(app: Hono, db: DB) {

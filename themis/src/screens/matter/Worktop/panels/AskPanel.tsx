@@ -124,7 +124,7 @@ function TurnView({ turn }: { turn: ChatTurn }) {
             {turn.confidence && <ConfidenceDot level={turn.confidence} withLabel />}
           </div>
           <div className="border-l-2 border-brass px-3.5 py-3 text-[13px] leading-relaxed text-ink">
-            {turn.text}
+            <AnswerMarkdown text={turn.text} />
           </div>
           {turn.citations && turn.citations.length > 0 && (
             <div className="border-t border-line bg-surface-sunken/60 px-3.5 py-2.5">
@@ -232,6 +232,121 @@ function TryRow({ suggestions, onPick }: { suggestions: string[]; onPick: (q: st
       </div>
     </div>
   );
+}
+
+// AnswerMarkdown — render the model's grounded answer with real formatting.
+// Handles: `## H2`, `### H3`, `**bold**`, paragraph breaks, bullet lists
+// (- or *), numbered lists (1. 2.), inline `code`, and Bates ids as styled
+// chips. Tiny on-purpose — no markdown library, no XSS surface (we walk tokens
+// and emit React nodes, never inject HTML).
+function AnswerMarkdown({ text }: { text: string }) {
+  const blocks = parseAnswer(text);
+  return (
+    <div className="space-y-2.5">
+      {blocks.map((b, i) => {
+        if (b.kind === "h2") return <h3 key={i} className="mt-3 font-display text-[15.5px] font-semibold leading-snug text-ink first:mt-0">{renderInline(b.text)}</h3>;
+        if (b.kind === "h3") return <h4 key={i} className="mt-2.5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-brass-deep first:mt-0">{renderInline(b.text)}</h4>;
+        if (b.kind === "ul") return (
+          <ul key={i} className="ml-4 list-disc space-y-1 marker:text-brass">
+            {b.items.map((it, j) => <li key={j} className="leading-relaxed text-ink">{renderInline(it)}</li>)}
+          </ul>
+        );
+        if (b.kind === "ol") return (
+          <ol key={i} className="ml-5 list-decimal space-y-1 marker:font-mono marker:text-brass-deep">
+            {b.items.map((it, j) => <li key={j} className="leading-relaxed text-ink">{renderInline(it)}</li>)}
+          </ol>
+        );
+        // paragraph (the only remaining kind)
+        if (b.kind === "p") return <p key={i} className="leading-relaxed text-ink">{renderInline(b.text)}</p>;
+        return null;
+      })}
+    </div>
+  );
+}
+
+type Block =
+  | { kind: "p" | "h2" | "h3"; text: string }
+  | { kind: "ul" | "ol"; items: string[] };
+
+function parseAnswer(raw: string): Block[] {
+  // The model sometimes pads with spaces around em-dashes and sometimes uses
+  // literal " — " between fields. Don't transform — just split on lines and
+  // group. Strip the trailing "CITATIONS: ..." line; citations render in the
+  // dedicated chip strip below the answer.
+  const text = raw.replace(/\n?CITATIONS:\s*.*$/m, "").trim();
+  const lines = text.split(/\n/);
+  const blocks: Block[] = [];
+  let para: string[] = [];
+  let list: { kind: "ul" | "ol"; items: string[] } | null = null;
+  const flushPara = () => {
+    if (para.length === 0) return;
+    blocks.push({ kind: "p", text: para.join(" ").trim() });
+    para = [];
+  };
+  const flushList = () => {
+    if (!list) return;
+    blocks.push(list);
+    list = null;
+  };
+  for (const ln of lines) {
+    const t = ln.trim();
+    if (!t) { flushPara(); flushList(); continue; }
+    if (t.startsWith("### ")) { flushPara(); flushList(); blocks.push({ kind: "h3", text: t.slice(4) }); continue; }
+    if (t.startsWith("## ")) { flushPara(); flushList(); blocks.push({ kind: "h2", text: t.slice(3) }); continue; }
+    if (t.startsWith("# ")) { flushPara(); flushList(); blocks.push({ kind: "h2", text: t.slice(2) }); continue; }
+    const ul = t.match(/^[-*]\s+(.+)$/);
+    if (ul) {
+      flushPara();
+      if (!list || list.kind !== "ul") { flushList(); list = { kind: "ul", items: [] }; }
+      list.items.push(ul[1]);
+      continue;
+    }
+    const ol = t.match(/^\d+[.)]\s+(.+)$/);
+    if (ol) {
+      flushPara();
+      if (!list || list.kind !== "ol") { flushList(); list = { kind: "ol", items: [] }; }
+      list.items.push(ol[1]);
+      continue;
+    }
+    flushList();
+    para.push(t);
+  }
+  flushPara();
+  flushList();
+  return blocks;
+}
+
+// Inline pass: **bold**, `code`, Bates ids → chips. Renders to a React fragment.
+function renderInline(text: string): React.ReactNode {
+  const nodes: React.ReactNode[] = [];
+  // Tokenize: bold, code, bates, plain.
+  // Order matters — match longest patterns first within each pass.
+  const re = /(\*\*[^*]+\*\*|`[^`]+`|\b[A-Z]{2,}-\d{3,}(?:[,;]?\s*p\.?\s*\d+)?)/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let key = 0;
+  while ((m = re.exec(text))) {
+    if (m.index > last) nodes.push(<span key={key++}>{text.slice(last, m.index)}</span>);
+    const tok = m[0];
+    if (tok.startsWith("**")) {
+      nodes.push(<strong key={key++} className="font-semibold text-ink">{tok.slice(2, -2)}</strong>);
+    } else if (tok.startsWith("`")) {
+      nodes.push(<code key={key++} className="rounded bg-surface-sunken px-1 py-0.5 font-mono text-[11.5px] text-ink">{tok.slice(1, -1)}</code>);
+    } else {
+      // Bates id (with optional page like "OLIV-000014, p. 3")
+      nodes.push(
+        <span
+          key={key++}
+          className="inline-flex items-center gap-0.5 rounded border border-brass-soft bg-brass-wash px-1 py-px font-mono text-[10.5px] text-brass-deep"
+        >
+          {tok.replace(/\s+/g, " ")}
+        </span>,
+      );
+    }
+    last = m.index + tok.length;
+  }
+  if (last < text.length) nodes.push(<span key={key++}>{text.slice(last)}</span>);
+  return <>{nodes}</>;
 }
 
 function InputBar({

@@ -11,7 +11,7 @@ import {
 import type { CausalChainNode } from "../types.js";
 
 function actor(c: Context): string {
-  return c.req.header("x-themis-actor") || "D. Okafor";
+  return c.req.header("x-themis-actor") || "you";
 }
 
 function isNodeArray(v: unknown): v is CausalChainNode[] {

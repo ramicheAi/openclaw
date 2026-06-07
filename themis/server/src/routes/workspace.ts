@@ -14,7 +14,7 @@ import { assessCitation, chatService, privilegeService } from "../services.js";
 import { getDocumentByBates } from "../repo.js";
 
 function actor(c: Context): string {
-  return c.req.header("x-themis-actor") || "D. Okafor";
+  return c.req.header("x-themis-actor") || "you";
 }
 
 export function registerWorkspaceRoutes(app: Hono, db: DB) {
