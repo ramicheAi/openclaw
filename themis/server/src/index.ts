@@ -11,6 +11,9 @@ import { registerChainRoutes } from "./routes/chains.js";
 import { registerVerifyRoutes } from "./routes/verify.js";
 import { registerDeadlineRoutes } from "./routes/deadlines.js";
 import { registerDraftRoutes } from "./routes/drafts.js";
+import { registerProductionRoutes } from "./routes/productions.js";
+import { registerConflictRoutes } from "./routes/conflicts.js";
+import { registerSharingRoutes } from "./routes/sharing.js";
 
 export function buildApp(db = getDb()) {
   seed(db); // idempotent: seeds only when empty
@@ -28,6 +31,9 @@ export function buildApp(db = getDb()) {
   registerVerifyRoutes(app, db);
   registerDeadlineRoutes(app, db);
   registerDraftRoutes(app, db);
+  registerProductionRoutes(app, db);
+  registerConflictRoutes(app, db);
+  registerSharingRoutes(app, db);
 
   app.notFound((c) => c.json({ error: "not_found", path: c.req.path }, 404));
   app.onError((err, c) => {

@@ -147,6 +147,75 @@ export interface BatesFinding {
   privilege?: string;
 }
 
+// --- Conflicts ---
+
+export type ConflictStrength = "exact" | "fuzzy" | "last-name";
+
+export interface ConflictHit {
+  query: string;
+  matched: string;
+  strength: ConflictStrength;
+  matterId: string;
+  matterName: string;
+  matterClient: string;
+  role: string;
+  org: string;
+}
+
+// --- Sharing ---
+
+export type ShareScope = "matter" | "binder";
+
+export interface ShareLink {
+  token: string;
+  matterId: string;
+  label: string;
+  scope: ShareScope;
+  binderId?: string;
+  createdBy: string;
+  createdAt: string;
+  expiresAt?: string;
+  revoked: boolean;
+  viewCount: number;
+  lastViewed?: string;
+}
+
+export interface SharedView {
+  link: { scope: ShareScope; label: string; createdAt: string; expiresAt?: string };
+  matter: {
+    id: string;
+    name: string;
+    client: string;
+    matterType: string;
+    leadAttorney: string;
+    pages: number;
+    docs: number;
+    posture: string;
+    claims: string[];
+  };
+  events: { date: string; description: string; citation: { bates: string; page: number; verified: boolean }; confidence: string; issueTags: string[] }[];
+  documents: { bates: string; title: string; type: string; date: string; author: string; recipients: string[]; summary: string; hot: boolean }[];
+  entities: { name: string; role: string; org: string; mentions: number }[];
+}
+
+// --- Productions ---
+
+export type ProductionDirection = "sent" | "received";
+
+export interface Production {
+  id: string;
+  direction: ProductionDirection;
+  party: string;
+  prodDate: string;
+  label: string;
+  batesStart: string;
+  batesEnd: string;
+  docCount: number;
+  privilegeLog: boolean;
+  notes: string;
+  createdAt: string;
+}
+
 // --- Drafting ---
 
 export type DraftKind =

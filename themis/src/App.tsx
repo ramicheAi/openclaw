@@ -6,6 +6,7 @@ import { useRoute } from "./lib/router";
 import { useTheme } from "./lib/theme";
 import { MattersDashboard } from "./screens/MattersDashboard";
 import { MatterShell } from "./screens/matter/MatterShell";
+import { SharedMatterView } from "./screens/SharedMatterView";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +37,15 @@ function Shell() {
   // Initialize the theme at the root so even the dashboard (which has no
   // MatterShell) gets the BRAIN READY dark mode by default.
   useTheme();
+
+  // Tokenized read-only view: /share/<token>. Stand-alone — no global nav,
+  // no matter selector, no dashboard chrome. The token is the entire auth
+  // surface; the server-side resolver enforces revocation + expiry.
+  const sharePath = typeof window !== "undefined" ? window.location.pathname.match(/^\/share\/([A-Za-z0-9_-]{8,})/) : null;
+  if (sharePath) {
+    return <SharedMatterView token={sharePath[1]} />;
+  }
+
   const inMatter = !!route.matterId;
 
   return (
@@ -82,15 +92,6 @@ function Shell() {
               <Settings size={18} />
               <span>Settings</span>
             </button>
-            <div className="mt-3 flex items-center gap-2.5 rounded-lg border border-line bg-surface-sunken px-2.5 py-2">
-              <div className="grid h-7 w-7 place-items-center rounded-full bg-ink text-xs font-semibold text-paper">
-                DO
-              </div>
-              <div className="leading-tight">
-                <div className="text-[13px] font-semibold text-ink">D. Okafor</div>
-                <div className="text-[11px] text-ink-faint">Hartwell Litigation</div>
-              </div>
-            </div>
           </div>
         </aside>
       )}

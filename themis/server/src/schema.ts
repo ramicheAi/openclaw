@@ -138,6 +138,37 @@ CREATE TABLE IF NOT EXISTS binder_items (
 );
 CREATE INDEX IF NOT EXISTS idx_binder_items_binder ON binder_items(binder_id, ord);
 
+CREATE TABLE IF NOT EXISTS share_links (
+  token        TEXT PRIMARY KEY,        -- url-safe random
+  matter_id    TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,
+  label        TEXT NOT NULL DEFAULT '',
+  scope        TEXT NOT NULL DEFAULT 'matter', -- 'matter' | 'binder'
+  binder_id    TEXT,
+  created_by   TEXT NOT NULL DEFAULT '',
+  created_at   TEXT NOT NULL,
+  expires_at   TEXT,                    -- ISO; NULL = no expiry
+  revoked      INTEGER NOT NULL DEFAULT 0,
+  view_count   INTEGER NOT NULL DEFAULT 0,
+  last_viewed  TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_share_matter ON share_links(matter_id);
+
+CREATE TABLE IF NOT EXISTS productions (
+  id              TEXT PRIMARY KEY,
+  matter_id       TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,
+  direction       TEXT NOT NULL,                    -- 'sent' | 'received'
+  party           TEXT NOT NULL,                    -- producing/receiving party name
+  prod_date       TEXT NOT NULL,                    -- ISO YYYY-MM-DD
+  label           TEXT NOT NULL DEFAULT '',         -- e.g. "Defendant's First Production"
+  bates_start     TEXT NOT NULL,                    -- e.g. OLIV-000001
+  bates_end       TEXT NOT NULL,                    -- e.g. OLIV-000050
+  doc_count       INTEGER NOT NULL DEFAULT 0,
+  privilege_log   INTEGER NOT NULL DEFAULT 0,       -- 1 = privilege log served alongside
+  notes           TEXT NOT NULL DEFAULT '',
+  created_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_productions_matter ON productions(matter_id, prod_date);
+
 CREATE TABLE IF NOT EXISTS deadlines (
   id          TEXT PRIMARY KEY,
   matter_id   TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,

@@ -12,6 +12,7 @@ import { CompactBrainCard } from "./cards/CompactBrainCard";
 import { TaskQueueCard, buildTaskQueue } from "./cards/TaskQueueCard";
 import { ScalesMini } from "./cards/ScalesMini";
 import { DeadlinesCard } from "./cards/DeadlinesCard";
+import { ProductionsCard } from "./cards/ProductionsCard";
 import { AuditTrailCard } from "./cards/AuditTrailCard";
 import { TabBar } from "./panels/TabBar";
 import { AskPanel } from "./panels/AskPanel";
@@ -125,6 +126,9 @@ export function Worktop({
         </div>
         <div data-tour="deadlines">
           <DeadlinesCard matterId={matterId} />
+        </div>
+        <div data-tour="productions">
+          <ProductionsCard matterId={matterId} />
         </div>
         <div data-tour="scales">
           <ScalesMini events={chron ?? []} />

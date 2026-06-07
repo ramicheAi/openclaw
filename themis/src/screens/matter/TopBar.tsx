@@ -1,10 +1,12 @@
 // Top bar — 56px tall, shared by Worktop and Brain modes.
 // Per design handoff §5.1.
 
+import { useState } from "react";
 import { Tau } from "../../components/BrandMark";
 import { cx } from "../../lib/ui";
-import { IconArrow, IconCmdK } from "../../icons";
+import { IconArrow, IconCmdK, IconExport } from "../../icons";
 import { useEngineStatus } from "../../lib/queries";
+import { ShareLinksModal } from "../../components/ShareLinksModal";
 import type { MatterSummary } from "../../types";
 import type { AppMode } from "../../lib/router";
 import type { Theme } from "../../lib/theme";
@@ -20,6 +22,7 @@ interface Props {
 }
 
 export function TopBar({ matter, mode, theme, onMode, onBack, onOpenCmdK, onToggleTheme }: Props) {
+  const [shareOpen, setShareOpen] = useState(false);
   return (
     <div
       className="relative grid h-14 shrink-0 items-center gap-4 border-b border-line bg-surface px-4"
@@ -63,6 +66,13 @@ export function TopBar({ matter, mode, theme, onMode, onBack, onOpenCmdK, onTogg
       <div className="flex items-center justify-end gap-2">
         <EnginePill />
         <button
+          onClick={() => setShareOpen(true)}
+          title="Share a scoped read-only view"
+          className="inline-flex h-8 items-center gap-1 rounded-md border border-line bg-surface px-2 text-[11.5px] font-medium text-ink-soft hover:border-brass-soft hover:text-brass-deep"
+        >
+          <IconExport size={12} /> Share
+        </button>
+        <button
           onClick={onOpenCmdK}
           className="flex h-9 min-w-[260px] items-center gap-2 rounded-full border border-line bg-surface px-3 text-left text-[13px] text-ink-soft transition hover:border-line-strong hover:text-ink"
         >
@@ -81,6 +91,8 @@ export function TopBar({ matter, mode, theme, onMode, onBack, onOpenCmdK, onTogg
 
       {/* Bottom brass gradient hairline */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-brass-soft/60 to-transparent" />
+
+      {shareOpen && <ShareLinksModal matterId={matter.id} onClose={() => setShareOpen(false)} />}
     </div>
   );
 }

@@ -22,6 +22,12 @@ import type {
   DraftKindOption,
   DraftResult,
   DraftKind,
+  Production,
+  ProductionDirection,
+  ConflictHit,
+  ShareLink,
+  ShareScope,
+  SharedView,
 } from "../types";
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
@@ -251,6 +257,56 @@ export const api = {
 
   listDraftKinds: () =>
     request<{ kinds: DraftKindOption[] }>(`/api/draft-kinds`).then((r) => r.kinds),
+
+  // --- Sharing ---
+
+  listShareLinks: (id: string) =>
+    request<{ links: ShareLink[] }>(`/api/matters/${id}/share-links`).then((r) => r.links),
+
+  createShareLink: (id: string, payload: { label?: string; scope?: ShareScope; binderId?: string; expiresAt?: string }) =>
+    request<ShareLink>(`/api/matters/${id}/share-links`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+
+  revokeShareLink: (id: string, token: string) =>
+    request<{ ok: boolean }>(`/api/matters/${id}/share-links/${token}`, { method: "DELETE" }),
+
+  getSharedView: (token: string) => request<SharedView>(`/api/shared/${token}`),
+
+  // --- Conflicts ---
+
+  checkConflicts: (names: string[], excludeMatterId?: string) =>
+    request<{ checked: number; hits: ConflictHit[] }>(`/api/conflicts/check`, {
+      method: "POST",
+      body: JSON.stringify({ names, excludeMatterId }),
+    }),
+
+  // --- Productions manifest ---
+
+  listProductions: (id: string) =>
+    request<{ productions: Production[] }>(`/api/matters/${id}/productions`).then((r) => r.productions),
+
+  createProduction: (
+    id: string,
+    p: {
+      direction: ProductionDirection;
+      party: string;
+      prodDate: string;
+      label?: string;
+      batesStart: string;
+      batesEnd: string;
+      privilegeLog?: boolean;
+      notes?: string;
+    },
+  ) =>
+    request<Production>(`/api/matters/${id}/productions`, {
+      method: "POST",
+      body: JSON.stringify(p),
+    }),
+
+  deleteProduction: (id: string, prodId: string) =>
+    request<{ ok: boolean }>(`/api/matters/${id}/productions/${prodId}`, { method: "DELETE" }),
 
   generateDraft: (
     id: string,

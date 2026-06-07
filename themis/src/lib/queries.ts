@@ -17,6 +17,7 @@ export const qk = {
   binders: (id: string) => ["matter", id, "binders"] as const,
   chains: (id: string) => ["matter", id, "chains"] as const,
   deadlines: (id: string) => ["matter", id, "deadlines"] as const,
+  productions: (id: string) => ["matter", id, "productions"] as const,
 };
 
 export function useMatters() {
@@ -275,5 +276,32 @@ export function useDeleteDeadline(id: string) {
   return useMutation({
     mutationFn: (dlId: string) => api.deleteDeadline(id, dlId),
     onSuccess: () => invalidateDeadlines(qc, id),
+  });
+}
+
+// --- Productions ---
+
+export function useProductions(id: string) {
+  return useQuery({ queryKey: qk.productions(id), queryFn: () => api.listProductions(id) });
+}
+
+function invalidateProductions(qc: ReturnType<typeof useQueryClient>, id: string) {
+  qc.invalidateQueries({ queryKey: qk.productions(id) });
+  qc.invalidateQueries({ queryKey: qk.audit(id) });
+}
+
+export function useCreateProduction(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (p: Parameters<typeof api.createProduction>[1]) => api.createProduction(id, p),
+    onSuccess: () => invalidateProductions(qc, id),
+  });
+}
+
+export function useDeleteProduction(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (prodId: string) => api.deleteProduction(id, prodId),
+    onSuccess: () => invalidateProductions(qc, id),
   });
 }

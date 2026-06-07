@@ -2,11 +2,13 @@
 // Posts to POST /api/matters; on success the caller routes into the new
 // matter so the user can immediately start uploading documents.
 
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "../lib/api";
 import { qk } from "../lib/queries";
-import { IconAdd, IconClose } from "../icons";
+import { IconAdd, IconClose, IconVerified, IconPrivileged } from "../icons";
+import { cx } from "../lib/ui";
+import type { ConflictHit, ConflictStrength } from "../types";
 
 interface Props {
   open: boolean;
@@ -34,6 +36,34 @@ export function NewMatterModal({ open, onClose, onCreated }: Props) {
   const [matterType, setMatterType] = useState(MATTER_TYPES[0]);
   const [leadAttorney, setLeadAttorney] = useState("");
   const [posture, setPosture] = useState("");
+  const [adverseParties, setAdverseParties] = useState("");
+  const [conflictAcknowledged, setConflictAcknowledged] = useState(false);
+
+  // Live conflicts check — debounced. We check the client + every adverse
+  // party (comma- or newline-separated) against the existing entity graph
+  // across all matters. The first matter doesn't have any other matters
+  // to conflict against; this gracefully returns empty in that case.
+  const partyNames = useMemo(() => {
+    const all: string[] = [];
+    const c = client.trim();
+    if (c) all.push(c);
+    adverseParties.split(/[,\n]/).map((s) => s.trim()).filter(Boolean).forEach((p) => all.push(p));
+    return all;
+  }, [client, adverseParties]);
+
+  const [debouncedNames, setDebouncedNames] = useState<string[]>([]);
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedNames(partyNames), 350);
+    return () => clearTimeout(t);
+  }, [partyNames]);
+
+  const conflicts = useQuery({
+    queryKey: ["conflicts-check", debouncedNames],
+    queryFn: () => api.checkConflicts(debouncedNames),
+    enabled: open && debouncedNames.length > 0,
+  });
+  const hits = conflicts.data?.hits ?? [];
+  const blocking = hits.some((h) => h.strength === "exact" || h.strength === "fuzzy");
   const create = useMutation({
     mutationFn: () => api.createMatter({ name, client, matterType, leadAttorney, posture }),
     onSuccess: ({ id }) => {
@@ -43,13 +73,19 @@ export function NewMatterModal({ open, onClose, onCreated }: Props) {
       setClient("");
       setLeadAttorney("");
       setPosture("");
+      setAdverseParties("");
+      setConflictAcknowledged(false);
       onCreated(id);
       onClose();
     },
   });
 
   if (!open) return null;
-  const canSubmit = name.trim().length > 0 && client.trim().length > 0 && !create.isPending;
+  const canSubmit =
+    name.trim().length > 0 &&
+    client.trim().length > 0 &&
+    !create.isPending &&
+    (!blocking || conflictAcknowledged);
 
   return (
     <div
@@ -109,8 +145,17 @@ export function NewMatterModal({ open, onClose, onCreated }: Props) {
             <input
               value={leadAttorney}
               onChange={(e) => setLeadAttorney(e.target.value)}
-              placeholder="D. Okafor"
+              placeholder="Lead attorney name"
               className="input"
+            />
+          </Field>
+          <Field label="Adverse parties" hint="Comma- or newline-separated. Used for the conflicts check." wide>
+            <textarea
+              value={adverseParties}
+              onChange={(e) => setAdverseParties(e.target.value)}
+              placeholder="Acme Corp, John Q. Defendant"
+              rows={2}
+              className="input resize-y"
             />
           </Field>
           <Field label="Posture (case theory)" wide>
@@ -123,6 +168,16 @@ export function NewMatterModal({ open, onClose, onCreated }: Props) {
             />
           </Field>
         </div>
+
+        {/* Live conflicts check — only shown when there's something to check */}
+        {debouncedNames.length > 0 && (
+          <ConflictsPanel
+            hits={hits}
+            loading={conflicts.isFetching}
+            acknowledged={conflictAcknowledged}
+            onAcknowledge={() => setConflictAcknowledged(true)}
+          />
+        )}
 
         {create.isError && (
           <div className="mx-5 mb-2 rounded-md border border-danger/30 bg-danger-wash p-2 text-[12px] text-danger">
@@ -152,6 +207,80 @@ export function NewMatterModal({ open, onClose, onCreated }: Props) {
         .input:focus { border-color: var(--color-brass); }`}</style>
       </div>
     </div>
+  );
+}
+
+function ConflictsPanel({
+  hits,
+  loading,
+  acknowledged,
+  onAcknowledge,
+}: {
+  hits: ConflictHit[];
+  loading: boolean;
+  acknowledged: boolean;
+  onAcknowledge: () => void;
+}) {
+  const blocking = hits.some((h) => h.strength === "exact" || h.strength === "fuzzy");
+  if (hits.length === 0) {
+    return (
+      <div className="mx-5 mb-3 flex items-center gap-2 rounded-md border border-verify/40 bg-verify-wash px-3 py-2 text-[11.5px] text-verify">
+        <IconVerified size={13} />
+        <span className="font-medium">No conflicts found across {loading ? "…" : "the firm's matters"}.</span>
+      </div>
+    );
+  }
+  return (
+    <div className={cx("mx-5 mb-3 rounded-md border p-3", blocking ? "border-danger/40 bg-danger-wash" : "border-flag/40 bg-flag-wash")}>
+      <div className={cx("flex items-center gap-2 text-[12px] font-semibold", blocking ? "text-danger" : "text-flag")}>
+        <IconPrivileged size={13} />
+        {hits.length} potential conflict{hits.length === 1 ? "" : "s"} across the firm's matters.
+      </div>
+      <ul className="mt-2 space-y-1.5">
+        {hits.slice(0, 6).map((h, i) => (
+          <ConflictRow key={i} h={h} />
+        ))}
+      </ul>
+      {hits.length > 6 && (
+        <div className="mt-1 text-[10.5px] text-ink-faint">+ {hits.length - 6} more</div>
+      )}
+      {blocking && (
+        <label className="mt-2 flex items-start gap-2 text-[11.5px] text-ink">
+          <input type="checkbox" checked={acknowledged} onChange={onAcknowledge} className="mt-0.5 accent-brass" />
+          <span>
+            I have reviewed the conflicts above and resolved them (waiver, withdrawal, or different party).
+            Proceeding to create the matter.
+          </span>
+        </label>
+      )}
+    </div>
+  );
+}
+
+function ConflictRow({ h }: { h: ConflictHit }) {
+  const v: Record<ConflictStrength, { label: string; cls: string }> = {
+    exact: { label: "EXACT", cls: "border-danger/40 bg-danger-wash text-danger" },
+    fuzzy: { label: "FUZZY", cls: "border-flag/40 bg-flag-wash text-flag" },
+    "last-name": { label: "LAST NAME", cls: "border-line bg-surface-sunken text-ink-soft" },
+  };
+  const s = v[h.strength];
+  return (
+    <li className="rounded border border-line bg-paper px-2 py-1.5">
+      <div className="flex items-baseline justify-between gap-2">
+        <div className="min-w-0">
+          <div className="truncate text-[12px] text-ink">
+            <span className="font-semibold">{h.matched}</span>
+            <span className="text-ink-soft"> — matched “{h.query}”</span>
+          </div>
+          <div className="mt-0.5 truncate font-mono text-[9.5px] text-ink-faint">
+            in {h.matterName} ({h.matterClient}) · {h.role || "—"}
+          </div>
+        </div>
+        <span className={cx("shrink-0 rounded border px-1.5 py-0.5 font-mono text-[9px] font-semibold tracking-wider", s.cls)}>
+          {s.label}
+        </span>
+      </div>
+    </li>
   );
 }
 
