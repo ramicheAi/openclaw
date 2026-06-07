@@ -16,6 +16,7 @@ export const qk = {
   audit: (id: string) => ["matter", id, "audit"] as const,
   binders: (id: string) => ["matter", id, "binders"] as const,
   chains: (id: string) => ["matter", id, "chains"] as const,
+  deadlines: (id: string) => ["matter", id, "deadlines"] as const,
 };
 
 export function useMatters() {
@@ -239,5 +240,40 @@ export function useDeleteChain(id: string) {
   return useMutation({
     mutationFn: (chainId: string) => api.deleteChain(id, chainId),
     onSuccess: () => invalidateChains(qc, id),
+  });
+}
+
+// --- Deadlines ---
+
+export function useDeadlines(id: string) {
+  return useQuery({ queryKey: qk.deadlines(id), queryFn: () => api.listDeadlines(id) });
+}
+
+function invalidateDeadlines(qc: ReturnType<typeof useQueryClient>, id: string) {
+  qc.invalidateQueries({ queryKey: qk.deadlines(id) });
+  qc.invalidateQueries({ queryKey: qk.audit(id) });
+}
+
+export function useExtractDeadlines(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ text, source }: { text: string; source?: string }) => api.extractDeadlines(id, text, source),
+    onSuccess: () => invalidateDeadlines(qc, id),
+  });
+}
+
+export function useSetDeadlineDone(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ dlId, done }: { dlId: string; done: boolean }) => api.setDeadlineDone(id, dlId, done),
+    onSuccess: () => invalidateDeadlines(qc, id),
+  });
+}
+
+export function useDeleteDeadline(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (dlId: string) => api.deleteDeadline(id, dlId),
+    onSuccess: () => invalidateDeadlines(qc, id),
   });
 }

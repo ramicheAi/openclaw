@@ -138,6 +138,19 @@ CREATE TABLE IF NOT EXISTS binder_items (
 );
 CREATE INDEX IF NOT EXISTS idx_binder_items_binder ON binder_items(binder_id, ord);
 
+CREATE TABLE IF NOT EXISTS deadlines (
+  id          TEXT PRIMARY KEY,
+  matter_id   TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,
+  due_date    TEXT NOT NULL,           -- ISO YYYY-MM-DD
+  title       TEXT NOT NULL,
+  detail      TEXT NOT NULL DEFAULT '',
+  kind        TEXT NOT NULL DEFAULT 'deadline', -- deadline | hearing | conference | trial | disclosure
+  source      TEXT NOT NULL DEFAULT '', -- e.g. "Scheduling Order" or a Bates id
+  done        INTEGER NOT NULL DEFAULT 0,
+  created_at  TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_deadlines_matter ON deadlines(matter_id, due_date);
+
 CREATE TABLE IF NOT EXISTS audit_log (
   id          INTEGER PRIMARY KEY AUTOINCREMENT,
   matter_id   TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,

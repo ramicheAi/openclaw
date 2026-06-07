@@ -18,6 +18,7 @@ import type {
   SearchHit,
   VerifyResult,
   DepoOutline,
+  Deadline,
 } from "../types";
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
@@ -222,6 +223,26 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ witness }),
     }),
+
+  // --- Deadlines ---
+
+  listDeadlines: (id: string) =>
+    request<{ deadlines: Deadline[] }>(`/api/matters/${id}/deadlines`).then((r) => r.deadlines),
+
+  extractDeadlines: (id: string, text: string, source?: string) =>
+    request<{ deadlines: Deadline[]; added: number }>(`/api/matters/${id}/deadlines/extract`, {
+      method: "POST",
+      body: JSON.stringify({ text, source }),
+    }),
+
+  setDeadlineDone: (id: string, dlId: string, done: boolean) =>
+    request<Deadline>(`/api/matters/${id}/deadlines/${dlId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ done }),
+    }),
+
+  deleteDeadline: (id: string, dlId: string) =>
+    request<{ ok: boolean }>(`/api/matters/${id}/deadlines/${dlId}`, { method: "DELETE" }),
 
   // --- Binders ---
 

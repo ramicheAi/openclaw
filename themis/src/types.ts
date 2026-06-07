@@ -147,6 +147,21 @@ export interface BatesFinding {
   privilege?: string;
 }
 
+// --- Deadlines ---
+
+export type DeadlineKind = "deadline" | "hearing" | "conference" | "trial" | "disclosure";
+
+export interface Deadline {
+  id: string;
+  dueDate: string; // ISO YYYY-MM-DD or "" when unresolved
+  title: string;
+  detail: string;
+  kind: DeadlineKind;
+  source: string;
+  done: boolean;
+  createdAt: string;
+}
+
 // --- Deposition outline ---
 
 export interface DepoTopic {

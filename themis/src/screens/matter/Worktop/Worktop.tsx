@@ -11,6 +11,7 @@ import { CastCard } from "./cards/CastCard";
 import { CompactBrainCard } from "./cards/CompactBrainCard";
 import { TaskQueueCard, buildTaskQueue } from "./cards/TaskQueueCard";
 import { ScalesMini } from "./cards/ScalesMini";
+import { DeadlinesCard } from "./cards/DeadlinesCard";
 import { AuditTrailCard } from "./cards/AuditTrailCard";
 import { TabBar } from "./panels/TabBar";
 import { AskPanel } from "./panels/AskPanel";
@@ -119,6 +120,9 @@ export function Worktop({
             tasks={tasks}
             onGo={(kind) => onTab(kind === "priv" ? "privilege" : "chronology")}
           />
+        </div>
+        <div data-tour="deadlines">
+          <DeadlinesCard matterId={matterId} />
         </div>
         <div data-tour="scales">
           <ScalesMini events={chron ?? []} />
