@@ -18,14 +18,37 @@ LABEL="com.themis.watcher"
 # Make sure node + npm are reachable. launchd starts with a sparse env —
 # we bake the user's current node binary directory into the plist's PATH
 # so nvm/volta/homebrew/pnpm all work without sourcing a shell rc file.
-NODE_BIN="$(command -v node || true)"
-NPM_BIN="$(command -v npm || true)"
-if [ -z "$NODE_BIN" ] || [ -z "$NPM_BIN" ]; then
-  echo "Error: node + npm must be on PATH. If you use nvm/volta, run \`nvm use\` first." >&2
+#
+# Try sources in order: current PATH, newest nvm install, volta, homebrew
+# (arm + intel), system local. The first one with a real `node` wins.
+find_node() {
+  local p
+  for p in \
+    "$(command -v node 2>/dev/null)" \
+    "$(ls -t "$HOME"/.nvm/versions/node/*/bin/node 2>/dev/null | head -1)" \
+    "$HOME/.volta/bin/node" \
+    "/opt/homebrew/bin/node" \
+    "/usr/local/bin/node" \
+    "$HOME/.fnm/aliases/default/bin/node" \
+    "/opt/local/bin/node"; do
+    [ -x "$p" ] && { echo "$p"; return 0; }
+  done
+  return 1
+}
+NODE_BIN="$(find_node)" || true
+if [ -z "$NODE_BIN" ]; then
+  echo "Error: node not found. Looked at PATH, ~/.nvm, ~/.volta, /opt/homebrew, /usr/local." >&2
+  echo "Where is your node binary? Run: which node    (then re-run this script in a shell where that works)" >&2
   exit 1
 fi
 NODE_DIR="$(dirname "$NODE_BIN")"
-NPM_DIR="$(dirname "$NPM_BIN")"
+# npm ships in the same bin dir as node for nvm/volta/homebrew.
+NPM_BIN="$NODE_DIR/npm"
+if [ ! -x "$NPM_BIN" ]; then
+  NPM_BIN="$(command -v npm 2>/dev/null || true)"
+fi
+NPM_DIR="$(dirname "${NPM_BIN:-$NODE_DIR/npm}")"
+echo "Using node: $NODE_BIN"
 
 chmod +x "$WATCHER"
 
