@@ -227,6 +227,25 @@ export const api = {
   getVerifyStatus: () =>
     request<{ courtListenerConfigured: boolean }>(`/api/verify/status`),
 
+  generateCertification: (
+    id: string,
+    payload: { filing: string; jurisdiction?: string; signer?: string; barNumber?: string },
+  ) =>
+    request<{
+      text: string;
+      stats: {
+        cite_check_runs: number;
+        authorities_verified: number;
+        authorities_not_found: number;
+        bates_verified: number;
+        bates_not_in_matter: number;
+        last_run?: string;
+      };
+    }>(`/api/matters/${id}/certification`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+
   // --- Deposition outline ---
 
   buildDepositionOutline: (id: string, witness: string) =>

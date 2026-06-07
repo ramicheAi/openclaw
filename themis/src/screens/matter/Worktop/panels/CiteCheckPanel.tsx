@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "../../../../lib/api";
 import { cx } from "../../../../lib/ui";
-import { IconVerified, IconCite } from "../../../../icons";
+import { IconVerified, IconCite, IconExport, IconCopy, IconClose } from "../../../../icons";
 import type { AuthorityFinding, AuthorityVerdict, BatesFinding, VerifyResult } from "../../../../types";
 import { PanelHead, PanelAction } from "./PanelHead";
 
@@ -88,7 +88,7 @@ export function CiteCheckPanel({ matterId }: { matterId: string }) {
               {verify.error instanceof Error ? verify.error.message : "Verification failed."}
             </div>
           )}
-          {result && <Report result={result} text={text} />}
+          {result && <Report result={result} text={text} matterId={matterId} />}
         </div>
       </div>
     </div>
@@ -118,11 +118,12 @@ function EmptyReport({ clConfigured }: { clConfigured: boolean | null }) {
   );
 }
 
-function Report({ result, text }: { result: VerifyResult; text: string }) {
+function Report({ result, text, matterId }: { result: VerifyResult; text: string; matterId: string }) {
   const { bates, authorities } = result;
   const fabricated = authorities.findings.filter((f) => f.verdict === "not_found");
   const unresolvedBates = bates.findings.filter((f) => !f.existed);
   const clean = fabricated.length === 0 && unresolvedBates.length === 0 && (bates.total > 0 || authorities.total > 0);
+  const [certifying, setCertifying] = useState(false);
 
   return (
     <div className="space-y-5">
@@ -144,6 +145,30 @@ function Report({ result, text }: { result: VerifyResult; text: string }) {
           </div>
         </div>
       ) : null}
+
+      {/* Generate AI-use certification — available once a check has run */}
+      {clean && (
+        <div className="rounded-lg border border-line bg-surface px-3.5 py-2.5">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brass-deep">Court-ready</div>
+              <div className="mt-0.5 text-[12.5px] text-ink">
+                Generate an AI-use certification from this matter's actual verification history.
+              </div>
+              <div className="mt-0.5 text-[11px] text-ink-soft">
+                Required by N.D. Ill., E.D. Pa., S.D. Fla., and a growing list of courts. Signed under Rule 11 + Model Rule 1.1/3.3.
+              </div>
+            </div>
+            <button
+              onClick={() => setCertifying(true)}
+              className="inline-flex shrink-0 items-center gap-1 rounded-md border border-brass bg-brass px-3 py-1.5 text-[12px] font-semibold text-paper hover:bg-brass-deep"
+            >
+              <IconExport size={12} /> Generate certification
+            </button>
+          </div>
+        </div>
+      )}
+      {certifying && <CertificationModal matterId={matterId} onClose={() => setCertifying(false)} />}
 
       {/* Authorities */}
       <section>
@@ -272,5 +297,166 @@ function BatesRow({ f }: { f: BatesFinding }) {
         </div>
       )}
     </li>
+  );
+}
+
+function CertificationModal({ matterId, onClose }: { matterId: string; onClose: () => void }) {
+  const [filing, setFiling] = useState("");
+  const [jurisdiction, setJurisdiction] = useState("");
+  const [signer, setSigner] = useState("");
+  const [barNumber, setBarNumber] = useState("");
+  const gen = useMutation({
+    mutationFn: () => api.generateCertification(matterId, { filing, jurisdiction, signer, barNumber }),
+  });
+  const text = gen.data?.text;
+  const [copied, setCopied] = useState(false);
+
+  function copy() {
+    if (!text) return;
+    navigator.clipboard?.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    }).catch(() => {});
+  }
+  function download() {
+    if (!text) return;
+    const blob = new Blob([text], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ai-certification.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  return (
+    <div onClick={onClose} className="fixed inset-0 z-50 grid place-items-center bg-black/55 px-6 py-10">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="flex max-h-[85vh] w-[720px] max-w-full flex-col overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_40px_120px_rgba(0,0,0,0.45)]"
+      >
+        <header className="flex items-start justify-between border-b border-line bg-surface-sunken px-5 py-4">
+          <div>
+            <div className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-brass-deep">Court-ready</div>
+            <h3 className="mt-0.5 font-display text-[17px] font-semibold leading-tight text-ink">AI-use certification</h3>
+            <p className="mt-0.5 text-[12px] text-ink-soft">
+              Generated from the matter's actual Cite Check audit trail — every number comes from a real verification run.
+            </p>
+          </div>
+          <button onClick={onClose} className="grid h-7 w-7 place-items-center rounded-md text-ink-soft hover:bg-surface hover:text-ink">
+            <IconClose size={14} />
+          </button>
+        </header>
+
+        {!text && (
+          <div className="space-y-3 px-5 py-4">
+            <CertField label="Filing covered *" hint="e.g. Plaintiff's Demand Letter dated 2026-06-07">
+              <input
+                value={filing}
+                onChange={(e) => setFiling(e.target.value)}
+                placeholder="Plaintiff's Demand Letter"
+                className="w-full rounded-md border border-line bg-paper px-2 py-1.5 text-[12.5px] text-ink outline-none focus:border-brass"
+              />
+            </CertField>
+            <div className="grid grid-cols-2 gap-3">
+              <CertField label="Jurisdiction (optional)">
+                <input
+                  value={jurisdiction}
+                  onChange={(e) => setJurisdiction(e.target.value)}
+                  placeholder="N.D. Ill."
+                  className="w-full rounded-md border border-line bg-paper px-2 py-1.5 text-[12.5px] text-ink outline-none focus:border-brass"
+                />
+              </CertField>
+              <CertField label="Signer (optional)">
+                <input
+                  value={signer}
+                  onChange={(e) => setSigner(e.target.value)}
+                  placeholder="defaults to lead attorney"
+                  className="w-full rounded-md border border-line bg-paper px-2 py-1.5 text-[12.5px] text-ink outline-none focus:border-brass"
+                />
+              </CertField>
+            </div>
+            <CertField label="Bar number (optional)">
+              <input
+                value={barNumber}
+                onChange={(e) => setBarNumber(e.target.value)}
+                placeholder="e.g. 1234567"
+                className="w-full rounded-md border border-line bg-paper px-2 py-1.5 text-[12.5px] text-ink outline-none focus:border-brass"
+              />
+            </CertField>
+            {gen.error && (
+              <div className="rounded-md border border-flag/30 bg-flag-wash p-2 text-[11.5px] text-flag">
+                {gen.error instanceof Error ? gen.error.message : "Generation failed."}
+              </div>
+            )}
+          </div>
+        )}
+
+        {text && (
+          <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">
+            <div className="grid grid-cols-5 gap-2 rounded-md border border-line bg-surface-sunken p-2 text-center text-[10.5px]">
+              <CertStat label="Runs" v={gen.data!.stats.cite_check_runs} />
+              <CertStat label="Auth verified" v={gen.data!.stats.authorities_verified} />
+              <CertStat label="Auth not found" v={gen.data!.stats.authorities_not_found} accent={gen.data!.stats.authorities_not_found > 0 ? "danger" : "verify"} />
+              <CertStat label="Bates verified" v={gen.data!.stats.bates_verified} />
+              <CertStat label="Bates unresolved" v={gen.data!.stats.bates_not_in_matter} accent={gen.data!.stats.bates_not_in_matter > 0 ? "danger" : "verify"} />
+            </div>
+            <pre className="mt-3 max-h-[420px] overflow-y-auto whitespace-pre-wrap rounded-md border border-line bg-paper px-4 py-3 font-mono text-[11.5px] leading-relaxed text-ink">
+              {text}
+            </pre>
+          </div>
+        )}
+
+        <footer className="flex items-center justify-end gap-2 border-t border-line bg-surface-sunken px-5 py-3">
+          <button onClick={onClose} className="rounded-md border border-line bg-surface px-3 py-1.5 text-[12.5px] font-medium text-ink-soft hover:border-line-strong hover:text-ink">
+            Close
+          </button>
+          {text ? (
+            <>
+              <button onClick={download} className="inline-flex items-center gap-1 rounded-md border border-line bg-surface px-3 py-1.5 text-[12.5px] font-medium text-ink-soft hover:border-brass-soft hover:text-brass-deep">
+                <IconExport size={12} /> Download
+              </button>
+              <button onClick={copy} className="inline-flex items-center gap-1 rounded-md bg-brass px-3 py-1.5 text-[12.5px] font-semibold text-paper hover:bg-brass-deep">
+                <IconCopy size={12} /> {copied ? "Copied" : "Copy"}
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => gen.mutate()}
+              disabled={!filing.trim() || gen.isPending}
+              className="rounded-md bg-brass px-3 py-1.5 text-[12.5px] font-semibold text-paper hover:bg-brass-deep disabled:opacity-50"
+            >
+              {gen.isPending ? "Generating…" : "Generate"}
+            </button>
+          )}
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+function CertStat({ label, v, accent }: { label: string; v: number; accent?: "danger" | "verify" }) {
+  return (
+    <div>
+      <div className={cx(
+        "font-display text-[18px] font-semibold leading-none",
+        accent === "danger" ? "text-danger" : accent === "verify" ? "text-verify" : "text-ink",
+      )}>
+        {v.toLocaleString()}
+      </div>
+      <div className="mt-0.5 font-mono text-[9px] uppercase tracking-wider text-ink-faint">{label}</div>
+    </div>
+  );
+}
+
+function CertField({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brass-deep">{label}</span>
+      <div className="mt-1">{children}</div>
+      {hint && <div className="mt-0.5 text-[10px] text-ink-faint">{hint}</div>}
+    </label>
   );
 }

@@ -15,6 +15,7 @@ import type { DB } from "../db.js";
 import { audit, getDocumentByBates, matterExists } from "../repo.js";
 import { assessCitation } from "../services.js";
 import { verifyAuthorities, isCourtListenerConfigured } from "../courtlistener.js";
+import { generateCertification } from "../certifications.js";
 
 function actor(c: Context): string {
   return c.req.header("x-themis-actor") || "you";
@@ -81,6 +82,32 @@ export function registerVerifyRoutes(app: Hono, db: DB) {
   app.get("/api/verify/status", (c) =>
     c.json({ courtListenerConfigured: isCourtListenerConfigured() }),
   );
+
+  // Generate an AI-use certification from the matter's actual verification
+  // audit trail — defensible because every number comes from the audit log,
+  // not from a hand-edited form.
+  app.post("/api/matters/:id/certification", async (c) => {
+    const id = c.req.param("id");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    const body = (await c.req.json().catch(() => ({}))) as {
+      filing?: unknown;
+      jurisdiction?: unknown;
+      signer?: unknown;
+      barNumber?: unknown;
+    };
+    if (typeof body.filing !== "string" || body.filing.trim().length === 0) {
+      return c.json({ error: "invalid_filing", hint: "filing must describe what's being certified" }, 400);
+    }
+    const cert = generateCertification(db, id, {
+      filing: body.filing.trim(),
+      jurisdiction: typeof body.jurisdiction === "string" ? body.jurisdiction.trim() : undefined,
+      signer: typeof body.signer === "string" ? body.signer.trim() : undefined,
+      barNumber: typeof body.barNumber === "string" ? body.barNumber.trim() : undefined,
+    });
+    if (!cert) return c.json({ error: "matter_not_found" }, 404);
+    audit(db, id, actor(c), "verify.certify", `${body.filing.trim()} · ${cert.stats.authorities_verified} authorities verified · ${cert.stats.authorities_not_found} not found`);
+    return c.json(cert);
+  });
 }
 
 // Extracted from the old workspace cite-check so both endpoints share one
