@@ -265,12 +265,46 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
       );
     }
 
-    // Events: insert with verified citation flag based on Bates whitelist.
-    const existingEvents = db.prepare(`SELECT description FROM chronology_events WHERE matter_id = ?`).all(matterId) as { description: string }[];
-    const haveDescs = new Set(existingEvents.map((e) => e.description));
+    // Events: dedup ACROSS re-analyses. Exact string match was leaking
+    // duplicates because the model paraphrases the same fact each run
+    // ("Domestic disturbance at 1502 East Hampton Circle. Maria Rebollar
+    // told responding deputy…" vs. "Domestic disturbance at 1502 East
+    // Hampton Circle. Deputy responded to 911 call. Maria Rebollar…").
+    //
+    // Dedup key: (date | bates | description-signature) where the signature
+    // is the first 8 alpha tokens of the description, normalized. Two
+    // entries with the same date + Bates + lead 8 tokens are treated as the
+    // same event regardless of phrasing variation.
+    //
+    // First pass: collapse duplicates ALREADY in the table from prior runs.
+    // Keep the row with the most informative description (longest one), and
+    // preserve the accepted flag from whichever row had a decision.
+    const allEvents = db.prepare(
+      `SELECT id, event_date, description, citation_bates, accepted FROM chronology_events WHERE matter_id = ?`,
+    ).all(matterId) as { id: string; event_date: string; description: string; citation_bates: string; accepted: number | null }[];
+    const byEvent = new Map<string, { id: string; description: string; accepted: number | null }>();
+    for (const row of allEvents) {
+      const key = eventKey(row.event_date, row.citation_bates, row.description);
+      const prev = byEvent.get(key);
+      if (!prev) { byEvent.set(key, { id: row.id, description: row.description, accepted: row.accepted }); continue; }
+      // Keep whichever description is longer (more informative); preserve
+      // any non-null accepted decision.
+      const winnerIsExisting = prev.description.length >= row.description.length;
+      const keeper = winnerIsExisting ? prev : { id: row.id, description: row.description, accepted: row.accepted };
+      const loser = winnerIsExisting ? { id: row.id, description: row.description, accepted: row.accepted } : prev;
+      // Promote whichever accepted decision exists.
+      if (keeper.accepted === null && loser.accepted !== null) keeper.accepted = loser.accepted;
+      db.prepare(`UPDATE chronology_events SET accepted = ? WHERE id = ?`).run(keeper.accepted, keeper.id);
+      db.prepare(`DELETE FROM chronology_events WHERE id = ?`).run(loser.id);
+      byEvent.set(key, keeper);
+    }
+    const haveEventKeys = new Set(byEvent.keys());
+
     for (const ev of parsed.events ?? []) {
       if (!ev.date || !ev.description || !ev.bates) continue;
-      if (haveDescs.has(ev.description)) continue;
+      const key = eventKey(ev.date, ev.bates, ev.description);
+      if (haveEventKeys.has(key)) continue;
+      haveEventKeys.add(key);
       const verified = validBates.has(ev.bates);
       const id = `c-${randomUUID().slice(0, 8)}`;
       db.prepare(
@@ -334,6 +368,22 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
 // Normalize a person name for dedup: lowercase, strip periods/commas,
 // collapse whitespace. Keeps the original cased version in the row;
 // only the lookup key is normalized.
+// Key a chronology event by its semantic identity, not its literal phrasing.
+// Two model runs produce slightly different prose for the same fact; we
+// match on (date | bates | first 8 alpha tokens), case + punct + space
+// normalized. Avoids the wall of near-duplicate events that piled up when
+// the operator re-ran Analyze.
+function eventKey(date: string, bates: string, description: string): string {
+  const tokens = description
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter((t) => t.length >= 2)
+    .slice(0, 8)
+    .join(" ");
+  return `${date}|${bates}|${tokens}`;
+}
+
 function normName(name: string): string {
   return name
     .toLowerCase()
