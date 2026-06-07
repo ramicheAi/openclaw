@@ -9,6 +9,7 @@ import {
   IconBinder,
   IconBrain,
   IconChron,
+  IconCite,
   IconClose,
   IconExport,
   IconPrivileged,
@@ -114,6 +115,9 @@ export function CommandPalette({
                   </Item>
                   <Item icon={<IconArrow size={14} />} onSelect={() => run(() => onTab("documents"))} shortcut="⌘5">
                     Documents
+                  </Item>
+                  <Item icon={<IconCite size={14} />} onSelect={() => run(() => onTab("verify"))} shortcut="⌘6">
+                    Cite Check
                   </Item>
                 </Command.Group>
 

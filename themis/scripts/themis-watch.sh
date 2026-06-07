@@ -38,6 +38,10 @@ stop_processes() {
 
 start_processes() {
   log "starting server (THEMIS_LLM_PROVIDER=claude-code)"
+  # COURTLISTENER_API_TOKEN (optional) raises the Cite Check authority-lookup
+  # rate limit. Source it from ~/.themis-env if present so the operator can set
+  # it once without editing this script. Anonymous still works, just throttled.
+  [ -f "$HOME/.themis-env" ] && set -a && . "$HOME/.themis-env" && set +a
   ( cd "$REPO_ROOT/themis/server" \
       && THEMIS_LLM_PROVIDER=claude-code nohup npm run dev > /tmp/themis-server.log 2>&1 & )
   log "starting web (vite)"
