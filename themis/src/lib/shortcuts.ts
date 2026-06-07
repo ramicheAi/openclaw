@@ -6,7 +6,7 @@ export interface ShortcutMap {
   onCmdK?: () => void;
   onSlash?: () => void;
   onCmdD?: () => void;
-  onTab?: (n: 1 | 2 | 3 | 4 | 5 | 6) => void;
+  onTab?: (n: 1 | 2 | 3 | 4 | 5 | 6 | 7) => void;
   onAccept?: () => void;
   onReject?: () => void;
   onNextDoc?: () => void;
@@ -43,9 +43,9 @@ export function useGlobalShortcuts(map: ShortcutMap) {
         map.onCmdD?.();
         return;
       }
-      if (cmd && /^[1-6]$/.test(e.key)) {
+      if (cmd && /^[1-7]$/.test(e.key)) {
         e.preventDefault();
-        map.onTab?.(Number(e.key) as 1 | 2 | 3 | 4 | 5 | 6);
+        map.onTab?.(Number(e.key) as 1 | 2 | 3 | 4 | 5 | 6 | 7);
         return;
       }
       if (e.key === "Escape") {

@@ -147,6 +147,26 @@ export interface BatesFinding {
   privilege?: string;
 }
 
+// --- Drafting ---
+
+export type DraftKind =
+  | "demand-letter"
+  | "complaint"
+  | "motion-to-compel"
+  | "discovery-responses"
+  | "settlement-statement"
+  | "case-summary";
+
+export interface DraftKindOption {
+  id: DraftKind;
+  label: string;
+}
+
+export interface DraftResult {
+  kind: DraftKind;
+  draft: string;
+}
+
 // --- Deadlines ---
 
 export type DeadlineKind = "deadline" | "hearing" | "conference" | "trial" | "disclosure";

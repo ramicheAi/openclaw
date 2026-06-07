@@ -19,6 +19,9 @@ import type {
   VerifyResult,
   DepoOutline,
   Deadline,
+  DraftKindOption,
+  DraftResult,
+  DraftKind,
 } from "../types";
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
@@ -243,6 +246,26 @@ export const api = {
 
   deleteDeadline: (id: string, dlId: string) =>
     request<{ ok: boolean }>(`/api/matters/${id}/deadlines/${dlId}`, { method: "DELETE" }),
+
+  // --- Drafting ---
+
+  listDraftKinds: () =>
+    request<{ kinds: DraftKindOption[] }>(`/api/draft-kinds`).then((r) => r.kinds),
+
+  generateDraft: (
+    id: string,
+    payload: {
+      kind: DraftKind;
+      eventBates?: string[];
+      addressee?: string;
+      demandAmount?: string;
+      instructions?: string;
+    },
+  ) =>
+    request<DraftResult>(`/api/matters/${id}/drafts`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
 
   // --- Binders ---
 

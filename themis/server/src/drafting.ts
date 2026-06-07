@@ -1,0 +1,135 @@
+// Drafting — turn the chronology + case theory into a first draft of an
+// actual filing or letter. Every factual sentence carries an inline Bates
+// citation pulled from a chronology event the operator picked. Themis
+// composes the prose; the operator owns the choices (which template, which
+// events to ground in, what claims to lead with).
+//
+// Hard rules in the prompt:
+//   1. Every factual sentence MUST cite one of the selected events' Bates ids.
+//   2. Use only the claims/posture from the case theory the operator selected.
+//   3. Conventions of the document kind (demand letters open with parties +
+//      brief facts; motions to compel cite Rule 37 + the discovery request).
+//   4. No fabricated authorities — Themis ASKS for any authority slots the
+//      operator should fill in. (Authority verification happens in Cite Check.)
+//
+// Output is plain text with inline (BATES-IDS) citations the front-end renders
+// as clickable chips.
+
+import type { DB } from "./db.js";
+import { getMatter, listChronology } from "./repo.js";
+import { llmComplete } from "./llm.js";
+
+export type DraftKind =
+  | "demand-letter"
+  | "complaint"
+  | "motion-to-compel"
+  | "discovery-responses"
+  | "settlement-statement"
+  | "case-summary";
+
+const KIND_INSTRUCTIONS: Record<DraftKind, { label: string; convention: string }> = {
+  "demand-letter": {
+    label: "Demand letter",
+    convention: `Open with addressee + RE: line (matter caption). One paragraph identifying parties. Chronological factual recital, each fact cited to its Bates id. Liability paragraph stating the legal theory (negligence per se, breach, etc.) in plain English. Damages paragraph itemizing injuries and economic loss. Demand paragraph with a specific dollar figure (use [DEMAND AMOUNT] placeholder if not provided) and a response deadline (use [DATE] placeholder). Close with "Govern yourselves accordingly." and signature block.`,
+  },
+  "complaint": {
+    label: "Complaint",
+    convention: `Caption (court + parties). Numbered paragraphs. Jurisdiction + venue paragraphs (use [JURISDICTION] / [VENUE] placeholders). Parties paragraphs identifying plaintiff and defendant with addresses if available. Factual allegations as numbered paragraphs, each citing Bates ids. Counts (Count I — Negligence; Count II — etc.) each with elements pled. Prayer for relief.`,
+  },
+  "motion-to-compel": {
+    label: "Motion to compel",
+    convention: `Caption + title. Introduction stating what discovery is sought + why. Background (1-2 paragraphs of factual context cited to Bates ids). Discovery requests at issue (use [REQUEST TEXT] placeholders). Standard (cite FRCP 37 generically; specific authorities go through Cite Check before filing). Argument tying requests to relevance from the chronology. Conclusion + prayer. Certificate of conferral.`,
+  },
+  "discovery-responses": {
+    label: "Discovery responses",
+    convention: `Caption + title. General objections. Numbered request-by-request responses. Each substantive response cites Bates ids for any document being produced or referenced. Privilege log reference for withheld documents.`,
+  },
+  "settlement-statement": {
+    label: "Settlement statement",
+    convention: `Internal/work-product memo. Brief case summary. Strengths of plaintiff's case with Bates-cited facts. Weaknesses / defense theories. Damages model itemized (medicals, lost wages, pain & suffering with multipliers, future care). Range of acceptable settlement values. Recommended demand and bottom line.`,
+  },
+  "case-summary": {
+    label: "Case summary",
+    convention: `One-page executive memo. Parties + posture. Facts in chronological order with Bates citations. Claims/defenses. Status (where the case stands today). Open issues.`,
+  },
+};
+
+export interface DraftRequest {
+  kind: DraftKind;
+  /** Bates ids of chronology events the operator wants cited. Empty = use them all. */
+  eventBates?: string[];
+  /** Optional addressee for letters / caption preamble. */
+  addressee?: string;
+  /** Optional dollar figure for demand letters / settlement memos. */
+  demandAmount?: string;
+  /** Free-form extra instructions the operator wants honored. */
+  instructions?: string;
+}
+
+const SYSTEM = `You are a senior litigation paralegal drafting a first-pass legal document for an attorney to revise.
+
+Rules (apply to every draft):
+1. Every factual sentence MUST cite at least one Bates id in the form (BATES-ID) immediately after the sentence. Use only the Bates ids provided in the SELECTED EVENTS section.
+2. NEVER invent a case-law citation, statute, or rule number. If the document needs an authority, write the placeholder [AUTHORITY: <one-line description of what to find>] and a paralegal will fill it in via Cite Check.
+3. Use plain, professional legal English. No filler. No throat-clearing.
+4. Honor the document-kind conventions exactly.
+5. Output plain text (no markdown headings beyond a single title line; line breaks are OK; do not wrap in code fences).`;
+
+export async function generateDraft(
+  db: DB,
+  matterId: string,
+  req: DraftRequest,
+): Promise<{ ok: true; kind: DraftKind; draft: string } | { ok: false; error: string }> {
+  const matter = getMatter(db, matterId);
+  if (!matter) return { ok: false, error: "matter_not_found" };
+
+  const conv = KIND_INSTRUCTIONS[req.kind];
+  if (!conv) return { ok: false, error: `unknown_kind: ${req.kind}` };
+
+  const allEvents = listChronology(db, matterId);
+  const picked = req.eventBates && req.eventBates.length > 0
+    ? allEvents.filter((e) => req.eventBates!.includes(e.citation.bates))
+    : allEvents.filter((e) => e.accepted !== false);
+  if (picked.length === 0) {
+    return { ok: false, error: "No chronology events available to ground this draft. Accept events in the Chronology tab first, or run Analyze with Themis." };
+  }
+
+  const eventBlock = picked
+    .slice(0, 100)
+    .map((e) => `- ${e.date} — ${e.description} (${e.citation.bates}, p.${e.citation.page})`)
+    .join("\n");
+
+  const theory = matter.caseTheory;
+  const theoryBlock = theory
+    ? [
+        theory.posture ? `Posture: ${theory.posture}` : "",
+        theory.claims?.length ? `Claims:\n${theory.claims.map((c) => `- ${c}`).join("\n")}` : "",
+        theory.defenses?.length ? `Anticipated defenses:\n${theory.defenses.map((d) => `- ${d}`).join("\n")}` : "",
+      ].filter(Boolean).join("\n\n")
+    : "(case theory not yet built — run Analyze with Themis)";
+
+  const user = `MATTER CAPTION: ${matter.name}
+CLIENT: ${matter.client}
+LEAD ATTORNEY: ${matter.leadAttorney}
+
+DOCUMENT KIND: ${conv.label}
+KIND CONVENTIONS: ${conv.convention}
+${req.addressee ? `ADDRESSEE: ${req.addressee}\n` : ""}${req.demandAmount ? `DEMAND AMOUNT: ${req.demandAmount}\n` : ""}${req.instructions ? `EXTRA INSTRUCTIONS: ${req.instructions}\n` : ""}
+CASE THEORY:
+${theoryBlock}
+
+SELECTED EVENTS (each line is a fact you may cite by its Bates id):
+${eventBlock}
+
+Write the first draft now. Every factual sentence must end with the relevant (BATES-ID). Use [AUTHORITY: ...] placeholders for any case law / statute / rule needed.`;
+
+  const text = await llmComplete(SYSTEM, user, 4096);
+  if (text === null) {
+    return { ok: false, error: "LLM engine not configured. Set THEMIS_LLM_PROVIDER=claude-code or ANTHROPIC_API_KEY." };
+  }
+  return { ok: true, kind: req.kind, draft: text };
+}
+
+export function listDraftKinds(): { id: DraftKind; label: string }[] {
+  return (Object.keys(KIND_INSTRUCTIONS) as DraftKind[]).map((id) => ({ id, label: KIND_INSTRUCTIONS[id].label }));
+}
