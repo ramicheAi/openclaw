@@ -107,6 +107,65 @@ export interface Entity {
   firstSeen: string;
 }
 
+// --- Cite-Check / Authority verification (the Mata shield) ---
+
+export type AuthorityVerdict =
+  | "verified"
+  | "ambiguous"
+  | "not_found"
+  | "malformed"
+  | "rate_limited"
+  | "unverified";
+
+export interface AuthorityMatch {
+  caseName: string;
+  url: string;
+  dateFiled?: string;
+  citationCount?: number;
+  court?: string;
+}
+
+export interface AuthorityFinding {
+  citation: string;
+  startIndex: number;
+  endIndex: number;
+  verdict: AuthorityVerdict;
+  statusCode: number;
+  matches: AuthorityMatch[];
+  note?: string;
+}
+
+export interface BatesFinding {
+  bates: string;
+  page: number;
+  index: number;
+  existed: boolean;
+  entailed: boolean;
+  supportScore: number;
+  title?: string;
+  date?: string;
+  privilege?: string;
+}
+
+export interface VerifyResult {
+  bates: {
+    total: number;
+    existed: number;
+    entailed: number;
+    findings: BatesFinding[];
+  };
+  authorities: {
+    ok: boolean;
+    configured: boolean;
+    error?: string;
+    total: number;
+    verified: number;
+    ambiguous: number;
+    notFound: number;
+    findings: AuthorityFinding[];
+  };
+}
+
 export interface ChatTurn {
   id: string;
   role: "user" | "themis";

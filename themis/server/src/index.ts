@@ -8,6 +8,7 @@ import { registerCorpusRoutes } from "./routes/corpus.js";
 import { registerWorkspaceRoutes } from "./routes/workspace.js";
 import { registerBinderRoutes } from "./routes/binders.js";
 import { registerChainRoutes } from "./routes/chains.js";
+import { registerVerifyRoutes } from "./routes/verify.js";
 
 export function buildApp(db = getDb()) {
   seed(db); // idempotent: seeds only when empty
@@ -22,6 +23,7 @@ export function buildApp(db = getDb()) {
   registerWorkspaceRoutes(app, db);
   registerBinderRoutes(app, db);
   registerChainRoutes(app, db);
+  registerVerifyRoutes(app, db);
 
   app.notFound((c) => c.json({ error: "not_found", path: c.req.path }, 404));
   app.onError((err, c) => {

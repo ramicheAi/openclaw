@@ -16,6 +16,7 @@ import type {
   MatterSummary,
   PrivilegeFlag,
   SearchHit,
+  VerifyResult,
 } from "../types";
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
@@ -201,6 +202,17 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ question }),
     }),
+
+  // --- Cite Check (Mata shield) ---
+
+  verifyDraft: (id: string, text: string) =>
+    request<VerifyResult>(`/api/matters/${id}/verify`, {
+      method: "POST",
+      body: JSON.stringify({ text }),
+    }),
+
+  getVerifyStatus: () =>
+    request<{ courtListenerConfigured: boolean }>(`/api/verify/status`),
 
   // --- Binders ---
 

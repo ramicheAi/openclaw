@@ -18,6 +18,7 @@ import { ChronologyPanel } from "./panels/ChronologyPanel";
 import { PrivilegePanel } from "./panels/PrivilegePanel";
 import { BinderPanel } from "./panels/BinderPanel";
 import { DocumentsPanel } from "./panels/DocumentsPanel";
+import { CiteCheckPanel } from "./panels/CiteCheckPanel";
 
 export function Worktop({
   matterId,
@@ -107,6 +108,7 @@ export function Worktop({
             />
           )}
           {tab === "documents" && <DocumentsPanel matterId={matterId} initialFilter={docFilter} />}
+          {tab === "verify" && <CiteCheckPanel matterId={matterId} />}
         </div>
       </div>
 

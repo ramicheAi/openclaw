@@ -7,6 +7,7 @@ const TABS: { id: WorktopTab; n: number; label: string }[] = [
   { id: "privilege", n: 3, label: "Privilege" },
   { id: "binder", n: 4, label: "Binder" },
   { id: "documents", n: 5, label: "Documents" },
+  { id: "verify", n: 6, label: "Cite Check" },
 ];
 
 export function TabBar({
