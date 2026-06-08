@@ -8,7 +8,7 @@ import { IconArrow, IconCmdK, IconExport } from "../../icons";
 import { useEngineStatus } from "../../lib/queries";
 import { useAuth } from "../../lib/auth";
 import { api } from "../../lib/api";
-import { ShareLinksModal } from "../../components/ShareLinksModal";
+import { CollaborateModal } from "../../components/CollaborateModal";
 import type { MatterSummary } from "../../types";
 import type { AppMode } from "../../lib/router";
 import type { Theme } from "../../lib/theme";
@@ -69,7 +69,7 @@ export function TopBar({ matter, mode, theme, onMode, onBack, onOpenCmdK, onTogg
         <EnginePill />
         <button
           onClick={() => setShareOpen(true)}
-          title="Share a scoped read-only view"
+          title="Invite team or share a scoped read-only view"
           className="inline-flex h-8 items-center gap-1 rounded-md border border-line bg-surface px-2 text-[11.5px] font-medium text-ink-soft hover:border-brass-soft hover:text-brass-deep"
         >
           <IconExport size={12} /> Share
@@ -95,7 +95,7 @@ export function TopBar({ matter, mode, theme, onMode, onBack, onOpenCmdK, onTogg
       {/* Bottom brass gradient hairline */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-brass-soft/60 to-transparent" />
 
-      {shareOpen && <ShareLinksModal matterId={matter.id} onClose={() => setShareOpen(false)} />}
+      {shareOpen && <CollaborateModal matterId={matter.id} onClose={() => setShareOpen(false)} />}
     </div>
   );
 }

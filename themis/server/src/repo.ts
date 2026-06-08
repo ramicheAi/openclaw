@@ -333,9 +333,10 @@ export function createDocument(db: DB, matterId: string, input: CreateDocumentIn
     `INSERT INTO documents
       (id, matter_id, bates, title, type, doc_date, author, json_recipients, summary, body,
        json_entities, pages, hot, privilege, ocr_confidence, thread_id, thread_pos, thread_len,
-       duplicates, sort_order)
+       duplicates, sort_order, created_at)
      VALUES (@id, @matter_id, @bates, @title, @type, @doc_date, @author, @json_recipients,
-       @summary, @body, @json_entities, @pages, @hot, 'none', 'high', NULL, NULL, NULL, 0, @sort_order)`,
+       @summary, @body, @json_entities, @pages, @hot, 'none', 'high', NULL, NULL, NULL, 0,
+       @sort_order, @created_at)`,
   ).run({
     id,
     matter_id: matterId,
@@ -351,6 +352,7 @@ export function createDocument(db: DB, matterId: string, input: CreateDocumentIn
     pages,
     hot: input.hot ? 1 : 0,
     sort_order: nextOrder,
+    created_at: new Date().toISOString(),
   });
   // Recompute matter totals so the dashboard card + telemetry show the
   // right numbers after each upload.

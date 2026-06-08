@@ -3,12 +3,12 @@
 // and from the user pill in the matter top bar.
 
 import { useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "../lib/api";
 import { useAuth } from "../lib/auth";
 import { useTheme } from "../lib/theme";
 import { cx } from "../lib/ui";
-import { IconClose } from "../icons";
+import { IconClose, IconAdd, IconCopy } from "../icons";
 
 export function SettingsModal({ onClose }: { onClose: () => void }) {
   const auth = useAuth();
@@ -71,6 +71,13 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
             </Section>
           )}
 
+          {/* Webhooks — outbound audit forwarding for SIEM */}
+          {auth.mode === "multi-tenant" && auth.user && (
+            <Section title="Audit webhooks">
+              <WebhooksPanel />
+            </Section>
+          )}
+
           {/* Appearance */}
           <Section title="Appearance">
             <Row label="Theme" value={theme === "dark" ? "Dark (cinematic)" : "Light (paper)"} />
@@ -115,11 +122,18 @@ function BillingPanel() {
     enterprise: "Enterprise",
   };
   const plan = status.data?.plan ?? "free";
+  const usage = status.data?.usage;
   return (
     <div>
       <Row label="Current plan" value={planLabel[plan] ?? plan} />
       {status.data?.planActiveUntil && (
         <Row label="Renews" value={status.data.planActiveUntil.slice(0, 10)} />
+      )}
+      {usage && (
+        <div className="mt-2 space-y-1.5">
+          <QuotaBar label="Active matters" used={usage.matters.used} cap={usage.matters.cap} />
+          <QuotaBar label="Pages this month" used={usage.pages.used} cap={usage.pages.cap} />
+        </div>
       )}
       <div className="mt-3 flex items-center gap-2">
         <a
@@ -143,6 +157,144 @@ function BillingPanel() {
           Stripe isn't configured on this server. Contact support to upgrade.
         </div>
       )}
+    </div>
+  );
+}
+
+function QuotaBar({ label, used, cap }: { label: string; used: number; cap: number }) {
+  const unlimited = !Number.isFinite(cap);
+  const pct = unlimited ? 0 : Math.min(100, Math.round((used / Math.max(1, cap)) * 100));
+  const tone = pct >= 90 ? "bg-danger" : pct >= 70 ? "bg-flag" : "bg-brass";
+  return (
+    <div>
+      <div className="flex items-baseline justify-between text-[11px]">
+        <span className="text-ink-soft">{label}</span>
+        <span className="font-mono text-ink-faint">
+          {used.toLocaleString()} / {unlimited ? "∞" : cap.toLocaleString()}
+        </span>
+      </div>
+      <div className="mt-0.5 h-1 overflow-hidden rounded-full bg-surface-sunken">
+        <div className={cx("h-full", tone)} style={{ width: unlimited ? "0%" : `${pct}%` }} />
+      </div>
+    </div>
+  );
+}
+
+function WebhooksPanel() {
+  const qc = useQueryClient();
+  const list = useQuery({ queryKey: ["webhooks"], queryFn: api.listWebhooks });
+  const create = useMutation({
+    mutationFn: ({ url, events }: { url: string; events: string }) => api.createWebhook(url, events),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["webhooks"] }),
+  });
+  const del = useMutation({
+    mutationFn: (id: string) => api.deleteWebhook(id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["webhooks"] }),
+  });
+  const [url, setUrl] = useState("");
+  const [events, setEvents] = useState("audit.*");
+  const [showSecret, setShowSecret] = useState<Record<string, boolean>>({});
+  const items = list.data ?? [];
+
+  return (
+    <div>
+      <p className="text-[11.5px] text-ink-soft">
+        Forward every audit-trail event (accept, reject, draft, share, certify, etc.) to your SIEM
+        or any HTTPS endpoint. Each payload is signed with HMAC-SHA256 in <code className="rounded bg-surface-sunken px-1 font-mono text-[10.5px]">X-Themis-Signature</code>.
+      </p>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (url.trim()) create.mutate({ url: url.trim(), events: events.trim() || "audit.*" });
+        }}
+        className="mt-3 grid grid-cols-[1fr_140px_auto] items-end gap-2"
+      >
+        <label className="block">
+          <span className="font-mono text-[9px] uppercase tracking-wider text-ink-faint">URL</span>
+          <input
+            type="url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="https://your-siem.example.com/webhook"
+            className="mt-0.5 w-full rounded-md border border-line bg-surface px-2 py-1.5 text-[12px] text-ink outline-none focus:border-brass"
+          />
+        </label>
+        <label className="block">
+          <span className="font-mono text-[9px] uppercase tracking-wider text-ink-faint">Events</span>
+          <input
+            value={events}
+            onChange={(e) => setEvents(e.target.value)}
+            placeholder="audit.*"
+            className="mt-0.5 w-full rounded-md border border-line bg-surface px-2 py-1.5 font-mono text-[11px] text-ink outline-none focus:border-brass"
+          />
+        </label>
+        <button
+          type="submit"
+          disabled={!url.trim() || create.isPending}
+          className="inline-flex h-[30px] items-center gap-1 rounded-md bg-brass px-3 text-[12px] font-semibold text-paper hover:bg-brass-deep disabled:opacity-50"
+        >
+          <IconAdd size={12} /> Add
+        </button>
+      </form>
+      {create.error && (
+        <div className="mt-2 rounded-md border border-flag/30 bg-flag-wash p-2 text-[11px] text-flag">
+          {create.error instanceof Error ? create.error.message : "Could not save webhook."}
+        </div>
+      )}
+
+      <ul className="mt-3 space-y-2">
+        {items.length === 0 ? (
+          <li className="rounded-md border border-dashed border-line bg-surface-sunken/40 px-3 py-4 text-center text-[11.5px] text-ink-soft">
+            No webhooks configured.
+          </li>
+        ) : (
+          items.map((w) => (
+            <li key={w.id} className="rounded-md border border-line bg-paper px-3 py-2.5">
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <div className="truncate font-mono text-[11.5px] text-ink" title={w.url}>{w.url}</div>
+                  <div className="mt-0.5 flex flex-wrap items-center gap-1.5 font-mono text-[9.5px] text-ink-faint">
+                    <span className="rounded border border-brass-soft bg-brass-wash px-1 py-px text-brass-deep">{w.events}</span>
+                    {w.lastOk && <span>· last ok {new Date(w.lastOk).toLocaleString()}</span>}
+                    {w.lastError && <span className="text-danger">· last error: {w.lastError}</span>}
+                  </div>
+                  <div className="mt-1.5 flex items-center gap-2">
+                    {showSecret[w.id] ? (
+                      <code className="break-all rounded border border-line bg-surface-sunken px-1.5 py-0.5 font-mono text-[10px] text-ink">
+                        {w.secret}
+                      </code>
+                    ) : (
+                      <button
+                        onClick={() => setShowSecret({ ...showSecret, [w.id]: true })}
+                        className="text-[10.5px] font-medium text-info hover:underline"
+                      >
+                        Show signing secret
+                      </button>
+                    )}
+                    {showSecret[w.id] && (
+                      <button
+                        onClick={() => navigator.clipboard?.writeText(w.secret)}
+                        className="text-ink-faint hover:text-ink"
+                        title="Copy secret"
+                      >
+                        <IconCopy size={11} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    if (window.confirm("Delete this webhook? It'll stop receiving events immediately.")) del.mutate(w.id);
+                  }}
+                  className="inline-flex items-center gap-1 rounded-md border border-danger/40 bg-danger-wash px-2 py-1 text-[10.5px] font-medium text-danger hover:border-danger"
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          ))
+        )}
+      </ul>
     </div>
   );
 }

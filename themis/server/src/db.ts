@@ -44,6 +44,8 @@ function migrate(db: DB) {
     `ALTER TABLE users ADD COLUMN plan_active_until TEXT`,
     `ALTER TABLE users ADD COLUMN stripe_customer_id TEXT`,
     `ALTER TABLE users ADD COLUMN stripe_subscription_id TEXT`,
+    // Doc creation timestamp — needed for the pages-per-month quota check.
+    `ALTER TABLE documents ADD COLUMN created_at TEXT NOT NULL DEFAULT ''`,
   ];
   for (const sql of adds) {
     try {

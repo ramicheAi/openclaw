@@ -58,16 +58,39 @@ function currentEmail(c: Context, db: DB): string | null {
 }
 
 export function registerBillingRoutes(app: Hono, db: DB) {
-  // Returns the user's current plan + whether checkout is available.
+  // Returns the user's current plan + quota usage + whether checkout is
+  // available. Computes monthly page usage live across every matter the
+  // user owns.
   app.get("/api/billing/status", (c) => {
     const email = currentEmail(c, db);
     const user = email ? getUserByEmail(db, email) : null;
+    const plan = (user?.plan ?? "free") as keyof typeof PLANS;
+    const spec = PLANS[plan];
+    let mattersUsed = 0;
+    let pagesUsedThisMonth = 0;
+    if (email) {
+      mattersUsed = (db.prepare(`SELECT COUNT(*) AS n FROM matters WHERE owner_email = ?`).get(email) as { n: number }).n;
+      const since = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString();
+      pagesUsedThisMonth = (db
+        .prepare(
+          `SELECT COALESCE(SUM(d.pages), 0) AS n FROM documents d
+            JOIN matters m ON m.id = d.matter_id
+            WHERE m.owner_email = ? AND d.created_at >= ?`,
+        )
+        .get(email, since) as { n: number }).n;
+    }
     return c.json({
       configured: isBillingConfigured(),
-      plan: user?.plan ?? "free",
+      plan,
+      planLabel: spec.label,
       planActiveUntil: user?.planActiveUntil ?? null,
       hasSubscription: !!user?.stripeSubscriptionId,
       stripeCustomerId: user?.stripeCustomerId ?? null,
+      usage: {
+        matters: { used: mattersUsed, cap: spec.matters },
+        pages: { used: pagesUsedThisMonth, cap: spec.pagesPerMonth },
+        seats: { used: 1, cap: spec.seats },
+      },
     });
   });
 

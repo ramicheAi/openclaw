@@ -32,6 +32,9 @@ import type {
   DamagesCategory,
   SpokenLine,
   FirmAuditEntry,
+  MatterAccess,
+  MatterRole,
+  WebhookEndpoint,
 } from "../types";
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
@@ -90,9 +93,19 @@ export const api = {
 
   // --- Billing ---
   billingStatus: () =>
-    request<{ configured: boolean; plan: string; planActiveUntil: string | null; hasSubscription: boolean; stripeCustomerId: string | null }>(
-      `/api/billing/status`,
-    ),
+    request<{
+      configured: boolean;
+      plan: string;
+      planLabel?: string;
+      planActiveUntil: string | null;
+      hasSubscription: boolean;
+      stripeCustomerId: string | null;
+      usage?: {
+        matters: { used: number; cap: number };
+        pages: { used: number; cap: number };
+        seats: { used: number; cap: number };
+      };
+    }>(`/api/billing/status`),
   billingCheckout: (plan: string) =>
     request<{ url?: string; error?: string }>(`/api/billing/checkout`, {
       method: "POST",
@@ -112,6 +125,29 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ email }),
     }),
+
+  // --- Team access (per-matter) ---
+  listMatterAccess: (matterId: string) =>
+    request<{ access: MatterAccess[] }>(`/api/matters/${matterId}/access`).then((r) => r.access),
+  grantMatterAccess: (matterId: string, email: string, role: MatterRole) =>
+    request<MatterAccess>(`/api/matters/${matterId}/access`, {
+      method: "POST",
+      body: JSON.stringify({ email, role }),
+    }),
+  revokeMatterAccess: (matterId: string, email: string) =>
+    request<{ ok: boolean }>(`/api/matters/${matterId}/access/${encodeURIComponent(email)}`, {
+      method: "DELETE",
+    }),
+
+  // --- Webhooks (firm-scoped) ---
+  listWebhooks: () => request<{ webhooks: WebhookEndpoint[] }>(`/api/webhooks`).then((r) => r.webhooks),
+  createWebhook: (url: string, events = "audit.*") =>
+    request<WebhookEndpoint>(`/api/webhooks`, {
+      method: "POST",
+      body: JSON.stringify({ url, events }),
+    }),
+  deleteWebhook: (id: string) =>
+    request<{ ok: boolean }>(`/api/webhooks/${id}`, { method: "DELETE" }),
 
   listMatters: () => request<{ matters: MatterSummary[] }>("/api/matters").then((r) => r.matters),
 

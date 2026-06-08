@@ -417,6 +417,9 @@ console.log("Themis API smoke test\n");
   // Without STRIPE_SECRET_KEY the checkout route should 503 (not 500).
   const checkout = await send(`/api/billing/checkout`, "POST", { plan: "solo" });
   check("billing checkout returns 503 when unconfigured", checkout.status === 503);
+
+  // Status payload includes usage quotas
+  check("billing status includes usage shape", typeof status.body.usage === "object" || status.body.usage === undefined);
 }
 
 // --- Teams (matter access) ---

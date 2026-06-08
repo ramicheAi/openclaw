@@ -497,6 +497,38 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     if (!body.bates?.trim() || !body.title?.trim()) {
       return c.json({ error: "bates_and_title_required" }, 400);
     }
+    // Enforce monthly page quota for the matter's owner. We sum pages from
+    // documents created this calendar month across every matter the owner
+    // controls, then compare to their plan's pagesPerMonth cap.
+    const owner = ownerEmail(c);
+    if (owner) {
+      const userRow = db.prepare(`SELECT plan FROM users WHERE email = ?`).get(owner) as { plan?: string } | undefined;
+      const plan = planSpec(userRow?.plan);
+      if (plan.pagesPerMonth !== Number.POSITIVE_INFINITY) {
+        const since = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString();
+        const used = (db
+          .prepare(
+            `SELECT COALESCE(SUM(d.pages), 0) AS n FROM documents d
+              JOIN matters m ON m.id = d.matter_id
+              WHERE m.owner_email = ? AND d.created_at >= ?`,
+          )
+          .get(owner, since) as { n: number } | undefined)?.n ?? 0;
+        const incoming = Math.max(1, body.pages ?? 1);
+        if (used + incoming > plan.pagesPerMonth) {
+          return c.json(
+            {
+              error: "plan_limit",
+              limit: "pages",
+              current: used,
+              cap: plan.pagesPerMonth,
+              plan: plan.id,
+              message: `Your ${plan.label} plan caps document pages at ${plan.pagesPerMonth.toLocaleString()}/month. You've used ${used.toLocaleString()} this month. Upgrade in Settings → Billing.`,
+            },
+            402,
+          );
+        }
+      }
+    }
     try {
       const docBody = (body.body ?? "").length > 0
         ? body.body!

@@ -197,6 +197,31 @@ export interface DamagesItem {
   createdAt: string;
 }
 
+// --- Team / access ---
+
+export type MatterRole = "admin" | "partner" | "associate" | "paralegal" | "readonly";
+
+export interface MatterAccess {
+  matterId: string;
+  email: string;
+  role: MatterRole;
+  invitedBy: string;
+  invitedAt: string;
+  accepted: boolean;
+}
+
+export interface WebhookEndpoint {
+  id: string;
+  ownerEmail: string;
+  url: string;
+  secret: string;
+  events: string;
+  active: boolean;
+  createdAt: string;
+  lastOk?: string;
+  lastError?: string;
+}
+
 // --- Firm-wide audit ---
 
 export interface FirmAuditEntry {
