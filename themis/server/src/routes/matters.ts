@@ -15,6 +15,8 @@ import { authedActor } from "./auth.js";
 import { isAuthRequired } from "../auth.js";
 import type { Session } from "../auth.js";
 import { canCreateMatter, planSpec } from "../plans.js";
+import { listPacks, packById } from "../packs.js";
+import { randomUUID } from "node:crypto";
 import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.js";
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
 import { analyzeMatter } from "../analyze.js";
@@ -49,6 +51,11 @@ function ownerEmail(c: Context): string | undefined {
 
 export function registerMatterRoutes(app: Hono, db: DB) {
   app.get("/api/matters", (c) => c.json({ matters: listMatters(db, ownerEmail(c)) }));
+
+  // Vertical packs catalog — used by the New Matter modal to let the
+  // operator pick a practice area and seed the matter with the pack's
+  // defaults (claims, defenses, evidence checklist, damages categories).
+  app.get("/api/packs", (c) => c.json({ packs: listPacks() }));
 
   // Firm-wide audit feed — every entry across every matter the operator
   // can see. Drives the global "Audit Log" nav surface.
@@ -118,6 +125,7 @@ export function registerMatterRoutes(app: Hono, db: DB) {
       matterType?: string;
       leadAttorney?: string;
       posture?: string;
+      packId?: string;
     };
     if (!body.name?.trim() || !body.client?.trim()) {
       return c.json({ error: "name_and_client_required" }, 400);
@@ -155,6 +163,30 @@ export function registerMatterRoutes(app: Hono, db: DB) {
       ownerEmail: ownerEmail(c),
     });
     audit(db, id, actor(c), "matter.create", `${body.name} · ${body.client}`);
+
+    // Apply the practice-area pack: pre-populate claims + defenses on the
+    // matter's case theory, seed gap_findings with the pack's evidence
+    // checklist so the operator sees what's missing on day one.
+    if (body.packId) {
+      const pack = packById(body.packId);
+      if (pack.id !== "general") {
+        const existing = getMatter(db, id);
+        const existingClaims = existing?.caseTheory?.claims ?? [];
+        const existingDefenses = existing?.caseTheory?.defenses ?? [];
+        const mergedClaims = Array.from(new Set([...existingClaims, ...pack.claims]));
+        const mergedDefenses = Array.from(new Set([...existingDefenses, ...pack.defenses]));
+        db.prepare(
+          `UPDATE matters SET json_claims = ?, json_defenses = ? WHERE id = ?`,
+        ).run(JSON.stringify(mergedClaims), JSON.stringify(mergedDefenses), id);
+        for (const item of pack.evidenceChecklist) {
+          db.prepare(
+            `INSERT INTO gap_findings (id, matter_id, severity, text) VALUES (?, ?, ?, ?)`,
+          ).run(`g-${randomUUID().slice(0, 8)}`, id, item.severity ?? "medium", item.label);
+        }
+        audit(db, id, actor(c), "matter.pack", `${pack.label} · ${pack.claims.length} claims · ${pack.evidenceChecklist.length} evidence items`);
+      }
+    }
+
     const matter = getMatter(db, id);
     return c.json({ matter, id }, 201);
   });

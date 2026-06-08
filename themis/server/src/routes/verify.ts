@@ -17,6 +17,8 @@ import { audit, getDocumentByBates, matterExists } from "../repo.js";
 import { assessCitation } from "../services.js";
 import { verifyAuthorities, isCourtListenerConfigured } from "../courtlistener.js";
 import { generateCertification } from "../certifications.js";
+import { createVerifiedCertification } from "../verified.js";
+import { getMatter } from "../repo.js";
 
 function actor(c: Context): string {
   return authedActor(c);
@@ -107,7 +109,40 @@ export function registerVerifyRoutes(app: Hono, db: DB) {
     });
     if (!cert) return c.json({ error: "matter_not_found" }, 404);
     audit(db, id, actor(c), "verify.certify", `${body.filing.trim()} · ${cert.stats.authorities_verified} authorities verified · ${cert.stats.authorities_not_found} not found`);
-    return c.json(cert);
+
+    // Mint a public Themis Verified hash so anyone with the URL can
+    // attest to this certification. The hash is included in the cert text
+    // so the badge URL travels with the filing.
+    const matter = getMatter(db, id);
+    if (!matter) return c.json(cert);
+    const publicBase = (process.env.THEMIS_PUBLIC_URL ?? "").replace(/\/$/, "") ||
+      `${c.req.header("x-forwarded-proto") ?? "http"}://${c.req.header("host") ?? "localhost:5180"}`;
+    const verified = createVerifiedCertification(db, {
+      matterId: id,
+      matterName: matter.name,
+      client: matter.client,
+      filing: body.filing.trim(),
+      jurisdiction: typeof body.jurisdiction === "string" ? body.jurisdiction.trim() : undefined,
+      signer: typeof body.signer === "string" ? body.signer.trim() : undefined,
+      barNumber: typeof body.barNumber === "string" ? body.barNumber.trim() : undefined,
+      stats: cert.stats,
+    });
+    const verifyUrl = `${publicBase}/verify/${verified.hash}`;
+    // Insert the verification footer into the cert text. Recipients of the
+    // filing paste the URL to attest. The hash is short + url-safe.
+    const augmentedText =
+      cert.text +
+      "\n\n" +
+      "─────────────────────────────────────────────────────────\n" +
+      `Themis Verified — public attestation\n` +
+      `Hash:       ${verified.hash}\n` +
+      `Verify at:  ${verifyUrl}\n` +
+      `Audit anchor (matter hash chain): ${verified.auditAnchor.slice(0, 16)}…\n` +
+      `Issued:     ${verified.signedAt}\n`;
+
+    audit(db, id, actor(c), "verify.published", `${verified.hash} · ${verifyUrl}`);
+
+    return c.json({ ...cert, text: augmentedText, verified });
   });
 }
 

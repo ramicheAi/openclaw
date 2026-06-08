@@ -13,6 +13,7 @@ import { FirmAuditScreen } from "./screens/FirmAuditScreen";
 import { SettingsModal } from "./components/SettingsModal";
 import { PricingScreen } from "./screens/PricingScreen";
 import { PublicCiteCheckScreen } from "./screens/PublicCiteCheckScreen";
+import { VerifyBadgeScreen } from "./screens/VerifyBadgeScreen";
 import { AuthProvider, useAuth } from "./lib/auth";
 
 const queryClient = new QueryClient({
@@ -75,6 +76,8 @@ function Shell() {
     const path = window.location.pathname;
     const sharePath = path.match(/^\/share\/([A-Za-z0-9_-]{8,})/);
     if (sharePath) return <SharedMatterView token={sharePath[1]} />;
+    const verifyPath = path.match(/^\/verify\/([A-Za-z0-9_-]{8,})/);
+    if (verifyPath) return <VerifyBadgeScreen hash={verifyPath[1]} />;
     if (path === "/cite-check") return <PublicCiteCheckScreen />;
     if (path === "/pricing") return <PricingScreen />;
   }

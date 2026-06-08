@@ -391,6 +391,31 @@ console.log("Themis API smoke test\n");
   check("unknown share token 404", badToken.status === 404);
 }
 
+// --- Vertical packs ---
+{
+  const r = await get(`/api/packs`);
+  check("packs catalog 200", r.status === 200 && Array.isArray(r.body.packs));
+  check("packs catalog includes PI", r.body.packs.some((p: any) => p.id === "personal_injury"));
+  check("packs catalog includes immigration", r.body.packs.some((p: any) => p.id === "immigration"));
+}
+
+// --- Themis Verified public attestation ---
+{
+  // Hash lookup for unknown id → 404
+  const missing = await get(`/api/public/verify/nope-not-real`);
+  check("verify lookup unknown 404", missing.status === 404);
+
+  // Generate a real certification (re-uses the existing flow) and then
+  // hit the public lookup endpoint to confirm the badge resolves.
+  const cert = await send(`/api/matters/${M}/certification`, "POST", { filing: "Smoke Test Motion" });
+  check("certification with attestation 200", cert.status === 200 && cert.body.verified?.hash);
+
+  const badge = await get(`/api/public/verify/${cert.body.verified.hash}`);
+  check("public verify badge 200", badge.status === 200);
+  check("badge returns matter name", typeof badge.body.matterName === "string");
+  check("badge returns stats", typeof badge.body.stats === "object");
+}
+
 // --- Public Cite Check (free wedge — no auth) ---
 {
   const r = await send(`/api/public/cite-check`, "POST", { text: "Mata v. Avianca, Inc., 678 F. Supp. 3d 443 (S.D.N.Y. 2023)." });

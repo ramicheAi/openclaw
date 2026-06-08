@@ -151,6 +151,9 @@ export const api = {
 
   listMatters: () => request<{ matters: MatterSummary[] }>("/api/matters").then((r) => r.matters),
 
+  listPacks: () =>
+    request<{ packs: { id: string; label: string; blurb: string }[] }>(`/api/packs`).then((r) => r.packs),
+
   listFirmAudit: (limit = 200) =>
     request<{ entries: FirmAuditEntry[] }>(`/api/firm/audit?limit=${limit}`).then((r) => r.entries),
 
@@ -170,6 +173,7 @@ export const api = {
     matterType?: string;
     leadAttorney?: string;
     posture?: string;
+    packId?: string;
   }) =>
     request<{ matter: MatterDetail; id: string }>(`/api/matters`, {
       method: "POST",

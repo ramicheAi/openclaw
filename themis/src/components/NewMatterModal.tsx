@@ -38,6 +38,11 @@ export function NewMatterModal({ open, onClose, onCreated }: Props) {
   const [posture, setPosture] = useState("");
   const [adverseParties, setAdverseParties] = useState("");
   const [conflictAcknowledged, setConflictAcknowledged] = useState(false);
+  const [packId, setPackId] = useState<string>("general");
+
+  // Fetch the vertical-packs catalog so the operator can seed the matter
+  // with practice-area defaults (claims/defenses/evidence checklist).
+  const packs = useQuery({ queryKey: ["packs"], queryFn: api.listPacks });
 
   // Live conflicts check — debounced. We check the client + every adverse
   // party (comma- or newline-separated) against the existing entity graph
@@ -65,7 +70,8 @@ export function NewMatterModal({ open, onClose, onCreated }: Props) {
   const hits = conflicts.data?.hits ?? [];
   const blocking = hits.some((h) => h.strength === "exact" || h.strength === "fuzzy");
   const create = useMutation({
-    mutationFn: () => api.createMatter({ name, client, matterType, leadAttorney, posture }),
+    mutationFn: () =>
+      api.createMatter({ name, client, matterType, leadAttorney, posture, packId: packId === "general" ? undefined : packId }),
     onSuccess: ({ id }) => {
       qc.invalidateQueries({ queryKey: qk.matters });
       // Reset for next time.
@@ -148,6 +154,16 @@ export function NewMatterModal({ open, onClose, onCreated }: Props) {
               placeholder="Lead attorney name"
               className="input"
             />
+          </Field>
+          <Field label="Practice area pack" hint="Seeds the matter with standard claims, defenses, and an evidence checklist for that vertical." wide>
+            <select value={packId} onChange={(e) => setPackId(e.target.value)} className="input">
+              {(packs.data ?? [{ id: "general", label: "General litigation", blurb: "" }]).map((p) => (
+                <option key={p.id} value={p.id}>{p.label}</option>
+              ))}
+            </select>
+            <div className="mt-1 text-[10.5px] text-ink-faint">
+              {packs.data?.find((p) => p.id === packId)?.blurb ?? "Catch-all defaults."}
+            </div>
           </Field>
           <Field label="Adverse parties" hint="Comma- or newline-separated. Used for the conflicts check." wide>
             <textarea

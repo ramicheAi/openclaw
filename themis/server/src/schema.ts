@@ -182,6 +182,22 @@ CREATE TABLE IF NOT EXISTS webhook_endpoints (
 );
 CREATE INDEX IF NOT EXISTS idx_webhook_owner ON webhook_endpoints(owner_email);
 
+CREATE TABLE IF NOT EXISTS verified_certifications (
+  hash         TEXT PRIMARY KEY,      -- url-safe public identifier
+  matter_id    TEXT NOT NULL,
+  matter_name  TEXT NOT NULL,         -- denormalized — survives matter rename
+  client       TEXT NOT NULL DEFAULT '',
+  filing       TEXT NOT NULL,
+  jurisdiction TEXT,
+  signer       TEXT,
+  bar_number   TEXT,
+  stats_json   TEXT NOT NULL,         -- JSON: cite_check_runs, authorities_verified, etc.
+  signed_at    TEXT NOT NULL,
+  audit_anchor TEXT NOT NULL,         -- the matter's last audit_log entry_hash at sign time
+  revoked      INTEGER NOT NULL DEFAULT 0
+);
+CREATE INDEX IF NOT EXISTS idx_verified_matter ON verified_certifications(matter_id);
+
 CREATE TABLE IF NOT EXISTS public_cite_checks (
   id         TEXT PRIMARY KEY,
   ip         TEXT NOT NULL,

@@ -14,6 +14,7 @@ import type { Context, Hono } from "hono";
 import { randomUUID } from "node:crypto";
 import type { DB } from "../db.js";
 import { verifyAuthorities } from "../courtlistener.js";
+import { getVerifiedByHash } from "../verified.js";
 
 // Hard rate-limit at the route layer so we don't burn through our
 // CourtListener allowance on an attack. 50 checks per IP per day.
@@ -85,6 +86,31 @@ export function registerPublicRoutes(app: Hono, db: DB) {
       // Funnel metadata
       remainingToday: DAILY_LIMIT - used - 1,
       dailyLimit: DAILY_LIMIT,
+    });
+  });
+
+  // Themis Verified — public attestation lookup. Anyone with the hash
+  // (from a filing, an email, a Slack message) can verify what was checked,
+  // when, and by whom. Free; no account needed. This is the moat play.
+  app.get("/api/public/verify/:hash", (c) => {
+    const hash = c.req.param("hash");
+    const cert = getVerifiedByHash(db, hash);
+    if (!cert) return c.json({ error: "not_found" }, 404);
+    if (cert.revoked) return c.json({ error: "revoked" }, 410);
+    // Strip PII we don't want to expose to randoms — we publish the signer
+    // name + bar number (which IS already on the filing) but never their
+    // email or session info.
+    return c.json({
+      hash: cert.hash,
+      matterName: cert.matterName,
+      client: cert.client,
+      filing: cert.filing,
+      jurisdiction: cert.jurisdiction,
+      signer: cert.signer,
+      barNumber: cert.barNumber,
+      stats: cert.stats,
+      signedAt: cert.signedAt,
+      auditAnchor: cert.auditAnchor,
     });
   });
 
