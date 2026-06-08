@@ -48,16 +48,37 @@ export function listMatters(db: DB, ownerEmail?: string, opts: { archived?: bool
   //
   // opts.archived defaults to false — the active dashboard hides archived
   // matters. Pass true to scope to ONLY archived (the Archive nav surface).
+  //
+  // Defensive: if the `archived` column is somehow missing (migration
+  // dropped, very old DB), we catch and fall back to the column-less query
+  // so the dashboard still loads instead of hard-failing.
   const wantArchived = opts.archived ? 1 : 0;
-  if (ownerEmail) {
-    const rows = db
-      .prepare(`SELECT m.*, ${computed} FROM matters m WHERE m.archived = ? AND (m.owner_email = ? OR m.owner_email = '') ORDER BY m.created_at`)
-      .all(wantArchived, ownerEmail) as Row[];
-    return rows.map(rowToSummary);
+  function run(includeArchived: boolean): Row[] {
+    if (ownerEmail) {
+      const sql = includeArchived
+        ? `SELECT m.*, ${computed} FROM matters m WHERE m.archived = ? AND (m.owner_email = ? OR m.owner_email = '') ORDER BY m.created_at`
+        : `SELECT m.*, ${computed} FROM matters m WHERE m.owner_email = ? OR m.owner_email = '' ORDER BY m.created_at`;
+      return includeArchived
+        ? (db.prepare(sql).all(wantArchived, ownerEmail) as Row[])
+        : (db.prepare(sql).all(ownerEmail) as Row[]);
+    }
+    const sql = includeArchived
+      ? `SELECT m.*, ${computed} FROM matters m WHERE m.archived = ? ORDER BY m.created_at`
+      : `SELECT m.*, ${computed} FROM matters m ORDER BY m.created_at`;
+    return includeArchived ? (db.prepare(sql).all(wantArchived) as Row[]) : (db.prepare(sql).all() as Row[]);
   }
-  const rows = db
-    .prepare(`SELECT m.*, ${computed} FROM matters m WHERE m.archived = ? ORDER BY m.created_at`)
-    .all(wantArchived) as Row[];
+  let rows: Row[];
+  try {
+    rows = run(true);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (/no such column.*archived/i.test(msg)) {
+      console.error("[listMatters] archived column missing — falling back. Run the ALTER TABLE manually:", msg);
+      rows = run(false);
+    } else {
+      throw err;
+    }
+  }
   return rows.map(rowToSummary);
 }
 

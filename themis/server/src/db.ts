@@ -24,7 +24,10 @@ export function getDb(): DB {
 }
 
 // Lightweight idempotent migrations for columns added after the first release.
-// SQLite ALTER TABLE ADD COLUMN throws if it already exists — swallow.
+// SQLite ALTER TABLE ADD COLUMN throws if it already exists — that case is
+// silent. ANY OTHER failure is logged loudly so we don't silently corrupt
+// query plans (the listMatters WHERE m.archived = ? query depends on the
+// column actually being there).
 function migrate(db: DB) {
   const adds = [
     `ALTER TABLE documents ADD COLUMN reviewed INTEGER NOT NULL DEFAULT 0`,
@@ -56,8 +59,13 @@ function migrate(db: DB) {
   for (const sql of adds) {
     try {
       db.exec(sql);
-    } catch {
-      // already exists
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      // SQLite reports "duplicate column name: <name>" when the column is
+      // already present. That's expected on every boot after first run.
+      if (/duplicate column name/i.test(msg)) continue;
+      // Anything else is a real schema drift we need to see in the log.
+      console.error(`[migrate] ${sql} → ${msg}`);
     }
   }
 }
