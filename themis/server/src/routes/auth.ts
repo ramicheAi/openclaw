@@ -113,13 +113,17 @@ export function attachAuth(app: Hono, db: DB) {
     const { token } = createMagicLinkToken(db, email, requestIp);
     const url = `${baseUrl(c)}/api/auth/verify?token=${encodeURIComponent(token)}`;
     const sent = await sendEmail(magicLinkEmail({ to: email, url, ip: requestIp }));
+    // Surface the URL whenever delivery isn't confirmed — console fallback
+    // mode OR a Resend failure (domain not verified, key revoked, rate
+    // limit). The user can always paste it in their browser. Production
+    // deploys with a properly verified domain hide the URL.
+    const showUrl = sent.via === "console" || sent.delivered === false;
     return c.json({
       ok: true,
       via: sent.via,
       delivered: sent.delivered,
-      // In console-fallback mode we surface the URL to the client too so
-      // a self-hosting operator can sign in without checking the server log.
-      url: sent.via === "console" ? url : undefined,
+      error: sent.error,
+      url: showUrl ? url : undefined,
     });
   });
 
