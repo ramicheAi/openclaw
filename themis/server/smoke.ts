@@ -22,7 +22,9 @@ function check(name: string, cond: boolean) {
 }
 
 async function get(path: string) {
-  const res = await app.request(path);
+  // Consistent actor across GET + POST so per-user resources (e.g. firm
+  // templates) resolve to the same owner.
+  const res = await app.request(path, { headers: { "x-themis-actor": "Smoke Test" } });
   return { status: res.status, body: (await res.json()) as any };
 }
 async function send(path: string, method: string, payload?: unknown) {
@@ -389,6 +391,60 @@ console.log("Themis API smoke test\n");
 
   const badToken = await get(`/api/shared/nope-not-a-token`);
   check("unknown share token 404", badToken.status === 404);
+}
+
+// --- Firm Library templates ---
+{
+  const created = await send(`/api/templates`, "POST", { kind: "draft", title: "Sample demand letter shell", body: "Dear {{addressee}}…", category: "PI", tags: "demand, pi" });
+  check("create template 200", created.status === 200 && created.body.id);
+  check("template carries use_count 0", created.body.useCount === 0);
+
+  const list = await get(`/api/templates`);
+  check("list templates 200", list.status === 200 && Array.isArray(list.body.templates));
+
+  const filtered = await get(`/api/templates?kind=draft`);
+  check("filter templates by kind", filtered.body.templates.some((t: any) => t.id === created.body.id));
+
+  const used = await send(`/api/templates/${created.body.id}/use`, "POST");
+  check("template use bump 200", used.body.ok === true);
+
+  const bad = await send(`/api/templates`, "POST", { kind: "invalid", title: "x" });
+  check("invalid kind 400", bad.status === 400);
+
+  const noTitle = await send(`/api/templates`, "POST", { kind: "draft", title: "" });
+  check("missing title 400", noTitle.status === 400);
+
+  const updated = await send(`/api/templates/${created.body.id}`, "PATCH", { title: "Updated demand letter shell" });
+  check("update template 200", updated.body.title === "Updated demand letter shell");
+
+  const del = await send(`/api/templates/${created.body.id}`, "DELETE");
+  check("delete template ok", del.body.ok === true);
+}
+
+// --- Matter archive ---
+{
+  // Pick the seeded reyes matter for archive smoke (use a side test below).
+  const create = await send(`/api/matters`, "POST", { name: "Archive Test", client: "Tester" });
+  check("create test matter for archive (200/201)", create.status === 201 || create.status === 200);
+  const id = create.body?.matter?.id ?? create.body?.id;
+
+  const archived = await send(`/api/matters/${id}/archive`, "POST", { archived: true });
+  check("archive matter ok", archived.body.archived === true);
+
+  const list = await get(`/api/matters`);
+  check("archived matter excluded from main list", !list.body.matters.some((m: any) => m.id === id));
+
+  const archivedList = await get(`/api/matters/archived`);
+  check("archived matter appears in archive list", archivedList.body.matters.some((m: any) => m.id === id));
+
+  const bad = await send(`/api/matters/${id}/archive`, "POST", { archived: "nope" });
+  check("invalid archive value 400", bad.status === 400);
+
+  const unarchived = await send(`/api/matters/${id}/archive`, "POST", { archived: false });
+  check("unarchive ok", unarchived.body.archived === false);
+
+  const back = await get(`/api/matters`);
+  check("unarchived matter back in main list", back.body.matters.some((m: any) => m.id === id));
 }
 
 // --- Vertical packs ---

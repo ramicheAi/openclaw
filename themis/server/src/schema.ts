@@ -218,6 +218,20 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
 
+CREATE TABLE IF NOT EXISTS firm_templates (
+  id          TEXT PRIMARY KEY,
+  owner_email TEXT NOT NULL,                       -- user who saved it (firm-scoped)
+  kind        TEXT NOT NULL DEFAULT 'draft',       -- 'draft' | 'depo' | 'evidence' | 'demand-clause' | 'other'
+  category    TEXT NOT NULL DEFAULT '',            -- e.g. demand-letter / motion-to-compel / PI / employment
+  title       TEXT NOT NULL,
+  body        TEXT NOT NULL DEFAULT '',
+  tags        TEXT NOT NULL DEFAULT '',            -- comma-separated
+  use_count   INTEGER NOT NULL DEFAULT 0,
+  created_at  TEXT NOT NULL,
+  updated_at  TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_firm_templates_owner ON firm_templates(owner_email, kind);
+
 CREATE TABLE IF NOT EXISTS damages_items (
   id              TEXT PRIMARY KEY,
   matter_id       TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,

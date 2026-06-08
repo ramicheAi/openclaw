@@ -222,6 +222,23 @@ export interface WebhookEndpoint {
   lastError?: string;
 }
 
+// --- Firm Library templates ---
+
+export type TemplateKind = "draft" | "depo" | "evidence" | "demand-clause" | "other";
+
+export interface FirmTemplate {
+  id: string;
+  ownerEmail: string;
+  kind: TemplateKind;
+  category: string;
+  title: string;
+  body: string;
+  tags: string;
+  useCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // --- Firm-wide audit ---
 
 export interface FirmAuditEntry {

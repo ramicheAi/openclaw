@@ -11,6 +11,8 @@ import { SharedMatterView } from "./screens/SharedMatterView";
 import { LoginScreen } from "./screens/LoginScreen";
 import { LandingScreen } from "./screens/LandingScreen";
 import { FirmAuditScreen } from "./screens/FirmAuditScreen";
+import { FirmLibraryScreen } from "./screens/FirmLibraryScreen";
+import { ArchiveScreen } from "./screens/ArchiveScreen";
 import { SettingsModal } from "./components/SettingsModal";
 import { UpgradeListener } from "./components/UpgradeModal";
 import { PricingScreen } from "./screens/PricingScreen";
@@ -34,26 +36,13 @@ interface NavItem {
   id: string;
   label: string;
   icon: typeof LayoutGrid;
-  view: GlobalView | null;
-  soon?: string;
+  view: GlobalView;
 }
 const globalNav: NavItem[] = [
   { id: "matters", label: "Matters", icon: LayoutGrid, view: "matters" },
-  {
-    id: "firm",
-    label: "Firm Library",
-    icon: FolderLock,
-    view: null,
-    soon: "Firm-wide motion + brief templates, shared expert/depo questions, model contracts. Coming in v0.3.",
-  },
+  { id: "firm", label: "Firm Library", icon: FolderLock, view: "firm" },
   { id: "audit", label: "Audit Log", icon: ScrollText, view: "audit" },
-  {
-    id: "archive",
-    label: "Archive",
-    icon: Archive,
-    view: null,
-    soon: "Closed matters live here — hash chain preserved, but excluded from the active dashboard. Coming in v0.3.",
-  },
+  { id: "archive", label: "Archive", icon: Archive, view: "archive" },
 ];
 
 export function App() {
@@ -118,13 +107,7 @@ function Shell() {
             {globalNav.map((item) => {
               const active = item.view === route.view;
               const Icon = item.icon;
-              const onClick = () => {
-                if (item.soon) {
-                  window.alert(`${item.label} — ${item.soon}`);
-                  return;
-                }
-                if (item.view) setRoute({ matterId: null, view: item.view });
-              };
+              const onClick = () => setRoute({ matterId: null, view: item.view });
               return (
                 <button
                   key={item.id}
@@ -134,19 +117,12 @@ function Shell() {
                     "justify-center",
                     active
                       ? "bg-brass-wash text-brass-deep"
-                      : item.soon
-                        ? "text-ink-faint hover:bg-surface-sunken hover:text-ink-soft"
-                        : "text-ink-soft hover:bg-surface-sunken hover:text-ink",
+                      : "text-ink-soft hover:bg-surface-sunken hover:text-ink",
                   )}
-                  title={item.soon ? `${item.label} — coming soon` : item.label}
+                  title={item.label}
                 >
                   <Icon size={18} strokeWidth={2} />
                   <span className="hidden lg:inline">{item.label}</span>
-                  {item.soon && (
-                    <span className="ml-auto hidden rounded bg-surface-sunken px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-ink-faint lg:inline">
-                      Soon
-                    </span>
-                  )}
                 </button>
               );
             })}
@@ -168,6 +144,12 @@ function Shell() {
         {!route.matterId ? (
           route.view === "audit" ? (
             <FirmAuditScreen
+              onOpenMatter={(id) => setRoute({ matterId: id, mode: "worktop", tab: "ask", view: "matters" })}
+            />
+          ) : route.view === "firm" ? (
+            <FirmLibraryScreen />
+          ) : route.view === "archive" ? (
+            <ArchiveScreen
               onOpenMatter={(id) => setRoute({ matterId: id, mode: "worktop", tab: "ask", view: "matters" })}
             />
           ) : (

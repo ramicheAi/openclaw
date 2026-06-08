@@ -15,6 +15,7 @@ import { registerProductionRoutes } from "./routes/productions.js";
 import { registerBillingRoutes } from "./routes/billing.js";
 import { registerPublicRoutes } from "./routes/public.js";
 import { registerTeamRoutes } from "./routes/teams.js";
+import { registerTemplateRoutes } from "./routes/templates.js";
 import { attachAuth } from "./routes/auth.js";
 import { isAuthRequired as isAuthRequiredFn, reapExpiredAuthArtifacts } from "./auth.js";
 import { canAccessMatter as canAccessFn } from "./repo.js";
@@ -71,6 +72,7 @@ export function buildApp(db = getDb()) {
   registerBillingRoutes(app, db);
   registerPublicRoutes(app, db);
   registerTeamRoutes(app, db);
+  registerTemplateRoutes(app, db);
 
   app.notFound((c) => c.json({ error: "not_found", path: c.req.path }, 404));
   app.onError((err, c) => {

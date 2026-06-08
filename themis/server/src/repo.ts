@@ -40,19 +40,32 @@ function rowToSummary(m: Row): MatterSummary {
   };
 }
 
-export function listMatters(db: DB, ownerEmail?: string): MatterSummary[] {
+export function listMatters(db: DB, ownerEmail?: string, opts: { archived?: boolean } = {}): MatterSummary[] {
   // ownerEmail is the multi-tenant filter. When set, only return matters
   // owned by that email (or seeded matters with empty owner_email — those
   // are demo fixtures that everyone sees until the operator deletes them).
   // When unset (single-user mode), return everything.
+  //
+  // opts.archived defaults to false — the active dashboard hides archived
+  // matters. Pass true to scope to ONLY archived (the Archive nav surface).
+  const wantArchived = opts.archived ? 1 : 0;
   if (ownerEmail) {
     const rows = db
-      .prepare(`SELECT m.*, ${computed} FROM matters m WHERE m.owner_email = ? OR m.owner_email = '' ORDER BY m.created_at`)
-      .all(ownerEmail) as Row[];
+      .prepare(`SELECT m.*, ${computed} FROM matters m WHERE m.archived = ? AND (m.owner_email = ? OR m.owner_email = '') ORDER BY m.created_at`)
+      .all(wantArchived, ownerEmail) as Row[];
     return rows.map(rowToSummary);
   }
-  const rows = db.prepare(`SELECT m.*, ${computed} FROM matters m ORDER BY m.created_at`).all() as Row[];
+  const rows = db
+    .prepare(`SELECT m.*, ${computed} FROM matters m WHERE m.archived = ? ORDER BY m.created_at`)
+    .all(wantArchived) as Row[];
   return rows.map(rowToSummary);
+}
+
+export function setMatterArchived(db: DB, id: string, archived: boolean, actorEmail = ""): boolean {
+  const r = db
+    .prepare(`UPDATE matters SET archived = ?, archived_at = ?, archived_by = ? WHERE id = ?`)
+    .run(archived ? 1 : 0, archived ? new Date().toISOString() : null, archived ? actorEmail : null, id);
+  return r.changes > 0;
 }
 
 /** Centralized ownership check for individual matters. Same rules as

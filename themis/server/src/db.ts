@@ -46,6 +46,12 @@ function migrate(db: DB) {
     `ALTER TABLE users ADD COLUMN stripe_subscription_id TEXT`,
     // Doc creation timestamp — needed for the pages-per-month quota check.
     `ALTER TABLE documents ADD COLUMN created_at TEXT NOT NULL DEFAULT ''`,
+    // Soft-archive flag on matters. Default 0 = active. Archived matters
+    // are hidden from the main dashboard but preserved entirely (audit
+    // chain + docs + chronology) under the Archive nav surface.
+    `ALTER TABLE matters ADD COLUMN archived INTEGER NOT NULL DEFAULT 0`,
+    `ALTER TABLE matters ADD COLUMN archived_at TEXT`,
+    `ALTER TABLE matters ADD COLUMN archived_by TEXT`,
   ];
   for (const sql of adds) {
     try {

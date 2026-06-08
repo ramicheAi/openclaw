@@ -35,6 +35,8 @@ import type {
   MatterAccess,
   MatterRole,
   WebhookEndpoint,
+  FirmTemplate,
+  TemplateKind,
 } from "../types";
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
@@ -170,8 +172,29 @@ export const api = {
 
   listMatters: () => request<{ matters: MatterSummary[] }>("/api/matters").then((r) => r.matters),
 
+  listArchivedMatters: () =>
+    request<{ matters: MatterSummary[] }>("/api/matters/archived").then((r) => r.matters),
+
+  setMatterArchived: (id: string, archived: boolean) =>
+    request<{ ok: boolean; archived: boolean }>(`/api/matters/${id}/archive`, {
+      method: "POST",
+      body: JSON.stringify({ archived }),
+    }),
+
   listPacks: () =>
     request<{ packs: { id: string; label: string; blurb: string }[] }>(`/api/packs`).then((r) => r.packs),
+
+  // --- Firm Library templates ---
+  listTemplates: (kind?: TemplateKind) =>
+    request<{ templates: FirmTemplate[] }>(`/api/templates${kind ? `?kind=${kind}` : ""}`).then((r) => r.templates),
+  createTemplate: (input: { kind: TemplateKind; category?: string; title: string; body?: string; tags?: string }) =>
+    request<FirmTemplate>(`/api/templates`, { method: "POST", body: JSON.stringify(input) }),
+  updateTemplate: (id: string, patch: Partial<{ kind: TemplateKind; category: string; title: string; body: string; tags: string }>) =>
+    request<FirmTemplate>(`/api/templates/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
+  deleteTemplate: (id: string) =>
+    request<{ ok: boolean }>(`/api/templates/${id}`, { method: "DELETE" }),
+  useTemplate: (id: string) =>
+    request<{ ok: boolean }>(`/api/templates/${id}/use`, { method: "POST" }),
 
   listFirmAudit: (limit = 200) =>
     request<{ entries: FirmAuditEntry[] }>(`/api/firm/audit?limit=${limit}`).then((r) => r.entries),

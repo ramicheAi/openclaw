@@ -8,6 +8,7 @@ import {
   listFirmAudit,
   listMatters,
   matterExists,
+  setMatterArchived,
   verifyAuditChain,
   audit,
 } from "../repo.js";
@@ -51,6 +52,23 @@ function ownerEmail(c: Context): string | undefined {
 
 export function registerMatterRoutes(app: Hono, db: DB) {
   app.get("/api/matters", (c) => c.json({ matters: listMatters(db, ownerEmail(c)) }));
+
+  // Archived matters — separate endpoint so the active dashboard query
+  // stays small + the Archive nav surface gets a dedicated list.
+  app.get("/api/matters/archived", (c) =>
+    c.json({ matters: listMatters(db, ownerEmail(c), { archived: true }) }),
+  );
+
+  // Toggle a matter's archived flag. Audited.
+  app.post("/api/matters/:id/archive", async (c) => {
+    const id = c.req.param("id");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    const body = (await c.req.json().catch(() => ({}))) as { archived?: unknown };
+    if (typeof body.archived !== "boolean") return c.json({ error: "invalid_archived" }, 400);
+    setMatterArchived(db, id, body.archived, ownerEmail(c) ?? actor(c));
+    audit(db, id, actor(c), body.archived ? "matter.archive" : "matter.unarchive", "");
+    return c.json({ ok: true, archived: body.archived });
+  });
 
   // Vertical packs catalog — used by the New Matter modal to let the
   // operator pick a practice area and seed the matter with the pack's
@@ -174,7 +192,12 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     if (owner) {
       const userRow = db.prepare(`SELECT plan FROM users WHERE email = ?`).get(owner) as { plan?: string } | undefined;
       const plan = planSpec(userRow?.plan);
-      const current = listMatters(db, owner).filter((m) => m.id !== "").length;
+      // Plan limits count only matters this user actually OWNS — not the
+      // legacy/seed fixtures with empty owner_email that listMatters
+      // surfaces for convenience.
+      const current = (db
+        .prepare(`SELECT COUNT(*) AS n FROM matters WHERE owner_email = ? AND archived = 0`)
+        .get(owner) as { n: number }).n;
       if (!canCreateMatter(plan, current)) {
         return c.json(
           {

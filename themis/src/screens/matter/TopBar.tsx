@@ -2,10 +2,11 @@
 // Per design handoff §5.1.
 
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Tau } from "../../components/BrandMark";
 import { cx } from "../../lib/ui";
 import { IconArrow, IconCmdK, IconExport } from "../../icons";
-import { useEngineStatus } from "../../lib/queries";
+import { useEngineStatus, qk } from "../../lib/queries";
 import { useAuth } from "../../lib/auth";
 import { api } from "../../lib/api";
 import { CollaborateModal } from "../../components/CollaborateModal";
@@ -67,6 +68,7 @@ export function TopBar({ matter, mode, theme, onMode, onBack, onOpenCmdK, onTogg
       {/* Right: cmd-K + theme */}
       <div className="flex items-center justify-end gap-2">
         <EnginePill />
+        <MatterMenu matterId={matter.id} onBack={onBack} />
         <button
           onClick={() => setShareOpen(true)}
           title="Invite team or share a scoped read-only view"
@@ -129,6 +131,48 @@ function ModeButton({
         <span className="mt-0.5 font-mono text-[8.5px] uppercase tracking-wider text-ink-faint">{sub}</span>
       </span>
     </button>
+  );
+}
+
+function MatterMenu({ matterId, onBack }: { matterId: string; onBack: () => void }) {
+  const [open, setOpen] = useState(false);
+  const qc = useQueryClient();
+  const archive = useMutation({
+    mutationFn: () => api.setMatterArchived(matterId, true),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.matters });
+      qc.invalidateQueries({ queryKey: ["archived-matters"] });
+      onBack();
+    },
+  });
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        title="Matter actions"
+        className="inline-flex h-8 items-center gap-1 rounded-md border border-line bg-surface px-2 text-[12px] font-medium text-ink-soft hover:border-brass-soft hover:text-brass-deep"
+      >
+        ⋯
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute right-0 top-10 z-50 w-56 rounded-lg border border-line bg-surface p-1.5 shadow-[0_24px_64px_-20px_rgba(31,26,20,0.25)]">
+            <button
+              onClick={() => {
+                if (window.confirm("Archive this matter? It'll move to the Archive view; the audit chain + docs stay intact.")) {
+                  archive.mutate();
+                }
+              }}
+              disabled={archive.isPending}
+              className="block w-full rounded px-2 py-1.5 text-left text-[12.5px] text-ink-soft hover:bg-surface-sunken hover:text-ink disabled:opacity-50"
+            >
+              {archive.isPending ? "Archiving…" : "Archive matter"}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
