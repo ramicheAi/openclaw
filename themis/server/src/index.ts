@@ -12,17 +12,46 @@ import { registerVerifyRoutes } from "./routes/verify.js";
 import { registerDeadlineRoutes } from "./routes/deadlines.js";
 import { registerDraftRoutes } from "./routes/drafts.js";
 import { registerProductionRoutes } from "./routes/productions.js";
+import { attachAuth } from "./routes/auth.js";
+import { isAuthRequired as isAuthRequiredFn, reapExpiredAuthArtifacts } from "./auth.js";
+import { canAccessMatter as canAccessFn } from "./repo.js";
 import { registerConflictRoutes } from "./routes/conflicts.js";
 import { registerSharingRoutes } from "./routes/sharing.js";
 import { registerDamagesRoutes } from "./routes/damages.js";
 
 export function buildApp(db = getDb()) {
   seed(db); // idempotent: seeds only when empty
+  reapExpiredAuthArtifacts(db); // GC stale tokens + expired sessions on boot
 
   const app = new Hono();
-  app.use("*", cors());
+  app.use("*", cors({
+    origin: (o) => o ?? "*",
+    credentials: true,
+  }));
 
   app.get("/api/health", (c) => c.json({ ok: true, service: "themis-server", version: "0.2.0" }));
+
+  // Auth must mount FIRST so its middleware gates every other /api route
+  // when THEMIS_AUTH_REQUIRED=1. Public prefixes (/api/health, /api/auth/*,
+  // /api/shared/*) skip the check; everything else needs a session cookie.
+  attachAuth(app, db);
+
+  // Per-matter ownership middleware. Runs after the auth middleware so we
+  // know the session is valid; only kicks in when multi-tenant. Any
+  // /api/matters/:id/* path resolves :id and 403s the request if the
+  // authed user doesn't own (or hasn't been granted access to) the matter.
+  // Bonus side-effect: returns 404 for unknown matters consistently so
+  // route handlers don't each have to repeat the matterExists check.
+  app.use("/api/matters/:id/*", async (c, next) => {
+    if (!isAuthRequiredFn()) return next();
+    const session = c.get("session" as never) as { email: string } | undefined;
+    if (!session) return c.json({ error: "unauthorized" }, 401);
+    const id = c.req.param("id");
+    if (!canAccessFn(db, id, session.email)) {
+      return c.json({ error: "matter_forbidden" }, 403);
+    }
+    return next();
+  });
 
   registerMatterRoutes(app, db);
   registerCorpusRoutes(app, db);

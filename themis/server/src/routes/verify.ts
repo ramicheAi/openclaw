@@ -1,4 +1,5 @@
 // Cite-Check surface — the "Mata v. Avianca shield". Paste a draft brief or
+import { authedActor } from "./auth.js";
 // motion and Themis verifies BOTH kinds of citation it contains:
 //   1. Bates citations (e.g. OLIV-000014, p.3) against the matter corpus —
 //      does the document exist, does the cited page exist, does the source
@@ -18,7 +19,7 @@ import { verifyAuthorities, isCourtListenerConfigured } from "../courtlistener.j
 import { generateCertification } from "../certifications.js";
 
 function actor(c: Context): string {
-  return c.req.header("x-themis-actor") || "you";
+  return authedActor(c);
 }
 
 export function registerVerifyRoutes(app: Hono, db: DB) {

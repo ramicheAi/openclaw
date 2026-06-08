@@ -1,4 +1,5 @@
 import type { Context, Hono } from "hono";
+import { authedActor } from "./auth.js";
 import type { DB } from "../db.js";
 import {
   addBinderItem,
@@ -15,7 +16,7 @@ import {
 } from "../repo.js";
 
 function actor(c: Context): string {
-  return c.req.header("x-themis-actor") || "you";
+  return authedActor(c);
 }
 
 export function registerBinderRoutes(app: Hono, db: DB) {

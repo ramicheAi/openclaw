@@ -1,4 +1,4 @@
-import type { Hono } from "hono";
+import type { Context, Hono } from "hono";
 import type { DB } from "../db.js";
 import {
   createDocument,
@@ -10,6 +10,9 @@ import {
   verifyAuditChain,
   audit,
 } from "../repo.js";
+import { authedActor } from "./auth.js";
+import { isAuthRequired } from "../auth.js";
+import type { Session } from "../auth.js";
 import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.js";
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
 import { analyzeMatter } from "../analyze.js";
@@ -30,12 +33,20 @@ function slug(s: string): string {
     .replace(/^-+|-+$/g, "")
     .slice(0, 48);
 }
-function actor(c: { req: { header: (k: string) => string | undefined } }): string {
-  return c.req.header("x-themis-actor") ?? "anon";
+function actor(c: Context): string {
+  return authedActor(c);
+}
+
+// Email of the authenticated user, or undefined in single-user mode. Used
+// to scope matter list + create + access to the operator.
+function ownerEmail(c: Context): string | undefined {
+  if (!isAuthRequired()) return undefined;
+  const s = c.get("session" as never) as Session | undefined;
+  return s?.email;
 }
 
 export function registerMatterRoutes(app: Hono, db: DB) {
-  app.get("/api/matters", (c) => c.json({ matters: listMatters(db) }));
+  app.get("/api/matters", (c) => c.json({ matters: listMatters(db, ownerEmail(c)) }));
 
   // Transparent engine status — the user (and any third party reading via
   // the audit trail) can confirm whether Themis is running Claude or the
@@ -110,6 +121,7 @@ export function registerMatterRoutes(app: Hono, db: DB) {
       matterType: body.matterType?.trim() || "Litigation — General",
       leadAttorney: body.leadAttorney?.trim() || "—",
       posture: body.posture?.trim(),
+      ownerEmail: ownerEmail(c),
     });
     audit(db, id, actor(c), "matter.create", `${body.name} · ${body.client}`);
     const matter = getMatter(db, id);

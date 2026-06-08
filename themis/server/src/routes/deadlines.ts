@@ -1,4 +1,5 @@
 // Deadline routes — list, extract-from-order, toggle done, delete.
+import { authedActor } from "./auth.js";
 
 import type { Context, Hono } from "hono";
 import type { DB } from "../db.js";
@@ -12,7 +13,7 @@ import {
 } from "../deadlines.js";
 
 function actor(c: Context): string {
-  return c.req.header("x-themis-actor") || "you";
+  return authedActor(c);
 }
 
 export function registerDeadlineRoutes(app: Hono, db: DB) {

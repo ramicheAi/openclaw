@@ -6,6 +6,8 @@ import { Tau } from "../../components/BrandMark";
 import { cx } from "../../lib/ui";
 import { IconArrow, IconCmdK, IconExport } from "../../icons";
 import { useEngineStatus } from "../../lib/queries";
+import { useAuth } from "../../lib/auth";
+import { api } from "../../lib/api";
 import { ShareLinksModal } from "../../components/ShareLinksModal";
 import type { MatterSummary } from "../../types";
 import type { AppMode } from "../../lib/router";
@@ -87,6 +89,7 @@ export function TopBar({ matter, mode, theme, onMode, onBack, onOpenCmdK, onTogg
         >
           <span className="text-base">{theme === "dark" ? "◑" : "◐"}</span>
         </button>
+        <UserPill />
       </div>
 
       {/* Bottom brass gradient hairline */}
@@ -126,6 +129,46 @@ function ModeButton({
         <span className="mt-0.5 font-mono text-[8.5px] uppercase tracking-wider text-ink-faint">{sub}</span>
       </span>
     </button>
+  );
+}
+
+function UserPill() {
+  const auth = useAuth();
+  const [open, setOpen] = useState(false);
+  if (auth.mode !== "multi-tenant" || !auth.user) return null;
+  const initials = auth.user.email.slice(0, 2).toUpperCase();
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        title={auth.user.email}
+        className="grid h-8 w-8 place-items-center rounded-full bg-ink text-[11px] font-semibold text-paper transition hover:bg-ink/85"
+      >
+        {initials}
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute right-0 top-10 z-50 w-56 rounded-lg border border-line bg-surface p-2 shadow-[0_24px_64px_-20px_rgba(31,26,20,0.25)]">
+            <div className="px-2 py-1.5">
+              <div className="truncate text-[12.5px] font-medium text-ink">{auth.user.email}</div>
+              <div className="mt-0.5 font-mono text-[9.5px] uppercase tracking-wider text-ink-faint">Signed in</div>
+            </div>
+            <div className="my-1 border-t border-line" />
+            <button
+              onClick={async () => {
+                await api.logout().catch(() => {});
+                await auth.refresh();
+                setOpen(false);
+              }}
+              className="block w-full rounded px-2 py-1.5 text-left text-[12.5px] text-ink-soft hover:bg-surface-sunken hover:text-ink"
+            >
+              Sign out
+            </button>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 

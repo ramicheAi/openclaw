@@ -1,0 +1,68 @@
+# Themis API — Fly.io deployment.
+# Deploy: `fly launch` (first time, picks the app name + region), then
+# `fly deploy` for subsequent pushes. Volume + secrets cheatsheet at the
+# bottom.
+
+app = "themis-api"
+primary_region = "iad"
+kill_signal = "SIGTERM"
+kill_timeout = 15
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8787"
+  # Defaults the Dockerfile sets — repeated here for visibility.
+  THEMIS_DB = "/data/themis.db"
+  THEMIS_AUTH_REQUIRED = "1"
+  THEMIS_SECURE_COOKIES = "1"
+
+# Persistent SQLite + media volume. The Dockerfile points THEMIS_DB at
+# /data/themis.db so the WAL survives restarts/deploys. ~/.themis/media
+# is also expected on this volume — set THEMIS_MEDIA_DIR if you want it
+# somewhere else.
+[mounts]
+  source = "themis_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8787
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[http_service.checks]]
+  grace_period = "10s"
+  interval = "30s"
+  method = "GET"
+  path = "/api/health"
+  protocol = "http"
+  timeout = "5s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+
+# ── First-time setup checklist ──────────────────────────────────────────
+# 1. Install flyctl:    brew install flyctl
+# 2. Sign in:           fly auth login
+# 3. Launch:            cd themis/server && fly launch --no-deploy
+#                       (accept the suggestions; this writes fly.toml fields
+#                       like the app name. Decline the Postgres add-on — we
+#                       use SQLite on a volume.)
+# 4. Create the volume: fly volumes create themis_data --size 3 --region iad
+# 5. Set secrets:       fly secrets set \
+#                         ANTHROPIC_API_KEY=sk-ant-... \
+#                         RESEND_API_KEY=re_... \
+#                         COURTLISTENER_API_TOKEN=... \
+#                         ASSEMBLYAI_API_KEY=... \
+#                         THEMIS_PUBLIC_URL=https://themis-api.fly.dev \
+#                         THEMIS_EMAIL_FROM="Themis <login@themis.law>"
+#                       (Skip whichever you don't have yet — the server runs
+#                       fine without them, falling back to deterministic /
+#                       console-fallback modes.)
+# 6. Deploy:            fly deploy
+# 7. Open:              fly open
+# 8. Logs:              fly logs --tail

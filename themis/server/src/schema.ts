@@ -138,6 +138,35 @@ CREATE TABLE IF NOT EXISTS binder_items (
 );
 CREATE INDEX IF NOT EXISTS idx_binder_items_binder ON binder_items(binder_id, ord);
 
+CREATE TABLE IF NOT EXISTS users (
+  id          TEXT PRIMARY KEY,
+  email       TEXT NOT NULL UNIQUE,
+  name        TEXT NOT NULL DEFAULT '',
+  firm        TEXT NOT NULL DEFAULT '',
+  created_at  TEXT NOT NULL,
+  last_login  TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+
+CREATE TABLE IF NOT EXISTS auth_tokens (
+  token       TEXT PRIMARY KEY,        -- url-safe random
+  email       TEXT NOT NULL,           -- normalized lowercase
+  created_at  TEXT NOT NULL,
+  expires_at  TEXT NOT NULL,           -- ISO; tokens live 15 min
+  consumed    INTEGER NOT NULL DEFAULT 0,
+  ip          TEXT NOT NULL DEFAULT '' -- request ip for the audit, best effort
+);
+CREATE INDEX IF NOT EXISTS idx_auth_tokens_email ON auth_tokens(email);
+
+CREATE TABLE IF NOT EXISTS sessions (
+  id          TEXT PRIMARY KEY,        -- the cookie value
+  user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  created_at  TEXT NOT NULL,
+  last_used   TEXT,
+  expires_at  TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
+
 CREATE TABLE IF NOT EXISTS damages_items (
   id              TEXT PRIMARY KEY,
   matter_id       TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,

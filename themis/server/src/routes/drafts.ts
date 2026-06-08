@@ -1,4 +1,5 @@
 // Drafting routes — list kinds, generate a draft.
+import { authedActor } from "./auth.js";
 
 import type { Context, Hono } from "hono";
 import type { DB } from "../db.js";
@@ -6,7 +7,7 @@ import { audit, matterExists } from "../repo.js";
 import { generateDraft, listDraftKinds, type DraftKind } from "../drafting.js";
 
 function actor(c: Context): string {
-  return c.req.header("x-themis-actor") || "you";
+  return authedActor(c);
 }
 
 const VALID_KINDS = new Set(listDraftKinds().map((k) => k.id));

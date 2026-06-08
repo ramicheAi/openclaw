@@ -40,9 +40,31 @@ function rowToSummary(m: Row): MatterSummary {
   };
 }
 
-export function listMatters(db: DB): MatterSummary[] {
+export function listMatters(db: DB, ownerEmail?: string): MatterSummary[] {
+  // ownerEmail is the multi-tenant filter. When set, only return matters
+  // owned by that email (or seeded matters with empty owner_email — those
+  // are demo fixtures that everyone sees until the operator deletes them).
+  // When unset (single-user mode), return everything.
+  if (ownerEmail) {
+    const rows = db
+      .prepare(`SELECT m.*, ${computed} FROM matters m WHERE m.owner_email = ? OR m.owner_email = '' ORDER BY m.created_at`)
+      .all(ownerEmail) as Row[];
+    return rows.map(rowToSummary);
+  }
   const rows = db.prepare(`SELECT m.*, ${computed} FROM matters m ORDER BY m.created_at`).all() as Row[];
   return rows.map(rowToSummary);
+}
+
+/** Centralized ownership check for individual matters. Same rules as
+ * listMatters — owner_email matches OR the matter is a seed fixture
+ * (owner_email = ''). In single-user mode any matter is accessible. */
+export function canAccessMatter(db: DB, matterId: string, ownerEmail?: string): boolean {
+  if (!ownerEmail) return matterExists(db, matterId);
+  const row = db.prepare(`SELECT owner_email FROM matters WHERE id = ?`).get(matterId) as
+    | { owner_email: string }
+    | undefined;
+  if (!row) return false;
+  return row.owner_email === "" || row.owner_email === ownerEmail;
 }
 
 export function getMatter(db: DB, id: string): MatterDetail | null {
@@ -245,15 +267,16 @@ export interface CreateMatterInput {
   matterType: string;
   leadAttorney: string;
   posture?: string;
+  ownerEmail?: string;
 }
 export function createMatter(db: DB, input: CreateMatterInput): void {
   const now = new Date().toISOString();
   db.prepare(
     `INSERT INTO matters
       (id, name, client, matter_type, lead_attorney, status, pages, docs, ingest_percent,
-       last_activity, posture, json_claims, json_defenses, json_key_dates, created_at)
+       last_activity, posture, json_claims, json_defenses, json_key_dates, created_at, owner_email)
      VALUES (@id, @name, @client, @matter_type, @lead_attorney, @status, 0, 0, 100,
-       'just now', @posture, '[]', '[]', '[]', @created_at)`,
+       'just now', @posture, '[]', '[]', '[]', @created_at, @owner_email)`,
   ).run({
     id: input.id,
     name: input.name,
@@ -263,6 +286,7 @@ export function createMatter(db: DB, input: CreateMatterInput): void {
     status: "In Review",
     posture: input.posture ?? "",
     created_at: now,
+    owner_email: input.ownerEmail ?? "",
   });
   // Synthetic ingest stages — manual-add flow ships everything as complete
   // so the matter is immediately work-eligible (chronology, privilege,

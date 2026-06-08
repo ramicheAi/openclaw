@@ -7,6 +7,8 @@ import { useTheme } from "./lib/theme";
 import { MattersDashboard } from "./screens/MattersDashboard";
 import { MatterShell } from "./screens/matter/MatterShell";
 import { SharedMatterView } from "./screens/SharedMatterView";
+import { LoginScreen } from "./screens/LoginScreen";
+import { AuthProvider, useAuth } from "./lib/auth";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,13 +29,16 @@ const globalNav = [
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Shell />
+      <AuthProvider>
+        <Shell />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
 
 function Shell() {
   const [route, setRoute] = useRoute();
+  const auth = useAuth();
   // Initialize the theme at the root so even the dashboard (which has no
   // MatterShell) gets the BRAIN READY dark mode by default.
   useTheme();
@@ -44,6 +49,14 @@ function Shell() {
   const sharePath = typeof window !== "undefined" ? window.location.pathname.match(/^\/share\/([A-Za-z0-9_-]{8,})/) : null;
   if (sharePath) {
     return <SharedMatterView token={sharePath[1]} />;
+  }
+
+  // Auth gate: while we're checking the session, show nothing (avoids a
+  // login-flash for users who already have a cookie). Once ready, if we're
+  // in multi-tenant mode with no user, show the login screen.
+  if (!auth.ready) return null;
+  if (auth.mode === "multi-tenant" && !auth.user) {
+    return <LoginScreen />;
   }
 
   const inMatter = !!route.matterId;

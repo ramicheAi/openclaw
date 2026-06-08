@@ -397,6 +397,107 @@ console.log("Themis API smoke test\n");
   check("unknown matter 404", r.status === 404);
 }
 
+// --- Auth (single-user mode in this smoke run; just confirms the flow works) ---
+{
+  const me = await get(`/api/auth/me`);
+  check("auth/me 200", me.status === 200);
+  check("auth/me reports single-user mode", me.body.mode === "single-user");
+
+  const linkBad = await send(`/api/auth/request-link`, "POST", { email: "not-an-email" });
+  check("request-link rejects bad email (400)", linkBad.status === 400);
+
+  const linkOk = await send(`/api/auth/request-link`, "POST", { email: "ramon@example.com" });
+  check("request-link 200 in single-user mode", linkOk.status === 200);
+  check("request-link returns single-user mode notice", linkOk.body.mode === "single-user");
+
+  // Test the multi-tenant flow by directly hitting the auth helpers via a
+  // separate buildApp() instance with the env var set.
+  process.env.THEMIS_AUTH_REQUIRED = "1";
+  const { buildApp: rebuild } = await import("./src/index.js?multi=1" as string).catch(() => import("./src/index.js"));
+  const authApp = rebuild();
+
+  const meReq = await authApp.request(`/api/auth/me`);
+  const meBody = (await meReq.json()) as any;
+  check("multi-tenant /me reports no user", meBody.mode === "multi-tenant" && meBody.user === null);
+
+  // Hitting a gated route without a cookie should 401.
+  const gated = await authApp.request(`/api/matters`);
+  check("gated route 401 without session", gated.status === 401);
+
+  // Request a magic link in multi-tenant mode (console fallback returns the URL)
+  const reqLinkRes = await authApp.request(`/api/auth/request-link`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ email: "jane@example.com" }),
+  });
+  const reqLinkBody = (await reqLinkRes.json()) as any;
+  check("multi-tenant request-link 200", reqLinkRes.status === 200);
+  check("multi-tenant request-link returns console-fallback URL", typeof reqLinkBody.url === "string" && reqLinkBody.url.includes("/api/auth/verify?token="));
+
+  // Click the magic link — should redirect + set cookie.
+  const url = new URL(reqLinkBody.url);
+  const verifyRes = await authApp.request(url.pathname + url.search);
+  check("verify redirects", verifyRes.status === 302);
+  const setCookie = verifyRes.headers.get("set-cookie") ?? "";
+  check("verify sets session cookie", /themis_session=/.test(setCookie));
+
+  // Replay the same token — should fail (single-use).
+  const verifyAgain = await authApp.request(url.pathname + url.search);
+  check("verify token is single-use", verifyAgain.status === 410);
+
+  // With the cookie, /me should now resolve the user.
+  const cookieMatch = setCookie.match(/themis_session=([^;]+)/);
+  const cookie = `themis_session=${cookieMatch![1]}`;
+  const meAuthed = await authApp.request(`/api/auth/me`, { headers: { cookie } });
+  const meAuthedBody = (await meAuthed.json()) as any;
+  check("authed /me returns the user", meAuthedBody.user?.email === "jane@example.com");
+
+  // And the gated route should succeed.
+  const matters = await authApp.request(`/api/matters`, { headers: { cookie } });
+  check("authed /matters 200", matters.status === 200);
+
+  // Matter created by Jane should be visible to Jane.
+  const created = await authApp.request(`/api/matters`, {
+    method: "POST",
+    headers: { "content-type": "application/json", cookie },
+    body: JSON.stringify({ name: "Jane v. Acme", client: "Jane Doe" }),
+  });
+  const createdBody = (await created.json()) as any;
+  check("authed createMatter 201", created.status === 201);
+  const newMatterId = createdBody.id;
+
+  // Another user (Bob) signs in and should NOT see Jane's matter.
+  const bobReq = await authApp.request(`/api/auth/request-link`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ email: "bob@example.com" }),
+  });
+  const bobBody = (await bobReq.json()) as any;
+  const bobUrl = new URL(bobBody.url);
+  const bobVerify = await authApp.request(bobUrl.pathname + bobUrl.search);
+  const bobCookie = `themis_session=${bobVerify.headers.get("set-cookie")!.match(/themis_session=([^;]+)/)![1]}`;
+  const bobMatters = await authApp.request(`/api/matters`, { headers: { cookie: bobCookie } });
+  const bobMattersBody = (await bobMatters.json()) as any;
+  const bobSeesJane = bobMattersBody.matters.some((m: any) => m.id === newMatterId);
+  check("Bob does not see Jane's matter", bobSeesJane === false);
+
+  // Bob trying to access Jane's matter directly → 403.
+  const bobAccess = await authApp.request(`/api/matters/${newMatterId}`, { headers: { cookie: bobCookie } });
+  check("Bob forbidden from Jane's matter (403)", bobAccess.status === 403);
+
+  // Logout drops the cookie.
+  const logout = await authApp.request(`/api/auth/logout`, { method: "POST", headers: { cookie } });
+  check("logout 200", logout.status === 200);
+  const clearedCookie = logout.headers.get("set-cookie") ?? "";
+  check("logout clears cookie", /themis_session=;/.test(clearedCookie));
+
+  // After logout the gated route 401s again.
+  const after = await authApp.request(`/api/matters`, { headers: { cookie } });
+  check("post-logout /matters 401", after.status === 401);
+
+  delete process.env.THEMIS_AUTH_REQUIRED;
+}
+
 console.log(`\n${passed} passed, ${failures.length} failed`);
 if (failures.length) {
   console.error("FAILURES:\n  - " + failures.join("\n  - "));

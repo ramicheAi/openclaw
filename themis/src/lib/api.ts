@@ -48,6 +48,8 @@ export class ApiError extends Error {
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
     ...init,
+    credentials: "include", // send session cookie cross-origin in case the
+                            // API is on a different host than the SPA.
     headers: {
       "content-type": "application/json",
       ...(init?.headers ?? {}),
@@ -65,7 +67,26 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return data as T;
 }
 
+export interface AuthMe {
+  mode: "single-user" | "multi-tenant";
+  user: { email: string; name: string } | null;
+}
+
 export const api = {
+  // --- Auth ---
+  getMe: () => request<AuthMe>(`/api/auth/me`),
+
+  requestMagicLink: (email: string) =>
+    request<{ ok: boolean; via?: "resend" | "console"; delivered?: boolean; url?: string; mode?: string; message?: string }>(
+      `/api/auth/request-link`,
+      {
+        method: "POST",
+        body: JSON.stringify({ email }),
+      },
+    ),
+
+  logout: () => request<{ ok: boolean }>(`/api/auth/logout`, { method: "POST" }),
+
   listMatters: () => request<{ matters: MatterSummary[] }>("/api/matters").then((r) => r.matters),
 
   getMatter: (id: string) => request<MatterDetail>(`/api/matters/${id}`),

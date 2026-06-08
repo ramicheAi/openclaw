@@ -1,4 +1,5 @@
 import type { Context, Hono } from "hono";
+import { authedActor } from "./auth.js";
 import type { DB } from "../db.js";
 import {
   audit,
@@ -11,7 +12,7 @@ import {
 import type { CausalChainNode } from "../types.js";
 
 function actor(c: Context): string {
-  return c.req.header("x-themis-actor") || "you";
+  return authedActor(c);
 }
 
 function isNodeArray(v: unknown): v is CausalChainNode[] {

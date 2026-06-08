@@ -34,6 +34,10 @@ function migrate(db: DB) {
     `ALTER TABLE documents ADD COLUMN hot_set_at TEXT`,
     `ALTER TABLE audit_log ADD COLUMN prev_hash TEXT NOT NULL DEFAULT ''`,
     `ALTER TABLE audit_log ADD COLUMN entry_hash TEXT NOT NULL DEFAULT ''`,
+    // Per-user matter ownership for the multi-tenant deploy. Existing rows
+    // get owner_email = '' which is treated as "owned by the operator" in
+    // single-user mode and as "unassigned" in multi-tenant mode.
+    `ALTER TABLE matters ADD COLUMN owner_email TEXT NOT NULL DEFAULT ''`,
   ];
   for (const sql of adds) {
     try {

@@ -1,10 +1,11 @@
 import type { Context, Hono } from "hono";
+import { authedActor } from "./auth.js";
 import type { DB } from "../db.js";
 import { audit, matterExists } from "../repo.js";
 import { createProduction, deleteProduction, listProductions, type ProductionDirection } from "../productions.js";
 
 function actor(c: Context): string {
-  return c.req.header("x-themis-actor") || "you";
+  return authedActor(c);
 }
 
 export function registerProductionRoutes(app: Hono, db: DB) {

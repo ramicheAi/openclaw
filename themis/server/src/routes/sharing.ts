@@ -1,4 +1,5 @@
 // Sharing routes — create / list / revoke share links, plus a token-resolved
+import { authedActor } from "./auth.js";
 // read-only view endpoint that exposes a curated subset of the matter.
 
 import type { Context, Hono } from "hono";
@@ -7,7 +8,7 @@ import { audit, getMatter, listChronology, listDocuments, listEntities, matterEx
 import { createShareLink, listShareLinks, resolveShareToken, revokeShareLink, type ShareScope } from "../sharing.js";
 
 function actor(c: Context): string {
-  return c.req.header("x-themis-actor") || "you";
+  return authedActor(c);
 }
 
 export function registerSharingRoutes(app: Hono, db: DB) {
