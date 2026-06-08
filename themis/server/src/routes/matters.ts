@@ -65,6 +65,44 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     return c.json({ entries: listFirmAudit(db, ownerEmail(c), limit) });
   });
 
+  // Upcoming-deadlines digest — what the daily reminder email would say,
+  // surfaced live so the user can confirm the schedule before signing off
+  // for the day. Returns the next 14 days (incl. overdue) across every
+  // matter the operator can see.
+  app.get("/api/firm/upcoming-deadlines", (c) => {
+    const owner = ownerEmail(c);
+    const rows = (owner
+      ? db
+          .prepare(
+            `SELECT d.*, m.id AS matter_id, m.name AS matter_name
+               FROM deadlines d JOIN matters m ON m.id = d.matter_id
+              WHERE d.done = 0 AND d.due_date != ''
+                AND (m.owner_email = ? OR m.owner_email = '')
+              ORDER BY d.due_date ASC`,
+          )
+          .all(owner)
+      : db
+          .prepare(
+            `SELECT d.*, m.id AS matter_id, m.name AS matter_name
+               FROM deadlines d JOIN matters m ON m.id = d.matter_id
+              WHERE d.done = 0 AND d.due_date != ''
+              ORDER BY d.due_date ASC`,
+          )
+          .all()) as Array<{ id: string; matter_id: string; matter_name: string; due_date: string; title: string; kind: string; detail: string }>;
+    // Keep 14 days forward + everything overdue.
+    const horizon = new Date(Date.now() + 14 * 86_400_000).toISOString().slice(0, 10);
+    const upcoming = rows.filter((r) => r.due_date <= horizon).map((r) => ({
+      id: r.id,
+      matterId: r.matter_id,
+      matterName: r.matter_name,
+      dueDate: r.due_date,
+      title: r.title,
+      kind: r.kind,
+      detail: r.detail,
+    }));
+    return c.json({ deadlines: upcoming });
+  });
+
   // Transparent engine status — the user (and any third party reading via
   // the audit trail) can confirm whether Themis is running Claude or the
   // deterministic fallback. The audit log records the engine on every chat

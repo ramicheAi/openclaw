@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ArrowRight, FileStack, Files, Plus, ShieldAlert, TriangleAlert } from "lucide-react";
 import { useMatters } from "../lib/queries";
 import { Card, cx, Pill } from "../lib/ui";
-import { DashboardEmpty, FirstRunSplash } from "./States";
+import { FirstRunEmpty, FirstRunSplash } from "./States";
 import { NewMatterModal } from "../components/NewMatterModal";
 import type { MatterSummary } from "../types";
 
@@ -201,10 +201,20 @@ export function MattersDashboard({ onOpen }: { onOpen: (id: string) => void }) {
   // Cold-start splash on the very first run (server unreachable / 0 matters)
   // vs. the polished dashboard-empty when we know the list is genuinely empty.
   if (!isLoading && list.length === 0 && totalPages === 0 && !matters) {
-    return <FirstRunSplash />;
+    return (
+      <>
+        <FirstRunSplash onCreate={() => setNewMatterOpen(true)} />
+        <NewMatterModal open={newMatterOpen} onClose={() => setNewMatterOpen(false)} onCreated={(id) => onOpen(id)} />
+      </>
+    );
   }
   if (!isLoading && list.length === 0) {
-    return <DashboardEmpty />;
+    return (
+      <>
+        <FirstRunEmpty onCreate={() => setNewMatterOpen(true)} />
+        <NewMatterModal open={newMatterOpen} onClose={() => setNewMatterOpen(false)} onCreated={(id) => onOpen(id)} />
+      </>
+    );
   }
 
   return (

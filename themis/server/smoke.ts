@@ -504,6 +504,13 @@ console.log("Themis API smoke test\n");
   check("delete webhook ok", del.body.ok === true);
 }
 
+// --- Upcoming deadlines digest preview ---
+{
+  const r = await get(`/api/firm/upcoming-deadlines`);
+  check("upcoming-deadlines 200", r.status === 200);
+  check("upcoming-deadlines returns array", Array.isArray(r.body.deadlines));
+}
+
 // --- Firm-wide audit ---
 {
   const r = await get(`/api/firm/audit`);

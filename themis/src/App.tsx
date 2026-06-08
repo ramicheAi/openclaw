@@ -9,6 +9,7 @@ import { MattersDashboard } from "./screens/MattersDashboard";
 import { MatterShell } from "./screens/matter/MatterShell";
 import { SharedMatterView } from "./screens/SharedMatterView";
 import { LoginScreen } from "./screens/LoginScreen";
+import { LandingScreen } from "./screens/LandingScreen";
 import { FirmAuditScreen } from "./screens/FirmAuditScreen";
 import { SettingsModal } from "./components/SettingsModal";
 import { UpgradeListener } from "./components/UpgradeModal";
@@ -83,14 +84,21 @@ function Shell() {
     if (path === "/cite-check") return <PublicCiteCheckScreen />;
     if (path === "/pricing") return <PricingScreen />;
     if (path === "/status") return <StatusScreen />;
+    if (path === "/login") {
+      // The login page is reachable even when auth isn't required (e.g.
+      // a deep link from email) — it just no-ops and bounces back to /.
+      if (auth.ready && auth.mode === "multi-tenant" && !auth.user) return <LoginScreen />;
+      if (auth.ready && auth.user) window.location.href = "/";
+    }
   }
 
-  // Auth gate: while we're checking the session, show nothing (avoids a
-  // login-flash for users who already have a cookie). Once ready, if we're
-  // in multi-tenant mode with no user, show the login screen.
+  // Auth gate. While we're checking the session, show nothing (avoids a
+  // login-flash for users with a cookie). When auth IS required and no
+  // user is signed in, show the marketing landing at /. The "Sign in" CTA
+  // on the landing routes the visitor to /login explicitly.
   if (!auth.ready) return null;
   if (auth.mode === "multi-tenant" && !auth.user) {
-    return <LoginScreen />;
+    return <LandingScreen />;
   }
 
   const inMatter = !!route.matterId;

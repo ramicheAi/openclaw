@@ -176,6 +176,11 @@ export const api = {
   listFirmAudit: (limit = 200) =>
     request<{ entries: FirmAuditEntry[] }>(`/api/firm/audit?limit=${limit}`).then((r) => r.entries),
 
+  listUpcomingDeadlines: () =>
+    request<{
+      deadlines: { id: string; matterId: string; matterName: string; dueDate: string; title: string; kind: string; detail: string }[];
+    }>(`/api/firm/upcoming-deadlines`).then((r) => r.deadlines),
+
   getMatter: (id: string) => request<MatterDetail>(`/api/matters/${id}`),
 
   getEngineStatus: () =>

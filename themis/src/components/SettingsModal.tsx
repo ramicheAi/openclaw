@@ -78,6 +78,11 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
             </Section>
           )}
 
+          {/* Reminder digest preview — what tomorrow's 08:00 email will say */}
+          <Section title="Daily reminder preview">
+            <RemindersPanel />
+          </Section>
+
           {/* Appearance */}
           <Section title="Appearance">
             <Row label="Theme" value={theme === "dark" ? "Dark (cinematic)" : "Light (paper)"} />
@@ -176,6 +181,54 @@ function QuotaBar({ label, used, cap }: { label: string; used: number; cap: numb
       <div className="mt-0.5 h-1 overflow-hidden rounded-full bg-surface-sunken">
         <div className={cx("h-full", tone)} style={{ width: unlimited ? "0%" : `${pct}%` }} />
       </div>
+    </div>
+  );
+}
+
+function RemindersPanel() {
+  const list = useQuery({ queryKey: ["upcoming-deadlines"], queryFn: api.listUpcomingDeadlines });
+  const items = list.data ?? [];
+
+  function urgency(due: string) {
+    const days = Math.round((new Date(due + "T00:00:00").getTime() - Date.now()) / 86_400_000);
+    if (days < 0) return { label: `${Math.abs(days)}d overdue`, dot: "bg-danger", tone: "text-danger" };
+    if (days === 0) return { label: "today", dot: "bg-danger", tone: "text-danger" };
+    if (days <= 7) return { label: `${days}d`, dot: "bg-flag", tone: "text-flag" };
+    return { label: `${days}d`, dot: "bg-brass", tone: "text-ink-soft" };
+  }
+
+  return (
+    <div>
+      <p className="text-[11.5px] text-ink-soft">
+        Each weekday at 08:00 local time, Themis emails you a single digest of every deadline due in the next 7 days
+        (or already overdue). Here's what tomorrow's email would contain.
+      </p>
+      {list.isLoading ? (
+        <div className="mt-3 text-[12.5px] text-ink-soft">Loading…</div>
+      ) : items.length === 0 ? (
+        <div className="mt-3 rounded-md border border-dashed border-line bg-surface-sunken/40 px-3 py-4 text-center text-[12px] text-ink-soft">
+          You have no upcoming deadlines in the next 14 days. Add deadlines from any matter's "Add from order" panel.
+        </div>
+      ) : (
+        <ul className="mt-3 space-y-1.5">
+          {items.slice(0, 12).map((d) => {
+            const u = urgency(d.dueDate);
+            return (
+              <li key={d.id} className="flex items-start gap-2 rounded-md border border-line bg-paper px-2.5 py-1.5">
+                <span className={cx("mt-1 h-1.5 w-1.5 shrink-0 rounded-full", u.dot)} />
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-[12px] font-medium text-ink" title={d.title}>{d.title}</div>
+                  <div className="mt-0.5 truncate font-mono text-[10px] text-ink-faint">{d.matterName} · {d.dueDate}</div>
+                </div>
+                <span className={cx("shrink-0 font-mono text-[10px] font-semibold", u.tone)}>{u.label}</span>
+              </li>
+            );
+          })}
+          {items.length > 12 && (
+            <li className="text-center text-[10.5px] text-ink-faint">+ {items.length - 12} more in the digest</li>
+          )}
+        </ul>
+      )}
     </div>
   );
 }
