@@ -391,6 +391,16 @@ console.log("Themis API smoke test\n");
   check("unknown share token 404", badToken.status === 404);
 }
 
+// --- Firm-wide audit ---
+{
+  const r = await get(`/api/firm/audit`);
+  check("firm audit 200", r.status === 200);
+  check("firm audit returns entries array", Array.isArray(r.body.entries));
+  check("firm audit entries carry matter id+name", r.body.entries.length === 0 || (typeof r.body.entries[0].matterId === "string" && typeof r.body.entries[0].matterName === "string"));
+  const limited = await get(`/api/firm/audit?limit=3`);
+  check("firm audit respects limit", limited.body.entries.length <= 3);
+}
+
 // Error handling
 {
   const r = await get("/api/matters/does-not-exist");

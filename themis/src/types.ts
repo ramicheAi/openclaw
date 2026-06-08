@@ -197,6 +197,18 @@ export interface DamagesItem {
   createdAt: string;
 }
 
+// --- Firm-wide audit ---
+
+export interface FirmAuditEntry {
+  id: number;
+  ts: string;
+  actor: string;
+  action: string;
+  detail: string;
+  matterId: string;
+  matterName: string;
+}
+
 // --- Sharing ---
 
 export type ShareScope = "matter" | "binder";

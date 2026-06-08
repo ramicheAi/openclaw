@@ -436,6 +436,37 @@ export function listAudit(db: DB, matterId: string, limit = 50): AuditEntry[] {
   }));
 }
 
+// Cross-matter audit view — every entry across every matter the operator
+// can see (or every matter in single-user mode). Includes the matter id +
+// name on each row so the UI can group / link back.
+export interface FirmAuditEntry extends AuditEntry {
+  matterId: string;
+  matterName: string;
+}
+
+export function listFirmAudit(db: DB, ownerEmail?: string, limit = 200): FirmAuditEntry[] {
+  const sql = ownerEmail
+    ? `SELECT a.*, m.name AS matter_name
+         FROM audit_log a JOIN matters m ON m.id = a.matter_id
+        WHERE m.owner_email = ? OR m.owner_email = ''
+        ORDER BY a.id DESC LIMIT ?`
+    : `SELECT a.*, m.name AS matter_name
+         FROM audit_log a JOIN matters m ON m.id = a.matter_id
+        ORDER BY a.id DESC LIMIT ?`;
+  const rows = (ownerEmail
+    ? db.prepare(sql).all(ownerEmail, limit)
+    : db.prepare(sql).all(limit)) as (Row & { matter_name: string })[];
+  return rows.map((a): FirmAuditEntry => ({
+    id: a.id as number,
+    ts: a.ts as string,
+    actor: a.actor as string,
+    action: a.action as string,
+    detail: a.detail as string,
+    matterId: a.matter_id as string,
+    matterName: a.matter_name,
+  }));
+}
+
 export function matterExists(db: DB, id: string): boolean {
   return !!db.prepare(`SELECT 1 FROM matters WHERE id = ?`).get(id);
 }

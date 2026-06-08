@@ -5,6 +5,7 @@ import {
   createMatter,
   getMatter,
   listAudit,
+  listFirmAudit,
   listMatters,
   matterExists,
   verifyAuditChain,
@@ -47,6 +48,14 @@ function ownerEmail(c: Context): string | undefined {
 
 export function registerMatterRoutes(app: Hono, db: DB) {
   app.get("/api/matters", (c) => c.json({ matters: listMatters(db, ownerEmail(c)) }));
+
+  // Firm-wide audit feed — every entry across every matter the operator
+  // can see. Drives the global "Audit Log" nav surface.
+  app.get("/api/firm/audit", (c) => {
+    const limitParam = Number(c.req.query("limit") ?? "200");
+    const limit = Number.isFinite(limitParam) ? Math.min(Math.max(1, limitParam), 1000) : 200;
+    return c.json({ entries: listFirmAudit(db, ownerEmail(c), limit) });
+  });
 
   // Transparent engine status — the user (and any third party reading via
   // the audit trail) can confirm whether Themis is running Claude or the

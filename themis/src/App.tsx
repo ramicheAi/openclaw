@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Archive, FolderLock, LayoutGrid, ScrollText, Settings } from "lucide-react";
 import { BrandMark, Tau } from "./components/BrandMark";
 import { cx } from "./lib/ui";
-import { useRoute } from "./lib/router";
+import { useRoute, type GlobalView } from "./lib/router";
 import { useTheme } from "./lib/theme";
 import { MattersDashboard } from "./screens/MattersDashboard";
 import { MatterShell } from "./screens/matter/MatterShell";
 import { SharedMatterView } from "./screens/SharedMatterView";
 import { LoginScreen } from "./screens/LoginScreen";
+import { FirmAuditScreen } from "./screens/FirmAuditScreen";
+import { SettingsModal } from "./components/SettingsModal";
 import { AuthProvider, useAuth } from "./lib/auth";
 
 const queryClient = new QueryClient({
@@ -19,11 +22,32 @@ const queryClient = new QueryClient({
   },
 });
 
-const globalNav = [
-  { id: "matters", label: "Matters", icon: LayoutGrid },
-  { id: "firm", label: "Firm Library", icon: FolderLock, gated: true },
-  { id: "audit", label: "Audit Log", icon: ScrollText },
-  { id: "archive", label: "Archive", icon: Archive },
+// Each nav entry. `view: null` means the item is coming soon — the click
+// opens a tooltip-style explanation instead of routing.
+interface NavItem {
+  id: string;
+  label: string;
+  icon: typeof LayoutGrid;
+  view: GlobalView | null;
+  soon?: string;
+}
+const globalNav: NavItem[] = [
+  { id: "matters", label: "Matters", icon: LayoutGrid, view: "matters" },
+  {
+    id: "firm",
+    label: "Firm Library",
+    icon: FolderLock,
+    view: null,
+    soon: "Firm-wide motion + brief templates, shared expert/depo questions, model contracts. Coming in v0.3.",
+  },
+  { id: "audit", label: "Audit Log", icon: ScrollText, view: "audit" },
+  {
+    id: "archive",
+    label: "Archive",
+    icon: Archive,
+    view: null,
+    soon: "Closed matters live here — hash chain preserved, but excluded from the active dashboard. Coming in v0.3.",
+  },
 ];
 
 export function App() {
@@ -39,6 +63,7 @@ export function App() {
 function Shell() {
   const [route, setRoute] = useRoute();
   const auth = useAuth();
+  const [settingsOpen, setSettingsOpen] = useState(false);
   // Initialize the theme at the root so even the dashboard (which has no
   // MatterShell) gets the BRAIN READY dark mode by default.
   useTheme();
@@ -74,25 +99,35 @@ function Shell() {
 
           <nav className="flex flex-col gap-1">
             {globalNav.map((item) => {
-              const active = item.id === "matters";
+              const active = item.view === route.view;
               const Icon = item.icon;
+              const onClick = () => {
+                if (item.soon) {
+                  window.alert(`${item.label} — ${item.soon}`);
+                  return;
+                }
+                if (item.view) setRoute({ matterId: null, view: item.view });
+              };
               return (
                 <button
                   key={item.id}
+                  onClick={onClick}
                   className={cx(
                     "group flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors lg:justify-start",
                     "justify-center",
                     active
                       ? "bg-brass-wash text-brass-deep"
-                      : "text-ink-soft hover:bg-surface-sunken hover:text-ink",
+                      : item.soon
+                        ? "text-ink-faint hover:bg-surface-sunken hover:text-ink-soft"
+                        : "text-ink-soft hover:bg-surface-sunken hover:text-ink",
                   )}
-                  title={item.label}
+                  title={item.soon ? `${item.label} — coming soon` : item.label}
                 >
                   <Icon size={18} strokeWidth={2} />
                   <span className="hidden lg:inline">{item.label}</span>
-                  {item.gated && (
+                  {item.soon && (
                     <span className="ml-auto hidden rounded bg-surface-sunken px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-ink-faint lg:inline">
-                      Walled
+                      Soon
                     </span>
                   )}
                 </button>
@@ -101,7 +136,10 @@ function Shell() {
           </nav>
 
           <div className="mt-auto hidden lg:block">
-            <button className="flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium text-ink-soft hover:bg-surface-sunken">
+            <button
+              onClick={() => setSettingsOpen(true)}
+              className="flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium text-ink-soft hover:bg-surface-sunken hover:text-ink"
+            >
               <Settings size={18} />
               <span>Settings</span>
             </button>
@@ -111,7 +149,13 @@ function Shell() {
 
       <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
         {!route.matterId ? (
-          <MattersDashboard onOpen={(id) => setRoute({ matterId: id, mode: "worktop", tab: "ask" })} />
+          route.view === "audit" ? (
+            <FirmAuditScreen
+              onOpenMatter={(id) => setRoute({ matterId: id, mode: "worktop", tab: "ask", view: "matters" })}
+            />
+          ) : (
+            <MattersDashboard onOpen={(id) => setRoute({ matterId: id, mode: "worktop", tab: "ask", view: "matters" })} />
+          )
         ) : (
           <MatterShell
             matterId={route.matterId}
@@ -119,10 +163,12 @@ function Shell() {
             tab={route.tab}
             onMode={(mode) => setRoute({ mode })}
             onTab={(tab) => setRoute({ tab })}
-            onBack={() => setRoute({ matterId: null })}
+            onBack={() => setRoute({ matterId: null, view: "matters" })}
           />
         )}
       </main>
+
+      {settingsOpen && <SettingsModal onClose={() => setSettingsOpen(false)} />}
     </div>
   );
 }

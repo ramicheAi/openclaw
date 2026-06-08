@@ -31,6 +31,7 @@ import type {
   DamagesItem,
   DamagesCategory,
   SpokenLine,
+  FirmAuditEntry,
 } from "../types";
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
@@ -88,6 +89,9 @@ export const api = {
   logout: () => request<{ ok: boolean }>(`/api/auth/logout`, { method: "POST" }),
 
   listMatters: () => request<{ matters: MatterSummary[] }>("/api/matters").then((r) => r.matters),
+
+  listFirmAudit: (limit = 200) =>
+    request<{ entries: FirmAuditEntry[] }>(`/api/firm/audit?limit=${limit}`).then((r) => r.entries),
 
   getMatter: (id: string) => request<MatterDetail>(`/api/matters/${id}`),
 
