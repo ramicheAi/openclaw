@@ -391,6 +391,66 @@ console.log("Themis API smoke test\n");
   check("unknown share token 404", badToken.status === 404);
 }
 
+// --- Public Cite Check (free wedge — no auth) ---
+{
+  const r = await send(`/api/public/cite-check`, "POST", { text: "Mata v. Avianca, Inc., 678 F. Supp. 3d 443 (S.D.N.Y. 2023)." });
+  check("public cite-check 200", r.status === 200);
+  check("public cite-check returns remainingToday", typeof r.body.remainingToday === "number");
+
+  const bad = await send(`/api/public/cite-check`, "POST", { text: "" });
+  check("public cite-check rejects empty (400)", bad.status === 400);
+
+  const lead = await send(`/api/public/save-lead`, "POST", { email: "jane@example.com" });
+  check("public save-lead 200", lead.status === 200);
+
+  const badLead = await send(`/api/public/save-lead`, "POST", { email: "not-an-email" });
+  check("public save-lead rejects bad email (400)", badLead.status === 400);
+}
+
+// --- Billing (Stripe not configured in smoke; verify it reports cleanly) ---
+{
+  const status = await get(`/api/billing/status`);
+  check("billing status 200", status.status === 200);
+  check("billing status reports configured boolean", typeof status.body.configured === "boolean");
+  check("billing status reports plan", typeof status.body.plan === "string");
+
+  // Without STRIPE_SECRET_KEY the checkout route should 503 (not 500).
+  const checkout = await send(`/api/billing/checkout`, "POST", { plan: "solo" });
+  check("billing checkout returns 503 when unconfigured", checkout.status === 503);
+}
+
+// --- Teams (matter access) ---
+{
+  const grant = await send(`/api/matters/${M}/access`, "POST", { email: "associate@example.com", role: "associate" });
+  check("grant access 200", grant.status === 200 && grant.body.role === "associate");
+
+  const list = await get(`/api/matters/${M}/access`);
+  check("list access 200", list.status === 200 && Array.isArray(list.body.access));
+  check("granted access appears in list", list.body.access.some((a: any) => a.email === "associate@example.com"));
+
+  const badRole = await send(`/api/matters/${M}/access`, "POST", { email: "x@example.com", role: "nope" });
+  check("invalid role 400", badRole.status === 400);
+
+  const revoked = await send(`/api/matters/${M}/access/${encodeURIComponent("associate@example.com")}`, "DELETE");
+  check("revoke access ok", revoked.body.ok === true);
+}
+
+// --- Webhooks (SIEM forwarding) ---
+{
+  const create = await send(`/api/webhooks`, "POST", { url: "https://example.com/hook", events: "audit.*" });
+  check("create webhook 200", create.status === 200 && create.body.id);
+  check("create webhook returns secret", typeof create.body.secret === "string" && create.body.secret.startsWith("whsec_"));
+
+  const list = await get(`/api/webhooks`);
+  check("list webhooks 200", list.status === 200 && Array.isArray(list.body.webhooks));
+
+  const bad = await send(`/api/webhooks`, "POST", { url: "not-a-url" });
+  check("invalid url 400", bad.status === 400);
+
+  const del = await send(`/api/webhooks/${create.body.id}`, "DELETE");
+  check("delete webhook ok", del.body.ok === true);
+}
+
 // --- Firm-wide audit ---
 {
   const r = await get(`/api/firm/audit`);
@@ -466,7 +526,21 @@ console.log("Themis API smoke test\n");
   const matters = await authApp.request(`/api/matters`, { headers: { cookie } });
   check("authed /matters 200", matters.status === 200);
 
-  // Matter created by Jane should be visible to Jane.
+  // Free-tier users can't create matters (plan limit = 0). Verify the gate
+  // works, then upgrade Jane to Solo so the rest of the multi-tenant
+  // assertions can proceed.
+  const blocked = await authApp.request(`/api/matters`, {
+    method: "POST",
+    headers: { "content-type": "application/json", cookie },
+    body: JSON.stringify({ name: "Free Tier Test", client: "Tester" }),
+  });
+  check("free tier blocks createMatter (402)", blocked.status === 402);
+
+  const { getDb } = await import("./src/db.js");
+  const { setUserPlan } = await import("./src/auth.js");
+  setUserPlan(getDb(), "jane@example.com", "solo");
+
+  // Matter created by Jane (now Solo) should be visible to Jane.
   const created = await authApp.request(`/api/matters`, {
     method: "POST",
     headers: { "content-type": "application/json", cookie },

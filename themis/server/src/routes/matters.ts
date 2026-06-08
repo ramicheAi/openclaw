@@ -14,6 +14,7 @@ import {
 import { authedActor } from "./auth.js";
 import { isAuthRequired } from "../auth.js";
 import type { Session } from "../auth.js";
+import { canCreateMatter, planSpec } from "../plans.js";
 import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.js";
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
 import { analyzeMatter } from "../analyze.js";
@@ -120,6 +121,27 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     };
     if (!body.name?.trim() || !body.client?.trim()) {
       return c.json({ error: "name_and_client_required" }, 400);
+    }
+    // Enforce the subscription matter cap. Single-user mode bypasses this
+    // (the operator is the only user; no plan).
+    const owner = ownerEmail(c);
+    if (owner) {
+      const userRow = db.prepare(`SELECT plan FROM users WHERE email = ?`).get(owner) as { plan?: string } | undefined;
+      const plan = planSpec(userRow?.plan);
+      const current = listMatters(db, owner).filter((m) => m.id !== "").length;
+      if (!canCreateMatter(plan, current)) {
+        return c.json(
+          {
+            error: "plan_limit",
+            limit: "matters",
+            current,
+            cap: plan.matters,
+            plan: plan.id,
+            message: `Your ${plan.label} plan caps active matters at ${plan.matters === Number.POSITIVE_INFINITY ? "unlimited" : plan.matters}. Upgrade in Settings → Billing to create more.`,
+          },
+          402,
+        );
+      }
     }
     const id = slug(`${body.name}-${body.client}`);
     if (matterExists(db, id)) return c.json({ error: "matter_already_exists", id }, 409);

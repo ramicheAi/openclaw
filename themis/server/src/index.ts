@@ -12,6 +12,9 @@ import { registerVerifyRoutes } from "./routes/verify.js";
 import { registerDeadlineRoutes } from "./routes/deadlines.js";
 import { registerDraftRoutes } from "./routes/drafts.js";
 import { registerProductionRoutes } from "./routes/productions.js";
+import { registerBillingRoutes } from "./routes/billing.js";
+import { registerPublicRoutes } from "./routes/public.js";
+import { registerTeamRoutes } from "./routes/teams.js";
 import { attachAuth } from "./routes/auth.js";
 import { isAuthRequired as isAuthRequiredFn, reapExpiredAuthArtifacts } from "./auth.js";
 import { canAccessMatter as canAccessFn } from "./repo.js";
@@ -65,6 +68,9 @@ export function buildApp(db = getDb()) {
   registerConflictRoutes(app, db);
   registerSharingRoutes(app, db);
   registerDamagesRoutes(app, db);
+  registerBillingRoutes(app, db);
+  registerPublicRoutes(app, db);
+  registerTeamRoutes(app, db);
 
   app.notFound((c) => c.json({ error: "not_found", path: c.req.path }, 404));
   app.onError((err, c) => {

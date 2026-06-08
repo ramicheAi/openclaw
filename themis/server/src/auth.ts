@@ -27,6 +27,10 @@ export interface User {
   firm: string;
   createdAt: string;
   lastLogin?: string;
+  plan: string;
+  planActiveUntil?: string;
+  stripeCustomerId?: string;
+  stripeSubscriptionId?: string;
 }
 
 export interface Session {
@@ -57,7 +61,31 @@ function userRow(r: Record<string, unknown>): User {
     firm: r.firm as string,
     createdAt: r.created_at as string,
     lastLogin: (r.last_login as string | null) ?? undefined,
+    plan: (r.plan as string | null) ?? "free",
+    planActiveUntil: (r.plan_active_until as string | null) ?? undefined,
+    stripeCustomerId: (r.stripe_customer_id as string | null) ?? undefined,
+    stripeSubscriptionId: (r.stripe_subscription_id as string | null) ?? undefined,
   };
+}
+
+export function setUserPlan(
+  db: DB,
+  email: string,
+  plan: string,
+  activeUntil?: string,
+  stripeCustomerId?: string,
+  stripeSubscriptionId?: string,
+): void {
+  db.prepare(
+    `UPDATE users SET plan = ?, plan_active_until = ?, stripe_customer_id = COALESCE(?, stripe_customer_id), stripe_subscription_id = COALESCE(?, stripe_subscription_id) WHERE email = ?`,
+  ).run(plan, activeUntil ?? null, stripeCustomerId ?? null, stripeSubscriptionId ?? null, normalizeEmail(email));
+}
+
+export function findUserByStripeCustomer(db: DB, stripeCustomerId: string): User | null {
+  const r = db
+    .prepare(`SELECT * FROM users WHERE stripe_customer_id = ?`)
+    .get(stripeCustomerId) as Record<string, unknown> | undefined;
+  return r ? userRow(r) : null;
 }
 
 export function getUserByEmail(db: DB, email: string): User | null {
@@ -77,7 +105,7 @@ export function upsertUser(db: DB, email: string, name = "", firm = ""): User {
   const id = `u-${randomBytes(8).toString("base64url")}`;
   const now = new Date().toISOString();
   db.prepare(`INSERT INTO users (id, email, name, firm, created_at) VALUES (?, ?, ?, ?, ?)`).run(id, e, name, firm, now);
-  return { id, email: e, name, firm, createdAt: now };
+  return { id, email: e, name, firm, createdAt: now, plan: "free" };
 }
 
 // ── Magic-link tokens ────────────────────────────────────────────────────

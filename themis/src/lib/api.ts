@@ -88,6 +88,31 @@ export const api = {
 
   logout: () => request<{ ok: boolean }>(`/api/auth/logout`, { method: "POST" }),
 
+  // --- Billing ---
+  billingStatus: () =>
+    request<{ configured: boolean; plan: string; planActiveUntil: string | null; hasSubscription: boolean; stripeCustomerId: string | null }>(
+      `/api/billing/status`,
+    ),
+  billingCheckout: (plan: string) =>
+    request<{ url?: string; error?: string }>(`/api/billing/checkout`, {
+      method: "POST",
+      body: JSON.stringify({ plan }),
+    }),
+  billingPortal: () =>
+    request<{ url: string }>(`/api/billing/portal`, { method: "POST" }),
+
+  // --- Public Cite Check (no auth) ---
+  publicCiteCheck: (text: string, email?: string) =>
+    request<unknown>(`/api/public/cite-check`, {
+      method: "POST",
+      body: JSON.stringify({ text, email }),
+    }),
+  publicSaveLead: (email: string) =>
+    request<{ ok: boolean }>(`/api/public/save-lead`, {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    }),
+
   listMatters: () => request<{ matters: MatterSummary[] }>("/api/matters").then((r) => r.matters),
 
   listFirmAudit: (limit = 200) =>

@@ -38,6 +38,12 @@ function migrate(db: DB) {
     // get owner_email = '' which is treated as "owned by the operator" in
     // single-user mode and as "unassigned" in multi-tenant mode.
     `ALTER TABLE matters ADD COLUMN owner_email TEXT NOT NULL DEFAULT ''`,
+    // Subscription state on the user. plan defaults to "free" — Cite Check
+    // only, no save. Solo/Firm/FirmPro/Enterprise tiers light up the rest.
+    `ALTER TABLE users ADD COLUMN plan TEXT NOT NULL DEFAULT 'free'`,
+    `ALTER TABLE users ADD COLUMN plan_active_until TEXT`,
+    `ALTER TABLE users ADD COLUMN stripe_customer_id TEXT`,
+    `ALTER TABLE users ADD COLUMN stripe_subscription_id TEXT`,
   ];
   for (const sql of adds) {
     try {

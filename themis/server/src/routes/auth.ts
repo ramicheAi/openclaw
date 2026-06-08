@@ -26,7 +26,14 @@ import { magicLinkEmail, sendEmail } from "../email.js";
 //   /api/auth/*         — the login flow itself
 //   /api/shared/*       — tokenized read-only share links (the token IS the auth)
 //   /api/verify/status  — public status indicator for the cite-check tier
-const PUBLIC_PREFIXES = ["/api/health", "/api/auth/", "/api/shared/", "/api/verify/status"];
+const PUBLIC_PREFIXES = [
+  "/api/health",
+  "/api/auth/",
+  "/api/shared/",
+  "/api/verify/status",
+  "/api/public/",          // free-tier Cite Check + lead capture
+  "/api/billing/webhook",  // Stripe signs the body, not a session cookie
+];
 
 function isPublic(path: string): boolean {
   return PUBLIC_PREFIXES.some((p) => path === p.slice(0, -1) || path.startsWith(p));

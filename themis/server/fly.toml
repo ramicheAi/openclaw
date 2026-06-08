@@ -59,7 +59,12 @@ kill_timeout = 15
 #                         COURTLISTENER_API_TOKEN=... \
 #                         ASSEMBLYAI_API_KEY=... \
 #                         THEMIS_PUBLIC_URL=https://themis-api.fly.dev \
-#                         THEMIS_EMAIL_FROM="Themis <login@themis.law>"
+#                         THEMIS_EMAIL_FROM="Themis <login@themis.law>" \
+#                         STRIPE_SECRET_KEY=sk_live_... \
+#                         STRIPE_WEBHOOK_SECRET=whsec_... \
+#                         STRIPE_PRICE_SOLO=price_... \
+#                         STRIPE_PRICE_FIRM=price_... \
+#                         STRIPE_PRICE_FIRM_PRO=price_...
 #                       (Skip whichever you don't have yet — the server runs
 #                       fine without them, falling back to deterministic /
 #                       console-fallback modes.)

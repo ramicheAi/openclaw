@@ -3,6 +3,7 @@
 // and from the user pill in the matter top bar.
 
 import { useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../lib/api";
 import { useAuth } from "../lib/auth";
 import { useTheme } from "../lib/theme";
@@ -63,6 +64,13 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
             )}
           </Section>
 
+          {/* Billing — only meaningful in multi-tenant mode */}
+          {auth.mode === "multi-tenant" && auth.user && (
+            <Section title="Billing">
+              <BillingPanel />
+            </Section>
+          )}
+
           {/* Appearance */}
           <Section title="Appearance">
             <Row label="Theme" value={theme === "dark" ? "Dark (cinematic)" : "Light (paper)"} />
@@ -89,6 +97,52 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
           </Section>
         </div>
       </div>
+    </div>
+  );
+}
+
+function BillingPanel() {
+  const status = useQuery({ queryKey: ["billing-status"], queryFn: api.billingStatus });
+  const portal = useMutation({
+    mutationFn: () => api.billingPortal(),
+    onSuccess: (r) => { if (r.url) window.location.href = r.url; },
+  });
+  const planLabel: Record<string, string> = {
+    free: "Free",
+    solo: "Solo ($99/mo)",
+    firm: "Firm ($499/mo)",
+    firm_pro: "Firm Pro ($1,499/mo)",
+    enterprise: "Enterprise",
+  };
+  const plan = status.data?.plan ?? "free";
+  return (
+    <div>
+      <Row label="Current plan" value={planLabel[plan] ?? plan} />
+      {status.data?.planActiveUntil && (
+        <Row label="Renews" value={status.data.planActiveUntil.slice(0, 10)} />
+      )}
+      <div className="mt-3 flex items-center gap-2">
+        <a
+          href="/pricing"
+          className="rounded-md bg-brass px-3 py-1.5 text-[12.5px] font-semibold text-paper hover:bg-brass-deep"
+        >
+          {plan === "free" ? "Upgrade" : "Change plan"}
+        </a>
+        {status.data?.hasSubscription && (
+          <button
+            onClick={() => portal.mutate()}
+            disabled={portal.isPending}
+            className="rounded-md border border-line bg-paper px-3 py-1.5 text-[12.5px] font-medium text-ink hover:border-brass-soft hover:text-brass-deep disabled:opacity-50"
+          >
+            {portal.isPending ? "Opening…" : "Manage billing"}
+          </button>
+        )}
+      </div>
+      {status.data && !status.data.configured && (
+        <div className="mt-2 text-[10.5px] text-flag">
+          Stripe isn't configured on this server. Contact support to upgrade.
+        </div>
+      )}
     </div>
   );
 }

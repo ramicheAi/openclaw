@@ -377,6 +377,46 @@ export function audit(db: DB, matterId: string, actor: string, action: string, d
   db.prepare(
     `INSERT INTO audit_log (matter_id, ts, actor, action, detail, prev_hash, entry_hash) VALUES (?, ?, ?, ?, ?, ?, ?)`,
   ).run(matterId, ts, actor, action, detail, prevHash, entryHash);
+
+  // Fire outbound webhooks (SIEM forwarding). Best-effort, async — never
+  // blocks the audit write itself. Lazy-imported to avoid a circular dep
+  // between repo.ts and teams.ts.
+  void fireAuditWebhooks(db, { matterId, ts, actor, action, detail, entryHash, prevHash });
+}
+
+async function fireAuditWebhooks(
+  db: DB,
+  entry: { matterId: string; ts: string; actor: string; action: string; detail: string; entryHash: string; prevHash: string },
+): Promise<void> {
+  try {
+    const { activeWebhooksForMatter, markWebhookResult } = await import("./teams.js");
+    const endpoints = activeWebhooksForMatter(db, entry.matterId);
+    if (endpoints.length === 0) return;
+    const { createHmac } = await import("node:crypto");
+    const body = JSON.stringify({ type: `audit.${entry.action}`, data: entry });
+    for (const ep of endpoints) {
+      // Per-endpoint event filter — supports "audit.*" or specific actions.
+      const allowed = ep.events.split(",").map((s) => s.trim()).some((pattern) => {
+        if (pattern === "audit.*") return true;
+        if (pattern === `audit.${entry.action}`) return true;
+        return false;
+      });
+      if (!allowed) continue;
+      const sig = createHmac("sha256", ep.secret).update(body).digest("hex");
+      try {
+        const res = await fetch(ep.url, {
+          method: "POST",
+          headers: { "content-type": "application/json", "x-themis-signature": `sha256=${sig}` },
+          body,
+        });
+        markWebhookResult(db, ep.id, res.ok, res.ok ? undefined : `HTTP ${res.status}`);
+      } catch (err) {
+        markWebhookResult(db, ep.id, false, err instanceof Error ? err.message : String(err));
+      }
+    }
+  } catch {
+    // Best-effort; never let a webhook failure break the audit write.
+  }
 }
 
 export function hashAuditEntry(e: {

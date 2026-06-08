@@ -158,6 +158,41 @@ CREATE TABLE IF NOT EXISTS auth_tokens (
 );
 CREATE INDEX IF NOT EXISTS idx_auth_tokens_email ON auth_tokens(email);
 
+CREATE TABLE IF NOT EXISTS matter_access (
+  matter_id  TEXT NOT NULL REFERENCES matters(id) ON DELETE CASCADE,
+  email      TEXT NOT NULL,                        -- the invited user, normalized lowercase
+  role       TEXT NOT NULL DEFAULT 'paralegal',    -- admin | partner | associate | paralegal | readonly
+  invited_by TEXT NOT NULL DEFAULT '',
+  invited_at TEXT NOT NULL,
+  accepted   INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (matter_id, email)
+);
+CREATE INDEX IF NOT EXISTS idx_matter_access_email ON matter_access(email);
+
+CREATE TABLE IF NOT EXISTS webhook_endpoints (
+  id         TEXT PRIMARY KEY,
+  owner_email TEXT NOT NULL,                       -- the user who configured it
+  url        TEXT NOT NULL,                        -- POST target
+  secret     TEXT NOT NULL,                        -- HMAC signing secret
+  events     TEXT NOT NULL DEFAULT 'audit.*',     -- comma-separated event filter
+  active     INTEGER NOT NULL DEFAULT 1,
+  created_at TEXT NOT NULL,
+  last_ok    TEXT,
+  last_error TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_webhook_owner ON webhook_endpoints(owner_email);
+
+CREATE TABLE IF NOT EXISTS public_cite_checks (
+  id         TEXT PRIMARY KEY,
+  ip         TEXT NOT NULL,
+  email      TEXT,                                  -- optional lead capture
+  created_at TEXT NOT NULL,
+  total      INTEGER NOT NULL DEFAULT 0,
+  not_found  INTEGER NOT NULL DEFAULT 0,
+  chars      INTEGER NOT NULL DEFAULT 0
+);
+CREATE INDEX IF NOT EXISTS idx_public_cite_ip ON public_cite_checks(ip, created_at);
+
 CREATE TABLE IF NOT EXISTS sessions (
   id          TEXT PRIMARY KEY,        -- the cookie value
   user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

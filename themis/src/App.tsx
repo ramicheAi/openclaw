@@ -11,6 +11,8 @@ import { SharedMatterView } from "./screens/SharedMatterView";
 import { LoginScreen } from "./screens/LoginScreen";
 import { FirmAuditScreen } from "./screens/FirmAuditScreen";
 import { SettingsModal } from "./components/SettingsModal";
+import { PricingScreen } from "./screens/PricingScreen";
+import { PublicCiteCheckScreen } from "./screens/PublicCiteCheckScreen";
 import { AuthProvider, useAuth } from "./lib/auth";
 
 const queryClient = new QueryClient({
@@ -68,12 +70,13 @@ function Shell() {
   // MatterShell) gets the BRAIN READY dark mode by default.
   useTheme();
 
-  // Tokenized read-only view: /share/<token>. Stand-alone — no global nav,
-  // no matter selector, no dashboard chrome. The token is the entire auth
-  // surface; the server-side resolver enforces revocation + expiry.
-  const sharePath = typeof window !== "undefined" ? window.location.pathname.match(/^\/share\/([A-Za-z0-9_-]{8,})/) : null;
-  if (sharePath) {
-    return <SharedMatterView token={sharePath[1]} />;
+  // Public path-based routes — no auth required.
+  if (typeof window !== "undefined") {
+    const path = window.location.pathname;
+    const sharePath = path.match(/^\/share\/([A-Za-z0-9_-]{8,})/);
+    if (sharePath) return <SharedMatterView token={sharePath[1]} />;
+    if (path === "/cite-check") return <PublicCiteCheckScreen />;
+    if (path === "/pricing") return <PricingScreen />;
   }
 
   // Auth gate: while we're checking the session, show nothing (avoids a
