@@ -416,6 +416,31 @@ console.log("Themis API smoke test\n");
   check("badge returns stats", typeof badge.body.stats === "object");
 }
 
+// --- Public status page ---
+{
+  const r = await get(`/api/public/status`);
+  check("public status 200", r.status === 200);
+  check("public status has uptime", typeof r.body.uptime === "number");
+  check("public status lists deps", Array.isArray(r.body.dependencies));
+}
+
+// --- Verified badge SVG ---
+{
+  // Create a cert + its hash, then fetch the SVG.
+  const cert = await send(`/api/matters/${M}/certification`, "POST", { filing: "Badge SVG Test" });
+  const hash = cert.body.verified?.hash;
+  check("certification gives hash", typeof hash === "string");
+  const svgRes = await app.request(`/api/public/verify/${hash}/badge.svg`);
+  check("badge svg 200", svgRes.status === 200);
+  const ctype = svgRes.headers.get("content-type") ?? "";
+  check("badge svg content-type", ctype.includes("image/svg"));
+  const body = await svgRes.text();
+  check("badge svg contains Themis label", body.includes("Themis"));
+
+  const missingSvg = await app.request(`/api/public/verify/nope-not-real/badge.svg`);
+  check("badge svg unknown still returns 200 (visual not_found state)", missingSvg.status === 200);
+}
+
 // --- Public Cite Check (free wedge — no auth) ---
 {
   const r = await send(`/api/public/cite-check`, "POST", { text: "Mata v. Avianca, Inc., 678 F. Supp. 3d 443 (S.D.N.Y. 2023)." });

@@ -229,13 +229,43 @@ export function PricingScreen() {
             Built specifically to keep your firm out of the next <em>Mata v. Avianca</em>.
           </p>
         </div>
+
+        <section className="mt-16">
+          <div className="text-center">
+            <div className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-brass-deep">FAQ</div>
+            <h2 className="mt-2 font-display text-[24px] font-semibold leading-tight text-ink">Common questions</h2>
+          </div>
+          <div className="mx-auto mt-6 max-w-3xl space-y-3">
+            <Faq q="Will Themis hallucinate citations like ChatGPT?" a="No. Every authority you cite is verified against CourtListener's published-opinion database. Every Bates citation is verified against the actual document corpus you uploaded. The model never invents a cite that isn't already in one of those two sources — and we surface entailment scores so you can see exactly how strong the support is." />
+            <Faq q="Do my client documents leave my firm's control?" a="Documents stay in your tenant. We use Anthropic Claude for the LLM work (or your own deployment via THEMIS_LLM_PROVIDER), but no client documents are stored on Anthropic's servers — they're sent per-request, not for training. Enterprise tier offers dedicated infrastructure + customer-managed keys + a HIPAA BAA." />
+            <Faq q="What if a court requires AI-use disclosure?" a="Themis generates a court-ready certification (Rule 11 + Model Rule 1.1/3.3) on demand. Every Cite Check run is logged in the matter's hash-chained audit. Filed certifications include a public Themis Verified hash that a judge's clerk can paste at /verify/<hash> to attest in one click." />
+            <Faq q="Can I cancel anytime?" a="Yes — all plans are month-to-month. Annual plans get a 15% discount but stay cancellable at the end of the term. Use the Stripe customer portal from Settings → Billing." />
+            <Faq q="Do you have SOC 2?" a="SOC 2 Type I is targeted for Q3 2026; Type II Q1 2027. Enterprise customers get the latest report under NDA. We use Vanta for continuous controls monitoring." />
+            <Faq q="What integrations exist today?" a="CourtListener (built in), AssemblyAI for video/audio transcription, Stripe for billing. Clio + MyCase + NetDocs + iManage + Word add-in are on the Q1 roadmap." />
+            <Faq q="Is there a free trial?" a="Yes — Solo + Firm tiers offer a 14-day trial, no credit card required. Or start with the standalone Cite Check at /cite-check — free forever, no account, 50 paste-checks/day." />
+          </div>
+        </section>
       </main>
 
       <footer className="mt-12 border-t border-line bg-surface">
         <div className="mx-auto max-w-5xl px-6 py-6 text-center text-[11px] text-ink-faint">
-          Themis · Evidence Intelligence · Built for litigation paralegals + attorneys
+          Themis · Evidence Intelligence ·{" "}
+          <a href="/cite-check" className="text-ink-soft hover:text-ink">Try free</a> ·{" "}
+          <a href="/status" className="text-ink-soft hover:text-ink">Status</a>
         </div>
       </footer>
     </div>
+  );
+}
+
+function Faq({ q, a }: { q: string; a: string }) {
+  return (
+    <details className="group rounded-lg border border-line bg-surface px-4 py-3 open:bg-paper">
+      <summary className="cursor-pointer list-none font-display text-[14px] font-semibold leading-snug text-ink marker:hidden">
+        <span className="mr-2 inline-block text-brass transition-transform group-open:rotate-90">›</span>
+        {q}
+      </summary>
+      <p className="mt-2 pl-4 text-[12.5px] leading-relaxed text-ink-soft">{a}</p>
+    </details>
   );
 }

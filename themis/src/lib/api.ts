@@ -49,6 +49,14 @@ export class ApiError extends Error {
   }
 }
 
+export interface PlanLimitInfo {
+  limit: "matters" | "pages" | "seats" | "feature";
+  current: number;
+  cap: number;
+  plan: string;
+  message: string;
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
     ...init,
@@ -61,10 +69,21 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const d = data as { error?: string; message?: string; hint?: string; detail?: string };
-    // Surface the human-readable message when the server provides one so
-    // the UI can show 'Bates X is already used in this matter' instead of
-    // an opaque code.
+    const d = data as { error?: string; message?: string; hint?: string; detail?: string; limit?: string; current?: number; cap?: number; plan?: string };
+    // 402 plan-limit responses get broadcast on a global event so a top-
+    // level upgrade modal can intercept and show a real CTA instead of a
+    // raw toast/error string.
+    if (res.status === 402 && d.error === "plan_limit" && typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent<PlanLimitInfo>("themis:plan-limit", {
+        detail: {
+          limit: (d.limit ?? "feature") as PlanLimitInfo["limit"],
+          current: d.current ?? 0,
+          cap: d.cap ?? 0,
+          plan: d.plan ?? "free",
+          message: d.message ?? "You've hit a plan limit. Upgrade to continue.",
+        },
+      }));
+    }
     const msg = d.message ?? d.detail ?? d.hint ?? d.error ?? "error";
     throw new ApiError(res.status, d.error ?? "error", msg);
   }

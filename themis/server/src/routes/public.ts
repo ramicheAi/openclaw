@@ -114,6 +114,67 @@ export function registerPublicRoutes(app: Hono, db: DB) {
     });
   });
 
+  // Embeddable SVG badge — paste into email signatures, website footers,
+  // or LinkedIn. Renders "Themis Verified · <case>" with a brass border.
+  // Browsers render <img src=".svg"> inline; firms wrap it in an <a> to
+  // the public /verify/<hash> attestation page.
+  app.get("/api/public/verify/:hash/badge.svg", (c) => {
+    const hash = c.req.param("hash") ?? "";
+    if (!hash) return c.text("missing hash", 400);
+    const cert = getVerifiedByHash(db, hash);
+    const ok = cert && !cert.revoked && cert.stats.authorities_not_found === 0 && cert.stats.bates_not_in_matter === 0;
+    const labelText = cert
+      ? (cert.revoked ? "Revoked" : ok ? "Verified" : "Verified · with notes")
+      : "Not found";
+    const matterText = cert ? truncate(cert.matterName, 36) : "(unknown attestation)";
+    const fillColor = !cert ? "#8a7f6c" : cert.revoked ? "#b53d36" : ok ? "#2c7e5a" : "#a5631f";
+    const bgColor = !cert ? "#f4ecda" : cert.revoked ? "#f8e4e2" : ok ? "#e7f4ec" : "#f7ecd9";
+    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="64" viewBox="0 0 280 64" role="img" aria-label="Themis Verified — ${escapeAttr(matterText)}">
+  <rect x="1" y="1" width="278" height="62" rx="8" ry="8" fill="${bgColor}" stroke="${fillColor}" stroke-width="1.5"/>
+  <g transform="translate(14,12)">
+    <!-- tau-ish mark -->
+    <rect x="0" y="0" width="32" height="32" rx="6" fill="${fillColor}"/>
+    <text x="16" y="22" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="20" fill="${bgColor}">T</text>
+  </g>
+  <g transform="translate(58,18)">
+    <text x="0" y="0" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif" font-weight="700" font-size="13" fill="${fillColor}">Themis ${escapeAttr(labelText)}</text>
+    <text x="0" y="17" font-family="-apple-system,BlinkMacSystemFont,Inter,sans-serif" font-size="10.5" fill="#5b5141">${escapeAttr(matterText)}</text>
+    <text x="0" y="32" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" fill="#8a7f6c">${escapeAttr(hash.slice(0, 12))}</text>
+  </g>
+</svg>`;
+    return new Response(svg, {
+      headers: {
+        "content-type": "image/svg+xml; charset=utf-8",
+        // Cache lookups for a minute. Revocation flips the rendered tone
+        // so cache invalidation isn't critical for trust.
+        "cache-control": "public, max-age=60",
+      },
+    });
+  });
+
+  // Public status — uptime + service availability. Lightweight check the
+  // operator can point status.themis.law at. No PII.
+  app.get("/api/public/status", async (c) => {
+    const services = await Promise.allSettled([
+      // CourtListener: HEAD the citation-lookup endpoint
+      fetch("https://www.courtlistener.com/api/rest/v4/", { method: "HEAD", signal: AbortSignal.timeout(2500) })
+        .then((r) => ({ name: "CourtListener", ok: r.ok || r.status === 401 || r.status === 405 })) // 401/405 means service is up, just rejecting unauthenticated HEAD
+        .catch(() => ({ name: "CourtListener", ok: false })),
+      // Anthropic: HEAD a known endpoint to confirm reachability
+      fetch("https://api.anthropic.com/v1/messages", { method: "OPTIONS", signal: AbortSignal.timeout(2500) })
+        .then((r) => ({ name: "Anthropic API", ok: r.ok || r.status === 401 || r.status === 405 }))
+        .catch(() => ({ name: "Anthropic API", ok: false })),
+    ]);
+    return c.json({
+      service: "themis-api",
+      ok: true,
+      uptime: process.uptime(),
+      checkedAt: new Date().toISOString(),
+      dependencies: services.map((s, i) => s.status === "fulfilled" ? s.value : { name: ["CourtListener", "Anthropic API"][i], ok: false }),
+    });
+  });
+
   // Simple lead-capture endpoint — drop your email after a clean Cite Check
   // to "save the report". We don't actually persist the report (free tier
   // has no save) but we collect the lead.
@@ -127,4 +188,18 @@ export function registerPublicRoutes(app: Hono, db: DB) {
     ).run(`lead-${randomUUID().slice(0, 8)}`, ip(c), body.email.trim().toLowerCase(), new Date().toISOString());
     return c.json({ ok: true });
   });
+}
+
+function truncate(s: string, max: number): string {
+  if (s.length <= max) return s;
+  return s.slice(0, max - 1) + "…";
+}
+
+function escapeAttr(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }

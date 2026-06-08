@@ -11,9 +11,11 @@ import { SharedMatterView } from "./screens/SharedMatterView";
 import { LoginScreen } from "./screens/LoginScreen";
 import { FirmAuditScreen } from "./screens/FirmAuditScreen";
 import { SettingsModal } from "./components/SettingsModal";
+import { UpgradeListener } from "./components/UpgradeModal";
 import { PricingScreen } from "./screens/PricingScreen";
 import { PublicCiteCheckScreen } from "./screens/PublicCiteCheckScreen";
 import { VerifyBadgeScreen } from "./screens/VerifyBadgeScreen";
+import { StatusScreen } from "./screens/StatusScreen";
 import { AuthProvider, useAuth } from "./lib/auth";
 
 const queryClient = new QueryClient({
@@ -80,6 +82,7 @@ function Shell() {
     if (verifyPath) return <VerifyBadgeScreen hash={verifyPath[1]} />;
     if (path === "/cite-check") return <PublicCiteCheckScreen />;
     if (path === "/pricing") return <PricingScreen />;
+    if (path === "/status") return <StatusScreen />;
   }
 
   // Auth gate: while we're checking the session, show nothing (avoids a
@@ -175,6 +178,7 @@ function Shell() {
       </main>
 
       {settingsOpen && <SettingsModal onClose={() => setSettingsOpen(false)} />}
+      <UpgradeListener />
     </div>
   );
 }

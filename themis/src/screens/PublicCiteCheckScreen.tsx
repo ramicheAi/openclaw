@@ -129,6 +129,7 @@ export function PublicCiteCheckScreen() {
         <div className="mx-auto max-w-6xl px-6 py-6 text-[11px] text-ink-faint">
           Themis · Evidence Intelligence ·{" "}
           <a href="/pricing" className="text-ink-soft hover:text-ink">Pricing</a> ·{" "}
+          <a href="/status" className="text-ink-soft hover:text-ink">Status</a> ·{" "}
           <a href="/" className="text-ink-soft hover:text-ink">App</a>
         </div>
       </footer>

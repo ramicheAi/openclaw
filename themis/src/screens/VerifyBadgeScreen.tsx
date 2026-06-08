@@ -3,6 +3,7 @@
 // The badge URL travels with the filing's certification footer, so
 // judges + opposing counsel can attest in one click.
 
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Tau } from "../components/BrandMark";
 import { cx } from "../lib/ui";
@@ -109,6 +110,54 @@ function Failed({ reason, hash }: { reason: string; hash: string }) {
   );
 }
 
+function EmbedSnippet({ hash }: { hash: string }) {
+  const origin = typeof window !== "undefined" ? window.location.origin : "";
+  const url = `${origin}/verify/${hash}`;
+  const svgUrl = `${origin}/api/public/verify/${hash}/badge.svg`;
+  const html = `<a href="${url}" rel="noopener"><img src="${svgUrl}" alt="Themis Verified" height="64" /></a>`;
+  const markdown = `[![Themis Verified](${svgUrl})](${url})`;
+  const [copied, setCopied] = useState<null | "html" | "md">(null);
+  function copy(kind: "html" | "md", text: string) {
+    navigator.clipboard?.writeText(text).then(() => {
+      setCopied(kind);
+      setTimeout(() => setCopied(null), 1500);
+    }).catch(() => {});
+  }
+  return (
+    <div className="mt-5 rounded-md border border-line bg-paper p-3">
+      <div className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brass-deep">
+        Embed this badge
+      </div>
+      <div className="mt-2 flex items-center gap-3">
+        <img src={svgUrl} alt="Themis Verified" height={64} className="rounded border border-line" />
+        <p className="text-[11.5px] leading-relaxed text-ink-soft">
+          Paste into an email signature, website footer, LinkedIn post, or PDF cover sheet.
+          Clicking the badge always returns here.
+        </p>
+      </div>
+      <div className="mt-3 space-y-1.5">
+        <SnippetRow label="HTML" code={html} copied={copied === "html"} onCopy={() => copy("html", html)} />
+        <SnippetRow label="Markdown" code={markdown} copied={copied === "md"} onCopy={() => copy("md", markdown)} />
+      </div>
+    </div>
+  );
+}
+
+function SnippetRow({ label, code, copied, onCopy }: { label: string; code: string; copied: boolean; onCopy: () => void }) {
+  return (
+    <div className="flex items-start gap-2">
+      <span className="mt-1 w-[60px] shrink-0 font-mono text-[9.5px] uppercase tracking-wider text-ink-faint">{label}</span>
+      <code className="min-w-0 flex-1 break-all rounded border border-line bg-surface-sunken px-2 py-1.5 font-mono text-[10.5px] text-ink">{code}</code>
+      <button
+        onClick={onCopy}
+        className="shrink-0 rounded-md border border-line bg-paper px-2 py-1 text-[10.5px] font-medium text-ink-soft hover:border-brass-soft hover:text-brass-deep"
+      >
+        {copied ? "Copied" : "Copy"}
+      </button>
+    </div>
+  );
+}
+
 function Attestation({ data }: { data: BadgeData }) {
   const noFab = data.stats.authorities_not_found === 0 && data.stats.bates_not_in_matter === 0;
   return (
@@ -159,6 +208,8 @@ function Attestation({ data }: { data: BadgeData }) {
             log would invalidate this anchor.
           </div>
         </div>
+
+        <EmbedSnippet hash={data.hash} />
 
         <div className="mt-5 rounded-md border border-brass-soft bg-brass-wash p-3 text-[11.5px] text-ink">
           <div className="font-semibold text-brass-deep">What this means</div>
