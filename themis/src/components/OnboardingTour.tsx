@@ -10,7 +10,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { cx } from "../lib/ui";
 import { IconArrow, IconClose, IconVerified } from "../icons";
 
-const STORAGE_KEY = "themis-tour-v1";
+const STORAGE_KEY = "themis-tour-v2";
 
 export interface TourStep {
   /** CSS selector for the element to highlight. */
@@ -63,6 +63,45 @@ const STEPS: TourStep[] = [
     body:
       "Every mutation lands here, SHA-256 chained. Tamper-evident by construction. The chain is verifiable via /api/matters/:id/audit/verify.",
     side: "left",
+  },
+  {
+    target: "[data-tour='deadlines']",
+    title: "Court-order deadlines",
+    body:
+      "Paste a scheduling order — Themis extracts every deadline into a dated checklist. Daily 08:00 email digest of overdue / this-week items so nothing slips. Malpractice insurance loves verifiable date tracking.",
+    side: "left",
+  },
+  {
+    target: "[data-tour='productions']",
+    title: "Discovery productions manifest",
+    body:
+      "Every Bates range produced to or from the other side gets logged here. The audit trail solo + mid firms keep in Excel — now in a hash-chained surface that lives next to the matter.",
+    side: "left",
+  },
+  {
+    title: "Eight surfaces, one source of truth",
+    body:
+      "Switch tabs with ⌘1-8 or click. Each surface reads from the same matter corpus; nothing diverges. Click any Bates chip anywhere to jump straight to the source PDF at the cited page.",
+  },
+  {
+    title: "Cite Check · ⌘6 (the Mata shield)",
+    body:
+      "Paste a draft brief or motion. Every case citation goes through CourtListener; every Bates against this matter. NOT FOUND on a well-formed citation is the AI-hallucination fingerprint. After a clean run, generate a Rule 11 + Model Rule 1.1/3.3 certification that mints a public attestation hash on /verify/<hash>.",
+  },
+  {
+    title: "Draft · ⌘7 (composition with citations)",
+    body:
+      "Pick a document kind (demand letter, complaint, motion to compel, settlement statement, etc.), narrow which chronology events to ground in, and Themis emits a first draft with inline (BATES-IDS). Authority slots are [AUTHORITY: ...] placeholders — never fabricated, always swept through Cite Check before filing.",
+  },
+  {
+    title: "Damages · ⌘8 (itemized model)",
+    body:
+      "Medicals, lost wages, future care, pain & suffering with multipliers — anchor each line to a Bates document. The numbers flow automatically into the settlement-statement and demand-letter drafts.",
+  },
+  {
+    title: "Share + Team (top bar)",
+    body:
+      "Click Share to invite teammates with a role (admin/partner/associate/paralegal/readonly) OR to mint a tokenized read-only share link for co-counsel, clients, or experts. Privilege wall stays intact in either flow — flagged/withheld docs never appear in a shared view.",
   },
 ];
 
