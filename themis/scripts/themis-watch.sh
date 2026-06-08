@@ -71,6 +71,16 @@ while true; do
   log "new commit on origin/$BRANCH: ${REMOTE_SHA:0:7} — redeploying"
   notify "Pulling ${REMOTE_SHA:0:7}…"
   if git pull --ff-only --quiet; then
+    # If any package.json or lock file changed in the pull, run `npm
+    # install` before restarting — otherwise a new dep (e.g. stripe)
+    # shows up in import statements but isn't on disk and the server
+    # crashes on boot. Best-effort: errors get logged but don't block
+    # the redeploy.
+    if git diff --name-only "$LAST_SHA" "$REMOTE_SHA" 2>/dev/null | grep -qE "(^|/)(package\.json|package-lock\.json)$"; then
+      log "package files changed — running npm install in server + web"
+      ( cd "$REPO_ROOT/themis/server" && npm install --no-audit --no-fund --silent 2>&1 | tail -3 | while read -r line; do log "[server install] $line"; done ) || true
+      ( cd "$REPO_ROOT/themis" && npm install --no-audit --no-fund --silent 2>&1 | tail -3 | while read -r line; do log "[web install] $line"; done ) || true
+    fi
     stop_processes
     start_processes
     LAST_SHA="$REMOTE_SHA"
