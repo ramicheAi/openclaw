@@ -17,7 +17,8 @@ import { registerPublicRoutes } from "./routes/public.js";
 import { registerTeamRoutes } from "./routes/teams.js";
 import { registerTemplateRoutes } from "./routes/templates.js";
 import { attachAuth } from "./routes/auth.js";
-import { isAuthRequired as isAuthRequiredFn, reapExpiredAuthArtifacts } from "./auth.js";
+import { isAuthRequired as isAuthRequiredFn, normalizeEmail, reapExpiredAuthArtifacts } from "./auth.js";
+import type { Context, Next } from "hono";
 import { canAccessMatter as canAccessFn } from "./repo.js";
 import { registerConflictRoutes } from "./routes/conflicts.js";
 import { registerSharingRoutes } from "./routes/sharing.js";
@@ -26,6 +27,21 @@ import { registerDamagesRoutes } from "./routes/damages.js";
 export function buildApp(db = getDb()) {
   seed(db); // idempotent: seeds only when empty
   reapExpiredAuthArtifacts(db); // GC stale tokens + expired sessions on boot
+
+  // Legacy/seed matters carry owner_email = ''. In multi-tenant mode those
+  // belong to nobody — they are NOT world-accessible (SECURITY-TODO #3).
+  // THEMIS_OPERATOR_EMAIL assigns every orphan matter to the operator's
+  // account at boot so a pre-auth deployment keeps its matters after
+  // turning multi-tenant on.
+  const operator = process.env.THEMIS_OPERATOR_EMAIL?.trim();
+  if (operator) {
+    const claimed = db
+      .prepare(`UPDATE matters SET owner_email = ? WHERE owner_email = ''`)
+      .run(normalizeEmail(operator));
+    if (claimed.changes > 0) {
+      console.log(`[themis] assigned ${claimed.changes} unowned matter(s) to operator ${normalizeEmail(operator)}`);
+    }
+  }
 
   const app = new Hono();
   app.use("*", cors({
@@ -41,21 +57,30 @@ export function buildApp(db = getDb()) {
   attachAuth(app, db);
 
   // Per-matter ownership middleware. Runs after the auth middleware so we
-  // know the session is valid; only kicks in when multi-tenant. Any
-  // /api/matters/:id/* path resolves :id and 403s the request if the
-  // authed user doesn't own (or hasn't been granted access to) the matter.
-  // Bonus side-effect: returns 404 for unknown matters consistently so
-  // route handlers don't each have to repeat the matterExists check.
-  app.use("/api/matters/:id/*", async (c, next) => {
+  // know the session is valid; only kicks in when multi-tenant. Resolves
+  // :id and 403s the request if the authed user doesn't own (or hasn't
+  // been granted access to) the matter.
+  //
+  // Registered on BOTH the bare path and the wildcard. Hono's ":id/*"
+  // pattern already matches the bare ":id" path (verified empirically —
+  // see SECURITY-TODO #1), but the explicit bare matcher means a future
+  // router behavior change can't silently un-gate `GET /api/matters/:id`.
+  const matterGate = async (c: Context, next: Next) => {
     if (!isAuthRequiredFn()) return next();
     const session = c.get("session" as never) as { email: string } | undefined;
     if (!session) return c.json({ error: "unauthorized" }, 401);
     const id = c.req.param("id");
-    if (!canAccessFn(db, id, session.email)) {
+    // "/api/matters/archived" is a list route that shares the ":id" path
+    // shape — it is not a matter id. Without this carve-out the gate 403s
+    // the Archive surface for every signed-in user.
+    if (id === "archived") return next();
+    if (!id || !canAccessFn(db, id, session.email)) {
       return c.json({ error: "matter_forbidden" }, 403);
     }
     return next();
-  });
+  };
+  app.use("/api/matters/:id", matterGate);
+  app.use("/api/matters/:id/*", matterGate);
 
   registerMatterRoutes(app, db);
   registerCorpusRoutes(app, db);

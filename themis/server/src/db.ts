@@ -38,8 +38,9 @@ function migrate(db: DB) {
     `ALTER TABLE audit_log ADD COLUMN prev_hash TEXT NOT NULL DEFAULT ''`,
     `ALTER TABLE audit_log ADD COLUMN entry_hash TEXT NOT NULL DEFAULT ''`,
     // Per-user matter ownership for the multi-tenant deploy. Existing rows
-    // get owner_email = '' which is treated as "owned by the operator" in
-    // single-user mode and as "unassigned" in multi-tenant mode.
+    // get owner_email = '' which is visible to everyone in single-user mode
+    // and to NOBODY in multi-tenant mode — THEMIS_OPERATOR_EMAIL assigns
+    // orphans to the operator at boot (see buildApp).
     `ALTER TABLE matters ADD COLUMN owner_email TEXT NOT NULL DEFAULT ''`,
     // Subscription state on the user. plan defaults to "free" — Cite Check
     // only, no save. Solo/Firm/FirmPro/Enterprise tiers light up the rest.

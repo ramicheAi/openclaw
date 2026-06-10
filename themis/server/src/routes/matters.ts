@@ -95,10 +95,11 @@ export function registerMatterRoutes(app: Hono, db: DB) {
             `SELECT d.*, m.id AS matter_id, m.name AS matter_name
                FROM deadlines d JOIN matters m ON m.id = d.matter_id
               WHERE d.done = 0 AND d.due_date != ''
-                AND (m.owner_email = ? OR m.owner_email = '')
+                AND (m.owner_email = @owner OR EXISTS (
+                  SELECT 1 FROM matter_access acc WHERE acc.matter_id = m.id AND acc.email = @owner))
               ORDER BY d.due_date ASC`,
           )
-          .all(owner)
+          .all({ owner })
       : db
           .prepare(
             `SELECT d.*, m.id AS matter_id, m.name AS matter_name

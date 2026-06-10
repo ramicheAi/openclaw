@@ -685,6 +685,51 @@ console.log("Themis API smoke test\n");
   const bobAccess = await authApp.request(`/api/matters/${newMatterId}`, { headers: { cookie: bobCookie } });
   check("Bob forbidden from Jane's matter (403)", bobAccess.status === 403);
 
+  // ── Multi-tenant isolation hardening (SECURITY-TODO #1–#3) ────────────
+
+  // "/api/matters/archived" shares the ":id" path shape; the ownership
+  // gate must carve it out, not 403 the Archive surface.
+  const archivedList = await authApp.request(`/api/matters/archived`, { headers: { cookie } });
+  check("multi-tenant /matters/archived not shadowed by matter gate", archivedList.status === 200);
+
+  // Seed/legacy matters (owner_email = '') are invisible in multi-tenant
+  // mode — list AND direct read.
+  const janeList = (await (await authApp.request(`/api/matters`, { headers: { cookie } })).json()) as any;
+  check("seed matters hidden from signed-in users", janeList.matters.every((m: any) => m.id !== "mata-avianca"));
+  const bobSeed = await authApp.request(`/api/matters/mata-avianca`, { headers: { cookie: bobCookie } });
+  check("seed matter direct read forbidden (403)", bobSeed.status === 403);
+
+  // Invited collaborators: Jane grants Bob a role → Bob can read the
+  // matter (bare path + sub-routes) and sees it in his matter list.
+  const invite = await authApp.request(`/api/matters/${newMatterId}/access`, {
+    method: "POST",
+    headers: { "content-type": "application/json", cookie },
+    body: JSON.stringify({ email: "bob@example.com", role: "paralegal" }),
+  });
+  check("owner can invite a collaborator", invite.status === 200);
+  const bobInvited = await authApp.request(`/api/matters/${newMatterId}`, { headers: { cookie: bobCookie } });
+  check("invited collaborator can read the matter", bobInvited.status === 200);
+  const bobSub = await authApp.request(`/api/matters/${newMatterId}/audit`, { headers: { cookie: bobCookie } });
+  check("invited collaborator can read sub-routes", bobSub.status === 200);
+  const bobList = (await (await authApp.request(`/api/matters`, { headers: { cookie: bobCookie } })).json()) as any;
+  check("shared matter appears in collaborator's list", bobList.matters.some((m: any) => m.id === newMatterId));
+  const revoke = await authApp.request(`/api/matters/${newMatterId}/access/bob%40example.com`, {
+    method: "DELETE",
+    headers: { cookie },
+  });
+  check("owner can revoke a collaborator", revoke.status === 200);
+  const bobRevoked = await authApp.request(`/api/matters/${newMatterId}`, { headers: { cookie: bobCookie } });
+  check("revoked collaborator forbidden again (403)", bobRevoked.status === 403);
+
+  // THEMIS_OPERATOR_EMAIL claims orphan matters at boot.
+  process.env.THEMIS_OPERATOR_EMAIL = "jane@example.com";
+  const claimedApp = rebuild();
+  delete process.env.THEMIS_OPERATOR_EMAIL;
+  const janeSeed = await claimedApp.request(`/api/matters/mata-avianca`, { headers: { cookie } });
+  check("operator claim assigns orphan matters at boot", janeSeed.status === 200);
+  const bobSeedAfterClaim = await claimedApp.request(`/api/matters/mata-avianca`, { headers: { cookie: bobCookie } });
+  check("claimed matters stay private to the operator", bobSeedAfterClaim.status === 403);
+
   // Logout drops the cookie.
   const logout = await authApp.request(`/api/auth/logout`, { method: "POST", headers: { cookie } });
   check("logout 200", logout.status === 200);

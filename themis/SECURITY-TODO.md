@@ -17,39 +17,58 @@ Key files: `server/src/index.ts`, `server/src/repo.ts`,
 
 ## CRITICAL — fix before customer #2 shares the instance
 
-### 1. Cross-tenant matter read (IDOR) on the bare path
+### 1. Cross-tenant matter read (IDOR) on the bare path — ❌ NOT REPRODUCIBLE (re-verified 2026-06-10)
 - **Where:** `index.ts` — ownership middleware is `app.use("/api/matters/:id/*", …)`.
-- **Problem:** Hono's `/*` wildcard requires a trailing segment, so it gates
-  `/api/matters/abc/audit` but NOT the bare `GET /api/matters/:id` handler in
-  `matters.ts`. Matter IDs are deterministic, guessable slugs (`name-client`),
-  so any signed-in user can read another tenant's full matter detail (case
-  theory, claims, gaps, posture) by guessing the URL.
-- **Fix:** Add a second matcher `app.use("/api/matters/:id", …)` (no trailing
-  slash) running the same `canAccessMatter` check, OR add an explicit
-  `canAccessMatter` call inside `GET /api/matters/:id`. Do both for
-  defense-in-depth.
+- **Original claim:** Hono's `/*` wildcard requires a trailing segment, so the
+  bare `GET /api/matters/:id` is ungated.
+- **Re-verification:** Empirically false on Hono 4.x as shipped. A router
+  probe shows `app.use("/api/matters/:id/*")` DOES fire for the bare
+  `/api/matters/:id` path, and the smoke test "Bob forbidden from Jane's
+  matter (403)" exercises exactly this and passes. The bare path was never
+  exposed.
+- **Hardening shipped anyway (2026-06-10):** the gate is now registered on
+  BOTH `"/api/matters/:id"` and `"/api/matters/:id/*"` so a future router
+  behavior change can't silently un-gate the bare path.
+- **NEW bug found during re-verification (fixed 2026-06-10):** because the
+  wildcard matches the bare path, the gate also fired for
+  `GET /api/matters/archived` (`:id = "archived"`, no such matter → 403).
+  The Archive surface was broken for every signed-in user in multi-tenant
+  mode. Fixed with an explicit carve-out + smoke regression test
+  ("multi-tenant /matters/archived not shadowed by matter gate").
 
-### 2. Invited collaborators are locked out; the comment lies
+### 2. Invited collaborators are locked out; the comment lies — ✅ FIXED 2026-06-10
 - **Where:** `repo.ts` `canAccessMatter()` + `index.ts` middleware comment.
-- **Problem:** `canAccessMatter` only checks `owner_email === '' ||
-  owner_email === ownerEmail`. It never consults the `matter_access` grants
-  table (which exists, with `getRoleForUser`/`listMattersForEmail` in
-  `teams.ts`). The middleware comment claims it allows "granted access" users
-  but that path doesn't exist — every invited teammate gets 403 on every
-  sub-route. The paid "invite collaborator" feature is non-functional.
-- **Fix:** In `canAccessMatter`, also return true when
-  `getRoleForUser(db, matterId, ownerEmail)` is non-null.
+- **Problem:** `canAccessMatter` only checked `owner_email === '' ||
+  owner_email === ownerEmail` and never consulted the `matter_access` grants
+  table — every invited teammate got 403 on every route. The paid "invite
+  collaborator" feature was non-functional.
+- **Fix shipped:** `canAccessMatter` now returns true when
+  `getRoleForUser(db, matterId, ownerEmail)` is non-null. `listMatters`,
+  `listFirmAudit`, and the firm upcoming-deadlines query include granted
+  matters via the same `matter_access` EXISTS clause, so shared matters
+  appear in the collaborator's dashboard, firm audit, and deadline digest.
+  Smoke tests cover invite → read (bare + sub-route) → list → revoke → 403.
+- **Not yet done (follow-up):** per-ROLE enforcement. Any granted role
+  (including `readonly`) currently gets the same access as the owner on all
+  matter routes — write routes don't check the role. Fine for trusted teams,
+  wrong for `readonly`/`paralegal` semantics.
 
-### 3. Seed/legacy matters (`owner_email = ''`) are world-readable/writable
+### 3. Seed/legacy matters (`owner_email = ''`) are world-readable/writable — ✅ FIXED 2026-06-10
 - **Where:** `repo.ts` `listMatters` + `canAccessMatter`; `db.ts` migration
   backfills all pre-existing matters to `owner_email = ''`.
-- **Problem:** Both treat `owner_email = ''` as visible/accessible to
+- **Problem:** Both treated `owner_email = ''` as visible/accessible to
   everyone. In multi-tenant mode, all seed/demo matters and any matter created
-  before the migration are readable AND mutable (add docs, verify, share,
-  archive) by every signed-in user.
-- **Fix:** In multi-tenant mode, stop treating `''` as world-accessible for
-  write routes. Either run a one-time assignment of orphan matters to a
-  designated operator account, or gate `''` to single-user mode only.
+  before the migration were readable AND mutable by every signed-in user.
+- **Fix shipped:** in multi-tenant mode `''` matters are visible to NOBODY
+  (list + direct access + firm audit + deadlines). New env var
+  `THEMIS_OPERATOR_EMAIL` assigns all orphan matters to the operator's
+  account at boot (idempotent, logged). Set on the production box for
+  ramon.waltonmusic@gmail.com before deploy so the 5 existing matters
+  (incl. Oliveira) stay owned. Single-user mode unchanged.
+- **Side effect to know about:** once the operator owns the seed matters they
+  count against the plan's active-matter cap (solo = 5, and the operator
+  account is at exactly 5/5). Archive a demo matter or bump the operator's
+  plan before creating matter #6.
 
 ---
 
@@ -102,9 +121,11 @@ Key files: `server/src/index.ts`, `server/src/repo.ts`,
   `themis_plan` against `PLANS` before persisting.
 
 ### 9. Defense-in-depth: matter sub-routes don't re-check ownership
-- All matter sub-routes rely solely on the `/*` middleware + `matterExists`.
-  After #1 is fixed, add `canAccessMatter` inside the handlers (or a shared
-  helper) so a single middleware mismatch can't silently unprotect writes.
+- All matter sub-routes rely solely on the gate middleware + `matterExists`.
+  Partially mitigated 2026-06-10: the gate is registered on two independent
+  matchers (bare + wildcard). Remaining: add `canAccessMatter` inside the
+  handlers (or a shared helper) so a middleware registration mistake can't
+  silently unprotect writes.
 
 ---
 

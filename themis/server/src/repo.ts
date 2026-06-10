@@ -1,5 +1,6 @@
 import type { DB } from "./db.js";
 import { jsonIn, jsonOut } from "./db.js";
+import { getRoleForUser } from "./teams.js";
 import type {
   AuditEntry,
   CaseTheory,
@@ -40,10 +41,16 @@ function rowToSummary(m: Row): MatterSummary {
   };
 }
 
+// Multi-tenant visibility: a matter is visible when the user owns it OR
+// has a matter_access grant (any role). Matters with owner_email = ''
+// (legacy/seed) are visible to nobody in multi-tenant mode — set
+// THEMIS_OPERATOR_EMAIL to claim them at boot. Single-user mode sees all.
+const visibleToOwner = `(m.owner_email = @owner OR EXISTS (
+  SELECT 1 FROM matter_access acc WHERE acc.matter_id = m.id AND acc.email = @owner))`;
+
 export function listMatters(db: DB, ownerEmail?: string, opts: { archived?: boolean } = {}): MatterSummary[] {
   // ownerEmail is the multi-tenant filter. When set, only return matters
-  // owned by that email (or seeded matters with empty owner_email — those
-  // are demo fixtures that everyone sees until the operator deletes them).
+  // the user owns or has been granted access to (see visibleToOwner).
   // When unset (single-user mode), return everything.
   //
   // opts.archived defaults to false — the active dashboard hides archived
@@ -56,11 +63,11 @@ export function listMatters(db: DB, ownerEmail?: string, opts: { archived?: bool
   function run(includeArchived: boolean): Row[] {
     if (ownerEmail) {
       const sql = includeArchived
-        ? `SELECT m.*, ${computed} FROM matters m WHERE m.archived = ? AND (m.owner_email = ? OR m.owner_email = '') ORDER BY m.created_at`
-        : `SELECT m.*, ${computed} FROM matters m WHERE m.owner_email = ? OR m.owner_email = '' ORDER BY m.created_at`;
+        ? `SELECT m.*, ${computed} FROM matters m WHERE m.archived = @archived AND ${visibleToOwner} ORDER BY m.created_at`
+        : `SELECT m.*, ${computed} FROM matters m WHERE ${visibleToOwner} ORDER BY m.created_at`;
       return includeArchived
-        ? (db.prepare(sql).all(wantArchived, ownerEmail) as Row[])
-        : (db.prepare(sql).all(ownerEmail) as Row[]);
+        ? (db.prepare(sql).all({ archived: wantArchived, owner: ownerEmail }) as Row[])
+        : (db.prepare(sql).all({ owner: ownerEmail }) as Row[]);
     }
     const sql = includeArchived
       ? `SELECT m.*, ${computed} FROM matters m WHERE m.archived = ? ORDER BY m.created_at`
@@ -90,15 +97,18 @@ export function setMatterArchived(db: DB, id: string, archived: boolean, actorEm
 }
 
 /** Centralized ownership check for individual matters. Same rules as
- * listMatters — owner_email matches OR the matter is a seed fixture
- * (owner_email = ''). In single-user mode any matter is accessible. */
+ * listMatters — the user owns the matter OR holds a matter_access grant
+ * (any role). Matters with owner_email = '' (legacy/seed) are accessible
+ * to nobody in multi-tenant mode — THEMIS_OPERATOR_EMAIL claims them at
+ * boot. In single-user mode any matter is accessible. */
 export function canAccessMatter(db: DB, matterId: string, ownerEmail?: string): boolean {
   if (!ownerEmail) return matterExists(db, matterId);
   const row = db.prepare(`SELECT owner_email FROM matters WHERE id = ?`).get(matterId) as
     | { owner_email: string }
     | undefined;
   if (!row) return false;
-  return row.owner_email === "" || row.owner_email === ownerEmail;
+  if (row.owner_email === ownerEmail) return true;
+  return getRoleForUser(db, matterId, ownerEmail) !== null;
 }
 
 export function getMatter(db: DB, id: string): MatterDetail | null {
@@ -524,13 +534,13 @@ export function listFirmAudit(db: DB, ownerEmail?: string, limit = 200): FirmAud
   const sql = ownerEmail
     ? `SELECT a.*, m.name AS matter_name
          FROM audit_log a JOIN matters m ON m.id = a.matter_id
-        WHERE m.owner_email = ? OR m.owner_email = ''
-        ORDER BY a.id DESC LIMIT ?`
+        WHERE ${visibleToOwner}
+        ORDER BY a.id DESC LIMIT @limit`
     : `SELECT a.*, m.name AS matter_name
          FROM audit_log a JOIN matters m ON m.id = a.matter_id
         ORDER BY a.id DESC LIMIT ?`;
   const rows = (ownerEmail
-    ? db.prepare(sql).all(ownerEmail, limit)
+    ? db.prepare(sql).all({ owner: ownerEmail, limit })
     : db.prepare(sql).all(limit)) as (Row & { matter_name: string })[];
   return rows.map((a): FirmAuditEntry => ({
     id: a.id as number,
