@@ -4,7 +4,7 @@
 
 import { randomUUID } from "node:crypto";
 import type { DB } from "./db.js";
-import { normalizeEmail } from "./auth.js";
+import { isAuthRequired, normalizeEmail } from "./auth.js";
 
 export type Role = "admin" | "partner" | "associate" | "paralegal" | "readonly";
 export const ROLES: Role[] = ["admin", "partner", "associate", "paralegal", "readonly"];
@@ -95,6 +95,54 @@ export function listWebhooks(db: DB, ownerEmail: string): WebhookEndpoint[] {
   return (
     db.prepare(`SELECT * FROM webhook_endpoints WHERE owner_email = ? ORDER BY created_at`).all(normalizeEmail(ownerEmail)) as Record<string, unknown>[]
   ).map(whRow);
+}
+
+/** SSRF guard for outbound webhooks (SECURITY-TODO #5). Customer-supplied
+ * URLs get server-side POSTs, so in multi-tenant mode they must be https
+ * and must not point at loopback/private/link-local/metadata targets.
+ * Single-user mode allows anything http(s) — the operator probing their
+ * own box crosses no tenant boundary, and a localhost SIEM collector is a
+ * legitimate target. Checked at create time AND again at fire time (rows
+ * may predate this guard). Residual risk: a public hostname whose DNS
+ * resolves to a private IP (rebinding) is not caught — noted in
+ * SECURITY-TODO.
+ * Returns null when the target is acceptable, or an error code. */
+export function webhookTargetError(rawUrl: string): string | null {
+  let u: URL;
+  try {
+    u = new URL(rawUrl);
+  } catch {
+    return "invalid_url";
+  }
+  if (u.protocol !== "https:" && u.protocol !== "http:") return "invalid_url";
+  if (!isAuthRequired()) return null;
+  if (u.protocol !== "https:") return "https_required";
+  const host = u.hostname.toLowerCase().replace(/^\[|\]$/g, "");
+  if (
+    host === "localhost" ||
+    host.endsWith(".localhost") ||
+    host.endsWith(".local") ||
+    host.endsWith(".internal")
+  ) {
+    return "private_target";
+  }
+  const v4 = host.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
+  if (v4) {
+    const a = Number(v4[1]);
+    const b = Number(v4[2]);
+    if (
+      a === 0 || a === 127 || a === 10 ||
+      (a === 172 && b >= 16 && b <= 31) ||
+      (a === 192 && b === 168) ||
+      (a === 169 && b === 254) // cloud metadata services live here
+    ) {
+      return "private_target";
+    }
+  }
+  if (host === "::" || host === "::1" || host.startsWith("fe80:") || host.startsWith("fc") || host.startsWith("fd")) {
+    return "private_target";
+  }
+  return null;
 }
 
 export function createWebhook(db: DB, ownerEmail: string, url: string, events = "audit.*"): WebhookEndpoint {

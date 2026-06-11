@@ -6,7 +6,7 @@ import { authedActor } from "./auth.js";
 import type { DB } from "../db.js";
 import { audit, matterExists } from "../repo.js";
 import { isAuthRequired, readSessionCookie, resolveSession } from "../auth.js";
-import { createWebhook, deleteWebhook, grantAccess, listMatterAccess, listWebhooks, revokeAccess, ROLES, type Role } from "../teams.js";
+import { createWebhook, deleteWebhook, grantAccess, listMatterAccess, listWebhooks, revokeAccess, ROLES, webhookTargetError, type Role } from "../teams.js";
 
 function actor(c: Context): string {
   return authedActor(c);
@@ -66,6 +66,8 @@ export function registerTeamRoutes(app: Hono, db: DB) {
     if (typeof body.url !== "string" || !/^https?:\/\//.test(body.url)) {
       return c.json({ error: "invalid_url" }, 400);
     }
+    const targetErr = webhookTargetError(body.url.trim());
+    if (targetErr) return c.json({ error: targetErr }, 400);
     const wh = createWebhook(db, email ?? "operator", body.url.trim(), typeof body.events === "string" ? body.events : "audit.*");
     return c.json(wh);
   });

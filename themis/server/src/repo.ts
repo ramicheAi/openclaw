@@ -435,12 +435,19 @@ async function fireAuditWebhooks(
   entry: { matterId: string; ts: string; actor: string; action: string; detail: string; entryHash: string; prevHash: string },
 ): Promise<void> {
   try {
-    const { activeWebhooksForMatter, markWebhookResult } = await import("./teams.js");
+    const { activeWebhooksForMatter, markWebhookResult, webhookTargetError } = await import("./teams.js");
     const endpoints = activeWebhooksForMatter(db, entry.matterId);
     if (endpoints.length === 0) return;
     const { createHmac } = await import("node:crypto");
     const body = JSON.stringify({ type: `audit.${entry.action}`, data: entry });
     for (const ep of endpoints) {
+      // Re-check the target at fire time too — the row may predate the
+      // SSRF guard, or the mode may have changed since it was created.
+      const targetErr = webhookTargetError(ep.url);
+      if (targetErr) {
+        markWebhookResult(db, ep.id, false, `blocked: ${targetErr}`);
+        continue;
+      }
       // Per-endpoint event filter — supports "audit.*" or specific actions.
       const allowed = ep.events.split(",").map((s) => s.trim()).some((pattern) => {
         if (pattern === "audit.*") return true;

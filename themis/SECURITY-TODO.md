@@ -74,51 +74,68 @@ Key files: `server/src/index.ts`, `server/src/repo.ts`,
 
 ## HIGH
 
-### 4. CORS reflects any origin with credentials
+### 4. CORS reflects any origin with credentials — ✅ FIXED 2026-06-11
 - **Where:** `index.ts` — `cors({ origin: (o) => o ?? "*", credentials: true })`.
 - **Problem:** Reflecting the caller's Origin while `credentials:true` lets any
   website make authenticated cross-origin requests and read responses. With
   `SameSite=Lax` cookies this defeats same-origin protection for the whole API.
-- **Fix:** Allowlist origins (e.g. `THEMIS_PUBLIC_URL`) when
-  `THEMIS_AUTH_REQUIRED=1`. Never reflect arbitrary origins with credentials.
+- **Fix shipped:** in multi-tenant mode the origin function returns a match
+  ONLY for `THEMIS_PUBLIC_URL` or the local dev hosts; any other Origin gets
+  no allow-origin header. Single-user mode still reflects (no cookies to
+  steal locally). Smoke: "CORS does not reflect foreign origin".
 
-### 5. Webhook SSRF
+### 5. Webhook SSRF — ✅ FIXED 2026-06-11
 - **Where:** `routes/teams.ts` `POST /api/webhooks`; fired from `repo.ts` audit().
 - **Problem:** Accepts any `https?://` URL with no guard; server-side POSTs
   audit events to it, enabling internal-network probing/exfil
   (`http://169.254.169.254/...`, `http://localhost:...`).
-- **Fix:** Block private/loopback/link-local targets; require `https` in
-  production. Keep create/delete auth symmetric.
+- **Fix shipped:** new `webhookTargetError()` in `teams.ts` rejects, in
+  multi-tenant mode, non-https URLs and any loopback / RFC-1918 / link-local
+  (169.254.x = cloud metadata) / `localhost|.local|.internal` / IPv6 private
+  target. Enforced at BOTH create time and fire time (rows predating the
+  guard get re-checked before any POST). Single-user mode still allows
+  localhost (legit local SIEM). Smoke: 5 SSRF cases.
+- **Residual (documented, not fixed):** DNS rebinding — a public hostname
+  resolving to a private IP — is not caught (we don't resolve before fetch).
+  Acceptable for now; revisit if webhooks become a funded attack surface.
 
-### 6. Plan caps evadable + billing count inconsistency
+### 6. Plan caps evadable + billing count inconsistency — ✅ FIXED 2026-06-11
 - **Where:** `matters.ts` cap checks vs `billing.ts` status.
 - **Problem:** Cap enforcement counts `owner_email = ? AND archived = 0`;
   billing status counts all `owner_email = ?` (incl. archived) → UI and
-  enforcement disagree. Also, because of #2/#3, a user can add docs/pages to a
-  shared/other matter and dodge their own quota.
-- **Fix:** Single definition (archived excluded), used in both places. Tie
-  quota to the acting user and forbid writes to matters they don't own (#3).
+  enforcement disagree.
+- **Fix shipped:** billing-status matter count now also excludes archived, so
+  the meter and the gate use the identical definition. The cross-matter quota-
+  dodge vector closed transitively when #2/#3 stopped `''`/other-tenant
+  matters from being writable. NOTE: the operator (Ramon) is now at exactly
+  5/5 on Solo because the orphan-claim assigned all 5 seed matters — archive
+  one or bump the plan before creating #6.
 
 ---
 
 ## MEDIUM / LOW
 
-### 7. `isPublic` prefix match too loose
+### 7. `isPublic` prefix match too loose — ✅ FIXED 2026-06-11
 - **Where:** `routes/auth.ts` `isPublic()`.
-- **Problem:** `startsWith` on non-slash entries makes
+- **Problem:** `startsWith` on non-slash entries made
   `/api/verify/status-secret`, `/api/healthcheck-internal`,
   `/api/billing/webhook-admin` all public.
-- **Fix:** Exact-match the non-slash entries; `startsWith` only for the
-  directory-style prefixes ending in `/`.
+- **Fix shipped:** entries ending in `/` stay prefix-matched; all others are
+  exact-match only. Verified the real public badge (`/api/public/verify/:hash`,
+  under the `/api/public/` prefix) stays reachable. Smoke: 2 lookalike-gated
+  cases + 1 badge-stays-public case.
 
-### 8. Stripe `current_period_end` fragile cast (SDK v22)
+### 8. Stripe `current_period_end` fragile cast (SDK v22) — ✅ FIXED 2026-06-11
 - **Where:** `routes/billing.ts`.
 - **Problem:** Read via `as unknown as {...}` because the field moved off the
   top-level `Stripe.Subscription` type in v22 (now on items). If Stripe omits
   it top-level, `activeUntil` becomes undefined and the plan never expires
-  locally. Also `sub.metadata.themis_plan` is trusted unvalidated.
-- **Fix:** Read from `sub.items.data[0].current_period_end`; validate
-  `themis_plan` against `PLANS` before persisting.
+  locally. Also `sub.metadata.themis_plan` was trusted unvalidated.
+- **Fix shipped:** `subPeriodEnd()` reads `items.data[0].current_period_end`
+  first, falls back to the legacy top-level field. `validPlan()` rejects any
+  `themis_plan` not in `PLANS` (a typo can't grant a free upgrade). Both used
+  in all three webhook branches. NOTE: needs a live Stripe test event before
+  trusting in production — smoke can't exercise the signed webhook path.
 
 ### 9. Defense-in-depth: matter sub-routes don't re-check ownership
 - All matter sub-routes rely solely on the gate middleware + `matterExists`.
@@ -147,6 +164,19 @@ Key files: `server/src/index.ts`, `server/src/repo.ts`,
   sig/secret).
 - Privilege wall holds — shared views strip flagged/withheld docs + PII.
 
+## Status summary (2026-06-11)
+All audit findings #1–#8 are now fixed; only #9 (defense-in-depth re-check
+inside handlers) remains, and it is mitigated by the dual-matcher gate.
+Smoke 178 → 198, all passing; typecheck clean. **Before a shared production
+deploy still required (NOT code):** move the LLM off Ramon's personal Claude
+Max onto a commercial Anthropic API key; verify a Resend sending domain;
+rotate the leaked keys; live-test the Stripe webhook path (#8).
+
 ## Operational reminders
 - Rotate API keys that leaked into chat: Anthropic, AssemblyAI, Resend.
+  Tooling shipped: `themis/scripts/rotate-key.sh` (one command, probes the
+  new key before restart). Standalone copy on the live box at `~/bin/`.
 - Verify a Resend sending domain so magic links email properly.
+- Move LLM provider from personal Claude Max (claude-code CLI) to a
+  commercial Anthropic API key before customer #2 (ToS + per-tenant
+  rate-limit isolation).

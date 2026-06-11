@@ -57,6 +57,21 @@ function currentEmail(c: Context, db: DB): string | null {
   return session?.email ?? null;
 }
 
+// Stripe SDK v22 (API "Basil") moved current_period_end off the
+// subscription onto its items. Read the item first, fall back to the
+// legacy top-level field for older API versions (#8).
+function subPeriodEnd(sub: Stripe.Subscription): string | undefined {
+  const item = sub.items?.data?.[0] as unknown as { current_period_end?: number } | undefined;
+  const ts = item?.current_period_end ?? (sub as unknown as { current_period_end?: number }).current_period_end;
+  return ts ? new Date(ts * 1000).toISOString() : undefined;
+}
+
+// Never persist a plan id Stripe metadata claims unless we actually know
+// it — a typo'd or stale themis_plan must not grant a free upgrade (#8).
+function validPlan(raw: unknown, fallback: string): string {
+  return typeof raw === "string" && raw in PLANS ? raw : fallback;
+}
+
 export function registerBillingRoutes(app: Hono, db: DB) {
   // Returns the user's current plan + quota usage + whether checkout is
   // available. Computes monthly page usage live across every matter the
@@ -69,7 +84,9 @@ export function registerBillingRoutes(app: Hono, db: DB) {
     let mattersUsed = 0;
     let pagesUsedThisMonth = 0;
     if (email) {
-      mattersUsed = (db.prepare(`SELECT COUNT(*) AS n FROM matters WHERE owner_email = ?`).get(email) as { n: number }).n;
+      // Must match the cap-enforcement query in routes/matters.ts exactly
+      // (archived excluded) or the meter and the gate disagree (#6).
+      mattersUsed = (db.prepare(`SELECT COUNT(*) AS n FROM matters WHERE owner_email = ? AND archived = 0`).get(email) as { n: number }).n;
       const since = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString();
       pagesUsedThisMonth = (db
         .prepare(
@@ -178,9 +195,8 @@ export function registerBillingRoutes(app: Hono, db: DB) {
             let activeUntil: string | undefined;
             if (subId) {
               const sub = await stripe.subscriptions.retrieve(subId);
-              plan = (sub.metadata?.themis_plan as string) ?? plan;
-              const periodEnd = (sub as unknown as { current_period_end?: number }).current_period_end;
-              if (periodEnd) activeUntil = new Date(periodEnd * 1000).toISOString();
+              plan = validPlan(sub.metadata?.themis_plan, plan);
+              activeUntil = subPeriodEnd(sub);
             }
             setUserPlan(db, email, plan, activeUntil, customerId, subId ?? undefined);
             // Per-user audit (no matter context, so use a synthetic "billing"
@@ -195,9 +211,8 @@ export function registerBillingRoutes(app: Hono, db: DB) {
           const customerId = typeof sub.customer === "string" ? sub.customer : sub.customer.id;
           const user = findUserByStripeCustomer(db, customerId);
           if (user) {
-            const plan = (sub.metadata?.themis_plan as string) ?? user.plan;
-            const periodEnd = (sub as unknown as { current_period_end?: number }).current_period_end;
-            const activeUntil = periodEnd ? new Date(periodEnd * 1000).toISOString() : undefined;
+            const plan = validPlan(sub.metadata?.themis_plan, user.plan);
+            const activeUntil = subPeriodEnd(sub);
             setUserPlan(db, user.email, sub.status === "active" || sub.status === "trialing" ? plan : "free", activeUntil, customerId, sub.id);
           }
           break;

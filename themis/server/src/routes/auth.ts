@@ -36,7 +36,13 @@ const PUBLIC_PREFIXES = [
 ];
 
 function isPublic(path: string): boolean {
-  return PUBLIC_PREFIXES.some((p) => path === p.slice(0, -1) || path.startsWith(p));
+  // Entries ending in "/" are prefixes: they match themselves (sans slash)
+  // and any sub-path. Everything else is an EXACT match only — otherwise
+  // "/api/health" would also bless "/api/healthcheck" and "/api/verify/status"
+  // would bless "/api/verify/status-anything" (#7).
+  return PUBLIC_PREFIXES.some((p) =>
+    p.endsWith("/") ? path === p.slice(0, -1) || path.startsWith(p) : path === p,
+  );
 }
 
 function ip(c: Context): string {

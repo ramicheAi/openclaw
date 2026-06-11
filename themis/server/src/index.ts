@@ -44,8 +44,19 @@ export function buildApp(db = getDb()) {
   }
 
   const app = new Hono();
+  // CORS: single-user mode reflects the caller (local dev convenience — no
+  // session cookies exist to ride). Multi-tenant mode must NOT reflect
+  // arbitrary origins while credentials:true, or any website could make
+  // authenticated requests with the victim's cookie and read the responses
+  // (SECURITY-TODO #4). Allowlist: THEMIS_PUBLIC_URL + local dev hosts.
+  const DEV_ORIGINS = ["http://localhost:5180", "http://127.0.0.1:5180"];
   app.use("*", cors({
-    origin: (o) => o ?? "*",
+    origin: (o) => {
+      if (!o) return "*"; // no Origin header → not a CORS request (curl, same-origin)
+      if (!isAuthRequiredFn()) return o;
+      const pub = process.env.THEMIS_PUBLIC_URL?.replace(/\/$/, "");
+      return (pub && o === pub) || DEV_ORIGINS.includes(o) ? o : "";
+    },
     credentials: true,
   }));
 

@@ -730,6 +730,59 @@ console.log("Themis API smoke test\n");
   const bobSeedAfterClaim = await claimedApp.request(`/api/matters/mata-avianca`, { headers: { cookie: bobCookie } });
   check("claimed matters stay private to the operator", bobSeedAfterClaim.status === 403);
 
+  // ── HIGH/MED hardening (SECURITY-TODO #4–#8) ──────────────────────────
+
+  // #5 SSRF: in multi-tenant mode, webhook targets must be https + public.
+  const whLoopback = await authApp.request(`/api/webhooks`, {
+    method: "POST",
+    headers: { "content-type": "application/json", cookie },
+    body: JSON.stringify({ url: "http://localhost:9000/x" }),
+  });
+  check("webhook to localhost blocked (400)", whLoopback.status === 400);
+  const whMetadata = await authApp.request(`/api/webhooks`, {
+    method: "POST",
+    headers: { "content-type": "application/json", cookie },
+    body: JSON.stringify({ url: "https://169.254.169.254/latest/meta-data" }),
+  });
+  check("webhook to cloud metadata IP blocked (400)", whMetadata.status === 400);
+  const whPrivate = await authApp.request(`/api/webhooks`, {
+    method: "POST",
+    headers: { "content-type": "application/json", cookie },
+    body: JSON.stringify({ url: "https://10.0.0.5/hook" }),
+  });
+  check("webhook to private IP blocked (400)", whPrivate.status === 400);
+  const whPlainHttp = await authApp.request(`/api/webhooks`, {
+    method: "POST",
+    headers: { "content-type": "application/json", cookie },
+    body: JSON.stringify({ url: "http://collector.example.com/hook" }),
+  });
+  check("webhook plain http blocked in multi-tenant (400)", whPlainHttp.status === 400);
+  const whOk = await authApp.request(`/api/webhooks`, {
+    method: "POST",
+    headers: { "content-type": "application/json", cookie },
+    body: JSON.stringify({ url: "https://collector.example.com/hook" }),
+  });
+  check("webhook to public https allowed (200)", whOk.status === 200);
+
+  // #7 isPublic exact-match: a path that merely starts with a public exact
+  // entry must still require auth.
+  const healthLookalike = await authApp.request(`/api/healthcheck-not-real`);
+  check("public-prefix lookalike still gated (401)", healthLookalike.status === 401);
+  const verifyStatusLookalike = await authApp.request(`/api/verify/status-leak`);
+  check("verify/status lookalike still gated (not 200)", verifyStatusLookalike.status !== 200);
+  // The real public badge route stays reachable without a session.
+  const badge = await authApp.request(`/api/public/verify/deadbeef`);
+  check("public verify badge stays public", badge.status !== 401);
+
+  // #4 CORS: a foreign Origin must NOT be reflected in multi-tenant mode.
+  const foreignCors = await authApp.request(`/api/matters`, {
+    headers: { cookie, origin: "https://evil.example.com" },
+  });
+  check(
+    "CORS does not reflect foreign origin (multi-tenant)",
+    foreignCors.headers.get("access-control-allow-origin") !== "https://evil.example.com",
+  );
+
   // Logout drops the cookie.
   const logout = await authApp.request(`/api/auth/logout`, { method: "POST", headers: { cookie } });
   check("logout 200", logout.status === 200);
