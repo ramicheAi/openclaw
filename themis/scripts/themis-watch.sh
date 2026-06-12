@@ -27,13 +27,35 @@ notify() {
   osascript -e "display notification \"$1\" with title \"Themis\"" 2>/dev/null || true
 }
 
+# Wait until nothing holds a LISTEN socket on $1, escalating to SIGKILL after
+# ~10s. Replaces a blind `sleep 2` that wasn't always long enough for the old
+# server to release :8787 before the new one bound — the new server then died
+# with EADDRINUSE and the watcher (which only restarts on a new commit) left the
+# instance down for ~6.5h on 2026-06-11.
+wait_port_free() {
+  local port="$1" n=0
+  while lsof -nP -iTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; do
+    n=$((n + 1))
+    if [ "$n" -gt 20 ]; then
+      log "port $port still held after ~10s — SIGKILL holders"
+      lsof -nP -tiTCP:"$port" -sTCP:LISTEN 2>/dev/null | xargs kill -9 2>/dev/null || true
+      sleep 1
+      break
+    fi
+    sleep 0.5
+  done
+}
+
 stop_processes() {
   log "stopping server + web"
   # tsx + vite spawn child processes; pkill -f gets the whole tree.
   pkill -f "tsx.*themis/server" 2>/dev/null || true
   pkill -f "themis/server/src/index.ts" 2>/dev/null || true
   pkill -f "vite" 2>/dev/null || true
-  sleep 2
+  # Don't return until the ports are actually free, or start_processes races the
+  # not-yet-dead old server for :8787 and dies on EADDRINUSE.
+  wait_port_free 8787
+  wait_port_free 5180
 }
 
 start_processes() {
@@ -59,6 +81,19 @@ LAST_SHA="$(git rev-parse HEAD)"
 
 while true; do
   sleep 20
+
+  # Crash supervision: the redeploy path below only fires on a NEW commit, so a
+  # server that died on its own (OOM, EADDRINUSE, unhandled throw) would stay
+  # dead until the next push — that's exactly what caused the ~6.5h silent
+  # outage on 2026-06-11. Every cycle, if nothing is listening on :8787, bring
+  # the stack back up.
+  if ! lsof -nP -iTCP:8787 -sTCP:LISTEN >/dev/null 2>&1; then
+    log "server not listening on :8787 — restarting (crash recovery)"
+    notify "Themis server down — restarting"
+    stop_processes
+    start_processes
+  fi
+
   # Re-read branch every cycle so `git checkout` on the Mac is followed.
   BRANCH="$(read_branch)"
   if ! git fetch origin "$BRANCH" --quiet 2>/dev/null; then
