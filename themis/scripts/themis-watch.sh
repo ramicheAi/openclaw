@@ -46,6 +46,25 @@ wait_port_free() {
   done
 }
 
+# Block until something is LISTENing on $1, up to ~90s. Called after
+# start_processes so a poll cycle can't catch — and kill — a server that is
+# still booting. Observed 2026-06-12: under load (LM Studio, load avg ~4) the
+# first crash-recovery boot took >20s, so the next poll's health check killed
+# it mid-boot and restarted again. It converged, but if every boot took >20s
+# the watcher would flap forever; this closes that hole.
+wait_port_up() {
+  local port="$1" n=0
+  until lsof -nP -iTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; do
+    n=$((n + 1))
+    if [ "$n" -gt 90 ]; then
+      log "port $port still not up after ~90s — giving up (next poll will retry)"
+      return 1
+    fi
+    sleep 1
+  done
+  log "port $port is up"
+}
+
 stop_processes() {
   log "stopping server + web"
   # tsx + vite spawn child processes; pkill -f gets the whole tree.
@@ -69,6 +88,9 @@ start_processes() {
   log "starting web (vite)"
   ( cd "$REPO_ROOT/themis" \
       && nohup npm run dev > /tmp/themis-web.log 2>&1 & )
+  # Don't resume polling until the server has actually bound — a poll that
+  # fires mid-boot would treat "booting" as "crashed" and kill it.
+  wait_port_up 8787 || true
 }
 
 # Boot fresh on every watcher start.
