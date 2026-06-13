@@ -1,68 +1,78 @@
 #!/usr/bin/env bash
 # Themis auto-deploy watcher.
-# Polls origin every 20s; on new commit pulls, kills server + Vite, restarts.
-# Runs as a launchd agent (see install-watcher.sh) or under `nohup`/tmux.
-# Logs to stdout — under launchd that goes to /tmp/themis-watcher.log.
+# Polls origin every 20s; on a new commit it pulls and restarts server + Vite.
+# Between commits it supervises the API: if it stops answering /api/health it
+# restarts the stack. Runs as a launchd agent (com.themis.watcher); logs to
+# /tmp/themis-watcher.log.
+#
+# Health is probed with `curl http://127.0.0.1:8787/api/health`, NOT `lsof`.
+# Under the launchd agent's session context `lsof -i` returns nothing even for
+# a bound socket (it can't enumerate another process's network FDs), so an
+# earlier lsof-based supervisor thought a healthy server was always down and
+# restarted it every cycle (~95s thrash, 2026-06-12). curl to loopback has no
+# such restriction and also verifies the server actually *responds*, not just
+# that a port is open.
 
 set -uo pipefail
 
-# Resolve repo root relative to this script. Independent of cwd so launchd
-# can invoke us with a sparse environment and we still know where we are.
+# Resolve repo root relative to this script, independent of cwd, so launchd can
+# invoke us with a sparse environment and we still know where we are.
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$REPO_ROOT" || { echo "repo root missing: $REPO_ROOT"; exit 1; }
 
-# Branch to follow. Defaults to whatever is currently checked out so the
-# operator can switch branches by running `git checkout other-branch` —
-# the watcher will follow it next cycle.
+# Follow whatever branch is checked out so `git checkout other-branch` is honored.
 read_branch() { git rev-parse --abbrev-ref HEAD 2>/dev/null || echo ""; }
 BRANCH="$(read_branch)"
 [ -z "$BRANCH" ] && { echo "not a git repo: $REPO_ROOT"; exit 1; }
 
+HEALTH_URL="http://127.0.0.1:8787/api/health"
+
 log() { printf '[%s] %s\n' "$(date '+%H:%M:%S')" "$*"; }
 
 notify() {
-  # macOS user notification — silent fallback when osascript is missing
-  # (Linux dev / CI environments).
+  # macOS user notification — silent fallback when osascript is missing.
   osascript -e "display notification \"$1\" with title \"Themis\"" 2>/dev/null || true
 }
 
-# Wait until nothing holds a LISTEN socket on $1, escalating to SIGKILL after
-# ~10s. Replaces a blind `sleep 2` that wasn't always long enough for the old
-# server to release :8787 before the new one bound — the new server then died
-# with EADDRINUSE and the watcher (which only restarts on a new commit) left the
-# instance down for ~6.5h on 2026-06-11.
+# True when the API answers /api/health (HTTP 2xx → curl exit 0).
+server_healthy() { curl -fsS --max-time 3 -o /dev/null "$HEALTH_URL" 2>/dev/null; }
+
+# Block until nothing answers on port $1 (curl exit 7 = connection refused), so
+# a rebind can't hit EADDRINUSE on a not-yet-dead old server. SIGKILL holders
+# as a backstop after ~12s. (EADDRINUSE on redeploy was the original outage.)
 wait_port_free() {
-  local port="$1" n=0
-  while lsof -nP -iTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; do
+  local port="$1" n=0 rc
+  while true; do
+    curl -s -o /dev/null --max-time 2 "http://127.0.0.1:$port/" 2>/dev/null
+    rc=$?
+    [ "$rc" -eq 7 ] && return 0          # 7 = couldn't connect = port is free
     n=$((n + 1))
-    if [ "$n" -gt 20 ]; then
-      log "port $port still held after ~10s — SIGKILL holders"
-      lsof -nP -tiTCP:"$port" -sTCP:LISTEN 2>/dev/null | xargs kill -9 2>/dev/null || true
+    if [ "$n" -gt 24 ]; then
+      log "port $port still answering after ~12s — SIGKILL holders"
+      pkill -9 -f "tsx.*themis/server" 2>/dev/null || true
+      pkill -9 -f "themis/server/src/index.ts" 2>/dev/null || true
+      pkill -9 -f "vite" 2>/dev/null || true
       sleep 1
-      break
+      return 0
     fi
     sleep 0.5
   done
 }
 
-# Block until something is LISTENing on $1, up to ~90s. Called after
-# start_processes so a poll cycle can't catch — and kill — a server that is
-# still booting. Observed 2026-06-12: under load (LM Studio, load avg ~4) the
-# first crash-recovery boot took >20s, so the next poll's health check killed
-# it mid-boot and restarted again. It converged, but if every boot took >20s
-# the watcher would flap forever; this closes that hole.
-wait_port_up() {
-  local port="$1" n=0
-  until lsof -nP -iTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; do
+# Block until the API answers health, up to ~120s, so a slow boot finishes
+# before the poll loop can judge it. Non-fatal on timeout (poll loop retries).
+wait_server_up() {
+  local n=0
+  until server_healthy; do
     n=$((n + 1))
-    if [ "$n" -gt 90 ]; then
-      log "port $port still not up after ~90s — giving up (next poll will retry)"
+    if [ "$n" -gt 120 ]; then
+      log "server not healthy after ~120s — continuing (poll loop will retry)"
       return 1
     fi
     sleep 1
   done
-  log "port $port is up"
+  log "server healthy on :8787"
 }
 
 stop_processes() {
@@ -80,17 +90,16 @@ stop_processes() {
 start_processes() {
   log "starting server (THEMIS_LLM_PROVIDER=claude-code)"
   # COURTLISTENER_API_TOKEN (optional) raises the Cite Check authority-lookup
-  # rate limit. Source it from ~/.themis-env if present so the operator can set
-  # it once without editing this script. Anonymous still works, just throttled.
+  # rate limit; ANTHROPIC_API_KEY etc. come from ~/.themis-env if present.
   [ -f "$HOME/.themis-env" ] && set -a && . "$HOME/.themis-env" && set +a
   ( cd "$REPO_ROOT/themis/server" \
       && THEMIS_LLM_PROVIDER=claude-code nohup npm run dev > /tmp/themis-server.log 2>&1 & )
   log "starting web (vite)"
   ( cd "$REPO_ROOT/themis" \
       && nohup npm run dev > /tmp/themis-web.log 2>&1 & )
-  # Don't resume polling until the server has actually bound — a poll that
-  # fires mid-boot would treat "booting" as "crashed" and kill it.
-  wait_port_up 8787 || true
+  # Don't resume polling until the API actually answers — a poll that fires
+  # mid-boot would treat "still booting" as "crashed" and kill it.
+  wait_server_up || true
 }
 
 # Boot fresh on every watcher start.
@@ -104,13 +113,11 @@ LAST_SHA="$(git rev-parse HEAD)"
 while true; do
   sleep 20
 
-  # Crash supervision: the redeploy path below only fires on a NEW commit, so a
-  # server that died on its own (OOM, EADDRINUSE, unhandled throw) would stay
-  # dead until the next push — that's exactly what caused the ~6.5h silent
-  # outage on 2026-06-11. Every cycle, if nothing is listening on :8787, bring
-  # the stack back up.
-  if ! lsof -nP -iTCP:8787 -sTCP:LISTEN >/dev/null 2>&1; then
-    log "server not listening on :8787 — restarting (crash recovery)"
+  # Crash supervision: restart if the API stopped answering without a new
+  # commit. (Original failure: a dead server stayed dark ~6.5h because the
+  # watcher only ever acted on new commits.)
+  if ! server_healthy; then
+    log "server not answering health — restarting (crash recovery)"
     notify "Themis server down — restarting"
     stop_processes
     start_processes
@@ -128,11 +135,8 @@ while true; do
   log "new commit on origin/$BRANCH: ${REMOTE_SHA:0:7} — redeploying"
   notify "Pulling ${REMOTE_SHA:0:7}…"
   if git pull --ff-only --quiet; then
-    # If any package.json or lock file changed in the pull, run `npm
-    # install` before restarting — otherwise a new dep (e.g. stripe)
-    # shows up in import statements but isn't on disk and the server
-    # crashes on boot. Best-effort: errors get logged but don't block
-    # the redeploy.
+    # If package.json / lock changed, npm install before restart — otherwise a
+    # new dep is imported but not on disk and the server crashes on boot.
     if git diff --name-only "$LAST_SHA" "$REMOTE_SHA" 2>/dev/null | grep -qE "(^|/)(package\.json|package-lock\.json)$"; then
       log "package files changed — running npm install in server + web"
       ( cd "$REPO_ROOT/themis/server" && npm install --no-audit --no-fund --silent 2>&1 | tail -3 | while read -r line; do log "[server install] $line"; done ) || true
