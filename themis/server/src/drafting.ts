@@ -36,7 +36,9 @@ export type DraftKind =
   | "motion-to-compel"
   | "discovery-responses"
   | "settlement-statement"
-  | "case-summary";
+  | "case-summary"
+  | "recruitment-report"
+  | "perm-audit-response";
 
 const KIND_INSTRUCTIONS: Record<DraftKind, { label: string; convention: string }> = {
   "demand-letter": {
@@ -62,6 +64,14 @@ const KIND_INSTRUCTIONS: Record<DraftKind, { label: string; convention: string }
   "case-summary": {
     label: "Case summary",
     convention: `One-page executive memo. Parties + posture. Facts in chronological order with Bates citations. Claims/defenses. Status (where the case stands today). Open issues.`,
+  },
+  "recruitment-report": {
+    label: "PERM recruitment report",
+    convention: `Internal recruitment report documenting good-faith recruitment for a PERM labor certification (the file a DOL Certifying Officer reviews on audit). Open with the job opportunity — title, worksite, minimum requirements — and the prevailing wage. Give a chronological recital of each recruitment step ACTUALLY performed (PWD issuance, Notice of Filing posting dates, the two Sunday print ads with publication + dates, the SWA job order dates, and each of the three additional recruitment steps), every step cited to its Bates id. Then a numbered disposition of EVERY U.S. applicant: name, source, date received, and the lawful, JOB-RELATED reason for non-selection. CRITICAL — state a rejection reason ONLY if it appears in the cited source documents; if a reason is not documented, write the placeholder [ATTORNEY: state the lawful, job-related reason this applicant was rejected] and NEVER infer or invent one. Conclude that no able, willing, qualified, and available U.S. worker was found, with a total-applicants tally. This is the attorney's call to make on each disposition — Themis only organizes the record.`,
+  },
+  "perm-audit-response": {
+    label: "PERM audit response",
+    convention: `Cover letter responding to a DOL PERM audit notification, organized for the Certifying Officer and built to be filed within the 30-day window. Identify the case — [ETA CASE NO.], beneficiary, employer. Provide an itemized index of the enclosed audit-file exhibits, each cited to its Bates id and mapped to the specific item the audit letter requested. Address each requirement the audit raises using ONLY facts cited to Bates ids in the file. For any audit item the file does not support, write [ATTORNEY: address audit item — supporting document not in file] and NEVER assert a fact that is not in the cited record (a fabricated or unsupported assertion in an audit response is fatal — no new evidence is allowed on BALCA appeal). Close with a professional signature block.`,
   },
 };
 

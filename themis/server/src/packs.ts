@@ -14,6 +14,7 @@ export type PackId =
   | "family"
   | "commercial"
   | "immigration"
+  | "perm"
   | "criminal_defense"
   | "ip";
 
@@ -275,6 +276,59 @@ export const PACKS: Record<PackId, PackSpec> = {
       { role: "Country-conditions expert" },
       { role: "Medical expert / psychologist" },
       { role: "Pastor / community letter writer" },
+    ],
+  },
+
+  perm: {
+    id: "perm",
+    label: "PERM Labor Certification",
+    blurb:
+      "Employment-based PERM (ETA-9089). Builds the audit-defensible file — every required exhibit, BALCA-proof completeness — because no new evidence is allowed on appeal.",
+    // "claims" repurposed as the showings a PERM filing must affirmatively
+    // establish — what the certified file has to prove on its face.
+    claims: [
+      "Bona fide, full-time, permanent job opportunity (open to U.S. workers)",
+      "Prevailing wage offered — DOL-issued PWD valid and unexpired at filing",
+      "Good-faith recruitment that genuinely tested the U.S. labor market",
+      "No able, willing, qualified, and available U.S. worker for the role",
+      "Requirements are normal for the occupation (or business-necessity justified)",
+      "Worksite, duties, and requirements consistent across PWD, ads, NOF, and ETA-9089",
+    ],
+    // "defenses" repurposed as the audit-trigger / denial risks to preempt
+    // before filing — the recurring reasons PERM cases get audited or denied.
+    defenses: [
+      "Unduly restrictive / tailored requirements (Kellogg business-necessity exposure)",
+      "U.S. applicant rejected for a reason not clearly job-related and lawful",
+      "Recruitment defect — wrong ad content, missing step, or out-of-sequence timing",
+      "Expired PWD, or filing outside the 180-day window / before the 30-day quiet period",
+      "Notice of Filing defect — under 10 business days, wrong location, or missing wage",
+      "ETA-9089 answers inconsistent with the underlying recruitment record",
+    ],
+    evidenceChecklist: [
+      { label: "Prevailing Wage Determination (PWD) — DOL-issued, valid + unexpired at filing", severity: "high" },
+      { label: "Job description + minimum requirements (as submitted for the PWD)", severity: "high" },
+      { label: "Notice of Filing — proof of 10 consecutive business days, with wage + worksite + dates", severity: "high" },
+      { label: "Two Sunday newspaper print ads — tearsheets + publisher affidavits + run dates", severity: "high" },
+      { label: "State Workforce Agency (SWA) job order — confirmation + 30-day run dates", severity: "high" },
+      { label: "Three additional recruitment steps (professional) — dated proof for each (employer website, job fair, journal, campus, employer referral, etc.)", severity: "high" },
+      { label: "Recruitment report — disposition of EVERY U.S. applicant + lawful job-related rejection reason", severity: "high" },
+      { label: "All applicant resumes / applications received (with date stamps)", severity: "high" },
+      { label: "ETA-9089 — filed copy (with internal-consistency check vs. PWD + ads)", severity: "high" },
+      { label: "Audit-readiness index — each ETA-9089 answer mapped to its supporting exhibit", severity: "high" },
+      { label: "Recruitment timeline — PWD validity, 30-day quiet period, 180-day filing window", severity: "high" },
+      { label: "Foreign worker resume + experience letters + credential evaluation (if foreign degree)", severity: "high" },
+      { label: "Notice to bargaining representative (if unionized role)", severity: "medium" },
+      { label: "Internal company recruitment proof (if relied upon)", severity: "medium" },
+      { label: "Employer business legitimacy — FEIN, org info, ability to pay", severity: "medium" },
+    ],
+    damagesCategories: [],
+    witnessRoles: [
+      { role: "Foreign worker (beneficiary)" },
+      { role: "Employer / petitioner (signatory)" },
+      { role: "HR / recruitment coordinator" },
+      { role: "Sponsoring attorney" },
+      { role: "DOL — prevailing wage / Certifying Officer (audit)" },
+      { role: "Credential evaluation service (if foreign degree)" },
     ],
   },
 
