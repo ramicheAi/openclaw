@@ -25,7 +25,10 @@ LINE    = colors.HexColor("#D6CAA8")
 VERIFY  = colors.HexColor("#2C7E5A")
 DANGER  = colors.HexColor("#B53D36")
 
-OUT = "/home/user/openclaw/themis/Themis-Explainer-and-Questions.pdf"
+import os
+# Write next to the repo's themis/ dir regardless of where this is checked out
+# (was hardcoded to /home/user/openclaw/, which only existed on the original box).
+OUT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "Themis-Explainer-and-Questions.pdf"))
 
 styles = {}
 def S(name, **kw):
