@@ -21,6 +21,7 @@ import { randomUUID } from "node:crypto";
 import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.js";
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
 import { analyzeMatter } from "../analyze.js";
+import { checkAuditFile } from "../audit-file.js";
 import { buildDepositionOutline } from "../deposition.js";
 import { listSpokenLines } from "../speakers.js";
 import { isClaudeCodeProvider, probeClaudeCode } from "../claude-code.js";
@@ -431,6 +432,36 @@ export function registerMatterRoutes(app: Hono, db: DB) {
       const message = err instanceof Error ? err.message : String(err);
       console.error("[analyze] route error:", message, err instanceof Error ? err.stack : "");
       return c.json({ error: "analyze_route_failed", message }, 500);
+    }
+  });
+
+  // PERM audit-file completeness — match the matter's documents against a
+  // pack's required-exhibit checklist and report present/partial/missing per
+  // item, plus whether the file is BALCA-ready (no high-severity exhibit
+  // missing). POST because it runs an LLM pass over the corpus. Body: {packId}
+  // (defaults to "perm" — the matter doesn't persist its pack, so the caller
+  // names the checklist to grade against).
+  app.post("/api/matters/:id/audit-file", async (c) => {
+    const id = c.req.param("id");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    const body = (await c.req.json().catch(() => ({}))) as { packId?: unknown };
+    const packId = typeof body.packId === "string" && body.packId ? body.packId : "perm";
+    try {
+      const result = await checkAuditFile(db, id, packId);
+      if (!result.ok) return c.json({ error: "audit_file_failed", message: result.error }, 502);
+      const r = result.report;
+      audit(
+        db,
+        id,
+        actor(c),
+        "matter.audit_file",
+        `${r.packId} · ${r.present}/${r.total} present · ${r.highMissing} high missing · ready:${r.ready}`,
+      );
+      return c.json(r);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("[audit-file] route error:", message, err instanceof Error ? err.stack : "");
+      return c.json({ error: "audit_file_route_failed", message }, 500);
     }
   });
 
