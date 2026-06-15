@@ -15,6 +15,7 @@ import { randomUUID } from "node:crypto";
 import type { DB } from "../db.js";
 import { verifyAuthorities } from "../courtlistener.js";
 import { getVerifiedByHash } from "../verified.js";
+import { normalizeEmail } from "../auth.js";
 
 // Hard rate-limit at the route layer so we don't burn through our
 // CourtListener allowance on an attack. 50 checks per IP per day.
@@ -67,7 +68,7 @@ export function registerPublicRoutes(app: Hono, db: DB) {
     ).run(
       `pc-${randomUUID().slice(0, 8)}`,
       requestIp,
-      typeof body.email === "string" ? body.email.trim().toLowerCase() : null,
+      typeof body.email === "string" ? normalizeEmail(body.email) : null,
       new Date().toISOString(),
       result.findings.length,
       notFound,
@@ -185,7 +186,7 @@ export function registerPublicRoutes(app: Hono, db: DB) {
     }
     db.prepare(
       `INSERT INTO public_cite_checks (id, ip, email, created_at, total, not_found, chars) VALUES (?, ?, ?, ?, 0, 0, 0)`,
-    ).run(`lead-${randomUUID().slice(0, 8)}`, ip(c), body.email.trim().toLowerCase(), new Date().toISOString());
+    ).run(`lead-${randomUUID().slice(0, 8)}`, ip(c), normalizeEmail(body.email), new Date().toISOString());
     return c.json({ ok: true });
   });
 }

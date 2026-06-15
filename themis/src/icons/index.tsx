@@ -15,9 +15,9 @@
 //       danger       = hot
 //   • Never colorize a navigation icon — semantic palette is reserved for state.
 //
-// Roster (24): doc · brain · scales · verified · pending · privileged · search
-// · chron · entity · binder · cite · copy · export · hot · audit · replay
-// · pause · arrow · close · add · cmdk · filter · ask · arc
+// Roster (22): doc · brain · scales · verified · pending · privileged · search
+// · chron · entity · binder · cite · copy · export · hot · replay
+// · pause · arrow · close · add · cmdk · ask · arc
 
 import type { SVGProps } from "react";
 
@@ -193,15 +193,6 @@ export function IconHot(p: IconProps) {
   );
 }
 
-export function IconAudit(p: IconProps) {
-  return (
-    <Icon {...p}>
-      <path d="M5 5h12l2 2v12H5z" />
-      <path d="M8 10h8M8 14h8M8 18h5" />
-    </Icon>
-  );
-}
-
 export function IconReplay(p: IconProps) {
   return (
     <Icon {...p}>
@@ -254,14 +245,6 @@ export function IconCmdK(p: IconProps) {
     <Icon {...p}>
       <rect x={3.5} y={3.5} width={17} height={17} rx={3} />
       <path d="M9 9l3 3-3 3M14 9h-1.5a1.5 1.5 0 0 0-1.5 1.5V14a1.5 1.5 0 0 0 1.5 1.5H14" />
-    </Icon>
-  );
-}
-
-export function IconFilter(p: IconProps) {
-  return (
-    <Icon {...p}>
-      <path d="M4 5h16l-6 8v5l-4 2v-7z" />
     </Icon>
   );
 }

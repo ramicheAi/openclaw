@@ -5,7 +5,6 @@
 import type { Context, Hono, Next } from "hono";
 import type { DB } from "../db.js";
 import {
-  SESSION_COOKIE_NAME,
   clearedCookie,
   consumeMagicLinkToken,
   createMagicLinkToken,
@@ -190,5 +189,3 @@ export function authedActor(c: Context): string {
   }
   return c.req.header("x-themis-actor") ?? "you";
 }
-
-export { SESSION_COOKIE_NAME };

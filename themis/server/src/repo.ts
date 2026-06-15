@@ -362,12 +362,6 @@ export function updateDocumentBody(db: DB, matterId: string, docId: string, body
   db.prepare(`UPDATE documents SET body = ? WHERE matter_id = ? AND id = ?`).run(body, matterId, docId);
 }
 
-// Look up a doc by id (used by the transcribe + speaker-rename routes).
-export function getDocumentById(db: DB, matterId: string, docId: string): DocItem | null {
-  const row = db.prepare(`SELECT * FROM documents WHERE matter_id = ? AND id = ?`).get(matterId, docId) as Row | undefined;
-  return row ? rowToDoc(row) : null;
-}
-
 export function createDocument(db: DB, matterId: string, input: CreateDocumentInput): DocItem {
   const id = `u-${createHash("sha1").update(`${matterId}:${input.bates}:${Date.now()}`).digest("hex").slice(0, 8)}`;
   const pages = input.pages ?? Math.max(1, Math.ceil(input.body.length / 2400));

@@ -10,7 +10,6 @@
 
 import type { DB } from "./db.js";
 import { randomUUID } from "node:crypto";
-import { getMatter } from "./repo.js";
 import { llmComplete } from "./llm.js";
 
 export type DeadlineKind = "deadline" | "hearing" | "conference" | "trial" | "disclosure";
@@ -117,6 +116,3 @@ function rowToDeadline(r: Record<string, unknown>): DeadlineRow {
     createdAt: r.created_at as string,
   };
 }
-
-// Re-export so the route can confirm the matter exists without another import.
-export { getMatter };

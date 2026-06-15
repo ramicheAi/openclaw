@@ -41,7 +41,7 @@ import type {
 
 const BASE = import.meta.env.VITE_THEMIS_API ?? "";
 
-export class ApiError extends Error {
+class ApiError extends Error {
   constructor(
     public status: number,
     public code: string,

@@ -1,10 +1,10 @@
 // Explicit state components per design handoff §14.
-// First-run splash (cold start, 0 matters, breathing Tau) and dashboard-empty
-// (dashed-border empty card with Create / Import). Built as standalone exports
+// First-run splash (cold start, 0 matters, breathing Tau) and the first-run
+// empty dashboard (welcome + next-step tiles). Built as standalone exports
 // so they can render in isolation (Storybook-ready when desired).
 
 import { Tau } from "../components/BrandMark";
-import { IconAdd, IconCite, IconExport, IconArrow } from "../icons";
+import { IconAdd, IconCite, IconArrow } from "../icons";
 import { useAuth } from "../lib/auth";
 
 export function FirstRunSplash({ onCreate }: { onCreate?: () => void }) {
@@ -33,9 +33,7 @@ export function FirstRunSplash({ onCreate }: { onCreate?: () => void }) {
 
 /**
  * First-run dashboard for a brand new authed user with zero matters.
- * Warm welcome + three next-step tiles. Replaces the older blank
- * DashboardEmpty for signed-in users; the dashed-border version remains
- * exported for any caller that still wants it.
+ * Warm welcome + three next-step tiles.
  */
 export function FirstRunEmpty({ onCreate }: { onCreate?: () => void }) {
   const auth = useAuth();
@@ -138,32 +136,3 @@ function Tile({
   );
 }
 
-export function DashboardEmpty({ onCreate, onImport }: { onCreate?: () => void; onImport?: () => void }) {
-  return (
-    <div className="grid h-full place-items-center bg-paper">
-      <div className="w-full max-w-md text-center">
-        <div className="mx-auto grid h-32 w-full place-items-center rounded-xl border-2 border-dashed border-line-strong">
-          <Tau size={56} tone="paper" />
-        </div>
-        <div className="mt-4 font-display text-[18px] font-semibold text-ink">No matters yet</div>
-        <p className="mt-1 text-[12.5px] text-ink-soft">
-          Start by spinning up a new case brain, or pull an existing matter in from your e-discovery platform.
-        </p>
-        <div className="mt-4 flex justify-center gap-2">
-          <button
-            onClick={onCreate}
-            className="inline-flex items-center gap-1.5 rounded-md border border-brass bg-brass px-3 py-1.5 text-[12px] font-semibold text-paper transition hover:bg-brass-deep"
-          >
-            <IconAdd size={13} /> New matter
-          </button>
-          <button
-            onClick={onImport}
-            className="inline-flex items-center gap-1.5 rounded-md border border-line bg-surface px-3 py-1.5 text-[12px] font-medium text-ink-soft transition hover:border-line-strong hover:text-ink"
-          >
-            <IconExport size={13} /> Import from Relativity
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}

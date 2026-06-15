@@ -12,7 +12,7 @@ import { IconArrow, IconClose, IconVerified } from "../icons";
 
 const STORAGE_KEY = "themis-tour-v2";
 
-export interface TourStep {
+interface TourStep {
   /** CSS selector for the element to highlight. */
   target?: string;
   title: string;

@@ -42,14 +42,6 @@ export function useDocuments(id: string) {
   return useQuery({ queryKey: qk.documents(id), queryFn: () => api.listDocuments(id) });
 }
 
-export function useDocument(id: string, docId: string | null) {
-  return useQuery({
-    queryKey: qk.document(id, docId ?? ""),
-    queryFn: () => api.getDocument(id, docId!),
-    enabled: !!docId,
-  });
-}
-
 export function useChronology(id: string) {
   return useQuery({ queryKey: qk.chronology(id), queryFn: () => api.listChronology(id) });
 }
@@ -70,13 +62,6 @@ export function useAudit(id: string, limit = 50) {
   return useQuery({
     queryKey: [...qk.audit(id), limit],
     queryFn: () => api.getAudit(id, limit),
-  });
-}
-
-export function useAuditChain(id: string) {
-  return useQuery({
-    queryKey: [...qk.audit(id), "verify"],
-    queryFn: () => api.verifyAuditChain(id),
   });
 }
 
@@ -217,15 +202,6 @@ export function useCausalChains(id: string) {
 function invalidateChains(qc: ReturnType<typeof useQueryClient>, id: string) {
   qc.invalidateQueries({ queryKey: qk.chains(id) });
   qc.invalidateQueries({ queryKey: qk.audit(id) });
-}
-
-export function useCreateChain(id: string) {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: ({ name, nodes }: { name: string; nodes: import("../types").CausalChainNode[] }) =>
-      api.createChain(id, name, nodes),
-    onSuccess: () => invalidateChains(qc, id),
-  });
 }
 
 export function useUpdateChain(id: string) {

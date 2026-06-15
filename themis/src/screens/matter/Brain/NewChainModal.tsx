@@ -1,7 +1,7 @@
 // NewChainModal — start a new causal chain. The user picks a name + a set
 // of chronology events and/or hot documents that, in date order, form the
-// narrative arc. Posts to the existing causal-chains backend via
-// useCreateChain; the brain mode picks it up on the next refetch.
+// narrative arc. Posts to the existing causal-chains backend via an inline
+// useMutation; the brain mode picks it up on the next refetch.
 
 import { useMemo, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

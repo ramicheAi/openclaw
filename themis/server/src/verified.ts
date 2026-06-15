@@ -120,13 +120,3 @@ export function getVerifiedByHash(db: DB, hash: string): VerifiedCertification |
   const r = db.prepare(`SELECT * FROM verified_certifications WHERE hash = ?`).get(hash) as Record<string, unknown> | undefined;
   return r ? row(r) : null;
 }
-
-export function revokeVerified(db: DB, hash: string, matterId: string): boolean {
-  return db.prepare(`UPDATE verified_certifications SET revoked = 1 WHERE hash = ? AND matter_id = ?`).run(hash, matterId).changes > 0;
-}
-
-export function listVerifiedForMatter(db: DB, matterId: string): VerifiedCertification[] {
-  return (
-    db.prepare(`SELECT * FROM verified_certifications WHERE matter_id = ? ORDER BY signed_at DESC`).all(matterId) as Record<string, unknown>[]
-  ).map(row);
-}

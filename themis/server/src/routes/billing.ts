@@ -11,7 +11,6 @@ import type { Context, Hono } from "hono";
 import type { DB } from "../db.js";
 import { findUserByStripeCustomer, getUserByEmail, isAuthRequired, readSessionCookie, resolveSession, setUserPlan } from "../auth.js";
 import { PLANS, type PlanId } from "../plans.js";
-import { audit } from "../repo.js";
 
 // Lazy-init the Stripe client so the server boots without a key (free
 // tier + dev). When STRIPE_SECRET_KEY isn't set, the billing routes
@@ -236,6 +235,3 @@ export function registerBillingRoutes(app: Hono, db: DB) {
     return c.json({ received: true });
   });
 }
-
-// Re-export so other route files can fetch the audit() they already import.
-export { audit };

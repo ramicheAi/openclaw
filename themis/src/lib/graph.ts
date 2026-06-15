@@ -3,8 +3,8 @@
 
 import type { ChronEvent, DocItem, Entity, MatterDetail } from "../types";
 
-export type NodeKind = "entity" | "doc" | "event" | "claim" | "defense";
-export type LinkType = "thread" | "relationship" | "citation" | "support";
+type NodeKind = "entity" | "doc" | "event" | "claim" | "defense";
+type LinkType = "thread" | "relationship" | "citation" | "support";
 
 export interface GraphNode {
   id: string;
@@ -30,7 +30,7 @@ export interface GraphNode {
   revealAt?: number;
 }
 
-export interface GraphLink {
+interface GraphLink {
   source: string;
   target: string;
   type: LinkType;

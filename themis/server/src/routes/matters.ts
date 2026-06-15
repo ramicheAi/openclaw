@@ -3,12 +3,14 @@ import type { DB } from "../db.js";
 import {
   createDocument,
   createMatter,
+  getDocument,
   getMatter,
   listAudit,
   listFirmAudit,
   listMatters,
   matterExists,
   setMatterArchived,
+  updateDocumentBody,
   verifyAuditChain,
   audit,
 } from "../repo.js";
@@ -384,8 +386,7 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     const matterId = c.req.param("id");
     const docId = c.req.param("docId");
     if (!matterExists(db, matterId)) return c.json({ error: "matter_not_found" }, 404);
-    const repo = await import("../repo.js");
-    const doc = repo.getDocumentById?.(db, matterId, docId);
+    const doc = getDocument(db, matterId, docId);
     if (!doc) return c.json({ error: "doc_not_found" }, 404);
     const body = (await c.req.json().catch(() => ({}))) as { speakers?: Record<string, string> };
     if (!body.speakers || typeof body.speakers !== "object") {
@@ -404,7 +405,7 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     // Rewrite the doc body so the new speaker names show up in chat
     // citations + binder + exports. Citation timestamps stay valid.
     const newBody = formatTranscript(payload.utterances, payload.speakers);
-    repo.updateDocumentBody?.(db, matterId, docId, newBody);
+    updateDocumentBody(db, matterId, docId, newBody);
     audit(db, matterId, actor(c), "transcribe.rename-speakers", `${doc.bates} · ${Object.keys(body.speakers).join(",")}`);
     return c.json({ ok: true, speakers: payload.speakers });
   });
@@ -551,14 +552,13 @@ export function registerMatterRoutes(app: Hono, db: DB) {
     const id = c.req.param("id");
     const docId = c.req.param("docId");
     if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
-    const repo = await import("../repo.js");
-    const doc = repo.getDocumentById?.(db, id, docId);
+    const doc = getDocument(db, id, docId);
     if (!doc) return c.json({ error: "doc_not_found" }, 404);
     const body = (await c.req.json().catch(() => ({}))) as { body?: string; signal?: string };
     if (typeof body.body !== "string") {
       return c.json({ error: "body_required" }, 400);
     }
-    repo.updateDocumentBody?.(db, id, docId, body.body);
+    updateDocumentBody(db, id, docId, body.body);
     audit(db, id, actor(c), "doc.body.update", `${doc.bates} · ${body.signal ?? "manual"} · ${body.body.length} chars`);
     return c.json({ ok: true, length: body.body.length });
   });
