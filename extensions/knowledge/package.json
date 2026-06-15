@@ -1,0 +1,16 @@
+{
+  "name": "@openclaw/knowledge",
+  "version": "2026.1.29",
+  "type": "module",
+  "description": "OpenClaw knowledge base — ingest documents (PDF, DOCX, HTML, Markdown, text) and let agents retrieve over them with citations",
+  "dependencies": {
+    "mammoth": "^1.8.0",
+    "openai": "^6.16.0",
+    "pdfjs-dist": "^5.4.530"
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

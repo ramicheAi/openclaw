@@ -1,0 +1,39 @@
+{
+  "id": "agent-eval",
+  "uiHints": {
+    "judgeModel": {
+      "label": "Judge Model",
+      "help": "Model used by the LLM judge to score rubric criteria. Default: gpt-4o-mini."
+    },
+    "defaultResponder": {
+      "label": "Default Responder",
+      "help": "Which responder the CLI builds when --responder is omitted: command | openai."
+    },
+    "model": {
+      "label": "OpenAI Responder Model",
+      "help": "Model for the openai responder (the system under test). Default: gpt-4o-mini.",
+      "advanced": true
+    },
+    "apiKeyEnv": {
+      "label": "API Key Env Var",
+      "help": "Environment variable holding the OpenAI API key for judge + openai responder. Default: OPENAI_API_KEY.",
+      "advanced": true
+    },
+    "passThreshold": {
+      "label": "Judge Pass Threshold",
+      "help": "Default minimum judge score (0..1) for a criteria-based case to pass. Default: 0.6.",
+      "advanced": true
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "judgeModel": { "type": "string" },
+      "defaultResponder": { "type": "string" },
+      "model": { "type": "string" },
+      "apiKeyEnv": { "type": "string" },
+      "passThreshold": { "type": "number" }
+    },
+    "additionalProperties": true
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "mcp-client",
+  "uiHints": {
+    "servers": {
+      "label": "MCP Servers",
+      "help": "Map of MCP servers to connect. Each entry sets transport (stdio | http | sse) plus command/args/env (stdio) or url/headers (http, sse)."
+    },
+    "toolTimeoutMs": {
+      "label": "Tool Call Timeout (ms)",
+      "advanced": true
+    },
+    "connectTimeoutMs": {
+      "label": "Connect Timeout (ms)",
+      "advanced": true
+    },
+    "toolPrefix": {
+      "label": "Tool Name Prefix",
+      "help": "Prefix for generated tool names. Default: mcp.",
+      "advanced": true
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "servers": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "toolTimeoutMs": { "type": "number" },
+      "connectTimeoutMs": { "type": "number" },
+      "toolPrefix": { "type": "string" }
+    },
+    "additionalProperties": true
+  }
+}

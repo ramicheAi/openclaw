@@ -1,0 +1,42 @@
+{
+  "id": "knowledge",
+  "uiHints": {
+    "defaultCollection": {
+      "label": "Default Collection",
+      "help": "Collection used when ingest/search omit one. Default: default."
+    },
+    "embeddingModel": {
+      "label": "Embedding Model",
+      "help": "OpenAI embedding model id. Default: text-embedding-3-small."
+    },
+    "apiKeyEnv": {
+      "label": "API Key Env Var",
+      "help": "Environment variable holding the OpenAI API key. Default: OPENAI_API_KEY.",
+      "advanced": true
+    },
+    "chunkTokens": {
+      "label": "Chunk Size (tokens)",
+      "advanced": true
+    },
+    "chunkOverlap": {
+      "label": "Chunk Overlap (tokens)",
+      "advanced": true
+    },
+    "topK": {
+      "label": "Default Top K",
+      "advanced": true
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "defaultCollection": { "type": "string" },
+      "embeddingModel": { "type": "string" },
+      "apiKeyEnv": { "type": "string" },
+      "chunkTokens": { "type": "number" },
+      "chunkOverlap": { "type": "number" },
+      "topK": { "type": "number" }
+    },
+    "additionalProperties": true
+  }
+}
