@@ -1,7 +1,7 @@
 diff --git a/dist/providers/anthropic.js b/dist/providers/anthropic.js
 --- a/dist/providers/anthropic.js
 +++ b/dist/providers/anthropic.js
-@@ -350,12 +350,22 @@
+@@ -350,12 +350,32 @@
      else if (context.systemPrompt) {
 -        // Add cache control to system prompt for non-OAuth tokens
 -        params.system = [
