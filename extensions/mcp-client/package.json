@@ -1,0 +1,17 @@
+{
+  "name": "@openclaw/mcp-client",
+  "version": "2026.1.29",
+  "type": "module",
+  "description": "OpenClaw MCP client plugin — connect Model Context Protocol servers and surface their tools to agents as first-class tools",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  },
+  "devDependencies": {
+    "zod": "^4.3.6"
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
