@@ -1,5 +1,5 @@
 import { cx } from "../../../../lib/ui";
-import { IconAsk, IconChron, IconPrivileged, IconBinder, IconDoc, IconCite, IconExport, IconScales, IconCmdK } from "../../../../icons";
+import { IconAsk, IconChron, IconPrivileged, IconBinder, IconDoc, IconCite, IconExport, IconScales, IconVerified, IconCmdK } from "../../../../icons";
 import type { WorktopTab } from "../../../../lib/router";
 import type { JSX } from "react";
 
@@ -15,6 +15,7 @@ const TABS: { id: WorktopTab; n: number; label: string; icon: (p: { size?: numbe
   { id: "verify", n: 6, label: "Cite Check", icon: IconCite },
   { id: "draft", n: 7, label: "Draft", icon: IconExport },
   { id: "damages", n: 8, label: "Damages", icon: IconScales },
+  { id: "perm", n: 9, label: "PERM", icon: IconVerified },
 ];
 
 export function TabBar({

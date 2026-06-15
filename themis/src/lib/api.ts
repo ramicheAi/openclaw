@@ -97,6 +97,44 @@ export interface AuthMe {
   user: { email: string; name: string } | null;
 }
 
+// --- PERM work-product engine ---
+export interface PermAuditRow {
+  label: string;
+  severity: "high" | "medium" | "low";
+  status: "present" | "partial" | "missing";
+  bates?: string;
+  note?: string;
+}
+export interface PermAuditReport {
+  packId: string;
+  packLabel: string;
+  total: number;
+  present: number;
+  partial: number;
+  missing: number;
+  highMissing: number;
+  ready: boolean;
+  rows: PermAuditRow[];
+}
+export interface Eta9089Value {
+  source: string;
+  value: string;
+  bates: string;
+}
+export interface Eta9089Finding {
+  field: string;
+  severity: "high" | "medium" | "low";
+  status: "inconsistent" | "missing_source";
+  values: Eta9089Value[];
+  note?: string;
+}
+export interface Eta9089Report {
+  total: number;
+  high: number;
+  clean: boolean;
+  findings: Eta9089Finding[];
+}
+
 export const api = {
   // --- Auth ---
   getMe: () => request<AuthMe>(`/api/auth/me`),
@@ -264,6 +302,14 @@ export const api = {
       `/api/matters/${matterId}/analyze`,
       { method: "POST" },
     ),
+
+  // PERM: grade the matter's documents against the required-exhibit checklist.
+  auditFileCheck: (matterId: string) =>
+    request<PermAuditReport>(`/api/matters/${matterId}/audit-file`, { method: "POST" }),
+
+  // PERM: cross-check the ETA-9089 against the PWD + recruitment ads.
+  eta9089Check: (matterId: string) =>
+    request<Eta9089Report>(`/api/matters/${matterId}/eta-9089-check`, { method: "POST" }),
 
   createDocument: (matterId: string, input: {
     bates: string;

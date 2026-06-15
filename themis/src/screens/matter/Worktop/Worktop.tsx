@@ -23,6 +23,7 @@ import { DocumentsPanel } from "./panels/DocumentsPanel";
 import { CiteCheckPanel } from "./panels/CiteCheckPanel";
 import { DraftPanel } from "./panels/DraftPanel";
 import { DamagesPanel } from "./panels/DamagesPanel";
+import { PermPanel } from "./panels/PermPanel";
 
 export function Worktop({
   matterId,
@@ -123,6 +124,7 @@ export function Worktop({
           {tab === "verify" && <CiteCheckPanel matterId={matterId} />}
           {tab === "draft" && <DraftPanel matterId={matterId} />}
           {tab === "damages" && <DamagesPanel matterId={matterId} />}
+          {tab === "perm" && <PermPanel matterId={matterId} />}
         </div>
       </div>
 
