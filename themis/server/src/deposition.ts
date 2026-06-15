@@ -11,15 +11,7 @@
 import type { DB } from "./db.js";
 import { getMatter, listChronology, listDocuments, listEntities } from "./repo.js";
 import { llmComplete } from "./llm.js";
-
-// Same control-byte scrub the LLM prompt builders use — PDF text extraction
-// leaks NUL bytes that crash spawn() and confuse the SDK tokenizer.
-function sanitize(s: string): string {
-  return s
-    .replace(/\r\n?/g, "\n")
-    // eslint-disable-next-line no-control-regex
-    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
-}
+import { sanitizePromptText as sanitize, extractJsonObject } from "./text-utils.js";
 
 export interface DepoTopic {
   topic: string;
@@ -120,14 +112,9 @@ Produce the deposition outline JSON for this witness.`;
     };
   }
 
-  const m = raw.match(/\{[\s\S]*\}/);
-  if (!m) return { ok: false, error: "model_did_not_return_json" };
-  let parsed: DepoOutline;
-  try {
-    parsed = JSON.parse(m[0]) as DepoOutline;
-  } catch (err) {
-    return { ok: false, error: `parse_failed: ${err instanceof Error ? err.message : String(err)}` };
-  }
+  const ex = extractJsonObject<DepoOutline>(raw);
+  if (!ex.ok) return { ok: false, error: ex.error };
+  const parsed: DepoOutline = ex.value;
   // Guard the shape so the client never has to defend against undefineds.
   parsed.witness ||= witnessName;
   parsed.role ||= witness?.role ?? "";

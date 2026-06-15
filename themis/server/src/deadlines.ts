@@ -11,6 +11,7 @@
 import type { DB } from "./db.js";
 import { randomUUID } from "node:crypto";
 import { llmComplete } from "./llm.js";
+import { extractJsonObject } from "./text-utils.js";
 
 export type DeadlineKind = "deadline" | "hearing" | "conference" | "trial" | "disclosure";
 
@@ -47,14 +48,9 @@ export async function parseDeadlines(
   if (raw === null) {
     return { ok: false, error: "LLM engine not configured. Set THEMIS_LLM_PROVIDER=claude-code or ANTHROPIC_API_KEY." };
   }
-  const m = raw.match(/\{[\s\S]*\}/);
-  if (!m) return { ok: false, error: "model_did_not_return_json" };
-  let parsed: { deadlines?: ParsedDeadline[] };
-  try {
-    parsed = JSON.parse(m[0]);
-  } catch (err) {
-    return { ok: false, error: `parse_failed: ${err instanceof Error ? err.message : String(err)}` };
-  }
+  const ex = extractJsonObject<{ deadlines?: ParsedDeadline[] }>(raw);
+  if (!ex.ok) return { ok: false, error: ex.error };
+  const parsed = ex.value;
   const out = (parsed.deadlines ?? [])
     .filter((d) => d.title)
     .map((d) => ({

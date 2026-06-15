@@ -5,6 +5,7 @@
 
 import Anthropic from "@anthropic-ai/sdk";
 import { callClaudeCode, isClaudeCodeProvider } from "./claude-code.js";
+import { sanitizePromptText as sanitize } from "./text-utils.js";
 
 let client: Anthropic | null | undefined; // undefined = not yet probed; null = no key
 
@@ -116,16 +117,6 @@ CITATIONS: NW-000847, NW-001120, NW-001498
 listing every Bates id you cited, in order of importance. If you refused, leave this empty: "CITATIONS:".
 
 You are answering on behalf of the firm representing the plaintiff in this matter. Treat the privilege wall as inviolable: if a document is flagged or withheld, it will not appear in your sources.`;
-
-// PDF text extraction commonly leaks NUL + other control bytes inside body
-// text. spawn() rejects strings with NUL, and Anthropic's tokenizer chokes
-// on stray controls — strip everything except \t \n \r before prompting.
-function sanitize(s: string): string {
-  return s
-    .replace(/\r\n?/g, "\n")
-    // eslint-disable-next-line no-control-regex
-    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
-}
 
 function formatSources(sources: SourceForSynthesis[]): string {
   // Body slice was 2400 chars/source — too tight for police reports and

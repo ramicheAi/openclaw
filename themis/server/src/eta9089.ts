@@ -8,6 +8,7 @@
 import type { DB } from "./db.js";
 import { getMatter, listDocuments } from "./repo.js";
 import { llmComplete } from "./llm.js";
+import { sanitizePromptText as sanitize, extractJsonObject } from "./text-utils.js";
 
 export interface FieldValue {
   source: string; // e.g. "ETA-9089", "PWD", "Sunday ad #1"
@@ -64,14 +65,9 @@ export async function validateEta9089(
     return { ok: false, error: "LLM engine not configured. Set THEMIS_LLM_PROVIDER=claude-code or ANTHROPIC_API_KEY." };
   }
 
-  const m = raw.match(/\{[\s\S]*\}/);
-  if (!m) return { ok: false, error: "model_did_not_return_json" };
-  let parsed: { findings?: Array<Partial<ConsistencyFinding> & { values?: Array<Partial<FieldValue>> }> };
-  try {
-    parsed = JSON.parse(m[0]) as typeof parsed;
-  } catch (err) {
-    return { ok: false, error: `parse_failed: ${err instanceof Error ? err.message : String(err)}` };
-  }
+  const ex = extractJsonObject<{ findings?: Array<Partial<ConsistencyFinding> & { values?: Array<Partial<FieldValue>> }> }>(raw);
+  if (!ex.ok) return { ok: false, error: ex.error };
+  const parsed = ex.value;
 
   // Keep only findings whose cited values point at REAL documents — drop any
   // value with a fabricated/unknown Bates, and drop a finding that ends up with
@@ -93,11 +89,4 @@ export async function validateEta9089(
     ok: true,
     report: { total: findings.length, high, clean: high === 0, findings },
   };
-}
-
-function sanitize(s: string): string {
-  return s
-    .replace(/\r\n?/g, "\n")
-    // eslint-disable-next-line no-control-regex
-    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
 }

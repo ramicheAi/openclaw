@@ -10,6 +10,7 @@ import type { DB } from "./db.js";
 import { getMatter, listDocuments } from "./repo.js";
 import { llmComplete } from "./llm.js";
 import { packById } from "./packs.js";
+import { extractJsonObject } from "./text-utils.js";
 
 export type CoverageStatus = "present" | "partial" | "missing";
 
@@ -105,14 +106,9 @@ export async function checkAuditFile(
     return { ok: false, error: "LLM engine not configured. Set THEMIS_LLM_PROVIDER=claude-code or ANTHROPIC_API_KEY." };
   }
 
-  const m = raw.match(/\{[\s\S]*\}/);
-  if (!m) return { ok: false, error: "model_did_not_return_json" };
-  let parsed: { rows?: Array<{ label?: string; status?: string; bates?: string; note?: string }> };
-  try {
-    parsed = JSON.parse(m[0]) as typeof parsed;
-  } catch (err) {
-    return { ok: false, error: `parse_failed: ${err instanceof Error ? err.message : String(err)}` };
-  }
+  const ex = extractJsonObject<{ rows?: Array<{ label?: string; status?: string; bates?: string; note?: string }> }>(raw);
+  if (!ex.ok) return { ok: false, error: ex.error };
+  const parsed = ex.value;
 
   // Build the report off the AUTHORITATIVE checklist (not the model's echo) so
   // every required item is accounted for even if the model drops one. Match the

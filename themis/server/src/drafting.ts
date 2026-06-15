@@ -19,16 +19,7 @@ import type { DB } from "./db.js";
 import { getMatter, listChronology } from "./repo.js";
 import { llmComplete } from "./llm.js";
 import { listDamages, type DamagesCategory } from "./damages.js";
-
-// PDF extraction leaks NUL + other low ASCII control bytes that crash the
-// CLI bridge's spawn() and confuse the SDK tokenizer. Scrub at every prompt
-// site that pulls from document-derived text (descriptions, posture, etc.).
-function sanitize(s: string): string {
-  return s
-    .replace(/\r\n?/g, "\n")
-    // eslint-disable-next-line no-control-regex
-    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
-}
+import { sanitizePromptText as sanitize } from "./text-utils.js";
 
 export type DraftKind =
   | "demand-letter"

@@ -12,6 +12,7 @@
 // gives a clear install-and-login hint.
 
 import { spawn } from "node:child_process";
+import { sanitizePromptText } from "./text-utils.js";
 
 export function isClaudeCodeProvider(): boolean {
   return (process.env.THEMIS_LLM_PROVIDER ?? "").toLowerCase() === "claude-code";
@@ -37,10 +38,7 @@ export async function callClaudeCode(systemPrompt: string, userPrompt: string): 
   // "argument 'args[1]' must be a string without null bytes". Strip every
   // ASCII control char except the ones we actually need (\t, \n, \r). Also
   // normalize CRLF → LF to keep the prompt portable.
-  const fullPrompt = rawPrompt
-    .replace(/\r\n?/g, "\n")
-    // eslint-disable-next-line no-control-regex
-    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
+  const fullPrompt = sanitizePromptText(rawPrompt);
 
   // Sanity check: argv limit varies by OS but ~128KB is the common floor.
   if (Buffer.byteLength(fullPrompt, "utf8") > 110_000) {

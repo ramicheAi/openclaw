@@ -14,6 +14,7 @@ import { clearLastLLMError, isLLMReady } from "./llm.js";
 import Anthropic from "@anthropic-ai/sdk";
 import { randomUUID } from "node:crypto";
 import { callClaudeCode, isClaudeCodeProvider } from "./claude-code.js";
+import { sanitizePromptText as sanitizeBody, extractJsonObject } from "./text-utils.js";
 
 interface AnalyzeOutput {
   entities: Array<{
@@ -66,16 +67,6 @@ Schema:
   "gaps": [{ "severity": "high|medium|low", "text": "string" }],
   "hot": ["BATES-IDS"]
 }`;
-
-// Strip ASCII control bytes (except \t \n \r) that leak in from PDF text
-// extraction. NUL bytes in particular crash the Claude Code CLI bridge
-// (spawn() rejects them) and confuse the Anthropic API tokenizer.
-function sanitizeBody(body: string): string {
-  return body
-    .replace(/\r\n?/g, "\n")
-    // eslint-disable-next-line no-control-regex
-    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
-}
 
 function buildPrompt(matterName: string, docs: { bates: string; title: string; type: string; date: string; author: string; body: string }[]): string {
   const corpus = docs
@@ -162,14 +153,9 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
 
   // Extract JSON from the response — Claude sometimes wraps with prose
   // despite the instructions. Find the outermost { ... } and parse that.
-  const m = raw.match(/\{[\s\S]*\}/);
-  if (!m) return { ok: false, error: "model_did_not_return_json" };
-  let parsed: AnalyzeOutput;
-  try {
-    parsed = JSON.parse(m[0]) as AnalyzeOutput;
-  } catch (err) {
-    return { ok: false, error: `parse_failed: ${err instanceof Error ? err.message : String(err)}` };
-  }
+  const ex = extractJsonObject<AnalyzeOutput>(raw);
+  if (!ex.ok) return { ok: false, error: ex.error };
+  const parsed: AnalyzeOutput = ex.value;
 
   // Bates whitelist — every event must cite a real Bates in this corpus.
   const validBates = new Set(docs.map((d) => d.bates));
