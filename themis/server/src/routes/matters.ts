@@ -22,6 +22,7 @@ import { getCurrentModel, getLastLLMError, isLLMReady, probeLLM } from "../llm.j
 import { defaultBatesPrefix, proposeMetadata } from "../metadata.js";
 import { analyzeMatter } from "../analyze.js";
 import { checkAuditFile } from "../audit-file.js";
+import { validateEta9089 } from "../eta9089.js";
 import { buildDepositionOutline } from "../deposition.js";
 import { listSpokenLines } from "../speakers.js";
 import { isClaudeCodeProvider, probeClaudeCode } from "../claude-code.js";
@@ -462,6 +463,26 @@ export function registerMatterRoutes(app: Hono, db: DB) {
       const message = err instanceof Error ? err.message : String(err);
       console.error("[audit-file] route error:", message, err instanceof Error ? err.stack : "");
       return c.json({ error: "audit_file_route_failed", message }, 500);
+    }
+  });
+
+  // PERM ETA-9089 consistency — cross-check the job title / requirements /
+  // worksite / wage across the 9089, the PWD, and the recruitment ads, and
+  // flag every disagreement (the #1 audit-denial cause), each value cite-linked.
+  // POST: runs an LLM pass over the corpus.
+  app.post("/api/matters/:id/eta-9089-check", async (c) => {
+    const id = c.req.param("id");
+    if (!matterExists(db, id)) return c.json({ error: "matter_not_found" }, 404);
+    try {
+      const result = await validateEta9089(db, id);
+      if (!result.ok) return c.json({ error: "eta_9089_failed", message: result.error }, 502);
+      const r = result.report;
+      audit(db, id, actor(c), "matter.eta_9089_check", `${r.total} finding(s) · ${r.high} high · clean:${r.clean}`);
+      return c.json(r);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("[eta-9089] route error:", message, err instanceof Error ? err.stack : "");
+      return c.json({ error: "eta_9089_route_failed", message }, 500);
     }
   });
 
