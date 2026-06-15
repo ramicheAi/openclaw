@@ -10,10 +10,9 @@
 
 import type { DB } from "./db.js";
 import { getMatter, listDocuments } from "./repo.js";
-import { clearLastLLMError, isLLMReady } from "./llm.js";
-import Anthropic from "@anthropic-ai/sdk";
+import { clearLastLLMError, isLLMReady, llmComplete, getLastLLMError, friendlyLLMError } from "./llm.js";
 import { randomUUID } from "node:crypto";
-import { callClaudeCode, isClaudeCodeProvider } from "./claude-code.js";
+import { isClaudeCodeProvider } from "./claude-code.js";
 import { sanitizePromptText as sanitizeBody, extractJsonObject } from "./text-utils.js";
 
 interface AnalyzeOutput {
@@ -111,44 +110,13 @@ export async function analyzeMatter(db: DB, matterId: string): Promise<{
   if (docs.length === 0) return { ok: false, error: "no documents" };
 
   const userPrompt = buildPrompt(matter.name, docs);
-  let raw: string;
-  try {
-    if (useCLI) {
-      const r = await callClaudeCode(SYSTEM, userPrompt);
-      raw = r.text;
-    } else {
-      const key = process.env.ANTHROPIC_API_KEY!;
-      const client = new Anthropic({ apiKey: key });
-      const model = process.env.THEMIS_LLM_MODEL ?? "claude-sonnet-4-5";
-      const msg = await client.messages.create({
-        model,
-        max_tokens: 4096,
-        system: SYSTEM,
-        messages: [{ role: "user", content: userPrompt }],
-      });
-      raw = msg.content
-        .filter((b) => b.type === "text")
-        .map((b) => (b as { text: string }).text)
-        .join("")
-        .trim();
-    }
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    // Friendlier explanation for the most common failure modes — the user
-    // shouldn't have to parse 400 JSON blobs to know what to do.
-    if (/credit balance is too low/i.test(msg)) {
-      return {
-        ok: false,
-        error: "Anthropic credit balance is too low. Top up at https://console.anthropic.com/settings/billing then click Analyze again. (No data was sent for this attempt; the API rejected the call.)",
-      };
-    }
-    if (/rate.?limit/i.test(msg)) {
-      return { ok: false, error: "Anthropic rate-limited this request. Wait 30 seconds and click Analyze again." };
-    }
-    if (/invalid x-api-key|authentication/i.test(msg)) {
-      return { ok: false, error: "ANTHROPIC_API_KEY is invalid or revoked. Replace it in ~/.themis-env and restart the server." };
-    }
-    return { ok: false, error: msg };
+  // One provider-switched call (CLI vs Anthropic SDK) lives in llmComplete; on
+  // failure it returns null and stashes the raw error in getLastLLMError(),
+  // which friendlyLLMError() maps to an actionable message for the operator.
+  const raw = await llmComplete(SYSTEM, userPrompt, 4096);
+  if (raw === null) {
+    const le = getLastLLMError();
+    return { ok: false, error: le ? friendlyLLMError(le) : "LLM call failed (no provider ready)." };
   }
 
   // Extract JSON from the response — Claude sometimes wraps with prose

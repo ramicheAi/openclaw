@@ -83,6 +83,24 @@ export async function llmComplete(
   }
 }
 
+// Map a raw provider error string into a friendly, actionable message for the
+// operator. Falls back to the raw message for anything unrecognized. Centralizes
+// the guidance that used to live inline in analyzeMatter so every LLM feature
+// (analyze, deposition, deadlines, audit-file, eta-9089) can surface it the same
+// way via getLastLLMError().
+export function friendlyLLMError(raw: string): string {
+  if (/credit balance is too low/i.test(raw)) {
+    return "Anthropic credit balance is too low. Top up at https://console.anthropic.com/settings/billing then try again. (No data was sent for this attempt; the API rejected the call.)";
+  }
+  if (/rate.?limit/i.test(raw)) {
+    return "Anthropic rate-limited this request. Wait 30 seconds and try again.";
+  }
+  if (/invalid x-api-key|authentication/i.test(raw)) {
+    return "ANTHROPIC_API_KEY is invalid or revoked. Replace it in ~/.themis-env and restart the server.";
+  }
+  return raw;
+}
+
 // ---------------------------------------------------------------------------
 // Synthesis — generate a grounded answer from retrieved sources. Caller
 // supplies the question + a structured source list. We constrain the model
