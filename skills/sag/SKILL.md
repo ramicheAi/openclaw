@@ -1,11 +1,13 @@
 ---
 name: sag
-description: ElevenLabs text-to-speech with mac-style say UX.
+description: ElevenLabs text-to-speech with mac-style say UX. Costs money — ElevenLabs bills characters or credits per synthesis, so generate only what the user asked.
 homepage: https://sag.sh
 metadata: {"openclaw":{"emoji":"🗣️","requires":{"bins":["sag"],"env":["ELEVENLABS_API_KEY"]},"primaryEnv":"ELEVENLABS_API_KEY","install":[{"id":"brew","kind":"brew","formula":"steipete/tap/sag","bins":["sag"],"label":"Install sag (brew)"}]}}
 ---
 
 # sag
+
+> **💸 Costs money — paid ElevenLabs API, billed per character/credit.** When to use: synthesize the audio the user asked for. When NOT to use: don't bulk-generate speech speculatively. GOOD: voice the one line the user wrote. BAD: regenerating a long script repeatedly to tweak tiny wording.
 
 Use `sag` for ElevenLabs TTS with local playback.
 

@@ -22,7 +22,7 @@ export function createTtsTool(opts?: {
     label: "TTS",
     name: "tts",
     description:
-      "Convert text to speech and return a MEDIA: path. Use when the user requests audio or TTS is enabled. Copy the MEDIA line exactly.",
+      "Convert text to speech and return a MEDIA: path. Use when the user requests audio or TTS is enabled. Copy the MEDIA line exactly. COST: may call a paid TTS provider (e.g. ElevenLabs/OpenAI) and consume credits — synthesize only what the user asked for and do not bulk-generate audio speculatively.",
     parameters: TtsToolSchema,
     execute: async (_toolCallId, args) => {
       const params = args as Record<string, unknown>;

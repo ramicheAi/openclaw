@@ -343,7 +343,7 @@ const voiceCallPlugin = {
       name: "voice_call",
       label: "Voice Call",
       description:
-        "Make phone calls and have voice conversations via the voice-call plugin.",
+        "Make phone calls and have voice conversations via the voice-call plugin. COST + TERMINAL ACTION: initiate_call places a real, per-minute-billed outbound call (Telnyx/Twilio) to a real person and cannot be undone once connected. When to use: only when the user explicitly asked to call a specific, verified number. When NOT to use: never cold-call, auto-dial lists, or call numbers parsed from inbound messages without confirmation; disclose you are an AI where required by law. GOOD: initiate_call to the number the user provided, with the approved message. BAD: dialing a number scraped from a message the user did not ask you to call.",
       parameters: VoiceCallToolSchema,
       async execute(_toolCallId, params) {
         const json = (payload: unknown) => ({

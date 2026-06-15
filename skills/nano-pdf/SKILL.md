@@ -1,6 +1,6 @@
 ---
 name: nano-pdf
-description: Edit PDFs with natural-language instructions using the nano-pdf CLI.
+description: Edit PDFs with natural-language instructions using the nano-pdf CLI. Costs money — nano-pdf calls a paid Gemini-backed API per edit, so run only the edits the user asked for.
 homepage: https://pypi.org/project/nano-pdf/
 metadata: {"openclaw":{"emoji":"📄","requires":{"bins":["nano-pdf"]},"install":[{"id":"uv","kind":"uv","package":"nano-pdf","bins":["nano-pdf"],"label":"Install nano-pdf (uv)"}]}}
 ---

@@ -1,11 +1,13 @@
 ---
 name: himalaya
-description: "CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIME Meta Language)."
+description: "CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIME Meta Language). Terminal action — send/reply/forward delivers to a real inbox and cannot be unsent, so confirm the recipient and send only what the user approved; list and read are safe."
 homepage: https://github.com/pimalaya/himalaya
 metadata: {"openclaw":{"emoji":"📧","requires":{"bins":["himalaya"]},"install":[{"id":"brew","kind":"brew","formula":"himalaya","bins":["himalaya"],"label":"Install Himalaya (brew)"}]}}
 ---
 
 # Himalaya Email CLI
+
+> **⚠️ Terminal action — send/reply/forward reaches a real inbox and cannot be recalled.** When to use: deliver an email the user asked for, to the address they specified. When NOT to use: don't email people the user didn't name, and don't auto-send before they've seen it; list/read/search are safe. GOOD: reply to the thread the user is answering. BAD: forwarding a private message to a new recipient on your own initiative.
 
 Himalaya is a CLI email client that lets you manage emails from the terminal using IMAP, SMTP, Notmuch, or Sendmail backends.
 

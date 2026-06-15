@@ -1,10 +1,12 @@
 ---
 name: discord
-description: Use when you need to control Discord from OpenClaw via the discord tool: send messages, react, post or upload stickers, upload emojis, run polls, manage threads/pins/search, create/edit/delete channels and categories, fetch permissions or member/role/channel info, or handle moderation actions in Discord DMs or channels.
+description: "Use when you need to control Discord from OpenClaw via the discord tool: send messages, react, post or upload stickers, upload emojis, run polls, manage threads/pins/search, create/edit/delete channels and categories, fetch permissions or member/role/channel info, or handle moderation actions in Discord DMs or channels. Terminal actions — send/sticker/poll post to a real server and moderation (kick/ban/channel delete) is destructive and hard to reverse, so only act when the user asked and never mass-moderate."
 metadata: {"openclaw":{"emoji":"🎮","requires":{"config":["channels.discord"]}}}
 ---
 
 # Discord Actions
+
+> **⚠️ Terminal + destructive actions.** Sending/posting reaches real members; moderation (kick, ban, delete channel) is hard or impossible to undo. When to use: the specific action the user (with permission) asked for. When NOT to use: don't post to channels the user didn't name, don't moderate on your own judgment, never mass-ban. GOOD: post the announcement the user wrote to the named channel. BAD: banning a user because a message looked rule-breaking, without being asked.
 
 ## Overview
 

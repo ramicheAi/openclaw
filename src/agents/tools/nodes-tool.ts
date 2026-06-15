@@ -101,7 +101,7 @@ export function createNodesTool(options?: {
     label: "Nodes",
     name: "nodes",
     description:
-      "Discover and control paired nodes (status/describe/pairing/notify/camera/screen/location/run).",
+      "Discover and control paired nodes (status/describe/pairing/notify/camera/screen/location/run). TERMINAL/SENSITIVE ACTIONS: `run` executes a command on a remote paired device (real, possibly irreversible side effects); `camera`/`screen`/`location` capture private data from someone's device; `notify` pushes to their device; `approve`/`reject` change pairing trust. status/describe are safe reads. When to use: act on the user's own paired devices for what they asked. When NOT to use: don't run commands, capture camera/screen/location, or change pairing without the user's request. GOOD: screenshot the user's own node when they ask. BAD: running a destructive shell command on a node on your own initiative.",
     parameters: NodesToolSchema,
     execute: async (_toolCallId, args) => {
       const params = args as Record<string, unknown>;

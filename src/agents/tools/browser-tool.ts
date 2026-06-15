@@ -226,6 +226,7 @@ export function createBrowserTool(opts?: {
     name: "browser",
     description: [
       "Control the browser via OpenClaw's browser control server (status/start/stop/profiles/tabs/open/snapshot/screenshot/actions).",
+      "TERMINAL ACTION: act/click/type can take real, irreversible actions on live sites — submitting forms, posting content, sending messages, making purchases, or changing account settings. status/snapshot/screenshot/read are safe; treat anything that writes, buys, posts, or sends as terminal and only do it when the user asked for that specific action. Never complete a payment or place an order without explicit user confirmation.",
       'Profiles: use profile="chrome" for Chrome extension relay takeover (your existing Chrome tabs). Use profile="openclaw" for the isolated openclaw-managed browser.',
       'If the user mentions the Chrome extension / Browser Relay / toolbar button / “attach tab”, ALWAYS use profile="chrome" (do not ask which profile).',
       'When a node-hosted browser proxy is available, the tool may auto-route to it. Pin a node with node=<id|name> or target="node".',

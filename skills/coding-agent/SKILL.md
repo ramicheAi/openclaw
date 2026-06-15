@@ -1,10 +1,12 @@
 ---
 name: coding-agent
-description: Run Codex CLI, Claude Code, OpenCode, or Pi Coding Agent via background process for programmatic control.
+description: Run Codex CLI, Claude Code, OpenCode, or Pi Coding Agent via background process for programmatic control. Spawns an autonomous agent that can edit files, run shell commands, and spend paid model API credits — scope it to the task the user asked for and review what it changes.
 metadata: {"openclaw":{"emoji":"🧩","requires":{"anyBins":["claude","codex","opencode","pi"]}}}
 ---
 
 # Coding Agent (bash-first)
+
+> **⚠️ + 💸 Spawns an autonomous agent — real changes + paid credits.** A coding agent can edit files, run shell commands, and commit, and it bills against the model provider (Codex/Claude/etc.). When to use: hand off the coding task the user asked for, in the right repo/dir. When NOT to use: don't launch open-ended/looping agents unsupervised or point them at unintended paths; review their changes before relying on them. GOOD: run an agent to implement the change the user described, then review its diff. BAD: spawning agents in a loop to "keep trying" without checking output or cost.
 
 Use **bash** (with optional background mode) for all coding agent work. Simple and effective.
 

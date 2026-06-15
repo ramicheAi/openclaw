@@ -135,6 +135,8 @@ export function createCronTool(opts?: CronToolOptions): AnyAgentTool {
     name: "cron",
     description: `Manage Gateway cron jobs (status/list/add/update/remove/run/runs) and send wake events.
 
+GUARDRAIL: a job with payload.kind="agentTurn" and deliver:true runs UNATTENDED on a schedule and auto-sends its output to a real channel/recipient with no human in the loop — creating one is effectively scheduling a recurring terminal send, and "remove" permanently deletes a job. When to use: automate a delivering job only when the user explicitly asked for it, with a known channel + target. When NOT to use: do not schedule auto-delivering jobs the user did not request. GOOD: a daily isolated summary the user asked to receive. BAD: a frequent agentTurn that messages a contact without the user's OK — prefer deliver:false to draft until confirmed.
+
 ACTIONS:
 - status: Check cron scheduler status
 - list: List jobs (use includeDisabled:true to include disabled)

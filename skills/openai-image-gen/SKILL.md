@@ -1,11 +1,13 @@
 ---
 name: openai-image-gen
-description: Batch-generate images via OpenAI Images API. Random prompt sampler + `index.html` gallery.
+description: Batch-generate images via OpenAI Images API. Random prompt sampler + `index.html` gallery. Costs money — batch generation calls the paid OpenAI Images API once per image and adds up fast, so confirm the batch size before running.
 homepage: https://platform.openai.com/docs/api-reference/images
 metadata: {"openclaw":{"emoji":"🖼️","requires":{"bins":["python3"],"env":["OPENAI_API_KEY"]},"primaryEnv":"OPENAI_API_KEY","install":[{"id":"python-brew","kind":"brew","formula":"python","bins":["python3"],"label":"Install Python (brew)"}]}}
 ---
 
 # OpenAI Image Gen
+
+> **💸 Costs money — paid OpenAI Images API, billed per image.** Batches multiply cost fast. When to use: generate the count the user approved. When NOT to use: don't kick off large/looping batches without explicit sign-off. GOOD: generate the 10 images the user asked for. BAD: running the sampler for hundreds of images unprompted.
 
 Generate a handful of “random but structured” prompts and render them via the OpenAI Images API.
 

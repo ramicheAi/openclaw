@@ -1,10 +1,12 @@
 ---
 name: clawhub
-description: Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.
+description: Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI. Publish is a terminal action — it pushes a skill publicly to clawhub.com for others to install, so publish only skills the user asked to release; search/install/update are safe.
 metadata: {"openclaw":{"requires":{"bins":["clawhub"]},"install":[{"id":"node","kind":"node","package":"clawhub","bins":["clawhub"],"label":"Install ClawHub CLI (npm)"}]}}
 ---
 
 # ClawHub CLI
+
+> **🚀 Publish is terminal and public.** `clawhub publish` pushes a skill to clawhub.com where anyone can install it; you can't fully un-ship a published version. When to use: release a skill the user explicitly asked to publish. When NOT to use: don't publish drafts, secrets, or work the user hasn't approved; search/install/update are safe. GOOD: publish the reviewed skill folder the user finalized. BAD: publishing a half-finished skill to "test" the flow.
 
 Install
 ```bash

@@ -1,11 +1,13 @@
 ---
 name: nano-banana-pro
-description: Generate or edit images via Gemini 3 Pro Image (Nano Banana Pro).
+description: Generate or edit images via Gemini 3 Pro Image (Nano Banana Pro). Costs money — each generate or edit calls the paid Gemini image API and consumes credits, so render only what the user asked and confirm before large batches.
 homepage: https://ai.google.dev/
 metadata: {"openclaw":{"emoji":"🍌","requires":{"bins":["uv"],"env":["GEMINI_API_KEY"]},"primaryEnv":"GEMINI_API_KEY","install":[{"id":"uv-brew","kind":"brew","formula":"uv","bins":["uv"],"label":"Install uv (brew)"}]}}
 ---
 
 # Nano Banana Pro (Gemini 3 Pro Image)
+
+> **💸 Costs money — paid Gemini image API per image.** When to use: generate/edit the images the user asked for. When NOT to use: don't speculatively mass-generate; confirm before large batches. GOOD: render the 3 variations the user requested. BAD: looping to produce 100 images "to explore options" without asking.
 
 Use the bundled script to generate or edit images.
 

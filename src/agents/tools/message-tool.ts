@@ -292,7 +292,8 @@ function buildMessageToolDescription(options?: {
   currentChannel?: string;
   currentChannelId?: string;
 }): string {
-  const baseDescription = "Send, delete, and manage messages via channel plugins.";
+  const baseDescription =
+    "Send, delete, and manage messages via channel plugins. TERMINAL ACTION: `send` delivers to a real recipient on a live channel and cannot be unsent; `delete` permanently removes a message. When to use: to deliver a final, complete message to the target the user specified. When NOT to use: do not send drafts or partial/streaming text, do not message recipients the user did not name, and never mass-broadcast. GOOD: action=send to the named target with the finished reply. BAD: blasting the same text to every chat, or sending half-composed content.";
 
   // If we have a current channel, show only its supported actions
   if (options?.currentChannel) {

@@ -1,11 +1,13 @@
 ---
 name: wacli
-description: Send WhatsApp messages to other people or search/sync WhatsApp history via the wacli CLI (not for normal user chats).
+description: Send WhatsApp messages to other people or search/sync WhatsApp history via the wacli CLI (not for normal user chats). Terminal action — a sent WhatsApp message reaches a real person and cannot be unsent, so confirm the recipient and content first; search and sync are safe.
 homepage: https://wacli.sh
 metadata: {"openclaw":{"emoji":"📱","requires":{"bins":["wacli"]},"install":[{"id":"brew","kind":"brew","formula":"steipete/tap/wacli","bins":["wacli"],"label":"Install wacli (brew)"},{"id":"go","kind":"go","module":"github.com/steipete/wacli/cmd/wacli@latest","bins":["wacli"],"label":"Install wacli (go)"}]}}
 ---
 
 # wacli
+
+> **⚠️ Terminal action — a WhatsApp send reaches a real person and cannot be unsent.** When to use: deliver a message the user explicitly asked to send to a specific contact. When NOT to use: not for the user's own assistant chat, not for unconfirmed recipients, never bulk-send. GOOD: send the reminder the user dictated to the named contact. BAD: messaging a number you parsed without confirmation.
 
 Use `wacli` only when the user explicitly asks you to message someone else on WhatsApp or when they ask to sync/search WhatsApp history.
 Do NOT use `wacli` for normal user chats; OpenClaw routes WhatsApp conversations automatically.
