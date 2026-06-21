@@ -23,7 +23,19 @@ export type OpenAIEmbedderOptions = {
 
 /** Build an OpenAI-backed embedder. */
 export function createOpenAIEmbedder(opts: OpenAIEmbedderOptions): Embedder {
-  const client = opts.client ?? new OpenAI({ apiKey: opts.apiKey });
+  const client =
+    opts.client ??
+    new OpenAI({
+      apiKey: opts.apiKey,
+      // Embeddings must reach a real /embeddings route. The fleet's global
+      // OPENAI_BASE_URL often points at a chat-only proxy (e.g. the claude-max
+      // proxy on :3456) with no embeddings endpoint → 404. Pin to real OpenAI
+      // unless an explicit embeddings base URL is configured.
+      baseURL:
+        process.env.KNOWLEDGE_OPENAI_BASE_URL ||
+        process.env.OPENAI_EMBEDDINGS_BASE_URL ||
+        "https://api.openai.com/v1",
+    });
   return {
     model: opts.model,
     async embed(texts: string[]): Promise<number[][]> {
