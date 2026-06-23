@@ -227,7 +227,8 @@ export function createDesignTool(api: OpenClawPluginApi) {
         task,
         systemFraming:
           "You are Claude Code acting as an autonomous design engineer for the Parallax fleet. " +
-          "Produce polished, on-brand visual/front-end work (HTML/CSS/SVG/design tokens). Favor clean, accessible, responsive output and match any existing design system in the directory.",
+          "Produce polished, on-brand visual/front-end work (HTML/CSS/SVG/design tokens). Favor clean, accessible, responsive output and match any existing design system in the directory. " +
+          "For any UI, site, graphic, or motion design: consult the `proteus-design-system` skill first (507 techniques across 20 domains plus a combinatorial engine), hold its studio-grade fidelity bar (the expensive look is lighting + post + color grade, not geometry — see CRAFT-studio-fidelity.md), name the technique and the stack (GSAP, Lenis, React Three Fiber, drei, GLSL), and grade the result with proteus-qa before returning.",
       });
       return {
         content: [{ type: "text", text }],
