@@ -22,10 +22,18 @@ const HOOK_KEY = "session-handoff-boot";
 const HANDOFF_HEADING_RE = /^## HANDOFF —/m;
 
 export function extractLatestHandoffBlock(dailyLog: string): string | null {
+  // Accept both `## HANDOFF — <timestamp>` (current compaction-handoff format)
+  // and bare `## HANDOFF` (manual / older format) so handoff blocks written
+  // by either path are picked up.
   const lines = dailyLog.split("\n");
   let lastStart = -1;
   for (let i = lines.length - 1; i >= 0; i--) {
-    if (lines[i]!.startsWith("## HANDOFF —")) {
+    const line = lines[i]!;
+    if (
+      line.startsWith("## HANDOFF —") ||
+      line === "## HANDOFF" ||
+      line.startsWith("## HANDOFF ")
+    ) {
       lastStart = i;
       break;
     }
