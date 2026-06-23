@@ -3,8 +3,8 @@ import { Type } from "@sinclair/typebox";
 
 import { enqueueSystemEvent } from "../../infra/system-events.js";
 import { requestHeartbeatNow } from "../../infra/heartbeat-wake.js";
-import { logInfo, logWarn } from "../../logger.js";
-import { getSession, listRunningSessions, listFinishedSessions } from "../bash-process-registry.js";
+import { logInfo } from "../../logger.js";
+import { getSession, listFinishedSessions } from "../bash-process-registry.js";
 
 // ---------------------------------------------------------------------------
 // Subscription registry (in-memory, ephemeral per gateway lifecycle)
@@ -225,7 +225,7 @@ export function createSubscribeTool(opts?: {
 
         default:
           return subscribeTextResult(
-            `Unknown action: ${params.action}. Use subscribe, list, check, or unsubscribe.`,
+            `Unknown action: ${params.action as string}. Use subscribe, list, check, or unsubscribe.`,
           );
       }
     },

@@ -148,8 +148,8 @@ export default function compactionHandoffExtension(api: ExtensionAPI): void {
       const prep = (event as unknown as Record<string, Record<string, unknown>>)?.preparation;
       const summarize = (prep?.messagesToSummarize as AgentMessage[] | undefined) ?? [];
       const turnPrefix = (prep?.turnPrefixMessages as AgentMessage[] | undefined) ?? [];
-      const tokensBefore = prep?.tokensBefore;
-      const isSplitTurn = prep?.isSplitTurn;
+      const tokensBefore = prep?.tokensBefore as number | undefined;
+      const isSplitTurn = prep?.isSplitTurn as boolean | undefined;
 
       // branchEntries shape: array of {entry, message?, ...}; unwrap to messages
       const branchEntriesRaw = (event as unknown as Record<string, unknown>)?.branchEntries;
@@ -163,7 +163,7 @@ export default function compactionHandoffExtension(api: ExtensionAPI): void {
         }
       }
       debugLog(
-        `tokensBefore=${tokensBefore} isSplitTurn=${isSplitTurn} ` +
+        `tokensBefore=${String(tokensBefore)} isSplitTurn=${String(isSplitTurn)} ` +
           `summarize=${summarize.length} turnPrefix=${turnPrefix.length} ` +
           `branchEntries=${branchEntries.length} (unwrapped=${fromBranch.length})`,
       );

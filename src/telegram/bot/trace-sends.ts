@@ -18,7 +18,25 @@ const isEnabled = (): boolean => {
 /** Preview a string for the log line (single-line, bounded). */
 function preview(text: unknown, max = 80): string {
   if (text == null) return "";
-  const s = typeof text === "string" ? text : String(text);
+  let s: string;
+  if (typeof text === "string") {
+    s = text;
+  } else if (
+    typeof text === "number" ||
+    typeof text === "boolean" ||
+    typeof text === "bigint" ||
+    typeof text === "symbol"
+  ) {
+    s = String(text);
+  } else if (typeof text === "object") {
+    try {
+      s = JSON.stringify(text);
+    } catch {
+      s = "[unserializable]";
+    }
+  } else {
+    s = "[function]";
+  }
   const flat = s.replace(/\s+/g, " ").trim();
   if (flat.length <= max) return flat;
   return `${flat.slice(0, max)}…`;

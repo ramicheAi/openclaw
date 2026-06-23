@@ -113,7 +113,9 @@ export function isRetryableError(err: unknown): boolean {
   }
   const name = String(any.name ?? "").toLowerCase();
   if (name === "timeouterror" || name === "aborterror") return true;
-  const msg = String(any.message ?? err).toLowerCase();
+  const rawMsg =
+    any.message ?? (err instanceof Error ? err.message : typeof err === "string" ? err : "");
+  const msg = rawMsg.toLowerCase();
   if (msg.includes("timeout") || msg.includes("network") || msg.includes("socket")) return true;
   return false;
 }
