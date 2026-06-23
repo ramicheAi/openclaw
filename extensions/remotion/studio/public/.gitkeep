@@ -1,0 +1,2 @@
+# Drop background videos/images here. Reference them in CaptionedClip props by
+# filename (e.g. "clip.mp4") — they resolve via Remotion's staticFile().

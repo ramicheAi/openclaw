@@ -216,6 +216,11 @@
   - changed-files:
       - any-glob-to-any-file:
           - "extensions/open-prose/**"
+"extensions: remotion":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "extensions/remotion/**"
+          - "skills/remotion/**"
 "extensions: qwen-portal-auth":
   - changed-files:
       - any-glob-to-any-file:

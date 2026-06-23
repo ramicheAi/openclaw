@@ -1,0 +1,18 @@
+node_modules/
+out/
+.remotion/
+*.log
+package-lock.json
+
+# Heavy brand media — kept local / in Dropbox, not versioned (SCOWW pattern).
+# Re-sync these from the asset store; the studio compositions expect them in public/.
+public/*.png
+public/*.jpg
+public/*.jpeg
+public/*.gif
+public/*.webp
+public/*.mp4
+public/*.mov
+public/*.mp3
+public/*.wav
+!public/.gitkeep

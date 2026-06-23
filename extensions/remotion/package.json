@@ -1,0 +1,11 @@
+{
+  "name": "@openclaw/remotion",
+  "version": "2026.1.29",
+  "type": "module",
+  "description": "OpenClaw Remotion plugin: render branded videos locally from the bundled Remotion studio (props-driven MP4 generation).",
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

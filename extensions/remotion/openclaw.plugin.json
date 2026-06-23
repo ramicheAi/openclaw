@@ -1,0 +1,23 @@
+{
+  "id": "remotion",
+  "name": "Remotion",
+  "description": "Render branded videos locally from Remotion compositions (props-driven MP4 generation).",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "studioDir": {
+        "type": "string",
+        "description": "Path to the Remotion studio project. Defaults to the bundled extensions/remotion/studio (or $REMOTION_STUDIO_DIR)."
+      },
+      "outputDir": {
+        "type": "string",
+        "description": "Directory for rendered videos. Defaults to <studioDir>/out."
+      },
+      "timeoutMs": {
+        "type": "number",
+        "description": "Render timeout in milliseconds (default 600000)."
+      }
+    }
+  }
+}

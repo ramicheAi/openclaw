@@ -1,0 +1,21 @@
+[
+  {
+    "composition": "TitleCard",
+    "out": "drop01-intro.mp4",
+    "props": { "title": "GALACTIK ANTICS", "subtitle": "Drop 01 - open the box" }
+  },
+  {
+    "composition": "QuoteReel",
+    "props": { "quote": "Get loud or stay invisible.", "author": "Parallax" }
+  },
+  {
+    "composition": "CaptionedClip",
+    "out": "drop01-hook.mp4",
+    "props": {
+      "captions": [
+        { "text": "Most drops die in silence.", "from": 0, "to": 45 },
+        { "text": "Not this one.", "from": 45, "to": 120 }
+      ]
+    }
+  }
+]
