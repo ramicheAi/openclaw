@@ -424,6 +424,27 @@ export async function runReplyAgent(params: {
       cliSessionId,
     });
 
+    // Guard: detect silent model failures (zero tokens + empty payload = model didn't run).
+    // This prevents the May 25 outage pattern where a misconfigured/unavailable model
+    // returns empty responses and the user never gets a reply.
+    const outputTokens = usage?.output ?? 0;
+    const inputTokens = usage?.input ?? 0;
+    if (payloadArray.length === 0 && outputTokens === 0 && inputTokens === 0) {
+      logVerbose(
+        `atlas-trace runReplyAgent.finalize reason=zero-token-empty-response ` +
+          `sessionKey=${sessionKey ?? "?"} model=${modelUsed} provider=${providerUsed}`,
+      );
+      // Inject a fallback error payload so the user knows something went wrong
+      // instead of getting complete silence.
+      payloadArray.push({
+        text:
+          `[Agent turn produced no output — the model (${modelUsed}) returned zero tokens. ` +
+          `This usually means the model is unavailable or misconfigured. ` +
+          `Try sending your message again or contact the operator.]`,
+        isError: true,
+      });
+    }
+
     // Drain any late tool/block deliveries before deciding there's "nothing to send".
     // Otherwise, a late typing trigger (e.g. from a tool callback) can outlive the run and
     // keep the typing indicator stuck.

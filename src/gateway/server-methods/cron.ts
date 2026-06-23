@@ -16,6 +16,22 @@ import {
 } from "../protocol/index.js";
 import type { GatewayRequestHandlers } from "./types.js";
 
+// cron.list bursts (heartbeat checks, agent boot, multi-client reconnects) all
+// serialize on a single mutex in the cron service, producing tail latencies of
+// minutes when 50-100 calls arrive in the same second. A short-lived in-memory
+// cache absorbs these bursts: the first caller pays the lock cost, the rest
+// get served instantly. Mutations (add/update/remove/run) bust the cache so
+// stale results never outlive a change for more than a tick.
+type CronListCacheEntry = { key: string; expiresAt: number; jobs: unknown };
+let cronListCache: CronListCacheEntry | null = null;
+const CRON_LIST_CACHE_TTL_MS = 5_000;
+function cronListCacheKey(params: { includeDisabled?: boolean }): string {
+  return params.includeDisabled === true ? "withDisabled" : "default";
+}
+function bustCronListCache(): void {
+  cronListCache = null;
+}
+
 export const cronHandlers: GatewayRequestHandlers = {
   wake: ({ params, respond, context }) => {
     if (!validateWakeParams(params)) {
@@ -49,9 +65,16 @@ export const cronHandlers: GatewayRequestHandlers = {
       return;
     }
     const p = params as { includeDisabled?: boolean };
+    const key = cronListCacheKey(p);
+    const now = Date.now();
+    if (cronListCache && cronListCache.key === key && cronListCache.expiresAt > now) {
+      respond(true, { jobs: cronListCache.jobs }, undefined);
+      return;
+    }
     const jobs = await context.cron.list({
       includeDisabled: p.includeDisabled,
     });
+    cronListCache = { key, expiresAt: now + CRON_LIST_CACHE_TTL_MS, jobs };
     respond(true, { jobs }, undefined);
   },
   "cron.status": async ({ params, respond, context }) => {
@@ -83,6 +106,7 @@ export const cronHandlers: GatewayRequestHandlers = {
       return;
     }
     const job = await context.cron.add(normalized as unknown as CronJobCreate);
+    bustCronListCache();
     respond(true, job, undefined);
   },
   "cron.update": async ({ params, respond, context }) => {
@@ -117,6 +141,7 @@ export const cronHandlers: GatewayRequestHandlers = {
       return;
     }
     const job = await context.cron.update(jobId, p.patch as unknown as CronJobPatch);
+    bustCronListCache();
     respond(true, job, undefined);
   },
   "cron.remove": async ({ params, respond, context }) => {
@@ -142,6 +167,7 @@ export const cronHandlers: GatewayRequestHandlers = {
       return;
     }
     const result = await context.cron.remove(jobId);
+    bustCronListCache();
     respond(true, result, undefined);
   },
   "cron.run": async ({ params, respond, context }) => {
@@ -167,6 +193,7 @@ export const cronHandlers: GatewayRequestHandlers = {
       return;
     }
     const result = await context.cron.run(jobId, p.mode);
+    bustCronListCache();
     respond(true, result, undefined);
   },
   "cron.runs": async ({ params, respond, context }) => {

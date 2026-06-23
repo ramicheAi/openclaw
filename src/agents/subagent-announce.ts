@@ -345,7 +345,11 @@ function verifyDeliverableGate(reply: string | undefined, task?: string): string
 
   // Extract file paths from the reply (absolute paths common in subagent output)
   const pathMatches = reply.match(
-    /(?:\/[\w./-]+\.(?:html|json|md|png|jpg|svg|css|ts|tsx|js|jsx|pdf))/g,
+    // Match absolute paths ("/Users/...") OR relative paths under known
+    // project roots ("repos/...", "src/...", etc). Wide extension list keeps
+    // false negatives low; the verify script no-ops cleanly on paths that
+    // don't exist on disk.
+    /(?:(?:\/(?:Users|tmp|var)\/[\w./-]+)|(?:(?:repos|src|extensions|apps|public|workspace|memory|sessions|dist|scripts|skills|builds|docs|tests|tools|app|components|lib)\/[\w./-]+))\.(?:tsx|jsx|mdx|html|htm|jsonl|json|md|png|jpe?g|gif|webp|svg|css|scss|ts|js|mjs|cjs|pdf|yaml|yml|toml|sh|py|csv|xlsx?|zip|mp4|wav|mp3|txt|env|sql|rb|go|rs|swift)/gi,
   );
 
   // Also extract paths from the original task description (catches cases where

@@ -251,10 +251,16 @@ export class MemoryIndexManager {
 
   async warmSession(sessionKey?: string): Promise<void> {
     if (!this.settings.sync.onSessionStart) return;
+    if (this.closed) return;
     const key = sessionKey?.trim() || "";
     if (key && this.sessionWarm.has(key)) return;
     void this.sync({ reason: "session-start" }).catch((err) => {
-      log.warn(`memory sync failed (session-start): ${String(err)}`);
+      const msg = String(err);
+      // "database is not open" is a benign race on CLI exit — the parent op
+      // (search/status) finished and closed the DB before this fire-and-forget
+      // sync flushed. Nothing actionable; silence to avoid noisy CLI output.
+      if (/database is not open/i.test(msg)) return;
+      log.warn(`memory sync failed (session-start): ${msg}`);
     });
     if (key) this.sessionWarm.add(key);
   }
@@ -268,9 +274,12 @@ export class MemoryIndexManager {
     },
   ): Promise<MemorySearchResult[]> {
     void this.warmSession(opts?.sessionKey);
-    if (this.settings.sync.onSearch && (this.dirty || this.sessionsDirty)) {
+    if (this.settings.sync.onSearch && (this.dirty || this.sessionsDirty) && !this.closed) {
       void this.sync({ reason: "search" }).catch((err) => {
-        log.warn(`memory sync failed (search): ${String(err)}`);
+        const msg = String(err);
+        // Same benign-race silencing as warmSession (CLI exit / DB close).
+        if (/database is not open/i.test(msg)) return;
+        log.warn(`memory sync failed (search): ${msg}`);
       });
     }
     const cleaned = query.trim();
