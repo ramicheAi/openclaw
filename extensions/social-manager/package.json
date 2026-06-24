@@ -1,0 +1,11 @@
+{
+  "name": "@openclaw/social-manager",
+  "version": "2026.1.29",
+  "type": "module",
+  "description": "OpenClaw social media manager — platform-correct, brand-safe draft formatting and a human-gated publish-to-post queue on top of the conductor brain",
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

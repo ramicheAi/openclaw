@@ -1,0 +1,15 @@
+{
+  "id": "social-manager",
+  "name": "Social Manager",
+  "description": "Platform-correct, brand-safe social drafts + a human-gated publish-to-post queue. Agents draft; only a human approves; no agent-reachable send path.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "queuePath": {
+        "type": "string",
+        "description": "Override path for the draft queue JSON (default: ~/.openclaw/social/queue.json)."
+      }
+    }
+  }
+}
