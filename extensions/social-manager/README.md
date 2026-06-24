@@ -19,7 +19,8 @@ Sending is a COO hard gate, so the gate is enforced in code, not by convention.
   - The real platform-API call is intentionally **not implemented** — so even an approved
     draft can't leak out until that integration is added deliberately, behind this gate. 7 tests.
 
-**Tools:** `social_draft` (format + queue a draft), `social_queue` (list pending). There is
+**Tools:** `social_create` (generate from a brief), `social_fanout` (one brief to every
+platform), `social_draft` (queue a ready caption), `social_queue` (list pending). There is
 deliberately **no** `social_approve`/`social_send` tool — approval is human-only, out of band.
 
 ## Generation routed through the brain (`generate.ts` + `social_create`)
@@ -49,4 +50,4 @@ this same human gate. Until then there is no agent-reachable send path at all.
 ```
 
 Drafts persist to `~/.openclaw/social/queue.json` (override with `queuePath`). Allowlist the
-tools per agent: `"tools": { "allow": ["social_draft", "social_queue"] }`.
+tools per agent: `"tools": { "allow": ["social_create", "social_fanout", "social_draft", "social_queue"] }`.

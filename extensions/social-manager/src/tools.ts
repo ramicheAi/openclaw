@@ -8,6 +8,7 @@ import type { OpenClawPluginApi } from "../../../src/plugins/types.js";
 import { createModelCaller, loadEmbeddedRunner } from "../../conductor/src/model-caller.js";
 import { DEFAULT_ROSTER, guardOutbound } from "../../conductor/src/router.js";
 
+import { ALL_PLATFORMS, fanout } from "./fanout.js";
 import { type Awareness, generateCaption, type Generator } from "./generate.js";
 import { formatDraft, type Platform } from "./platform.js";
 import { enqueueDraft, filePostStore, listByStatus, type PostStore } from "./post-queue.js";
@@ -163,6 +164,69 @@ export function createSocialCreateTool(api: OpenClawPluginApi) {
       return {
         content: [{ type: "text" as const, text: `Queued draft ${postId} for ${post.platform} (status: draft, awaiting human approval).\n\n${post.caption}` }],
         details: { queued: true, id: postId, attempts: gen.attempts, warnings: draft.warnings },
+      };
+    },
+  };
+}
+
+// social_fanout — one brief, every surface. Generates a platform-correct caption for each
+// target platform and queues each as a gated DRAFT. Still cannot send.
+export function createSocialFanoutTool(api: OpenClawPluginApi) {
+  const generator = makeGenerator(api);
+  return {
+    name: "social_fanout",
+    label: "Social Fanout",
+    description:
+      "Take ONE brief and produce a platform-correct, brand-safe caption for EVERY target platform at once, " +
+      "each queued as a gated DRAFT. The 'one win reaches every surface' doctrine. NEVER posts — human-gated.",
+    parameters: Type.Object({
+      topic: Type.String({ description: "What the posts are about." }),
+      proof: Type.Optional(Type.String({ description: "Proof asset to lead with." })),
+      offer: Type.Optional(Type.String({ description: "CTA / offer to close on." })),
+      awareness: Type.Optional(Type.Unsafe<Awareness>({ type: "string", enum: AWARENESS_ENUM })),
+      platforms: Type.Optional(Type.Array(Type.Unsafe<Platform>({ type: "string", enum: PLATFORM_ENUM }), { description: "Targets (default: all)." })),
+      hashtags: Type.Optional(Type.Array(Type.String())),
+      mediaPath: Type.Optional(Type.String()),
+      mediaAspect: Type.Optional(Type.String()),
+      scheduledFor: Type.Optional(Type.String()),
+    }),
+    async execute(_id: string, params: Record<string, unknown>) {
+      const platforms = (Array.isArray(params.platforms) && params.platforms.length ? params.platforms : ALL_PLATFORMS) as Platform[];
+      const items = await fanout(
+        {
+          topic: String(params.topic ?? ""),
+          proof: params.proof ? String(params.proof) : undefined,
+          offer: params.offer ? String(params.offer) : undefined,
+          awareness: params.awareness as Awareness | undefined,
+          hashtags: Array.isArray(params.hashtags) ? (params.hashtags as string[]) : undefined,
+          mediaPath: params.mediaPath ? String(params.mediaPath) : undefined,
+          mediaAspect: params.mediaAspect ? String(params.mediaAspect) : undefined,
+        },
+        platforms,
+        generator,
+      );
+
+      const s = store(api);
+      const queued: string[] = [];
+      const skipped: string[] = [];
+      for (const item of items) {
+        if (!item.brandClean || !item.draft.valid) {
+          skipped.push(`${item.platform} (brand-rule, ${item.attempts} attempts)`);
+          continue;
+        }
+        const postId = `post-${Date.now()}-${item.platform}`;
+        await enqueueDraft(s, {
+          draft: item.draft,
+          id: postId,
+          createdAt: new Date().toISOString(),
+          mediaPath: params.mediaPath ? String(params.mediaPath) : undefined,
+          scheduledFor: params.scheduledFor ? String(params.scheduledFor) : undefined,
+        });
+        queued.push(`${item.platform}:${postId}`);
+      }
+      return {
+        content: [{ type: "text" as const, text: `Queued ${queued.length} gated draft(s): ${queued.join(", ")}${skipped.length ? `\nSkipped: ${skipped.join(", ")}` : ""}` }],
+        details: { queued, skipped },
       };
     },
   };
