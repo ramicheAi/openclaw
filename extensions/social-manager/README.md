@@ -43,6 +43,20 @@ The generation, gate, and correctness core is done. The one remaining increment 
 downstream **real platform poster**, which needs platform API credentials and lands behind
 this same human gate. Until then there is no agent-reachable send path at all.
 
+## Approving drafts (the human gate)
+
+Agents queue drafts; only a human opens the gate, from a terminal:
+
+```
+openclaw social list                  # drafts awaiting review
+openclaw social show <id>             # read one in full
+openclaw social approve <id> --by Ramon   # the ONLY way a post becomes sendable
+openclaw social reject <id> --note "off-brand"
+```
+
+`approve` is what sets `approvedBy`, which is what `canSend()` requires. It is deliberately
+a CLI command, not an agent tool, so an agent can never approve its own drafts.
+
 ## Config
 
 ```json
