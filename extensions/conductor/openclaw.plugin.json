@@ -1,0 +1,35 @@
+{
+  "id": "conductor",
+  "name": "Conductor",
+  "description": "Multi-model orchestration brain: data-egress trust guard + (roadmap) difficulty router, cross-lab panel/relay/trinity, live quality floor, evidence fact-check, learning loop.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "policy": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Data-egress trust policy override. Maps each sensitivity class to the vendors permitted to receive it.",
+        "properties": {
+          "allow": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "secret": { "type": "array", "items": { "type": "string" } },
+              "financial": { "type": "array", "items": { "type": "string" } },
+              "identity": { "type": "array", "items": { "type": "string" } },
+              "pii": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      },
+      "roster": {
+        "type": "string",
+        "enum": ["default", "diverse"],
+        "description": "Seat→model roster. 'default' = claude-max only (runs today); 'diverse' = Anthropic + local (lmstudio) + OpenAI for architecture diversity (requires those providers up)."
+      },
+      "maxTokens": { "type": "number" },
+      "timeoutMs": { "type": "number" }
+    }
+  }
+}

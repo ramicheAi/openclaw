@@ -1,0 +1,11 @@
+{
+  "name": "@openclaw/conductor",
+  "version": "2026.1.29",
+  "type": "module",
+  "description": "OpenClaw multi-model orchestration brain — data-egress trust guard, difficulty router, cross-lab panel/relay/trinity, live quality floor, evidence fact-check, and a learning loop",
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
