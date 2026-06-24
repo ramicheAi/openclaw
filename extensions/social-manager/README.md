@@ -22,17 +22,25 @@ Sending is a COO hard gate, so the gate is enforced in code, not by convention.
 **Tools:** `social_draft` (format + queue a draft), `social_queue` (list pending). There is
 deliberately **no** `social_approve`/`social_send` tool — approval is human-only, out of band.
 
+## Generation routed through the brain (`generate.ts` + `social_create`)
+
+`social_create` takes a BRIEF (topic + proof + offer + awareness level) and generates the
+caption through the **conductor brain's egress-guarded model caller**, with the Pantheon
+**CATALYST hook doctrine** (Proof + Promise + Plan) baked into the prompt. The locked brand
+rule is enforced *during* generation: if the model emits a dash or an ellipsis it regenerates
+with an escalating correction, and never silently ships a violation. The result is formatted
+and queued as a gated draft like everything else. 4 tests.
+
 ## How it fits the bigger picture
 
 ```
-Pantheon (generate)  →  conductor_run (judge/polish the caption)  →  social_draft (format + gate)  →  [human approves]  →  post
-        ▲ next increment                ▲ next increment                ✅ this release                 ✅ enforced
+brief -> social_create (conductor brain + CATALYST) -> format + brand-lint -> gated queue -> [human approves] -> real poster
+              this release                                this release           this release    enforced          next (needs creds)
 ```
 
-This release is the **gate + correctness** core — the load-bearing, security-critical part.
-The next increments wire the upstream (route the concept/caption through `conductor_run`
-and the Pantheon disciplines) and the downstream (a real platform poster), both landing
-behind the same human gate.
+The generation, gate, and correctness core is done. The one remaining increment is the
+downstream **real platform poster**, which needs platform API credentials and lands behind
+this same human gate. Until then there is no agent-reachable send path at all.
 
 ## Config
 
