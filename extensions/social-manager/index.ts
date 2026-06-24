@@ -4,6 +4,7 @@ import path from "node:path";
 import type { OpenClawPluginApi } from "../../src/plugins/types.js";
 
 import { registerSocialCli } from "./src/cli.js";
+import { dryRunPoster } from "./src/poster.js";
 import { createSocialCreateTool, createSocialDraftTool, createSocialFanoutTool, createSocialQueueTool } from "./src/tools.js";
 
 // SOCIAL MANAGER — the publish-to-post layer on top of the conductor brain + Pantheon.
@@ -22,5 +23,8 @@ export default function register(api: OpenClawPluginApi) {
   // command a person runs — deliberately NOT an agent tool, so only a human can approve.
   const cfg = (api.pluginConfig ?? {}) as { queuePath?: string };
   const queuePath = cfg.queuePath ?? path.join(os.homedir(), ".openclaw", "social", "queue.json");
-  api.registerCli(({ program }) => registerSocialCli({ program, queuePath, logger: api.logger }), { commands: ["social"] });
+  // Default poster is the safe DRY-RUN (logs, never posts). Real platform adapters drop
+  // in here behind the same gate once credentials exist.
+  const poster = dryRunPoster((line) => api.logger.info(`[social] ${line}`));
+  api.registerCli(({ program }) => registerSocialCli({ program, queuePath, poster, logger: api.logger }), { commands: ["social"] });
 }

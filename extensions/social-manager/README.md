@@ -52,10 +52,19 @@ openclaw social list                  # drafts awaiting review
 openclaw social show <id>             # read one in full
 openclaw social approve <id> --by Ramon   # the ONLY way a post becomes sendable
 openclaw social reject <id> --note "off-brand"
+openclaw social publish <id>          # human-triggered send (dry-run by default)
 ```
 
 `approve` is what sets `approvedBy`, which is what `canSend()` requires. It is deliberately
 a CLI command, not an agent tool, so an agent can never approve its own drafts.
+
+## The send layer (`poster.ts`)
+
+`publish` calls `publishApproved`, which **re-enforces the gate at the send point** (defense
+in depth, not just at approval) before dispatching to a `PlatformPoster`. The default poster
+is a **dry-run** that logs the payload and never makes a network call, so the whole loop is
+exercisable with zero risk. Real TikTok / Instagram / X adapters implement the same
+`PlatformPoster` interface and drop in behind this same gate once credentials exist.
 
 ## Config
 

@@ -7,6 +7,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import { registerSocialCli } from "./cli.js";
 import { canSend, type QueuedPost } from "./post-queue.js";
+import { dryRunPoster } from "./poster.js";
 
 let dir: string;
 let queuePath: string;
@@ -19,6 +20,7 @@ function makeProgram() {
   registerSocialCli({
     program,
     queuePath,
+    poster: dryRunPoster((l) => logs.push(l)),
     logger: { info: (m) => logs.push(m), warn: (m) => logs.push(m), error: (m) => logs.push(`ERR ${m}`) },
   });
   return program;
@@ -76,5 +78,16 @@ describe("openclaw social CLI", () => {
     await seed([draft("p1")]);
     await makeProgram().parseAsync(["node", "openclaw", "social", "approve", "nope"]);
     expect(logs.join("\n")).toContain("ERR no draft nope");
+  });
+
+  it("publish refuses an unapproved draft, but posts an approved one (dry-run)", async () => {
+    await seed([draft("p1")]);
+    await makeProgram().parseAsync(["node", "openclaw", "social", "publish", "p1"]);
+    expect(logs.join("\n")).toContain("refusing to publish"); // not approved yet
+
+    await makeProgram().parseAsync(["node", "openclaw", "social", "approve", "p1", "--by", "Ramon"]);
+    await makeProgram().parseAsync(["node", "openclaw", "social", "publish", "p1"]);
+    expect(logs.join("\n")).toContain("posted p1");
+    expect((await readQueue())[0].status).toBe("posted");
   });
 });

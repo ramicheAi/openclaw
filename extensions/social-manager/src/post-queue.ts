@@ -30,6 +30,7 @@ export interface QueuedPost {
   approvedBy?: string; // the human who approved — required to send
   scheduledFor?: string;
   note?: string;
+  externalId?: string; // the platform's post id once posted
 }
 
 export interface PostStore {
@@ -101,6 +102,20 @@ export function canSend(post: QueuedPost): { ok: boolean; reason?: string } {
   if (post.status !== "approved") return { ok: false, reason: `status is '${post.status}', not 'approved'` };
   if (!post.approvedBy?.trim()) return { ok: false, reason: "no human approver on record" };
   return { ok: true };
+}
+
+// Transition approved -> posted. Re-checks the gate at the send point (defense in depth):
+// a post can only be marked posted if it would pass canSend().
+export async function markPosted(store: PostStore, id: string, externalId?: string): Promise<QueuedPost> {
+  const posts = await store.load();
+  const post = posts.find((p) => p.id === id);
+  if (!post) throw new Error(`no draft ${id}`);
+  const gate = canSend(post);
+  if (!gate.ok) throw new Error(`cannot mark posted ${id}: ${gate.reason}`);
+  post.status = "posted";
+  if (externalId) post.externalId = externalId;
+  await store.save(posts);
+  return post;
 }
 
 // In-memory store (tests / ephemeral).

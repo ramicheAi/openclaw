@@ -9,6 +9,7 @@
 import type { Command } from "commander";
 
 import { approve, type DraftStatus, filePostStore, listByStatus, reject } from "./post-queue.js";
+import { type PlatformPoster, publishApproved } from "./poster.js";
 
 type CliLogger = {
   info: (message: string) => void;
@@ -18,8 +19,8 @@ type CliLogger = {
 
 const STATUSES: DraftStatus[] = ["draft", "approved", "rejected", "posted"];
 
-export function registerSocialCli(params: { program: Command; queuePath: string; logger: CliLogger }): void {
-  const { program, queuePath, logger } = params;
+export function registerSocialCli(params: { program: Command; queuePath: string; poster: PlatformPoster; logger: CliLogger }): void {
+  const { program, queuePath, poster, logger } = params;
   const store = filePostStore(queuePath);
 
   const social = program.command("social").description("Review and approve queued social drafts (the human publish gate)");
@@ -74,6 +75,20 @@ export function registerSocialCli(params: { program: Command; queuePath: string;
       try {
         const post = await reject(store, id, opts.note);
         logger.info(`rejected ${post.id}`);
+      } catch (e) {
+        logger.error((e as Error).message);
+        process.exitCode = 1;
+      }
+    });
+
+  social
+    .command("publish <id>")
+    .description("Publish an APPROVED draft (human-triggered; dry-run until real adapters + creds are added)")
+    .action(async (id: string) => {
+      try {
+        const r = await publishApproved(store, poster, id);
+        logger.info(r.ok ? `posted ${id} (${r.externalId})` : `publish failed for ${id}: ${r.error}`);
+        if (!r.ok) process.exitCode = 1;
       } catch (e) {
         logger.error((e as Error).message);
         process.exitCode = 1;
