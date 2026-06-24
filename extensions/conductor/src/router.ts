@@ -36,24 +36,25 @@ export type Roster = Record<Seat, string>;
 // honestly report 1 for this roster. Switch to DIVERSE_ROSTER once a local (lmstudio)
 // or cloud provider is confirmed up — that is where the architecture-diversity payoff
 // (different labs making different mistakes) actually lives.
+// Model ids verified against the live registry (cfg.models.providers.claude-max).
 export const DEFAULT_ROSTER: Roster = {
-  JUDGE: "claude-max/claude-opus-4-8", // strongest, careful — never drafts
-  CORRECTNESS: "claude-max/claude-sonnet-4-6", // agentic, real-world/repo code + tool use
+  JUDGE: "claude-max/claude-fable-5", // strongest (the fleet's primary) — never drafts
+  CORRECTNESS: "claude-max/claude-opus-4-8", // agentic, real-world/repo code + tool use
   RISK: "claude-max/claude-opus-4-8", // strong analytical reasoner for red-teaming
-  COMPLETENESS: "claude-max/claude-sonnet-4-6", // broad, low-hallucination coverage
-  CLARITY: "claude-max/claude-haiku-4-5", // fast, clean structure; also the synthesizer
+  COMPLETENESS: "claude-max/claude-sonnet-4", // broad, low-hallucination coverage
+  CLARITY: "claude-max/claude-haiku-4", // fast, clean structure; also the synthesizer
 };
 
-// Opt-in roster for genuine architecture diversity once the providers are live. Spans
-// Anthropic + on-machine local models (lmstudio) + OpenAI. Bonus: the local seats can
-// take sensitive data with zero egress (see model-trust 'local' vendor). VERIFY the
-// lmstudio model ids are actually being served before switching to this.
+// Opt-in roster for genuine architecture diversity. Spans Anthropic (cloud) + Qwen and
+// Gemma served locally via lmstudio on the M5 (100.96.20.21:1234) — three distinct model
+// architectures. Bonus: the local seats can take sensitive data with zero egress (see the
+// model-trust 'local' vendor). Model ids verified against the live registry.
 export const DIVERSE_ROSTER: Roster = {
-  JUDGE: "claude-max/claude-opus-4-8",
-  CORRECTNESS: "claude-max/claude-sonnet-4-6",
-  RISK: "lmstudio/qwen3-14b", // local, distinct architecture
-  COMPLETENESS: "lmstudio/gemma-4-e4b", // local, different training data
-  CLARITY: "openai-codex/gpt-5.2",
+  JUDGE: "claude-max/claude-fable-5",
+  CORRECTNESS: "claude-max/claude-opus-4-8",
+  RISK: "lmstudio/qwen/qwen3-14b", // local Qwen, distinct architecture
+  COMPLETENESS: "lmstudio/google/gemma-4-e4b", // local Gemma, different training data
+  CLARITY: "claude-max/claude-haiku-4",
 };
 
 // The reliable, best-presenting seat that performs the merge. NEVER a model that is

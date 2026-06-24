@@ -97,8 +97,8 @@ describe("roster diversity is reported honestly", () => {
   it("the safe default (claude-max only) is a monoculture — diversity 1", () => {
     expect(rosterDiversity(DEFAULT_ROSTER, seats)).toBe(1);
   });
-  it("the opt-in DIVERSE_ROSTER spans ≥3 distinct labs/runtimes", () => {
-    expect(rosterDiversity(DIVERSE_ROSTER, seats)).toBeGreaterThanOrEqual(3);
+  it("the opt-in DIVERSE_ROSTER spans multiple trust-vendors (Anthropic + local Qwen/Gemma)", () => {
+    expect(rosterDiversity(DIVERSE_ROSTER, seats)).toBeGreaterThanOrEqual(2);
   });
 });
 
