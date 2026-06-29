@@ -44,14 +44,30 @@ describe("compactionHandoffExtension", () => {
 
     const cwd = await makeTempDir("openclaw-compaction-handoff-");
 
+    // Fixture must clear the handler's quality gate (>=3 meaningful turns AND
+    // >=300 chars total) or it intentionally skips writing the HANDOFF block.
     const event = {
       preparation: {
         messagesToSummarize: [
-          { role: "user", content: "Please refactor src/foo/bar.ts to use the new API." },
+          {
+            role: "user",
+            content:
+              "Please refactor src/foo/bar.ts to use the new streaming API, and make sure the existing callers keep working without any signature changes.",
+          },
           {
             role: "assistant",
             content:
-              "Done. Touched src/foo/bar.ts and added tests. Next: wire the new export into src/index.ts.",
+              "Looked at src/foo/bar.ts — it still uses the old callback API in three places. I'll migrate them to the async iterator and update the unit tests alongside.",
+          },
+          {
+            role: "user",
+            content:
+              "Sounds good. Also double-check that src/index.ts re-exports the new symbols so downstream imports don't break.",
+          },
+          {
+            role: "assistant",
+            content:
+              "Done. Touched src/foo/bar.ts and added tests covering the streaming path. Next: wire the new export into src/index.ts.",
           },
         ],
       },
