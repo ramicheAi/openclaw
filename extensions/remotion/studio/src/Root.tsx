@@ -2,6 +2,7 @@ import React from "react";
 import { Composition } from "remotion";
 import { FORMATS, FPS } from "./brand";
 import { CaptionedClip, captionedClipDefaults } from "./compositions/CaptionedClip";
+import { HonestType, honestTypeDefaults } from "./compositions/HonestType";
 import { LowerThird, lowerThirdDefaults } from "./compositions/LowerThird";
 import { MettleReel, mettleReelDefaults } from "./compositions/MettleReel";
 import { ParallaxReel, parallaxReelDefaults } from "./compositions/ParallaxReel";
@@ -15,6 +16,15 @@ import { TitleCard, titleCardDefaults } from "./compositions/TitleCard";
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="HonestType"
+        component={HonestType}
+        durationInFrames={240}
+        fps={FPS}
+        width={FORMATS.square45.width}
+        height={FORMATS.square45.height}
+        defaultProps={honestTypeDefaults}
+      />
       <Composition
         id="TitleCard"
         component={TitleCard}
