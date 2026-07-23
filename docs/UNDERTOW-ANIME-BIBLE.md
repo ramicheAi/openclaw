@@ -283,7 +283,7 @@ control, unpanicked, able to return). Tiers named after real ocean zones:
 | **Hadal** | 6,000m+ | Wardens only. To go Hadal is to risk becoming Drowned. |
 
 Every training arc moves a number the audience can chart (Solo Leveling's satisfaction
-loop), and every number is paid for in screen-time sweat (Baki's covenant with the
+loop), and every number is paid for in screen-time sweat (Baki's unspoken deal with the
 audience). Kai's chart on the clubroom wall is a recurring shot for five seasons.
 
 ---

@@ -186,7 +186,7 @@ and the show marks that transition on screen rather than hiding it.
 Rules that keep scaling honest: tier gaps are **hard** (a Twilight swimmer cannot beat a
 Midnight swimmer in deep water — races against higher tiers are won only in *shallow,
 technical* formats, which keeps surface sport meaningful forever); every on-screen
-power-up must show its training bill (canon covenant); and exactly one character per
+power-up must show its training bill (a promise the show never breaks); and exactly one character per
 season is allowed to break the table — and it's the season's biggest moment.
 
 ---

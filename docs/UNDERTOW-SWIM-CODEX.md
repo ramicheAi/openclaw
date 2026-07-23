@@ -123,7 +123,7 @@ and unsportsmanlike delay of the race.
 *Dramatic use: DQ is the show's built-in "the deep world can't be seen by the judges"
 irony generator — an awakened swimmer can win a race by a mile and still be disqualified
 for something as mundane as a shoulder angle at the wall. Power doesn't buy immunity from
-the rulebook, which keeps surface sport meaningful (elements §6's tier-gap covenant).*
+the rulebook, which keeps surface sport meaningful (elements §6's hard tier gaps).*
 
 ### IM order and relay mechanics
 
@@ -197,7 +197,7 @@ why it should be the anatomy lecture that precedes the Current reveal, not follo
 The urge to breathe is driven overwhelmingly by rising carbon dioxide (and the resulting
 drop in blood pH), sensed by chemoreceptors — **not** by falling oxygen. This is the
 single most misunderstood fact in every dive scene ever filmed, and it's the physiological
-hinge the entire safety covenant (§4) turns on: a person can suppress or delay the CO₂
+hinge the Water's Rules (§4) turn on: a person can suppress or delay the CO₂
 signal (by hyperventilating beforehand, which blows off CO₂ without adding meaningfully
 more oxygen to the blood) and keep swimming calmly past the point where oxygen has
 dropped low enough to cause loss of consciousness — with no urgent warning signal at all,
@@ -289,7 +289,7 @@ environment; and any table session stops immediately at the first sign of samba 
 muscle twitching, a warning sign of hypoxia) or LMC (loss of motor control).
 *Maps to: this is the literal in-world curriculum for the "breath gates" — Luna teaching
 Kai a CO₂ table is both real freediving methodology and the show's coming-of-age training
-montage, and the buddy rule folding into it is where §4's covenant lives inside the actual
+montage, and the buddy rule folding into it is where §4's rules live inside the actual
 lesson, not just as a poster on the wall.*
 
 **Threshold sets.** Repeated swims at or near lactate threshold pace (the effort level
@@ -299,7 +299,7 @@ interval at threshold pace. This is what builds the ability to hold a fast pace 
 blowing up, the core currency of every 200–1500 race.
 *Maps to: the "still heart" gate under load — a swimmer's heart-rate overlay staying calm
 through a threshold set is the visible, on-screen proof of Breath training paying off, per
-the covenant that every power-up shows its bill (GOAL.md dimension 4).*
+the standing promise that every power-up shows its bill (GOAL.md dimension 4).*
 
 **Technique drills, per stroke.** Real, standard drills any coach uses: **catch-up
 drill** (freestyle — one hand waits, fully extended, at the front until the other hand
@@ -341,10 +341,12 @@ reaching for Current interference every time.*
 
 ---
 
-## 4. The safety covenant, operationalized
+## 4. The Water's Rules
 
 UNDERTOW's stated ambition (bible §13) is to plausibly *teach kids to swim* and model
-water safety as a matter of course, not a lecture. This section is the hard list: things
+water safety as a matter of course, not a lecture. Put simply: **the show never
+teaches a kid a trick that could kill them — because we want kids copying Kai the way
+they copied Naruto.** This section is the hard list: things
 no hero — protagonist, rival, or background swim-club kid — does without on-screen
 consequence or correction, ever, across the whole series.
 
@@ -371,7 +373,7 @@ consequence or correction, ever, across the whole series.
 
 ### The buddy system, written into the power system itself
 
-This is the covenant's structural masterstroke, and it's already canon (bible §9): Deep
+This is the masterstroke of the Water's Rules, and it's already canon (bible §9): Deep
 trials — the Fathom Games' relic-retrieval and buddy-rescue gauntlets — are **mechanically
 uncrossable alone**. This isn't a rule characters choose to follow; it's a rule the plot
 enforces the same way gravity does. A solo swimmer physically cannot clear certain trials,
@@ -548,9 +550,9 @@ one.*
 
 ---
 
-*QC log (per [UNDERTOW-GOAL.md](UNDERTOW-GOAL.md)): Dim 6 Swimming Knowledge **5/5** ·
+*Craft check (per [UNDERTOW-GOAL.md](UNDERTOW-GOAL.md)): Dim 6 Swimming Knowledge **5/5** ·
 Dim 4 Excitement utility **5/5** · Dim 1 Storytelling integration **4/5** — avg 4.7,
-merge bar passed. Revision 1 applied by verifier: corrected GOAL reference; reconciled
+clears the bar. Revision 1 applied by verifier: corrected GOAL reference; reconciled
 Ren's stroke specialty with bible §6 (sprint free on surface; Kurose deep forms
 fly-derived); adopted the REAL/MYTHIC seam at the Sunlit→Twilight boundary and amended
 the elements §6 feat table accordingly (logged amendment, not silent). Benchmark check:

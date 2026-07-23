@@ -92,7 +92,7 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
   allowed; stillness even on land — the only character who has water-calm everywhere.
 - **Face/hair:** long white-silver hair worn loose (in water it becomes the design's
   signature — a moon-halo cloud); moon-pale eyes; small white ceremonial dot-markings
-  at the brow (ama-island tradition, consultant-reviewed).
+  at the brow (ama-island tradition, built with its keepers).
 - **Wardrobe:** island school variant uniform + shell-cord anklet; deep kit: white ama
   second-skin with indigo wave stitching, no House crest — she's unregistered.
 - **Prompt seed:** *Serene anime diver girl underwater in violet twilight depth, long
@@ -142,10 +142,10 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
 
 Brief: each sigil must read at three sizes (embroidered crest, suit back, arena
 banner), monochrome-safe, rooted in its culture's real design language — **all ten to
-be reviewed by the respective cultural consultant before canonization** (roadmap
-Phase 2 requirement).
+be built out with people who live each tradition before they're locked as canon**
+(roadmap Phase 2).
 
-| House | Mark direction (v1, for consultant review) |
+| House | Mark direction (v1 — to be built with people who live each tradition) |
 |---|---|
 | Kurose | Wave swallowing a torii gate |
 | Thalassa | Trident dissolving into a storm spiral |
@@ -196,5 +196,5 @@ producible by a tiny team and to work with sound off (captions: the BPM counter)
 - **Palette discipline:** no Sunlit gold below Twilight except on the Ascended; it's
   the show's most load-bearing visual rule — breaking it is a *story event*.
 - **Cultural material** (suits, sigils, markings, chants) ships nowhere — not even in
-  teasers — before consultant review. Aesthetic borrowing without review is the one
-  unforced error this IP cannot afford.
+  teasers — until it's been built with people who live the tradition. We research like
+  the lore depends on it, because it does.

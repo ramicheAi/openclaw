@@ -3,7 +3,7 @@
 **The goal, stated plainly:** UNDERTOW must stand in the same weight class as the five
 benchmark anime — Baki, One Piece, Naruto, Solo Leveling, Attack on Titan — not as
 homage, but as a peer. This document defines what that means in verifiable terms, and
-the QC process every deliverable must survive before it becomes canon.
+the gauntlet every piece of work must survive before it becomes canon.
 
 This is the project's constitution. When any future choice conflicts with this
 document, this document wins or gets amended consciously — never silently.
@@ -44,7 +44,7 @@ Each dimension names its benchmark (the show that sets the bar), the bar itself,
 **The bar:** every race readable as a fight; every power-up paid for.
 - Stakes stated (or unmistakably shown) before every start signal.
 - Each competition arc introduces exactly one new mechanic (never zero, never three).
-- Power-ups cost visible training time or visible sacrifice — the covenant with the
+- Power-ups cost visible training time or visible sacrifice — the promise to the
   audience is never broken, even once.
 - A mid-race reversal minimum in every A-plot race (nobody wire-to-wires a finale).
 
@@ -62,8 +62,9 @@ Each dimension names its benchmark (the show that sets the bar), the bar itself,
   formats) are real and correct; fantasy begins only where canon says it begins.
 - All physiology (dive reflex, bradycardia, blood shift, CO₂/O₂ dynamics, shallow-water
   blackout) is real science, correctly explained, before mythic extension.
-- **The safety covenant:** no hero normalizes dangerous water behavior without on-screen
-  consequence or correction; buddy protocols are baked into the power system itself.
+- **The Water's Rules:** the show never teaches a kid a trick that could kill them —
+  dangerous water behavior always meets on-screen consequence or correction, and the
+  buddy rules are baked into the power system itself.
 - Training arcs use real, citable methodology (with the mythic layer as amplifier,
   never replacement).
 
@@ -73,8 +74,8 @@ Each dimension names its benchmark (the show that sets the bar), the bar itself,
   script checks against it; no silent retcons — amendments are logged.
 - Mysteries ledger: every mystery has a planted episode, a payoff window, and an
   answer *written down in advance*.
-- Each of the ten Houses has real-culture roots handled with consultant review — depth
-  of research is a lore feature, not a compliance checkbox.
+- Each of the ten Houses has real-culture roots built with people who live those
+  traditions — research depth is what makes the Houses feel real, not decorative.
 
 ### 8. Story Arc & Structure — benchmark: Solo Leveling's ladder + One Piece's islands
 **The bar:** escalation that compounds without inflating.
@@ -103,7 +104,7 @@ endings); AoT's ending as the cautionary tale
 
 ---
 
-## The QC Process (how work actually gets verified)
+## The Gauntlet (how work actually gets verified)
 
 Every deliverable — script, beat sheet, codex, art brief, chapter — passes this gauntlet
 before it merges into canon:
@@ -111,23 +112,23 @@ before it merges into canon:
 1. **Drafting:** work is produced (by agents, collaborators, or drafts) *against this
    document* — the relevant dimensions are named in the brief before work starts.
 2. **Scoring:** the verifier scores the deliverable 1–5 on every applicable dimension.
-   - **Merge bar: average ≥ 4.0, no dimension below 3.** Below bar → revise, don't
+   - **The bar: average ≥ 4.0, no dimension below 3.** Below the bar → revise, don't
      rationalize.
 3. **Benchmark comparison:** for each applicable dimension, the verifier answers one
    question in writing: *"Would this beat sit comfortably inside the benchmark show?"*
    If the honest answer is "the benchmark would have done it better," name how, and
    revise toward that specifically.
 4. **Consistency sweep:** check against the master timeline, the feat table, the
-   mysteries ledger, and the palette/safety covenants. Any contradiction blocks merge.
+   mysteries ledger, and the palette rules and the Water's Rules. Any contradiction blocks the merge.
 5. **Log:** each merged deliverable records its scores and revision count at the bottom
-   of the file (a short QC footer), so quality history is visible in-repo.
+   of the file (a short craft-check footer), so quality history is visible in-repo.
 
 **Revision floor:** nothing merges on its first draft. Minimum one full revision pass,
 always — first drafts are for finding the real shape, not for shipping.
 
 ---
 
-## Current Deliverable Ledger
+## What's Done and How It Scored
 
 | Deliverable | Status | QC |
 |---|---|---|
@@ -135,7 +136,7 @@ always — first drafts are for finding the real shape, not for shipping.
 | Element registry | canon v1 | authored pre-GOAL; grandfathered, subject to sweep |
 | Roadmap | canon v1 | process doc (dimensions n/a) |
 | Ep1 pilot script (draft 1) | draft | awaiting user redline; cold-open date amended per lore codex |
-| Visdev briefs | canon v1 | dimensions 2, 6 pass; consultant review pending |
-| S1 beat sheet | canon v1 | QC passed 4.6 avg, revision 1 applied (safety covenant, prefectural thread) |
-| Lore & history codex + endgame | canon v1 | QC passed 5.0 avg, revision 1 applied; timeline amendment logged + propagated |
-| Swimming knowledge codex | canon v1 | QC passed 4.7 avg, revision 1 applied; feat-table seam amendment logged |
+| Visdev briefs | canon v1 | dimensions 2, 6 pass; tradition-keeper collaboration still to come |
+| S1 beat sheet | canon v1 | 4.6 avg, revision 1 (Water's Rules fix, prefectural thread) |
+| Lore & history codex + endgame | canon v1 | 5.0 avg, revision 1; timeline amendment logged + propagated |
+| Swimming knowledge codex | canon v1 | 4.7 avg, revision 1; feat-table seam amendment logged |

@@ -276,7 +276,7 @@ supervise the deep-specific gates Gouda can teach but can no longer verify himse
 two adults' guarded professional respect hints at history neither explains. Denied a Current
 his whole life, Bo throws himself at the same gates with monk-like discipline, his numbers
 climbing at a rate that owes nothing to bloodline. The episode ends on Kai clearing his first
-breath gate — unglamorous, just a stopwatch and a nod — establishing the training-bill covenant
+breath gate — unglamorous, just a stopwatch and a nod — establishing the training-bill promise
 before any race happens.
 
 **Emotional core:** the dignity of slow, unglamorous, measurable work.
@@ -504,7 +504,7 @@ cleanly and quietly: at the pool at dawn — no race, no trance, no crowd, only 
 unlocked the gate and stands silent on the deck, because the one kind of alone he permits Kai
 now is watched-over alone — Kai dives face-first on his own choice and swims one full length
 under his own power: competent, unremarkable, entirely his, exactly as slowly earned as the
-breath-gate covenant promised.
+breath-gate ladder promised.
 The crew closes the season at the harbor — Bo's Breath-only qualification and Kai's Twilight
 standing framed side by side on the clubroom wall, next to the circled spring date of the
 Prefectural finals their prelim result earned: both calendars, still running, on one wall. Ren
@@ -543,11 +543,11 @@ question — is Daigo alive, and what is the Meridian still hiding.
 
 ---
 
-*QC log (per [UNDERTOW-GOAL.md](UNDERTOW-GOAL.md)): Dim 1 Storytelling **5/5** · Dim 3
+*Craft check (per [UNDERTOW-GOAL.md](UNDERTOW-GOAL.md)): Dim 1 Storytelling **5/5** · Dim 3
 Emotion **5/5** · Dim 4 Excitement **4/5** · Dim 8 Structure **5/5** · Dim 10 Plot
-mechanics **4/5** — avg 4.6, merge bar passed. Revision 1 applied by verifier: ep 24's
-dawn swim corrected for the safety covenant (Gouda on deck — "watched-over alone" made a
-character beat, not a compliance patch); the Prefectural-calendar thread carried through
+mechanics **4/5** — avg 4.6 — clears the bar. Revision 1 applied by verifier: ep 24's
+dawn swim corrected for the Water's Rules (Gouda on deck — "watched-over alone" turned
+into a character beat); the Prefectural-calendar thread carried through
 the finale per the double-life engine rule (bible §8). Canon establishments accepted from
 this draft: Moana-Rangi uses she/her; the tri-school time trial (eps 5–6); qualifier event
 assignments; Ren spectates the qualifiers. Benchmark check: ep 6's last-place celebration

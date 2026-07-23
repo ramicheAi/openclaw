@@ -174,13 +174,14 @@ All dates below are "years before Episode 1" (present day).
 
 ## 2. The Ten Houses — Capsule Histories
 
-*Cultural roots are flagged **[consultant review pending]** per the Bible's own
-standard (Bible §11: "researched, credited, consulted — not costume-shop pastiche")
-and the GOAL's Dimension 7 bar. Nothing below should be treated as final without that
-review; names and specifics beyond the Bible's founding table are marked **[NEW]**.*
+*Cultural roots are marked **[to be built with tradition-keepers]** — the Bible's own
+standard (§11: "researched, credited, consulted — not costume-shop pastiche"). We
+research like the lore depends on it, because it does. Nothing below is final until the
+people who live each tradition have shaped it; specifics beyond the Bible's founding
+table are marked **[NEW]**.*
 
 ### House Kurose — Japan
-**Root:** Watatsumi / ama diver tradition. *[consultant review pending]*
+**Root:** Watatsumi / ama diver tradition. *[to be built with tradition-keepers]*
 **Founding:** Descended from Nagi's own coastal branch — the House that never had to
 cross an ocean to root, only a shoreline. **[NEW]** This "first among equals"
 geographic accident is the quiet source of Kurose's institutional confidence and its
@@ -200,7 +201,7 @@ that should have settled "extinct" years ago and didn't, out of old-rivalry prid
 (Ren's people knew there was doubt — see §4). Ren inherits this as unprocessed shame.
 
 ### House Thalassa — Greece
-**Root:** Poseidon cult tradition. *[consultant review pending]*
+**Root:** Poseidon cult tradition. *[to be built with tradition-keepers]*
 **Founding:** Settled the Aegean, the House most publicly comfortable being "found" by
 history — half of Greek myth's sea stories are Thalassa's own oral record, filed down
 for surface consumption.
@@ -218,7 +219,7 @@ just the water.
 in standing to find the Isozaki mess more fascinating than threatening.
 
 ### House Yemoja — West Africa
-**Root:** Mami Wata / Yemoja tradition. *[consultant review pending]*
+**Root:** Mami Wata / Yemoja tradition. *[to be built with tradition-keepers]*
 **Founding:** The Yemoja Famine (§1) nearly ended the line before it began; the
 House's entire self-understanding is built on *having almost not made it*.
 **High point:** Discovery/codification of the breath-of-life working (Elements §5),
@@ -235,12 +236,12 @@ any conventional medicine — the first thread of the "something helped him" mys
 that isn't Kai's or Daigo's own testimony (see §4).
 
 ### House Sedna — Arctic
-**Root:** Inuit sea-mother tradition. *[consultant review pending]*
+**Root:** Inuit sea-mother tradition. *[to be built with tradition-keepers]*
 **Founding:** Rooted at the northernmost Pillar; the House whose Current-signatures
 run coldest and slowest, matching a people who mastered patience against a landscape
 that kills the careless.
 **High point:** Longest unbroken Wardenship tenure in Meridian history (four
-consecutive Sedna Wardens, historical era TBD by consultant review).
+consecutive Sedna Wardens, era to be set with the House's tradition-keepers).
 **Low point:** A generation-defining cold-water blackout event (specific episode
 flagged for future writers' room; not invented here in detail to avoid pre-committing
 a beat that should showcase real freediving science per Dimension 6).
@@ -256,7 +257,7 @@ weighed in on the "extinct" question either way, considering it none of their
 business.
 
 ### House Tangaroa — Polynesia
-**Root:** Tangaroa / traditional wayfinding. *[consultant review pending]*
+**Root:** Tangaroa / traditional wayfinding. *[to be built with tradition-keepers]*
 **Founding:** The House most defined by *movement* — wayfinder lineages that never
 stopped voyaging even after rooting at their Pillar, carrying Nagi's memory across the
 widest stretch of ocean of any House.
@@ -265,7 +266,7 @@ open Pacific to a sister-Pillar with no instruments, using dragon-flow reading a
 (era/specifics flagged for consultant + writers' room).
 **Low point:** A colonial-era disruption to the House's oral transmission chain,
 handled with the gravity and specificity the subject deserves and **explicitly
-deferred to consultant review rather than invented wholesale here** — this is the one
+left to the House's own tradition-keepers rather than invented wholesale here** — this is the one
 House history where the codex declines to freehand a "low point" rather than risk
 disrespectful invention.
 **Current Head:** **Moana-Rangi Tangaroa** (Bible §7) — chosen by wave-omen rather than
@@ -279,7 +280,7 @@ her whole doctrine is about teaching the *right* loss.
 recognizes something of itself in the Undertow's total-commitment descent.
 
 ### House Ondine — North Atlantic
-**Root:** Selkie / undine folklore. *[consultant review pending]*
+**Root:** Selkie / undine folklore. *[to be built with tradition-keepers]*
 **Founding:** The House built around *not being seen* — stealth-swimming as both
 combat technique and cultural survival strategy in cultures that hid the sea-blooded
 among them for centuries.
@@ -295,7 +296,7 @@ live invisibly better than any other House, and privately does not consider the
 Isozaki line's centuries off-grid (§1, The Long Fast) shameful at all.
 
 ### House Iara — Amazon
-**Root:** Iara river-spirit tradition. *[consultant review pending]*
+**Root:** Iara river-spirit tradition. *[to be built with tradition-keepers]*
 **Founding:** The only House rooted in freshwater — its Pillar's crown reads on
 surface maps as flooded-forest canopy rather than an atoll, per Elements §1's general
 scenic logic.
@@ -312,11 +313,11 @@ water as the norm, not the exception.
 open sea), different problems. No stake in the "extinct" question either way.
 
 ### House Ganga — South Asia
-**Root:** Ganga / Varuna tradition. *[consultant review pending]*
+**Root:** Ganga / Varuna tradition. *[to be built with tradition-keepers]*
 **Founding:** The House most invested in the Meridian's *ritual* dimension — Ganga
 treats every Games cycle as sacred observance first, competition second.
 **High point:** Authorship of the modern Warden investiture rite still used by all ten
-Houses (era TBD, consultant review).
+Houses (era to be set with tradition-keepers).
 **Low point:** A ritual-purity schism over whether Drowned individuals could be
 mourned with full rites — resolved generations ago in favor of full mourning, making
 Ganga the first House to formally treat the Drowned as still-people, decades before
@@ -331,7 +332,7 @@ why Daigo's Warden's Roll entry was ever properly logged as "Ascended (pending)"
 rather than simply erased; Ganga insisted on the paperwork existing on principle.
 
 ### House Ryn — East Asia coast
-**Root:** Dragon-king court tradition. *[consultant review pending]*
+**Root:** Dragon-king court tradition. *[to be built with tradition-keepers]*
 **Founding:** The old dragon-speakers (Elements §2) — the House that never stopped
 addressing the currents as persons, which is also why it has produced the most
 Wardens of any House across Meridian history.
@@ -525,7 +526,7 @@ Kai's final descent is staged as the inversion of the Episode 1 cold open — he
 down toward the same kind of light his seven-year-old self chased, except this time he
 is the one who chose to go, sober, trained, and afraid in the *informed* way rather
 than the panicked way (the show's whole thesis on fear as information, Bible §10, made
-literal one last time). He goes with a buddy per the safety covenant (GOAL Dimension
+literal one last time). He goes with a buddy per the Water's Rules (GOAL Dimension
 6) — **Luna**, whose own breath-teaching made this descent survivable in the first
 place, descends with him as far as the Abyssal floor before the Hadal threshold
 requires a solo crossing (the one moment in the finale the show is allowed to break
@@ -657,7 +658,7 @@ spends and the whole of what it keeps.
 - Must **not** present the finale's one feat-table break (Kai's binding working) as
   quiet or automatic — GOAL Dimension 8 requires it be framed, in text, as the
   season's single sanctioned exception, paid for visibly.
-- Must **not** violate the safety covenant even at climax — Luna's stated buddy-limit
+- Must **not** violate the Water's Rules even at climax — Luna's stated buddy-limit
   at the Hadal threshold must be shown as the rule holding, not an exception quietly
   ignored for spectacle.
 - Must **not** let the final stroke be anything other than the literal one from the
@@ -667,10 +668,10 @@ spends and the whole of what it keeps.
 
 ---
 
-## QC Footer
+## Craft Check
 
-*QC log (per [UNDERTOW-GOAL.md](UNDERTOW-GOAL.md)): Dim 5 Depth & Themes **5/5** ·
-Dim 7 History & Lore **5/5** · Dim 9 Endgame **5/5** — avg 5.0, merge bar passed.
+*Craft check (per [UNDERTOW-GOAL.md](UNDERTOW-GOAL.md)): Dim 5 Depth & Themes **5/5** ·
+Dim 7 History & Lore **5/5** · Dim 9 Endgame **5/5** — avg 5.0 — clears the bar.
 Revision 1 applied by verifier: corrected mystery #8's mislabeled header; moved Daigo's
 birth to ~40 years ago (fatherhood and Warden designation at 25, descent at 32 — the
 ~34 draft figure made him a father at 19 in his designation year). The continuity
