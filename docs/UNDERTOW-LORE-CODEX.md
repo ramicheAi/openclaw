@@ -118,6 +118,29 @@ All dates below are "years before Episode 1" (present day).
   itself* — an institution's founding virtue becoming its besetting sin, exactly the
   moral shape Dimension 5 requires (neither cartoonishly evil nor secretly fine).
 
+### The Crossing and the Freewater Line (~500–300 years ago)
+
+- **~500–300 years ago — The Crossing. [NEW; to be built with tradition-keepers]**
+  Yemoja-line captives are carried across the Atlantic in the Middle Passage. The
+  tradition survives inside them and takes root across the Caribbean under new names —
+  River Mumma in Jamaica, Yemayá in Cuba, La Sirène in Haiti. The line's own oldest
+  telling — held with the gravity it deserves — is that some who chose the water were
+  **carried** rather than taken: the Atlantic's first modern Ascended, said to walk
+  the crossing's path along the seafloor still. The Meridian has no record of this.
+  The Freewater House considers that fact an indictment of the record, not the story.
+- **1692 — Port Royal drowns.** The sea takes the city off Kingston in minutes — a
+  drowned city inside recorded history, in plain sight of the surface world. Within a
+  generation the emerging Caribbean line quietly claims the drowned streets as its
+  hall and begins keeping them lit.
+- **~300 years ago — "No Pillar, no House." [NEW]** The pan-Caribbean line, led from
+  Jamaica and self-named **the Freewater House**, formally petitions the Meridian for
+  recognition as the Eleventh House. The Meridian refuses on doctrine: a House is
+  defined by the Pillar it guards, and Freewater's founders' Pillar stands at the
+  Yemoja seat an ocean away. Freewater's answer — *then the House is the people* —
+  becomes its founding creed. The petition has been renewed, and refused, every Games
+  cycle since: the longest-running open wound in Meridian politics, and the one the
+  modern era's events (Nakaru's unmasking, Kai's unregistered line) finally force open.
+
 ### The Isozaki Line (~700–15 years ago)
 
 - **~640 years ago — The Long Fast. [NEW]** A single Isozaki-line fishing convoy is
@@ -371,6 +394,35 @@ the hydrophone thread).
 entire ethic, inherited by Kai without a single lesson in it — he has to discover the
 philosophy his bloodline already believed.
 **Relationship to the Isozaki line:** N/A (this is the line).
+
+### The Freewater House — Jamaica & the Caribbean (the Eleventh)
+**Root:** River Mumma (Jamaica) / Yemayá (Cuba) / La Sirène (Haiti) — the Yemoja
+tradition as it survived the Middle Passage and re-rooted across the islands. *[to be
+built with tradition-keepers — Jamaican voices lead.]*
+**Founding:** The Crossing (§1). A House with no Pillar that made itself out of
+people: memory, song, and training passed hand to hand for three centuries. Its creed —
+*"the House is the people"* — is, unknowingly, closer to Nagi's original covenant than
+the Pillar-doctrine used to exclude it.
+**Seat:** the drowned city of Port Royal, Jamaica (1692) — kept lit from inside as
+memorial and argument: proof the sea never stopped taking, in a hidden world that
+teaches drownings are ancient history.
+**High point:** every Fathom Games cycle it attends without status — Freewater crews
+routinely outperform seated Houses in relay and open-water events (riddim swimming:
+crews pacing to one shared internal drum line), then are left out of the official
+honors. The hidden world's spectators know who actually won. That, too, is the point.
+**Low point:** the Crossing itself — and three hundred years of "no Pillar, no House."
+**Current Head:** **the sitting River Mumma** [NEW] — a title, not a name; matriarch
+of the line, keeper of the golden comb.
+**Champion:** **Kemar "Riddim" Reid (17)** [NEW] — Port Royal spearfisher's son, the
+fastest warm-water sprinter in the hidden world; swims to a beat he's carried since
+childhood; the first deep-world swimmer to call Kai a brother. His arc carries the
+recognition fight.
+**Philosophy of swimming:** *The sea carried us here; the sea owes us the way back.*
+Joy as discipline — Freewater trains hard and celebrates harder, and treats both as
+the same practice.
+**Relationship to Isozaki:** instant kinship. Unregistered knows unregistered — the
+Freewater House is the first power in the hidden world to claim Kai openly, and in
+Season 4's fracture its choice of side is decided by exactly that history.
 
 ---
 

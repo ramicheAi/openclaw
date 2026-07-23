@@ -20,6 +20,7 @@ pending or done) · `proposed` (logged, treatment drafted, awaiting approval) ·
 | 5 | Supernatural power | integrated | Currents & Sovereign states (bible §5, extended) |
 | 6 | Power scaling | integrated | Fathom ladder (bible §5) + canon feat table |
 | 7 | Mystical angels | integrated | The Ascended (counterparts of the Drowned) |
+| 8 | Jamaica & Caribbean culture | integrated | The Freewater House (the Eleventh House) |
 
 ---
 
@@ -222,7 +223,73 @@ every frame containing one feels wrong in the right way.
 
 ---
 
-## Cross-element synthesis (how the seven lock together)
+## 8. Jamaica & the Caribbean — the Freewater House
+
+**In-world:** The hidden world's eleventh power, and the one its institutions refuse to
+count. The Yemoja tradition crossed the Atlantic inside the people the Middle Passage
+carried — and survived: **River Mumma** in Jamaica's rivers (the golden-combed mother of
+waters), **Yemayá** in Cuba, **La Sirène** in Haiti — one mother, many islands. From
+that survival grew a pan-Caribbean line, led from Jamaica, self-named **the Freewater
+House**. It has no Pillar — its founders' Pillar stands an ocean away at the Yemoja
+seat — so it broke the Meridian's oldest equation on purpose: *no Pillar, no House?
+Then the House is the people.* Freewater's "trunk" is a living human chain of memory,
+song, and training, passed hand to hand for three hundred years — which quietly makes
+it the only House built the way Nagi's covenant was actually meant to work.
+
+**The seat — Port Royal:** the line's hall is the real drowned city off Kingston, sunk
+in 1692 — the only House seat young enough to remember being alive, streets and walls
+still legible under the harbor. In-world it matters doctrinally: the Meridian teaches
+that drowned cities are ancient history; Port Royal sits there proving the sea never
+stopped taking. Freewater keeps its dead city lit — resonance lamps in the drowned
+streets — as both memorial and argument.
+
+**Founding legend:** the line's oldest story — told with the gravity it deserves and
+built with tradition-keepers — is of captives who chose the water and *walked home
+through the deep* (the Igbo Landing memory, honored, not borrowed lightly). In-world,
+the Freewater elders hold that some of them were **carried** — that the Atlantic's
+first Ascended of the modern era rose from the Middle Passage, and that they still
+walk the crossing's path along the seafloor. No Meridian record confirms it. The
+Freewater House doesn't need the record. (This threads the Ascended lore (§7) straight
+through Caribbean history: witness, memory, and the sea's debt.)
+
+**Signature craft — riddim swimming:** pace and stroke held to an internal drum line,
+nyabinghi-rooted. Real sport truth underneath (elite racing *is* rhythm discipline —
+stroke rate, pacing, the swim codex §5's whole cheat sheet), raised to House art:
+- A Freewater crew swimming to one shared beat moves like a single body — the finest
+  relay and open-water pack racers in the hidden world.
+- Their "sound-system" events fill a drowned city with bass you feel in your sternum
+  at depth — the warmest, loudest meets in the deep world; joy as a competitive ethos.
+- Their champion swims races *to music only they can hear* — and the show scores those
+  races to it, so the audience hears the riddim the lanes can't.
+
+**Head:** the title, not a name — **the sitting River Mumma**, matriarch of the line,
+keeper of the golden comb (regalia, teaching tool, and the House's one relic). [NEW,
+to be built with tradition-keepers.]
+
+**Champion (new cast):** **Kemar "Riddim" Reid (17)** [NEW] — Port Royal spearfisher's
+son, the fastest warm-water sprinter in the hidden world, swims to a beat he's carried
+since childhood and grins mid-race like the water's telling him a joke. Joy-forward,
+Luffy-warm, and carrying the line's whole grievance lightly until the day he doesn't:
+his arc is the Freewater recognition fight given a face. First of the hidden world's
+swimmers to call Kai a brother — unregistered knows unregistered.
+
+**Story engine:** Freewater's three-century fight for recognition ("no Pillar, no
+House") runs beside Kai's unregistered-Isozaki mirror and feeds the series' core
+institutional argument — who gets counted, who gets protected, whose drowned cities
+get remembered. When the Houses fracture in Season 4, Freewater's choice of side is
+one of the season's hinges — and they choose based on how people treated them when
+nothing required it.
+
+**Sound & visual design:** nyabinghi drumming and deep reggae bass in the score;
+Jamaican Patois in Freewater dialogue (written with Jamaican writers); green-gold-black
+woven into their second-skins; the sigil — **River Mumma's golden comb crossed over a
+drum, above a broken chain** [NEW, tradition-keeper review before anything ships].
+Port Royal underwater at night — a drowned city lit warm from inside, bass rolling
+through it — is designed to be one of the show's signature images.
+
+---
+
+## Cross-element synthesis (how the elements lock together)
 
 The additions resolve into one cosmology, not seven gimmicks:
 

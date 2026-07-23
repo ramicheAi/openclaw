@@ -200,6 +200,35 @@ twelve millennia:
 (Names and rosters are v1 — the point is the structure: a global cast with real
 mythological roots, One Piece scope with anthropological texture.)
 
+### The Eleventh House — the Freewater Line (Jamaica & the Caribbean)
+
+There is one line the Meridian's rolls have never recognized — and its story is one of
+the show's most important. When Yemoja-line captives were carried across the Atlantic in
+the Middle Passage, the tradition survived the crossing: it became **River Mumma** in
+Jamaica, **Yemayá** in Cuba, **La Sirène** in Haiti — the same mother of waters wearing
+new names on new islands. Out of that survival grew a pan-Caribbean line, led from
+Jamaica, that calls itself **the Freewater House**: a House with no Pillar, because its
+founders' Pillar was an ocean away — *so they rooted the House in each other instead.*
+
+- **Seat:** the drowned city of **Port Royal, Jamaica** — a real city the sea took in
+  1692, which the Freewater line quietly claimed as its hall: the only House seated in a
+  drowned city young enough to remember being alive.
+- **Signature:** *riddim swimming* — pace and stroke held to an internal drum line
+  (nyabinghi-rooted), making Freewater swimmers the finest relay and open-water pack
+  racers alive: a crew that swims to one shared beat moves like one body.
+- **Philosophy:** *"The sea carried us here. The sea owes us the way back."* Swimming as
+  freedom, memory, and joy — Freewater meets are the loudest, warmest events in the
+  hidden world (sound-system culture, underwater).
+- **Story engine:** the Meridian has refused the Freewater line formal House status for
+  three centuries ("no Pillar, no House"). Their fight for recognition runs alongside
+  Kai's unregistered-Isozaki mirror and Nakaru's institutional critique — the show's
+  argument about who gets counted, made flesh. They are the first of the hidden world's
+  powers to treat Kai as one of their own, because they know exactly what it is to be
+  real and unrecognized at the same time.
+
+(Built with tradition-keepers — Jamaican and wider Caribbean specifics are marked for
+that collaboration like every House's are.)
+
 ### The Meridian
 
 The Houses' hidden institution: part federation, part circuit, part priesthood. The
@@ -519,7 +548,9 @@ color alone.
 - The underwater mix is the show's signature: muffled world, amplified body — heartbeat,
   breath, blood. Silence used the way AoT uses its silences: before the worst moments.
 - Each House carries a musical tradition (taiko for Kurose, Polynesian chant for Tangaroa,
-  Inuit katajjaq for Sedna) — the score itself is the world's anthropology.
+  Inuit katajjaq for Sedna, nyabinghi drums and deep reggae bass for the Freewater line —
+  whose races are *scored to their own riddim* on screen) — the score itself is the
+  world's anthropology.
 - OP brief: one continuous shot rising from Hadal black to a sunlit pool ceiling,
   five seasons of visual foreshadowing hidden in the ruins it passes.
 

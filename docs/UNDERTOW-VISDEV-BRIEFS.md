@@ -99,6 +99,23 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
   silver hair haloed like a moon around her, white traditional diving garb with
   indigo stitching, holding perfectly still while fish move around her.*
 
+### Kemar "Riddim" Reid (17) — Freewater champion (recurring from S1 qualifiers; major from S2)
+- **Silhouette:** pure sprinter — long levers, loose easy shoulders, a body that never
+  looks tense even on the block; walks like he's hearing music because he is.
+- **Face/hair:** dark brown skin, short locs tied back for racing with a green-gold-black
+  wrap; huge easy grin that drops, in serious moments, into a stillness that surprises
+  people; eyes warm brown (awakened shift: river-gold, in water only).
+- **Wardrobe:** surface kit in Jamaica green/gold/black; deep kit: Freewater second-skin
+  woven green-gold-black with the House sigil (golden comb crossed over a drum, above a
+  broken chain) between the shoulder blades. Shell-and-bead wrist cord from Port Royal.
+  *[cultural specifics built with Jamaican tradition-keepers before anything ships]*
+- **Key acting note:** he swims to a beat only he hears — animate his stroke *on* the
+  score's riddim, a couple frames ahead of everyone else's timing, so the audience
+  feels the music in his body before they consciously notice it.
+- **Prompt seed:** *17-year-old Jamaican anime swimmer, athletic sprinter's build, short
+  tied-back locs with green-gold-black wrap, huge joyful grin mid-race, carving through
+  turquoise water with drum-perfect rhythm, warm golden light, spray like cymbals.*
+
 ### Coach Gouda "the Beached God" (44)
 - **Silhouette:** a ruin of a magnificent build — still huge through the shoulders,
   gone soft at the middle; stubble, folding-chair slouch. When he finally demonstrates
@@ -157,6 +174,7 @@ be built out with people who live each tradition before they're locked as canon*
 | Ganga | Descending triple-stream over a lotus step |
 | Ryn | Coiled dragon around a pearl-gate |
 | Isozaki | A single vertical line breaking a circle — "the line that goes down" (Kai's crest; presumed extinct) |
+| Freewater (the Eleventh) | River Mumma's golden comb crossed over a drum, above a broken chain — green/gold/black (Jamaican tradition-keepers lead this design) |
 
 ---
 
@@ -172,7 +190,12 @@ be built out with people who live each tradition before they're locked as canon*
 5. **The Old Build listening station** (post-credits set) — brass-and-crystal
    instruments, no visible power, wool coats: the aesthetic thesis for all Old Build
    tech in one room.
-6. **The Gate, distant** — never fully framed in S1 marketing; roots and geometry and
+6. **Port Royal at night, from below** — the Freewater House's drowned city off
+   Kingston: real streets and walls under the harbor, kept lit warm from inside with
+   resonance lamps, deep bass rolling through the water; a sunken city that feels
+   *inhabited and loved*, the emotional inverse of every cold ruin in the show. One of
+   the series' signature images.
+7. **The Gate, distant** — never fully framed in S1 marketing; roots and geometry and
    one low light. Restraint is the design.
 
 ---

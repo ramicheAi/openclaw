@@ -329,8 +329,9 @@ and Moana-Rangi's reputation, paid off in episode 18.
 
 The Twilight qualifiers open in a Pillar branch-hall arena; event one is relic retrieval, a
 timed dive where the relic's weight mechanically enforces the buddy system, and Kai is paired
-at random with a stranger from a rival House, forced to trust an unfamiliar swimmer faster
-than he's ever trusted anyone. His pair clears the event only barely, saved less by his
+at random with a swimmer from the unrecognized Freewater line — Kemar "Riddim" Reid, a
+Jamaican sprinter who paces their whole dive to a drum line only he can hear — forcing Kai to
+trust an unfamiliar swimmer faster than he's ever trusted anyone. His pair clears the event only barely, saved less by his
 Current than by remembering Luna's buddy-rescue drills to the letter — discipline outranking
 bloodline again, on the record this time. Bo, paired separately, posts a clean, unspectacular
 clear that quietly outperforms several bloodline swimmers — the first hard data point toward
@@ -344,7 +345,8 @@ morning with Kai barely inside the cut line and Bo comfortably above it.
 **Mechanic/lore introduced:** the buddy-rescue/relic-retrieval event format — the arc's one new
 mechanic for this competition episode.
 **Plant/payoff:** domestic beat (a shared meal before the venue); pays off episode 9's
-buddy-rescue lesson under real competitive stakes.
+buddy-rescue lesson under real competitive stakes; plants Kemar and the Freewater
+line's recognition fight, both major from Season 2.
 
 ### Episode 17 — "Current-Clash"
 
