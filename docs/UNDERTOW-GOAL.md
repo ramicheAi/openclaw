@@ -140,3 +140,6 @@ always — first drafts are for finding the real shape, not for shipping.
 | S1 beat sheet | canon v1 | 4.6 avg, revision 1 (Water's Rules fix, prefectural thread) |
 | Lore & history codex + endgame | canon v1 | 5.0 avg, revision 1; timeline amendment logged + propagated |
 | Swimming knowledge codex | canon v1 | 4.7 avg, revision 1; feat-table seam amendment logged |
+| Pitch deck | canon v1 | 4.7 avg; awaiting three-cold-readers test (Step 3 gate) |
+| Fathom card | canon v1 | 5.0 avg; numbers match elements §6 verbatim |
+| **CANON LOCK** | **v2.0** | **creator ratified all of the above; changes now require logged amendments** |

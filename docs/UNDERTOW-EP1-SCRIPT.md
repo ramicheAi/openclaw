@@ -285,6 +285,10 @@ quite read — except the first character of ISOZAKI.*
 
 ## Writer's notes for draft 2 (things to decide on the redline)
 
+> **Ratified at canon lock:** draft 1 approved as-is by the creator; the five
+> decisions below resolve to the as-written choice unless a future logged amendment
+> changes them.
+
 1. **The eye in the cold open** — currently one frame. Option: cut it entirely and
    save any visual of the deep's attention for episode 3; scarier, slower burn.
 2. **Ren's line** ("So it wasn't extinct") — flags the mystery hard in ep 1. Option:

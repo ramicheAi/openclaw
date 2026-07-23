@@ -8,7 +8,14 @@ input. Current step is marked ▶.
 
 ---
 
-## ▶ Step 1 — Lock the Canon
+## ✅ Step 1 — Lock the Canon — DONE
+
+**Status: canon locked by the creator.** Bible, elements registry (all twelve),
+lore codex incl. endgame, beat sheet, and codexes are now Canon v2.0. The pilot's
+five flagged decisions resolve to as-written; draft 1 stands ratified as draft 2's
+base. All future changes go through the gauntlet as logged amendments.
+
+### (record) Step 1 — Lock the Canon
 
 **Goal:** every creative pillar approved by the creator, so nothing downstream gets
 rebuilt on sand.
@@ -20,7 +27,7 @@ the big locked answers (Daigo's fate, Nakaru's ending, Kai's permanent price).
 the pilot script is at draft 2 with your notes in.
 **Judged on:** dimensions 1, 5, 7, 9.
 
-## Step 2 — Own It (the paperwork hour)
+## ▶ Step 2 — Own It (the paperwork hour) — YOUR COURT
 
 **Goal:** the IP legally yours before any collaborator or platform touches it.
 **Who:** you (filings), me (prep documents on request).
@@ -30,7 +37,11 @@ put the IP in an entity (LLC recommended); collaborator agreement template ready
 **Done when:** registration receipt exists, entity decision made, search results filed.
 **Judged on:** roadmap Phase 0 gate (not a creative step — no dimensions).
 
-## Step 3 — Complete the Pitch Package
+## ▶ Step 3 — Complete the Pitch Package — IN PROGRESS
+*(Deck and Fathom Card drafted and gauntlet-passed: see
+[UNDERTOW-PITCH-DECK.md](UNDERTOW-PITCH-DECK.md) and
+[UNDERTOW-FATHOM-CARD.md](UNDERTOW-FATHOM-CARD.md). Remaining: the three-cold-readers
+test.)*
 
 **Goal:** a stranger absorbs the whole show in 15 minutes and can retell it in 2.
 **Who:** me (drafting), you (approval passes).
