@@ -21,6 +21,10 @@ pending or done) · `proposed` (logged, treatment drafted, awaiting approval) ·
 | 6 | Power scaling | integrated | Fathom ladder (bible §5) + canon feat table |
 | 7 | Mystical angels | integrated | The Ascended (counterparts of the Drowned) |
 | 8 | Jamaica & Caribbean culture | integrated | The Freewater House (the Eleventh House) |
+| 9 | The Americas + all races, non-obvious | integrated | The surface superpower, the Humboldt Guild, ambient representation |
+| 10 | Otherworldly sea creatures | integrated | The Deep Bestiary (creatures by depth) |
+| 11 | The elements of life | integrated | The Life Wheel (thematic canon) |
+| 12 | Power scaling in pool races | integrated | Surface Forms + Lane Wars (Deep-Water Doctrine extended) |
 
 ---
 
@@ -305,6 +309,138 @@ woven into their second-skins; the sigil — **River Mumma's golden comb crossed
 drum, above a broken chain** [NEW, tradition-keeper review before anything ships].
 Port Royal underwater at night — a drowned city lit warm from inside, bass rolling
 through it — is designed to be one of the show's signature images.
+
+---
+
+## 9. The Americas + the whole human family (non-obvious representation)
+
+**North America — the surface superpower.** The United States gets the show's slyest
+worldbuilding move: it dominates the *surface* sport — the NCAA machine, Olympic
+factories, sports-science labs — and has **no House at all.** No bloodline, no Pillar,
+no seat at the Meridian. Which produces the best possible American character:
+
+- **Jordan "Splits" Reyes (18) [NEW]** — US phenom, world-junior record holder,
+  Mexican-American, raised on data, film study, and 4:45am yardage. She has beaten
+  awakened swimmers in surface meets *without knowing they existed* — pure sport
+  science outswimming demigods who were holding back. When the S4 unmasking exposes
+  the hidden world, she becomes the surface world's champion and its angriest
+  question: *"You had magic, and you still needed lane ropes to beat me?"* Bo's
+  work-over-bloodline thesis at world scale — and the audience's American door into
+  the deep world's politics.
+
+**South America.** House Iara (Amazon) already holds the freshwater myth-line; added
+alongside it: **the Humboldt Guild [NEW]** — current-pilots of the Pacific coast
+(Peru/Chile), fishing lineages who read the world's richest current like a road. Not a
+House and not seeking to be one: unaffiliated specialists who hire out to every House
+as open-water navigators, respected by all, owned by none. (The Humboldt dragon is the
+only great current whose riders never founded a House — the Guild says the Humboldt
+prefers it that way.)
+
+**All races, woven in — the ambient-representation rule.** The whole human family is
+present the way it is in real pools: everywhere, unannounced. The crew, champions,
+judges, coaches, rivals, and background lanes span every heritage; identity shows up
+as *texture* — technique lineages, food on the table, music in the walk-on, a
+grandmother's prayer, a second language switched into mid-race — and never as a Very
+Special Episode. The rule for the writers' room: **representation is set dressing done
+with love, and story is story.** Nobody on this show is their demographic; everybody
+is their dream.
+
+---
+
+## 10. The Deep Bestiary — otherworldly sea creatures
+
+Same doctrine as everything else: **the deeper, the more mystical.** Sunlit water holds
+real animals; by Hadal depth, the line between creature and spirit is gone. The deep's
+fauna are part of Nagi's leftover ecology — life shaped by twelve thousand years of
+living beside the Gate's leakage and the Pillars' resonance.
+
+- **Sunlit — real, but attentive.** Dolphins and reef fish behave normally… except
+  around awakened swimmers, whom they treat like weather: schooling into their wake,
+  riding their currents. First sign on screen that a swimmer is more than they seem.
+- **Twilight — the Whale Choirs.** Whales are the deep's priesthood: their song
+  carries Nagi hymns none of them ever learned, and they surface to breach in
+  formation when an Ascended passes below. The "vast gentle tone" of episode 1 sits
+  inside whalesong like a voice inside a choir. Meridian deep-listeners' oldest trick:
+  they don't listen for the deep — they listen to what the whales answer.
+- **Midnight — Lantern-Jellies and Glass Eels.** Lantern-jellies are bioluminescent
+  drifters that gather where grief pools in the water — they swarm, gently, around the
+  Drowned, keeping them lit; deep folklore says each jelly holds one memory a Drowned
+  soul can't carry anymore. Glass Eels are threshold-creatures: near-invisible river
+  of bodies marking safe lines through Old Build ruins — follow the eels, live; cross
+  them, don't.
+- **Abyssal — the Old Turtles.** Sea turtles older than the Houses, shells grown into
+  living charts — ridges and glyph-barnacles mapping the current-roads of the world.
+  Tangaroa wayfinders apprentice by swimming beside one for a season. An Old Turtle
+  surfacing at a Fathom Games is the deep world's highest omen.
+- **Hadal — the Shepherds.** Angler-lit beings that circle the Gate's outskirts,
+  neither fish nor ghost — the deep's own antibodies. They herd the reckless *away*
+  from the threshold and the Drowned *toward* the lantern-jellies' light. The
+  Wardens' records call them co-workers. What they actually are is answered only in
+  S5, at the Gate: they are the dreams Leviathan still has of the ocean's living
+  things, swum loose.
+- **Companion beasts (recurring cast):** Kemar's harbor dolphin who thinks she's a
+  guard dog; the Kurose koi older than the family's records; the one gull that has
+  followed Gouda since his championship years and refuses to explain itself (comic
+  relief with a lore payoff: it saw what happened to his friend).
+
+---
+
+## 11. The Life Wheel — the elements of life the show carries
+
+The full answer to "what should a great shonen hold?" — every major element of a human
+life, each with a canon home, so no season is ever thematically thin:
+
+| Element of life | Where it lives in canon |
+|---|---|
+| **Dream & purpose** | Kai's declared dream (ep 1) — the series spine |
+| **Family & inheritance** | Daigo's shadow; grandmother's table; House bloodlines |
+| **Friendship & found family** | The crew — Bo's "swim with us" |
+| **Rivalry & respect** | Ren; the House champions; every current-clash |
+| **Fear & courage** | Kai's water-fear; mettle thesis — courage means doing it scared |
+| **Grief & loss** | The whole cosmology — Leviathan IS grief; Gouda; Nakaru |
+| **Faith & doubt** | Grandmother's Bible thread; Nagi's covenant; walking on water |
+| **Love** | Familial first; slow-burn romantic threads kept light and earned (Kai/Luna, Mirei's unspoken) |
+| **Joy & celebration** | Freewater's whole ethos; the club's last-place gold |
+| **Work & talent** | Bo vs bloodline; Jordan Reyes vs the awakened |
+| **Identity & belonging** | Unregistered lines (Isozaki, Freewater); Luna between worlds |
+| **Justice & mercy** | Nakaru's case; Kai's answer — mercy that costs |
+| **Betrayal & forgiveness** | The Meridian's silences; Ren breaking ranks; Gouda's wound |
+| **Sacrifice & legacy** | Nagi's choice; Daigo's crossing; Kai's final binding |
+| **Pride & humility** | Kurose doctrine; Kai asking Bo to train him harder (ep 5) |
+| **Freedom & institution** | Freewater's creed vs Meridian law; the Silence Accord |
+| **Death & what remains** | The Drowned/Ascended fork; Port Royal kept lit |
+| **Coming of age** | Every kid in the cast — the pool as the door to adulthood |
+| **Joy of the body** | The Baki inheritance — swimming as the celebration of what humans can do |
+| **Hope** | The final image: the first stroke, taught again |
+
+Rule: every arc must be traceable to at least three spokes of the Wheel, and every
+season must touch all of them at least once. (The gauntlet checks this.)
+
+---
+
+## 12. Power scaling in the pool — Surface Forms & Lane Wars
+
+The Deep-Water Doctrine's missing half, now canon: exaggeration lives in the pool too —
+in two sanctioned ways.
+
+**Surface Forms.** Every named technique has two builds: its **Deep Form** (full anime,
+title card, water obeys) and its **Surface Form** — the *legal* version, compressed
+into what judges and physics-on-camera allow. Marlin Line's Surface Form is a breakout
+so violent the pool's surface tears in a line; Riddim Break's is a tempo shift that
+makes seven rivals miss their turns by half a beat; Open Door's is Kai's impossible
+final-15m surge as the water quietly *helps*. Surface Forms are the show's connoisseur
+layer: the audience learns to see the Deep Form hiding inside the legal one — power
+scaling running live in an ordinary school meet, invisible to the crowd, screamingly
+obvious to fans.
+
+**Lane Wars.** The hidden world's own pool discipline — night meets in flooded Old
+Build natatoriums where powers are *unrestricted in a 25-meter pool.* Eight lanes, no
+open ocean to dilute anything: two Sovereign Waters overlapping in a pool is a knife
+fight in a phone booth, and the deep world knows it — Lane Wars are its most-watched,
+most-feared duels. Champions who rule open water get humbled in short course, and vice
+versa (real sport truth scaled up: sprint specialists vs open-water tacticians). This
+gives the show pool-set battles every bit as huge as its ocean arcs — the same lanes
+kids swim in, gone mythic.
 
 ---
 
