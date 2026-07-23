@@ -10,9 +10,13 @@ Pitch in one sentence: **Baki's obsession with the human body + Solo Leveling's 
 progression + Naruto's outcast heart + One Piece's found-family adventure + Attack on
 Titan's buried-lore mystery — in water.**
 
-> Companion doc: [UNDERTOW-ELEMENTS.md](UNDERTOW-ELEMENTS.md) — the living registry of
-> requested visual/scenic/thematic elements (world trees, dragons, Old Build tech,
-> Bible teachings, the Ascended, and more) and how each is woven into canon.
+> Companion docs:
+> [UNDERTOW-ELEMENTS.md](UNDERTOW-ELEMENTS.md) — living registry of requested
+> visual/scenic/thematic elements and how each is woven into canon ·
+> [UNDERTOW-ROADMAP.md](UNDERTOW-ROADMAP.md) — the concept-to-screen production
+> roadmap ·
+> [UNDERTOW-EP1-SCRIPT.md](UNDERTOW-EP1-SCRIPT.md) — pilot teleplay, first draft ·
+> [UNDERTOW-VISDEV-BRIEFS.md](UNDERTOW-VISDEV-BRIEFS.md) — visual development briefs.
 
 ---
 

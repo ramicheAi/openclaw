@@ -1,0 +1,200 @@
+# UNDERTOW — Visual Development Briefs
+
+Companion to [UNDERTOW-ANIME-BIBLE.md](UNDERTOW-ANIME-BIBLE.md) (§11 design language)
+and [UNDERTOW-ELEMENTS.md](UNDERTOW-ELEMENTS.md).
+
+Each brief below is written to work two ways: as a **commission brief** for a human
+character designer/illustrator, and as a **generation prompt** (Higgsfield, Midjourney,
+etc.) for fast look-development drafts. Recommended flow: generate cheap drafts →
+calibrate taste → commission finals from a human artist with the winning drafts as
+reference. Every AI draft is reference-only, never final asset.
+
+**Global style anchor (append to every prompt/commission):**
+> Modern 2D anime production style, clean expressive linework, painterly water FX,
+> hybrid cel + simulation look. Tone: hopeful shonen with dark undertows. Comps for
+> finish quality: Demon Slayer's effects integration, Haikyuu's body mechanics,
+> Made in Abyss's depth-scale awe. NOT chibi, NOT hyperreal 3D, NOT western cartoon.
+
+---
+
+## 1. Palette by Depth (the show's visual spine)
+
+One palette per depth tier; a paused frame should reveal its depth by color alone.
+
+| Tier | Name | Core swatches | Light behavior |
+|---|---|---|---|
+| Surface/pool | Chlorine Day | cyan `#59C7E3`, tile white `#F2F7F7`, sun gold `#FFD98A`, kick-turn red `#E24A4A` (accents) | Caustic dance on floors; hard sun; the "normal world" look |
+| Open water | Green-Gold | sea green `#2E8B74`, bottle glass `#9BC7A9`, dawn gold `#E8B84B`, hull rust `#7A4A2B` | God-rays at low angle; horizon haze |
+| Twilight (20–200m) | Violet Fade | deep violet `#3B2E63`, steel blue `#2F4A6E`, fading cyan `#4E8EA6`, skin goes porcelain | Directional down-light dying; first bioluminescence |
+| Midnight (200–1,000m) | Bioluminal | abyss navy `#0B1026`, glyph teal `#3EF2C4`, jelly magenta `#C44BD1`, marine-snow white `#DDE6EE` | No sun; all light is *from things*; inverted starfield |
+| Hadal | Absence | true black `#05060A`, pressure blue-black `#101528`; the ONLY imported colors are what characters carry | Light exists only as memory and lamps; Ascended gold `#F5D67B` is the sanctioned palette-break |
+
+---
+
+## 2. Character Sheets (six mains)
+
+Deliverable per character: front/side/back turnaround, 4 expressions, surface kit +
+(where applicable) deep kit, 1 action pose in water.
+
+### Kai Isozaki (15) — protagonist
+- **Silhouette:** lean, slightly under-muscled for the cast — a body that hasn't been
+  allowed to train; reads "unfinished." Posture guarded on land, transformed to eerie
+  stillness underwater.
+- **Face/hair:** dark ink-blue hair, perpetually a bit too long ("hiding" hair); large
+  dark eyes that read gray on land and take on deep-blue **Undertow glow only when
+  submerged** (canon: awakened eyes shift only in water).
+- **Wardrobe:** school uniform with sleeves pulled over hands; borrowed plain jammers
+  (nothing branded — he owns no swim gear in ep 1).
+- **Key acting note:** two Kais — land-Kai (flinchy, folded inward) and water-Kai
+  (uncannily calm, open, home). The sheet must show both.
+- **Prompt seed:** *15-year-old anime boy, lean guarded posture, messy ink-blue hair
+  over his eyes, oversized school uniform sleeves, quiet haunted expression; second
+  pose: the same boy underwater, cross-legged on a pool floor in cathedral light,
+  serene, eyes glowing deep blue, bubbles drifting TOWARD him.*
+
+### Ren Kurose (16) — rival
+- **Silhouette:** textbook sprint-freestyle build — broad shoulders, tapered waist,
+  the "finished" body Kai lacks. Immaculate posture; economy in every gesture.
+- **Face/hair:** black hair with a blue-black sheen, undercut precision; pale sharp
+  features; eyes silver-gray (awakened shift: cold Kuroshio silver, in water only).
+- **Wardrobe:** black House Kurose tracksuit with small silver crest (a wave
+  swallowing a torii gate); competition tech suit in black/silver; deep kit: sumi-e
+  patterned second-skin with the same crest large between the shoulder blades.
+- **Prompt seed:** *16-year-old anime swimming prodigy, cold beautiful face, precise
+  black undercut hair, black tracksuit with a small silver wave-and-torii crest,
+  standing at a pool fence at dusk watching with predatory intensity.*
+
+### Bo "Buoy" Fujii (16) — heart of the crew
+- **Silhouette:** the biggest frame in the cast — fisherman's mass, round and mighty,
+  soft face on a working body. Breaststroker's barrel chest. Moves like he's careful
+  not to break the world.
+- **Face/hair:** short-cropped sun-bleached brown; permanent easy grin; heavy brows.
+- **Wardrobe:** worn school uniform one size too small; fishing waders at dawn; club
+  jammers with a hand-stitched repair.
+- **Prompt seed:** *Gentle giant anime teen, fisherman's build, sun-bleached cropped
+  hair, huge warm grin, hauling glistening nets on a small boat at dawn, breath
+  steaming, golden-green harbor light.*
+
+### Mirei Sanda (15) — tactician
+- **Silhouette:** compact, precise backstroker's frame; always slightly overdressed
+  for the pool deck (tracksuit zipped to the chin, clipboard as shield).
+- **Face/hair:** dark bob with a single asymmetric long strand she chews when
+  calculating; narrow analytical eyes behind light-reactive glasses she pushes up as
+  punctuation.
+- **Props are costume:** stopwatch, clipboard, annotated notebooks — her armor; the
+  sheet should include a "disarmed" pose (no props, holding a kickboard, unsure).
+- **Prompt seed:** *Sharp-eyed anime girl analyst, dark bob with one long strand,
+  glasses catching light, federation tracksuit zipped to the chin, holding a
+  stopwatch that reads 4:07, expression between disbelief and fascination.*
+
+### Tsukiko "Luna" Amane (16) — the diver (enters Arc 2)
+- **Silhouette:** compact free-diver frame, long limbs, barefoot whenever plausibly
+  allowed; stillness even on land — the only character who has water-calm everywhere.
+- **Face/hair:** long white-silver hair worn loose (in water it becomes the design's
+  signature — a moon-halo cloud); moon-pale eyes; small white ceremonial dot-markings
+  at the brow (ama-island tradition, consultant-reviewed).
+- **Wardrobe:** island school variant uniform + shell-cord anklet; deep kit: white ama
+  second-skin with indigo wave stitching, no House crest — she's unregistered.
+- **Prompt seed:** *Serene anime diver girl underwater in violet twilight depth, long
+  silver hair haloed like a moon around her, white traditional diving garb with
+  indigo stitching, holding perfectly still while fish move around her.*
+
+### Coach Gouda "the Beached God" (44)
+- **Silhouette:** a ruin of a magnificent build — still huge through the shoulders,
+  gone soft at the middle; stubble, folding-chair slouch. When he finally demonstrates
+  a stroke (ep 9), the sheet's second silhouette: the god, briefly back.
+- **Face/hair:** heavy jaw, broken nose, gray-streaked topknot going to seed; eyes
+  that don't match the slouch — they never stopped being sharp.
+- **Props:** Olympic gold medal used as a bottle opener; whistle he never blows;
+  footlocker photos (see script).
+- **Prompt seed:** *Washed-up anime coach, huge ex-athlete gone soft, stubble and
+  graying topknot, asleep in a folding chair in a cluttered equipment room, an
+  Olympic gold medal hanging on a nail behind him, afternoon light through dusty
+  windows.*
+
+---
+
+## 3. The Five Key Art Pieces
+
+1. **"The Bottom of the Pool" (primary poster).** Kai cross-legged on the pool floor,
+   cathedral down-light, bubbles and motes drifting toward him, eyes glowing; far
+   above, tiny and distorted, the silhouettes of the crowd at the pool edge.
+   *Palette: Chlorine Day surface bleeding into Violet Fade below — impossible,
+   intentional.*
+2. **"Deep Calls to Deep."** Vertical one-sheet: harbor and small house at top; the
+   image continues downward through green-gold, violet, bioluminal — and at the
+   bottom, the glyph-lit trunk of a Pillar gripping the Gate. Kai's small figure
+   descending the whole height. *(This is also the webtoon cover.)*
+3. **"Current Clash."** Two swimmers mid-race, and above their lanes two translucent
+   wake-dragons (sumi-e ink vs koru-spiral) colliding in a crown of spray. Crowd a
+   blur; the water the only thing in focus.
+4. **"The Watcher."** Twilight depth. A single god-ray column; inside it, a still,
+   backlit figure with refracted light-wings, gold `#F5D67B` breaking the violet
+   palette. Below, looking up, three small silhouettes of the crew. Wrongness played
+   as awe.
+5. **"The Ten."** The House champions lineup on a drowned Old Build plaza — ten
+   silhouettes, ten body types, ten cultural design languages, each lit by their
+   House sigil. (Doubles as the S2 tournament poster.)
+
+---
+
+## 4. House Sigils (ten marks)
+
+Brief: each sigil must read at three sizes (embroidered crest, suit back, arena
+banner), monochrome-safe, rooted in its culture's real design language — **all ten to
+be reviewed by the respective cultural consultant before canonization** (roadmap
+Phase 2 requirement).
+
+| House | Mark direction (v1, for consultant review) |
+|---|---|
+| Kurose | Wave swallowing a torii gate |
+| Thalassa | Trident dissolving into a storm spiral |
+| Yemoja | Mirror-and-comb within a river fork |
+| Sedna | A hand with parted fingers becoming seals |
+| Tangaroa | Koru spiral unfurling into a wayfinding star |
+| Ondine | A seal-skin draped over a crescent |
+| Iara | River braid forming a woman's profile |
+| Ganga | Descending triple-stream over a lotus step |
+| Ryn | Coiled dragon around a pearl-gate |
+| Isozaki | A single vertical line breaking a circle — "the line that goes down" (Kai's crest; presumed extinct) |
+
+---
+
+## 5. Environment Beats (for background painters / teaser boards)
+
+1. **Munakata High pool** — utterly ordinary, lovingly rendered; the show's "before"
+   world must feel real enough to miss.
+2. **The harbor at dawn** — green-gold, working boats, gulls; Bo's world.
+3. **A Pillar crown "island"** from sea level — old-growth canopy rising from open
+   ocean, mist in the branches, seabirds like snow.
+4. **A Twilight branch-hall arena** — Meridian racing lanes strung with resonance
+   lamps between branches the size of highways; spectator galleries carved into bark.
+5. **The Old Build listening station** (post-credits set) — brass-and-crystal
+   instruments, no visible power, wool coats: the aesthetic thesis for all Old Build
+   tech in one room.
+6. **The Gate, distant** — never fully framed in S1 marketing; roots and geometry and
+   one low light. Restraint is the design.
+
+---
+
+## 6. Teaser Board One: "The Sinking" (90 seconds)
+
+Direct adaptation of the pilot's Act 2 climax (see
+[UNDERTOW-EP1-SCRIPT.md](UNDERTOW-EP1-SCRIPT.md)): buzzer → the fall → panic → the
+settling → 34 BPM → eyes open on the pool floor → the vast gentle tone → title card.
+One location, two palettes, no dialogue, heartbeat as the entire score. Built to be
+producible by a tiny team and to work with sound off (captions: the BPM counter).
+
+---
+
+## 7. Production Notes
+
+- **Body diversity is canon** (bible §11): sprinters, distance frames, Bo's mass,
+  Luna's compact build — reject any draft set that converges on one hero physique.
+- **Eye-glow discipline:** awakened eye color appears *only underwater*. Any draft
+  showing glowing eyes on dry land is off-model (the sole exception ever: Ascended).
+- **Palette discipline:** no Sunlit gold below Twilight except on the Ascended; it's
+  the show's most load-bearing visual rule — breaking it is a *story event*.
+- **Cultural material** (suits, sigils, markings, chants) ships nowhere — not even in
+  teasers — before consultant review. Aesthetic borrowing without review is the one
+  unforced error this IP cannot afford.
