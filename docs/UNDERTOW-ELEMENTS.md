@@ -156,6 +156,18 @@ technique; interference):
   standing (element 4's walking-on-water, the Abyssal proof), and **the Undertow's own
   secret**: Kai's Current doesn't move him through water — it moves *the deep itself*,
   which is why the Gate's lattice (element 1) answers his bloodline.
+- **Named techniques (all awakened tiers):** every House trains signature moves — named,
+  shouted, title-carded in calligraphy on screen (bible §5, "the Deep-Water Doctrine"
+  has the sampler: Marlin Line, Still Sea, First Wave, Star Path, Riddim Break, Open
+  Door). Techniques are choreography with a name and a bill — each one is drilled on
+  screen before it's ever landed in competition.
+- **Sovereign Waters (domain-class, Midnight+):** a high-Fathom swimmer *declares* their
+  water, imposing their Current's nature on a whole stretch of sea — ice-flowered lanes,
+  indoor squalls, bass-driven water that forces rivals onto Freewater's beat. Two
+  overlapping domains is a current-clash at war-scale: the arena itself becomes the
+  fight. Declaring burns Breath massively and holding a domain against a stronger will
+  is the deep world's ultimate contest of calm — exaggeration with the training bill
+  still attached.
 - **The two ends of transcendence:** go past your Fathom wrongly and the deep takes you
   (**the Drowned**, canon). Be *carried* past it — acknowledged, not conquering — and
   something else happens (**the Ascended**, element 7). Every supernatural ceiling in
@@ -171,11 +183,18 @@ fuel, and the writers' room has guardrails against creep:
 
 | Tier | Static breath | Depth sovereign | Signature feat ceiling |
 |---|---|---|---|
-| Sunlit | 4 min | 20 m | Read pool currents; +5% sustained speed |
-| Twilight | 8 min | 200 m | Ride open-ocean flow lines; lane interference |
-| Midnight | 20 min | 1,000 m | Wake-dragon manifests; summon a rip in still water |
-| Abyssal | Hours (torpor) | 6,000 m | Stand on water; redirect a local current |
-| Hadal | Unmeasured | Full trench | Gate-threshold survival; feats become scripture |
+| Sunlit | 4 min | 20 m | Read pool currents; +5% sustained speed; first named technique |
+| Twilight | 8 min | 200 m | Ride open-ocean flow lines; lane interference; full technique arsenal |
+| Midnight | 20 min | 1,000 m | Wake-dragon manifests; summon a rip in still water; **declare Sovereign Waters** (domain) |
+| Abyssal | Hours (torpor) | 6,000 m | Stand on water; redirect a local current; tow a becalmed ship; swim up a waterfall; arena-scale domains |
+| Hadal | Unmeasured | Full trench | Gate-threshold survival; part a strait for one held breath; feats become scripture |
+
+**The Deep-Water Doctrine (Canon v1.2, logged):** *real at the surface, legend in the
+deep.* Spectacle scales with depth — surface meets stay near-real (the leash that keeps
+the sport meaningful), Twilight venues speak, and Midnight-and-below goes as big as any
+battle anime alive: named techniques, Sovereign Waters, myth-grade Abyssal feats
+(bible §5). Palette-by-depth doubles as power-by-depth: the darker the frame, the more
+legendary what's allowed to happen in it.
 
 **Seam amendment (Canon v1.1, logged):** Sunlit-tier numbers are elevated-but-human —
 real freediving training can approach them (see

@@ -315,6 +315,48 @@ Every training arc moves a number the audience can chart (Solo Leveling's satisf
 loop), and every number is paid for in screen-time sweat (Baki's unspoken deal with the
 audience). Kai's chart on the clubroom wall is a recurring shot for five seasons.
 
+### The Deep-Water Doctrine — "real at the surface, legend in the deep"
+
+The rule that lets UNDERTOW be both Haikyuu-honest and full-blown anime-exaggerated at
+once: **spectacle scales with depth.** In a surface pool, powers whisper — a too-clean
+catch, an impossible calm, a turn that steals half a second. In Twilight venues, they
+speak. In Midnight and below, the gloves come off entirely, and the show goes as big as
+any battle anime alive — because down there, no judge, no camera, and no law of the
+surface world is watching. Palette-by-depth (§11) is thus also *power-by-depth*: the
+darker the frame, the more legendary what's allowed to happen in it.
+
+**Named techniques.** Every House trains signature moves — named, shouted, title-carded
+in calligraphy on screen, the full genre tradition. A sampler:
+
+- **Ren / Kurose — "Kuroshio Silver: Marlin Line."** A straight-line burst so fast the
+  wake snaps shut behind him with an audible crack.
+- **Aput Sedna — "Long Winter: Still Sea."** Kills the chop dead flat; rivals swim in
+  syrup-cold stillness while he glides through it like it's his front yard.
+- **Nereus Thalassa — "Poseidon's Court: First Wave."** Sends a standing swell racing
+  ahead of him — opponents fight his wave before they ever fight him.
+- **Moana-Rangi Tangaroa — "Star Path: The Long Way."** Reads and borrows every current
+  in the field at once; on screen she seems to *teleport* between flows.
+- **Kemar / Freewater — "One Drop: Riddim Break."** Drops the water's own beat for one
+  bar. Every rival's stroke timing stutters; he alone keeps time.
+- **Kai / Isozaki — "Undertow: Open Door."** The deep pulls, upward of a mile above it —
+  a vertical current in a flat pool, the sea reaching for one swimmer. (His series-end
+  finisher, built five seasons: **"Undertow: Bring You Home."**)
+
+**Sovereign Waters (domain-class, Midnight+).** At high Fathom, a swimmer can *declare*
+their water: impose their Current's nature on a whole stretch of sea. Sedna's lane
+grows ice-flowers; Thalassa's arena squalls indoors; Freewater's water carries a bass
+line you feel in your bones and must swim to. Two Sovereign Waters overlapping is a
+current-clash at war-scale — the arena itself becomes the fight. Declaring costs
+Breath massively (nothing is free — the training bill survives the exaggeration), and
+holding a domain against a stronger will is the deep world's ultimate contest of calm.
+
+**Abyssal and Hadal feats are myth on screen, not metaphor:** House Heads tow becalmed
+ships home, swim up waterfalls (the Ganga investiture rite), stand on storm swell that
+goes around them, cross oceans unassisted between Games. The legendary Warden feat —
+parting a strait for the length of one held breath — is canon history. The audience
+should argue about power scaling the way they argue about Yonko and Hashira: with
+canon numbers underneath (elements §6) and jaw-dropped disbelief on top.
+
 ---
 
 ## 6. Characters

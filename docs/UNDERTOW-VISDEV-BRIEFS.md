@@ -218,6 +218,10 @@ producible by a tiny team and to work with sound off (captions: the BPM counter)
   showing glowing eyes on dry land is off-model (the sole exception ever: Ascended).
 - **Palette discipline:** no Sunlit gold below Twilight except on the Ascended; it's
   the show's most load-bearing visual rule — breaking it is a *story event*.
+- **Named-technique title cards:** every named move (bible §5, Deep-Water Doctrine)
+  gets a calligraphy title card in its House's script/art tradition — brush kanji for
+  Kurose, dub-poster letterpress for Freewater, knotted-cord glyphs for Tangaroa —
+  slammed on screen at the moment of release, full genre tradition, zero irony.
 - **Cultural material** (suits, sigils, markings, chants) ships nowhere — not even in
   teasers — until it's been built with people who live the tradition. We research like
   the lore depends on it, because it does.
