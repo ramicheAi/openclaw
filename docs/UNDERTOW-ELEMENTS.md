@@ -176,6 +176,13 @@ fuel, and the writers' room has guardrails against creep:
 | Abyssal | Hours (torpor) | 6,000 m | Stand on water; redirect a local current |
 | Hadal | Unmeasured | Full trench | Gate-threshold survival; feats become scripture |
 
+**Seam amendment (Canon v1.1, logged):** Sunlit-tier numbers are elevated-but-human —
+real freediving training can approach them (see
+[UNDERTOW-SWIM-CODEX.md](UNDERTOW-SWIM-CODEX.md) §2). Twilight and beyond are
+**Current-assisted by definition**: raw Breath alone, however trained, caps at the
+Sunlit ceiling. The 8-minute/200m Twilight line is where physiology hands off to myth,
+and the show marks that transition on screen rather than hiding it.
+
 Rules that keep scaling honest: tier gaps are **hard** (a Twilight swimmer cannot beat a
 Midnight swimmer in deep water — races against higher tiers are won only in *shallow,
 technical* formats, which keeps surface sport meaningful forever); every on-screen
