@@ -219,7 +219,7 @@ rules: the audience can theorize from episode 8, confirm nothing until season 3)
 What the story eventually reveals, in stages: Nagi wasn't destroyed by the sea. Nagi
 *chose* to sink — to seal something, and someone had to stay behind to hold the seal. The
 Gate doesn't keep a monster out of the world. It keeps the ocean's grief in. And the
-wardens who "drown" holding it — including, fifteen years ago, a man named **Daigo
+wardens who "drown" holding it — including, eight years ago, a man named **Daigo
 Isozaki** — are not dead.
 
 ### The Drowned
@@ -356,7 +356,9 @@ because he knows exactly where the deep road ends.
 
 ### Daigo Isozaki — the Tide King (absent)
 
-The greatest open-water swimmer who ever lived, publicly drowned fifteen years ago.
+The greatest open-water swimmer who ever lived, publicly drowned eight years ago
+(named Warden-designate seven years before that — dates per the lore codex's logged
+continuity amendment).
 Actually: the last Warden, holding the Hadal Gate from the inside. The father-shadow that
 gives the series its Baki-gravity and its AoT-mystery — every season peels one layer off
 what he knew, what he chose, and what it cost the family he left on the beach.
@@ -525,7 +527,7 @@ color alone.
 
 ## 12. Episode 1 Outline — "Anchor"
 
-1. **Cold open (pre-title):** Night sea, fifteen years ago. A man swims into black water
+1. **Cold open (pre-title):** Night sea, eight years ago. A man swims into black water
    toward a light below. A seven-year-old follows. Three minutes of the most beautiful,
    most frightening water ever animated. Title card.
 2. **Act 1:** Kai at 15 — the kid who sits out swim class, the "Anchor" jokes, the dying

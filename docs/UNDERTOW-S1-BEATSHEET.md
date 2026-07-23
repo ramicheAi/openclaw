@@ -10,7 +10,7 @@ beat sheet — per [UNDERTOW-GOAL.md](UNDERTOW-GOAL.md), nothing merges without 
 
 ### Episode 1 — "Anchor"
 
-Fifteen years after seven-year-old Kai followed his father, open-water legend Daigo Isozaki,
+Eight years after seven-year-old Kai followed his father, open-water legend Daigo Isozaki,
 into a black sea and came back without him, fifteen-year-old Kai is still the boy who sits
 out swim class — until Bo Fujii's dying swim club needs a fourth body by Friday or loses the
 pool to water polo. Bo's ask isn't about speed, it's about company, and it's the first crack

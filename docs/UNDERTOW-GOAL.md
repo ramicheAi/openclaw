@@ -134,8 +134,8 @@ always — first drafts are for finding the real shape, not for shipping.
 | Concept bible | canon v1 | authored pre-GOAL; grandfathered, subject to sweep |
 | Element registry | canon v1 | authored pre-GOAL; grandfathered, subject to sweep |
 | Roadmap | canon v1 | process doc (dimensions n/a) |
-| Ep1 pilot script (draft 1) | draft | awaiting redline + QC pass |
+| Ep1 pilot script (draft 1) | draft | awaiting user redline; cold-open date amended per lore codex |
 | Visdev briefs | canon v1 | dimensions 2, 6 pass; consultant review pending |
-| S1 beat sheet | in production | QC on delivery |
-| Lore & history codex + endgame | in production | QC on delivery |
-| Swimming knowledge codex | in production | QC on delivery |
+| S1 beat sheet | canon v1 | QC passed 4.6 avg, revision 1 applied (safety covenant, prefectural thread) |
+| Lore & history codex + endgame | canon v1 | QC passed 5.0 avg, revision 1 applied; timeline amendment logged + propagated |
+| Swimming knowledge codex | canon v1 | QC passed 4.7 avg, revision 1 applied; feat-table seam amendment logged |

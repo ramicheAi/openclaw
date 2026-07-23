@@ -8,7 +8,7 @@ approximate. Draft 1 — written to be redlined.
 
 ## COLD OPEN (2:30)
 
-**EXT. OPEN SEA — NIGHT — FIFTEEN YEARS AGO**
+**EXT. OPEN SEA — NIGHT — EIGHT YEARS AGO**
 
 *Black water, black sky, a horizon you can feel but not see. Swells like breathing.
 Over black, a woman's voice — old, unhurried, reciting:*
