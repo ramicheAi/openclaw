@@ -64,6 +64,12 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
   serene, eyes glowing deep blue, bubbles drifting TOWARD him.*
 
 ### Ren Kurose (16) — rival
+- ✅ **GENERATED & LOCKED** — creator-approved plate at `assets/undertow/ren-fence-*.png`
+  (dusk poolside fence, cold antagonistic edge). **Role note:** Ren is the *rival*, not
+  the antagonist — he carries villain-grade menace early (contempt, the ep-11 blowup)
+  precisely so his mid-series turn to ally lands. The show's true antagonist is Kaien
+  Nakaru. Approved look reads as a tight short fade / precise undercut rather than length
+  on top; keep the crest and the coldness.
 - **Silhouette:** textbook sprint-freestyle build — broad shoulders, tapered waist,
   the "finished" body Kai lacks. Immaculate posture; economy in every gesture.
 - **Face/hair:** black hair with a blue-black sheen, undercut precision; pale sharp
