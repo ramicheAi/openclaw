@@ -146,6 +146,26 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
   Olympic gold medal hanging on a nail behind him, afternoon light through dusty
   windows.*
 
+### Kaien Nakaru (late 30s) — the antagonist
+- ✅ **GENERATED & LOCKED** — creator-approved plate at `assets/undertow/nakaru-seawall-*.png`.
+  **Locked direction: grounded, not fantasy.** The menace is in stillness, not effects —
+  no glowing veins, no monster. A weathered, imposing man carved down to conviction.
+- **Silhouette:** tall, powerful, still; a former champion's frame under a heavy dark
+  coat, collar up. Immense controlled stillness — a man who has already decided.
+- **Face:** sea-worn, hard, handsome-gone-severe; dark hair, damp, a single grey streak
+  at the temple; a faint old scar at the throat. The only tell of what he became: his
+  eyes are a shade too dark and deep, catching cold light wrong. (Save any overt
+  Drowned-change for late-series reveals; keep him human on the surface.)
+- **Wardrobe:** heavy dark coat over a plain diving underlayer; later, House Ryn
+  ceremonial second-skin with coiled-dragon motifs for the deep-world confrontations.
+- **Palette:** grounded, desaturated — slate, cold blue, black, storm-grey seas. He
+  belongs to the surface world's grey, not the deep's bioluminescence — until the finale.
+- **Prompt seed:** *grounded realistic-leaning anime villain, tall weathered man late
+  30s, dark coat with collar up, single grey streak at the temple, faint throat scar,
+  calm grief and terrible conviction (not rage), standing on a rain-lashed concrete
+  breakwater at dusk with a cold storm sea behind him, desaturated slate-and-blue
+  palette, immense controlled stillness.*
+
 ---
 
 ## 3. The Five Key Art Pieces
