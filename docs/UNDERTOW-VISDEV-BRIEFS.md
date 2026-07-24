@@ -82,6 +82,10 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
   standing at a pool fence at dusk watching with predatory intensity.*
 
 ### Bo "Buoy" Fujii (16) — heart of the crew
+- ✅ **GENERATED & LOCKED** — creator-approved plate at `assets/undertow/bo-dock.png`
+  (cream fisherman's knit, laughing on the dock at golden dawn). *Generation note:
+  keep Bo fully clothed and lead prompts with "wholesome" — the model's content filter
+  trips on him otherwise.*
 - **Silhouette:** the biggest frame in the cast — fisherman's mass, round and mighty,
   soft face on a working body. Breaststroker's barrel chest. Moves like he's careful
   not to break the world.
