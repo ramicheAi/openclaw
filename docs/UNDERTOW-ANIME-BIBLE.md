@@ -369,6 +369,16 @@ wrong in one specific way: he cannot put his face in water without his chest loc
 his one school meet, he froze on the block, fell in, and sank in front of everyone.
 They've called him **"Anchor"** ever since.
 
+*Design fact, never spoken on screen:* Kai is a mixed Black boy — Daigo's son by a
+Jamaican mother who passed when Kai was small. Deep brown skin, his mother's shell-cord
+bracelet always on his wrist. The show follows its own rule (§10, and elements §9): his
+heritage is *shown, never stated* — it lives in his design, in the small things his
+mother left behind, and in the way Kemar of the Freewater House clocks him across a pool
+deck and knows, without either of them saying a word. It also quietly deepens the
+"Anchor" ache: he was already the boy who didn't fit, in more ways than one, long before
+he ever sank. The mother is deliberately kept in the deep background — the father remains
+the story's one active mystery.
+
 The hook: forced back into the pool at 15, Kai panics, sinks — *and doesn't drown*. Four
 minutes on the bottom, calm as sleep, heart at thirty beats a minute. The water didn't
 reject him. The water was *waiting*. Kai carries the extinct Isozaki Current — **the

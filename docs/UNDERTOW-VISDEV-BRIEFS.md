@@ -37,19 +37,30 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
 (where applicable) deep kit, 1 action pose in water.
 
 ### Kai Isozaki (15) — protagonist
+- **Heritage (design fact, never stated on screen):** Kai is a mixed Black boy — his
+  father is the Japanese open-sea legend Daigo Isozaki, his late mother was Jamaican.
+  He has **deep brown skin** and Black features. The show never remarks on this; it
+  lives purely in his design, his mother's small legacies at home, and Kemar's quiet
+  recognition (the ambient-representation rule, elements §9). This is a hard model
+  requirement for every Kai frame and every generation prompt: darker skin, always.
 - **Silhouette:** lean, slightly under-muscled for the cast — a body that hasn't been
   allowed to train; reads "unfinished." Posture guarded on land, transformed to eerie
   stillness underwater.
-- **Face/hair:** dark ink-blue hair, perpetually a bit too long ("hiding" hair); large
-  dark eyes that read gray on land and take on deep-blue **Undertow glow only when
-  submerged** (canon: awakened eyes shift only in water).
+- **Face/hair:** deep brown skin; large expressive eyes that read dark on land and take
+  on a deep-blue **Undertow glow only when submerged** (canon: awakened eyes shift only
+  in water). Hair is dense, tightly-coiled black with a faint blue-black ocean sheen,
+  worn a little overgrown so it falls toward his eyes — the "hiding" hair, in his own
+  texture. (A short twist-out or coiled crop; never straightened.)
 - **Wardrobe:** school uniform with sleeves pulled over hands; borrowed plain jammers
-  (nothing branded — he owns no swim gear in ep 1).
+  (nothing branded — he owns no swim gear in ep 1). One quiet keepsake he always wears:
+  a small shell-and-cord bracelet that was his mother's — read by the audience as
+  texture, never explained in dialogue.
 - **Key acting note:** two Kais — land-Kai (flinchy, folded inward) and water-Kai
   (uncannily calm, open, home). The sheet must show both.
-- **Prompt seed:** *15-year-old anime boy, lean guarded posture, messy ink-blue hair
-  over his eyes, oversized school uniform sleeves, quiet haunted expression; second
-  pose: the same boy underwater, cross-legged on a pool floor in cathedral light,
+- **Prompt seed:** *15-year-old mixed Black anime boy, deep brown skin, tightly-coiled
+  blue-black hair falling toward his eyes, lean guarded posture, oversized school
+  uniform sleeves, quiet haunted expression; second pose: the same boy underwater,
+  cross-legged on a pool floor in cathedral light, deep brown skin lit from below,
   serene, eyes glowing deep blue, bubbles drifting TOWARD him.*
 
 ### Ren Kurose (16) — rival
@@ -212,6 +223,10 @@ producible by a tiny team and to work with sound off (captions: the BPM counter)
 
 ## 7. Production Notes
 
+- **Kai's design is fixed:** deep brown skin, tightly-coiled blue-black hair, mixed
+  Black (Japanese/Jamaican) — this holds in every key art, every panel, every prompt
+  (key art #1 "Bottom of the Pool" and #2 "Deep Calls to Deep" included). His
+  heritage is shown, never stated (elements §9).
 - **Body diversity is canon** (bible §11): sprinters, distance frames, Bo's mass,
   Luna's compact build — reject any draft set that converges on one hero physique.
 - **Eye-glow discipline:** awakened eye color appears *only underwater*. Any draft

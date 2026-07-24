@@ -8,6 +8,11 @@ are called out as **LONG VERTICAL DESCENT** panels — the reader physically scr
 through the water with Kai. This is the chapter's structural thesis: the medium becomes
 the drowning.
 
+Character-design lock: Kai is drawn per his visdev sheet — a mixed Black boy, deep brown
+skin, tightly-coiled blue-black hair falling toward his eyes, his mother's shell-cord
+bracelet on his wrist. This holds in every panel (his heritage is shown, never stated —
+elements §9). No panel dialogue or caption ever remarks on it.
+
 Palette key used throughout (visdev §1): **Chlorine Day** (cyan `#59C7E3`/tile white
 `#F2F7F7`/sun gold `#FFD98A`), **Green-Gold** (sea green `#2E8B74`/dawn gold `#E8B84B`),
 **Violet Fade** (deep violet `#3B2E63`/steel blue `#2F4A6E`), **Bioluminal** (abyss navy

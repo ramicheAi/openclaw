@@ -393,6 +393,14 @@ the hydrophone thread).
 **Philosophy of swimming:** *Going down is not losing your way up.* The Undertow's
 entire ethic, inherited by Kai without a single lesson in it — he has to discover the
 philosophy his bloodline already believed.
+**Kai's other half [NEW; never stated on screen]:** Daigo's son by a Jamaican mother
+(passed when Kai was small), Kai is a mixed Black boy — the Isozaki open-sea line
+crossed with the Atlantic's own crossing. Two lines the Meridian refuses to count meet
+in one person: the extinct Isozaki, and the diaspora the Freewater House is made of. It
+is never spoken; it lives in his design and in the fact that Kemar Reid takes one look
+at him across a pool deck and knows him for kin before a word passes (elements §9's
+ambient-representation rule). The mother is kept in deep background so the father stays
+the one active mystery — but her being lives in a shell-cord bracelet Kai never removes.
 **Relationship to the Isozaki line:** N/A (this is the line).
 
 ### The Freewater House — Jamaica & the Caribbean (the Eleventh)
