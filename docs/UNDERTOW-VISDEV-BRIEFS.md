@@ -144,11 +144,13 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
 
 ## 3. The Five Key Art Pieces
 
-1. **"The Bottom of the Pool" (primary poster).** Kai cross-legged on the pool floor,
-   cathedral down-light, bubbles and motes drifting toward him, eyes glowing; far
-   above, tiny and distorted, the silhouettes of the crowd at the pool edge.
-   *Palette: Chlorine Day surface bleeding into Violet Fade below — impossible,
-   intentional.*
+1. **"The Bottom of the Pool" (primary poster).** ✅ **GENERATED & LOCKED** — creator-
+   approved hero plate at `assets/undertow/kai-pool-floor-01.png` (alt render `-02`).
+   This is Kai's canonical face/design reference; all future Kai art keys off it. Kai
+   cross-legged on the pool floor, cathedral down-light, bubbles and motes drifting
+   toward him, eyes glowing; far above, tiny and distorted, the silhouettes of a
+   diverse crowd at the pool edge. *Palette: Chlorine Day surface bleeding into Violet
+   Fade below — impossible, intentional.*
 2. **"Deep Calls to Deep."** Vertical one-sheet: harbor and small house at top; the
    image continues downward through green-gold, violet, bioluminal — and at the
    bottom, the glyph-lit trunk of a Pillar gripping the Gate. Kai's small figure
