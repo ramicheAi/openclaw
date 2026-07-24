@@ -97,6 +97,8 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
   steaming, golden-green harbor light.*
 
 ### Mirei Sanda (15) — tactician
+- ✅ **GENERATED & LOCKED** — `assets/undertow/mirei-01.png` (alt `-02`): glasses, SANDA
+  tracksuit, holding the 4:07 stopwatch on the pool deck. The whole character in one prop.
 - **Silhouette:** compact, precise backstroker's frame; always slightly overdressed
   for the pool deck (tracksuit zipped to the chin, clipboard as shield).
 - **Face/hair:** dark bob with a single asymmetric long strand she chews when
@@ -109,6 +111,9 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
   stopwatch that reads 4:07, expression between disbelief and fascination.*
 
 ### Tsukiko "Luna" Amane (16) — the diver (enters Arc 2)
+- ✅ **GENERATED & LOCKED** — `assets/undertow/luna-01.png` (alt `-02`): moon-haloed
+  silver hair, white ama diving robe, floating weightless and calm among fish in violet
+  twilight. Water-calm made visible.
 - **Silhouette:** compact free-diver frame, long limbs, barefoot whenever plausibly
   allowed; stillness even on land — the only character who has water-calm everywhere.
 - **Face/hair:** long white-silver hair worn loose (in water it becomes the design's
@@ -142,6 +147,9 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
   turquoise water with drum-perfect rhythm, warm golden light, spray like cymbals.*
 
 ### Coach Gouda "the Beached God" (44)
+- ✅ **GENERATED & LOCKED** — `assets/undertow/gouda-01.png` (alt `-02`): slumped in the
+  folding chair in his cluttered equipment room, gold medal on the wall, weary body but
+  sharp haunted eyes.
 - **Silhouette:** a ruin of a magnificent build — still huge through the shoulders,
   gone soft at the middle; stubble, folding-chair slouch. When he finally demonstrates
   a stroke (ep 9), the sheet's second silhouette: the god, briefly back.
