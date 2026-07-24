@@ -117,6 +117,10 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
   indigo stitching, holding perfectly still while fish move around her.*
 
 ### Kemar "Riddim" Reid (17) — Freewater champion (recurring from S1 qualifiers; major from S2)
+- ✅ **GENERATED & LOCKED** — creator-approved plate at `assets/undertow/kemar-01.png`
+  (alt `-02`): mid-leap over turquoise water in a Jamaica green-gold racing singlet, locs
+  in a green-gold wrap, drowned Port Royal stone behind. Joy as a weapon — this is the
+  canonical Kemar.
 - **Silhouette:** pure sprinter — long levers, loose easy shoulders, a body that never
   looks tense even on the block; walks like he's hearing music because he is.
 - **Face/hair:** dark brown skin, short locs tied back for racing with a green-gold-black
