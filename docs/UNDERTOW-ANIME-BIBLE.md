@@ -129,7 +129,27 @@ Before building, understand the machines we're borrowing parts from.
   spectacular), opponents as philosophies of swimming, and a legendary father whose shadow
   is the story's gravity.
 
-### The common denominators (why all five work)
+### Invincible — the consequence engine (the one non-anime reference)
+
+- **Why people love it:** It makes the father the story's fault line. The mentor you
+  trust is the reveal that breaks you; the beloved parent's legacy turns out to have a
+  terrible cost. And it *earns its stakes* — power has weight, violence has
+  consequences, the hero gets beaten badly and loses, and the question underneath
+  everything is **nature vs. choice: am I my father's son, or my own person?** ("Look
+  what they make you give up." "Think, Mark, THINK.")
+- **The lesson viewers absorb:** Your bloodline is not your destiny — you choose what
+  kind of person to be, and the choice costs something. Idolizing a parent is not the
+  same as knowing them.
+- **What we take:** The father-son spine gets Invincible's *emotional* brutality — the
+  Warden truth about Daigo recontextualizes the hero Kai believed in, and Kai's arc
+  becomes a conscious choice to be *unlike* his father in the one way that matters (the
+  Undertow pulls down — Kai decides what he does with a gift built for descent). Plus
+  real consequence: the deep world's violence and the water's danger cost something, and
+  Kai takes true losses, not just narrow wins. **Tone boundary:** we pull Invincible's
+  emotional weight and consequence, **not** its gore — UNDERTOW stays four-quadrant
+  (shonen with dark undertows), so the brutality is of the heart, not the arterial kind.
+
+### The common denominators (why they all work)
 
 1. **A legible want.** Every protagonist wants one thing the audience can state in a
    sentence.

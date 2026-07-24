@@ -32,13 +32,24 @@ Each dimension names its benchmark (the show that sets the bar), the bar itself,
 - Water is animated as a character, never as background filler.
 - Body diversity on-model across the cast (no single hero physique).
 
-### 3. Emotion — benchmark: Naruto (Iruka's acknowledgment, Lee vs Gaara)
-**The bar:** each arc lands one earned emotional peak that works with the sound off.
+### 3. Emotion — benchmark: Naruto (Iruka's acknowledgment, Lee vs Gaara) + Invincible (the father)
+**The bar:** each arc lands one earned emotional peak that works with the sound off;
+the father-son spine hits Invincible-grade devastation at its reveals.
 - The peak must be *purchased* on screen — no unearned swells; the scene that pays it
   must trace to at least two prior scenes that funded it.
 - At least one warm domestic beat per 3 episodes (the grandmother's-table rule) — the
   show earns its darkness by protecting its hearth.
 - No character exists only to generate feelings for another (fridge test).
+- The parent reveals recontextualize, and cost: idolizing Daigo is never the same as
+  knowing him, and the truth must land like Invincible's, not like a twist for its own
+  sake.
+
+### 4b. Consequence — benchmark: Invincible + Attack on Titan
+**The bar:** power has weight, losses are real, and the hero gets beaten badly.
+- The protagonist takes true, visible losses — not only narrow wins (nature vs. choice
+  is proven by defeat, not just victory).
+- Violence and the water's danger cost something on screen; nothing is free.
+- **Tone boundary:** emotional brutality, not gore — UNDERTOW stays four-quadrant.
 
 ### 4. Excitement — benchmark: Baki + Solo Leveling
 **The bar:** every race readable as a fight; every power-up paid for.
