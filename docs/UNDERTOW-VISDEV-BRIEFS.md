@@ -193,7 +193,11 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
    toward him, eyes glowing; far above, tiny and distorted, the silhouettes of a
    diverse crowd at the pool edge. *Palette: Chlorine Day surface bleeding into Violet
    Fade below — impossible, intentional.*
-2. **"Deep Calls to Deep."** Vertical one-sheet: harbor and small house at top; the
+2. **"Deep Calls to Deep."** ✅ **GENERATED & LOCKED** — creator-approved hero poster at
+   `assets/undertow/poster-deep-calls-to-deep.png` (weathered cannery on the gold
+   horizon, the colossal glowing world-tree descending underwater, a lone boy
+   mid-water, the ornate sealed Gate held in the roots at the bottom). The webtoon
+   cover and the deck's hero image. Vertical one-sheet: harbor and small house at top; the
    image continues downward through green-gold, violet, bioluminal — and at the
    bottom, the glyph-lit trunk of a Pillar gripping the Gate. Kai's small figure
    descending the whole height. *(This is also the webtoon cover.)*
