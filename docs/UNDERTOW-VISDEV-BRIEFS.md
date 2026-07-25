@@ -275,6 +275,13 @@ producible by a tiny team and to work with sound off (captions: the BPM counter)
   Black (Japanese/Jamaican) — this holds in every key art, every panel, every prompt
   (key art #1 "Bottom of the Pool" and #2 "Deep Calls to Deep" included). His
   heritage is shown, never stated (elements §9).
+- **HARD CANON — Kai's identity is never negotiable.** Any image of Kai that does not
+  show **deep brown skin and tightly-coiled blue-black hair** is off-model. It is not a
+  variant, not a stylistic choice, not "close enough" — it is discarded and regenerated.
+  Never present an off-model Kai for approval. When enlarging Kai in any composition,
+  the approved hero plate (`assets/undertow/kai-pool-floor-01.png`) must be supplied to
+  the artist or model as a **character reference**, never a text description alone —
+  text-only prompts default to a generic pale figure and erase him.
 - **HARD CANON — no breathing apparatus, ever.** The entire power system is breath-hold
   freediving; the show's identity is going deep on a single held breath. **No scuba
   tanks, no oxygen tanks, no regulators, no dive masks, no rebreathers — on any
