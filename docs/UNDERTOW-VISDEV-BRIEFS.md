@@ -184,6 +184,23 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
 
 ---
 
+## 2b. Production Assets (generated & locked)
+
+- **Cast lineup sheet** — `assets/undertow/cast-lineup-sheet.png` (2400×2080). All eight
+  principals in one reference document, **composited from the approved plates**, so
+  every character is guaranteed on-model. Rebuildable via
+  `assets/undertow/build-lineup.py`. *This is the sheet you hand an artist or studio.*
+  Method note: an 8-character group shot generated from text is unreliable — compositing
+  approved plates is the correct production approach and was chosen deliberately.
+- **Crew key visual** — `assets/undertow/cast-key-visual.png` (alt: `-alt`). Kai, Bo,
+  Mirei and Luna on the pool deck; Bo's arm around Kai, Kai a little apart. Generated
+  with Kai's hero plate supplied as character reference. *Note: the `-alt` take renders
+  Bo lanky rather than heavyset — off-model; the primary is correct.*
+- **Teaser 01 — "The Sinking"** — `assets/undertow/teaser-sinking-01.mp4` (5s, 9:16,
+  720p). Kai calm on the pool floor as the camera pushes in and the water gathers toward
+  him. Animated **from the locked hero plate as the source frame**, which is what keeps
+  him on-model in motion. Vertical for TikTok/Shorts/Reels.
+
 ## 3. The Five Key Art Pieces
 
 1. **"The Bottom of the Pool" (primary poster).** ✅ **GENERATED & LOCKED** — creator-
