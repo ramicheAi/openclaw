@@ -275,6 +275,14 @@ producible by a tiny team and to work with sound off (captions: the BPM counter)
   Black (Japanese/Jamaican) — this holds in every key art, every panel, every prompt
   (key art #1 "Bottom of the Pool" and #2 "Deep Calls to Deep" included). His
   heritage is shown, never stated (elements §9).
+- **HARD CANON — no breathing apparatus, ever.** The entire power system is breath-hold
+  freediving; the show's identity is going deep on a single held breath. **No scuba
+  tanks, no oxygen tanks, no regulators, no dive masks, no rebreathers — on any
+  character, in any frame.** Swimmers wear real swim gear only: jammers, tech suits,
+  or House second-skins. **No capes, cloaks, or costumes** — they are athletes, not
+  superheroes. Any generated or drawn image showing a tank, mask, or cape is off-model
+  and must be redone. (Freediving fins and a nose-clip are the *only* permissible dive
+  accessories, and only when a scene calls for them.)
 - **Body diversity is canon** (bible §11): sprinters, distance frames, Bo's mass,
   Luna's compact build — reject any draft set that converges on one hero physique.
 - **Eye-glow discipline:** awakened eye color appears *only underwater*. Any draft
