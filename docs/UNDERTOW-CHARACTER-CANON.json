@@ -1,0 +1,186 @@
+{
+  "_doc": "UNDERTOW character canon — machine-readable. This file is the single source of truth for character identity. Any art pipeline, human or automated, MUST read this before generating a character. Human-readable rationale lives in UNDERTOW-VISDEV-BRIEFS.md and UNDERTOW-ART-PROTOCOL.md.",
+  "canon_version": "2.1",
+  "generation_platform": "higgsfield",
+  "universal_rules": {
+    "no_breathing_apparatus": {
+      "rule": "No scuba tanks, oxygen tanks, regulators, rebreathers, or dive masks on ANY character in ANY frame.",
+      "why": "The entire power system is breath-hold freediving. Apparatus erases the premise.",
+      "permitted_exceptions": ["freediving fins", "nose clip"],
+      "severity": "blocking"
+    },
+    "no_costumes": {
+      "rule": "No capes, cloaks, flowing fabric, or superhero costuming. These are athletes.",
+      "severity": "blocking"
+    },
+    "reference_required": {
+      "rule": "A character may never be generated from a text description alone. The character's element_id MUST be embedded in the prompt as <<<element_id>>>, or the approved plate supplied as an image reference.",
+      "why": "Text-only prompts default to a generic pale figure. This erased Kai three consecutive times on 2026-07-25 before the rule existed.",
+      "severity": "blocking"
+    },
+    "visual_verification_required": {
+      "rule": "Every generated character asset MUST be visually inspected against this canon BEFORE being shown to the creator or committed. Off-model output is discarded, never presented as an option.",
+      "why": "The creator should never be the quality filter.",
+      "severity": "blocking"
+    }
+  },
+  "characters": {
+    "kai": {
+      "full_name": "Kai Isozaki",
+      "age": 15,
+      "role": "protagonist",
+      "element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
+      "element_name": "UNDERTOW-Kai",
+      "approved_plate": "assets/undertow/kai-pool-floor-01.png",
+      "source_job_id": "f312fc24-9c6b-42e6-92bf-c2cf9a99f92e",
+      "identity": {
+        "heritage": "Mixed Black — Japanese father (Daigo Isozaki), Jamaican mother",
+        "skin": "deep brown",
+        "skin_reference_rgb": [108, 71, 58],
+        "hair": "tightly-coiled blue-black, worn a little overgrown, falls toward his eyes; never straightened",
+        "eyes": "dark; deep-blue Undertow glow ONLY when submerged",
+        "build": "lean, slightly under-muscled — a body that hasn't been allowed to train",
+        "signature_prop": "shell-cord bracelet that was his late mother's; never removed"
+      },
+      "wardrobe": ["plain dark swim jammers", "school uniform with sleeves pulled over hands"],
+      "forbidden": ["light or pale skin", "straight hair", "scuba tank", "dive mask", "cape", "eye glow on dry land"],
+      "notes": "His heritage is SHOWN, never stated in dialogue. Off-model = discarded, never shown for approval."
+    },
+    "ren": {
+      "full_name": "Ren Kurose",
+      "age": 16,
+      "role": "rival (NOT the antagonist)",
+      "element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
+      "element_name": "UNDERTOW-Ren",
+      "approved_plate": "assets/undertow/ren-fence-01.png",
+      "source_job_id": "997ce4f6-2c81-48f3-9ec5-fef40a976d9e",
+      "identity": {
+        "heritage": "Japanese, House Kurose heir",
+        "skin": "pale",
+        "skin_reference_rgb": [188, 141, 124],
+        "hair": "blue-black, precise tight undercut / short fade",
+        "eyes": "silver-gray; cold Kuroshio silver when submerged",
+        "build": "textbook sprint-freestyle — broad shoulders, tapered waist, immaculate posture"
+      },
+      "wardrobe": ["black House Kurose tracksuit with small silver wave-and-torii crest", "black/silver tech suit"],
+      "forbidden": ["warmth in early-arc expressions", "long hair on top"],
+      "notes": "Carries villain-grade menace early so his mid-series turn to ally lands. He is not the villain."
+    },
+    "kemar": {
+      "full_name": "Kemar 'Riddim' Reid",
+      "age": 17,
+      "role": "Freewater House champion",
+      "element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
+      "element_name": "UNDERTOW-Kemar",
+      "approved_plate": "assets/undertow/kemar-01.png",
+      "source_job_id": "f8d1459d-9bbf-4287-9279-d7a78e3065f2",
+      "identity": {
+        "heritage": "Jamaican, Port Royal",
+        "skin": "deep brown",
+        "hair": "short locs tied back with a green-gold-black wrap",
+        "eyes": "warm brown; river-gold when submerged",
+        "build": "pure sprinter — long levers, loose easy shoulders",
+        "signature": "radiant grin; swims to a beat only he hears"
+      },
+      "wardrobe": ["Jamaica green/gold/black racing kit", "Freewater second-skin with House sigil"],
+      "forbidden": ["light skin", "loose untied locs while racing"],
+      "notes": "Cultural specifics to be built with Jamaican tradition-keepers before public release."
+    },
+    "bo": {
+      "full_name": "Bo 'Buoy' Fujii",
+      "age": 16,
+      "role": "heart of the crew",
+      "element_id": "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
+      "element_name": "UNDERTOW-Bo",
+      "approved_plate": "assets/undertow/bo-dock.png",
+      "source_job_id": "d71cebfe-89fa-4b79-a3e1-0ca62c102fe6",
+      "identity": {
+        "heritage": "Japanese, fishing family",
+        "skin": "sun-weathered",
+        "hair": "short sun-bleached brown",
+        "build": "HEAVYSET, round-and-mighty, tall and broad — fisherman's mass, breaststroker's barrel chest",
+        "signature": "enormous open-hearted grin; moves like he's careful not to break the world"
+      },
+      "wardrobe": ["cream cable-knit fisherman's sweater", "worn swim-club jacket", "club jammers"],
+      "forbidden": ["lanky or slim build", "athletic-tapered physique", "bare torso in generated art"],
+      "notes": "Generation note: keep Bo fully clothed and lead prompts with 'wholesome' — the content filter trips on him otherwise. The crew-key-visual ALT take renders him lanky and is OFF-MODEL."
+    },
+    "luna": {
+      "full_name": "Tsukiko 'Luna' Amane",
+      "age": 16,
+      "role": "the diver",
+      "element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
+      "element_name": "UNDERTOW-Luna",
+      "approved_plate": "assets/undertow/luna-01.png",
+      "source_job_id": "e9602bc2-0358-4e5e-8fda-53dd0df4c029",
+      "identity": {
+        "heritage": "ama-diver island, unregistered",
+        "skin": "moon-pale",
+        "hair": "very long silver-white, worn loose; haloes around her underwater",
+        "eyes": "moon-pale",
+        "build": "compact free-diver frame",
+        "signature": "small white ceremonial dot-markings at the brow; water-calm everywhere"
+      },
+      "wardrobe": ["modest full-length white ama diving robe with indigo wave stitching", "shell-cord anklet"],
+      "forbidden": ["revealing swimwear", "House crest (she is unregistered)"],
+      "notes": "Ama-island markings built with tradition-keepers."
+    },
+    "mirei": {
+      "full_name": "Mirei Sanda",
+      "age": 15,
+      "role": "the tactician",
+      "element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+      "element_name": "UNDERTOW-Mirei",
+      "approved_plate": "assets/undertow/mirei-01.png",
+      "source_job_id": "4e3da37c-9825-427d-a30f-4117a00a1f9b",
+      "identity": {
+        "heritage": "Japanese",
+        "hair": "dark bob with one longer asymmetric strand she chews when calculating",
+        "eyes": "narrow, intelligent, behind light-catching glasses",
+        "build": "compact, precise backstroker"
+      },
+      "wardrobe": ["navy federation tracksuit zipped to the chin", "MANAGER armband"],
+      "signature_props": ["stopwatch reading 4:07", "clipboard"],
+      "forbidden": ["without glasses", "unzipped/casual posture in early arcs"]
+    },
+    "gouda": {
+      "full_name": "Coach Gouda",
+      "age": 44,
+      "role": "mentor — 'the Beached God'",
+      "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
+      "element_name": "UNDERTOW-Gouda",
+      "approved_plate": "assets/undertow/gouda-01.png",
+      "source_job_id": "b28f1e60-c086-4e89-bf26-0a10ecd144db",
+      "identity": {
+        "heritage": "Japanese, former Olympic champion",
+        "hair": "graying topknot going to seed",
+        "face": "heavy jaw, broken nose, several days of stubble",
+        "build": "a ruin of a magnificent athlete — huge shoulders, gone soft at the middle",
+        "signature": "weary slouch, but eyes that never stopped being sharp and haunted"
+      },
+      "wardrobe": ["rumpled old tracksuit", "open windbreaker"],
+      "signature_props": ["Olympic gold medal used as a bottle opener"],
+      "forbidden": ["fit/athletic present-day physique", "cheerful demeanour"]
+    },
+    "nakaru": {
+      "full_name": "Kaien Nakaru",
+      "age": 38,
+      "role": "the antagonist — the Second Tide",
+      "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
+      "element_name": "UNDERTOW-Nakaru",
+      "approved_plate": "assets/undertow/nakaru-seawall-01.png",
+      "source_job_id": "0ced40e3-a4b8-4015-bb41-fa2e1205c4d3",
+      "identity": {
+        "heritage": "Japanese, House Ryn, former Fathom Games champion",
+        "skin": "sea-worn, weathered",
+        "hair": "dark, damp, single grey streak at the temple",
+        "eyes": "a shade too dark and deep — the ONLY hint of what he became",
+        "build": "tall, powerful, immense controlled stillness",
+        "signature": "faint old scar at the throat"
+      },
+      "wardrobe": ["heavy dark coat, collar up", "plain diving underlayer"],
+      "forbidden": ["glowing veins", "bioluminescence", "monster features", "rage expression", "fantasy styling"],
+      "notes": "LOCKED DIRECTION: grounded, not fantasy. The menace is stillness, not effects. Expression is calm grief and conviction — a man who has already decided. Earlier fantasy-styled versions were rejected by the creator."
+    }
+  }
+}

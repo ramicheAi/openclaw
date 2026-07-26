@@ -1,0 +1,304 @@
+{
+ "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
+ "manifest_version": "1.0",
+ "canon_version": "2.1",
+ "generated": "2026-07-25",
+ "assets": {
+  "bo-dock.png": {
+   "sha256_16": "ec4f2a61c237ebff",
+   "kind": "character",
+   "characters": [
+    "bo"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "cast-key-visual-alt.png": {
+   "sha256_16": "47abe81307003660",
+   "kind": "key-art",
+   "characters": [
+    "kai",
+    "bo",
+    "mirei",
+    "luna"
+   ],
+   "status": "REJECTED-off-model",
+   "element_id": null,
+   "defect": "Bo rendered lanky; canon requires heavyset. Kai skin light.",
+   "action": "Do not use. Retained only as a rejection record.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-25",
+   "provenance": "rejected-record"
+  },
+  "cast-key-visual.png": {
+   "sha256_16": "65128841a6128c97",
+   "kind": "key-art",
+   "characters": [
+    "kai",
+    "bo",
+    "mirei",
+    "luna"
+   ],
+   "status": "legacy-pre-system",
+   "element_id": null,
+   "generated_with": "text prompt + kai hero plate as single reference",
+   "defect": "Kai's skin renders LIGHTER than his approved plate. Faces differ from solo plates.",
+   "action": "REGENERATE using multi-element prompt",
+   "verified_by": "agent",
+   "verified_at": "2026-07-25",
+   "provenance": "approved-plate-as-reference"
+  },
+  "cast-lineup-sheet.png": {
+   "sha256_16": "43d6bc4fd69490f2",
+   "kind": "composite",
+   "characters": [
+    "kai",
+    "ren",
+    "kemar",
+    "bo",
+    "luna",
+    "mirei",
+    "gouda",
+    "nakaru"
+   ],
+   "status": "APPROVED",
+   "element_id": null,
+   "generated_with": "composited from approved plates (no generation)",
+   "status_note": "Guaranteed on-model: built from approved plates, not generated.",
+   "verified_by": "agent+creator",
+   "verified_at": "2026-07-25",
+   "provenance": "derived-from-approved-plates",
+   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py \u2014 identity is mathematically identical to canon."
+  },
+  "gouda-01.png": {
+   "sha256_16": "19ef68434b43c8cb",
+   "kind": "character",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "gouda-02.png": {
+   "sha256_16": "cf8e55fc4893676b",
+   "kind": "character",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "kai-pool-floor-01.png": {
+   "sha256_16": "d7eab47f2e65dff3",
+   "kind": "character",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "kai-pool-floor-02.png": {
+   "sha256_16": "8f0cdc0a1923d89b",
+   "kind": "character",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "kemar-01.png": {
+   "sha256_16": "479f3527e4ddd86a",
+   "kind": "character",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "kemar-02.png": {
+   "sha256_16": "04499e1e6a421ba3",
+   "kind": "character",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "luna-01.png": {
+   "sha256_16": "324dd18ca3d8fd42",
+   "kind": "character",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "luna-02.png": {
+   "sha256_16": "0dc0237491641228",
+   "kind": "character",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "mirei-01.png": {
+   "sha256_16": "69eb663e651b3232",
+   "kind": "character",
+   "characters": [
+    "mirei"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "mirei-02.png": {
+   "sha256_16": "13dd2e034def3aff",
+   "kind": "character",
+   "characters": [
+    "mirei"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "nakaru-seawall-01.png": {
+   "sha256_16": "a34b6a09945cbbe9",
+   "kind": "character",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "nakaru-seawall-02.png": {
+   "sha256_16": "db0057e5c18aba64",
+   "kind": "character",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "poster-deep-calls-to-deep-4k.png": {
+   "sha256_16": "bf19693c0ca71cce",
+   "kind": "key-art",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": null,
+   "generated_with": "composition plate + kai hero plate as dual image reference",
+   "status_note": "Canon-correct: Kai deep brown skin, coiled hair, jammers, no apparatus.",
+   "verified_by": "agent+creator",
+   "verified_at": "2026-07-25",
+   "provenance": "approved-plate-as-reference",
+   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct."
+  },
+  "poster-deep-calls-to-deep-alt.png": {
+   "sha256_16": "56f6af9e630225f0",
+   "kind": "key-art",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": null,
+   "generated_with": "composition plate + kai hero plate as dual image reference",
+   "status_note": "Canon-correct: Kai deep brown skin, coiled hair, jammers, no apparatus.",
+   "verified_by": "agent+creator",
+   "verified_at": "2026-07-25",
+   "provenance": "approved-plate-as-reference",
+   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct."
+  },
+  "poster-deep-calls-to-deep.png": {
+   "sha256_16": "ebd0cc38e5271b3f",
+   "kind": "key-art",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": null,
+   "generated_with": "composition plate + kai hero plate as dual image reference",
+   "status_note": "Canon-correct: Kai deep brown skin, coiled hair, jammers, no apparatus.",
+   "verified_by": "agent+creator",
+   "verified_at": "2026-07-25",
+   "provenance": "approved-plate-as-reference",
+   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct."
+  },
+  "ren-fence-01.png": {
+   "sha256_16": "dbb285bed52f64ac",
+   "kind": "character",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "ren-fence-02.png": {
+   "sha256_16": "a24638f9db21971f",
+   "kind": "character",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "teaser-sinking-01.mp4": {
+   "sha256_16": "8111b2a7f01a0e58",
+   "kind": "video",
+   "characters": [
+    "kai"
+   ],
+   "status": "legacy-pre-system",
+   "element_id": null,
+   "generated_with": "kling3.0 image-to-video from kai hero plate as start frame",
+   "status_note": "Start frame is the approved plate, so identity holds at frame 0; drift over 5s unverified frame-by-frame.",
+   "action": "Re-verify frame samples; regenerate with element when video-element support confirmed.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-25",
+   "provenance": "approved-plate-as-reference"
+  }
+ },
+ "provenance_types": {
+  "element_id": "Generated with a locked character element. REQUIRED for all new character art.",
+  "derived-from-approved-plates": "Composited/derived from approved plates with no generation. Identity is exact.",
+  "approved-plate-as-reference": "Generated with an approved plate as image reference. Legacy-acceptable; weaker than element_id.",
+  "rejected-record": "Retained only to document a rejection. Never ship."
+ }
+}
