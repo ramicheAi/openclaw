@@ -1,8 +1,8 @@
 {
  "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
- "manifest_version": "1.0",
- "canon_version": "2.1",
- "generated": "2026-07-25",
+ "manifest_version": "1.1",
+ "canon_version": "2.3",
+ "generated": "2026-07-30",
  "assets": {
   "bo-dock.png": {
    "sha256_16": "ec4f2a61c237ebff",
@@ -15,41 +15,6 @@
    "note": "Creator-approved. This IS the identity source of truth.",
    "verified_by": "creator",
    "verified_at": "2026-07-25"
-  },
-  "cast-key-visual-alt.png": {
-   "sha256_16": "47abe81307003660",
-   "kind": "key-art",
-   "characters": [
-    "kai",
-    "bo",
-    "mirei",
-    "luna"
-   ],
-   "status": "REJECTED-off-model",
-   "element_id": null,
-   "defect": "Bo rendered lanky; canon requires heavyset. Kai skin light.",
-   "action": "Do not use. Retained only as a rejection record.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-25",
-   "provenance": "rejected-record"
-  },
-  "cast-key-visual.png": {
-   "sha256_16": "65128841a6128c97",
-   "kind": "key-art",
-   "characters": [
-    "kai",
-    "bo",
-    "mirei",
-    "luna"
-   ],
-   "status": "legacy-pre-system",
-   "element_id": null,
-   "generated_with": "text prompt + kai hero plate as single reference",
-   "defect": "Kai's skin renders LIGHTER than his approved plate. Faces differ from solo plates.",
-   "action": "REGENERATE using multi-element prompt",
-   "verified_by": "agent",
-   "verified_at": "2026-07-25",
-   "provenance": "approved-plate-as-reference"
   },
   "cast-lineup-sheet.png": {
    "sha256_16": "43d6bc4fd69490f2",
@@ -71,7 +36,7 @@
    "verified_by": "agent+creator",
    "verified_at": "2026-07-25",
    "provenance": "derived-from-approved-plates",
-   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py \u2014 identity is mathematically identical to canon."
+   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py — identity is mathematically identical to canon."
   },
   "gouda-01.png": {
    "sha256_16": "19ef68434b43c8cb",
@@ -293,12 +258,75 @@
    "verified_by": "agent",
    "verified_at": "2026-07-25",
    "provenance": "approved-plate-as-reference"
+  },
+  "kai-neutral-ref.png": {
+   "sha256_16": "922c12c2a41f8ec2",
+   "kind": "character",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "source_job_id": "0cbde580-efd8-401f-8cb8-b5895809e826",
+   "note": "Kai in his un-powered baseline state: flat neutral daylight, plain background, ordinary dark brown eyes, blue-black hair. Exists so his element cannot mistake the submerged Undertow glow for his permanent face.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-30"
+  },
+  "luna-neutral-ref.png": {
+   "sha256_16": "bfbea6eb0f674c40",
+   "kind": "character",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+   "source_job_id": "12dcc278-b1f5-432a-8084-0648f41f52f3",
+   "note": "Luna in neutral daylight on a plain background, pale ivory skin. Exists so her element cannot mistake violet underwater light for her skin tone.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-30"
+  },
+  "crew-key-visual.png": {
+   "sha256_16": "b0bde22460d564be",
+   "kind": "key-art",
+   "characters": [
+    "bo",
+    "kai",
+    "mirei",
+    "luna"
+   ],
+   "element_ids": [
+    "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
+    "38b45365-9f70-4b2e-a79e-b7949fea9007",
+    "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+    "3d3c787c-1929-4b3e-a4ad-6033e9d53564"
+   ],
+   "status": "APPROVED",
+   "source_job_id": "7b253f92-2f98-4365-b597-1269659fc94b",
+   "generated_with": "four locked elements, one per character in frame",
+   "status_note": "First crew visual with every character element-locked. Kai's eyes correctly dark brown on dry land; Bo heavyset and fully clothed; Luna pale ivory. Supersedes cast-key-visual.png.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-30",
+   "provenance": "element_id"
   }
  },
  "provenance_types": {
-  "element_id": "Generated with a locked character element. REQUIRED for all new character art.",
+  "element_id": "Generated with a locked character element. REQUIRED for all new character art. Multi-character art uses element_ids (a list) — one lock per character in frame.",
   "derived-from-approved-plates": "Composited/derived from approved plates with no generation. Identity is exact.",
   "approved-plate-as-reference": "Generated with an approved plate as image reference. Legacy-acceptable; weaker than element_id.",
   "rejected-record": "Retained only to document a rejection. Never ship."
+ },
+ "superseded": {
+  "cast-key-visual.png": {
+   "sha256_16": "65128841a6128c97",
+   "removed_at": "2026-07-30",
+   "reason": "Kai's skin rendered lighter than his approved plate. Superseded by crew-key-visual.png, generated with locked elements.",
+   "recoverable_from": "git history"
+  },
+  "cast-key-visual-alt.png": {
+   "sha256_16": "47abe81307003660",
+   "removed_at": "2026-07-30",
+   "reason": "Bo rendered lanky; canon requires heavyset. Never shipped. Superseded by crew-key-visual.png.",
+   "recoverable_from": "git history"
+  }
  }
 }

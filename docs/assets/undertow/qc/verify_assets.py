@@ -61,21 +61,36 @@ def verify(report=False):
     assets = manifest["assets"]
     failures, warnings, rows = [], [], []
 
+    # Retired elements stay valid: an asset generated before a character's element
+    # was rebuilt still traces to approved identity. Retiring an element does not
+    # retroactively orphan the art it produced.
     valid_elements = {c["element_id"] for c in chars.values()}
-    plate_by_char = {k: v["approved_plate"].split("/")[-1] for k, v in chars.items()}
+    valid_elements |= {c["retired_element_id"] for c in chars.values()
+                       if c.get("retired_element_id")}
 
-    # --- 1. DRIFT: founding plates must match recorded checksums
+    # Founding plates AND baseline references are identity sources, not derived art.
+    plate_by_char = {k: v["approved_plate"].split("/")[-1] for k, v in chars.items()}
+    baseline_by_char = {k: v["baseline_reference"].split("/")[-1]
+                        for k, v in chars.items() if v.get("baseline_reference")}
+    identity_sources = set(plate_by_char.values()) | set(baseline_by_char.values())
+
+    # --- 1. DRIFT: founding plates and baseline references must match recorded checksums
     for cid, c in chars.items():
-        fn = c["approved_plate"].split("/")[-1]
-        p = os.path.join(ART, fn)
-        if not os.path.exists(p):
-            failures.append(f"MISSING PLATE   {cid}: {fn} not found — canon references a plate that does not exist")
-            continue
-        rec = assets.get(fn, {})
-        if "sha256_16" not in rec:
-            failures.append(f"UNCHECKSUMMED   {fn} is a founding plate with no recorded checksum")
-        elif rec["sha256_16"] != sha(p):
-            failures.append(f"DRIFT DETECTED  {fn} no longer matches its recorded checksum — identity may have been altered")
+        for label, key in (("founding plate", "approved_plate"),
+                           ("baseline reference", "baseline_reference")):
+            ref = c.get(key)
+            if not ref:
+                continue
+            fn = ref.split("/")[-1]
+            p = os.path.join(ART, fn)
+            if not os.path.exists(p):
+                failures.append(f"MISSING SOURCE  {cid}: {fn} not found — canon references a {label} that does not exist")
+                continue
+            rec = assets.get(fn, {})
+            if "sha256_16" not in rec:
+                failures.append(f"UNCHECKSUMMED   {fn} is a {label} with no recorded checksum")
+            elif rec["sha256_16"] != sha(p):
+                failures.append(f"DRIFT DETECTED  {fn} no longer matches its recorded checksum — identity may have been altered")
 
     # --- 2/3/4. every media file registered, with provenance + sign-off
     on_disk = sorted(f for f in os.listdir(ART)
@@ -91,9 +106,17 @@ def verify(report=False):
         status = rec.get("status", "unknown")
 
         if kind == "character" or chs:
-            is_plate = fn in plate_by_char.values()
-            eid = rec.get("element_id")
+            is_plate = fn in identity_sources
+            # Multi-character art declares one element per character, so accept a
+            # list. A single element_id is just the one-character case of it.
+            eids = rec.get("element_ids") or ([rec["element_id"]] if rec.get("element_id") else [])
+            eid = eids[0] if eids else None
             prov = rec.get("provenance")
+
+            # Every character in the frame must have been driven by an element.
+            if eids and chs and len(eids) != len(chs):
+                failures.append(f"ELEMENT GAP     {fn} declares {len(chs)} character(s) but only "
+                                f"{len(eids)} element(s) — every character in frame needs its own lock")
 
             # A character asset must trace back to approved identity by ONE of:
             #   element_id   - generated with a locked element  (REQUIRED for new work)
@@ -103,8 +126,9 @@ def verify(report=False):
             # Anything else is unprovenanced and blocks.
             if not is_plate:
                 if eid:
-                    if eid not in valid_elements:
-                        failures.append(f"BAD ELEMENT     {fn} references unknown element_id {eid}")
+                    for e in eids:
+                        if e not in valid_elements:
+                            failures.append(f"BAD ELEMENT     {fn} references unknown element_id {e}")
                 elif prov in ("derived-from-approved-plates", "rejected-record"):
                     pass  # deterministic or explicitly quarantined
                 elif prov == "approved-plate-as-reference":
@@ -130,7 +154,9 @@ def verify(report=False):
         print()
         print("  CHARACTER ELEMENTS (identity locks):")
         for cid, c in chars.items():
-            print(f"    {c['full_name']:<22} {c['element_id']}")
+            print(f"    {c['full_name']:<22} {c['element_id']}  {c['element_name']}")
+            if c.get("retired_element_id"):
+                print(f"    {'':<22} {c['retired_element_id']}  (retired — still valid for existing art)")
         print()
 
     for w in warnings:

@@ -1,12 +1,15 @@
 {
-  "_doc": "UNDERTOW character canon — machine-readable. This file is the single source of truth for character identity. Any art pipeline, human or automated, MUST read this before generating a character. Human-readable rationale lives in UNDERTOW-VISDEV-BRIEFS.md and UNDERTOW-ART-PROTOCOL.md.",
-  "canon_version": "2.1",
+  "_doc": "UNDERTOW character canon \u2014 machine-readable. This file is the single source of truth for character identity. Any art pipeline, human or automated, MUST read this before generating a character. Human-readable rationale lives in UNDERTOW-VISDEV-BRIEFS.md and UNDERTOW-ART-PROTOCOL.md.",
+  "canon_version": "2.3",
   "generation_platform": "higgsfield",
   "universal_rules": {
     "no_breathing_apparatus": {
       "rule": "No scuba tanks, oxygen tanks, regulators, rebreathers, or dive masks on ANY character in ANY frame.",
       "why": "The entire power system is breath-hold freediving. Apparatus erases the premise.",
-      "permitted_exceptions": ["freediving fins", "nose clip"],
+      "permitted_exceptions": [
+        "freediving fins",
+        "nose clip"
+      ],
       "severity": "blocking"
     },
     "no_costumes": {
@@ -22,6 +25,17 @@
       "rule": "Every generated character asset MUST be visually inspected against this canon BEFORE being shown to the creator or committed. Off-model output is discarded, never presented as an option.",
       "why": "The creator should never be the quality filter.",
       "severity": "blocking"
+    },
+    "element_source_must_show_baseline_state": {
+      "rule": "A character element MUST include at least one BASELINE reference: neutral daylight, plain background, character in their ordinary un-powered state. An element learns everything in its source plate as identity — it cannot tell a permanent trait from a temporary one.",
+      "why": "Discovered twice on 2026-07-30. (1) Luna's element, built solely from a violet-twilight underwater plate, rendered her skin blue-lavender on a sunlit pool deck — it had learned the LIGHTING as skin tone. (2) Kai's element, built solely from the submerged pool-floor plate, carried the deep-blue Undertow eye-glow and water-cast teal hair onto a dry pool deck — it had learned a POWERED STATE as his face. The second is the worse failure: the glow is the visual tell that the Undertow is surfacing, so showing it on dry land breaks the power system itself.",
+      "how": "Generate a baseline plate first — flat neutral daylight, plain grey background, no environmental cast, no active power, no story-state effects. Create the element with that reference FIRST and any atmospheric or powered plate second.",
+      "applies_to": [
+        "environmental colour cast (lighting learned as skin tone)",
+        "state-dependent traits (eye glow, aura, transformation learned as permanent features)",
+        "wet/dry hair and any other condition-specific rendering"
+      ],
+      "severity": "blocking"
     }
   },
   "characters": {
@@ -29,21 +43,41 @@
       "full_name": "Kai Isozaki",
       "age": 15,
       "role": "protagonist",
-      "element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
-      "element_name": "UNDERTOW-Kai",
+      "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+      "element_name": "UNDERTOW-Kai-v2",
       "approved_plate": "assets/undertow/kai-pool-floor-01.png",
       "source_job_id": "f312fc24-9c6b-42e6-92bf-c2cf9a99f92e",
+      "baseline_reference": "assets/undertow/kai-neutral-ref.png",
+      "baseline_source_job_id": "0cbde580-efd8-401f-8cb8-b5895809e826",
+      "retired_element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
+      "retired_reason": "v1 was built solely from the submerged pool-floor plate, where the deep-blue Undertow eye-glow and water-cast teal hair are canon-correct. The element learned that POWERED STATE as his permanent face and carried the glow onto a dry pool deck in every crew render. v2 supplies a neutral dry-land baseline first (dark brown eyes, blue-black hair) plus the submerged plate second.",
       "identity": {
-        "heritage": "Mixed Black — Japanese father (Daigo Isozaki), Jamaican mother",
+        "heritage": "Mixed Black \u2014 Japanese father (Daigo Isozaki), Jamaican mother",
         "skin": "deep brown",
-        "skin_reference_rgb": [108, 71, 58],
-        "hair": "tightly-coiled blue-black, worn a little overgrown, falls toward his eyes; never straightened",
-        "eyes": "dark; deep-blue Undertow glow ONLY when submerged",
-        "build": "lean, slightly under-muscled — a body that hasn't been allowed to train",
+        "skin_reference_rgb": [
+          108,
+          71,
+          58
+        ],
+        "hair": "tightly-coiled blue-black, worn a little overgrown, falls toward his eyes; never straightened. NEVER teal, green or turquoise — that is water light, not hair colour",
+        "eyes": "ordinary dark brown on dry land. The deep-blue Undertow glow appears ONLY when he is submerged — it is the visual tell that the power is surfacing, so it must never appear on a pool deck, in a classroom, or anywhere dry",
+        "build": "lean, slightly under-muscled \u2014 a body that hasn't been allowed to train",
         "signature_prop": "shell-cord bracelet that was his late mother's; never removed"
       },
-      "wardrobe": ["plain dark swim jammers", "school uniform with sleeves pulled over hands"],
-      "forbidden": ["light or pale skin", "straight hair", "scuba tank", "dive mask", "cape", "eye glow on dry land"],
+      "wardrobe": [
+        "plain dark swim jammers",
+        "school uniform with sleeves pulled over hands"
+      ],
+      "forbidden": [
+        "light or pale skin",
+        "straight hair",
+        "teal or green hair",
+        "scuba tank",
+        "dive mask",
+        "cape",
+        "eye glow on dry land",
+        "blue or luminous eyes on dry land"
+      ],
       "notes": "His heritage is SHOWN, never stated in dialogue. Off-model = discarded, never shown for approval."
     },
     "ren": {
@@ -57,13 +91,23 @@
       "identity": {
         "heritage": "Japanese, House Kurose heir",
         "skin": "pale",
-        "skin_reference_rgb": [188, 141, 124],
+        "skin_reference_rgb": [
+          188,
+          141,
+          124
+        ],
         "hair": "blue-black, precise tight undercut / short fade",
         "eyes": "silver-gray; cold Kuroshio silver when submerged",
-        "build": "textbook sprint-freestyle — broad shoulders, tapered waist, immaculate posture"
+        "build": "textbook sprint-freestyle \u2014 broad shoulders, tapered waist, immaculate posture"
       },
-      "wardrobe": ["black House Kurose tracksuit with small silver wave-and-torii crest", "black/silver tech suit"],
-      "forbidden": ["warmth in early-arc expressions", "long hair on top"],
+      "wardrobe": [
+        "black House Kurose tracksuit with small silver wave-and-torii crest",
+        "black/silver tech suit"
+      ],
+      "forbidden": [
+        "warmth in early-arc expressions",
+        "long hair on top"
+      ],
       "notes": "Carries villain-grade menace early so his mid-series turn to ally lands. He is not the villain."
     },
     "kemar": {
@@ -79,11 +123,17 @@
         "skin": "deep brown",
         "hair": "short locs tied back with a green-gold-black wrap",
         "eyes": "warm brown; river-gold when submerged",
-        "build": "pure sprinter — long levers, loose easy shoulders",
+        "build": "pure sprinter \u2014 long levers, loose easy shoulders",
         "signature": "radiant grin; swims to a beat only he hears"
       },
-      "wardrobe": ["Jamaica green/gold/black racing kit", "Freewater second-skin with House sigil"],
-      "forbidden": ["light skin", "loose untied locs while racing"],
+      "wardrobe": [
+        "Jamaica green/gold/black racing kit",
+        "Freewater second-skin with House sigil"
+      ],
+      "forbidden": [
+        "light skin",
+        "loose untied locs while racing"
+      ],
       "notes": "Cultural specifics to be built with Jamaican tradition-keepers before public release."
     },
     "bo": {
@@ -98,32 +148,53 @@
         "heritage": "Japanese, fishing family",
         "skin": "sun-weathered",
         "hair": "short sun-bleached brown",
-        "build": "HEAVYSET, round-and-mighty, tall and broad — fisherman's mass, breaststroker's barrel chest",
+        "build": "HEAVYSET, round-and-mighty, tall and broad \u2014 fisherman's mass, breaststroker's barrel chest",
         "signature": "enormous open-hearted grin; moves like he's careful not to break the world"
       },
-      "wardrobe": ["cream cable-knit fisherman's sweater", "worn swim-club jacket", "club jammers"],
-      "forbidden": ["lanky or slim build", "athletic-tapered physique", "bare torso in generated art"],
-      "notes": "Generation note: keep Bo fully clothed and lead prompts with 'wholesome' — the content filter trips on him otherwise. The crew-key-visual ALT take renders him lanky and is OFF-MODEL."
+      "wardrobe": [
+        "cream cable-knit fisherman's sweater",
+        "worn swim-club jacket",
+        "club jammers"
+      ],
+      "forbidden": [
+        "lanky or slim build",
+        "athletic-tapered physique",
+        "bare torso in generated art"
+      ],
+      "notes": "Generation note: keep Bo fully clothed and lead prompts with 'wholesome' \u2014 the content filter trips on him otherwise. The crew-key-visual ALT take renders him lanky and is OFF-MODEL."
     },
     "luna": {
       "full_name": "Tsukiko 'Luna' Amane",
       "age": 16,
       "role": "the diver",
-      "element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
-      "element_name": "UNDERTOW-Luna",
+      "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+      "element_name": "UNDERTOW-Luna-v2",
       "approved_plate": "assets/undertow/luna-01.png",
       "source_job_id": "e9602bc2-0358-4e5e-8fda-53dd0df4c029",
       "identity": {
         "heritage": "ama-diver island, unregistered",
-        "skin": "moon-pale",
+        "skin": "pale ivory human skin \u2014 NEVER blue, purple, lavender or grey; only her HAIR is silver-white",
         "hair": "very long silver-white, worn loose; haloes around her underwater",
         "eyes": "moon-pale",
         "build": "compact free-diver frame",
         "signature": "small white ceremonial dot-markings at the brow; water-calm everywhere"
       },
-      "wardrobe": ["modest full-length white ama diving robe with indigo wave stitching", "shell-cord anklet"],
-      "forbidden": ["revealing swimwear", "House crest (she is unregistered)"],
-      "notes": "Ama-island markings built with tradition-keepers."
+      "wardrobe": [
+        "modest full-length white ama diving robe with indigo wave stitching",
+        "shell-cord anklet"
+      ],
+      "forbidden": [
+        "revealing swimwear",
+        "House crest (she is unregistered)",
+        "blue/purple/grey skin tint",
+        "coloured skin from environmental light"
+      ],
+      "notes": "Ama-island markings built with tradition-keepers.",
+      "retired_element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
+      "retired_reason": "v1 was built from a single underwater violet-twilight plate. The element baked the environmental colour cast in as her SKIN TONE \u2014 she rendered blue-lavender on a sunlit pool deck. v2 is built on a neutral-daylight baseline reference.",
+      "baseline_reference": "assets/undertow/luna-neutral-ref.png",
+      "baseline_source_job_id": "12dcc278-b1f5-432a-8084-0648f41f52f3",
+      "known_gap": "The v2 element currently holds ONLY the neutral baseline plate \u2014 the violet-twilight underwater plate did not attach on creation. Recorded rather than hidden. Renders are correct, but her underwater signature look must be carried by prompt text until a second reference is added."
     },
     "mirei": {
       "full_name": "Mirei Sanda",
@@ -139,14 +210,23 @@
         "eyes": "narrow, intelligent, behind light-catching glasses",
         "build": "compact, precise backstroker"
       },
-      "wardrobe": ["navy federation tracksuit zipped to the chin", "MANAGER armband"],
-      "signature_props": ["stopwatch reading 4:07", "clipboard"],
-      "forbidden": ["without glasses", "unzipped/casual posture in early arcs"]
+      "wardrobe": [
+        "navy federation tracksuit zipped to the chin",
+        "MANAGER armband"
+      ],
+      "signature_props": [
+        "stopwatch reading 4:07",
+        "clipboard"
+      ],
+      "forbidden": [
+        "without glasses",
+        "unzipped/casual posture in early arcs"
+      ]
     },
     "gouda": {
       "full_name": "Coach Gouda",
       "age": 44,
-      "role": "mentor — 'the Beached God'",
+      "role": "mentor \u2014 'the Beached God'",
       "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
       "element_name": "UNDERTOW-Gouda",
       "approved_plate": "assets/undertow/gouda-01.png",
@@ -155,17 +235,25 @@
         "heritage": "Japanese, former Olympic champion",
         "hair": "graying topknot going to seed",
         "face": "heavy jaw, broken nose, several days of stubble",
-        "build": "a ruin of a magnificent athlete — huge shoulders, gone soft at the middle",
+        "build": "a ruin of a magnificent athlete \u2014 huge shoulders, gone soft at the middle",
         "signature": "weary slouch, but eyes that never stopped being sharp and haunted"
       },
-      "wardrobe": ["rumpled old tracksuit", "open windbreaker"],
-      "signature_props": ["Olympic gold medal used as a bottle opener"],
-      "forbidden": ["fit/athletic present-day physique", "cheerful demeanour"]
+      "wardrobe": [
+        "rumpled old tracksuit",
+        "open windbreaker"
+      ],
+      "signature_props": [
+        "Olympic gold medal used as a bottle opener"
+      ],
+      "forbidden": [
+        "fit/athletic present-day physique",
+        "cheerful demeanour"
+      ]
     },
     "nakaru": {
       "full_name": "Kaien Nakaru",
       "age": 38,
-      "role": "the antagonist — the Second Tide",
+      "role": "the antagonist \u2014 the Second Tide",
       "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
       "element_name": "UNDERTOW-Nakaru",
       "approved_plate": "assets/undertow/nakaru-seawall-01.png",
@@ -174,13 +262,22 @@
         "heritage": "Japanese, House Ryn, former Fathom Games champion",
         "skin": "sea-worn, weathered",
         "hair": "dark, damp, single grey streak at the temple",
-        "eyes": "a shade too dark and deep — the ONLY hint of what he became",
+        "eyes": "a shade too dark and deep \u2014 the ONLY hint of what he became",
         "build": "tall, powerful, immense controlled stillness",
         "signature": "faint old scar at the throat"
       },
-      "wardrobe": ["heavy dark coat, collar up", "plain diving underlayer"],
-      "forbidden": ["glowing veins", "bioluminescence", "monster features", "rage expression", "fantasy styling"],
-      "notes": "LOCKED DIRECTION: grounded, not fantasy. The menace is stillness, not effects. Expression is calm grief and conviction — a man who has already decided. Earlier fantasy-styled versions were rejected by the creator."
+      "wardrobe": [
+        "heavy dark coat, collar up",
+        "plain diving underlayer"
+      ],
+      "forbidden": [
+        "glowing veins",
+        "bioluminescence",
+        "monster features",
+        "rage expression",
+        "fantasy styling"
+      ],
+      "notes": "LOCKED DIRECTION: grounded, not fantasy. The menace is stillness, not effects. Expression is calm grief and conviction \u2014 a man who has already decided. Earlier fantasy-styled versions were rejected by the creator."
     }
   }
 }

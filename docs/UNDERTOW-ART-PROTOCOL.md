@@ -41,9 +41,40 @@ Every generated asset is inspected against canon *before* it is shown. Off-model
 is discarded and regenerated — never presented as an option, never as "pick A or B."
 Rejections get recorded, not hidden.
 
-**4. Canon changes are logged, never silent.**
-Identity is checksummed. If an approved plate is altered or swapped, the verifier fails
-loudly. Changing a character means a deliberate, recorded amendment.
+**4. An element must be built on a baseline.**
+An element learns *everything* in its source plate as identity. It cannot tell a
+permanent trait from a temporary one. So every character element is founded on a
+**baseline reference** — flat neutral daylight, plain background, character in their
+ordinary un-powered state — with atmospheric or powered plates added second.
+
+**5. Canon changes are logged, never silent.**
+Identity is checksummed. If an approved plate or baseline reference is altered or
+swapped, the verifier fails loudly. Changing a character means a deliberate, recorded
+amendment. Retiring an element does not orphan the art it already produced — retired
+IDs stay valid for existing assets.
+
+---
+
+## What an element learns that you didn't ask it to
+
+Law 4 exists because this failed twice in one day, in two different disguises.
+
+| Character | Source plate | What the element learned | How it showed up |
+|---|---|---|---|
+| Luna | violet-twilight underwater | the *lighting* was her skin | blue-lavender skin on a sunlit pool deck |
+| Kai | submerged pool floor | the *powered state* was his face | Undertow eye-glow on dry land |
+
+Kai's was the worse one. The deep-blue glow is the visual tell that the Undertow is
+surfacing — the whole power system reads off it. An element that thinks the glow is
+just what his eyes look like will quietly break the story in every frame it touches.
+
+Neither was a prompt problem. Both prompts said the right thing in capital letters and
+lost anyway, because a reference image outranks a sentence. The only fix is to give the
+element a truthful baseline to hold onto.
+
+**So: before creating any element, ask what is in this plate that is true only right
+now.** Weather, depth, time of day, an active power, wet hair. Whatever the answer is,
+generate a plate without it first.
 
 ---
 
@@ -56,11 +87,20 @@ prompt: "<<<4ee10302-b895-45ab-9680-426cb23ac03a>>> swimming down into violet
          twilight, plain dark jammers, bare arms, breath held…"
 ```
 
-**Multi-character shot** — one placeholder per character:
+**Multi-character shot** — one placeholder per character, and the manifest entry
+declares `element_ids` (a list). The verifier fails if a frame has more characters than
+locks:
 ```
 prompt: "<<<kai-id>>> on the pool deck with <<<bo-id>>>'s arm around his
          shoulders, <<<mirei-id>>> holding a stopwatch beside them…"
 ```
+
+**State the un-powered state out loud.** Even on a baseline-founded element, say it:
+"he is dry and out of the water, so his eyes are ordinary dark brown." The element
+carries the likeness; the prompt carries the moment.
+
+**Lead Bo's clause with clothing** — "wholesome and fully clothed in a cream cable-knit
+sweater…". The content filter trips on him otherwise and returns a bare torso.
 
 **Never**: "a 15-year-old mixed Black boy with deep brown skin…". That sentence is what
 erased him. The element ID is not optional.
@@ -96,9 +136,10 @@ The hook blocks any commit touching UNDERTOW art that fails verification.
 Being precise, because a check that *looks* rigorous but isn't is worse than none.
 
 **Guaranteed (deterministic):**
-- An approved plate cannot be silently altered — checksums catch it.
+- An approved plate or baseline reference cannot be silently altered — checksums catch it.
 - Untracked art cannot ship — every file must be registered.
 - No character asset ships without a traceable chain to approved identity.
+- A multi-character frame cannot ship with fewer element locks than characters.
 - No asset ships without a recorded visual sign-off.
 
 **Strongly improved, not mathematically guaranteed:**
@@ -112,9 +153,19 @@ Being precise, because a check that *looks* rigorous but isn't is worse than non
   false confidence. Mandatory visual review replaces it.
 
 **Known open items** (tracked honestly in the manifest, not buried):
-- `cast-key-visual.png` — Kai's skin renders lighter than canon. **Flagged for
-  regeneration with elements.**
+- Luna's v2 element currently holds only her baseline plate — the violet underwater
+  reference did not attach on creation. Renders are correct, but her underwater
+  signature look is carried by prompt text until a second reference is added.
 - `teaser-sinking-01.mp4` — start frame is the approved plate, so identity holds at
-  frame 0; drift across the 5 seconds is not verified frame-by-frame.
-- Posters and the teaser predate elements. They are creator-verified correct, but new
+  frame 0; drift across the 5 seconds is not verified frame-by-frame. It also predates
+  Kai's v2 element, so it may carry the same eye-glow assumption. **Next to regenerate.**
+- The three posters predate elements. They are creator-verified correct, but new
   versions should use element IDs.
+- Ren, Kemar, Bo, Mirei, Gouda and Nakaru still have single-plate elements. None has
+  shown drift, but by law 4 they are one atmospheric plate away from Luna's problem.
+  Baseline references should be added before heavy production use.
+
+**Resolved:** `cast-key-visual.png` and `cast-key-visual-alt.png` were off-model
+(Kai's skin light; Bo lanky). Both are superseded by `crew-key-visual.png`, generated
+with four locked elements. Removed from the shipping set and recorded under
+`superseded` in the manifest; recoverable from git history.
