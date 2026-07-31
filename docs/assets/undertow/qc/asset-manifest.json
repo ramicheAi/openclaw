@@ -534,6 +534,43 @@
    "verified_by": "agent",
    "verified_at": "2026-07-31",
    "provenance": "element_id"
+  },
+  "expressions-kai.png": {
+   "sha256_16": "33e2d749468419b7",
+   "kind": "character",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "source_job_id": "f9a9b8ca-8170-45fe-8862-3aaee574d28d",
+   "generated_with": "expression sheet generated with Kai's locked element",
+   "note": "Eight expressions: guarded neutral, held fear, stubbornness, a rare small smile, grief, wonder. Checked: consistent face across all panels, deep brown skin, coiled blue-black hair, and ordinary DARK BROWN eyes in every single panel - no glow anywhere, correct for dry land.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "teaser-titlecard.png": {
+   "sha256_16": "ceb25793a8f9f36d",
+   "kind": "title-card",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "drawn deterministically by build-titlecard.py (PIL) - zero generation",
+   "note": "The one frame carrying the show's name is drawn, not generated. Generated text is the least reliable thing an image model produces and a misspelt logo is not a defect you want to find after a pitch. still",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "derived-from-approved-plates"
+  },
+  "teaser-titlecard.mp4": {
+   "sha256_16": "378a98e15548670d",
+   "kind": "title-card",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "drawn deterministically by build-titlecard.py (PIL) - zero generation",
+   "note": "The one frame carrying the show's name is drawn, not generated. Generated text is the least reliable thing an image model produces and a misspelt logo is not a defect you want to find after a pitch. 4s held video segment for the cut",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "derived-from-approved-plates"
   }
  },
  "provenance_types": {
