@@ -122,14 +122,30 @@ sweater…". The content filter trips on him otherwise and returns a bare torso.
 **Never**: "a 15-year-old mixed Black boy with deep brown skin…". That sentence is what
 erased him. The element ID is not optional.
 
+**Video** takes elements too — confirmed on Seedance 2.0, which accepts `<<<id>>>` in
+the prompt alongside a `start_image`. That is strictly better than an image-to-video
+from a plate: the plate only fixed frame 0, the element holds identity for the whole
+clip.
+
 ### Before showing anything to the creator
 1. Download the render.
 2. **Open it and look at it** against the canon entry — skin, hair, build, wardrobe,
    forbidden list.
-3. Discard anything off-model. Regenerate.
-4. Register the survivor in `qc/asset-manifest.json` with provenance + sign-off.
-5. Run `python3 docs/assets/undertow/qc/verify_assets.py`.
-6. Only now show it.
+3. For a clip, sample frames across it — one frame is not a check:
+   ```bash
+   python3 docs/assets/undertow/qc/sample_frames.py <video.mp4> 8
+   ```
+   Then read the contact sheet the same way you would read a plate. Timestamps are
+   printed under each frame so a defect can be reported as "drifts at 5.2s".
+4. Discard anything off-model. Regenerate.
+5. Register the survivor in `qc/asset-manifest.json` with provenance + sign-off.
+6. Run `python3 docs/assets/undertow/qc/verify_assets.py`.
+7. Only now show it.
+
+**Generated audio does not ship.** Picture can be verified frame by frame; a generated
+soundtrack cannot be verified by looking, and shipping something unchecked is the exact
+habit this document exists to break. Teasers render silent. Sound is a separate, scored
+pass with a human ear on it.
 
 ---
 
