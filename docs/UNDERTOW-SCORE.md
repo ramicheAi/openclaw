@@ -73,17 +73,27 @@ a scene is with their eyes closed.
 
 **The five ranks spell the show's home chord downward.**
 
-| Rank | Depth | Note | Lowpass | Reverb | Character |
-|---|---|---|---|---|---|
-| **Sunlit** | 0–20m | D5 | 12 kHz | 1.2 s | Bright, close, full attack |
-| **Twilight** | 20–200m | A4 | 7 kHz | 2.0 s | First loss of air in the top end |
-| **Midnight** | 200–1,000m | F4 | 4 kHz | 3.2 s | Sub begins taking over from glass |
-| **Abyssal** | 1,000–6,000m | D3 | 2 kHz | 4.6 s | Felt more than heard |
-| **Hadal** | 6,000m+ | D2 | 800 Hz | 7.0 s | No attack at all |
+| Rank | Depth | Note | Lowpass | Reverb | Width | Character |
+|---|---|---|---|---|---|---|
+| **Sunlit** | 0–20m | D5 | 12 kHz | 1.2 s | 0.35 | Bright, close, full attack |
+| **Twilight** | 20–200m | A4 | 7 kHz | 2.0 s | 0.55 | First loss of air in the top end |
+| **Midnight** | 200–1,000m | F4 | 4 kHz | 3.2 s | 0.75 | Sub begins taking over from glass |
+| **Abyssal** | 1,000–6,000m | D3 | 2 kHz | 4.6 s | 0.90 | Felt more than heard |
+| **Hadal** | 6,000m+ | D2 | 800 Hz | 7.0 s | 1.00 | No attack at all |
 
-Two things change together as you descend, and **both are physically true of
-water** — treble dies, space grows. That is why the ladder teaches itself: no
-one has to be told which sound is deeper.
+Three things change together as you descend, and all three are physically true
+of water — **treble dies, space grows, and the image opens**. That is why the
+ladder teaches itself: no one has to be told which sound is deeper, and a
+listener who could not name any one cue still tracks the other two.
+
+One honest caveat about width. Measured stereo correlation runs +0.99 at Sunlit
+(deliberately close and narrow) to **+0.81 at Midnight**, and then climbs back
+toward mono at Abyssal and Hadal. That is not a failure of the design — it is
+the bass mono-maker doing its job. By Hadal the stinger is a D2 sub under an
+800 Hz lowpass, so there is essentially no content above the 120 Hz mono
+crossover, and nothing left to be wide with. Which is arguably the truer
+result: at Hadal there is nothing to reflect off, so there are no spatial cues
+to have.
 
 **Hadal breaks the pattern on purpose.** It is the only stinger with no attack
 transient; it swells in and is simply already there. You do not hear yourself
@@ -202,12 +212,67 @@ python3 qc/verify_audio.py undertow-theme.wav
 python3 qc/verify_assets.py                # the art-integrity gate
 ```
 
+### The mastering chain
+
+Everything in the package runs through one chain (`mastering.py`), in this
+order, and the order matters:
+
+```
+DC block -> subsonic HPF (24 Hz) -> stereo image -> bass mono-maker (120 Hz)
+         -> loudness trim -> look-ahead true-peak limiter -> dither (16-bit only)
+```
+
+Four decisions in it are not stylistic and should not be changed casually:
+
+- **Bass is mono below 120 Hz.** Any stereo content down there partially
+  cancels when a phone, a club PA or a theatrical surround bass-manages it to a
+  single sub — so the low end carrying the ANSWER is exactly the content most
+  at risk. Making it mono guarantees the answer arrives.
+- **The ceiling is −1.0 dBTP, not −0.1.** Lossy codecs overshoot on decode; a
+  master that is legal as PCM can clip after a streaming transcode. 1 dB is the
+  standard allowance, and true peak is measured on 4× oversampled audio because
+  sample peak is not peak.
+- **Peaks are limited, not saturated.** An earlier version ran `tanh()` across
+  the whole signal. That is a distortion box, not a limiter: it reshapes quiet
+  passages as hard as loud ones and puts odd harmonics on struck glass, which
+  is the one timbre here that cannot afford them.
+- **The sub gets harmonics rather than more level.** The ANSWER lives between
+  87 and 147 Hz, which a phone or a TV speaker barely reproduces. Controlled
+  even harmonics let the ear infer the missing fundamental, so the line reads
+  at pitch on a device that physically cannot produce it. Pushing the level
+  instead would only bury the melody further.
+
 ### Delivery spec
 
-The signature kit is normalised to **-16 LUFS integrated** with a **-1.0 dBTP**
-ceiling, matched within 1.4 LU across all ten files. Two stingers sit slightly
-under target because their crest factor will not allow more without breaching
-the ceiling; the build reports these as capped rather than clipping quietly.
+The **entire package** — theme, teaser cue, ladder piece and all ten signature
+sounds — is delivered **24-bit / 48 kHz stereo at −16.0 LUFS integrated with a
+−1.0 dBTP ceiling**. Every file lands on target exactly, so a music editor can
+drop any two cues on a timeline and hear them matched. A dithered 16-bit copy of
+the theme sits alongside for distribution.
+
+Dither is TPDF and applied only to 16-bit copies. At 24 bits the quantisation
+floor sits around −144 dBFS, far below anything in this material, so dither
+would add noise for nothing. At 16 bits the floor is −96 dBFS and the truncation
+error correlates with the signal — which on a long reverb tail fading to
+silence is audible as a granular stair-step instead of a fade, and this score is
+made almost entirely of long tails fading to silence.
+
+### What was wrong before, and how it was found
+
+The composition was sound; the engineering under it was not. An audit found
+four defects a listener would meet before hearing a note:
+
+| Defect | Found by |
+|---|---|
+| **Every file was dual-mono** — L and R bit-identical. A score about depth and space, delivered with no space in it. | comparing channels |
+| **Reverb was ~22 dB below what the `mix` parameter claimed.** The IR was normalised by its sum of absolute values, so `mix=0.42` delivered on the order of 1% wet energy — and the stereo width, which lives entirely in the decorrelated tails, could not exist either. | stereo correlation staying at +0.99 after the image was supposedly widened |
+| **The ANSWER was masking the CALL by 11 dB RMS.** The `low` stem was 89% of mix energy and `lead` was 7.2%: the tune the audience is meant to hum sat under a wall of sub. A sustained sine accumulates far more energy than a bowl that decays in a second and a half. | per-stem RMS and spectral centroid |
+| **The glass had no top end to EQ.** Upper partials were set to decay fastest — that is a drum or a wood block, not glass; a struck bowl rings *longest* up top. Under 1% of mix energy sat above 400 Hz. | octave-band analysis |
+
+The last one is worth generalising: it could not be fixed with EQ, because EQ
+cannot lift content that was never synthesised. It had to be fixed in the
+instrument. **When the spectrum is missing a region, check the source before
+reaching for the equaliser.**
 
 ### How this is verified
 

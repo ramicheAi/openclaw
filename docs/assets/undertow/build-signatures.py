@@ -68,6 +68,8 @@ import sys
 
 import numpy as np
 
+import mastering as M
+
 ART = os.path.dirname(os.path.abspath(__file__))
 
 # Load build-score.py as a module. The hyphen in the filename means it cannot
@@ -83,26 +85,36 @@ OUT = os.path.join(ART, "signatures")
 
 
 # ── THE FATHOM LADDER ───────────────────────────────────────────────────────
-# (name, note, lowpass corner Hz, reverb seconds, sub weight, length)
+# (name, note, lowpass corner Hz, reverb seconds, sub weight, length, width)
+#
+# WIDTH is the third depth cue, added alongside brightness and reverb time.
+# Sunlit is close and almost centred - a bowl struck an arm's length away in a
+# swimming pool. Hadal is fully decorrelated and surrounds you, because there
+# is nothing down there to bound the sound. All three cues move together, so
+# the ladder is legible even to a listener who could not name one of them.
 FATHOM = [
-    ("sunlit",   "D5", 12000, 1.2, 0.00, 2.6),
-    ("twilight", "A4",  7000, 2.0, 0.15, 3.2),
-    ("midnight", "F4",  4000, 3.2, 0.45, 4.2),
-    ("abyssal",  "D3",  2000, 4.6, 0.85, 5.4),
-    ("hadal",    "D2",   800, 7.0, 1.00, 7.0),
+    ("sunlit",   "D5", 12000, 1.2, 0.00, 2.6, 0.35),
+    ("twilight", "A4",  7000, 2.0, 0.15, 3.2, 0.55),
+    ("midnight", "F4",  4000, 3.2, 0.45, 4.2, 0.75),
+    ("abyssal",  "D3",  2000, 4.6, 0.85, 5.4, 0.90),
+    ("hadal",    "D2",   800, 7.0, 1.00, 7.0, 1.00),
 ]
 
 
 def fathom_stinger(note, cut, rev, subweight, dur):
-    """One rank of the ladder. Brightness and space are the rank."""
+    """One rank of the ladder, DRY. Space is applied at delivery.
+
+    Returning dry keeps the reverb decision in one place, so brightness,
+    reverb time and stereo width are set together from the FATHOM table
+    rather than half here and half downstream.
+    """
     f = S.hz(note)
     x = S.glass(f, dur, amp=0.55 * (1.0 - 0.5 * subweight))
     if subweight:
         # The deeper ranks are felt more than heard — the sub takes over from
         # the glass entirely by Hadal.
         x = x + S.sub(f / 2.0, dur, amp=0.70 * subweight)
-    x = S.lp(x, cut)
-    return S.reverb(x, rev, mix=0.28 + 0.30 * subweight)
+    return S.lp(x, cut)
 
 
 def hadal_stinger(dur=7.0):
@@ -136,7 +148,9 @@ def current_wakes(dur=5.0):
         lead = S.place(lead, seg, at)
         at += beats * (60.0 / S.BPM) * 0.55      # quicker than the theme: gladness
     beds = S.pad([S.hz(x) for x in S.CHORDS["F"]], dur, 0.30)   # relative major
-    return S.reverb(lead[:n], 2.8, 0.36) + S.reverb(beds[:n], 3.4, 0.28)
+    # gladness is open and wide; the lead sits just left of the bed it rides on
+    return (M.stereo_reverb(M.pan(lead[:n], -0.12), 2.8, 0.36, width=0.9, seed=5)
+            + M.stereo_reverb(M.pan(beds[:n], 0.0), 3.4, 0.28, width=1.0, seed=17))
 
 
 def dive_reflex(dur=9.0, start_bpm=72.0, end_bpm=38.0):
@@ -167,7 +181,8 @@ def dive_reflex(dur=9.0, start_bpm=72.0, end_bpm=38.0):
         t += 60.0 / bpm
         k += 1
     out = S.lp(out, 1100)
-    return S.reverb(out, 2.4, 0.22) * 0.85
+    # a heartbeat is heard from inside the chest: centred, close, barely any room
+    return M.stereo_reverb(M.pan(out, 0.0), 2.4, 0.22, width=0.35, seed=29) * 0.85
 
 
 def second_tide(dur=11.0):
@@ -193,7 +208,10 @@ def second_tide(dur=11.0):
         low = S.place(low, S.sub(f, min(3.2, dur - at), amp=0.62), at)
         at += beats * (60.0 / S.BPM)
     beds = S.pad([S.hz(x) for x in ["D2", "A2", "D3"]], dur, 0.20)
-    return (S.reverb(lead[:n], 3.6, 0.40) + low[:n] + S.reverb(beds[:n], 4.4, 0.26))
+    # the call comes from where it always does; the wrong answer does not
+    return (M.stereo_reverb(M.pan(lead[:n], -0.18), 3.6, 0.40, width=1.0, seed=3)
+            + M.stereo_reverb(M.pan(low[:n], 0.22), 3.0, 0.16, width=0.6, seed=53)
+            + M.stereo_reverb(M.pan(beds[:n], 0.0), 4.4, 0.26, width=1.0, seed=61))
 
 
 def open_door(dur=7.0):
@@ -209,7 +227,9 @@ def open_door(dur=7.0):
         np.ones(n - int(0.5 * SR) - int(1.2 * SR)),
         np.linspace(1, 0, int(1.2 * SR))]) * 0.62
     lead = S.phrase(np.zeros(n), S.CALL, S.CALL_BEATS, S.glass, 1.4, 0.42)
-    return S.reverb(rise, 3.0, 0.24) + S.reverb(lead[:n], 3.8, 0.44)
+    # the rise is dead centre - it comes from directly beneath you, not a side
+    return (M.stereo_reverb(M.pan(rise, 0.0), 3.0, 0.24, width=0.4, seed=7)
+            + M.stereo_reverb(M.pan(lead[:n], -0.15), 3.8, 0.44, width=1.0, seed=13))
 
 
 def riddim_break(dur=10.0, bpm=84.0):
@@ -242,7 +262,9 @@ def riddim_break(dur=10.0, bpm=84.0):
     for i, note in enumerate(["F2", "A#2", "C3", "F2"]):
         low = S.place(low, S.bass(S.hz(note), 1.5, 0.40),
                       drop_end + beat * 0.5 + i * beat)
-    return S.reverb(out, 2.0, 0.18) + low[:n]
+    # the drum is the room; the bass that returns late is centred and dry
+    return (M.stereo_reverb(M.pan(out, 0.08), 2.0, 0.18, width=0.7, seed=37)
+            + M.pan(low[:n], 0.0))
 
 
 def seal(x, fade_in=0.008, fade_out=0.30):
@@ -256,63 +278,27 @@ def seal(x, fade_in=0.008, fade_out=0.30):
     n_in, n_out = int(fade_in * SR), int(fade_out * SR)
     x = np.asarray(x, dtype=np.float64).copy()
     if len(x) > n_in + n_out:
-        x[:n_in] *= np.linspace(0, 1, n_in)
-        x[-n_out:] *= np.linspace(1, 0, n_out) ** 1.5
+        # index with [:, None] so the same ramp applies to a mono or a stereo
+        # buffer — everything in this kit is stereo now
+        sh = (slice(None), None) if x.ndim == 2 else (slice(None),)
+        x[:n_in] *= np.linspace(0, 1, n_in)[sh]
+        x[-n_out:] *= (np.linspace(1, 0, n_out) ** 1.5)[sh]
     return x
 
 
-TARGET_LUFS = -16.0     # one reference level for the whole kit
-CEILING_DBTP = -1.0     # never louder than this, whatever the target costs
+def deliver(path, x):
+    """Master one signature through the shared chain and write it 24-bit.
 
-
-def write_normalised(path, x):
-    """Write at a common LOUDNESS, not a common peak.
-
-    Peak-normalising a set like this produces a 9 LU spread, because a
-    sustained sub stinger integrates far louder than a short bright one at the
-    same peak. A sound designer dropping these on a timeline should get them
-    matched, so that relative balance is a creative decision rather than an
-    artifact of how each one happened to be synthesised.
-
-    Two passes: write, measure with ebur128, apply the gain, rewrite. If the
-    required gain would breach the true-peak ceiling, take the ceiling instead
-    and say so — a stinger that quietly clips is worse than one 2 LU down.
+    Uses exactly the same chain as the theme (mastering.py): DC block,
+    subsonic filter, bass mono-maker, loudness trim, look-ahead true-peak
+    limiter. A kit mastered differently from the theme it belongs to would
+    jump in level and image the moment an editor cut between them.
     """
-    import re
-    import subprocess
-    import wave as _w
-
-    def _write(y):
-        st = np.stack([y, y], axis=1)
-        with _w.open(path, "wb") as w:
-            w.setnchannels(2)
-            w.setsampwidth(2)
-            w.setframerate(SR)
-            w.writeframes((np.clip(st, -1, 1) * 32767).astype("<i2").tobytes())
-
-    x = np.asarray(x, dtype=np.float64)
-    x = x / (np.abs(x).max() + 1e-9) * 0.7      # provisional level for measuring
-    _write(x)
-
-    ff = S.ffmpeg_exe()
-    out = subprocess.run([ff, "-hide_banner", "-i", path, "-map", "0:a",
-                          "-af", "ebur128=peak=true", "-f", "null", "-"],
-                         capture_output=True, text=True).stderr
-    # take the SUMMARY block; ebur128 prints a per-frame "I:" line for every
-    # frame and the first ones are the -70 LUFS floor before it converges
-    tail = out[out.rfind("Integrated loudness:"):]
-    m = re.search(r"I:\s*(-?[\d.]+)\s*LUFS", tail)
-    if not m:
-        _write(x)
-        return None, None
-    measured = float(m.group(1))
-
-    gain = 10 ** ((TARGET_LUFS - measured) / 20)
-    ceiling = 10 ** (CEILING_DBTP / 20) / (np.abs(x).max() + 1e-9)
-    capped = gain > ceiling
-    y = x * min(gain, ceiling)
-    _write(y)
-    return measured, capped
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        st, lufs, capped = M.master(seal(x), os.path.join(td, "p.wav"))
+    M.write_master(path, st, bits=24)
+    return lufs, capped, M.true_peak(st), M.correlation(st[:, 0], st[:, 1])
 
 
 SIGNATURES = [
@@ -326,20 +312,23 @@ SIGNATURES = [
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    print(f"\n  FATHOM LADDER          (normalised to {TARGET_LUFS:.0f} LUFS)\n")
-    for name, note, cut, rev, sw, dur in FATHOM:
-        x = hadal_stinger(dur) if name == "hadal" else fathom_stinger(note, cut, rev, sw, dur)
-        x = seal(x, fade_out=min(0.6, dur * 0.12))
-        was, capped = write_normalised(os.path.join(OUT, f"fathom-{name}.wav"), x)
-        flag = "  CAPPED at ceiling" if capped else ""
-        print(f"    {name:9s} {note:3s}  lp {cut:5d}Hz  rev {rev:.1f}s   "
-              f"was {was:6.1f} LUFS{flag}")
+    print(f"\n  FATHOM LADDER   (24-bit stereo, {M.TARGET_LUFS:.0f} LUFS, "
+          f"{M.CEILING_DBTP:.1f} dBTP)\n")
+    for name, note, cut, rev, sw, dur, width in FATHOM:
+        dry = hadal_stinger(dur) if name == "hadal" else fathom_stinger(note, cut, rev, sw, dur)
+        wet = M.stereo_reverb(M.pan(dry, 0.0), rev, mix=0.28 + 0.30 * sw,
+                              width=width, seed=101 + int(rev * 10))
+        wet = seal(wet, fade_out=min(0.6, dur * 0.12))
+        lufs, capped, tp, corr = deliver(os.path.join(OUT, f"fathom-{name}.wav"), wet)
+        print(f"    {name:9s} {note:3s}  lp {cut:5d}Hz  rev {rev:.1f}s  width {width:.2f}   "
+              f"{lufs:6.1f} LUFS  {tp:5.1f} dBTP  corr {corr:+.2f}"
+              f"{'  (capped)' if capped else ''}")
 
     print("\n  MOTIFS\n")
     for name, fn, why in SIGNATURES:
-        was, capped = write_normalised(os.path.join(OUT, f"motif-{name}.wav"), seal(fn()))
-        flag = "  CAPPED" if capped else ""
-        print(f"    {name:14s} was {was:6.1f} LUFS{flag}\n                   {why}")
+        lufs, capped, tp, corr = deliver(os.path.join(OUT, f"motif-{name}.wav"), fn())
+        print(f"    {name:14s} {lufs:6.1f} LUFS  {tp:5.1f} dBTP  corr {corr:+.2f}"
+              f"{'  (capped)' if capped else ''}\n                   {why}")
     print()
 
 

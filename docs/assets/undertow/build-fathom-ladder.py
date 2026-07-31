@@ -38,6 +38,8 @@ _spec = importlib.util.spec_from_file_location("undertow_score",
 S = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(S)
 
+import mastering as M
+
 W, H, FPS = 1920, 1080, 24
 TIER_SECONDS = 6.0
 # Hadal is allowed to hang, but only just. At 8s it held for 14 seconds of a
@@ -269,28 +271,60 @@ def render(path_mp4, audio_path=None):
     proc.wait()
 
 
+def read_wav(path):
+    """Read 16- or 24-bit PCM as stereo float. The kit is 24-bit now.
+
+    numpy has no 24-bit integer dtype, so the bytes are assembled and sign
+    extended by hand. Reading a 24-bit file as int16 does not raise — it
+    silently returns noise — which is why this is explicit about width.
+    """
+    import wave as _w
+    w = _w.open(path)
+    ch, sw = w.getnchannels(), w.getsampwidth()
+    raw = w.readframes(w.getnframes())
+    if sw == 2:
+        return np.frombuffer(raw, dtype="<i2").astype(np.float64).reshape(-1, ch) / 32768.0
+    if sw == 3:
+        b = np.frombuffer(raw, dtype=np.uint8).reshape(-1, ch, 3).astype(np.int32)
+        q = b[..., 0] | (b[..., 1] << 8) | (b[..., 2] << 16)
+        return np.where(q & 0x800000, q - 0x1000000, q).astype(np.float64) / 8388608.0
+    raise ValueError(f"{path}: unsupported sample width {sw}")
+
+
 def build_audio(path_wav):
-    """The five stingers, one per tier, over the theme's own pad."""
+    """The five stingers, one per tier, over the theme's own pad.
+
+    Stereo throughout, and mastered with the same chain as the theme so this
+    piece sits at the same level and in the same space as everything else in
+    the score package.
+    """
+    import tempfile
     total = TIER_SECONDS * len(TIERS) + TAIL
     n = int(total * S.SR)
-    mix = np.zeros(n)
+    mix = np.zeros((n, 2))
 
-    # a Dm bed so the piece is never dry, dropping away as the light does
-    bed = S.pad([S.hz(x) for x in S.CHORDS["Dm"]], total, 0.20)[:n]
-    mix += S.reverb(bed, 4.4, 0.30) * np.linspace(1.0, 0.45, n)
+    # a Dm bed so the piece is never dry, dropping away as the light does.
+    # Two seeds for left and right — the same real-stereo trick the theme uses.
+    freqs = [S.hz(x) for x in S.CHORDS["Dm"]]
+    bl = S.pad(freqs, total, 0.20, seed=7)[:n]
+    br = S.pad(freqs, total, 0.20, seed=71)[:n]
+    bed = M.stereo_reverb(np.stack([bl, br], axis=1), 4.4, 0.30, width=1.0, seed=41)
+    mix += bed * np.linspace(1.0, 0.45, n)[:, None]
 
-    import wave as _w
     for i, (rank, *_rest) in enumerate(TIERS):
-        p = os.path.join(ART, "signatures", f"fathom-{rank.lower()}.wav")
-        w = _w.open(p)
-        x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float64)
-        x = x.reshape(-1, w.getnchannels()).mean(1) / 32768.0
-        mix = S.place(mix, x * 0.95, i * TIER_SECONDS)
+        x = read_wav(os.path.join(ART, "signatures", f"fathom-{rank.lower()}.wav"))
+        s0 = int(i * TIER_SECONDS * S.SR)
+        ln = min(len(x), n - s0)
+        if ln > 0:
+            mix[s0:s0 + ln] += x[:ln] * 0.95
 
-    mix = mix[:n]
     n_out = int(1.6 * S.SR)
-    mix[-n_out:] *= np.linspace(1, 0, n_out)
-    S.write_wav(path_wav, mix, peak=0.86)
+    mix[-n_out:] *= np.linspace(1, 0, n_out)[:, None]
+    with tempfile.TemporaryDirectory() as td:
+        st, lufs, _ = M.master(mix, os.path.join(td, "p.wav"))
+    M.write_master(path_wav, st, bits=24)
+    print(f"  ladder audio  {lufs:.1f} LUFS  {M.true_peak(st):.1f} dBTP  "
+          f"corr {M.correlation(st[:, 0], st[:, 1]):+.2f}")
 
 
 if __name__ == "__main__":

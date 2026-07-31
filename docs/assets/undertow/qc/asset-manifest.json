@@ -698,7 +698,7 @@
       "provenance": "element_id"
     },
     "teaser-undertow.mp4": {
-      "sha256_16": "2214b3c9292b693a",
+      "sha256_16": "f26b5d3ca072930a",
       "kind": "video",
       "characters": [
         "kai",
@@ -717,8 +717,8 @@
       "status": "APPROVED",
       "generated_with": "assembled by build-teaser.py from five element-locked shots plus the drawn title card, scored with the original theme over the Splice bed",
       "note": "37.7s multi-shot teaser. Cut order is story logic: the boy, the rival, the joy, the mystery, the threat, the name. The palette carries the arc - chlorine cyan to cold cyan to gold to violet to storm grey, resolving into the deep blue of the title.",
-      "verification": "10 frames sampled across the full cut and inspected. Audio: -11.8 LUFS, -1.1 dBFS true peak, LRA 14.2, speech ratio 0.20, spectrogram read. Picture integrity confirmed IDENTICAL against a silent build by h264 bitstream hash - the mux changed no frames.",
-      "audio": "Our own score (build-score.py) mixed over the Splice field-recording bed at 0.30. The cue is scored to the edit's MEASURED dissolve midpoints, not assumed ones, and the answering phrase lands its first note exactly on the title card. No generated audio.",
+      "verification": "10 frames sampled and inspected. Audio -15.9 LUFS, -1.1 dBTP, LRA 11.6, spectrogram read. Picture integrity confirmed IDENTICAL against a silent build by h264 bitstream hash.",
+      "audio": "Our own score mixed over the Splice field-recording bed at 0.30, now in true stereo and mastered to -16 LUFS / -1.0 dBTP. Cue is scored to the edit's MEASURED dissolve midpoints and the answering phrase lands its first note exactly on the title card. No generated audio.",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "element_id"
@@ -784,16 +784,17 @@
       "provenance": "element_id"
     },
     "undertow-theme.wav": {
-      "sha256_16": "6f90981d7e09be69",
+      "sha256_16": "d28494d191e5c19b",
       "kind": "score",
       "characters": [],
       "status": "APPROVED",
       "generated_with": "composed in code by build-score.py - additive/subtractive synthesis in numpy, zero generated audio, zero library music",
       "note": "\"Deep Calls to Deep\" - the main theme, 64s concert statement. D minor, 60 BPM (a resting heart rate; one beat = one second of breath-hold). The grammar is the series' own title phrase from Psalm 42:7 made literal: THE CALL, a five-note figure that falls a sixth then lifts one step, is answered by THE SAME FIGURE from below - an octave and a fifth down, two bars late, slower and heavier. That is dramatically loadable: an answer arriving EARLY is the deep reaching for someone, an answer in the WRONG key is the Second Tide, an answer that never comes is the worst thing in the show. Voices: struck-glass bowls with inharmonic partials (the call), sub sine (the answer), a detuned pad breathing on a 12s cycle (the sea), and a nyabinghi-rooted heartbeat pulse. Owned outright - no licence attached to the thing the series is identified by.",
-      "verification": "-9.5 LUFS integrated, -1.6 dBFS true peak, LRA 15.2. Spectrogram read: the five-note call legible as discrete strikes with harmonic combs, the answer section sitting entirely below 200 Hz, heartbeat entering at 33s. Largest sample-to-sample discontinuity 0.05 (~430 Hz slew) - no clicks. Every synthesised transient lowpassed to its material: membrane 1.1 kHz, glass strike 9 kHz, reverb tail 3.2 kHz.",
+      "verification": "-16.0 LUFS, -1.5 dBTP, stereo correlation +0.85, DC 0.000000, no energy below 22Hz, starts and ends at silence. Spectrogram read. Four engineering defects were found and fixed before this master: the file was dual-mono (L and R bit-identical); the reverb sat ~22dB below what its mix parameter claimed, so a score about underwater space had almost none; the ANSWER masked the CALL by 11dB RMS (low stem 89% of mix energy against lead at 7.2%); and the glass voice decayed its upper partials fastest, which is a drum not a bowl, leaving under 1% of energy above 400Hz for EQ to work with. The last was fixed in the instrument, not the equaliser - EQ cannot lift content that was never synthesised.",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
-      "provenance": "composed-in-repo"
+      "provenance": "composed-in-repo",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "signatures/fathom-sunlit.wav": {
       "status": "APPROVED",
@@ -801,11 +802,12 @@
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "composed-in-repo",
-      "sha256_16": "e9d1e725b523cc47",
+      "sha256_16": "9aa02549a5780c73",
       "kind": "signature-stinger",
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "Fathom rank stinger: SUNLIT (D5). 0-20m. Awakened novice; most club swimmers cap here. Bright and close. Full attack, shortest tail. The five ranks spell the show's home chord downward - D5 A4 F4 D3 D2 - so the ladder is the theme. Two things change together as you descend, both physically true of water: high frequency dies and reverb grows. Nobody has to be told which is deeper.",
-      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "signatures/fathom-twilight.wav": {
       "status": "APPROVED",
@@ -813,11 +815,12 @@
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "composed-in-repo",
-      "sha256_16": "4c7c0db393dc243e",
+      "sha256_16": "2b657daf8b27da9d",
       "kind": "signature-stinger",
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "Fathom rank stinger: TWILIGHT (A4). 20-200m. Meridian licensing threshold; Fathom Games entrants. First loss of air in the top end. The five ranks spell the show's home chord downward - D5 A4 F4 D3 D2 - so the ladder is the theme. Two things change together as you descend, both physically true of water: high frequency dies and reverb grows. Nobody has to be told which is deeper.",
-      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "signatures/fathom-midnight.wav": {
       "status": "APPROVED",
@@ -825,11 +828,12 @@
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "composed-in-repo",
-      "sha256_16": "3a587e4b0eff10da",
+      "sha256_16": "3fb43fdfdbef7b37",
       "kind": "signature-stinger",
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "Fathom rank stinger: MIDNIGHT (F4). 200-1,000m. House champions - perhaps forty people alive. The sub begins taking over from the glass. The five ranks spell the show's home chord downward - D5 A4 F4 D3 D2 - so the ladder is the theme. Two things change together as you descend, both physically true of water: high frequency dies and reverb grows. Nobody has to be told which is deeper.",
-      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "signatures/fathom-abyssal.wav": {
       "status": "APPROVED",
@@ -837,11 +841,12 @@
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "composed-in-repo",
-      "sha256_16": "c516f29471a08512",
+      "sha256_16": "2b4ac4045ad8585c",
       "kind": "signature-stinger",
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "Fathom rank stinger: ABYSSAL (D3). 1,000-6,000m. The ten House Heads. Mostly felt rather than heard. The five ranks spell the show's home chord downward - D5 A4 F4 D3 D2 - so the ladder is the theme. Two things change together as you descend, both physically true of water: high frequency dies and reverb grows. Nobody has to be told which is deeper.",
-      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "signatures/fathom-hadal.wav": {
       "status": "APPROVED",
@@ -849,11 +854,12 @@
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "composed-in-repo",
-      "sha256_16": "a7f0ea1b15ca1934",
+      "sha256_16": "56f0384040c2d095",
       "kind": "signature-stinger",
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "Fathom rank stinger: HADAL (D2). 6,000m+. Wardens only; to go Hadal is to risk becoming Drowned. The only stinger with NO attack transient - it swells in, already present. You do not hear yourself arrive there. The five ranks spell the show's home chord downward - D5 A4 F4 D3 D2 - so the ladder is the theme. Two things change together as you descend, both physically true of water: high frequency dies and reverb grows. Nobody has to be told which is deeper.",
-      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "signatures/motif-current-wakes.wav": {
       "status": "APPROVED",
@@ -861,11 +867,12 @@
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "composed-in-repo",
-      "sha256_16": "73d1700306e033c9",
+      "sha256_16": "f88ccefc3c0767ef",
       "kind": "signature-motif",
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "The water agreeing with you - a Current waking. The CALL's descending shape mirrored so it lifts instead, quicker than the theme, over the relative major. The identical gesture, welcomed.",
-      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "signatures/motif-dive-reflex.wav": {
       "status": "APPROVED",
@@ -873,11 +880,12 @@
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "composed-in-repo",
-      "sha256_16": "37286e41701b64ab",
+      "sha256_16": "7982ea157a095fd2",
       "kind": "signature-motif",
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "Bradycardia, literally: the heartbeat voice easing from 72 to 38 BPM. The physiological core of the series made audible. Warm and safe when it settles; the same figure sped up and clipped is panic.",
-      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "signatures/motif-second-tide.wav": {
       "status": "APPROVED",
@@ -885,11 +893,12 @@
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "composed-in-repo",
-      "sha256_16": "b271f0517c2a5058",
+      "sha256_16": "8e8d00028e552df3",
       "kind": "signature-motif",
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "Nakaru. Canon states the rule - an answer in the WRONG key is the Second Tide - so this is the theme exactly, with the answer transposed a tritone away, the furthest wrong an answer can land. Nothing detuned, nothing growling, no dissonant cluster: he is not scored as a monster. The right shape, answered wrongly.",
-      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "signatures/motif-open-door.wav": {
       "status": "APPROVED",
@@ -897,11 +906,12 @@
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "composed-in-repo",
-      "sha256_16": "384f46262c298276",
+      "sha256_16": "09d658ff4be1b9e8",
       "kind": "signature-motif",
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "Kai's Undertow: Open Door - the deep pulling upward, a vertical current in a flat pool. A sub glissando climbing two octaves under the call. The only motif in the kit that ascends in the low register, because it is the only time the deep reaches UP.",
-      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "signatures/motif-riddim-break.wav": {
       "status": "APPROVED",
@@ -909,11 +919,12 @@
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "composed-in-repo",
-      "sha256_16": "9840f0d2967cd04b",
+      "sha256_16": "a1c70c26755e9a2c",
       "kind": "signature-motif",
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "Kemar's One Drop: Riddim Break - he drops the water's own beat for one bar. One-drop feel (emphasis on beat three), then a full bar of nothing, then the bass returns displaced by half a beat: he alone kept time and everyone else is now late. The silence is the technique.",
-      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+      "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+      "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
     },
     "env-port-royal.png": {
       "kind": "environment",
@@ -952,16 +963,28 @@
       "verification": "Chosen over an alternate whose lamp hung from the boom rather than sitting on deck, and whose light below read as a soft blob rather than a sharp patient point. Hull name reads KAIYO. No characters in frame, so no element lock applies."
     },
     "fathom-ladder.mp4": {
-      "sha256_16": "cbcba46d94193391",
+      "sha256_16": "518f4bba9c4b81f2",
       "kind": "explainer",
       "characters": [],
       "status": "APPROVED",
       "generated_with": "drawn deterministically by build-fathom-ladder.py (PIL) and scored with the five Fathom stingers - zero generation",
       "note": "33.5s continuous descent through all five Fathom ranks. The Bible asks the audience to chart Fathom like a stat sheet, and a pitch document can only ASSERT that a system is intuitive. This asserts nothing: it descends, and by the third card a viewer is predicting the next sound before it arrives. Colour follows the Bible's palette spine in canon order - sun-bleached chlorine cyan, green-gold open water, violet twilight, bioluminescent midnight, and Hadal 'where the only colors are what characters bring with them', which is why the last tier is black except for one carried light. The gradient is continuous rather than five flat blocks, so the Bible's promise holds: pause any frame and the colour gives you the depth.",
-      "verification": "9 frames sampled across the full piece and inspected; audio -15.7 LUFS, -2.0 dBFS true peak, LRA 14.7, spectrogram read. Three defects found and fixed on inspection: marine snow was drawn at a fixed brightness and read as dust on the lens wherever the water was lighter than the particles, so it is now derived from the current water colour; the depth readout was left-aligned at a fixed x and grew through the ruler as the number gained digits, so it is right-aligned against it; and Hadal held 14 seconds of a 38 second piece with a frozen counter, so the tail was cut to the length of its own stinger. The legibility scrim is a gradient, not blurred rectangles - those had visible ends and read as grey lozenges.",
+      "verification": "9 frames sampled across the full piece and inspected; audio -15.7 LUFS, -2.0 dBFS true peak, LRA 14.7, spectrogram read. Three defects found and fixed on inspection: marine snow was drawn at a fixed brightness and read as dust on the lens wherever the water was lighter than the particles, so it is now derived from the current water colour; the depth readout was left-aligned at a fixed x and grew through the ruler as the number gained digits, so it is right-aligned against it; and Hadal held 14 seconds of a 38 second piece with a frozen counter, so the tail was cut to the length of its own stinger. The legibility scrim is a gradient, not blurred rectangles - those had visible ends and read as grey lozenges. Audio re-mastered in stereo through the shared chain: -16.0 LUFS, -1.9 dBTP, correlation +0.94.",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "derived-from-approved-plates"
+    },
+    "undertow-theme-16.wav": {
+      "sha256_16": "ef1d6ec5299e9ef7",
+      "kind": "score",
+      "characters": [],
+      "status": "APPROVED",
+      "generated_with": "16-bit distribution copy of undertow-theme.wav, written by build-score.py",
+      "note": "Dithered 16-bit copy of the main theme for distribution. The 24-bit file is the master and the thing any future re-master starts from; this is the one that gets muxed and sent around.",
+      "verification": "TPDF dither applied at 1 LSB. Dither is used here and NOT on the 24-bit master deliberately: at 24 bits the quantisation floor is around -144 dBFS, far below anything in this material, so dither would add noise for nothing. At 16 bits the floor is -96 dBFS and truncation error correlates with the signal, which on a long reverb tail fading to silence is audible as a granular stair-step instead of a fade - and this score is made almost entirely of long tails fading to silence.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "composed-in-repo"
     }
   },
   "provenance_types": {

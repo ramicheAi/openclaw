@@ -23,12 +23,36 @@ SIG = os.path.join(os.path.dirname(QC), "signatures")
 FATHOM_ORDER = ["sunlit", "twilight", "midnight", "abyssal", "hadal"]
 
 
-def read(path):
+def read_stereo(path):
+    """Read 16- or 24-bit PCM as float. The kit is 24-bit now.
+
+    numpy has no 24-bit integer type, so the three bytes are assembled by hand
+    and sign-extended. Reading these as int16 silently produces garbage rather
+    than an error, which is exactly the kind of failure that would let a broken
+    master pass every check in this file.
+    """
     w = wave.open(path)
-    sr = w.getframerate()
-    a = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float64)
-    a = a.reshape(-1, w.getnchannels()).mean(1) / 32768.0
-    return a, sr
+    sr, ch, sw = w.getframerate(), w.getnchannels(), w.getsampwidth()
+    raw = w.readframes(w.getnframes())
+    if sw == 2:
+        a = np.frombuffer(raw, dtype="<i2").astype(np.float64) / 32768.0
+        a = a.reshape(-1, ch)
+    elif sw == 3:
+        b = np.frombuffer(raw, dtype=np.uint8).reshape(-1, ch, 3).astype(np.int32)
+        q = b[..., 0] | (b[..., 1] << 8) | (b[..., 2] << 16)
+        a = np.where(q & 0x800000, q - 0x1000000, q).astype(np.float64) / 8388608.0
+    elif sw == 4:
+        a = np.frombuffer(raw, dtype="<i4").astype(np.float64) / 2147483648.0
+        a = a.reshape(-1, ch)
+    else:
+        raise ValueError(f"{path}: unsupported sample width {sw}")
+    return a, sr, sw * 8
+
+
+def read(path):
+    """Mono sum, for the structural checks that do not care about the image."""
+    a, sr, _ = read_stereo(path)
+    return a.mean(1), sr
 
 
 def centroid(x, sr):

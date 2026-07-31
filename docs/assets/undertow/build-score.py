@@ -52,6 +52,8 @@ import wave
 import numpy as np
 from scipy.signal import butter, sosfilt
 
+import mastering as M
+
 ART = os.path.dirname(os.path.abspath(__file__))
 SR = 48000
 BPM = 60.0
@@ -120,9 +122,16 @@ def glass(f, dur, amp=0.5):
     out = np.zeros(n)
     # inharmonic partials give it glass rather than organ
     for k, (mult, gain, detune) in enumerate([
-            (1.0, 1.00, 0.0), (2.01, 0.34, 0.6), (3.02, 0.20, -0.4),
-            (4.04, 0.10, 0.9), (5.07, 0.06, -1.1), (6.9, 0.035, 1.4)]):
-        env = np.exp(-t * (1.6 + k * 0.85))          # higher partials die first
+            (1.0, 1.00, 0.0), (2.01, 0.36, 0.6), (3.02, 0.24, -0.4),
+            (4.04, 0.15, 0.9), (5.07, 0.10, -1.1), (6.9, 0.065, 1.4)]):
+        # Upper partials decay a little faster than the fundamental, but only
+        # a little. The first version used (1.6 + k*0.85), which kills the top
+        # of the bowl inside a second — that is how a DRUM or a wood block
+        # behaves, not glass. A struck bowl rings longest up top; that ring IS
+        # the instrument. Measurably, the old curve left under 1% of the mix
+        # energy above 400Hz and effectively nothing above 1.5kHz, and no
+        # amount of EQ can lift content that was never synthesised.
+        env = np.exp(-t * (1.15 + k * 0.30))
         out += gain * env * np.sin(2 * np.pi * (f * mult + detune) * t)
     # a breath of air at the attack — the strike, not the tone.
     # Glass is bright, so this rolls off high (9kHz) rather than hard, but it
@@ -141,15 +150,27 @@ def sub(f, dur, amp=0.7):
     return w * adsr(n, 0.09, 0.25, 0.80, min(dur * 0.5, 1.8)) * amp
 
 
-def pad(freqs, dur, amp=0.24):
-    """Detuned breathing bed. Amplitude drifts on a slow cycle — the sea inhaling."""
+def pad(freqs, dur, amp=0.24, seed=7):
+    """Detuned breathing bed. Amplitude drifts on a slow cycle — the sea inhaling.
+
+    `seed` only changes the oscillators' start phases. Rendering the bed twice
+    with two seeds gives a genuinely decorrelated left and right — real stereo
+    synthesis, not one signal widened after the fact — and it is the single
+    biggest contributor to the image in this score.
+    """
     n = int(dur * SR)
     t = np.linspace(0, dur, n, endpoint=False)
     out = np.zeros(n)
-    rng = np.random.default_rng(7)
+    rng = np.random.default_rng(seed)
     for f in freqs:
         for det in (-0.22, 0.0, 0.27):
             ph = rng.random() * 2 * np.pi
+            # Jitter the detune per seed as well as the phase. Phase alone
+            # decorrelates poorly at low frequencies — a few degrees of offset
+            # on a 90Hz oscillator is almost no difference at all — whereas a
+            # slightly different beat rate on each side is genuine chorusing,
+            # and chorusing is what makes a pad feel like a space.
+            det = det + rng.normal(0, 0.06)
             out += np.sin(2 * np.pi * (f + det) * t + ph)
     out /= (len(freqs) * 3)
     breath = 0.72 + 0.28 * np.sin(2 * np.pi * t / 12.0 - math.pi / 2)
@@ -240,32 +261,44 @@ CHORDS = {                      # voicings, low to high
 
 
 def build_theme(total=64.0):
-    """The full statement. Call, answer, and the two together."""
+    """The full statement. Call, answer, and the two together.
+
+    Returns STEMS rather than a finished mix. Placing voices in the stereo
+    field and mastering them are separate jobs from composing them, and keeping
+    them separate is what let the image be fixed without touching a note.
+    """
     lead = np.zeros(int(total * SR))
     low = np.zeros(int(total * SR))
-    beds = np.zeros(int(total * SR))
+    bedl = np.zeros(int(total * SR))
+    bedr = np.zeros(int(total * SR))
     pulse = np.zeros(int(total * SR))
 
+    def bed(notes, dur, amp, at):
+        """One pad, rendered twice with different start phases for L and R."""
+        f = [hz(x) for x in notes]
+        return (place(bedl, pad(f, dur, amp, seed=7), at),
+                place(bedr, pad(f, dur, amp, seed=71), at))
+
     # 0-16  the sea alone, then the call arrives unaccompanied
-    beds = place(beds, pad([hz(n) for n in CHORDS["Dm"]], 20.0, 0.20), 0.0)
+    bedl, bedr = bed(CHORDS["Dm"], 20.0, 0.20, 0.0)
     lead = phrase(lead, CALL, CALL_BEATS, glass, 6.0, 0.50)
 
     # 16-32  the answer comes back from below, two bars late
-    beds = place(beds, pad([hz(n) for n in CHORDS["Bb"]], 16.0, 0.22), 16.0)
+    bedl, bedr = bed(CHORDS["Bb"], 16.0, 0.22, 16.0)
     low = phrase(low, ANSWER, ANSWER_BEATS, sub, 17.0, 0.62)
     lead = phrase(lead, CALL, CALL_BEATS, glass, 24.0, 0.42)
 
     # 32-48  the heartbeat enters. call and answer overlap for the first time
     pulse = place(pulse, heartbeat(22.0, BPM, 0.34), 32.0)
-    beds = place(beds, pad([hz(n) for n in CHORDS["F"]], 16.0, 0.24), 32.0)
+    bedl, bedr = bed(CHORDS["F"], 16.0, 0.24, 32.0)
     lead = phrase(lead, CALL, CALL_BEATS, glass, 34.0, 0.56)
     low = phrase(low, ANSWER, ANSWER_BEATS, sub, 35.5, 0.70)
     for i, n in enumerate(["F2", "F2", "A#2", "C3"]):
         low = place(low, bass(hz(n), 2.6, 0.34), 34.0 + i * 3.0 + 0.55)
 
     # 48-64  full statement, then it lets go
-    beds = place(beds, pad([hz(n) for n in CHORDS["Gm"]], 8.0, 0.26), 48.0)
-    beds = place(beds, pad([hz(n) for n in CHORDS["Dm"]], 12.0, 0.24), 55.0)
+    bedl, bedr = bed(CHORDS["Gm"], 8.0, 0.26, 48.0)
+    bedl, bedr = bed(CHORDS["Dm"], 12.0, 0.24, 55.0)
     lead = phrase(lead, CALL, CALL_BEATS, glass, 49.0, 0.62)
     low = phrase(low, ANSWER, ANSWER_BEATS, sub, 50.5, 0.74)
     pulse = place(pulse, heartbeat(9.0, BPM, 0.30), 49.0)
@@ -273,9 +306,8 @@ def build_theme(total=64.0):
     lead = phrase(lead, CALL[:3], CALL_BEATS[:3], glass, 58.5, 0.44)
 
     n = int(total * SR)
-    lead, low, beds, pulse = (x[:n] for x in (lead, low, beds, pulse))
-    mix = reverb(lead, 3.6, 0.40) + reverb(beds, 4.2, 0.30) + low + reverb(pulse, 2.0, 0.16)
-    return mix
+    return {k: v[:n] for k, v in
+            dict(lead=lead, low=low, bedl=bedl, bedr=bedr, pulse=pulse).items()}
 
 
 TEASER_SHOTS = ["shot-kai-sinking.mp4", "shot-ren-lane.mp4", "shot-kemar-joy.mp4",
@@ -322,8 +354,14 @@ def build_teaser_score(total=None):
     t_kai, t_ren, t_kem, t_luna, t_nak, t_title = cuts
     lead = np.zeros(int(total * SR))
     low = np.zeros(int(total * SR))
-    beds = np.zeros(int(total * SR))
+    bedl = np.zeros(int(total * SR))
+    bedr = np.zeros(int(total * SR))
     pulse = np.zeros(int(total * SR))
+
+    def bed(notes, dur, amp, at):
+        f = [hz(x) for x in notes]
+        return (place(bedl, pad(f, dur, amp, seed=7), at),
+                place(bedr, pad(f, dur, amp, seed=71), at))
 
     # Every anchor below is relative to a measured cut. Pads start slightly
     # BEFORE their shot (music leads picture; sound arriving late reads as a
@@ -331,21 +369,21 @@ def build_teaser_score(total=None):
     # where the phrase is timed so its last note lands on the card.
 
     # Kai sinking. The call, alone, over the sea's breath.
-    beds = place(beds, pad([hz(n) for n in CHORDS["Dm"]], t_ren + 3.2, 0.22), t_kai)
+    bedl, bedr = bed(CHORDS["Dm"], t_ren + 3.2, 0.22, t_kai)
     lead = phrase(lead, CALL, CALL_BEATS, glass, t_kai + 1.6, 0.46)
 
     # Ren. Cold. The answer refuses to come; a bare fifth instead.
-    beds = place(beds, pad([hz(n) for n in ["A2", "E3", "A3"]], 6.5, 0.20), t_ren - 0.3)
+    bedl, bedr = bed(["A2", "E3", "A3"], 6.5, 0.20, t_ren - 0.3)
     low = place(low, sub(hz("A2"), 4.0, 0.42), t_ren + 0.3)
 
     # Kemar. The heartbeat arrives — the first warmth in the cut.
     pulse = place(pulse, heartbeat(6.5, BPM, 0.36), t_kem)
-    beds = place(beds, pad([hz(n) for n in CHORDS["F"]], 6.5, 0.24), t_kem - 0.3)
+    bedl, bedr = bed(CHORDS["F"], 6.5, 0.24, t_kem - 0.3)
     for i, n in enumerate(["F2", "A#2", "C3"]):
         low = place(low, bass(hz(n), 1.9, 0.36), t_kem + 0.5 + i * 1.7)
 
     # Luna. The call returns high and thin, the answer beneath it.
-    beds = place(beds, pad([hz(n) for n in CHORDS["Bb"]], 6.0, 0.22), t_luna - 0.3)
+    bedl, bedr = bed(CHORDS["Bb"], 6.0, 0.22, t_luna - 0.3)
     lead = phrase(lead, CALL, CALL_BEATS, glass, t_luna + 0.2, 0.40)
     low = phrase(low, ANSWER, ANSWER_BEATS, sub, t_luna + 0.8, 0.52)
 
@@ -361,18 +399,72 @@ def build_teaser_score(total=None):
     # call's own tempo. That is the whole series thesis in one bar, and it is
     # also what lets the phrase finish inside the card instead of being cut
     # off — which is what was happening when the answer kept its slow beats.
-    beds = place(beds, pad([hz(n) for n in CHORDS["Dm"]], 8.0, 0.28), t_title - 3.1)
+    bedl, bedr = bed(CHORDS["Dm"], 8.0, 0.28, t_title - 3.1)
     lead = phrase(lead, CALL, CALL_BEATS, glass, t_title - 2.6, 0.60)
     low = phrase(low, ANSWER, CALL_BEATS, sub, t_title, 0.72)
 
     n = int(total * SR)
-    lead, low, beds, pulse = (x[:n] for x in (lead, low, beds, pulse))
-    mix = reverb(lead, 3.6, 0.42) + reverb(beds, 4.2, 0.30) + low + reverb(pulse, 2.0, 0.18)
-    # ease in and out so it can sit under picture without a seam
-    n_in, n_out = int(1.2 * SR), int(2.2 * SR)
-    mix[:n_in] *= np.linspace(0, 1, n_in)
-    mix[-n_out:] *= np.linspace(1, 0, n_out)
-    return mix
+    return {k: v[:n] for k, v in
+            dict(lead=lead, low=low, bedl=bedl, bedr=bedr, pulse=pulse).items()}
+
+
+def spatialise(stems):
+    """Place the stems in the stereo field. Composition ends here; mixing begins.
+
+    The rationale for each position is dramatic, not decorative:
+
+      lead  slightly left and the widest thing in the mix. The CALL is the
+            thing reaching outward, so it gets the most air.
+      low   dead centre and nearly dry. The ANSWER comes from directly beneath
+            you, not from a side, and the mono-maker in the chain will collapse
+            it below 120Hz anyway - so it is written to be centre from the
+            start rather than fixed later.
+      pulse just right of centre, close, barely any tail. A heartbeat heard
+            inside your own chest has no room around it.
+      beds  already stereo by construction, and given the longest reverb. It
+            is the sea, and the sea is the widest thing here.
+    """
+    # ── balance ─────────────────────────────────────────────────────────────
+    # Measured, not guessed. Before this stage existed, the `low` stem was 89%
+    # of the mix energy and `lead` was 7.2% - the ANSWER was masking the CALL
+    # by 11dB RMS, so the tune the audience is meant to hum sat underneath a
+    # wall of sub. A sustained sine accumulates far more energy than a struck
+    # bowl that decays in a second and a half, which is why composing the two
+    # at similar amplitudes does not balance them.
+    #
+    # The low is also given harmonics rather than more level. Pushing a 90Hz
+    # sine louder only buries the melody further; giving it overtones lets it
+    # be heard as low without occupying the space the melody needs.
+    lo = M.bass_harmonics(stems["low"] * 0.56)              # -5 dB
+    ld = stems["lead"] * 1.41                               # +3 dB
+    pl = stems["pulse"] * 0.89                              # -1 dB
+
+    # The pad's centroid sat at 161Hz, directly on top of the sub's 87-147Hz
+    # working range. Two voices in one octave is mud, and the sub has the more
+    # important job down there, so the bed gives up the bottom.
+    bl = M.hpf(stems["bedl"], 130.0) * 2.1
+    br = M.hpf(stems["bedr"], 130.0) * 2.1
+
+    # ── placement ───────────────────────────────────────────────────────────
+    lead = M.stereo_reverb(M.pan(ld, -0.18), 3.8, 0.48, width=1.0, seed=3)
+    low = M.stereo_reverb(M.pan(lo, 0.0), 2.6, 0.12, width=0.45, seed=11)
+    puls = M.stereo_reverb(M.pan(pl, 0.10), 2.2, 0.18, width=0.7, seed=23)
+    beds = M.stereo_reverb(np.stack([bl, br], axis=1), 4.6, 0.34, width=1.0, seed=41)
+
+    mix = lead + low + puls + beds
+    # A gentle air lift. The only thing up here is the glass strike, and it was
+    # measurably absent - under 1% of total energy above 400Hz. Shelved rather
+    # than peaked so the strike gains air without becoming brittle.
+    return M.shelf(mix, 2600.0, 3.5, "high")
+
+
+def fades(st, fade_in=1.2, fade_out=2.2):
+    """Ease in and out so a cue can sit under picture without a seam."""
+    n_in, n_out = int(fade_in * SR), int(fade_out * SR)
+    st = st.copy()
+    st[:n_in] *= np.linspace(0, 1, n_in)[:, None]
+    st[-n_out:] *= np.linspace(1, 0, n_out)[:, None] ** 1.4
+    return st
 
 
 def write_wav(path, mono, peak=0.89):
@@ -388,12 +480,35 @@ def write_wav(path, mono, peak=0.89):
     print(f"  wrote {path}  {len(x)/SR:.2f}s")
 
 
+def deliver(name, stems, out_dir, fade_out=2.2, also_16=True):
+    """Spatialise, master, and write. 24-bit is the master; 16-bit is a copy.
+
+    Both are written because they answer different questions. The 24-bit file
+    is what a music editor conforms and what any future re-master starts from.
+    The 16-bit file is what gets muxed and sent around, and it is dithered
+    because 16-bit truncation is audible on exactly the material this score is
+    made of - long tails fading into nothing.
+    """
+    import tempfile
+    st = fades(spatialise(stems), 1.2, fade_out)
+    with tempfile.TemporaryDirectory() as td:
+        st, lufs, capped = M.master(st, os.path.join(td, "probe.wav"))
+    tp = M.true_peak(st)
+    corr = M.correlation(st[:, 0], st[:, 1])
+    p24 = os.path.join(out_dir, f"{name}.wav")
+    M.write_master(p24, st, bits=24)
+    if also_16:
+        M.write_master(os.path.join(out_dir, f"{name}-16.wav"), st, bits=16)
+    print(f"  {name:22s} {len(st)/SR:6.2f}s  {lufs:6.1f} LUFS  {tp:5.1f} dBTP  "
+          f"corr {corr:+.2f}{'  (capped)' if capped else ''}")
+    return p24
+
+
 if __name__ == "__main__":
     # The concert theme is a deliverable and lives with the assets, under the
     # gate. The teaser cue is an intermediate cut to one specific edit — it
     # lives in qc/ alongside the Splice bed it gets mixed with.
-    theme = build_theme()
-    write_wav(os.path.join(ART, "undertow-theme.wav"), theme)
+    deliver("undertow-theme", build_theme(), ART)
     if "--theme" not in sys.argv:
-        score = build_teaser_score()
-        write_wav(os.path.join(ART, "qc", "teaser-score.wav"), score)
+        deliver("teaser-score", build_teaser_score(), os.path.join(ART, "qc"),
+                also_16=False)
