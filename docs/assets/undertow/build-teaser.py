@@ -34,7 +34,9 @@ SHOTS = [
     ("shot-nakaru-wall.mp4",  "Nakaru — the Second Tide"),
     ("teaser-titlecard.mp4",  "title"),
 ]
-BED = "teaser-bed.wav"          # in qc/, the verified Splice mix
+BED = "teaser-bed.wav"          # in qc/, the verified Splice field-recording mix
+SCORE = "teaser-score.wav"      # in qc/, our own cue from build-score.py
+BED_LEVEL = 0.30                # the bed is texture under the score, not a duet
 OUT = "teaser-undertow.mp4"
 W, H, FPS = 1920, 1080, 24
 XFADE = 0.5                     # seconds of dissolve between shots
@@ -59,7 +61,14 @@ def probe(path, f):
     return (int(m.group(1)), int(m.group(2)) if m else 0), dur
 
 
-def main():
+def main(silent_to=None):
+    """silent_to: build the identical picture with no audio, to the given path.
+
+    This exists for verification, not delivery. qc/verify_audio.py hashes the
+    h264 bitstream of the silent build against the muxed one; if they differ,
+    the audio stage changed the picture — which is exactly the bug that once
+    cost this cut four frames.
+    """
     f = ff()
     paths = []
     for fn, label in SHOTS:
@@ -91,25 +100,53 @@ def main():
         prev = out
         offset += paths[i][1] - XFADE
 
-    bed = os.path.join(ART, "qc", BED)
-    if not os.path.exists(bed) and SCRATCH:
-        bed = os.path.join(SCRATCH, BED)
+    def find(name):
+        p = os.path.join(ART, "qc", name)
+        if not os.path.exists(p) and SCRATCH:
+            p = os.path.join(SCRATCH, name)
+        return p if os.path.exists(p) else None
+
+    bed, score = find(BED), find(SCORE)
+    if silent_to:
+        bed = score = None
 
     vf = ";".join(filt)
-    out_path = os.path.join(ART, OUT)
-    if os.path.exists(bed):
-        # Loop the bed to cover the cut, then hard-trim to the picture length.
+    out_path = silent_to or os.path.join(ART, OUT)
+    if bed or score:
+        # The bed is an 8s loop of hydrophone field recording; the score is cut
+        # to the exact picture length by build-score.py. Loop the bed to cover,
+        # mix the score on top of it, then hard-trim to the picture.
         # apad + explicit -t, never -shortest.
-        cmd = ([f, "-y", "-hide_banner", "-loglevel", "error"] + inputs +
-               ["-stream_loop", "-1", "-i", bed,
-                "-filter_complex", vf + f";[{len(paths)}:a]afade=t=in:st=0:d=1.5,"
-                                        f"afade=t=out:st={total-2.0:.2f}:d=2.0,apad[a]",
-                "-map", prev, "-map", "[a]",
+        extra, chains, mixin = [], [], []
+        i = len(paths)
+        if bed:
+            extra += ["-stream_loop", "-1", "-i", bed]
+            chains.append(f"[{i}:a]volume={BED_LEVEL},afade=t=in:st=0:d=1.5,"
+                          f"afade=t=out:st={total-2.0:.2f}:d=2.0,apad[bed]")
+            mixin.append("[bed]")
+            i += 1
+        if score:
+            # The cue carries its own fades — it was written to the frame.
+            extra += ["-i", score]
+            chains.append(f"[{i}:a]apad[scr]")
+            mixin.append("[scr]")
+            i += 1
+        if len(mixin) == 2:
+            # normalize=0: amix otherwise divides by input count and quietly
+            # drops the whole mix ~6dB, which reads as "the score is weak".
+            chains.append("".join(mixin) + "amix=inputs=2:duration=longest:normalize=0[a]")
+            amap = "[a]"
+        else:
+            amap = mixin[0]
+        print(f"  audio: {'bed + score' if len(mixin) == 2 else os.path.basename(bed or score)}")
+        cmd = ([f, "-y", "-hide_banner", "-loglevel", "error"] + inputs + extra +
+               ["-filter_complex", vf + ";" + ";".join(chains),
+                "-map", prev, "-map", amap,
                 "-t", f"{total:.3f}",
                 "-c:v", "libx264", "-crf", "17", "-preset", "slow",
                 "-c:a", "aac", "-b:a", "192k", out_path])
     else:
-        print("  (no sound bed found — building silent)")
+        print("  (no sound found — building silent)")
         cmd = ([f, "-y", "-hide_banner", "-loglevel", "error"] + inputs +
                ["-filter_complex", vf, "-map", prev, "-t", f"{total:.3f}",
                 "-c:v", "libx264", "-crf", "17", "-preset", "slow", out_path])
@@ -120,4 +157,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    arg = sys.argv[sys.argv.index("--silent-to") + 1] if "--silent-to" in sys.argv else None
+    main(silent_to=arg)

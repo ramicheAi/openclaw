@@ -1,807 +1,820 @@
 {
- "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
- "manifest_version": "1.2",
- "canon_version": "2.7",
- "generated": "2026-07-31",
- "assets": {
-  "bo-dock.png": {
-   "sha256_16": "ec4f2a61c237ebff",
-   "kind": "character",
-   "characters": [
-    "bo"
-   ],
-   "status": "APPROVED-founding-plate",
-   "element_id": "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
-   "note": "Creator-approved. This IS the identity source of truth.",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
+  "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
+  "manifest_version": "1.2",
+  "canon_version": "2.7",
+  "generated": "2026-07-31",
+  "assets": {
+    "bo-dock.png": {
+      "sha256_16": "ec4f2a61c237ebff",
+      "kind": "character",
+      "characters": [
+        "bo"
+      ],
+      "status": "APPROVED-founding-plate",
+      "element_id": "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
+      "note": "Creator-approved. This IS the identity source of truth.",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "cast-lineup-sheet.png": {
+      "sha256_16": "beae52b4809c603e",
+      "kind": "composite",
+      "characters": [
+        "kai",
+        "ren",
+        "kemar",
+        "bo",
+        "luna",
+        "mirei",
+        "gouda",
+        "nakaru"
+      ],
+      "status": "APPROVED",
+      "element_id": null,
+      "generated_with": "composited from the eight BASELINE reference plates (no generation)",
+      "status_note": "Rebuilt 2026-07-31 for canon 2.6. Now a true height chart: all eight on one ground line at canon height, scaled crown-to-feet so styled hair does not eat real height. Verified against its own grid by diffing the sheet against a figure-free render \u2014 worst error 0.5cm, all eight feet on the same row.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "derived-from-approved-plates",
+      "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py \u2014 identity is mathematically identical to canon."
+    },
+    "gouda-01.png": {
+      "sha256_16": "19ef68434b43c8cb",
+      "kind": "character",
+      "characters": [
+        "gouda"
+      ],
+      "status": "APPROVED-founding-plate",
+      "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
+      "note": "Creator-approved. This IS the identity source of truth.",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "gouda-02.png": {
+      "sha256_16": "cf8e55fc4893676b",
+      "kind": "character",
+      "characters": [
+        "gouda"
+      ],
+      "status": "APPROVED-alternate",
+      "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "kai-pool-floor-01.png": {
+      "sha256_16": "d7eab47f2e65dff3",
+      "kind": "character",
+      "characters": [
+        "kai"
+      ],
+      "status": "APPROVED-founding-plate",
+      "element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
+      "note": "Creator-approved. This IS the identity source of truth.",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "kai-pool-floor-02.png": {
+      "sha256_16": "8f0cdc0a1923d89b",
+      "kind": "character",
+      "characters": [
+        "kai"
+      ],
+      "status": "APPROVED-alternate",
+      "element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "kemar-01.png": {
+      "sha256_16": "479f3527e4ddd86a",
+      "kind": "character",
+      "characters": [
+        "kemar"
+      ],
+      "status": "APPROVED-founding-plate",
+      "element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
+      "note": "Creator-approved. This IS the identity source of truth.",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "kemar-02.png": {
+      "sha256_16": "04499e1e6a421ba3",
+      "kind": "character",
+      "characters": [
+        "kemar"
+      ],
+      "status": "APPROVED-alternate",
+      "element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "luna-01.png": {
+      "sha256_16": "324dd18ca3d8fd42",
+      "kind": "character",
+      "characters": [
+        "luna"
+      ],
+      "status": "APPROVED-founding-plate",
+      "element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
+      "note": "Creator-approved. This IS the identity source of truth.",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "luna-02.png": {
+      "sha256_16": "0dc0237491641228",
+      "kind": "character",
+      "characters": [
+        "luna"
+      ],
+      "status": "APPROVED-alternate",
+      "element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "mirei-01.png": {
+      "sha256_16": "69eb663e651b3232",
+      "kind": "character",
+      "characters": [
+        "mirei"
+      ],
+      "status": "APPROVED-founding-plate",
+      "element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+      "note": "Creator-approved. This IS the identity source of truth.",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "mirei-02.png": {
+      "sha256_16": "13dd2e034def3aff",
+      "kind": "character",
+      "characters": [
+        "mirei"
+      ],
+      "status": "APPROVED-alternate",
+      "element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "nakaru-seawall-01.png": {
+      "sha256_16": "a34b6a09945cbbe9",
+      "kind": "character",
+      "characters": [
+        "nakaru"
+      ],
+      "status": "APPROVED-founding-plate",
+      "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
+      "note": "Creator-approved. This IS the identity source of truth.",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "nakaru-seawall-02.png": {
+      "sha256_16": "db0057e5c18aba64",
+      "kind": "character",
+      "characters": [
+        "nakaru"
+      ],
+      "status": "APPROVED-alternate",
+      "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "poster-deep-calls-to-deep-4k.png": {
+      "sha256_16": "a817870200aa7129",
+      "kind": "key-art",
+      "characters": [
+        "kai"
+      ],
+      "status": "APPROVED",
+      "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+      "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id",
+      "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
+      "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (4K print master, 2751x4096, upscaled from the hero)"
+    },
+    "poster-deep-calls-to-deep-alt.png": {
+      "sha256_16": "e8ab2e4732d6e34e",
+      "kind": "key-art",
+      "characters": [
+        "kai"
+      ],
+      "status": "APPROVED",
+      "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+      "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id",
+      "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
+      "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (alternate take)"
+    },
+    "poster-deep-calls-to-deep.png": {
+      "sha256_16": "9d8d531aa8c30762",
+      "kind": "key-art",
+      "characters": [
+        "kai"
+      ],
+      "status": "APPROVED",
+      "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+      "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id",
+      "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
+      "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (hero)"
+    },
+    "ren-fence-01.png": {
+      "sha256_16": "dbb285bed52f64ac",
+      "kind": "character",
+      "characters": [
+        "ren"
+      ],
+      "status": "APPROVED-founding-plate",
+      "element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
+      "note": "Creator-approved. This IS the identity source of truth.",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "ren-fence-02.png": {
+      "sha256_16": "a24638f9db21971f",
+      "kind": "character",
+      "characters": [
+        "ren"
+      ],
+      "status": "APPROVED-alternate",
+      "element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
+      "verified_by": "creator",
+      "verified_at": "2026-07-25"
+    },
+    "teaser-sinking-01.mp4": {
+      "sha256_16": "923a81dd4cfa422d",
+      "kind": "video",
+      "characters": [
+        "kai"
+      ],
+      "element_ids": [
+        "38b45365-9f70-4b2e-a79e-b7949fea9007"
+      ],
+      "status": "APPROVED",
+      "source_job_id": "be842cd8-e6a8-40e1-9901-9e881060dca3",
+      "generated_with": "seedance_2_0, Kai-v2 element + approved hero plate as start frame, 8s, 1248x1664, scored",
+      "replaces_sha256_16": "8111b2a7f01a0e58",
+      "status_note": "Redone 2026-07-31 with the locked element, which holds identity across the whole clip rather than only at frame 0. The predecessor's real defect was never identity drift - Kai was on-model throughout it - but a push-in so hard that by 2.9s the surface silhouettes and pool floor were both gone and the shot became a generic chest-up view. This take holds the full vertical depth for all 8s: he stays small on the tiled floor and the surface recedes as he sinks. Eyes closed, then the Undertow glow comes up at ~5.2s - canon-correct because he is submerged.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "verification": "12 frames sampled and inspected; sheet kept at qc/teaser-sinking-01-frames.png",
+      "provenance": "element_id",
+      "audio": "Sound bed built from four licensed Splice field recordings: FF_IE_drone_lowest_gravity (Field & Foley) as the Undertow bed, Falling_C_Sub (ModeAudio) for the descent, and two hydrophone recordings (Splice Soundscapes) for submerged room tone and the eye-opening reveal at ~5.2s. Mixed with ffmpeg; no generated audio.",
+      "audio_verification": "-19.4 LUFS integrated, -2.7 dBFS true peak, 1.2 LU range. Speech-band ratio 0.17 (bottom-heavy, no voice). Spectrogram inspected: no sustained mid harmonics. Picture bitstream hash IDENTICAL to the verified silent cut - confirming the mux altered no frame. Re-runnable via qc/verify_audio.py."
+    },
+    "kai-neutral-ref.png": {
+      "sha256_16": "922c12c2a41f8ec2",
+      "kind": "character",
+      "characters": [
+        "kai"
+      ],
+      "status": "APPROVED-baseline-reference",
+      "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+      "source_job_id": "0cbde580-efd8-401f-8cb8-b5895809e826",
+      "note": "Kai in his un-powered baseline state: flat neutral daylight, plain background, ordinary dark brown eyes, blue-black hair. Exists so his element cannot mistake the submerged Undertow glow for his permanent face.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-30"
+    },
+    "luna-neutral-ref.png": {
+      "sha256_16": "bfbea6eb0f674c40",
+      "kind": "character",
+      "characters": [
+        "luna"
+      ],
+      "status": "APPROVED-baseline-reference",
+      "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+      "source_job_id": "12dcc278-b1f5-432a-8084-0648f41f52f3",
+      "note": "Luna in neutral daylight on a plain background, pale ivory skin. Exists so her element cannot mistake violet underwater light for her skin tone.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-30"
+    },
+    "crew-key-visual.png": {
+      "sha256_16": "b0bde22460d564be",
+      "kind": "key-art",
+      "characters": [
+        "bo",
+        "kai",
+        "mirei",
+        "luna"
+      ],
+      "element_ids": [
+        "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
+        "38b45365-9f70-4b2e-a79e-b7949fea9007",
+        "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+        "3d3c787c-1929-4b3e-a4ad-6033e9d53564"
+      ],
+      "status": "APPROVED",
+      "source_job_id": "7b253f92-2f98-4365-b597-1269659fc94b",
+      "generated_with": "four locked elements, one per character in frame",
+      "status_note": "First crew visual with every character element-locked. Kai's eyes correctly dark brown on dry land; Bo heavyset and fully clothed; Luna pale ivory. Supersedes cast-key-visual.png.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-30",
+      "provenance": "element_id"
+    },
+    "ren-neutral-ref.png": {
+      "sha256_16": "7b3538652614581e",
+      "kind": "character",
+      "characters": [
+        "ren"
+      ],
+      "status": "APPROVED-baseline-reference",
+      "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+      "source_job_id": "4c01684e-dae0-4ee7-965a-5e301a905c67",
+      "note": "Neutral-daylight three-view turnaround (profile/front/back). Replaces a chest-up twilight crop that gave the element no body and a magenta cast on the face.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31"
+    },
+    "kemar-neutral-ref.png": {
+      "sha256_16": "f53ddd12d0129120",
+      "kind": "character",
+      "characters": [
+        "kemar"
+      ],
+      "status": "APPROVED-baseline-reference",
+      "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+      "source_job_id": "61d56291-82bf-4173-a560-e52c043e4ffc",
+      "note": "Neutral plate with the REDESIGNED Freewater House tracksuit. Replaces the Jamaican-flag racing kit, which read as costume next to a cast that wears believable athletic wear. Heritage now carried by thin green-gold piping, the House sigil, and his loc wrap. Eyes open.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31"
+    },
+    "bo-neutral-ref.png": {
+      "sha256_16": "698f48528f57c3a1",
+      "kind": "character",
+      "characters": [
+        "bo"
+      ],
+      "status": "APPROVED-baseline-reference",
+      "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+      "source_job_id": "6bffbd31-83f7-4792-8382-7def106fa11a",
+      "note": "Flat 2D cel-shaded neutral plate with his eyes open. Replaces a semi-3D CG render that was teaching the wrong house style.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31"
+    },
+    "mirei-neutral-ref.png": {
+      "sha256_16": "2cffa176416f1364",
+      "kind": "character",
+      "characters": [
+        "mirei"
+      ],
+      "status": "APPROVED-baseline-reference",
+      "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
+      "source_job_id": "bc6a4a9e-d645-4ee6-b9fe-178929867a95",
+      "note": "Neutral plate with prescription glasses ON HER FACE, narrow eyes, MANAGER armband, clipboard and stopwatch. Corrects a founding plate that had her bare-faced with sunglasses on her head.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31"
+    },
+    "gouda-neutral-ref.png": {
+      "sha256_16": "04cabf466bde2e40",
+      "kind": "character",
+      "characters": [
+        "gouda"
+      ],
+      "status": "APPROVED-baseline-reference",
+      "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
+      "source_job_id": "b2272a53-8efd-4ba9-96ae-fa4f515ed7f2",
+      "note": "Standing neutral plate, weary and closed, ordinary dark brown eyes. Corrects a founding plate that had him grinning with yellow eyes under a sepia cast.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31"
+    },
+    "nakaru-neutral-ref.png": {
+      "sha256_16": "8613de78e16dd2e5",
+      "kind": "character",
+      "characters": [
+        "nakaru"
+      ],
+      "status": "APPROVED-baseline-reference",
+      "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+      "source_job_id": "c64a5a1e-acb3-4afe-a608-86f066c8a4f6",
+      "note": "Neutral plate in which the grey temple streak and throat scar are legible for the first time. The storm plate hid both.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31"
+    },
+    "rivals-key-visual.png": {
+      "sha256_16": "1faadbdc88f82f1c",
+      "kind": "key-art",
+      "characters": [
+        "ren",
+        "kemar",
+        "gouda",
+        "nakaru"
+      ],
+      "element_ids": [
+        "0e910d33-6a73-4735-b590-a4384330330b",
+        "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+        "ac4108b9-2c69-4489-afa6-04521ef6866e",
+        "ffe0c6d9-7199-4355-b167-00e7b21afcf9"
+      ],
+      "status": "APPROVED",
+      "source_job_id": "74fd4f61-f842-4429-be24-c27de5e3ca63",
+      "generated_with": "four v2 elements, one per character in frame",
+      "status_note": "Verification render for the rebuilt elements, regenerated with Kemar-v3. Every previously-broken behaviour absent: Ren pale not violet, Kemar's eyes open in the new Freewater House tracksuit, Gouda weary with dark eyes, Nakaru's grey temple streak visible. Ren's crisp kit beside Kemar's patched one carries the recognition argument visually.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "turnaround-kai.png": {
+      "sha256_16": "5c4233c2e9f41b42",
+      "kind": "character",
+      "characters": [
+        "kai"
+      ],
+      "status": "APPROVED",
+      "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+      "source_job_id": "21fe0435-15d0-47ed-b448-03e339cef70e",
+      "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+      "note": "Front / three-quarter / profile / back on one ground line. Checked: Dark brown eyes, no glow. Coiled blue-black hair, bracelet, jammers, towel. Barefoot.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "turnaround-ren.png": {
+      "sha256_16": "56da0fc27b8004c6",
+      "kind": "character",
+      "characters": [
+        "ren"
+      ],
+      "status": "APPROVED",
+      "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+      "source_job_id": "d758badf-4b3c-4391-bec8-21404877dd4d",
+      "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+      "note": "Front / three-quarter / profile / back on one ground line. Checked: Pale skin not violet. Tight undercut, silver-gray eyes, wave-and-torii crest at chest.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "turnaround-kemar.png": {
+      "sha256_16": "f23715fb0b9244fc",
+      "kind": "character",
+      "characters": [
+        "kemar"
+      ],
+      "status": "APPROVED",
+      "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+      "source_job_id": "ba390510-a1cc-4650-9807-645438959d39",
+      "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+      "note": "Front / three-quarter / profile / back on one ground line. Checked: Eyes OPEN and warm. Charcoal Freewater tracksuit, green-gold piping, House sigil, repair patches. No flag.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "turnaround-bo.png": {
+      "sha256_16": "65a9579faeaf4203",
+      "kind": "character",
+      "characters": [
+        "bo"
+      ],
+      "status": "APPROVED",
+      "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+      "source_job_id": "5f5bc792-4379-47ec-bac6-3a6140f2d670",
+      "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+      "note": "Front / three-quarter / profile / back on one ground line. Checked: Heavyset, cream sweater fully covering, eyes open, 2D cel-shaded not 3D.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "turnaround-luna.png": {
+      "sha256_16": "266e97cc916f3dc5",
+      "kind": "character",
+      "characters": [
+        "luna"
+      ],
+      "status": "APPROVED",
+      "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+      "source_job_id": "0a201c63-ccd0-43d2-bb59-93f9cf1d8221",
+      "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+      "note": "Front / three-quarter / profile / back on one ground line. Checked: Pale ivory skin not lavender. Brow markings, indigo wave stitching, shell anklet, no crest.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "turnaround-mirei.png": {
+      "sha256_16": "e4f4e7683f9246f8",
+      "kind": "character",
+      "characters": [
+        "mirei"
+      ],
+      "status": "APPROVED",
+      "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
+      "source_job_id": "c10c8fb5-5054-4bba-a218-f108a19a863a",
+      "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+      "note": "Front / three-quarter / profile / back on one ground line. Checked: Prescription glasses ON HER FACE in all views, narrow eyes, MANAGER armband, clipboard, stopwatch.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "turnaround-gouda.png": {
+      "sha256_16": "d8319d1bd256d88b",
+      "kind": "character",
+      "characters": [
+        "gouda"
+      ],
+      "status": "APPROVED",
+      "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
+      "source_job_id": "89708b52-0578-4aac-be75-9d20b6c8f7bc",
+      "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+      "note": "Front / three-quarter / profile / back on one ground line. Checked: Weary and closed, NOT grinning. Ordinary dark eyes, not yellow. Topknot, stubble, medal.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "turnaround-nakaru.png": {
+      "sha256_16": "5eb97003ab6424c0",
+      "kind": "character",
+      "characters": [
+        "nakaru"
+      ],
+      "status": "APPROVED",
+      "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+      "source_job_id": "72a6af73-35a1-48b7-a535-d9dace16283e",
+      "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+      "note": "Front / three-quarter / profile / back on one ground line. Checked: Grey temple streak and throat scar both visible. Dark eyes, no glow. Grounded, no fantasy.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "expressions-kai.png": {
+      "sha256_16": "33e2d749468419b7",
+      "kind": "character",
+      "characters": [
+        "kai"
+      ],
+      "status": "APPROVED",
+      "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+      "source_job_id": "f9a9b8ca-8170-45fe-8862-3aaee574d28d",
+      "generated_with": "expression sheet generated with Kai's locked element",
+      "note": "Eight expressions: guarded neutral, held fear, stubbornness, a rare small smile, grief, wonder. Checked: consistent face across all panels, deep brown skin, coiled blue-black hair, and ordinary DARK BROWN eyes in every single panel - no glow anywhere, correct for dry land.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "teaser-titlecard.png": {
+      "sha256_16": "ceb25793a8f9f36d",
+      "kind": "title-card",
+      "characters": [],
+      "status": "APPROVED",
+      "generated_with": "drawn deterministically by build-titlecard.py (PIL) - zero generation",
+      "note": "The one frame carrying the show's name is drawn, not generated. Generated text is the least reliable thing an image model produces and a misspelt logo is not a defect you want to find after a pitch. still",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "derived-from-approved-plates"
+    },
+    "teaser-titlecard.mp4": {
+      "sha256_16": "ce715a577ab70b6c",
+      "kind": "title-card",
+      "characters": [],
+      "status": "APPROVED",
+      "generated_with": "drawn deterministically by build-titlecard.py (PIL) - zero generation",
+      "note": "The one frame carrying the show's name is drawn, not generated. Generated text is the least reliable thing an image model produces and a misspelt logo is not a defect you want to find after a pitch. Held 8s - the card holds for exactly as long as the theme needs to resolve on it, not for a round number.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "derived-from-approved-plates"
+    },
+    "expressions-ren.png": {
+      "sha256_16": "67f1903ff97a8ea8",
+      "kind": "character",
+      "characters": [
+        "ren"
+      ],
+      "status": "APPROVED",
+      "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+      "source_job_id": "2a1fd3eb-3380-45e9-9916-9bc267652c61",
+      "generated_with": "expression sheet generated with the character's locked element",
+      "note": "Eight panels, cold throughout with one crack of unwanted doubt. Silver-gray eyes in every panel, pale skin, tight undercut.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "expressions-gouda.png": {
+      "sha256_16": "9ddb9c8a6b103226",
+      "kind": "character",
+      "characters": [
+        "gouda"
+      ],
+      "status": "APPROVED",
+      "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
+      "source_job_id": "04b02c98-96be-407c-ad8e-484c2a29ec8a",
+      "generated_with": "expression sheet generated with the character's locked element",
+      "note": "Six panels: weary, sharp assessment, haunted, gruff, grief, reluctant fondness. Ordinary dark brown eyes in every panel, never yellow. Never grins.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "expressions-mirei.png": {
+      "sha256_16": "3344681042e56ff8",
+      "kind": "character",
+      "characters": [
+        "mirei"
+      ],
+      "status": "APPROVED",
+      "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
+      "source_job_id": "a8279db8-dab3-4713-9551-f16ececf6806",
+      "generated_with": "expression sheet generated with the character's locked element",
+      "note": "Six panels. Glasses ON HER FACE in all six. Panel two has her chewing the longer asymmetric strand - the exact tic canon gives her when calculating.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "shot-ren-lane.mp4": {
+      "sha256_16": "85ac5954f445b579",
+      "kind": "video",
+      "characters": [
+        "ren"
+      ],
+      "status": "APPROVED",
+      "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+      "source_job_id": "487ebe68-a848-4fcd-b37d-c0093ae6f6a2",
+      "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+      "note": "Side-on tracking, textbook high-elbow freestyle, black/silver tech suit, cold. Identity holds across 6 sampled frames.",
+      "verification": "6 frames sampled and inspected against canon",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "shot-kemar-joy.mp4": {
+      "sha256_16": "7943bb0bfe5f00bc",
+      "kind": "video",
+      "characters": [
+        "kemar"
+      ],
+      "status": "APPROVED",
+      "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+      "source_job_id": "1dc09b79-0d75-4eea-90bd-d1dc08d09808",
+      "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+      "note": "Sunlit tracking shot, joy reads, locs wrapped, no apparatus. KNOWN DEVIATION: canon gives him river-gold eyes when submerged and they render as ordinary dark here. Recorded rather than glossed - see the canon note on submerged-vs-powered.",
+      "verification": "6 frames sampled and inspected against canon",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "shot-luna-descent.mp4": {
+      "sha256_16": "8b0b081c1f5eaeb7",
+      "kind": "video",
+      "characters": [
+        "luna"
+      ],
+      "status": "APPROVED",
+      "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+      "source_job_id": "1708355c-06aa-4bf5-b72c-3417a087d2c7",
+      "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+      "note": "Headfirst descent into violet twilight. Her skin reads PALE IVORY throughout - the strongest proof the baseline fix held, since violet water is the exact condition that turned her lavender before.",
+      "verification": "6 frames sampled and inspected against canon",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "shot-nakaru-wall.mp4": {
+      "sha256_16": "26d07cc3e3ff084d",
+      "kind": "video",
+      "characters": [
+        "nakaru"
+      ],
+      "status": "APPROVED",
+      "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+      "source_job_id": "742df82c-1345-414a-997d-418aba5b7c40",
+      "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+      "note": "Motionless on a storm sea wall while the weather moves around him. Grey temple streak visible, no glow, no fantasy. Menace through stillness.",
+      "verification": "6 frames sampled and inspected against canon",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "shot-kai-sinking.mp4": {
+      "sha256_16": "00d8cfa68269d242",
+      "kind": "video",
+      "characters": [
+        "kai"
+      ],
+      "status": "APPROVED",
+      "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+      "source_job_id": "2c01f4bc-8927-4341-952f-d4e5a503a437",
+      "generated_with": "seedance_2_0 with Kai-v2, 8s, 1920x1080, silent",
+      "note": "16:9 version of the sinking shot for the multi-shot cut. Holds the full depth for all 8s - he stays small on the tiled floor with the surface and its indifferent silhouettes far above. Eyes verified at full resolution: open with the blue Undertow light, canon-correct because submerged.",
+      "verification": "7 frames sampled plus a full-resolution face crop to confirm the eye state",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "teaser-undertow.mp4": {
+      "sha256_16": "2214b3c9292b693a",
+      "kind": "video",
+      "characters": [
+        "kai",
+        "ren",
+        "kemar",
+        "luna",
+        "nakaru"
+      ],
+      "element_ids": [
+        "38b45365-9f70-4b2e-a79e-b7949fea9007",
+        "0e910d33-6a73-4735-b590-a4384330330b",
+        "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+        "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+        "ffe0c6d9-7199-4355-b167-00e7b21afcf9"
+      ],
+      "status": "APPROVED",
+      "generated_with": "assembled by build-teaser.py from five element-locked shots plus the drawn title card, scored with the original theme over the Splice bed",
+      "note": "37.7s multi-shot teaser. Cut order is story logic: the boy, the rival, the joy, the mystery, the threat, the name. The palette carries the arc - chlorine cyan to cold cyan to gold to violet to storm grey, resolving into the deep blue of the title.",
+      "verification": "10 frames sampled across the full cut and inspected. Audio: -11.8 LUFS, -1.1 dBFS true peak, LRA 14.2, speech ratio 0.20, spectrogram read. Picture integrity confirmed IDENTICAL against a silent build by h264 bitstream hash - the mux changed no frames.",
+      "audio": "Our own score (build-score.py) mixed over the Splice field-recording bed at 0.30. The cue is scored to the edit's MEASURED dissolve midpoints, not assumed ones, and the answering phrase lands its first note exactly on the title card. No generated audio.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "expressions-kemar.png": {
+      "sha256_16": "22657265bcd63755",
+      "kind": "character",
+      "characters": [
+        "kemar"
+      ],
+      "status": "APPROVED",
+      "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+      "source_job_id": "46c4124a-bbe6-4074-801a-b452aff6b64c",
+      "generated_with": "expression sheet generated with the character's locked element",
+      "note": "Eight panels: warm neutral through huge laugh, race focus, teasing, old grievance, fierce joy. Warm brown eyes OPEN throughout; the new Freewater collar with its green-gold piping reads correctly at this crop.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "expressions-bo.png": {
+      "sha256_16": "79913afd9ab76106",
+      "kind": "character",
+      "characters": [
+        "bo"
+      ],
+      "status": "APPROVED",
+      "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+      "source_job_id": "d64a6248-7841-463b-82f5-895b5b311f74",
+      "generated_with": "expression sheet generated with the character's locked element",
+      "note": "Six panels: warm neutral, enormous grin, worried for a friend, determined, gentle patience, quietly hurt. Broad kind face, heavy brows, warm dark eyes, sweater collar. 2D cel-shaded, never 3D.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "expressions-luna.png": {
+      "sha256_16": "fe0893e0900c2a4d",
+      "kind": "character",
+      "characters": [
+        "luna"
+      ],
+      "status": "APPROVED",
+      "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+      "source_job_id": "82613643-a3ef-4588-9280-7795c3710608",
+      "generated_with": "expression sheet generated with the character's locked element",
+      "note": "Six panels: serene, curious, sorrowing, still before a dive, a rare warm smile, knowing. Pale ivory skin in every panel, brow markings visible throughout, moon-pale eyes.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "expressions-nakaru.png": {
+      "sha256_16": "1e872d7dff8ca329",
+      "kind": "character",
+      "characters": [
+        "nakaru"
+      ],
+      "status": "APPROVED",
+      "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+      "source_job_id": "88f04cca-ff84-46df-a062-acafa725fc72",
+      "generated_with": "expression sheet generated with the character's locked element",
+      "note": "Eight panels: calm, quiet grief, absolute conviction, something almost gentle, listening, regret closed away. Grey temple streak AND throat scar visible in every panel. No glow, no fantasy, never rage, never a grin.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "element_id"
+    },
+    "undertow-theme.wav": {
+      "sha256_16": "6f90981d7e09be69",
+      "kind": "score",
+      "characters": [],
+      "status": "APPROVED",
+      "generated_with": "composed in code by build-score.py - additive/subtractive synthesis in numpy, zero generated audio, zero library music",
+      "note": "\"Deep Calls to Deep\" - the main theme, 64s concert statement. D minor, 60 BPM (a resting heart rate; one beat = one second of breath-hold). The grammar is the series' own title phrase from Psalm 42:7 made literal: THE CALL, a five-note figure that falls a sixth then lifts one step, is answered by THE SAME FIGURE from below - an octave and a fifth down, two bars late, slower and heavier. That is dramatically loadable: an answer arriving EARLY is the deep reaching for someone, an answer in the WRONG key is the Second Tide, an answer that never comes is the worst thing in the show. Voices: struck-glass bowls with inharmonic partials (the call), sub sine (the answer), a detuned pad breathing on a 12s cycle (the sea), and a nyabinghi-rooted heartbeat pulse. Owned outright - no licence attached to the thing the series is identified by.",
+      "verification": "-9.5 LUFS integrated, -1.6 dBFS true peak, LRA 15.2. Spectrogram read: the five-note call legible as discrete strikes with harmonic combs, the answer section sitting entirely below 200 Hz, heartbeat entering at 33s. Largest sample-to-sample discontinuity 0.05 (~430 Hz slew) - no clicks. Every synthesised transient lowpassed to its material: membrane 1.1 kHz, glass strike 9 kHz, reverb tail 3.2 kHz.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "composed-in-repo"
+    }
   },
-  "cast-lineup-sheet.png": {
-   "sha256_16": "beae52b4809c603e",
-   "kind": "composite",
-   "characters": [
-    "kai",
-    "ren",
-    "kemar",
-    "bo",
-    "luna",
-    "mirei",
-    "gouda",
-    "nakaru"
-   ],
-   "status": "APPROVED",
-   "element_id": null,
-   "generated_with": "composited from the eight BASELINE reference plates (no generation)",
-   "status_note": "Rebuilt 2026-07-31 for canon 2.6. Now a true height chart: all eight on one ground line at canon height, scaled crown-to-feet so styled hair does not eat real height. Verified against its own grid by diffing the sheet against a figure-free render — worst error 0.5cm, all eight feet on the same row.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "derived-from-approved-plates",
-   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py — identity is mathematically identical to canon."
+  "provenance_types": {
+    "element_id": "Generated with a locked character element. REQUIRED for all new character art. Multi-character art uses element_ids (a list) \u2014 one lock per character in frame.",
+    "derived-from-approved-plates": "Composited/derived from approved plates with no generation. Identity is exact.",
+    "approved-plate-as-reference": "Generated with an approved plate as image reference. Legacy-acceptable; weaker than element_id.",
+    "rejected-record": "Retained only to document a rejection. Never ship.",
+    "composed-in-repo": "Audio composed programmatically in this repo from first principles. No generation, no library music, no licence. Fully owned and revisable to the frame."
   },
-  "gouda-01.png": {
-   "sha256_16": "19ef68434b43c8cb",
-   "kind": "character",
-   "characters": [
-    "gouda"
-   ],
-   "status": "APPROVED-founding-plate",
-   "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
-   "note": "Creator-approved. This IS the identity source of truth.",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "gouda-02.png": {
-   "sha256_16": "cf8e55fc4893676b",
-   "kind": "character",
-   "characters": [
-    "gouda"
-   ],
-   "status": "APPROVED-alternate",
-   "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "kai-pool-floor-01.png": {
-   "sha256_16": "d7eab47f2e65dff3",
-   "kind": "character",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED-founding-plate",
-   "element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
-   "note": "Creator-approved. This IS the identity source of truth.",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "kai-pool-floor-02.png": {
-   "sha256_16": "8f0cdc0a1923d89b",
-   "kind": "character",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED-alternate",
-   "element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "kemar-01.png": {
-   "sha256_16": "479f3527e4ddd86a",
-   "kind": "character",
-   "characters": [
-    "kemar"
-   ],
-   "status": "APPROVED-founding-plate",
-   "element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
-   "note": "Creator-approved. This IS the identity source of truth.",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "kemar-02.png": {
-   "sha256_16": "04499e1e6a421ba3",
-   "kind": "character",
-   "characters": [
-    "kemar"
-   ],
-   "status": "APPROVED-alternate",
-   "element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "luna-01.png": {
-   "sha256_16": "324dd18ca3d8fd42",
-   "kind": "character",
-   "characters": [
-    "luna"
-   ],
-   "status": "APPROVED-founding-plate",
-   "element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
-   "note": "Creator-approved. This IS the identity source of truth.",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "luna-02.png": {
-   "sha256_16": "0dc0237491641228",
-   "kind": "character",
-   "characters": [
-    "luna"
-   ],
-   "status": "APPROVED-alternate",
-   "element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "mirei-01.png": {
-   "sha256_16": "69eb663e651b3232",
-   "kind": "character",
-   "characters": [
-    "mirei"
-   ],
-   "status": "APPROVED-founding-plate",
-   "element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
-   "note": "Creator-approved. This IS the identity source of truth.",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "mirei-02.png": {
-   "sha256_16": "13dd2e034def3aff",
-   "kind": "character",
-   "characters": [
-    "mirei"
-   ],
-   "status": "APPROVED-alternate",
-   "element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "nakaru-seawall-01.png": {
-   "sha256_16": "a34b6a09945cbbe9",
-   "kind": "character",
-   "characters": [
-    "nakaru"
-   ],
-   "status": "APPROVED-founding-plate",
-   "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
-   "note": "Creator-approved. This IS the identity source of truth.",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "nakaru-seawall-02.png": {
-   "sha256_16": "db0057e5c18aba64",
-   "kind": "character",
-   "characters": [
-    "nakaru"
-   ],
-   "status": "APPROVED-alternate",
-   "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "poster-deep-calls-to-deep-4k.png": {
-   "sha256_16": "a817870200aa7129",
-   "kind": "key-art",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id",
-   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
-   "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (4K print master, 2751x4096, upscaled from the hero)"
-  },
-  "poster-deep-calls-to-deep-alt.png": {
-   "sha256_16": "e8ab2e4732d6e34e",
-   "kind": "key-art",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id",
-   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
-   "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (alternate take)"
-  },
-  "poster-deep-calls-to-deep.png": {
-   "sha256_16": "9d8d531aa8c30762",
-   "kind": "key-art",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id",
-   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
-   "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (hero)"
-  },
-  "ren-fence-01.png": {
-   "sha256_16": "dbb285bed52f64ac",
-   "kind": "character",
-   "characters": [
-    "ren"
-   ],
-   "status": "APPROVED-founding-plate",
-   "element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
-   "note": "Creator-approved. This IS the identity source of truth.",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "ren-fence-02.png": {
-   "sha256_16": "a24638f9db21971f",
-   "kind": "character",
-   "characters": [
-    "ren"
-   ],
-   "status": "APPROVED-alternate",
-   "element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
-   "verified_by": "creator",
-   "verified_at": "2026-07-25"
-  },
-  "teaser-sinking-01.mp4": {
-   "sha256_16": "923a81dd4cfa422d",
-   "kind": "video",
-   "characters": [
-    "kai"
-   ],
-   "element_ids": [
-    "38b45365-9f70-4b2e-a79e-b7949fea9007"
-   ],
-   "status": "APPROVED",
-   "source_job_id": "be842cd8-e6a8-40e1-9901-9e881060dca3",
-   "generated_with": "seedance_2_0, Kai-v2 element + approved hero plate as start frame, 8s, 1248x1664, scored",
-   "replaces_sha256_16": "8111b2a7f01a0e58",
-   "status_note": "Redone 2026-07-31 with the locked element, which holds identity across the whole clip rather than only at frame 0. The predecessor's real defect was never identity drift - Kai was on-model throughout it - but a push-in so hard that by 2.9s the surface silhouettes and pool floor were both gone and the shot became a generic chest-up view. This take holds the full vertical depth for all 8s: he stays small on the tiled floor and the surface recedes as he sinks. Eyes closed, then the Undertow glow comes up at ~5.2s - canon-correct because he is submerged.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "verification": "12 frames sampled and inspected; sheet kept at qc/teaser-sinking-01-frames.png",
-   "provenance": "element_id",
-   "audio": "Sound bed built from four licensed Splice field recordings: FF_IE_drone_lowest_gravity (Field & Foley) as the Undertow bed, Falling_C_Sub (ModeAudio) for the descent, and two hydrophone recordings (Splice Soundscapes) for submerged room tone and the eye-opening reveal at ~5.2s. Mixed with ffmpeg; no generated audio.",
-   "audio_verification": "-19.4 LUFS integrated, -2.7 dBFS true peak, 1.2 LU range. Speech-band ratio 0.17 (bottom-heavy, no voice). Spectrogram inspected: no sustained mid harmonics. Picture bitstream hash IDENTICAL to the verified silent cut - confirming the mux altered no frame. Re-runnable via qc/verify_audio.py."
-  },
-  "kai-neutral-ref.png": {
-   "sha256_16": "922c12c2a41f8ec2",
-   "kind": "character",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED-baseline-reference",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "source_job_id": "0cbde580-efd8-401f-8cb8-b5895809e826",
-   "note": "Kai in his un-powered baseline state: flat neutral daylight, plain background, ordinary dark brown eyes, blue-black hair. Exists so his element cannot mistake the submerged Undertow glow for his permanent face.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-30"
-  },
-  "luna-neutral-ref.png": {
-   "sha256_16": "bfbea6eb0f674c40",
-   "kind": "character",
-   "characters": [
-    "luna"
-   ],
-   "status": "APPROVED-baseline-reference",
-   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
-   "source_job_id": "12dcc278-b1f5-432a-8084-0648f41f52f3",
-   "note": "Luna in neutral daylight on a plain background, pale ivory skin. Exists so her element cannot mistake violet underwater light for her skin tone.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-30"
-  },
-  "crew-key-visual.png": {
-   "sha256_16": "b0bde22460d564be",
-   "kind": "key-art",
-   "characters": [
-    "bo",
-    "kai",
-    "mirei",
-    "luna"
-   ],
-   "element_ids": [
-    "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
-    "38b45365-9f70-4b2e-a79e-b7949fea9007",
-    "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
-    "3d3c787c-1929-4b3e-a4ad-6033e9d53564"
-   ],
-   "status": "APPROVED",
-   "source_job_id": "7b253f92-2f98-4365-b597-1269659fc94b",
-   "generated_with": "four locked elements, one per character in frame",
-   "status_note": "First crew visual with every character element-locked. Kai's eyes correctly dark brown on dry land; Bo heavyset and fully clothed; Luna pale ivory. Supersedes cast-key-visual.png.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-30",
-   "provenance": "element_id"
-  },
-  "ren-neutral-ref.png": {
-   "sha256_16": "7b3538652614581e",
-   "kind": "character",
-   "characters": [
-    "ren"
-   ],
-   "status": "APPROVED-baseline-reference",
-   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
-   "source_job_id": "4c01684e-dae0-4ee7-965a-5e301a905c67",
-   "note": "Neutral-daylight three-view turnaround (profile/front/back). Replaces a chest-up twilight crop that gave the element no body and a magenta cast on the face.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31"
-  },
-  "kemar-neutral-ref.png": {
-   "sha256_16": "f53ddd12d0129120",
-   "kind": "character",
-   "characters": [
-    "kemar"
-   ],
-   "status": "APPROVED-baseline-reference",
-   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
-   "source_job_id": "61d56291-82bf-4173-a560-e52c043e4ffc",
-   "note": "Neutral plate with the REDESIGNED Freewater House tracksuit. Replaces the Jamaican-flag racing kit, which read as costume next to a cast that wears believable athletic wear. Heritage now carried by thin green-gold piping, the House sigil, and his loc wrap. Eyes open.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31"
-  },
-  "bo-neutral-ref.png": {
-   "sha256_16": "698f48528f57c3a1",
-   "kind": "character",
-   "characters": [
-    "bo"
-   ],
-   "status": "APPROVED-baseline-reference",
-   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
-   "source_job_id": "6bffbd31-83f7-4792-8382-7def106fa11a",
-   "note": "Flat 2D cel-shaded neutral plate with his eyes open. Replaces a semi-3D CG render that was teaching the wrong house style.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31"
-  },
-  "mirei-neutral-ref.png": {
-   "sha256_16": "2cffa176416f1364",
-   "kind": "character",
-   "characters": [
-    "mirei"
-   ],
-   "status": "APPROVED-baseline-reference",
-   "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
-   "source_job_id": "bc6a4a9e-d645-4ee6-b9fe-178929867a95",
-   "note": "Neutral plate with prescription glasses ON HER FACE, narrow eyes, MANAGER armband, clipboard and stopwatch. Corrects a founding plate that had her bare-faced with sunglasses on her head.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31"
-  },
-  "gouda-neutral-ref.png": {
-   "sha256_16": "04cabf466bde2e40",
-   "kind": "character",
-   "characters": [
-    "gouda"
-   ],
-   "status": "APPROVED-baseline-reference",
-   "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
-   "source_job_id": "b2272a53-8efd-4ba9-96ae-fa4f515ed7f2",
-   "note": "Standing neutral plate, weary and closed, ordinary dark brown eyes. Corrects a founding plate that had him grinning with yellow eyes under a sepia cast.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31"
-  },
-  "nakaru-neutral-ref.png": {
-   "sha256_16": "8613de78e16dd2e5",
-   "kind": "character",
-   "characters": [
-    "nakaru"
-   ],
-   "status": "APPROVED-baseline-reference",
-   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
-   "source_job_id": "c64a5a1e-acb3-4afe-a608-86f066c8a4f6",
-   "note": "Neutral plate in which the grey temple streak and throat scar are legible for the first time. The storm plate hid both.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31"
-  },
-  "rivals-key-visual.png": {
-   "sha256_16": "1faadbdc88f82f1c",
-   "kind": "key-art",
-   "characters": [
-    "ren",
-    "kemar",
-    "gouda",
-    "nakaru"
-   ],
-   "element_ids": [
-    "0e910d33-6a73-4735-b590-a4384330330b",
-    "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
-    "ac4108b9-2c69-4489-afa6-04521ef6866e",
-    "ffe0c6d9-7199-4355-b167-00e7b21afcf9"
-   ],
-   "status": "APPROVED",
-   "source_job_id": "74fd4f61-f842-4429-be24-c27de5e3ca63",
-   "generated_with": "four v2 elements, one per character in frame",
-   "status_note": "Verification render for the rebuilt elements, regenerated with Kemar-v3. Every previously-broken behaviour absent: Ren pale not violet, Kemar's eyes open in the new Freewater House tracksuit, Gouda weary with dark eyes, Nakaru's grey temple streak visible. Ren's crisp kit beside Kemar's patched one carries the recognition argument visually.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "turnaround-kai.png": {
-   "sha256_16": "5c4233c2e9f41b42",
-   "kind": "character",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "source_job_id": "21fe0435-15d0-47ed-b448-03e339cef70e",
-   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
-   "note": "Front / three-quarter / profile / back on one ground line. Checked: Dark brown eyes, no glow. Coiled blue-black hair, bracelet, jammers, towel. Barefoot.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "turnaround-ren.png": {
-   "sha256_16": "56da0fc27b8004c6",
-   "kind": "character",
-   "characters": [
-    "ren"
-   ],
-   "status": "APPROVED",
-   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
-   "source_job_id": "d758badf-4b3c-4391-bec8-21404877dd4d",
-   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
-   "note": "Front / three-quarter / profile / back on one ground line. Checked: Pale skin not violet. Tight undercut, silver-gray eyes, wave-and-torii crest at chest.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "turnaround-kemar.png": {
-   "sha256_16": "f23715fb0b9244fc",
-   "kind": "character",
-   "characters": [
-    "kemar"
-   ],
-   "status": "APPROVED",
-   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
-   "source_job_id": "ba390510-a1cc-4650-9807-645438959d39",
-   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
-   "note": "Front / three-quarter / profile / back on one ground line. Checked: Eyes OPEN and warm. Charcoal Freewater tracksuit, green-gold piping, House sigil, repair patches. No flag.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "turnaround-bo.png": {
-   "sha256_16": "65a9579faeaf4203",
-   "kind": "character",
-   "characters": [
-    "bo"
-   ],
-   "status": "APPROVED",
-   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
-   "source_job_id": "5f5bc792-4379-47ec-bac6-3a6140f2d670",
-   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
-   "note": "Front / three-quarter / profile / back on one ground line. Checked: Heavyset, cream sweater fully covering, eyes open, 2D cel-shaded not 3D.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "turnaround-luna.png": {
-   "sha256_16": "266e97cc916f3dc5",
-   "kind": "character",
-   "characters": [
-    "luna"
-   ],
-   "status": "APPROVED",
-   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
-   "source_job_id": "0a201c63-ccd0-43d2-bb59-93f9cf1d8221",
-   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
-   "note": "Front / three-quarter / profile / back on one ground line. Checked: Pale ivory skin not lavender. Brow markings, indigo wave stitching, shell anklet, no crest.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "turnaround-mirei.png": {
-   "sha256_16": "e4f4e7683f9246f8",
-   "kind": "character",
-   "characters": [
-    "mirei"
-   ],
-   "status": "APPROVED",
-   "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
-   "source_job_id": "c10c8fb5-5054-4bba-a218-f108a19a863a",
-   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
-   "note": "Front / three-quarter / profile / back on one ground line. Checked: Prescription glasses ON HER FACE in all views, narrow eyes, MANAGER armband, clipboard, stopwatch.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "turnaround-gouda.png": {
-   "sha256_16": "d8319d1bd256d88b",
-   "kind": "character",
-   "characters": [
-    "gouda"
-   ],
-   "status": "APPROVED",
-   "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
-   "source_job_id": "89708b52-0578-4aac-be75-9d20b6c8f7bc",
-   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
-   "note": "Front / three-quarter / profile / back on one ground line. Checked: Weary and closed, NOT grinning. Ordinary dark eyes, not yellow. Topknot, stubble, medal.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "turnaround-nakaru.png": {
-   "sha256_16": "5eb97003ab6424c0",
-   "kind": "character",
-   "characters": [
-    "nakaru"
-   ],
-   "status": "APPROVED",
-   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
-   "source_job_id": "72a6af73-35a1-48b7-a535-d9dace16283e",
-   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
-   "note": "Front / three-quarter / profile / back on one ground line. Checked: Grey temple streak and throat scar both visible. Dark eyes, no glow. Grounded, no fantasy.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "expressions-kai.png": {
-   "sha256_16": "33e2d749468419b7",
-   "kind": "character",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "source_job_id": "f9a9b8ca-8170-45fe-8862-3aaee574d28d",
-   "generated_with": "expression sheet generated with Kai's locked element",
-   "note": "Eight expressions: guarded neutral, held fear, stubbornness, a rare small smile, grief, wonder. Checked: consistent face across all panels, deep brown skin, coiled blue-black hair, and ordinary DARK BROWN eyes in every single panel - no glow anywhere, correct for dry land.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "teaser-titlecard.png": {
-   "sha256_16": "ceb25793a8f9f36d",
-   "kind": "title-card",
-   "characters": [],
-   "status": "APPROVED",
-   "generated_with": "drawn deterministically by build-titlecard.py (PIL) - zero generation",
-   "note": "The one frame carrying the show's name is drawn, not generated. Generated text is the least reliable thing an image model produces and a misspelt logo is not a defect you want to find after a pitch. still",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "derived-from-approved-plates"
-  },
-  "teaser-titlecard.mp4": {
-   "sha256_16": "378a98e15548670d",
-   "kind": "title-card",
-   "characters": [],
-   "status": "APPROVED",
-   "generated_with": "drawn deterministically by build-titlecard.py (PIL) - zero generation",
-   "note": "The one frame carrying the show's name is drawn, not generated. Generated text is the least reliable thing an image model produces and a misspelt logo is not a defect you want to find after a pitch. 4s held video segment for the cut",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "derived-from-approved-plates"
-  },
-  "expressions-ren.png": {
-   "sha256_16": "67f1903ff97a8ea8",
-   "kind": "character",
-   "characters": [
-    "ren"
-   ],
-   "status": "APPROVED",
-   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
-   "source_job_id": "2a1fd3eb-3380-45e9-9916-9bc267652c61",
-   "generated_with": "expression sheet generated with the character's locked element",
-   "note": "Eight panels, cold throughout with one crack of unwanted doubt. Silver-gray eyes in every panel, pale skin, tight undercut.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "expressions-gouda.png": {
-   "sha256_16": "9ddb9c8a6b103226",
-   "kind": "character",
-   "characters": [
-    "gouda"
-   ],
-   "status": "APPROVED",
-   "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
-   "source_job_id": "04b02c98-96be-407c-ad8e-484c2a29ec8a",
-   "generated_with": "expression sheet generated with the character's locked element",
-   "note": "Six panels: weary, sharp assessment, haunted, gruff, grief, reluctant fondness. Ordinary dark brown eyes in every panel, never yellow. Never grins.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "expressions-mirei.png": {
-   "sha256_16": "3344681042e56ff8",
-   "kind": "character",
-   "characters": [
-    "mirei"
-   ],
-   "status": "APPROVED",
-   "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
-   "source_job_id": "a8279db8-dab3-4713-9551-f16ececf6806",
-   "generated_with": "expression sheet generated with the character's locked element",
-   "note": "Six panels. Glasses ON HER FACE in all six. Panel two has her chewing the longer asymmetric strand - the exact tic canon gives her when calculating.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "shot-ren-lane.mp4": {
-   "sha256_16": "85ac5954f445b579",
-   "kind": "video",
-   "characters": [
-    "ren"
-   ],
-   "status": "APPROVED",
-   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
-   "source_job_id": "487ebe68-a848-4fcd-b37d-c0093ae6f6a2",
-   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
-   "note": "Side-on tracking, textbook high-elbow freestyle, black/silver tech suit, cold. Identity holds across 6 sampled frames.",
-   "verification": "6 frames sampled and inspected against canon",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "shot-kemar-joy.mp4": {
-   "sha256_16": "7943bb0bfe5f00bc",
-   "kind": "video",
-   "characters": [
-    "kemar"
-   ],
-   "status": "APPROVED",
-   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
-   "source_job_id": "1dc09b79-0d75-4eea-90bd-d1dc08d09808",
-   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
-   "note": "Sunlit tracking shot, joy reads, locs wrapped, no apparatus. KNOWN DEVIATION: canon gives him river-gold eyes when submerged and they render as ordinary dark here. Recorded rather than glossed - see the canon note on submerged-vs-powered.",
-   "verification": "6 frames sampled and inspected against canon",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "shot-luna-descent.mp4": {
-   "sha256_16": "8b0b081c1f5eaeb7",
-   "kind": "video",
-   "characters": [
-    "luna"
-   ],
-   "status": "APPROVED",
-   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
-   "source_job_id": "1708355c-06aa-4bf5-b72c-3417a087d2c7",
-   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
-   "note": "Headfirst descent into violet twilight. Her skin reads PALE IVORY throughout - the strongest proof the baseline fix held, since violet water is the exact condition that turned her lavender before.",
-   "verification": "6 frames sampled and inspected against canon",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "shot-nakaru-wall.mp4": {
-   "sha256_16": "26d07cc3e3ff084d",
-   "kind": "video",
-   "characters": [
-    "nakaru"
-   ],
-   "status": "APPROVED",
-   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
-   "source_job_id": "742df82c-1345-414a-997d-418aba5b7c40",
-   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
-   "note": "Motionless on a storm sea wall while the weather moves around him. Grey temple streak visible, no glow, no fantasy. Menace through stillness.",
-   "verification": "6 frames sampled and inspected against canon",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "shot-kai-sinking.mp4": {
-   "sha256_16": "00d8cfa68269d242",
-   "kind": "video",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "source_job_id": "2c01f4bc-8927-4341-952f-d4e5a503a437",
-   "generated_with": "seedance_2_0 with Kai-v2, 8s, 1920x1080, silent",
-   "note": "16:9 version of the sinking shot for the multi-shot cut. Holds the full depth for all 8s - he stays small on the tiled floor with the surface and its indifferent silhouettes far above. Eyes verified at full resolution: open with the blue Undertow light, canon-correct because submerged.",
-   "verification": "7 frames sampled plus a full-resolution face crop to confirm the eye state",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "teaser-undertow.mp4": {
-   "sha256_16": "38de394391182ae3",
-   "kind": "video",
-   "characters": [
-    "kai",
-    "ren",
-    "kemar",
-    "luna",
-    "nakaru"
-   ],
-   "element_ids": [
-    "38b45365-9f70-4b2e-a79e-b7949fea9007",
-    "0e910d33-6a73-4735-b590-a4384330330b",
-    "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
-    "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
-    "ffe0c6d9-7199-4355-b167-00e7b21afcf9"
-   ],
-   "status": "APPROVED",
-   "generated_with": "assembled by build-teaser.py from five element-locked shots plus the drawn title card, scored with the Splice bed",
-   "note": "33.7s multi-shot teaser. Cut order is story logic: the boy, the rival, the joy, the mystery, the threat, the name. The palette carries the arc - chlorine cyan to cold cyan to gold to violet to storm grey, resolving into the deep blue of the title.",
-   "verification": "12 frames sampled across the full cut and inspected. Audio: -19.4 LUFS, -2.7 dBFS true peak, speech ratio 0.17, spectrogram read. Every shot individually canon-checked before assembly.",
-   "audio": "Splice field-recording bed, looped and faded across the cut. No generated audio.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "expressions-kemar.png": {
-   "sha256_16": "22657265bcd63755",
-   "kind": "character",
-   "characters": [
-    "kemar"
-   ],
-   "status": "APPROVED",
-   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
-   "source_job_id": "46c4124a-bbe6-4074-801a-b452aff6b64c",
-   "generated_with": "expression sheet generated with the character's locked element",
-   "note": "Eight panels: warm neutral through huge laugh, race focus, teasing, old grievance, fierce joy. Warm brown eyes OPEN throughout; the new Freewater collar with its green-gold piping reads correctly at this crop.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "expressions-bo.png": {
-   "sha256_16": "79913afd9ab76106",
-   "kind": "character",
-   "characters": [
-    "bo"
-   ],
-   "status": "APPROVED",
-   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
-   "source_job_id": "d64a6248-7841-463b-82f5-895b5b311f74",
-   "generated_with": "expression sheet generated with the character's locked element",
-   "note": "Six panels: warm neutral, enormous grin, worried for a friend, determined, gentle patience, quietly hurt. Broad kind face, heavy brows, warm dark eyes, sweater collar. 2D cel-shaded, never 3D.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "expressions-luna.png": {
-   "sha256_16": "fe0893e0900c2a4d",
-   "kind": "character",
-   "characters": [
-    "luna"
-   ],
-   "status": "APPROVED",
-   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
-   "source_job_id": "82613643-a3ef-4588-9280-7795c3710608",
-   "generated_with": "expression sheet generated with the character's locked element",
-   "note": "Six panels: serene, curious, sorrowing, still before a dive, a rare warm smile, knowing. Pale ivory skin in every panel, brow markings visible throughout, moon-pale eyes.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
-  },
-  "expressions-nakaru.png": {
-   "sha256_16": "1e872d7dff8ca329",
-   "kind": "character",
-   "characters": [
-    "nakaru"
-   ],
-   "status": "APPROVED",
-   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
-   "source_job_id": "88f04cca-ff84-46df-a062-acafa725fc72",
-   "generated_with": "expression sheet generated with the character's locked element",
-   "note": "Eight panels: calm, quiet grief, absolute conviction, something almost gentle, listening, regret closed away. Grey temple streak AND throat scar visible in every panel. No glow, no fantasy, never rage, never a grin.",
-   "verified_by": "agent",
-   "verified_at": "2026-07-31",
-   "provenance": "element_id"
+  "superseded": {
+    "cast-key-visual.png": {
+      "sha256_16": "65128841a6128c97",
+      "removed_at": "2026-07-30",
+      "reason": "Kai's skin rendered lighter than his approved plate. Superseded by crew-key-visual.png, generated with locked elements.",
+      "recoverable_from": "git history"
+    },
+    "cast-key-visual-alt.png": {
+      "sha256_16": "47abe81307003660",
+      "removed_at": "2026-07-30",
+      "reason": "Bo rendered lanky; canon requires heavyset. Never shipped. Superseded by crew-key-visual.png.",
+      "recoverable_from": "git history"
+    }
   }
- },
- "provenance_types": {
-  "element_id": "Generated with a locked character element. REQUIRED for all new character art. Multi-character art uses element_ids (a list) — one lock per character in frame.",
-  "derived-from-approved-plates": "Composited/derived from approved plates with no generation. Identity is exact.",
-  "approved-plate-as-reference": "Generated with an approved plate as image reference. Legacy-acceptable; weaker than element_id.",
-  "rejected-record": "Retained only to document a rejection. Never ship."
- },
- "superseded": {
-  "cast-key-visual.png": {
-   "sha256_16": "65128841a6128c97",
-   "removed_at": "2026-07-30",
-   "reason": "Kai's skin rendered lighter than his approved plate. Superseded by crew-key-visual.png, generated with locked elements.",
-   "recoverable_from": "git history"
-  },
-  "cast-key-visual-alt.png": {
-   "sha256_16": "47abe81307003660",
-   "removed_at": "2026-07-30",
-   "reason": "Bo rendered lanky; canon requires heavyset. Never shipped. Superseded by crew-key-visual.png.",
-   "recoverable_from": "git history"
-  }
- }
 }

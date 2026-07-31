@@ -20,7 +20,10 @@ ART = os.path.dirname(os.path.abspath(__file__))
 F = "/mnt/skills/examples/canvas-design/canvas-fonts"
 JP = "/etc/alternatives/fonts-japanese-gothic.ttf"
 W, H = 1920, 1080
-HOLD_SECONDS = 4
+# The card holds for as long as the theme needs to resolve on it, not for a
+# round number. The answering phrase lands its first note as the card appears
+# and finishes inside this hold; shortening it truncates the resolution.
+HOLD_SECONDS = 8
 
 
 def font(name, size):
@@ -85,7 +88,8 @@ try:
     out_mp4 = os.path.join(ART, "teaser-titlecard.mp4")
     subprocess.run([ff, "-y", "-hide_banner", "-loglevel", "error",
                     "-loop", "1", "-i", out_png, "-t", str(HOLD_SECONDS),
-                    "-r", "24", "-vf", "fade=t=in:st=0:d=0.8,fade=t=out:st=3.2:d=0.8,format=yuv420p",
+                    "-r", "24", "-vf", f"fade=t=in:st=0:d=0.8,"
+                    f"fade=t=out:st={HOLD_SECONDS - 0.8}:d=0.8,format=yuv420p",
                     "-c:v", "libx264", "-crf", "16", out_mp4], check=True)
     print("saved", out_png, "and", out_mp4)
 except Exception as e:  # png is the deliverable; the mp4 is a convenience

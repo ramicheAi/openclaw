@@ -78,7 +78,10 @@ def sample(path, n=8, out=None):
         d.text((x, pad + TH + 7), f"{t:5.2f}s", font=f, fill=(120, 150, 180))
         x += im.width + pad
 
-    out = out or os.path.splitext(path)[0] + "-frames.png"
+    # Default into qc/, never beside the source. Anything written into the
+    # asset directory is unregistered media and fails the asset gate.
+    out = out or os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                              os.path.splitext(os.path.basename(path))[0] + "-frames.png")
     sheet.save(out)
     print(f"{os.path.basename(path)}  {dur:.2f}s  ->  {out}  ({n} frames, {sheet.size[0]}x{sheet.size[1]})")
     return out
