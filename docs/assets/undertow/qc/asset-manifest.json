@@ -722,6 +722,66 @@
    "verified_by": "agent",
    "verified_at": "2026-07-31",
    "provenance": "element_id"
+  },
+  "expressions-kemar.png": {
+   "sha256_16": "22657265bcd63755",
+   "kind": "character",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED",
+   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+   "source_job_id": "46c4124a-bbe6-4074-801a-b452aff6b64c",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Eight panels: warm neutral through huge laugh, race focus, teasing, old grievance, fierce joy. Warm brown eyes OPEN throughout; the new Freewater collar with its green-gold piping reads correctly at this crop.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-bo.png": {
+   "sha256_16": "79913afd9ab76106",
+   "kind": "character",
+   "characters": [
+    "bo"
+   ],
+   "status": "APPROVED",
+   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+   "source_job_id": "d64a6248-7841-463b-82f5-895b5b311f74",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Six panels: warm neutral, enormous grin, worried for a friend, determined, gentle patience, quietly hurt. Broad kind face, heavy brows, warm dark eyes, sweater collar. 2D cel-shaded, never 3D.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-luna.png": {
+   "sha256_16": "fe0893e0900c2a4d",
+   "kind": "character",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED",
+   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+   "source_job_id": "82613643-a3ef-4588-9280-7795c3710608",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Six panels: serene, curious, sorrowing, still before a dive, a rare warm smile, knowing. Pale ivory skin in every panel, brow markings visible throughout, moon-pale eyes.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-nakaru.png": {
+   "sha256_16": "1e872d7dff8ca329",
+   "kind": "character",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED",
+   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+   "source_job_id": "88f04cca-ff84-46df-a062-acafa725fc72",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Eight panels: calm, quiet grief, absolute conviction, something almost gentle, listening, regret closed away. Grey temple streak AND throat scar visible in every panel. No glow, no fantasy, never rage, never a grin.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
   }
  },
  "provenance_types": {
