@@ -571,6 +571,115 @@
    "verified_by": "agent",
    "verified_at": "2026-07-31",
    "provenance": "derived-from-approved-plates"
+  },
+  "expressions-ren.png": {
+   "sha256_16": "67f1903ff97a8ea8",
+   "kind": "character",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED",
+   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+   "source_job_id": "2a1fd3eb-3380-45e9-9916-9bc267652c61",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Eight panels, cold throughout with one crack of unwanted doubt. Silver-gray eyes in every panel, pale skin, tight undercut.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-gouda.png": {
+   "sha256_16": "9ddb9c8a6b103226",
+   "kind": "character",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
+   "source_job_id": "04b02c98-96be-407c-ad8e-484c2a29ec8a",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Six panels: weary, sharp assessment, haunted, gruff, grief, reluctant fondness. Ordinary dark brown eyes in every panel, never yellow. Never grins.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-mirei.png": {
+   "sha256_16": "3344681042e56ff8",
+   "kind": "character",
+   "characters": [
+    "mirei"
+   ],
+   "status": "APPROVED",
+   "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
+   "source_job_id": "a8279db8-dab3-4713-9551-f16ececf6806",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Six panels. Glasses ON HER FACE in all six. Panel two has her chewing the longer asymmetric strand - the exact tic canon gives her when calculating.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "shot-ren-lane.mp4": {
+   "sha256_16": "85ac5954f445b579",
+   "kind": "video",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED",
+   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+   "source_job_id": "487ebe68-a848-4fcd-b37d-c0093ae6f6a2",
+   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+   "note": "Side-on tracking, textbook high-elbow freestyle, black/silver tech suit, cold. Identity holds across 6 sampled frames.",
+   "verification": "6 frames sampled and inspected against canon",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "shot-kemar-joy.mp4": {
+   "sha256_16": "7943bb0bfe5f00bc",
+   "kind": "video",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED",
+   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+   "source_job_id": "1dc09b79-0d75-4eea-90bd-d1dc08d09808",
+   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+   "note": "Sunlit tracking shot, joy reads, locs wrapped, no apparatus. KNOWN DEVIATION: canon gives him river-gold eyes when submerged and they render as ordinary dark here. Recorded rather than glossed - see the canon note on submerged-vs-powered.",
+   "verification": "6 frames sampled and inspected against canon",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "shot-luna-descent.mp4": {
+   "sha256_16": "8b0b081c1f5eaeb7",
+   "kind": "video",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED",
+   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+   "source_job_id": "1708355c-06aa-4bf5-b72c-3417a087d2c7",
+   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+   "note": "Headfirst descent into violet twilight. Her skin reads PALE IVORY throughout - the strongest proof the baseline fix held, since violet water is the exact condition that turned her lavender before.",
+   "verification": "6 frames sampled and inspected against canon",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "shot-nakaru-wall.mp4": {
+   "sha256_16": "26d07cc3e3ff084d",
+   "kind": "video",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED",
+   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+   "source_job_id": "742df82c-1345-414a-997d-418aba5b7c40",
+   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+   "note": "Motionless on a storm sea wall while the weather moves around him. Grey temple streak visible, no glow, no fantasy. Menace through stillness.",
+   "verification": "6 frames sampled and inspected against canon",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
   }
  },
  "provenance_types": {
