@@ -73,3 +73,7 @@ USER.md
 .serena/
 graphify-out/
 .claude/
+
+# Python bytecode from the UNDERTOW QC tools
+__pycache__/
+*.pyc

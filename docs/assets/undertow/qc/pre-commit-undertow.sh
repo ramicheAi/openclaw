@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# UNDERTOW art-integrity gate — pre-commit hook.
+# UNDERTOW integrity gate — pre-commit hook.
 #
 # Blocks any commit that touches docs/assets/undertow/ unless the asset
-# verifier passes. This is what makes the canon system unskippable rather
-# than merely documented.
+# verifier passes, and blocks any commit that touches the score unless the
+# audio verifiers pass too. This is what makes the canon and delivery systems
+# unskippable rather than merely documented.
 #
 # INSTALL:
 #   ln -sf ../../docs/assets/undertow/qc/pre-commit-undertow.sh .git/hooks/pre-commit
@@ -48,6 +49,34 @@ if ! python3 "$VERIFIER"; then
 
 MSG
   exit 1
+fi
+
+# ── audio gates ─────────────────────────────────────────────────────────────
+# Only run when the score itself is in play; they take a few seconds each and
+# there is no reason to pay that on an art-only commit.
+if git diff --cached --name-only \
+     | grep -qE '^docs/assets/undertow/(.*\.wav$|build-score\.py|build-signatures\.py|mastering\.py)'; then
+  echo ""
+  echo "  UNDERTOW score delivery gate…"
+  for v in verify_mastering verify_signatures verify_translation; do
+    if ! python3 "$REPO_ROOT/docs/assets/undertow/qc/$v.py"; then
+      cat <<MSG
+
+  ────────────────────────────────────────────────────────────────
+  COMMIT BLOCKED — $v failed.
+
+  The score package must deliver 24-bit stereo at -16 LUFS with true peak
+  under -1.0 dBTP, the signature kit must still demonstrate its design
+  (the Fathom ladder audibly a ladder, the dive reflex actually slowing),
+  and the ANSWER must still survive a phone speaker.
+
+  Full rules: docs/UNDERTOW-SCORE.md
+  ────────────────────────────────────────────────────────────────
+
+MSG
+      exit 1
+    fi
+  done
 fi
 
 exit 0
