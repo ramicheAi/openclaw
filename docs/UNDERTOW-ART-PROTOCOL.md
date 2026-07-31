@@ -169,6 +169,43 @@ picture-side QC would have caught it. Use `-af apad` and an explicit `-t`, never
 field recordings — two of them hydrophone captures of actual underwater sound. Provenance
 beats generation for sound the same way an approved plate beats a text prompt.
 
+**Verify what the asset claims, not just that the file is clean.** Loudness and true peak
+cannot tell you whether the Fathom ladder is audibly a ladder, so `qc/verify_signatures.py`
+measures the design intent directly and fails if it is absent. Every tool in `qc/` that was
+written to check the work found a bug in itself or in an assumption before it found one in
+an asset — three signature checks were measuring pitch with a brightness meter, and one of
+them "passed" a two-octave glissando at 309→323 Hz. When a check passes suspiciously
+narrowly, doubt the instrument before you accept the result. Calibrate detectors against a
+deliberately planted defect rather than a guessed threshold.
+
+---
+
+## Environments and background figures
+
+Environment art carries no element lock — no character is in frame, so identity cannot
+drift. That makes it feel low-risk, and it is not. Two failure modes recur:
+
+**1. Background figures wearing scuba gear.** Three separate environment renders put tiny
+divers with tanks and fins in the middle distance. The entire premise of the show is that
+these people *breath-hold*; a single air tank in a background plate contradicts the series'
+central rule more completely than any wardrobe error. **Zoom into every human silhouette in
+an environment plate, however small.** They are usually 20 pixels tall and always drawn
+from the model's idea of "underwater person", which is a scuba diver.
+
+**2. Researched heritage flattened into generic pastiche.** The first Port Royal render was
+a lovely drowned town with classical colonnades and an Italian campanile. Port Royal is a
+documented English colonial Caribbean port that the sea took in 1692, and the bible commits
+to real cultural grounding "researched, credited, consulted — not costume-shop pastiche".
+A generic Mediterranean city standing in for it is exactly that failure, and it is worse for
+Freewater than for any other House, because Freewater's whole story is a real lineage being
+refused recognition.
+
+So: **name the period, the region and the building types in the prompt, and name what to
+exclude.** The corrected brief asked for brick-and-timber merchant houses, sash windows, a
+squat square church tower with a weathervane, waterfront warehouses, timber wharves and a
+bastioned brick fort — and explicitly forbade campaniles, spires, colonnades and domes.
+Then verify the named features are actually present at zoom before registering.
+
 ---
 
 ## The gate

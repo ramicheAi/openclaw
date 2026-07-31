@@ -914,6 +914,42 @@
       "generated_with": "composed in code by build-signatures.py from the theme's own voices",
       "note": "Kemar's One Drop: Riddim Break - he drops the water's own beat for one bar. One-drop feel (emphasis on beat three), then a full bar of nothing, then the bass returns displaced by half a beat: he alone kept time and everyone else is now late. The silence is the technique.",
       "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed."
+    },
+    "env-port-royal.png": {
+      "kind": "environment",
+      "characters": [],
+      "status": "APPROVED",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "derived-from-approved-plates",
+      "sha256_16": "f2b2a580859749ab",
+      "generated_with": "nano_banana_flash, no characters in frame so no element lock applies",
+      "note": "Sunken Port Royal - the seat of Freewater House. Canon: a real city the sea took in 1692, 'kept lit from inside', the only House seated in a drowned city young enough to remember being alive. Hundreds of amber lamps burning in windows against deep teal water; the contrast IS the image.",
+      "verification": "REGENERATED. The first pass returned a beautiful drowned town with classical colonnades and an Italian campanile - a generic Mediterranean city, not Port Royal. For a House rooted in documented Caribbean history that is exactly the costume-shop pastiche the bible forbids, so it was rejected and re-briefed to late-1600s English colonial Caribbean: brick-and-timber merchant houses, steep shingled roofs, sash windows, a SQUAT SQUARE church tower with a weathervane (no spire, no campanile), waterfront warehouses, timber wharves, sunken sloops, and a low brick fort with angled bastions. All confirmed present at zoom. The single swimmer was zoomed and confirmed a bare free-swimmer - no tank, no mask, no fins."
+    },
+    "env-fathom-arena.png": {
+      "kind": "environment",
+      "characters": [],
+      "status": "APPROVED",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "derived-from-approved-plates",
+      "sha256_16": "e80062596c7db996",
+      "generated_with": "nano_banana_flash, no characters in frame so no element lock applies",
+      "note": "The Fathom Games arena: a drowned Nagi ruin, per canon a circular amphitheatre whose tiers descend into a black shaft. The event is a DESCENT, not a lap - the composition has to make the drop read as frightening before anyone explains the rules. House banners hang in the current; lane lamps thin out with depth until the bottom is simply black.",
+      "verification": "Chosen over an alternate that read as a lane stadium rather than a well. Spectators zoomed and confirmed robed figures with NO scuba tanks, masks or fins - everyone in this world breath-holds. Foreground figures give the scale that makes the shaft land."
+    },
+    "env-cold-open-boat.png": {
+      "kind": "environment",
+      "characters": [],
+      "status": "APPROVED",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "derived-from-approved-plates",
+      "sha256_16": "50797c061e7fe71d",
+      "generated_with": "nano_banana_flash, no characters in frame so no element lock applies",
+      "note": "Episode 1 cold open: Daigo Isozaki's boat on a black sea at night, deck empty, one warm lamp - and far below the hull a faint cold light that should not be there. Dread with no monster in it. The two lights and the enormous black between them are the whole frame, and the image is the series' first question asked without a word of dialogue.",
+      "verification": "Chosen over an alternate whose lamp hung from the boom rather than sitting on deck, and whose light below read as a soft blob rather than a sharp patient point. Hull name reads KAIYO. No characters in frame, so no element lock applies."
     }
   },
   "provenance_types": {
