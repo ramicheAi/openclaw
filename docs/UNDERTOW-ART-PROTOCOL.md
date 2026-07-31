@@ -147,6 +147,32 @@ clip.
 6. Run `python3 docs/assets/undertow/qc/verify_assets.py`.
 7. Only now show it.
 
+### A correct element does not guarantee a correct face
+
+Kemar's expression sheet reads unmistakably as a seventeen-year-old boy — square
+jaw, heavy brows, strong neck. His element is sound. And a teaser shot generated
+*with that element* still came back with a face soft enough that the creator asked
+whether the character was a girl.
+
+That is worth understanding rather than just patching. An element anchors identity,
+but in a fast profile shot with motion blur, spray and a turned head, the model has
+very few pixels to spend on a face and **simplifies toward its own defaults**. The
+defaults are softer and younger and more androgynous than most character designs.
+So the drift is not a failure of the element; it is the element being outvoted by
+the difficulty of the frame.
+
+Practical consequences:
+
+- **Check the face in the hardest frame, not the easiest one.** Sample the frame
+  where the head is turned, moving, or partly occluded. The clean frames will
+  always pass.
+- **Restate the character's age and sex in the prompt for action shots**, in
+  structural terms rather than as a label — jawline, brow, neck, shoulders — because
+  "he" is a pronoun the renderer can ignore and a square jaw is not.
+- **This applies to every character, not just this one.** The narrower the design
+  (Mirei's narrow eyes, Bo's heavyset build, Nakaru's grey streak and throat scar),
+  the more it costs when a frame simplifies.
+
 ### Swimming shots have a second checklist, and it is not optional
 
 Identity is not the only thing that can be off-model. On a show whose entire
