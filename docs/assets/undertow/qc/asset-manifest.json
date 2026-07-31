@@ -618,7 +618,7 @@
       "provenance": "element_id"
     },
     "shot-ren-lane.mp4": {
-      "sha256_16": "a5ff69011e2da7c2",
+      "sha256_16": "3cffbbaa02a5405f",
       "kind": "video",
       "characters": [
         "ren"
@@ -628,7 +628,7 @@
       "source_job_id": "487ebe68-a848-4fcd-b37d-c0093ae6f6a2",
       "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
       "note": "Ren in the UNDERWATER STREAMLINE PHASE off the start - the fastest phase of any race and, per the swim codex, the show's single best-integrated rule-as-story-beat. Body one rigid line, arms locked overhead, head buried between the biceps with only goggles and jaw showing, dolphin kick from the chest through pointed toes. Precision as menace: he is not stroking, he is a shape moving through water. Legal textile jammers, waist to above the knee.",
-      "verification": "SUPERSEDES a shot that showed a freestyle arm recovery UNDERWATER with the head raised looking forward - two errors a swimmer catches in the first second, neither caught by the art gate because it checked identity only. Took three passes. Pass 1 fixed the recovery but left the swimmer small in frame; pass 2 was closer but the hands were apart, which is a 'superman glide', not a streamline. Pass 3 succeeded by describing the SILHOUETTE rather than the anatomy: in a strict side profile a correct streamline shows only ONE arm and ONE hand, because the far ones occlude completely. Verified across 6 sampled frames: single-blade silhouette held, head buried, lane lines correctly ABOVE him, jammers legal. Residual noted honestly - the legs scissor slightly in places rather than staying locked together for a pure dolphin kick. 1280x720 from the model, upscaled to 1920x1080 (Topaz) and transcoded to h264 to match the cut.",
+      "verification": "SUPERSEDES a shot that showed a freestyle arm recovery UNDERWATER with the head raised looking forward - two errors a swimmer catches in the first second, neither caught by the art gate because it checked identity only. Took three passes. Pass 1 fixed the recovery but left the swimmer small in frame; pass 2 was closer but the hands were apart, which is a 'superman glide', not a streamline. Pass 3 succeeded by describing the SILHOUETTE rather than the anatomy: in a strict side profile a correct streamline shows only ONE arm and ONE hand, because the far ones occlude completely. Verified across 6 sampled frames: single-blade silhouette held, head buried, lane lines correctly ABOVE him, jammers legal. FOURTH PASS fixed the legs, on a creator note that still-frame review could never have produced: the dolphin kick undulation initiates at the CHEST, not the legs, and travels chest to hips to knees to feet like a crack running down a whip. Legs now joined as one tail throughout, and the wave visibly leads from the body rather than the feet flapping. Creator confirmed this take as the correct movement. 1280x720 from the model, upscaled to 1920x1080 (Topaz) and transcoded to h264 to match the cut.",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "element_id"
@@ -698,7 +698,7 @@
       "provenance": "element_id"
     },
     "teaser-undertow.mp4": {
-      "sha256_16": "1fb2b8b698baaab1",
+      "sha256_16": "f4fc0a06be89eed9",
       "kind": "video",
       "characters": [
         "kai",
