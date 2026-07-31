@@ -189,9 +189,8 @@ Being precise, because a check that *looks* rigorous but isn't is worse than non
 - Luna's v2 element currently holds only her baseline plate — the violet underwater
   reference did not attach on creation. Renders are correct, but her underwater
   signature look is carried by prompt text until a second reference is added.
-- `teaser-sinking-01.mp4` — start frame is the approved plate, so identity holds at
-  frame 0; drift across the 5 seconds is not verified frame-by-frame. It also predates
-  Kai's v2 element, so it may carry the same eye-glow assumption. **Next to regenerate.**
+- Kai's baseline plate is a single front view. Ren's is a three-view turnaround, which
+  is a stronger reference. Turnarounds for the rest would tighten identity further.
 - The three posters predate elements. They are creator-verified correct, but new
   versions should use element IDs.
 - Character **heights** were not in the source bible. A lineup cannot be drawn without
@@ -207,6 +206,18 @@ with four locked elements. Removed from the shipping set and recorded under
 
 **Resolved:** `cast-lineup-sheet.png` inherited the three canon violations from the
 founding plates. Rebuilt from the baseline plates as a true height chart — see below.
+
+**Resolved:** `teaser-sinking-01.mp4` was flagged for unverified drift. Sampling its
+frames showed the flag was wrong — Kai was on-model for all five seconds. The actual
+defect was a push-in so aggressive that by 2.9s the surface and the pool floor were both
+out of frame and the shot became a generic chest-up view; the idea of it, *a boy alone at
+the bottom while the world walks past above*, was gone by the halfway mark. Redone with
+the locked element and a camera that holds the full vertical depth. **Worth remembering:
+the flag named the wrong problem, and only looking at the frames found the right one.**
+
+**A note on that redo:** all four takes came back 3:4 regardless of the `aspect_ratio`
+passed, because the portrait start frame overrides it. If a shot needs a specific format,
+the start frame has to be in that format.
 
 ---
 

@@ -245,19 +245,24 @@
    "verified_at": "2026-07-25"
   },
   "teaser-sinking-01.mp4": {
-   "sha256_16": "8111b2a7f01a0e58",
+   "sha256_16": "1ef6a58e2fe06599",
    "kind": "video",
    "characters": [
     "kai"
    ],
-   "status": "legacy-pre-system",
-   "element_id": null,
-   "generated_with": "kling3.0 image-to-video from kai hero plate as start frame",
-   "status_note": "Start frame is the approved plate, so identity holds at frame 0; drift over 5s unverified frame-by-frame.",
-   "action": "Re-verify frame samples; regenerate with element when video-element support confirmed.",
+   "element_ids": [
+    "38b45365-9f70-4b2e-a79e-b7949fea9007"
+   ],
+   "status": "APPROVED",
+   "source_job_id": "be842cd8-e6a8-40e1-9901-9e881060dca3",
+   "generated_with": "seedance_2_0, Kai-v2 element + approved hero plate as start frame, 8s, 1248x1664, silent",
+   "replaces_sha256_16": "8111b2a7f01a0e58",
+   "status_note": "Redone 2026-07-31 with the locked element, which holds identity across the whole clip rather than only at frame 0. The predecessor's real defect was never identity drift - Kai was on-model throughout it - but a push-in so hard that by 2.9s the surface silhouettes and pool floor were both gone and the shot became a generic chest-up view. This take holds the full vertical depth for all 8s: he stays small on the tiled floor and the surface recedes as he sinks. Eyes closed, then the Undertow glow comes up at ~5.2s - canon-correct because he is submerged.",
    "verified_by": "agent",
-   "verified_at": "2026-07-25",
-   "provenance": "approved-plate-as-reference"
+   "verified_at": "2026-07-31",
+   "verification": "12 frames sampled and inspected; sheet kept at qc/teaser-sinking-01-frames.png",
+   "provenance": "element_id",
+   "audio": "none - generated audio is not shipped; sound is a separate scored pass"
   },
   "kai-neutral-ref.png": {
    "sha256_16": "922c12c2a41f8ec2",
