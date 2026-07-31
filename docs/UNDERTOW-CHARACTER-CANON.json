@@ -1,6 +1,6 @@
 {
   "_doc": "UNDERTOW character canon — machine-readable. This file is the single source of truth for character identity. Any art pipeline, human or automated, MUST read this before generating a character. Human-readable rationale lives in UNDERTOW-VISDEV-BRIEFS.md and UNDERTOW-ART-PROTOCOL.md.",
-  "canon_version": "2.5",
+  "canon_version": "2.6",
   "generation_platform": "higgsfield",
   "universal_rules": {
     "no_breathing_apparatus": {
@@ -66,7 +66,9 @@
         "hair": "tightly-coiled blue-black, worn a little overgrown, falls toward his eyes; never straightened. NEVER teal, green or turquoise — that is water light, not hair colour",
         "eyes": "ordinary dark brown on dry land. The deep-blue Undertow glow appears ONLY when he is submerged — it is the visual tell that the power is surfacing, so it must never appear on a pool deck, in a classroom, or anywhere dry",
         "build": "lean, slightly under-muscled — a body that hasn't been allowed to train",
-        "signature_prop": "shell-cord bracelet that was his late mother's; never removed"
+        "signature_prop": "shell-cord bracelet that was his late mother's; never removed",
+        "height_cm": 168,
+        "height_rationale": "15 and 'a body that hasn't been allowed to train' — visibly the smallest of the swimmers, with room to grow."
       },
       "wardrobe": [
         "plain dark swim jammers",
@@ -102,7 +104,9 @@
         ],
         "hair": "blue-black, precise tight undercut / short fade",
         "eyes": "silver-gray; cold Kuroshio silver when submerged",
-        "build": "textbook sprint-freestyle — broad shoulders, tapered waist, immaculate posture"
+        "build": "textbook sprint-freestyle — broad shoulders, tapered waist, immaculate posture",
+        "height_cm": 176,
+        "height_rationale": "16, textbook sprint-freestyle build: broad shoulders, tapered waist."
       },
       "wardrobe": [
         "black House Kurose tracksuit with small silver wave-and-torii crest",
@@ -134,7 +138,9 @@
         "hair": "short locs tied back with a green-gold-black wrap",
         "eyes": "warm brown and OPEN by default; river-gold only when submerged. His race plate has them shut mid-laugh — that is one expression, not his face",
         "build": "pure sprinter — long levers, loose easy shoulders",
-        "signature": "radiant grin; swims to a beat only he hears. His kit is visibly older and hand-repaired — Freewater has no Pillar and no institution behind it, so the kit is handed down, not issued. Set against Ren's immaculate new House Kurose blacks, that contrast IS the argument."
+        "signature": "radiant grin; swims to a beat only he hears. His kit is visibly older and hand-repaired — Freewater has no Pillar and no institution behind it, so the kit is handed down, not issued. Set against Ren's immaculate new House Kurose blacks, that contrast IS the argument.",
+        "height_cm": 180,
+        "height_rationale": "17, pure sprinter, 'long levers'."
       },
       "wardrobe": [
         "charcoal-black Freewater House tracksuit — thin green-and-gold piping down sleeves and legs, small gold House sigil at the left chest (comb crossed over a drum, above a broken chain)",
@@ -172,7 +178,9 @@
         "hair": "short sun-bleached brown",
         "build": "HEAVYSET, round-and-mighty, tall and broad — fisherman's mass, breaststroker's barrel chest",
         "signature": "enormous open-hearted grin; moves like he's careful not to break the world",
-        "render_style": "flat 2D cel-shaded anime — NEVER a 3D or CG render. His original plate was 3D-styled and is off-house-style"
+        "render_style": "flat 2D cel-shaded anime — NEVER a 3D or CG render. His original plate was 3D-styled and is off-house-style",
+        "height_cm": 183,
+        "height_rationale": "16, 'HEAVYSET... tall and broad' — the tallest of the teenagers."
       },
       "wardrobe": [
         "cream cable-knit fisherman's sweater",
@@ -207,7 +215,9 @@
         "hair": "very long silver-white, worn loose; haloes around her underwater",
         "eyes": "moon-pale",
         "build": "compact free-diver frame",
-        "signature": "small white ceremonial dot-markings at the brow; water-calm everywhere"
+        "signature": "small white ceremonial dot-markings at the brow; water-calm everywhere",
+        "height_cm": 158,
+        "height_rationale": "16, 'compact free-diver frame'."
       },
       "wardrobe": [
         "modest full-length white ama diving robe with indigo wave stitching",
@@ -238,7 +248,9 @@
         "heritage": "Japanese",
         "hair": "dark bob with one longer asymmetric strand she chews when calculating",
         "eyes": "narrow and intelligent, behind CLEAR PRESCRIPTION GLASSES worn ON THE FACE at all times — never sunglasses, never pushed up on her head, never bare-faced",
-        "build": "compact, precise backstroker"
+        "build": "compact, precise backstroker",
+        "height_cm": 155,
+        "height_rationale": "15, 'compact, precise backstroker' — the smallest of the cast."
       },
       "wardrobe": [
         "navy federation tracksuit zipped to the chin",
@@ -276,7 +288,9 @@
         "face": "heavy jaw, broken nose, several days of stubble",
         "build": "a ruin of a magnificent athlete — huge shoulders, gone soft at the middle",
         "signature": "weary slouch, but eyes that never stopped being sharp and haunted",
-        "eyes": "ordinary dark brown — never yellow, amber or gold"
+        "eyes": "ordinary dark brown — never yellow, amber or gold",
+        "height_cm": 185,
+        "height_rationale": "44, a ruin of a magnificent athlete; a former Olympic champion's frame."
       },
       "wardrobe": [
         "rumpled old tracksuit",
@@ -312,7 +326,9 @@
         "hair": "dark, damp, single grey streak at the temple",
         "eyes": "a shade too dark and deep — the ONLY hint of what he became",
         "build": "tall, powerful, immense controlled stillness",
-        "signature": "faint old scar at the throat"
+        "signature": "faint old scar at the throat",
+        "height_cm": 188,
+        "height_rationale": "38, 'tall, powerful, immense controlled stillness' — the tallest figure in the show."
       },
       "wardrobe": [
         "heavy dark coat, collar up",
@@ -332,5 +348,6 @@
       "baseline_source_job_id": "c64a5a1e-acb3-4afe-a608-86f066c8a4f6",
       "founding_plate_in_element": true
     }
-  }
+  },
+  "_height_chart_note": "Heights added 2026-07-31. They were NOT in the source bible — a cast lineup cannot be drawn without relative height, so they had to be decided, and they are recorded here so every future artist works from the same numbers rather than re-guessing. Each one is derived from the build description already in canon (see identity.height_rationale). They are a proposal open to revision by the creator; if any change, rerun docs/assets/undertow/build-lineup.py to regenerate the chart."
 }

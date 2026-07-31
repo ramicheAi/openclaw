@@ -1,7 +1,7 @@
 {
  "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
  "manifest_version": "1.2",
- "canon_version": "2.5",
+ "canon_version": "2.6",
  "generated": "2026-07-31",
  "assets": {
   "bo-dock.png": {
@@ -17,7 +17,7 @@
    "verified_at": "2026-07-25"
   },
   "cast-lineup-sheet.png": {
-   "sha256_16": "43d6bc4fd69490f2",
+   "sha256_16": "beae52b4809c603e",
    "kind": "composite",
    "characters": [
     "kai",
@@ -29,16 +29,14 @@
     "gouda",
     "nakaru"
    ],
-   "status": "APPROVED-superseded-by-canon",
+   "status": "APPROVED",
    "element_id": null,
-   "generated_with": "composited from approved plates (no generation)",
-   "status_note": "Guaranteed on-model: built from approved plates, not generated.",
-   "verified_by": "agent+creator",
-   "verified_at": "2026-07-25",
+   "generated_with": "composited from the eight BASELINE reference plates (no generation)",
+   "status_note": "Rebuilt 2026-07-31 for canon 2.6. Now a true height chart: all eight on one ground line at canon height, scaled crown-to-feet so styled hair does not eat real height. Verified against its own grid by diffing the sheet against a figure-free render — worst error 0.5cm, all eight feet on the same row.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
    "provenance": "derived-from-approved-plates",
-   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py — identity is mathematically identical to canon.",
-   "defect": "Built from the founding plates, so it still shows Mirei bare-faced, Gouda grinning and Bo in 3D style — all three now known to contradict canon 2.4.",
-   "action": "Rebuild from the eight baseline reference plates."
+   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py — identity is mathematically identical to canon."
   },
   "gouda-01.png": {
    "sha256_16": "19ef68434b43c8cb",

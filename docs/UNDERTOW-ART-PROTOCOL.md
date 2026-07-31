@@ -178,14 +178,48 @@ Being precise, because a check that *looks* rigorous but isn't is worse than non
   Kai's v2 element, so it may carry the same eye-glow assumption. **Next to regenerate.**
 - The three posters predate elements. They are creator-verified correct, but new
   versions should use element IDs.
-- `cast-lineup-sheet.png` is composited from the eight *founding* plates, so it still
-  shows Mirei bare-faced, Gouda grinning and Bo in 3D. Identity is exact by construction,
-  but it no longer matches canon. **Rebuild from the baseline plates.**
-- Kemar's racing kit renders as a literal Jamaican flag saltire. It is within canon
-  (green/gold/black) but heavy-handed; exactly the kind of detail the tradition-keeper
-  consultation should refine before public release.
+- Character **heights** were not in the source bible. A lineup cannot be drawn without
+  them, so they were derived from each character's existing build description and
+  recorded in canon (`identity.height_cm`). They are a proposal open to revision — if
+  any change, rerun `build-lineup.py`.
+- Kemar's cultural specifics still want a tradition-keeper pass before public release.
 
 **Resolved:** `cast-key-visual.png` and `cast-key-visual-alt.png` were off-model
 (Kai's skin light; Bo lanky). Both are superseded by `crew-key-visual.png`, generated
 with four locked elements. Removed from the shipping set and recorded under
 `superseded` in the manifest; recoverable from git history.
+
+**Resolved:** `cast-lineup-sheet.png` inherited the three canon violations from the
+founding plates. Rebuilt from the baseline plates as a true height chart — see below.
+
+---
+
+## The lineup sheet
+
+`build-lineup.py` composites the eight baseline plates onto one ground line. Zero
+generation: every pixel is cut from an approved plate.
+
+Two things in it are worth knowing before editing:
+
+**Cutting figures off their backdrop uses the ink outline, not brightness.** Bo's cream
+sweater and Luna's white robe sit within ~20 levels of their grey backdrop, so a
+brightness threshold punches holes straight through them. A PIL flood fill fails
+differently — it compares each pixel to the *seed*, so the dark core of Luna's contact
+shadow blocks it and the shadow survives whole. What works is taking the connected
+light-neutral region that touches the frame edge: cel-shaded art draws a dark outline
+around every figure, and that outline is the boundary. The art form hands you the mask
+for free.
+
+**Figures scale crown-to-feet, not by bounding box.** Scaling by bounding box lets
+styled hair eat real height — it cost Gouda 13cm to his topknot and Luna 6cm to her
+floating hair. Measuring to the crown puts each character's skull on their mark and lets
+hair overshoot it, which is what a height chart means and what a model sheet should show.
+
+Verify it rather than trusting it:
+```bash
+QC=1 python3 docs/assets/undertow/build-lineup.py   # also writes qc/_lineup-background.png
+```
+Diffing the finished sheet against that figure-free render isolates figure pixels
+exactly, so each character's crown can be measured against the sheet's own grid. Last
+run: worst error 0.5cm, all eight feet on the same row. Delete the QC file afterwards —
+it is a scratch artifact, not an asset.
