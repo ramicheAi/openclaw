@@ -249,9 +249,8 @@ Being precise, because a check that *looks* rigorous but isn't is worse than non
   reference did not attach on creation. Renders are correct, but her underwater
   signature look is carried by prompt text until a second reference is added.
 - Kai's baseline plate is a single front view. Ren's is a three-view turnaround, which
-  is a stronger reference. Turnarounds for the rest would tighten identity further.
-- Expression sheets are not built yet. Turnarounds exist for all eight; expression
-  sheets are the next production sheet a studio would ask for.
+  is a stronger reference. Rebuilding Kai's element on a turnaround would tighten his
+  identity to match.
 - Character **heights** were not in the source bible. A lineup cannot be drawn without
   them, so they were derived from each character's existing build description and
   recorded in canon (`identity.height_cm`). They are a proposal open to revision — if
