@@ -491,6 +491,26 @@ If a shot needs arms doing something underwater, it is one of those three, or th
 character is not swimming — they are sinking, reaching, or drowning, which are all legitimate
 and all look completely different.
 
+### How to check a streamline in one glance
+
+The streamline is the most-drawn position in a swimming show and the easiest to get
+subtly wrong. Two arms reaching forward with a gap between the hands is not a streamline,
+it is a "superman glide" — it looks close, and every swimmer reads it as wrong.
+
+There is a one-second test, and it is also the most useful thing to put in a brief:
+
+> **In a true side profile, a correct streamline shows only ONE arm and ONE hand.**
+
+The far arm is directly behind the near one and the far hand is directly behind the near
+hand, so they occlude completely. The body tapers to a single flat blade. If a profile
+shot shows two hands side by side, or a V of water between the arms, the position is
+wrong no matter how good the rest of the drawing is.
+
+The corollary is worth stating too: the biceps squeeze hard enough that the ears are
+covered and the head is buried between the upper arms. Only the jaw, the goggles and the
+underside of the face should show beneath the arm. If the whole head is visible with a
+clear gap on both sides, the arms are not locked.
+
 ### Kit, and what is actually legal
 
 - **Surface kit, men:** textile **jammers**, waist to above the knee. No sleeves. Full-body
