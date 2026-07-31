@@ -625,6 +625,11 @@ color alone.
   world's anthropology.
 - OP brief: one continuous shot rising from Hadal black to a sunlit pool ceiling,
   five seasons of visual foreshadowing hidden in the ruins it passes.
+- The main theme, the Fathom rank stingers and the character motifs are written and
+  owned, and exist as audio today — see the [Score and Sound Bible](UNDERTOW-SCORE.md).
+  Its grammar is this series' own title phrase made literal: a call, and an answer from
+  below. Whether that answer comes early, late, in the wrong key, or not at all is how
+  the score says what the dialogue does not.
 
 ---
 
