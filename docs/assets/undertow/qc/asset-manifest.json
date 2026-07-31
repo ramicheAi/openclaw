@@ -950,6 +950,18 @@
       "generated_with": "nano_banana_flash, no characters in frame so no element lock applies",
       "note": "Episode 1 cold open: Daigo Isozaki's boat on a black sea at night, deck empty, one warm lamp - and far below the hull a faint cold light that should not be there. Dread with no monster in it. The two lights and the enormous black between them are the whole frame, and the image is the series' first question asked without a word of dialogue.",
       "verification": "Chosen over an alternate whose lamp hung from the boom rather than sitting on deck, and whose light below read as a soft blob rather than a sharp patient point. Hull name reads KAIYO. No characters in frame, so no element lock applies."
+    },
+    "fathom-ladder.mp4": {
+      "sha256_16": "cbcba46d94193391",
+      "kind": "explainer",
+      "characters": [],
+      "status": "APPROVED",
+      "generated_with": "drawn deterministically by build-fathom-ladder.py (PIL) and scored with the five Fathom stingers - zero generation",
+      "note": "33.5s continuous descent through all five Fathom ranks. The Bible asks the audience to chart Fathom like a stat sheet, and a pitch document can only ASSERT that a system is intuitive. This asserts nothing: it descends, and by the third card a viewer is predicting the next sound before it arrives. Colour follows the Bible's palette spine in canon order - sun-bleached chlorine cyan, green-gold open water, violet twilight, bioluminescent midnight, and Hadal 'where the only colors are what characters bring with them', which is why the last tier is black except for one carried light. The gradient is continuous rather than five flat blocks, so the Bible's promise holds: pause any frame and the colour gives you the depth.",
+      "verification": "9 frames sampled across the full piece and inspected; audio -15.7 LUFS, -2.0 dBFS true peak, LRA 14.7, spectrogram read. Three defects found and fixed on inspection: marine snow was drawn at a fixed brightness and read as dust on the lens wherever the water was lighter than the particles, so it is now derived from the current water colour; the depth readout was left-aligned at a fixed x and grew through the ruler as the number gained digits, so it is right-aligned against it; and Hadal held 14 seconds of a 38 second piece with a frozen counter, so the tail was cut to the length of its own stinger. The legibility scrim is a gradient, not blurred rectangles - those had visible ends and read as grey lozenges.",
+      "verified_by": "agent",
+      "verified_at": "2026-07-31",
+      "provenance": "derived-from-approved-plates"
     }
   },
   "provenance_types": {
