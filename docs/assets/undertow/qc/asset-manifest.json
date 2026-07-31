@@ -1,7 +1,7 @@
 {
  "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
  "manifest_version": "1.2",
- "canon_version": "2.6",
+ "canon_version": "2.7",
  "generated": "2026-07-31",
  "assets": {
   "bo-dock.png": {
@@ -177,49 +177,49 @@
    "verified_at": "2026-07-25"
   },
   "poster-deep-calls-to-deep-4k.png": {
-   "sha256_16": "bf19693c0ca71cce",
+   "sha256_16": "a817870200aa7129",
    "kind": "key-art",
    "characters": [
     "kai"
    ],
    "status": "APPROVED",
-   "element_id": null,
-   "generated_with": "composition plate + kai hero plate as dual image reference",
-   "status_note": "Canon-correct: Kai deep brown skin, coiled hair, jammers, no apparatus.",
-   "verified_by": "agent+creator",
-   "verified_at": "2026-07-25",
-   "provenance": "approved-plate-as-reference",
-   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct."
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id",
+   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
+   "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (4K print master, 2751x4096, upscaled from the hero)"
   },
   "poster-deep-calls-to-deep-alt.png": {
-   "sha256_16": "56f6af9e630225f0",
+   "sha256_16": "e8ab2e4732d6e34e",
    "kind": "key-art",
    "characters": [
     "kai"
    ],
    "status": "APPROVED",
-   "element_id": null,
-   "generated_with": "composition plate + kai hero plate as dual image reference",
-   "status_note": "Canon-correct: Kai deep brown skin, coiled hair, jammers, no apparatus.",
-   "verified_by": "agent+creator",
-   "verified_at": "2026-07-25",
-   "provenance": "approved-plate-as-reference",
-   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct."
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id",
+   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
+   "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (alternate take)"
   },
   "poster-deep-calls-to-deep.png": {
-   "sha256_16": "ebd0cc38e5271b3f",
+   "sha256_16": "9d8d531aa8c30762",
    "kind": "key-art",
    "characters": [
     "kai"
    ],
    "status": "APPROVED",
-   "element_id": null,
-   "generated_with": "composition plate + kai hero plate as dual image reference",
-   "status_note": "Canon-correct: Kai deep brown skin, coiled hair, jammers, no apparatus.",
-   "verified_by": "agent+creator",
-   "verified_at": "2026-07-25",
-   "provenance": "approved-plate-as-reference",
-   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct."
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id",
+   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
+   "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (hero)"
   },
   "ren-fence-01.png": {
    "sha256_16": "dbb285bed52f64ac",
@@ -411,6 +411,126 @@
    "source_job_id": "74fd4f61-f842-4429-be24-c27de5e3ca63",
    "generated_with": "four v2 elements, one per character in frame",
    "status_note": "Verification render for the rebuilt elements, regenerated with Kemar-v3. Every previously-broken behaviour absent: Ren pale not violet, Kemar's eyes open in the new Freewater House tracksuit, Gouda weary with dark eyes, Nakaru's grey temple streak visible. Ren's crisp kit beside Kemar's patched one carries the recognition argument visually.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-kai.png": {
+   "sha256_16": "5c4233c2e9f41b42",
+   "kind": "character",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "source_job_id": "21fe0435-15d0-47ed-b448-03e339cef70e",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Dark brown eyes, no glow. Coiled blue-black hair, bracelet, jammers, towel. Barefoot.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-ren.png": {
+   "sha256_16": "56da0fc27b8004c6",
+   "kind": "character",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED",
+   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+   "source_job_id": "d758badf-4b3c-4391-bec8-21404877dd4d",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Pale skin not violet. Tight undercut, silver-gray eyes, wave-and-torii crest at chest.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-kemar.png": {
+   "sha256_16": "f23715fb0b9244fc",
+   "kind": "character",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED",
+   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+   "source_job_id": "ba390510-a1cc-4650-9807-645438959d39",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Eyes OPEN and warm. Charcoal Freewater tracksuit, green-gold piping, House sigil, repair patches. No flag.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-bo.png": {
+   "sha256_16": "65a9579faeaf4203",
+   "kind": "character",
+   "characters": [
+    "bo"
+   ],
+   "status": "APPROVED",
+   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+   "source_job_id": "5f5bc792-4379-47ec-bac6-3a6140f2d670",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Heavyset, cream sweater fully covering, eyes open, 2D cel-shaded not 3D.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-luna.png": {
+   "sha256_16": "266e97cc916f3dc5",
+   "kind": "character",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED",
+   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+   "source_job_id": "0a201c63-ccd0-43d2-bb59-93f9cf1d8221",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Pale ivory skin not lavender. Brow markings, indigo wave stitching, shell anklet, no crest.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-mirei.png": {
+   "sha256_16": "e4f4e7683f9246f8",
+   "kind": "character",
+   "characters": [
+    "mirei"
+   ],
+   "status": "APPROVED",
+   "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
+   "source_job_id": "c10c8fb5-5054-4bba-a218-f108a19a863a",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Prescription glasses ON HER FACE in all views, narrow eyes, MANAGER armband, clipboard, stopwatch.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-gouda.png": {
+   "sha256_16": "d8319d1bd256d88b",
+   "kind": "character",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
+   "source_job_id": "89708b52-0578-4aac-be75-9d20b6c8f7bc",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Weary and closed, NOT grinning. Ordinary dark eyes, not yellow. Topknot, stubble, medal.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-nakaru.png": {
+   "sha256_16": "5eb97003ab6424c0",
+   "kind": "character",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED",
+   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+   "source_job_id": "72a6af73-35a1-48b7-a535-d9dace16283e",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Grey temple streak and throat scar both visible. Dark eyes, no glow. Grounded, no fantasy.",
    "verified_by": "agent",
    "verified_at": "2026-07-31",
    "provenance": "element_id"
