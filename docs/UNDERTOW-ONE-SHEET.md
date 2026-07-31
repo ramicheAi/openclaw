@@ -46,4 +46,4 @@ Four-quadrant by design: kids get adventure and a power ladder they can track; a
 
 ## What Exists Today
 
-Series bible · a 12,000-year lore codex with a locked five-season endgame · a fully beat-sheeted 24-episode Season 1 · three teleplays (Episodes 1–3) · two manga chapters · eight locked character designs (Kai, Ren, Bo, Mirei, Luna, Gouda, Kemar, Nakaru), each with a four-view turnaround and a full expression sheet · an original main theme plus a ten-piece sound signature kit, written and owned outright · a scored animated teaser · key art, including a 4K hero poster and crew/rival visuals.
+Series bible · a 12,000-year lore codex with a locked five-season endgame · a fully beat-sheeted 24-episode Season 1 · four teleplays (Episodes 1–4) · three manga chapters · eight locked character designs (Kai, Ren, Bo, Mirei, Luna, Gouda, Kemar, Nakaru), each with a four-view turnaround and a full expression sheet · an original main theme plus a ten-piece sound signature kit, written and owned outright · a scored animated teaser · key art, including a 4K hero poster and crew/rival visuals.

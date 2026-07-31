@@ -180,6 +180,14 @@ resolution needs, rather than for a round number.
    the score. Earn it in picture first.
 3. **Depth dictates brightness.** A cue in deep water that is bright is wrong,
    whatever it is doing melodically. Follow the Fathom lowpass table.
+
+   **Depth means the depth of the FRAME, not of the venue.** Episode 1's
+   centrepiece happens in a four-metre school pool that the script takes
+   "chlorine-blue going deep-ocean cathedral" — score that to where the image
+   goes, not to where the characters legally are. This will recur constantly,
+   because the Deep-Water Doctrine is a doctrine about what the audience is
+   shown, and the show's best moments are the ones where an ordinary pool
+   stops behaving like one.
 4. **Panic is deformation, not a new theme.** See *Dive Reflex*.
 5. **Do not score Nakaru as a villain.** See *Second Tide*.
 6. **Silence is available.** *Riddim Break* establishes that a hole in the
