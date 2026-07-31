@@ -491,6 +491,46 @@ If a shot needs arms doing something underwater, it is one of those three, or th
 character is not swimming — they are sinking, reaching, or drowning, which are all legitimate
 and all look completely different.
 
+### Motion specs: where each movement STARTS
+
+A still frame can be checked against a pose. It cannot be checked against a
+movement, and most of what makes swimming look real is movement. So the propulsive
+actions are specified here as sequences, in the order the body actually fires them.
+Get the order wrong and the animation reads as a person imitating a swimmer.
+
+**Dolphin kick — the undulation starts at the CHEST, not the legs.**
+
+This is the one most often drawn backwards. The legs are the *end* of the wave, not
+the source of it:
+
+1. The **chest / sternum** presses down. This is the initiation. The core drives it.
+2. The **hips** follow, a beat later.
+3. The **knees** follow the hips.
+4. The **joined feet** whip through last, finishing the wave.
+
+Like a crack running down a whip, or a ripple running down a ribbon held at one end.
+Every part of the body is doing the same motion, just delayed relative to the part
+above it — which is why a good underwater kick reads as one continuous animal and a
+bad one reads as legs flapping.
+
+Two corollaries for the drawing:
+
+- **The legs never separate.** Thighs together, knees touching, ankles touching, toes
+  pointed. One tail, not two limbs. A scissor or a flutter in a streamline is wrong.
+- **There is an up-kick as well as a down-kick.** The upward half of a dolphin kick is
+  propulsive too, and drawing only the downbeat makes the motion look half-finished.
+
+**Freestyle — the roll starts at the hips, not the shoulders.** The body rotates
+around its long axis, driven from the core, and the shoulders follow. The head is the
+one part that does NOT rotate on its own: it stays in line and comes round with the
+body, which is why a lifted or independently-turning head reads instantly as wrong.
+
+**A note on where these come from.** These specs exist because still-frame review
+cannot catch them. Pose errors — a head up, an arm recovering underwater — show up in
+one frame and get caught. Sequence errors do not show up in any single frame at all,
+and have to be specified in advance. If a new technique enters the show, write its
+motion spec here *before* anyone briefs a shot of it.
+
 ### How to check a streamline in one glance
 
 The streamline is the most-drawn position in a swimming show and the easiest to get
