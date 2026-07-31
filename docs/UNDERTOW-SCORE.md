@@ -242,6 +242,22 @@ Four decisions in it are not stylistic and should not be changed casually:
   at pitch on a device that physically cannot produce it. Pushing the level
   instead would only bury the melody further.
 
+  This one is measured, not asserted. `qc/verify_translation.py` renders the
+  ANSWER in isolation, filters it through models of a TV, a laptop and a phone
+  speaker, and recovers the pitch with a harmonic product spectrum — the
+  estimator built for exactly the missing-fundamental case. Against its own
+  negative control:
+
+  | | notes recovered through a 500 Hz high-pass |
+  |---|---|
+  | harmonic treatment **disabled** | **1 of 5** |
+  | harmonic treatment **as shipped** | **5 of 5**, every one within 4 cents |
+
+  Without it the estimator returns 196 Hz for a written F2 of 87 Hz — it hears
+  the second harmonic *as* the note, which is what a listener on a phone would
+  do. On most of the devices this show will ever be watched on, the answer
+  would simply have arrived at the wrong pitch.
+
 ### Delivery spec
 
 The **entire package** — theme, teaser cue, ladder piece and all ten signature
