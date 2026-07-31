@@ -64,9 +64,13 @@ def verify(report=False):
     # Retired elements stay valid: an asset generated before a character's element
     # was rebuilt still traces to approved identity. Retiring an element does not
     # retroactively orphan the art it produced.
+    # A character can be rebuilt more than once, so retirements accumulate.
+    # Accept both the single field and the list form.
     valid_elements = {c["element_id"] for c in chars.values()}
-    valid_elements |= {c["retired_element_id"] for c in chars.values()
-                       if c.get("retired_element_id")}
+    for c in chars.values():
+        if c.get("retired_element_id"):
+            valid_elements.add(c["retired_element_id"])
+        valid_elements |= set(c.get("retired_element_ids", []))
 
     # Founding plates AND baseline references are identity sources, not derived art.
     plate_by_char = {k: v["approved_plate"].split("/")[-1] for k, v in chars.items()}
@@ -155,8 +159,10 @@ def verify(report=False):
         print("  CHARACTER ELEMENTS (identity locks):")
         for cid, c in chars.items():
             print(f"    {c['full_name']:<22} {c['element_id']}  {c['element_name']}")
-            if c.get("retired_element_id"):
-                print(f"    {'':<22} {c['retired_element_id']}  (retired — still valid for existing art)")
+            retired = ([c["retired_element_id"]] if c.get("retired_element_id") else []) \
+                      + list(c.get("retired_element_ids", []))
+            for r in retired:
+                print(f"    {'':<22} {r}  (retired — still valid for existing art)")
         print()
 
     for w in warnings:

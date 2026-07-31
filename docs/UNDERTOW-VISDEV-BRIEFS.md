@@ -135,7 +135,17 @@ Deliverable per character: front/side/back turnaround, 4 expressions, surface ki
 - **Face/hair:** dark brown skin, short locs tied back for racing with a green-gold-black
   wrap; huge easy grin that drops, in serious moments, into a stillness that surprises
   people; eyes warm brown (awakened shift: river-gold, in water only).
-- **Wardrobe:** surface kit in Jamaica green/gold/black; deep kit: Freewater second-skin
+- **Wardrobe:** charcoal-black Freewater House tracksuit — thin green-and-gold piping
+  down sleeves and legs, small gold House sigil at the left chest, visibly older and
+  hand-repaired. Deep kit: Freewater second-skin with the same sigil.
+  **No flag, no saltire, no block colour panels.** The Jamaican-flag racing singlet was
+  retired 2026-07-31: it read as costume beside a cast that otherwise wears believable
+  athletic wear with a small House crest. Heritage now shows through palette, sigil and
+  his loc wrap — the same "shown, never stated" discipline used for Kai.
+  The mending is the point. Freewater has no Pillar and no institution behind it, so the
+  kit is handed down rather than issued; set beside Ren's immaculate new House Kurose
+  blacks, the contrast *is* the recognition argument, made without a line of dialogue.
+- **Retired wardrobe:** surface kit in Jamaica green/gold/black flag print
   woven green-gold-black with the House sigil (golden comb crossed over a drum, above a
   broken chain) between the shoulder blades. Shell-and-bead wrist cord from Port Royal.
   *[cultural specifics built with Jamaican tradition-keepers before anything ships]*

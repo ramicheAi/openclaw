@@ -1,6 +1,6 @@
 {
   "_doc": "UNDERTOW character canon — machine-readable. This file is the single source of truth for character identity. Any art pipeline, human or automated, MUST read this before generating a character. Human-readable rationale lives in UNDERTOW-VISDEV-BRIEFS.md and UNDERTOW-ART-PROTOCOL.md.",
-  "canon_version": "2.4",
+  "canon_version": "2.5",
   "generation_platform": "higgsfield",
   "universal_rules": {
     "no_breathing_apparatus": {
@@ -124,8 +124,8 @@
       "full_name": "Kemar 'Riddim' Reid",
       "age": 17,
       "role": "Freewater House champion",
-      "element_id": "c78435b0-2d60-49d9-88c4-9c2388aa4846",
-      "element_name": "UNDERTOW-Kemar-v2",
+      "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+      "element_name": "UNDERTOW-Kemar-v3",
       "approved_plate": "assets/undertow/kemar-01.png",
       "source_job_id": "f8d1459d-9bbf-4287-9279-d7a78e3065f2",
       "identity": {
@@ -134,22 +134,29 @@
         "hair": "short locs tied back with a green-gold-black wrap",
         "eyes": "warm brown and OPEN by default; river-gold only when submerged. His race plate has them shut mid-laugh — that is one expression, not his face",
         "build": "pure sprinter — long levers, loose easy shoulders",
-        "signature": "radiant grin; swims to a beat only he hears"
+        "signature": "radiant grin; swims to a beat only he hears. His kit is visibly older and hand-repaired — Freewater has no Pillar and no institution behind it, so the kit is handed down, not issued. Set against Ren's immaculate new House Kurose blacks, that contrast IS the argument."
       },
       "wardrobe": [
-        "Jamaica green/gold/black racing kit",
-        "Freewater second-skin with House sigil"
+        "charcoal-black Freewater House tracksuit — thin green-and-gold piping down sleeves and legs, small gold House sigil at the left chest (comb crossed over a drum, above a broken chain)",
+        "Freewater second-skin with the same House sigil for racing"
       ],
       "forbidden": [
         "light skin",
-        "loose untied locs while racing"
+        "loose untied locs while racing",
+        "Jamaican flag print, saltire or diagonal cross on clothing",
+        "large block colour panels — heritage is carried as thin piping and the House sigil, never as a flag",
+        "new or pristine kit — it is mended and passed down"
       ],
-      "notes": "Cultural specifics to be built with Jamaican tradition-keepers before public release.",
-      "retired_element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
-      "retired_reason": "v1 was built solely from the race plate: eyes squeezed shut mid-laugh, wet specular skin, dutch tilt, heavy teal-orange grade and film grain. The element had never seen his eyes. v2 adds a dry, still, neutral-daylight standing plate.",
+      "notes": "Cultural specifics to be built with Jamaican tradition-keepers before public release. The flag-singlet design was retired on 2026-07-31 for reading as costume rather than uniform; heritage now shows through palette, sigil and the loc wrap.",
+      "retired_reason": "Retired twice. v1 (dd39c0c5) was built solely from the race plate: eyes shut mid-laugh, wet specular skin, dutch tilt, heavy teal-orange grade — the element had never seen his eyes. v2 (c78435b0) fixed all of that but kept the Jamaican-flag racing kit, which read as a COSTUME beside a cast that otherwise wears believable athletic wear with a small House crest; he was the only character in the show dressed as a flag. v3 replaces it with the Freewater House tracksuit and keeps the corrected face.",
       "baseline_reference": "assets/undertow/kemar-neutral-ref.png",
-      "baseline_source_job_id": "92559999-acf8-4afa-af37-12ae2122eb4a",
-      "founding_plate_in_element": true
+      "baseline_source_job_id": "61d56291-82bf-4173-a560-e52c043e4ffc",
+      "founding_plate_in_element": false,
+      "founding_plate_excluded_why": "The race plate has his eyes shut AND the retired flag kit, so it is NOT supplied as a second reference. It remains the checksummed approved plate for provenance.",
+      "retired_element_ids": [
+        "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
+        "c78435b0-2d60-49d9-88c4-9c2388aa4846"
+      ]
     },
     "bo": {
       "full_name": "Bo 'Buoy' Fujii",

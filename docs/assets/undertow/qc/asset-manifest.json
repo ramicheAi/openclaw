@@ -1,7 +1,7 @@
 {
  "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
  "manifest_version": "1.2",
- "canon_version": "2.4",
+ "canon_version": "2.5",
  "generated": "2026-07-31",
  "assets": {
   "bo-dock.png": {
@@ -324,15 +324,15 @@
    "verified_at": "2026-07-31"
   },
   "kemar-neutral-ref.png": {
-   "sha256_16": "a911a52814eed643",
+   "sha256_16": "f53ddd12d0129120",
    "kind": "character",
    "characters": [
     "kemar"
    ],
    "status": "APPROVED-baseline-reference",
-   "element_id": "c78435b0-2d60-49d9-88c4-9c2388aa4846",
-   "source_job_id": "92559999-acf8-4afa-af37-12ae2122eb4a",
-   "note": "Dry, still, level-camera neutral plate. First reference in which his EYES ARE OPEN — the race plate has them shut mid-laugh, so the element had never seen them.",
+   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+   "source_job_id": "61d56291-82bf-4173-a560-e52c043e4ffc",
+   "note": "Neutral plate with the REDESIGNED Freewater House tracksuit. Replaces the Jamaican-flag racing kit, which read as costume next to a cast that wears believable athletic wear. Heritage now carried by thin green-gold piping, the House sigil, and his loc wrap. Eyes open.",
    "verified_by": "agent",
    "verified_at": "2026-07-31"
   },
@@ -389,7 +389,7 @@
    "verified_at": "2026-07-31"
   },
   "rivals-key-visual.png": {
-   "sha256_16": "9e70e1ce0f898b2a",
+   "sha256_16": "1faadbdc88f82f1c",
    "kind": "key-art",
    "characters": [
     "ren",
@@ -399,14 +399,14 @@
    ],
    "element_ids": [
     "0e910d33-6a73-4735-b590-a4384330330b",
-    "c78435b0-2d60-49d9-88c4-9c2388aa4846",
+    "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
     "ac4108b9-2c69-4489-afa6-04521ef6866e",
     "ffe0c6d9-7199-4355-b167-00e7b21afcf9"
    ],
    "status": "APPROVED",
-   "source_job_id": "ffd20f4d-6e02-4051-83b1-edd2946a64ef",
+   "source_job_id": "74fd4f61-f842-4429-be24-c27de5e3ca63",
    "generated_with": "four v2 elements, one per character in frame",
-   "status_note": "Verification render for the six new baseline elements. Every previously-broken behaviour is absent: Ren's skin is pale not violet, Kemar's eyes are open, Gouda is weary not grinning with dark eyes, Nakaru's grey temple streak is visible.",
+   "status_note": "Verification render for the rebuilt elements, regenerated with Kemar-v3. Every previously-broken behaviour absent: Ren pale not violet, Kemar's eyes open in the new Freewater House tracksuit, Gouda weary with dark eyes, Nakaru's grey temple streak visible. Ren's crisp kit beside Kemar's patched one carries the recognition argument visually.",
    "verified_by": "agent",
    "verified_at": "2026-07-31",
    "provenance": "element_id"
