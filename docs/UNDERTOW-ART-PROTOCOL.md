@@ -142,10 +142,27 @@ clip.
 6. Run `python3 docs/assets/undertow/qc/verify_assets.py`.
 7. Only now show it.
 
-**Generated audio does not ship.** Picture can be verified frame by frame; a generated
-soundtrack cannot be verified by looking, and shipping something unchecked is the exact
-habit this document exists to break. Teasers render silent. Sound is a separate, scored
-pass with a human ear on it.
+**Sound is verified, not avoided.** An earlier version of this document said generated
+audio could not be verified and therefore would not ship. That was wrong — it confused
+*eyes* with *verification*. Sound has objective properties and a spectrogram is something
+you can literally look at:
+
+```bash
+python3 docs/assets/undertow/qc/verify_audio.py <media> [--compare-video <silent-cut.mp4>]
+```
+
+It reports EBU R128 integrated loudness and true peak, computes a speech-band energy
+ratio, renders a spectrogram into `qc/` for you to read, and — when muxing sound onto an
+already-verified cut — hashes both raw h264 bitstreams to prove no frame changed.
+
+That last check is not theoretical. The first time the teaser was scored, `-shortest`
+silently trimmed **4 frames** off the end to match the audio length. Nothing in the
+picture-side QC would have caught it. Use `-af apad` and an explicit `-t`, never
+`-shortest`, when adding sound to a locked cut.
+
+**Prefer real recordings to generated audio.** The teaser bed is four licensed Splice
+field recordings — two of them hydrophone captures of actual underwater sound. Provenance
+beats generation for sound the same way an approved plate beats a text prompt.
 
 ---
 

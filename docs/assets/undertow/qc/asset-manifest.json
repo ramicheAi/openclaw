@@ -245,7 +245,7 @@
    "verified_at": "2026-07-25"
   },
   "teaser-sinking-01.mp4": {
-   "sha256_16": "1ef6a58e2fe06599",
+   "sha256_16": "923a81dd4cfa422d",
    "kind": "video",
    "characters": [
     "kai"
@@ -255,14 +255,15 @@
    ],
    "status": "APPROVED",
    "source_job_id": "be842cd8-e6a8-40e1-9901-9e881060dca3",
-   "generated_with": "seedance_2_0, Kai-v2 element + approved hero plate as start frame, 8s, 1248x1664, silent",
+   "generated_with": "seedance_2_0, Kai-v2 element + approved hero plate as start frame, 8s, 1248x1664, scored",
    "replaces_sha256_16": "8111b2a7f01a0e58",
    "status_note": "Redone 2026-07-31 with the locked element, which holds identity across the whole clip rather than only at frame 0. The predecessor's real defect was never identity drift - Kai was on-model throughout it - but a push-in so hard that by 2.9s the surface silhouettes and pool floor were both gone and the shot became a generic chest-up view. This take holds the full vertical depth for all 8s: he stays small on the tiled floor and the surface recedes as he sinks. Eyes closed, then the Undertow glow comes up at ~5.2s - canon-correct because he is submerged.",
    "verified_by": "agent",
    "verified_at": "2026-07-31",
    "verification": "12 frames sampled and inspected; sheet kept at qc/teaser-sinking-01-frames.png",
    "provenance": "element_id",
-   "audio": "none - generated audio is not shipped; sound is a separate scored pass"
+   "audio": "Sound bed built from four licensed Splice field recordings: FF_IE_drone_lowest_gravity (Field & Foley) as the Undertow bed, Falling_C_Sub (ModeAudio) for the descent, and two hydrophone recordings (Splice Soundscapes) for submerged room tone and the eye-opening reveal at ~5.2s. Mixed with ffmpeg; no generated audio.",
+   "audio_verification": "-19.4 LUFS integrated, -2.7 dBFS true peak, 1.2 LU range. Speech-band ratio 0.17 (bottom-heavy, no voice). Spectrogram inspected: no sustained mid harmonics. Picture bitstream hash IDENTICAL to the verified silent cut - confirming the mux altered no frame. Re-runnable via qc/verify_audio.py."
   },
   "kai-neutral-ref.png": {
    "sha256_16": "922c12c2a41f8ec2",
