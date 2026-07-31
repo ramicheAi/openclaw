@@ -618,7 +618,7 @@
       "provenance": "element_id"
     },
     "shot-ren-lane.mp4": {
-      "sha256_16": "85ac5954f445b579",
+      "sha256_16": "a5ff69011e2da7c2",
       "kind": "video",
       "characters": [
         "ren"
@@ -627,15 +627,14 @@
       "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
       "source_job_id": "487ebe68-a848-4fcd-b37d-c0093ae6f6a2",
       "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
-      "note": "Side-on tracking, textbook high-elbow freestyle, black/silver tech suit, cold. Identity holds across 6 sampled frames.",
-      "verification": "6 frames sampled and inspected against canon",
+      "note": "Ren in the UNDERWATER STREAMLINE PHASE off the start - the fastest phase of any race and, per the swim codex, the show's single best-integrated rule-as-story-beat. Body one rigid line, arms locked overhead, head buried between the biceps with only goggles and jaw showing, dolphin kick from the chest through pointed toes. Precision as menace: he is not stroking, he is a shape moving through water. Legal textile jammers, waist to above the knee.",
+      "verification": "SUPERSEDES a shot that showed a freestyle arm recovery UNDERWATER with the head raised looking forward - two errors a swimmer catches in the first second, neither caught by the art gate because it checked identity only. Took three passes. Pass 1 fixed the recovery but left the swimmer small in frame; pass 2 was closer but the hands were apart, which is a 'superman glide', not a streamline. Pass 3 succeeded by describing the SILHOUETTE rather than the anatomy: in a strict side profile a correct streamline shows only ONE arm and ONE hand, because the far ones occlude completely. Verified across 6 sampled frames: single-blade silhouette held, head buried, lane lines correctly ABOVE him, jammers legal. Residual noted honestly - the legs scissor slightly in places rather than staying locked together for a pure dolphin kick. 1280x720 from the model, upscaled to 1920x1080 (Topaz) and transcoded to h264 to match the cut.",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
-      "provenance": "element_id",
-      "defect": "BIOMECHANICS DEFECT, creator-caught 2026-07-31. The swimmer performs a freestyle arm recovery UNDERWATER, which never happens in any stroke - over-the-water recovery exists only because air is ~800x less dense than water - and the head is raised looking forward, which drops the hips and is how a beginner is drawn. Neither was caught by the art gate, which checked identity only. See UNDERTOW-SWIM-CODEX.md section 6 'Drawing it right' and the swimming checklist now in UNDERTOW-ART-PROTOCOL.md. Additionally the silver sleeved full-body suit is not legal surface racing kit - men's suits are textile jammers, waist to above the knee, and sleeved suits have been banned since 2010. House second-skins are full coverage but belong in the deep, not a lane-lined competition pool."
+      "provenance": "element_id"
     },
     "shot-kemar-joy.mp4": {
-      "sha256_16": "7943bb0bfe5f00bc",
+      "sha256_16": "191bdc776bf45399",
       "kind": "video",
       "characters": [
         "kemar"
@@ -644,12 +643,11 @@
       "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
       "source_job_id": "1dc09b79-0d75-4eea-90bd-d1dc08d09808",
       "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
-      "note": "Sunlit tracking shot, joy reads, locs wrapped, no apparatus. KNOWN DEVIATION: canon gives him river-gold eyes when submerged and they render as ordinary dark here. Recorded rather than glossed - see the canon note on submerged-vs-powered.",
-      "verification": "6 frames sampled and inspected against canon",
+      "note": "Kemar swimming real SURFACE freestyle at the moment of a breath. Head not lifted - it stays in line with the spine and ROTATES with the body roll, so one goggle stays in the water while the other clears it, and he breathes in the trough beside his head. Leading arm in a high-elbow catch; the other arm recovers COMPLETELY ABOVE THE WATER, through air. Grinning: joy as a weapon. Legal jammers with green and gold piping, locs wrapped per canon.",
+      "verification": "SUPERSEDES a shot that showed a freestyle arm recovery underwater with the head up. Moved to the surface, which is also better staging - Ren now owns the silent underwater line and Kemar owns the breathing, sunlit one. Verified at zoom: head low and rotated, waterline across the head, recovery arm clearly through air, goggles on. 1280x720 upscaled to 1920x1080 (Topaz), transcoded to h264. Duration 6.04s, identical to the shot it replaces, so no cut point moved.",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
-      "provenance": "element_id",
-      "defect": "BIOMECHANICS DEFECT, creator-caught 2026-07-31. The swimmer performs a freestyle arm recovery UNDERWATER, which never happens in any stroke - over-the-water recovery exists only because air is ~800x less dense than water - and the head is raised looking forward, which drops the hips and is how a beginner is drawn. Neither was caught by the art gate, which checked identity only. See UNDERTOW-SWIM-CODEX.md section 6 'Drawing it right' and the swimming checklist now in UNDERTOW-ART-PROTOCOL.md."
+      "provenance": "element_id"
     },
     "shot-luna-descent.mp4": {
       "sha256_16": "8b0b081c1f5eaeb7",
@@ -700,7 +698,7 @@
       "provenance": "element_id"
     },
     "teaser-undertow.mp4": {
-      "sha256_16": "f26b5d3ca072930a",
+      "sha256_16": "1fb2b8b698baaab1",
       "kind": "video",
       "characters": [
         "kai",
@@ -719,7 +717,7 @@
       "status": "APPROVED",
       "generated_with": "assembled by build-teaser.py from five element-locked shots plus the drawn title card, scored with the original theme over the Splice bed",
       "note": "37.7s multi-shot teaser. Cut order is story logic: the boy, the rival, the joy, the mystery, the threat, the name. The palette carries the arc - chlorine cyan to cold cyan to gold to violet to storm grey, resolving into the deep blue of the title.",
-      "verification": "10 frames sampled and inspected. Audio -15.9 LUFS, -1.1 dBTP, LRA 11.6, spectrogram read. Picture integrity confirmed IDENTICAL against a silent build by h264 bitstream hash.",
+      "verification": "Re-cut after both swimming shots were corrected. 10 frames sampled and inspected. Audio -15.9 LUFS, -1.1 dBTP, LRA 11.6. Picture integrity confirmed IDENTICAL against a silent build by h264 bitstream hash. Both replacements came in at 6.04s, exactly matching the shots they replace, so every downstream cut point held and the cue re-measured to the same sync.",
       "audio": "Our own score mixed over the Splice field-recording bed at 0.30, now in true stereo and mastered to -16 LUFS / -1.0 dBTP. Cue is scored to the edit's MEASURED dissolve midpoints and the answering phrase lands its first note exactly on the title card. No generated audio.",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
