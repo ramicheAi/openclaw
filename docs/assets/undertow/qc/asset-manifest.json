@@ -1,8 +1,8 @@
 {
  "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
- "manifest_version": "1.1",
- "canon_version": "2.3",
- "generated": "2026-07-30",
+ "manifest_version": "1.2",
+ "canon_version": "2.4",
+ "generated": "2026-07-31",
  "assets": {
   "bo-dock.png": {
    "sha256_16": "ec4f2a61c237ebff",
@@ -29,14 +29,16 @@
     "gouda",
     "nakaru"
    ],
-   "status": "APPROVED",
+   "status": "APPROVED-superseded-by-canon",
    "element_id": null,
    "generated_with": "composited from approved plates (no generation)",
    "status_note": "Guaranteed on-model: built from approved plates, not generated.",
    "verified_by": "agent+creator",
    "verified_at": "2026-07-25",
    "provenance": "derived-from-approved-plates",
-   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py — identity is mathematically identical to canon."
+   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py — identity is mathematically identical to canon.",
+   "defect": "Built from the founding plates, so it still shows Mirei bare-faced, Gouda grinning and Bo in 3D style — all three now known to contradict canon 2.4.",
+   "action": "Rebuild from the eight baseline reference plates."
   },
   "gouda-01.png": {
    "sha256_16": "19ef68434b43c8cb",
@@ -306,6 +308,107 @@
    "status_note": "First crew visual with every character element-locked. Kai's eyes correctly dark brown on dry land; Bo heavyset and fully clothed; Luna pale ivory. Supersedes cast-key-visual.png.",
    "verified_by": "agent",
    "verified_at": "2026-07-30",
+   "provenance": "element_id"
+  },
+  "ren-neutral-ref.png": {
+   "sha256_16": "7b3538652614581e",
+   "kind": "character",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+   "source_job_id": "4c01684e-dae0-4ee7-965a-5e301a905c67",
+   "note": "Neutral-daylight three-view turnaround (profile/front/back). Replaces a chest-up twilight crop that gave the element no body and a magenta cast on the face.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "kemar-neutral-ref.png": {
+   "sha256_16": "a911a52814eed643",
+   "kind": "character",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "c78435b0-2d60-49d9-88c4-9c2388aa4846",
+   "source_job_id": "92559999-acf8-4afa-af37-12ae2122eb4a",
+   "note": "Dry, still, level-camera neutral plate. First reference in which his EYES ARE OPEN — the race plate has them shut mid-laugh, so the element had never seen them.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "bo-neutral-ref.png": {
+   "sha256_16": "698f48528f57c3a1",
+   "kind": "character",
+   "characters": [
+    "bo"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+   "source_job_id": "6bffbd31-83f7-4792-8382-7def106fa11a",
+   "note": "Flat 2D cel-shaded neutral plate with his eyes open. Replaces a semi-3D CG render that was teaching the wrong house style.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "mirei-neutral-ref.png": {
+   "sha256_16": "2cffa176416f1364",
+   "kind": "character",
+   "characters": [
+    "mirei"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
+   "source_job_id": "bc6a4a9e-d645-4ee6-b9fe-178929867a95",
+   "note": "Neutral plate with prescription glasses ON HER FACE, narrow eyes, MANAGER armband, clipboard and stopwatch. Corrects a founding plate that had her bare-faced with sunglasses on her head.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "gouda-neutral-ref.png": {
+   "sha256_16": "04cabf466bde2e40",
+   "kind": "character",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
+   "source_job_id": "b2272a53-8efd-4ba9-96ae-fa4f515ed7f2",
+   "note": "Standing neutral plate, weary and closed, ordinary dark brown eyes. Corrects a founding plate that had him grinning with yellow eyes under a sepia cast.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "nakaru-neutral-ref.png": {
+   "sha256_16": "8613de78e16dd2e5",
+   "kind": "character",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+   "source_job_id": "c64a5a1e-acb3-4afe-a608-86f066c8a4f6",
+   "note": "Neutral plate in which the grey temple streak and throat scar are legible for the first time. The storm plate hid both.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "rivals-key-visual.png": {
+   "sha256_16": "9e70e1ce0f898b2a",
+   "kind": "key-art",
+   "characters": [
+    "ren",
+    "kemar",
+    "gouda",
+    "nakaru"
+   ],
+   "element_ids": [
+    "0e910d33-6a73-4735-b590-a4384330330b",
+    "c78435b0-2d60-49d9-88c4-9c2388aa4846",
+    "ac4108b9-2c69-4489-afa6-04521ef6866e",
+    "ffe0c6d9-7199-4355-b167-00e7b21afcf9"
+   ],
+   "status": "APPROVED",
+   "source_job_id": "ffd20f4d-6e02-4051-83b1-edd2946a64ef",
+   "generated_with": "four v2 elements, one per character in frame",
+   "status_note": "Verification render for the six new baseline elements. Every previously-broken behaviour is absent: Ren's skin is pale not violet, Kemar's eyes are open, Gouda is weary not grinning with dark eyes, Nakaru's grey temple streak is visible.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
    "provenance": "element_id"
   }
  },

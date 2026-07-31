@@ -63,18 +63,35 @@ Law 4 exists because this failed twice in one day, in two different disguises.
 |---|---|---|---|
 | Luna | violet-twilight underwater | the *lighting* was her skin | blue-lavender skin on a sunlit pool deck |
 | Kai | submerged pool floor | the *powered state* was his face | Undertow eye-glow on dry land |
+| Ren | twilight fence, chest-up | magenta sky was his complexion; no body at all | cool violet cast, unknown build |
+| Kemar | mid-race, eyes shut | a face with no eyes, permanently wet | invented eyes, glare-slick skin |
+| Bo | 3D-styled harbour render | the show is rendered in 3D | wrong house style in solo shots |
+| Mirei | pool deck, sunglasses on head | she doesn't wear glasses | eyewear kept migrating to her head |
+| Gouda | seated, grinning, sepia room | a cheerful man with yellow eyes | contradicts his entire character |
+| Nakaru | storm sea wall, face in shadow | grey weather was his skin | signature scar and streak invisible |
 
-Kai's was the worse one. The deep-blue glow is the visual tell that the Undertow is
+Kai's was the worst. The deep-blue glow is the visual tell that the Undertow is
 surfacing — the whole power system reads off it. An element that thinks the glow is
 just what his eyes look like will quietly break the story in every frame it touches.
 
-Neither was a prompt problem. Both prompts said the right thing in capital letters and
-lost anyway, because a reference image outranks a sentence. The only fix is to give the
-element a truthful baseline to hold onto.
+Mirei's is the most instructive, though. Nobody had noticed her founding plate showed
+her *bare-faced with sunglasses pushed up on her head*, when canon says glasses on the
+face over narrow eyes. Every time her eyewear drifted in a group shot, the element was
+being faithful — to the wrong picture. **A plate the creator approved can still be
+wrong.** Approval means "I like this image," not "every pixel is canon."
+
+None of these was a prompt problem. Every prompt said the right thing in capital letters
+and lost anyway, because a reference image outranks a sentence. The only fix is to give
+the element a truthful baseline to hold onto.
 
 **So: before creating any element, ask what is in this plate that is true only right
-now.** Weather, depth, time of day, an active power, wet hair. Whatever the answer is,
-generate a plate without it first.
+now.** Weather, depth, time of day, an active power, wet hair, a blink, a camera tilt,
+a colour grade. Whatever the answer is, generate a plate without it first.
+
+**And ask a second question: does this plate contradict canon anywhere?** If it does,
+it does not go into the element at all — not even as a second reference. Mirei, Gouda
+and Bo are built on their baseline alone for exactly this reason. Their founding plates
+remain canon for provenance and history; they are simply too wrong to teach from.
 
 ---
 
@@ -161,9 +178,12 @@ Being precise, because a check that *looks* rigorous but isn't is worse than non
   Kai's v2 element, so it may carry the same eye-glow assumption. **Next to regenerate.**
 - The three posters predate elements. They are creator-verified correct, but new
   versions should use element IDs.
-- Ren, Kemar, Bo, Mirei, Gouda and Nakaru still have single-plate elements. None has
-  shown drift, but by law 4 they are one atmospheric plate away from Luna's problem.
-  Baseline references should be added before heavy production use.
+- `cast-lineup-sheet.png` is composited from the eight *founding* plates, so it still
+  shows Mirei bare-faced, Gouda grinning and Bo in 3D. Identity is exact by construction,
+  but it no longer matches canon. **Rebuild from the baseline plates.**
+- Kemar's racing kit renders as a literal Jamaican flag saltire. It is within canon
+  (green/gold/black) but heavy-handed; exactly the kind of detail the tradition-keeper
+  consultation should refine before public release.
 
 **Resolved:** `cast-key-visual.png` and `cast-key-visual-alt.png` were off-model
 (Kai's skin light; Bo lanky). Both are superseded by `crew-key-visual.png`, generated

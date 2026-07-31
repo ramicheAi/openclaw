@@ -1,6 +1,6 @@
 {
-  "_doc": "UNDERTOW character canon \u2014 machine-readable. This file is the single source of truth for character identity. Any art pipeline, human or automated, MUST read this before generating a character. Human-readable rationale lives in UNDERTOW-VISDEV-BRIEFS.md and UNDERTOW-ART-PROTOCOL.md.",
-  "canon_version": "2.3",
+  "_doc": "UNDERTOW character canon — machine-readable. This file is the single source of truth for character identity. Any art pipeline, human or automated, MUST read this before generating a character. Human-readable rationale lives in UNDERTOW-VISDEV-BRIEFS.md and UNDERTOW-ART-PROTOCOL.md.",
+  "canon_version": "2.4",
   "generation_platform": "higgsfield",
   "universal_rules": {
     "no_breathing_apparatus": {
@@ -33,9 +33,13 @@
       "applies_to": [
         "environmental colour cast (lighting learned as skin tone)",
         "state-dependent traits (eye glow, aura, transformation learned as permanent features)",
+        "momentary expression (closed eyes learned as a face that has no eyes)",
+        "camera and grade (dutch tilt, film grain, teal-orange learned as house style)",
+        "render style (a 3D-looking plate teaching 3D to a 2D show)",
         "wet/dry hair and any other condition-specific rendering"
       ],
-      "severity": "blocking"
+      "severity": "blocking",
+      "founding_plate_rule": "The founding plate is supplied as a SECOND reference only when it does not contradict canon. If it does — Mirei bare-faced, Gouda grinning, Bo in 3D — the element is built on the baseline alone. A plate can stay canon for provenance and still be too wrong to teach from."
     }
   },
   "characters": {
@@ -52,7 +56,7 @@
       "retired_element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
       "retired_reason": "v1 was built solely from the submerged pool-floor plate, where the deep-blue Undertow eye-glow and water-cast teal hair are canon-correct. The element learned that POWERED STATE as his permanent face and carried the glow onto a dry pool deck in every crew render. v2 supplies a neutral dry-land baseline first (dark brown eyes, blue-black hair) plus the submerged plate second.",
       "identity": {
-        "heritage": "Mixed Black \u2014 Japanese father (Daigo Isozaki), Jamaican mother",
+        "heritage": "Mixed Black — Japanese father (Daigo Isozaki), Jamaican mother",
         "skin": "deep brown",
         "skin_reference_rgb": [
           108,
@@ -61,7 +65,7 @@
         ],
         "hair": "tightly-coiled blue-black, worn a little overgrown, falls toward his eyes; never straightened. NEVER teal, green or turquoise — that is water light, not hair colour",
         "eyes": "ordinary dark brown on dry land. The deep-blue Undertow glow appears ONLY when he is submerged — it is the visual tell that the power is surfacing, so it must never appear on a pool deck, in a classroom, or anywhere dry",
-        "build": "lean, slightly under-muscled \u2014 a body that hasn't been allowed to train",
+        "build": "lean, slightly under-muscled — a body that hasn't been allowed to train",
         "signature_prop": "shell-cord bracelet that was his late mother's; never removed"
       },
       "wardrobe": [
@@ -84,13 +88,13 @@
       "full_name": "Ren Kurose",
       "age": 16,
       "role": "rival (NOT the antagonist)",
-      "element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
-      "element_name": "UNDERTOW-Ren",
+      "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+      "element_name": "UNDERTOW-Ren-v2",
       "approved_plate": "assets/undertow/ren-fence-01.png",
       "source_job_id": "997ce4f6-2c81-48f3-9ec5-fef40a976d9e",
       "identity": {
         "heritage": "Japanese, House Kurose heir",
-        "skin": "pale",
+        "skin": "pale ordinary human skin — never blue or violet; that was twilight, not his complexion",
         "skin_reference_rgb": [
           188,
           141,
@@ -98,7 +102,7 @@
         ],
         "hair": "blue-black, precise tight undercut / short fade",
         "eyes": "silver-gray; cold Kuroshio silver when submerged",
-        "build": "textbook sprint-freestyle \u2014 broad shoulders, tapered waist, immaculate posture"
+        "build": "textbook sprint-freestyle — broad shoulders, tapered waist, immaculate posture"
       },
       "wardrobe": [
         "black House Kurose tracksuit with small silver wave-and-torii crest",
@@ -106,24 +110,30 @@
       ],
       "forbidden": [
         "warmth in early-arc expressions",
-        "long hair on top"
+        "long hair on top",
+        "blue or violet skin from environmental light"
       ],
-      "notes": "Carries villain-grade menace early so his mid-series turn to ally lands. He is not the villain."
+      "notes": "Carries villain-grade menace early so his mid-series turn to ally lands. He is not the villain.",
+      "retired_element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
+      "retired_reason": "v1 was built solely from the twilight fence plate. Magenta sky and cyan pool uplight sat on his face as skin tone, and the chest-up crop gave the element no body reference at all. v2 adds a neutral-daylight three-view turnaround.",
+      "baseline_reference": "assets/undertow/ren-neutral-ref.png",
+      "baseline_source_job_id": "4c01684e-dae0-4ee7-965a-5e301a905c67",
+      "founding_plate_in_element": true
     },
     "kemar": {
       "full_name": "Kemar 'Riddim' Reid",
       "age": 17,
       "role": "Freewater House champion",
-      "element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
-      "element_name": "UNDERTOW-Kemar",
+      "element_id": "c78435b0-2d60-49d9-88c4-9c2388aa4846",
+      "element_name": "UNDERTOW-Kemar-v2",
       "approved_plate": "assets/undertow/kemar-01.png",
       "source_job_id": "f8d1459d-9bbf-4287-9279-d7a78e3065f2",
       "identity": {
         "heritage": "Jamaican, Port Royal",
         "skin": "deep brown",
         "hair": "short locs tied back with a green-gold-black wrap",
-        "eyes": "warm brown; river-gold when submerged",
-        "build": "pure sprinter \u2014 long levers, loose easy shoulders",
+        "eyes": "warm brown and OPEN by default; river-gold only when submerged. His race plate has them shut mid-laugh — that is one expression, not his face",
+        "build": "pure sprinter — long levers, loose easy shoulders",
         "signature": "radiant grin; swims to a beat only he hears"
       },
       "wardrobe": [
@@ -134,22 +144,28 @@
         "light skin",
         "loose untied locs while racing"
       ],
-      "notes": "Cultural specifics to be built with Jamaican tradition-keepers before public release."
+      "notes": "Cultural specifics to be built with Jamaican tradition-keepers before public release.",
+      "retired_element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
+      "retired_reason": "v1 was built solely from the race plate: eyes squeezed shut mid-laugh, wet specular skin, dutch tilt, heavy teal-orange grade and film grain. The element had never seen his eyes. v2 adds a dry, still, neutral-daylight standing plate.",
+      "baseline_reference": "assets/undertow/kemar-neutral-ref.png",
+      "baseline_source_job_id": "92559999-acf8-4afa-af37-12ae2122eb4a",
+      "founding_plate_in_element": true
     },
     "bo": {
       "full_name": "Bo 'Buoy' Fujii",
       "age": 16,
       "role": "heart of the crew",
-      "element_id": "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
-      "element_name": "UNDERTOW-Bo",
+      "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+      "element_name": "UNDERTOW-Bo-v2",
       "approved_plate": "assets/undertow/bo-dock.png",
       "source_job_id": "d71cebfe-89fa-4b79-a3e1-0ca62c102fe6",
       "identity": {
         "heritage": "Japanese, fishing family",
         "skin": "sun-weathered",
         "hair": "short sun-bleached brown",
-        "build": "HEAVYSET, round-and-mighty, tall and broad \u2014 fisherman's mass, breaststroker's barrel chest",
-        "signature": "enormous open-hearted grin; moves like he's careful not to break the world"
+        "build": "HEAVYSET, round-and-mighty, tall and broad — fisherman's mass, breaststroker's barrel chest",
+        "signature": "enormous open-hearted grin; moves like he's careful not to break the world",
+        "render_style": "flat 2D cel-shaded anime — NEVER a 3D or CG render. His original plate was 3D-styled and is off-house-style"
       },
       "wardrobe": [
         "cream cable-knit fisherman's sweater",
@@ -159,9 +175,16 @@
       "forbidden": [
         "lanky or slim build",
         "athletic-tapered physique",
-        "bare torso in generated art"
+        "bare torso in generated art",
+        "3D or CG rendering"
       ],
-      "notes": "Generation note: keep Bo fully clothed and lead prompts with 'wholesome' \u2014 the content filter trips on him otherwise. The crew-key-visual ALT take renders him lanky and is OFF-MODEL."
+      "notes": "Generation note: keep Bo fully clothed and lead prompts with 'wholesome' — the content filter trips on him otherwise. The crew-key-visual ALT take renders him lanky and is OFF-MODEL.",
+      "retired_element_id": "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
+      "retired_reason": "v1 CONTRADICTED HOUSE STYLE: it was a semi-3D CG render, not 2D anime, with his eyes closed and a heavy green-gold sunset cast, plus garbled watermark text. v2 is baseline-only, drawn in flat 2D cel-shaded anime with his eyes open; the old plate is deliberately excluded.",
+      "baseline_reference": "assets/undertow/bo-neutral-ref.png",
+      "baseline_source_job_id": "6bffbd31-83f7-4792-8382-7def106fa11a",
+      "founding_plate_in_element": false,
+      "founding_plate_excluded_why": "The founding plate contradicts canon, so it is NOT supplied as a second reference. It remains the checksummed approved plate for provenance and history, but the element is built on the baseline alone."
     },
     "luna": {
       "full_name": "Tsukiko 'Luna' Amane",
@@ -173,7 +196,7 @@
       "source_job_id": "e9602bc2-0358-4e5e-8fda-53dd0df4c029",
       "identity": {
         "heritage": "ama-diver island, unregistered",
-        "skin": "pale ivory human skin \u2014 NEVER blue, purple, lavender or grey; only her HAIR is silver-white",
+        "skin": "pale ivory human skin — NEVER blue, purple, lavender or grey; only her HAIR is silver-white",
         "hair": "very long silver-white, worn loose; haloes around her underwater",
         "eyes": "moon-pale",
         "build": "compact free-diver frame",
@@ -191,23 +214,23 @@
       ],
       "notes": "Ama-island markings built with tradition-keepers.",
       "retired_element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
-      "retired_reason": "v1 was built from a single underwater violet-twilight plate. The element baked the environmental colour cast in as her SKIN TONE \u2014 she rendered blue-lavender on a sunlit pool deck. v2 is built on a neutral-daylight baseline reference.",
+      "retired_reason": "v1 was built from a single underwater violet-twilight plate. The element baked the environmental colour cast in as her SKIN TONE — she rendered blue-lavender on a sunlit pool deck. v2 is built on a neutral-daylight baseline reference.",
       "baseline_reference": "assets/undertow/luna-neutral-ref.png",
       "baseline_source_job_id": "12dcc278-b1f5-432a-8084-0648f41f52f3",
-      "known_gap": "The v2 element currently holds ONLY the neutral baseline plate \u2014 the violet-twilight underwater plate did not attach on creation. Recorded rather than hidden. Renders are correct, but her underwater signature look must be carried by prompt text until a second reference is added."
+      "known_gap": "The v2 element currently holds ONLY the neutral baseline plate — the violet-twilight underwater plate did not attach on creation. Recorded rather than hidden. Renders are correct, but her underwater signature look must be carried by prompt text until a second reference is added."
     },
     "mirei": {
       "full_name": "Mirei Sanda",
       "age": 15,
       "role": "the tactician",
-      "element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
-      "element_name": "UNDERTOW-Mirei",
+      "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
+      "element_name": "UNDERTOW-Mirei-v2",
       "approved_plate": "assets/undertow/mirei-01.png",
       "source_job_id": "4e3da37c-9825-427d-a30f-4117a00a1f9b",
       "identity": {
         "heritage": "Japanese",
         "hair": "dark bob with one longer asymmetric strand she chews when calculating",
-        "eyes": "narrow, intelligent, behind light-catching glasses",
+        "eyes": "narrow and intelligent, behind CLEAR PRESCRIPTION GLASSES worn ON THE FACE at all times — never sunglasses, never pushed up on her head, never bare-faced",
         "build": "compact, precise backstroker"
       },
       "wardrobe": [
@@ -220,23 +243,33 @@
       ],
       "forbidden": [
         "without glasses",
+        "sunglasses instead of prescription glasses",
+        "eyewear pushed up on the head",
+        "large round wide anime eyes",
         "unzipped/casual posture in early arcs"
-      ]
+      ],
+      "retired_element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+      "retired_reason": "v1 CONTRADICTED CANON: it showed her bare-faced with sunglasses pushed up on her head and large round eyes, when canon requires prescription glasses on her face over narrow intelligent eyes. That is why eyewear kept migrating to her head in crew shots. v2 is baseline-only; the old plate is deliberately excluded so it cannot re-teach the error.",
+      "baseline_reference": "assets/undertow/mirei-neutral-ref.png",
+      "baseline_source_job_id": "bc6a4a9e-d645-4ee6-b9fe-178929867a95",
+      "founding_plate_in_element": false,
+      "founding_plate_excluded_why": "The founding plate contradicts canon, so it is NOT supplied as a second reference. It remains the checksummed approved plate for provenance and history, but the element is built on the baseline alone."
     },
     "gouda": {
       "full_name": "Coach Gouda",
       "age": 44,
-      "role": "mentor \u2014 'the Beached God'",
-      "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
-      "element_name": "UNDERTOW-Gouda",
+      "role": "mentor — 'the Beached God'",
+      "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
+      "element_name": "UNDERTOW-Gouda-v2",
       "approved_plate": "assets/undertow/gouda-01.png",
       "source_job_id": "b28f1e60-c086-4e89-bf26-0a10ecd144db",
       "identity": {
         "heritage": "Japanese, former Olympic champion",
         "hair": "graying topknot going to seed",
         "face": "heavy jaw, broken nose, several days of stubble",
-        "build": "a ruin of a magnificent athlete \u2014 huge shoulders, gone soft at the middle",
-        "signature": "weary slouch, but eyes that never stopped being sharp and haunted"
+        "build": "a ruin of a magnificent athlete — huge shoulders, gone soft at the middle",
+        "signature": "weary slouch, but eyes that never stopped being sharp and haunted",
+        "eyes": "ordinary dark brown — never yellow, amber or gold"
       },
       "wardrobe": [
         "rumpled old tracksuit",
@@ -247,22 +280,30 @@
       ],
       "forbidden": [
         "fit/athletic present-day physique",
-        "cheerful demeanour"
-      ]
+        "cheerful demeanour",
+        "grinning or laughing",
+        "yellow or amber eyes"
+      ],
+      "retired_element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
+      "retired_reason": "v1 CONTRADICTED CANON: he was grinning broadly with yellow-amber eyes, seated, under a heavy sepia interior cast. Canon forbids a cheerful demeanour and gives him ordinary dark eyes. v2 is baseline-only; the old plate is deliberately excluded.",
+      "baseline_reference": "assets/undertow/gouda-neutral-ref.png",
+      "baseline_source_job_id": "b2272a53-8efd-4ba9-96ae-fa4f515ed7f2",
+      "founding_plate_in_element": false,
+      "founding_plate_excluded_why": "The founding plate contradicts canon, so it is NOT supplied as a second reference. It remains the checksummed approved plate for provenance and history, but the element is built on the baseline alone."
     },
     "nakaru": {
       "full_name": "Kaien Nakaru",
       "age": 38,
-      "role": "the antagonist \u2014 the Second Tide",
-      "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
-      "element_name": "UNDERTOW-Nakaru",
+      "role": "the antagonist — the Second Tide",
+      "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+      "element_name": "UNDERTOW-Nakaru-v2",
       "approved_plate": "assets/undertow/nakaru-seawall-01.png",
       "source_job_id": "0ced40e3-a4b8-4015-bb41-fa2e1205c4d3",
       "identity": {
         "heritage": "Japanese, House Ryn, former Fathom Games champion",
-        "skin": "sea-worn, weathered",
+        "skin": "sea-worn and weathered — never grey or desaturated; that was the storm, not his complexion",
         "hair": "dark, damp, single grey streak at the temple",
-        "eyes": "a shade too dark and deep \u2014 the ONLY hint of what he became",
+        "eyes": "a shade too dark and deep — the ONLY hint of what he became",
         "build": "tall, powerful, immense controlled stillness",
         "signature": "faint old scar at the throat"
       },
@@ -277,7 +318,12 @@
         "rage expression",
         "fantasy styling"
       ],
-      "notes": "LOCKED DIRECTION: grounded, not fantasy. The menace is stillness, not effects. Expression is calm grief and conviction \u2014 a man who has already decided. Earlier fantasy-styled versions were rejected by the creator."
+      "notes": "LOCKED DIRECTION: grounded, not fantasy. The menace is stillness, not effects. Expression is calm grief and conviction — a man who has already decided. Earlier fantasy-styled versions were rejected by the creator.",
+      "retired_element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
+      "retired_reason": "v1 was built solely from the storm sea-wall plate: desaturated overcast grade, face in shadow, and neither signature feature legible. v2 adds a neutral-daylight plate where the grey temple streak and throat scar are both visible for the first time.",
+      "baseline_reference": "assets/undertow/nakaru-neutral-ref.png",
+      "baseline_source_job_id": "c64a5a1e-acb3-4afe-a608-86f066c8a4f6",
+      "founding_plate_in_element": true
     }
   }
 }
