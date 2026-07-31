@@ -147,6 +147,40 @@ clip.
 6. Run `python3 docs/assets/undertow/qc/verify_assets.py`.
 7. Only now show it.
 
+### Swimming shots have a second checklist, and it is not optional
+
+Identity is not the only thing that can be off-model. On a show whose entire
+differentiator is *real competitive swimming*, the swimming being wrong is a worse
+failure than a wardrobe error, because a swimmer disbelieves the whole series the moment
+they catch one.
+
+This was learned the expensive way. Two teaser shots shipped with swimmers doing a
+**freestyle arm recovery underwater** — a thing that does not happen, because recovery
+over the water only exists since air is eight hundred times less dense than water — and
+with their **heads up**, which drops the hips and is how you draw a beginner. The gate
+caught neither, because the gate only ever checked skin, hair, build and wardrobe. The
+swim codex had the correct material the whole time; nothing carried it into a prompt.
+
+So, before any shot with a person in water:
+
+1. **What is this body doing, in one named technique?** Streamline plus dolphin kick, a
+   breaststroke pullout, dynamic apnea, surface freestyle, sinking, reaching, drowning.
+   If it cannot be named, it will be drawn as a generic swim and a generic swim is wrong.
+2. **Say it in the prompt.** Name the technique, the head position, and the arms
+   explicitly. "Head neutral, eyes down, waterline at the crown, arms locked in
+   streamline, hands stacked" is a sentence that has to be written, every time.
+3. **If underwater: is there an arm recovery in frame?** If yes, the shot is wrong. Kill
+   it. There is no underwater recovery in any stroke.
+4. **Is the head in line with the spine?** Almost every bad swimming drawing has the head
+   up and the eyes forward. Almost every good one has the eyes down.
+5. **Is the kit legal for where they are?** Textile jammers waist-to-knee for men on the
+   surface; House second-skins only in the deep. A sleeved bodysuit in a lane-lined pool
+   is a costume error.
+6. **Toes pointed, lane lines above them, bubbles only if they are exhaling on purpose.**
+
+Full reference, written for artists rather than writers:
+[UNDERTOW-SWIM-CODEX.md](UNDERTOW-SWIM-CODEX.md) §6 "Drawing it right".
+
 **Sound is verified, not avoided.** An earlier version of this document said generated
 audio could not be verified and therefore would not ship. That was wrong — it confused
 *eyes* with *verification*. Sound has objective properties and a spectrogram is something

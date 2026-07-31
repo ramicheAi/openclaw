@@ -448,7 +448,76 @@ enters the picture.
 
 ---
 
-## 6. Glossary
+## 6. Drawing it right — body line, and the tells that give a show away
+
+Sections 1 to 5 were written for a writer. This one is written for an artist, and it
+exists because the codex being correct is worthless if the correctness never reaches a
+frame. Every error below is one a swimmer spots in the first second, and once they spot
+one they stop believing the rest of the show.
+
+### The head rule
+
+**The head is the tell.** More than the arms, more than the kick. A raised head drops the
+hips, angles the body nose-up, and multiplies drag — so a swimmer with their head up is,
+without exception, being drawn as a beginner.
+
+| Context | Head |
+|---|---|
+| **Freestyle** | Neutral. Eyes down, or down-and-slightly-forward. The waterline crosses the crown. To breathe the head **rotates with the body roll** — it does not lift. One goggle stays in the water, in the bow-wave trough beside the head. |
+| **Butterfly** | Eyes down, chin barely clearing to breathe, head back down before the hands enter. |
+| **Backstroke** | Absolutely still. Eyes up, ears submerged, waterline across the cheeks. |
+| **Breaststroke** | Rises and falls with the pull, always in line with the spine. Never craned. |
+| **Streamline** | Squeezed between the biceps. Eyes down. |
+| **Freediving / dynamic apnea** | The most neutral of all — chin slightly tucked, eyes down. Looking ahead is the single most expensive drag error in the sport. |
+
+### There is no arm recovery underwater
+
+Over-the-water recovery exists for exactly one reason: air is roughly eight hundred times
+less dense than water. Swinging an arm forward through *water* costs more than it returns,
+so nobody does it, ever. **A freestyle high-elbow recovery drawn underwater is not a
+stylisation — it is a thing that does not happen.**
+
+Underwater, a swimmer is doing one of precisely three things:
+
+1. **Streamline plus dolphin kick** — off the start and every turn, in all four strokes.
+   Arms locked overhead, hands stacked, undulation running from the chest through pointed
+   toes. This is faster than any surface stroke, which is why the 15m rule exists.
+2. **The breaststroke pullout** — one pull all the way to the thighs, hands recovered
+   *close to the body* under the chest, one dolphin kick and one breaststroke kick.
+3. **Dynamic apnea** — glide-dominant, arms in streamline or at the sides, the least
+   movement that will still carry you. This is what UNDERTOW's freedivers do.
+
+If a shot needs arms doing something underwater, it is one of those three, or the
+character is not swimming — they are sinking, reaching, or drowning, which are all legitimate
+and all look completely different.
+
+### Kit, and what is actually legal
+
+- **Surface kit, men:** textile **jammers**, waist to above the knee. No sleeves. Full-body
+  and non-textile suits have been banned since 2010, so a sleeved bodysuit in a lane-lined
+  competition pool is not race kit and reads as a costume error to anyone who swims.
+- **Surface kit, women:** textile one-piece, shoulders to above the knee at most.
+- **Deep kit** — the Houses' ancestral second-skins — is full coverage by design. That is
+  *the deep*. It does not belong in a competition pool, and the contrast between the two
+  is a storytelling asset, not an inconsistency to smooth over.
+
+### Smaller tells, in the order they get noticed
+
+- **Toes pointed.** A flexed foot is a brake. Plantarflexed ankles in every kicking shot.
+- **Fingers slightly apart.** A small gap is genuinely faster than a sealed paddle — but
+  slightly, not splayed.
+- **Bubbles mean exhaling.** A breath-holding swimmer emits almost nothing. A stream of
+  bubbles from the mouth is a deliberate choice with meaning in this show, never a default
+  decoration.
+- **Lane lines float at the surface.** A swimmer a metre down should have them *above* them,
+  not beside them at eye level.
+- **The catch is high-elbow.** The forearm goes vertical early (EVF) — the elbow stays high
+  and forward while the hand presses back. A straight-arm windmill is a different, older,
+  slower stroke.
+
+---
+
+## 7. Glossary
 
 Real term — one-line definition — *in-world slang, where the show has (or should coin)
 one.*
