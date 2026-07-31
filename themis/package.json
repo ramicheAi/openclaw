@@ -1,0 +1,32 @@
+{
+  "name": "themis-web",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "description": "Themis - evidence intelligence for litigation paralegals (V2 prototype)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.100.14",
+    "cmdk": "^1.1.1",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^0.469.0",
+    "pdfjs-dist": "^6.0.227",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-force-graph-2d": "^1.29.1",
+    "tesseract.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7"
+  }
+}

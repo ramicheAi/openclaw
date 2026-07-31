@@ -1,0 +1,1547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Themis — States, Icons & Identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f7f4ee;
+  --paper-deep: #efe9da;
+  --surface: #ffffff;
+  --surface-sunken: #f1ece3;
+  --line: #e6dfd2;
+  --line-strong: #d8cfbd;
+  --ink: #18222e;
+  --ink-soft: #56636f;
+  --ink-faint: #8a93a0;
+  --brass: #a67c3a;
+  --brass-deep: #845f27;
+  --brass-light: #e9cf95;
+  --brass-soft: #ddc79a;
+  --brass-wash: #f3ead8;
+  --verify: #2f7a57;
+  --flag: #b06a12;
+  --danger: #b3261e;
+  --info: #2f5fa6;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+}
+.font-display { font-family: "Fraunces", Georgia, serif; }
+.font-mono { font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; }
+
+@keyframes breathe { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.92; transform: scale(0.985); } }
+@keyframes pulse { 0%, 100% { opacity: 0.85; } 50% { opacity: 0.35; } }
+@keyframes shimmer-bg {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+
+.studio { max-width: 1240px; margin: 0 auto; padding: 72px 40px 96px; }
+
+.studio-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding-bottom: 40px;
+  margin-bottom: 64px;
+  border-bottom: 1px solid var(--line);
+}
+.studio-eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--brass);
+}
+.studio-title {
+  font-size: 68px; font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 14px 0 0;
+  font-variation-settings: "opsz" 144;
+}
+.studio-credo {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  max-width: 580px;
+  margin: 20px 0 0;
+  font-weight: 400;
+}
+.studio-meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-faint);
+  text-align: right;
+  line-height: 1.7;
+}
+
+.sec-h {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin: 72px 0 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.sec-h h2 {
+  font-family: "Fraunces", serif;
+  font-size: 30px; font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+  font-variation-settings: "opsz" 80;
+}
+.sec-h .meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+
+/* ════════ ICON FAMILY ════════ */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+}
+.icon-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 12px;
+  border-radius: 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  transition: background .12s ease;
+}
+.icon-cell:hover { background: var(--brass-wash); border-color: var(--brass-soft); }
+.icon-cell svg { width: 30px; height: 30px; }
+.icon-cell .name {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+.icon-cell .desc {
+  font-size: 10px;
+  color: var(--ink-faint);
+  text-align: center;
+  line-height: 1.35;
+}
+
+.icon-notes {
+  margin-top: 18px;
+  padding: 18px 22px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.icon-notes .h {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  color: var(--brass);
+  margin-bottom: 6px;
+}
+.icon-notes strong { color: var(--ink); font-weight: 600; }
+
+/* ════════ STATES — generic card chrome ════════ */
+.states-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.state-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.state-card.full { grid-column: 1 / -1; }
+.state-card-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(to bottom, #fbf8f1, white);
+}
+.state-eye {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--brass);
+}
+.state-h {
+  font-family: "Fraunces", serif;
+  font-size: 16px; font-weight: 600;
+  margin: 3px 0 0;
+  letter-spacing: -0.01em;
+}
+.state-meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+}
+.state-stage {
+  min-height: 340px;
+  padding: 28px;
+  position: relative;
+}
+.state-stage.dark {
+  background: linear-gradient(135deg, #131e2c, #070b13);
+  color: #e4eaf1;
+}
+.state-stage.paper { background: var(--paper); }
+.state-stage.surface { background: var(--surface); }
+.state-foot {
+  padding: 12px 22px;
+  border-top: 1px dashed var(--line);
+  background: var(--paper);
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.state-foot strong { color: var(--ink); font-weight: 600; }
+
+/* ── State 1: first-run welcome (dark splash) ── */
+.welcome {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  gap: 28px;
+  height: 100%;
+  padding: 36px 24px;
+}
+.welcome-mark { animation: breathe 4s ease-in-out infinite; }
+.welcome-h {
+  font-family: "Fraunces", serif;
+  font-size: 38px; font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--paper);
+  font-variation-settings: "opsz" 144;
+}
+.welcome-sub {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  color: rgba(225,207,149,0.7);
+  font-size: 15px;
+  max-width: 380px;
+  line-height: 1.55;
+  margin: 0;
+}
+.welcome-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--brass-deep);
+  color: white;
+  border: 1px solid var(--brass);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font: inherit; font-size: 12.5px; font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(202,160,92,0.25);
+}
+
+/* ── State 2: no matters yet ── */
+.dash {
+  display: grid; gap: 16px;
+}
+.dash-head {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 0.14em;
+}
+.dash-empty {
+  background: var(--surface);
+  border: 1px dashed var(--line-strong);
+  border-radius: 12px;
+  padding: 48px 32px;
+  text-align: center;
+}
+.dash-empty-icon {
+  display: inline-block;
+  width: 56px; height: 56px;
+  background: var(--brass-wash);
+  border: 1px solid var(--brass-soft);
+  border-radius: 14px;
+  display: grid; place-items: center;
+  margin-bottom: 16px;
+}
+.dash-empty-h {
+  font-family: "Fraunces", serif;
+  font-size: 20px; font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+}
+.dash-empty-sub { font-size: 12.5px; color: var(--ink-soft); margin: 0 0 18px; line-height: 1.5; max-width: 360px; margin-inline: auto; }
+.dash-empty-actions {
+  display: flex; gap: 8px; justify-content: center;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--brass-deep); color: white;
+  border: 1px solid var(--brass);
+  padding: 7px 14px; border-radius: 7px;
+  font: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
+  cursor: pointer;
+}
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--surface); color: var(--ink);
+  border: 1px solid var(--line);
+  padding: 7px 14px; border-radius: 7px;
+  font: inherit; font-size: 12px; font-weight: 500;
+  cursor: pointer;
+}
+
+/* ── State 3: mid-ingest (Atlas 72%) ── */
+.ingest {
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.ingest-canvas {
+  flex: 1;
+  position: relative;
+  background:
+    radial-gradient(ellipse at center, rgba(202,160,92,0.10) 0%, transparent 60%),
+    #0a121b;
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.ingest-canvas::before {
+  content: "DRAFT";
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-18deg);
+  font-family: "Fraunces", serif;
+  font-size: 120px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(225, 162, 88, 0.06);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.ingest-watermark {
+  position: absolute;
+  top: 14px; left: 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: rgba(225, 162, 88, 0.85);
+  background: rgba(225, 162, 88, 0.12);
+  border: 1px solid rgba(225, 162, 88, 0.35);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.ingest-nodes {
+  position: relative;
+  width: 100%; height: 100%;
+}
+.ingest-nodes svg { width: 100%; height: 100%; }
+.ingest-stream {
+  position: absolute;
+  top: 14px; right: 14px;
+  background: rgba(7,11,19,0.65);
+  border: 1px solid rgba(202,160,92,0.25);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex; flex-direction: column; gap: 6px;
+  min-width: 200px;
+}
+.ingest-stream-row {
+  display: flex; justify-content: space-between;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  color: rgba(225,207,149,0.85);
+  letter-spacing: 0.04em;
+}
+.ingest-stream-row .v { color: var(--brass-light); animation: pulse 1.2s infinite; }
+.ingest-bar {
+  position: absolute;
+  bottom: 12px; left: 12px; right: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.ingest-pct {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--brass-light);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.ingest-rail {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.ingest-fill {
+  height: 100%;
+  width: 72%;
+  background: linear-gradient(to right, var(--brass-deep), var(--brass-light));
+  border-radius: 2px;
+  box-shadow: 0 0 12px var(--brass);
+}
+.ingest-stage {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: rgba(225,207,149,0.6);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ── State 4: empty queue ── */
+.queue-empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  text-align: center;
+  padding: 32px;
+}
+.queue-empty-mark {
+  width: 92px; height: 92px;
+  background: rgba(95, 188, 138, 0.10);
+  border: 1px solid rgba(95, 188, 138, 0.32);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  margin: 0 auto 18px;
+  position: relative;
+}
+.queue-empty-mark::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border: 1px dashed rgba(95, 188, 138, 0.28);
+  border-radius: 50%;
+}
+.queue-empty-h {
+  font-family: "Fraunces", serif;
+  font-size: 22px; font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.queue-empty-sub {
+  font-size: 12.5px; color: var(--ink-soft);
+  margin: 0 0 16px;
+  max-width: 280px;
+  margin-inline: auto;
+  line-height: 1.55;
+}
+.queue-empty-stats {
+  display: inline-flex;
+  gap: 16px;
+  padding: 8px 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+}
+.queue-empty-stats strong { color: var(--brass); font-weight: 600; }
+
+/* ── State 5: empty binder ── */
+.binder-empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 28px;
+}
+.binder-dropzone {
+  width: 100%;
+  max-width: 360px;
+  padding: 36px 28px;
+  border: 1.5px dashed var(--line-strong);
+  border-radius: 14px;
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(202,160,92,0.03) 0,
+      rgba(202,160,92,0.03) 10px,
+      transparent 10px,
+      transparent 20px);
+  text-align: center;
+}
+.binder-empty-icon {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.binder-empty-h {
+  font-family: "Fraunces", serif;
+  font-size: 18px; font-weight: 600;
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+.binder-empty-sub {
+  font-size: 12px; color: var(--ink-soft);
+  line-height: 1.55;
+  margin: 0;
+}
+.binder-empty-kbd {
+  margin-top: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: var(--ink-faint);
+}
+.binder-empty-kbd kbd {
+  background: white;
+  border: 1px solid var(--line);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--ink-soft);
+  font-size: 9.5px;
+  margin: 0 2px;
+}
+
+/* ── State 6: chat thinking ── */
+.thinking-state {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 32px;
+}
+.thinking-bubble {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--brass);
+  border-radius: 10px;
+  padding: 14px 16px;
+  max-width: 340px;
+}
+.thinking-h {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--brass);
+  margin-bottom: 8px;
+}
+.thinking-row {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+.thinking-dot {
+  width: 7px; height: 7px;
+  background: var(--brass);
+  border-radius: 50%;
+  animation: pulse 1.4s infinite;
+}
+.thinking-dot:nth-child(2) { animation-delay: .2s; }
+.thinking-dot:nth-child(3) { animation-delay: .4s; }
+.thinking-meta {
+  margin-top: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+}
+
+/* ════════ LOGO USAGE ════════ */
+.guide-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px 32px;
+}
+.guide-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.guide-h {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--brass);
+  margin-bottom: 10px;
+}
+.guide-title {
+  font-family: "Fraunces", serif;
+  font-size: 17px; font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 4px 0 8px;
+}
+.guide-desc {
+  font-size: 12.5px; color: var(--ink-soft);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.clearspace {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 28px;
+  display: grid; place-items: center;
+  position: relative;
+  min-height: 240px;
+}
+.clearspace-box {
+  position: relative;
+  padding: 60px;
+  border: 1px dashed var(--brass-soft);
+  border-radius: 8px;
+}
+.clearspace-x {
+  position: absolute;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--brass);
+  letter-spacing: 0.1em;
+}
+.clearspace-x.top { top: -8px; left: 50%; transform: translateX(-50%); background: var(--paper); padding: 0 6px; }
+.clearspace-x.right { right: -8px; top: 50%; transform: translateY(-50%) rotate(0deg); background: var(--paper); padding: 0 6px; writing-mode: vertical-rl; }
+.clearspace-x.bottom { bottom: -8px; left: 50%; transform: translateX(-50%); background: var(--paper); padding: 0 6px; }
+.clearspace-x.left { left: -8px; top: 50%; transform: translateY(-50%); background: var(--paper); padding: 0 6px; writing-mode: vertical-rl; }
+
+.minsize {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 28px;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.minsize-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 14px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.minsize-row .label {
+  flex: 1;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+}
+.minsize-row .label .ctx {
+  display: block;
+  font-size: 9.5px;
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+
+/* Do / Don't */
+.dodont {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+}
+.dd-card {
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  min-height: 180px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+  gap: 14px;
+}
+.dd-do { background: var(--paper); border: 1px solid var(--line); }
+.dd-do .dd-mark { padding: 8px; }
+.dd-dont { background: rgba(179, 38, 30, 0.04); border: 1px solid rgba(179, 38, 30, 0.18); }
+.dd-tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.12em;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+.dd-do .dd-tag { color: var(--verify); background: rgba(95, 188, 138, 0.14); }
+.dd-dont .dd-tag { color: var(--danger); background: rgba(179, 38, 30, 0.10); }
+.dd-desc {
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+/* Downloadable assets reminder */
+.assets-strip {
+  margin-top: 18px;
+  background: linear-gradient(135deg, #131e2c, #070b13);
+  border-radius: 12px;
+  padding: 22px 28px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  align-items: center;
+  color: var(--paper);
+}
+.assets-mark { display: grid; place-items: center; }
+.assets-text { line-height: 1.5; }
+.assets-text strong { font-family: "Fraunces", serif; font-size: 17px; color: var(--paper); display: block; margin-bottom: 4px; font-weight: 600; }
+.assets-text span { font-size: 12px; color: rgba(225,207,149,0.7); }
+.assets-list {
+  display: flex; gap: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  color: rgba(225,207,149,0.85);
+  letter-spacing: 0.1em;
+}
+.assets-list span {
+  padding: 5px 10px;
+  background: rgba(202,160,92,0.12);
+  border: 1px solid rgba(202,160,92,0.3);
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="studio">
+
+  <header class="studio-head">
+    <div>
+      <div class="studio-eyebrow">THEMIS · STATES · ICONS · IDENTITY · v04</div>
+      <h1 class="font-display studio-title">The pause between actions.</h1>
+      <p class="studio-credo">
+        Empty states, loading states, and icon glyphs — the moments most products treat as
+        afterthoughts. For an instrument that ships trust, these are the moments where craft
+        either holds or breaks.
+      </p>
+    </div>
+    <div class="studio-meta">
+      ramicheAi / openclaw<br/>
+      themis · evidence intelligence<br/>
+      design rev. 04
+    </div>
+  </header>
+
+  <!-- ═══════════════════ ICON FAMILY ═══════════════════ -->
+  <div class="sec-h">
+    <h2>The icon family</h2>
+    <span class="meta">24 · 1.6 stroke · brass · matches Tau geometry</span>
+  </div>
+
+  <div class="icon-grid">
+    <!-- 1 Document -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 3 h9 l4 4 v14 a1 1 0 0 1 -1 1 h-12 a1 1 0 0 1 -1 -1 v-17 a1 1 0 0 1 1 -1 z"/>
+        <path d="M15 3 v4 h4"/>
+        <line x1="8" y1="13" x2="16" y2="13"/>
+        <line x1="8" y1="16" x2="13" y2="16"/>
+      </svg>
+      <div class="name">doc</div>
+      <div class="desc">document, source page</div>
+    </div>
+    <!-- 2 Brain -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <circle cx="8" cy="9" r="1.4" fill="#a67c3a"/>
+        <circle cx="15" cy="10" r="1.4" fill="#a67c3a"/>
+        <circle cx="10" cy="15" r="1.4" fill="#a67c3a"/>
+        <line x1="8" y1="9" x2="15" y2="10"/>
+        <line x1="15" y1="10" x2="10" y2="15"/>
+        <line x1="10" y1="15" x2="8" y2="9"/>
+      </svg>
+      <div class="name">brain</div>
+      <div class="desc">case brain, graph</div>
+    </div>
+    <!-- 3 Scales (tilted) -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <g transform="rotate(-7 12 8)">
+          <line x1="4" y1="8" x2="20" y2="8"/>
+          <circle cx="4" cy="8" r="1.4" fill="#a67c3a"/>
+          <circle cx="20" cy="8" r="1.4" fill="none"/>
+        </g>
+        <line x1="12" y1="8" x2="12" y2="19"/>
+        <line x1="9" y1="19" x2="15" y2="19"/>
+      </svg>
+      <div class="name">scales</div>
+      <div class="desc">balance, weight</div>
+    </div>
+    <!-- 4 Check -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#2f7a57" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9" stroke="#2f7a57" stroke-width="1.6"/>
+        <path d="M8 12.5 l3 3 l5 -6"/>
+      </svg>
+      <div class="name">verified</div>
+      <div class="desc">cite grounded</div>
+    </div>
+    <!-- 5 Warn -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#b06a12" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3 L21 20 L3 20 Z" stroke-dasharray="2 1.5"/>
+        <line x1="12" y1="10" x2="12" y2="14"/>
+        <circle cx="12" cy="17" r="0.7" fill="#b06a12"/>
+      </svg>
+      <div class="name">pending</div>
+      <div class="desc">unverified, flag</div>
+    </div>
+    <!-- 6 Lock -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#b06a12" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="11" width="14" height="9" rx="1.5"/>
+        <path d="M8 11 v-2.5 a4 4 0 0 1 8 0 v2.5"/>
+        <circle cx="12" cy="15.5" r="1" fill="#b06a12"/>
+      </svg>
+      <div class="name">privileged</div>
+      <div class="desc">walled, withheld</div>
+    </div>
+
+    <!-- Row 2 -->
+    <!-- 7 Search -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="10.5" cy="10.5" r="6"/>
+        <line x1="15" y1="15" x2="20" y2="20"/>
+      </svg>
+      <div class="name">search</div>
+      <div class="desc">filter, find</div>
+    </div>
+    <!-- 8 Calendar (chronology) -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="5" width="18" height="16" rx="1.5"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+        <line x1="8" y1="3" x2="8" y2="7"/>
+        <line x1="16" y1="3" x2="16" y2="7"/>
+        <circle cx="12" cy="15" r="1" fill="#a67c3a"/>
+      </svg>
+      <div class="name">chron</div>
+      <div class="desc">chronology, event</div>
+    </div>
+    <!-- 9 Entity (person) -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="3.5"/>
+        <path d="M4 21 c0 -5 4 -8 8 -8 s8 3 8 8"/>
+      </svg>
+      <div class="name">entity</div>
+      <div class="desc">person, cast</div>
+    </div>
+    <!-- 10 Binder -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4" y="3" width="16" height="18" rx="1.5"/>
+        <line x1="4" y1="7" x2="20" y2="7"/>
+        <line x1="9" y1="3" x2="9" y2="21"/>
+        <circle cx="6.5" cy="11" r="0.5" fill="#a67c3a"/>
+        <circle cx="6.5" cy="14" r="0.5" fill="#a67c3a"/>
+        <circle cx="6.5" cy="17" r="0.5" fill="#a67c3a"/>
+      </svg>
+      <div class="name">binder</div>
+      <div class="desc">exhibit set</div>
+    </div>
+    <!-- 11 Citation link -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 14 a4 4 0 0 1 0 -6 l2 -2 a4 4 0 0 1 6 6 l-1 1"/>
+        <path d="M14 10 a4 4 0 0 1 0 6 l-2 2 a4 4 0 0 1 -6 -6 l1 -1"/>
+      </svg>
+      <div class="name">cite</div>
+      <div class="desc">citation, link</div>
+    </div>
+    <!-- 12 Copy -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8" y="3" width="13" height="13" rx="1.5"/>
+        <path d="M16 16 v4 a1 1 0 0 1 -1 1 h-12 a1 1 0 0 1 -1 -1 v-12 a1 1 0 0 1 1 -1 h4"/>
+      </svg>
+      <div class="name">copy</div>
+      <div class="desc">duplicate cite</div>
+    </div>
+
+    <!-- Row 3 -->
+    <!-- 13 Download -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="3" x2="12" y2="15"/>
+        <path d="M7 11 l5 5 l5 -5"/>
+        <path d="M4 19 v1 a1 1 0 0 0 1 1 h14 a1 1 0 0 0 1 -1 v-1"/>
+      </svg>
+      <div class="name">export</div>
+      <div class="desc">download, ship</div>
+    </div>
+    <!-- 14 Hot / star -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="#b3261e" stroke="#b3261e" stroke-width="1.4" stroke-linejoin="round">
+        <path d="M12 3 l2.8 5.7 6.2 0.9 -4.5 4.4 1.1 6.2 -5.6 -2.9 -5.6 2.9 1.1 -6.2 -4.5 -4.4 6.2 -0.9 z" fill-opacity="0.18"/>
+      </svg>
+      <div class="name">hot</div>
+      <div class="desc">key document</div>
+    </div>
+    <!-- 15 Audit -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 6 v6 l4 2"/>
+      </svg>
+      <div class="name">audit</div>
+      <div class="desc">history, log</div>
+    </div>
+    <!-- 16 Replay -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 a9 9 0 0 1 15 -6.5"/>
+        <path d="M18 3 v4 h-4"/>
+        <path d="M21 12 a9 9 0 0 1 -15 6.5"/>
+        <path d="M6 21 v-4 h4"/>
+      </svg>
+      <div class="name">replay</div>
+      <div class="desc">ingest, refresh</div>
+    </div>
+    <!-- 17 Pause -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="9" y1="6" x2="9" y2="18"/>
+        <line x1="15" y1="6" x2="15" y2="18"/>
+      </svg>
+      <div class="name">pause</div>
+      <div class="desc">hold, freeze</div>
+    </div>
+    <!-- 18 Arrow right -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="12" x2="20" y2="12"/>
+        <path d="M14 6 l6 6 l-6 6"/>
+      </svg>
+      <div class="name">arrow</div>
+      <div class="desc">go, navigate</div>
+    </div>
+    <!-- 19 X close -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="6" y1="6" x2="18" y2="18"/>
+        <line x1="6" y1="18" x2="18" y2="6"/>
+      </svg>
+      <div class="name">close</div>
+      <div class="desc">dismiss</div>
+    </div>
+    <!-- 20 Plus -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      <div class="name">add</div>
+      <div class="desc">new, create</div>
+    </div>
+    <!-- 21 Cmd K palette -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="5" width="18" height="14" rx="1.6"/>
+        <text x="7" y="15" font-family="JetBrains Mono, monospace" font-size="6.5" font-weight="700" fill="#a67c3a">⌘K</text>
+      </svg>
+      <div class="name">cmdk</div>
+      <div class="desc">command palette</div>
+    </div>
+    <!-- 22 Filter -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 5 h18 l-7 9 v6 l-4 -2 v-4 z"/>
+      </svg>
+      <div class="name">filter</div>
+      <div class="desc">narrow scope</div>
+    </div>
+    <!-- 23 Question -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M9.5 9 a2.5 2.5 0 1 1 3.5 2.5 c-0.8 0.4 -1 1 -1 1.8"/>
+        <circle cx="12" cy="17" r="0.7" fill="#a67c3a"/>
+      </svg>
+      <div class="name">ask</div>
+      <div class="desc">ask the brain</div>
+    </div>
+    <!-- 24 Causal arc -->
+    <div class="icon-cell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 17 Q 12 5 20 17"/>
+        <circle cx="4" cy="17" r="1.6" fill="#a67c3a"/>
+        <circle cx="20" cy="17" r="1.6" fill="#a67c3a"/>
+        <circle cx="12" cy="9" r="0.9" fill="#a67c3a"/>
+      </svg>
+      <div class="name">arc</div>
+      <div class="desc">causal chain</div>
+    </div>
+  </div>
+
+  <div class="icon-notes">
+    <div>
+      <div class="h">GEOMETRY</div>
+      <p><strong>24×24 grid</strong> · 1.6px stroke · rounded line caps and joins. Two angle conventions:
+      strict 90° for stable elements (truth) and <strong>−7°</strong> for elements that communicate weight
+      or imbalance — matches the Tau crossbar.</p>
+    </div>
+    <div>
+      <div class="h">COLOR</div>
+      <p>Default <strong>brass</strong> for navigation and primary actions. Semantic only when the icon
+      <em>is</em> the meaning: <strong>verify-green</strong> for ✓, <strong>flag-amber</strong> for
+      pending/lock, <strong>danger</strong> for hot. Never colorize a navigation icon.</p>
+    </div>
+    <div>
+      <div class="h">EXTENSION RULE</div>
+      <p>New icons must match these conventions. <strong>Reject</strong> any glyph that requires
+      additional ink (gradients, multi-stroke widths, drop shadows). The family should grow without
+      anyone noticing the new arrival.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ EMPTY STATES ═══════════════════ -->
+  <div class="sec-h">
+    <h2>Empty states</h2>
+    <span class="meta">six surfaces · clear → celebrated</span>
+  </div>
+
+  <div class="states-grid">
+
+    <!-- State 1: First-run welcome -->
+    <div class="state-card">
+      <div class="state-card-head">
+        <div>
+          <div class="state-eye">FIRST RUN · SPLASH</div>
+          <div class="state-h">Welcome to Themis</div>
+        </div>
+        <div class="state-meta">cold start · 0 matters</div>
+      </div>
+      <div class="state-stage dark">
+        <div class="welcome">
+          <svg class="welcome-mark" viewBox="0 0 400 400" width="120" height="120">
+            <defs>
+              <linearGradient id="brassWelcome" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#e9cf95"/><stop offset="1" stop-color="#a67c3a"/>
+              </linearGradient>
+            </defs>
+            <rect x="186" y="110" width="28" height="210" rx="3" fill="url(#brassWelcome)"/>
+            <rect x="156" y="310" width="88" height="14" rx="3" fill="#caa05c"/>
+            <g transform="rotate(-7 200 110)">
+              <rect x="68" y="92" width="264" height="28" rx="4" fill="#caa05c"/>
+              <rect x="48" y="84" width="32" height="44" rx="4" fill="url(#brassWelcome)"/>
+              <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#caa05c" stroke-width="4" stroke-dasharray="3 4"/>
+            </g>
+            <circle cx="200" cy="110" r="6" fill="#070b13" stroke="#e9cf95" stroke-width="1"/>
+          </svg>
+          <div>
+            <h1 class="welcome-h">Themis</h1>
+            <p class="welcome-sub">An instrument for litigation evidence. Drop your first matter to begin — every citation will be verified before it counts.</p>
+          </div>
+          <button class="welcome-cta">＋ Create your first matter</button>
+        </div>
+      </div>
+      <div class="state-foot">
+        <strong>When:</strong> first login, after onboarding, or returning to an empty workspace.
+        The Tau breathes (4s loop), nothing else moves.
+      </div>
+    </div>
+
+    <!-- State 2: No matters yet -->
+    <div class="state-card">
+      <div class="state-card-head">
+        <div>
+          <div class="state-eye">DASHBOARD · NO MATTERS</div>
+          <div class="state-h">Your case room is open</div>
+        </div>
+        <div class="state-meta">0 matters · ready</div>
+      </div>
+      <div class="state-stage surface">
+        <div class="dash">
+          <div class="dash-head">
+            <span>MATTERS</span>
+            <span>0 OF 0 INGESTED</span>
+          </div>
+          <div class="dash-empty">
+            <div class="dash-empty-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#a67c3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="3" width="16" height="18" rx="1.5"/>
+                <line x1="4" y1="7" x2="20" y2="7"/>
+                <line x1="9" y1="3" x2="9" y2="21"/>
+              </svg>
+            </div>
+            <h3 class="dash-empty-h">No matters yet</h3>
+            <p class="dash-empty-sub">Upload a corpus to start. Themis will ingest, OCR, dedup, extract entities, and walk every privilege candidate — then breathe.</p>
+            <div class="dash-empty-actions">
+              <button class="btn-primary">＋ New matter</button>
+              <button class="btn-secondary">Import from Relativity</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="state-foot">
+        <strong>When:</strong> the dashboard before any matter has been ingested. Dashed border, no urgency.
+      </div>
+    </div>
+
+    <!-- State 3: Mid-ingest (Atlas 72%) -->
+    <div class="state-card full">
+      <div class="state-card-head">
+        <div>
+          <div class="state-eye">MID-INGEST · LIVE</div>
+          <div class="state-h">Atlas Foods · 72% ingested · DRAFT only</div>
+        </div>
+        <div class="state-meta">14,710 of 20,431 docs · streaming</div>
+      </div>
+      <div class="state-stage dark ingest">
+        <div class="ingest-canvas">
+          <div class="ingest-watermark">DRAFT · INGEST INCOMPLETE</div>
+          <div class="ingest-nodes">
+            <!-- Partial brain — only ~60% of nodes rendered, dimmed -->
+            <svg viewBox="0 0 800 320" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <radialGradient id="hotGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0" stop-color="#caa05c" stop-opacity="0.6"/>
+                  <stop offset="1" stop-color="#caa05c" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <!-- Connecting strokes -->
+              <g stroke="rgba(255,255,255,0.08)" stroke-width="0.6">
+                <line x1="380" y1="160" x2="290" y2="120"/>
+                <line x1="380" y1="160" x2="450" y2="100"/>
+                <line x1="380" y1="160" x2="520" y2="170"/>
+                <line x1="380" y1="160" x2="320" y2="220"/>
+                <line x1="290" y1="120" x2="200" y2="80"/>
+                <line x1="290" y1="120" x2="180" y2="150"/>
+                <line x1="450" y1="100" x2="540" y2="60"/>
+                <line x1="450" y1="100" x2="580" y2="120"/>
+                <line x1="520" y1="170" x2="620" y2="200"/>
+                <line x1="320" y1="220" x2="240" y2="250"/>
+                <line x1="320" y1="220" x2="380" y2="280"/>
+              </g>
+              <!-- Ambient nodes (dim, completed) -->
+              <g fill="rgba(189,200,213,0.32)">
+                <circle cx="200" cy="80" r="2"/>
+                <circle cx="180" cy="150" r="1.6"/>
+                <circle cx="240" cy="250" r="1.6"/>
+                <circle cx="380" cy="280" r="1.6"/>
+                <circle cx="540" cy="60" r="2"/>
+                <circle cx="580" cy="120" r="1.6"/>
+                <circle cx="620" cy="200" r="1.8"/>
+                <circle cx="270" cy="60" r="1.4"/>
+                <circle cx="160" cy="220" r="1.4"/>
+                <circle cx="660" cy="80" r="1.4"/>
+                <circle cx="700" cy="170" r="1.4"/>
+              </g>
+              <!-- Entity hubs (settled) -->
+              <circle cx="290" cy="120" r="14" fill="url(#hotGlow)"/>
+              <circle cx="290" cy="120" r="6" fill="#6896d9"/>
+              <circle cx="450" cy="100" r="14" fill="url(#hotGlow)"/>
+              <circle cx="450" cy="100" r="6" fill="#6896d9"/>
+              <circle cx="520" cy="170" r="14" fill="url(#hotGlow)"/>
+              <circle cx="520" cy="170" r="6" fill="#6896d9"/>
+              <!-- Hot document (settled, brass) -->
+              <circle cx="380" cy="160" r="20" fill="url(#hotGlow)"/>
+              <circle cx="380" cy="160" r="7" fill="#caa05c"/>
+              <!-- Streaming-in nodes (faded, in motion) -->
+              <g opacity="0.4">
+                <circle cx="80" cy="100" r="2" fill="#caa05c">
+                  <animate attributeName="cx" values="80;200" dur="2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="720" cy="220" r="2" fill="#caa05c">
+                  <animate attributeName="cx" values="720;580" dur="2.4s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="2.4s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="120" cy="280" r="2" fill="#caa05c">
+                  <animate attributeName="cy" values="280;200" dur="2.6s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="2.6s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+              <!-- Particles flowing along verified edges -->
+              <circle r="2" fill="#5fbc8a">
+                <animateMotion dur="2.2s" repeatCount="indefinite">
+                  <mpath xlink:href="#flowPath1"/>
+                </animateMotion>
+              </circle>
+              <path id="flowPath1" d="M290 120 L380 160" fill="none" stroke="none"/>
+            </svg>
+          </div>
+          <div class="ingest-stream">
+            <div class="ingest-stream-row"><span>OCR</span><span class="v">14,710 / 20,431</span></div>
+            <div class="ingest-stream-row"><span>ENTITIES</span><span class="v">2,847 found</span></div>
+            <div class="ingest-stream-row"><span>HOT (SO FAR)</span><span class="v">17</span></div>
+            <div class="ingest-stream-row"><span>STAGE</span><span class="v">extraction</span></div>
+          </div>
+          <div class="ingest-bar">
+            <span class="ingest-stage">EXTRACTION</span>
+            <div class="ingest-rail"><div class="ingest-fill"></div></div>
+            <span class="ingest-pct">72%</span>
+          </div>
+        </div>
+      </div>
+      <div class="state-foot">
+        <strong>When:</strong> a matter is mid-ingest. The "DRAFT" watermark on the canvas
+        is the contract: nothing from this brain ships into a chronology or a privilege log
+        until the privilege scan completes. The streaming counters are honest about what's known so far.
+      </div>
+    </div>
+
+    <!-- State 4: Empty queue -->
+    <div class="state-card">
+      <div class="state-card-head">
+        <div>
+          <div class="state-eye">YOUR QUEUE · CLEAR</div>
+          <div class="state-h">Inbox zero, properly earned</div>
+        </div>
+        <div class="state-meta">0 pending</div>
+      </div>
+      <div class="state-stage surface">
+        <div class="queue-empty">
+          <div class="queue-empty-mark">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#2f7a57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 12.5 l4 4 l8 -9"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="queue-empty-h">Your queue is clear</h3>
+            <p class="queue-empty-sub">Every chronology event is accepted. Every privilege flag is decided. The Tau is balanced for now.</p>
+            <div class="queue-empty-stats">
+              <span><strong>6</strong> on timeline</span>
+              <span>·</span>
+              <span><strong>2</strong> decided privilege</span>
+              <span>·</span>
+              <span><strong>0</strong> open</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="state-foot">
+        <strong>When:</strong> all assigned work resolved. The dashed concentric ring is the "earned"
+        marker — celebrates the moment without confetti.
+      </div>
+    </div>
+
+    <!-- State 5: Empty binder -->
+    <div class="state-card">
+      <div class="state-card-head">
+        <div>
+          <div class="state-eye">EXHIBIT BINDER · EMPTY</div>
+          <div class="state-h">Drop documents here</div>
+        </div>
+        <div class="state-meta">0 exhibits</div>
+      </div>
+      <div class="state-stage surface">
+        <div class="binder-empty">
+          <div class="binder-dropzone">
+            <div class="binder-empty-icon">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#a67c3a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="3" width="16" height="18" rx="1.5"/>
+                <line x1="4" y1="7" x2="20" y2="7"/>
+                <line x1="9" y1="3" x2="9" y2="21"/>
+              </svg>
+            </div>
+            <h3 class="binder-empty-h">Empty binder</h3>
+            <p class="binder-empty-sub">Drag documents from the Documents tab, or push them in from Ask Themis answers.</p>
+            <div class="binder-empty-kbd">
+              <kbd>⌘K</kbd> → <strong>"add to binder"</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="state-foot">
+        <strong>When:</strong> a new binder is created. The diagonal hatching is just visible
+        enough to read as "drop zone" without being noisy.
+      </div>
+    </div>
+
+    <!-- State 6: Chat thinking -->
+    <div class="state-card">
+      <div class="state-card-head">
+        <div>
+          <div class="state-eye">ASK THEMIS · THINKING</div>
+          <div class="state-h">Resolving against the corpus</div>
+        </div>
+        <div class="state-meta">~800ms typical</div>
+      </div>
+      <div class="state-stage paper">
+        <div class="thinking-state">
+          <div class="thinking-bubble">
+            <div class="thinking-h">THEMIS</div>
+            <div class="thinking-row">
+              <span class="thinking-dot"></span>
+              <span class="thinking-dot"></span>
+              <span class="thinking-dot"></span>
+              <span>Resolving across 11,920 documents…</span>
+            </div>
+            <div class="thinking-meta">verifying citations · checking privilege wall</div>
+          </div>
+        </div>
+      </div>
+      <div class="state-foot">
+        <strong>When:</strong> a question is in flight. Tells the user what we're doing without
+        hand-waving — "verifying citations" is the brand promise, restated under load.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ LOGO USAGE ═══════════════════ -->
+  <div class="sec-h">
+    <h2>Logo usage</h2>
+    <span class="meta">clearspace · sizes · do / don't · assets</span>
+  </div>
+
+  <!-- Clearspace & min size -->
+  <div class="guide-grid">
+
+    <div class="guide-card">
+      <div class="guide-h">CLEARSPACE</div>
+      <h3 class="guide-title">Half the mark's height on every side</h3>
+      <p class="guide-desc">Never crowd the Tau. Reserve clearspace equal to <strong>½ the mark's height</strong> on all four sides; no other element — type, photography, ruling — enters that area.</p>
+      <div style="margin-top: 18px;">
+        <div class="clearspace">
+          <div class="clearspace-box">
+            <svg viewBox="0 0 400 400" width="100" height="100">
+              <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+              <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+              <g transform="rotate(-7 200 110)">
+                <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+                <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+                <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#a67c3a" stroke-width="4" stroke-dasharray="3 4"/>
+              </g>
+            </svg>
+            <div class="clearspace-x top">½h</div>
+            <div class="clearspace-x bottom">½h</div>
+            <div class="clearspace-x left">½h</div>
+            <div class="clearspace-x right">½h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-h">MINIMUM SIZES</div>
+      <h3 class="guide-title">Tested below; never go smaller</h3>
+      <p class="guide-desc">Below these the dashed weight collapses and the crossbar tilt stops reading. If you need it smaller, use the wordmark instead.</p>
+      <div class="minsize" style="margin-top: 18px;">
+        <div class="minsize-row">
+          <svg viewBox="0 0 400 400" width="40" height="40">
+            <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+            <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+            <g transform="rotate(-7 200 110)">
+              <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+              <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+              <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#a67c3a" stroke-width="4" stroke-dasharray="3 4"/>
+            </g>
+          </svg>
+          <div class="label">40px<span class="ctx">UI app top-bar, full mark with weights</span></div>
+        </div>
+        <div class="minsize-row">
+          <svg viewBox="0 0 400 400" width="24" height="24">
+            <rect x="184" y="108" width="32" height="216" rx="3" fill="#a67c3a"/>
+            <rect x="150" y="306" width="100" height="20" rx="3" fill="#a67c3a"/>
+            <g transform="rotate(-7 200 108)">
+              <rect x="60" y="86" width="280" height="40" rx="5" fill="#a67c3a"/>
+              <rect x="40" y="74" width="40" height="60" rx="5" fill="#a67c3a"/>
+            </g>
+          </svg>
+          <div class="label">24px<span class="ctx">Favicon, compact navigation, simplified mark</span></div>
+        </div>
+        <div class="minsize-row">
+          <svg viewBox="0 0 400 400" width="16" height="16">
+            <rect x="178" y="100" width="44" height="230" rx="4" fill="#a67c3a"/>
+            <g transform="rotate(-7 200 100)">
+              <rect x="48" y="74" width="304" height="60" rx="8" fill="#a67c3a"/>
+            </g>
+          </svg>
+          <div class="label">16px<span class="ctx">Browser tab — the reduction; absolute minimum</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Do / Don't -->
+  <div class="guide-card" style="margin-top: 20px;">
+    <div class="guide-h">DO / DON'T</div>
+    <h3 class="guide-title">Treat the mark like an instrument</h3>
+    <p class="guide-desc" style="margin-bottom: 16px;">Eight rules. Most refer to a single principle: the tilt is intentional. Never correct it.</p>
+
+    <div class="dodont">
+      <!-- DO row -->
+      <div class="dd-card dd-do">
+        <span class="dd-tag">DO</span>
+        <div class="dd-mark">
+          <svg viewBox="0 0 400 400" width="64" height="64">
+            <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+            <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+            <g transform="rotate(-7 200 110)">
+              <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+              <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+              <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#a67c3a" stroke-width="4" stroke-dasharray="3 4"/>
+            </g>
+          </svg>
+        </div>
+        <div class="dd-desc">Brass on paper. The default.</div>
+      </div>
+      <div class="dd-card dd-do" style="background: linear-gradient(135deg, #131e2c, #070b13);">
+        <span class="dd-tag">DO</span>
+        <div class="dd-mark">
+          <svg viewBox="0 0 400 400" width="64" height="64">
+            <rect x="186" y="110" width="28" height="210" rx="3" fill="#caa05c"/>
+            <rect x="156" y="310" width="88" height="14" rx="3" fill="#caa05c"/>
+            <g transform="rotate(-7 200 110)">
+              <rect x="68" y="92" width="264" height="28" rx="4" fill="#caa05c"/>
+              <rect x="48" y="84" width="32" height="44" rx="4" fill="#caa05c"/>
+              <rect x="324" y="92" width="22" height="28" rx="3" fill="none" stroke="#caa05c" stroke-width="4" stroke-dasharray="3 4"/>
+            </g>
+          </svg>
+        </div>
+        <div class="dd-desc" style="color: rgba(225,207,149,0.7);">Brass on ink. Instrument mode.</div>
+      </div>
+      <div class="dd-card dd-dont">
+        <span class="dd-tag">DON'T</span>
+        <div class="dd-mark">
+          <svg viewBox="0 0 400 400" width="64" height="64">
+            <!-- crossbar made horizontal — wrong -->
+            <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+            <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+            <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+            <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+          </svg>
+        </div>
+        <div class="dd-desc">Don't straighten the crossbar. The tilt is the brand.</div>
+      </div>
+      <div class="dd-card dd-dont">
+        <span class="dd-tag">DON'T</span>
+        <div class="dd-mark">
+          <svg viewBox="0 0 400 400" width="64" height="64">
+            <!-- in a non-palette color — wrong -->
+            <rect x="186" y="110" width="28" height="210" rx="3" fill="#7a3fc0"/>
+            <rect x="156" y="310" width="88" height="14" rx="3" fill="#7a3fc0"/>
+            <g transform="rotate(-7 200 110)">
+              <rect x="68" y="92" width="264" height="28" rx="4" fill="#7a3fc0"/>
+              <rect x="48" y="84" width="32" height="44" rx="4" fill="#7a3fc0"/>
+            </g>
+          </svg>
+        </div>
+        <div class="dd-desc">Don't recolor outside the brand palette.</div>
+      </div>
+
+      <!-- DON'T row -->
+      <div class="dd-card dd-dont">
+        <span class="dd-tag">DON'T</span>
+        <div class="dd-mark">
+          <svg viewBox="0 0 400 400" width="64" height="64" style="transform: skewX(-12deg);">
+            <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+            <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+            <g transform="rotate(-7 200 110)">
+              <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+              <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+            </g>
+          </svg>
+        </div>
+        <div class="dd-desc">Never skew, italicize, or 3D-perspective the mark.</div>
+      </div>
+      <div class="dd-card dd-dont">
+        <span class="dd-tag">DON'T</span>
+        <div class="dd-mark">
+          <svg viewBox="0 0 400 400" width="64" height="64">
+            <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+            <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+            <g transform="rotate(-7 200 110)" style="filter: drop-shadow(0 6px 0 #18222e);">
+              <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+              <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+            </g>
+          </svg>
+        </div>
+        <div class="dd-desc">No drop shadows, bevels, or "embossed" effects.</div>
+      </div>
+      <div class="dd-card dd-dont">
+        <span class="dd-tag">DON'T</span>
+        <div class="dd-mark" style="background: linear-gradient(45deg,#aabbcc,#ccbbaa,#bbccdd); padding: 6px; border-radius: 6px;">
+          <svg viewBox="0 0 400 400" width="56" height="56">
+            <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+            <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+            <g transform="rotate(-7 200 110)">
+              <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+              <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+            </g>
+          </svg>
+        </div>
+        <div class="dd-desc">Don't sit on busy or low-contrast backgrounds.</div>
+      </div>
+      <div class="dd-card dd-dont">
+        <span class="dd-tag">DON'T</span>
+        <div class="dd-mark">
+          <svg viewBox="0 0 400 400" width="64" height="64">
+            <!-- crowded with wordmark too close — wrong -->
+            <text x="20" y="100" font-family="Fraunces, serif" font-size="80" font-weight="600" fill="#18222e">A</text>
+            <rect x="186" y="110" width="28" height="210" rx="3" fill="#a67c3a"/>
+            <rect x="156" y="310" width="88" height="14" rx="3" fill="#a67c3a"/>
+            <g transform="rotate(-7 200 110)">
+              <rect x="68" y="92" width="264" height="28" rx="4" fill="#a67c3a"/>
+              <rect x="48" y="84" width="32" height="44" rx="4" fill="#a67c3a"/>
+            </g>
+            <text x="280" y="280" font-family="Fraunces, serif" font-size="80" font-weight="600" fill="#18222e">B</text>
+          </svg>
+        </div>
+        <div class="dd-desc">Don't crowd clearspace with other type or marks.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Asset kit -->
+  <div class="assets-strip">
+    <div class="assets-mark">
+      <svg viewBox="0 0 400 400" width="60" height="60">
+        <defs>
+          <linearGradient id="brassAssets" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#e9cf95"/><stop offset="1" stop-color="#a67c3a"/>
+          </linearGradient>
+        </defs>
+        <rect x="186" y="110" width="28" height="210" rx="3" fill="url(#brassAssets)"/>
+        <rect x="156" y="310" width="88" height="14" rx="3" fill="#caa05c"/>
+        <g transform="rotate(-7 200 110)">
+          <rect x="68" y="92" width="264" height="28" rx="4" fill="#caa05c"/>
+          <rect x="48" y="84" width="32" height="44" rx="4" fill="url(#brassAssets)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="assets-text">
+      <strong>Brand asset kit</strong>
+      <span>SVG / PNG / favicon, three tones (paper, ink, brass), wordmark, icon family — all in the handoff bundle.</span>
+    </div>
+    <div class="assets-list">
+      <span>logo.svg</span>
+      <span>logo-dark.svg</span>
+      <span>favicon.ico</span>
+      <span>icons/*.svg</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
