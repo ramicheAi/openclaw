@@ -38,7 +38,12 @@ DOCS = os.path.dirname(os.path.dirname(ART))       # docs
 CANON = os.path.join(DOCS, "UNDERTOW-CHARACTER-CANON.json")
 MANIFEST = os.path.join(HERE, "asset-manifest.json")
 
-MEDIA_EXT = {".png", ".jpg", ".jpeg", ".webp", ".mp4", ".mov"}
+MEDIA_EXT = {".png", ".jpg", ".jpeg", ".webp", ".mp4", ".mov", ".wav"}
+
+# Subdirectories of the asset root that are also scanned. Files in them are
+# registered under a path-qualified key ("signatures/motif-open-door.wav") so
+# a name can repeat between directories without colliding in the manifest.
+MEDIA_SUBDIRS = ("signatures",)
 
 
 def sha(path):
@@ -99,6 +104,11 @@ def verify(report=False):
     # --- 2/3/4. every media file registered, with provenance + sign-off
     on_disk = sorted(f for f in os.listdir(ART)
                      if os.path.splitext(f)[1].lower() in MEDIA_EXT)
+    for sub in MEDIA_SUBDIRS:
+        d = os.path.join(ART, sub)
+        if os.path.isdir(d):
+            on_disk += sorted(f"{sub}/{f}" for f in os.listdir(d)
+                              if os.path.splitext(f)[1].lower() in MEDIA_EXT)
     for fn in on_disk:
         rec = assets.get(fn)
         if rec is None:
@@ -108,6 +118,17 @@ def verify(report=False):
         kind = rec.get("kind", "unknown")
         chs = rec.get("characters", [])
         status = rec.get("status", "unknown")
+
+        # Drift applies to EVERY registered file, not only identity plates.
+        # A checksum that is recorded but never compared is decoration: the
+        # theme, the teaser and the signature kit were all carrying one that
+        # nothing checked. If a file is signed off, it must still be the file
+        # that was signed off.
+        if "sha256_16" not in rec:
+            failures.append(f"UNCHECKSUMMED   {fn} is registered with no recorded checksum")
+        elif rec["sha256_16"] != sha(os.path.join(ART, fn)):
+            failures.append(f"DRIFT DETECTED  {fn} no longer matches its recorded checksum — "
+                            "it was changed after sign-off")
 
         if kind == "character" or chs:
             is_plate = fn in identity_sources
