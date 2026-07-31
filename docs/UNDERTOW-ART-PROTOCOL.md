@@ -173,6 +173,29 @@ Practical consequences:
   (Mirei's narrow eyes, Bo's heavyset build, Nakaru's grey streak and throat scar),
   the more it costs when a frame simplifies.
 
+### Pushing hard on one fault will often break another
+
+Fixing Kemar's face produced two takes from the same prompt. Both got the face
+right — square jaw, heavy brow, unmistakably a teenage boy. One of them also
+**over-rotated his head** so that both goggles cleared the water, which is the
+exact head-position error that had just been fixed, and gave his hair wrap a
+flag-like graphic that canon rules out for this character.
+
+Emphasis is a budget. Loading a prompt heavily toward one attribute pulls
+attention off the others, and the ones that quietly regress are usually the ones
+fixed most recently — they are held by a single line each while the new problem
+is being shouted at in capitals.
+
+So when a prompt is rewritten to fix a specific fault:
+
+- **Re-check the previously fixed faults, not just the new one.** Keep a short
+  list of what this shot has already been corrected for and walk it every time.
+- **Generate at least two takes and compare them against each other**, not just
+  against canon. Two takes from one prompt can fail in completely different
+  places, and the comparison finds regressions faster than reading either alone.
+- **Prefer the take that is merely good everywhere** over the one that is
+  excellent at the thing you were fixing and wrong somewhere you had already won.
+
 ### Swimming shots have a second checklist, and it is not optional
 
 Identity is not the only thing that can be off-model. On a show whose entire
