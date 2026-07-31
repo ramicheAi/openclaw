@@ -680,6 +680,48 @@
    "verified_by": "agent",
    "verified_at": "2026-07-31",
    "provenance": "element_id"
+  },
+  "shot-kai-sinking.mp4": {
+   "sha256_16": "00d8cfa68269d242",
+   "kind": "video",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "source_job_id": "2c01f4bc-8927-4341-952f-d4e5a503a437",
+   "generated_with": "seedance_2_0 with Kai-v2, 8s, 1920x1080, silent",
+   "note": "16:9 version of the sinking shot for the multi-shot cut. Holds the full depth for all 8s - he stays small on the tiled floor with the surface and its indifferent silhouettes far above. Eyes verified at full resolution: open with the blue Undertow light, canon-correct because submerged.",
+   "verification": "7 frames sampled plus a full-resolution face crop to confirm the eye state",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "teaser-undertow.mp4": {
+   "sha256_16": "38de394391182ae3",
+   "kind": "video",
+   "characters": [
+    "kai",
+    "ren",
+    "kemar",
+    "luna",
+    "nakaru"
+   ],
+   "element_ids": [
+    "38b45365-9f70-4b2e-a79e-b7949fea9007",
+    "0e910d33-6a73-4735-b590-a4384330330b",
+    "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+    "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+    "ffe0c6d9-7199-4355-b167-00e7b21afcf9"
+   ],
+   "status": "APPROVED",
+   "generated_with": "assembled by build-teaser.py from five element-locked shots plus the drawn title card, scored with the Splice bed",
+   "note": "33.7s multi-shot teaser. Cut order is story logic: the boy, the rival, the joy, the mystery, the threat, the name. The palette carries the arc - chlorine cyan to cold cyan to gold to violet to storm grey, resolving into the deep blue of the title.",
+   "verification": "12 frames sampled across the full cut and inspected. Audio: -19.4 LUFS, -2.7 dBFS true peak, speech ratio 0.17, spectrogram read. Every shot individually canon-checked before assembly.",
+   "audio": "Splice field-recording bed, looped and faded across the cut. No generated audio.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
   }
  },
  "provenance_types": {
