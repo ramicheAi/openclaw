@@ -631,7 +631,8 @@
       "verification": "6 frames sampled and inspected against canon",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
-      "provenance": "element_id"
+      "provenance": "element_id",
+      "defect": "BIOMECHANICS DEFECT, creator-caught 2026-07-31. The swimmer performs a freestyle arm recovery UNDERWATER, which never happens in any stroke - over-the-water recovery exists only because air is ~800x less dense than water - and the head is raised looking forward, which drops the hips and is how a beginner is drawn. Neither was caught by the art gate, which checked identity only. See UNDERTOW-SWIM-CODEX.md section 6 'Drawing it right' and the swimming checklist now in UNDERTOW-ART-PROTOCOL.md. Additionally the silver sleeved full-body suit is not legal surface racing kit - men's suits are textile jammers, waist to above the knee, and sleeved suits have been banned since 2010. House second-skins are full coverage but belong in the deep, not a lane-lined competition pool."
     },
     "shot-kemar-joy.mp4": {
       "sha256_16": "7943bb0bfe5f00bc",
@@ -647,7 +648,8 @@
       "verification": "6 frames sampled and inspected against canon",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
-      "provenance": "element_id"
+      "provenance": "element_id",
+      "defect": "BIOMECHANICS DEFECT, creator-caught 2026-07-31. The swimmer performs a freestyle arm recovery UNDERWATER, which never happens in any stroke - over-the-water recovery exists only because air is ~800x less dense than water - and the head is raised looking forward, which drops the hips and is how a beginner is drawn. Neither was caught by the art gate, which checked identity only. See UNDERTOW-SWIM-CODEX.md section 6 'Drawing it right' and the swimming checklist now in UNDERTOW-ART-PROTOCOL.md."
     },
     "shot-luna-descent.mp4": {
       "sha256_16": "8b0b081c1f5eaeb7",
