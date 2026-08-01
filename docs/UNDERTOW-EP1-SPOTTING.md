@@ -12,7 +12,7 @@ Source documents, in order of authority:
 [Season 1 Beatsheet](UNDERTOW-S1-BEATSHEET.md) ·
 [Fathom Card](UNDERTOW-FATHOM-CARD.md)
 
-**Totals:** 24 cues. 17:49 of scored music (16:19 underscore plus 1:30 end
+**Totals:** 24 cues. 17:23 of scored music (16:19 underscore plus 1:04 end
 title), plus one logged silence event of 0:25. Delivery per the Score Bible:
 24-bit / 48 kHz, minus 16.0 LUFS integrated, minus 1.0 dBTP ceiling.
 
@@ -53,7 +53,7 @@ those two points is the Dive Reflex being broken and put back together.
 | **1M20** | Forgive Me Daigo | Gouda's hand hovers over the second man's face | One bar past the cut to his face | 0:47 | A man lying to himself out loud | ANSWER register only, under the name Daigo |
 | **1M21** | So Did Jonah | Grandmother takes the third place setting away | Grace said over fish | 1:05 | The first truly warm frame of the episode | Dive Reflex at rest. CALL in the grandmother's register |
 | **1M22** | Down | The camera leaves the window | **HARD** at the roots on the sealed thing, running into credits | 1:35 | The answer the title card asked for | CALL. Full Fathom descent. ANSWER **on time**, at Hadal |
-| **1M23** | End Title | Credits, no gap from 1M22 | Card out | 1:30 | Keep the fall going through the credits | Theme, concert statement, treated down |
+| **1M23** | End Title | Credits, no gap from 1M22 | Card out | 1:04 | Keep the fall going through the credits | Theme, concert statement, treated down |
 | **1M24** | Awake | Listening station, the resonance drum | **HARD** cut mid-tail on SMASH TO BLACK | 0:26 | Someone else has been listening for fifteen years | ANSWER register only, same pitch as 1M7 / 1M11 / 1M20 |
 
 ---
@@ -332,7 +332,10 @@ in the order the script lists them:
 
 That treatment is Ren's, permanently, and it is already load bearing: Episode
 4's cold open reuses it verbatim on House Kurose. Establish it here so the
-Episode 4 quote is a callback rather than an introduction.
+Episode 4 quote is a callback rather than an introduction. The bare fifth is
+now the sixth grammatical position in the [Score Bible](UNDERTOW-SCORE.md)'s
+grammar table, so a composer working from the bible alone can find it under
+that name.
 
 Important accounting note: a bare fifth is a **refused** answer, not an absent
 one. Episode 1 does not spend the no-answer card. Nothing in this episode does.
@@ -396,7 +399,9 @@ order; the story is not finished.
 ### 1M23 End Title
 
 Run 1M22 into the credits with no gap and no re-entry, so the descent and the
-end title are one continuous fall.
+end title are one continuous fall. The cue runs the full length of the
+existing 64 second concert statement and needs no edit; do not trim or extend
+it to hit a different number.
 
 ---
 
@@ -424,9 +429,9 @@ this episode.
 
 ## What Episode 1 Deliberately Does Not Do
 
-The pilot uses two of the five motifs and three of the five grammatical
-positions. Everything below is withheld on purpose, with the intended payoff
-noted so the series has somewhere to go.
+The pilot uses one of five motifs and two of five grammatical positions.
+Everything below is withheld on purpose, with the intended payoff noted so the
+series has somewhere to go.
 
 ### Motifs held back
 

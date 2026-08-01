@@ -72,7 +72,10 @@ USER.md
 # local tooling
 .serena/
 graphify-out/
-.claude/
+.claude/*
+# ...but project skills are shared work product, not local config: they are
+# how a workflow outlives the session that invented it.
+!.claude/skills/
 
 # Python bytecode from the UNDERTOW QC tools
 __pycache__/

@@ -1,6 +1,6 @@
 {
   "_doc": "UNDERTOW character canon — machine-readable. This file is the single source of truth for character identity. Any art pipeline, human or automated, MUST read this before generating a character. Human-readable rationale lives in UNDERTOW-VISDEV-BRIEFS.md and UNDERTOW-ART-PROTOCOL.md.",
-  "canon_version": "2.7",
+  "canon_version": "2.8",
   "generation_platform": "higgsfield",
   "universal_rules": {
     "no_breathing_apparatus": {
@@ -352,14 +352,19 @@
   "_height_chart_note": "Heights added 2026-07-31. They were NOT in the source bible — a cast lineup cannot be drawn without relative height, so they had to be decided, and they are recorded here so every future artist works from the same numbers rather than re-guessing. Each one is derived from the build description already in canon (see identity.height_rationale). They are a proposal open to revision by the creator; if any change, rerun docs/assets/undertow/build-lineup.py to regenerate the chart.",
   "logged_canon_decisions": [
     {
-      "date": "2026-07-31",
-      "decision": "Kai's grandmother is his MATERNAL grandmother — his late mother's mother.",
-      "why": "The bible, EP1 and Manga Ch1 all leave her lineage unstated, but she carries the show's scripture register (Psalm 42:7 'Deep calls to deep', Jonah), and she sets a third place at a table for a man who is gone. Reading her as the maternal line makes that register coherent and lets Kai's heritage live in the house he actually grew up in — food, music, cadence, a shell-cord bracelet matching his late mother's.",
-      "constraint": "This changes nothing about the shown-never-stated rule. No character names a nationality. It shows in a matching bracelet, what is cooked, what is on the radio, and how she speaks.",
-      "status": "PROVISIONAL — locked for consistency across EP2 and Manga Ch2, flagged for creator review. If the grandmother should instead be Daigo's mother, the kitchen beats in both need redoing.",
+      "date": "2026-08-01",
+      "decision": "Kai's grandmother is his PATERNAL grandmother — Daigo's mother. Reversed from a provisional maternal reading; see `resolved_by` below.",
+      "why": "The provisional call was maternal, on the reasoning that it let Kai's heritage live in the house he grew up in. The pages that were then written say the opposite, and they say it clearly. EP2's kitchen describes saltfish and dumpling as \"an old recipe she never grew up with and learned late, for someone else's sake, and kept making after that someone was gone\", and puts a pepper sauce on the table \"hand-labeled in handwriting that isn't Grandmother's\". Neither line is survivable under a maternal reading: a Jamaican mother's mother grew up with that food and would have labelled that jar. Under the paternal reading both lines land — a Japanese grandmother who learned her daughter-in-law's cooking out of love, kept the jar in her handwriting, and goes on making the food after she died. That is a whole character in one sentence, and it is better than what the canon entry was protecting.",
+      "constraint": "Unchanged: the shown-never-stated rule holds. No character names a nationality. It shows in the matching shell bracelet, what is cooked, whose handwriting is on the jar, and what is on the radio. Note the bracelet still works — she wears her late daughter-in-law's, and Kai wears his mother's.",
+      "status": "RESOLVED BY THE PAGE, open to creator override. No rewrite required: EP2 and Manga Ch2 already read correctly under this reading and were the evidence for it. The maternal reading is the one that would now cost two scenes, which is the other reason this direction was chosen — it is the cheaper of the two to reverse.",
       "affects": [
         "docs/UNDERTOW-EP2-SCRIPT.md",
-        "docs/UNDERTOW-MANGA-CH2.md"
+        "docs/UNDERTOW-MANGA-CH2.md",
+        "docs/UNDERTOW-LORE-CODEX.md"
+      ],
+      "resolved_by": [
+        "docs/UNDERTOW-EP2-SCRIPT.md — the saltfish-and-dumpling beat and the pepper-sauce jar",
+        "docs/UNDERTOW-MANGA-CH2.md — the shell bracelet inset"
       ]
     }
   ]

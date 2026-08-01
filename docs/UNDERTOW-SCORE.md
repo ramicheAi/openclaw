@@ -57,6 +57,7 @@ things dialogue cannot, and the show never has to explain any of it:
 | The answer arrives **early** | The deep is reaching for someone. Something is coming. |
 | The answer arrives in the **wrong key** | The Second Tide. Nakaru's presence, spoken or not. |
 | The answer arrives at the **call's own tempo** | Resolution. Reserved. Used once in the teaser, on the title. |
+| The answer arrives as a **bare fifth** | Ren. The gift came back correct in shape and hollow at the centre, and he has never forgiven it. |
 | **No answer comes** | The worst thing in the show. Spend this almost never. |
 
 That last row is the one to protect. An unanswered call should happen a
