@@ -484,6 +484,43 @@ def _write_probe(path, st):
 
 # ── delivery ────────────────────────────────────────────────────────────────
 
+def _read_riff(path):
+    """Minimal RIFF walker for the wav variants the stdlib will not open.
+
+    Only what is needed: find `fmt ` for the layout, find `data` for the bytes,
+    and skip everything else. Extensible files carry the real sample format in
+    the sub-format GUID, but its first two bytes are the ordinary format tag, so
+    the same integer codes apply and nothing further needs decoding.
+    """
+    import struct
+    with open(path, "rb") as fh:
+        head = fh.read(12)
+        if head[:4] != b"RIFF" or head[8:12] != b"WAVE":
+            raise ValueError(f"{path}: not a RIFF/WAVE file")
+        ch = width = rate = None
+        data = b""
+        while True:
+            hdr = fh.read(8)
+            if len(hdr) < 8:
+                break
+            cid, size = struct.unpack("<4sI", hdr)
+            body = fh.read(size)
+            if cid == b"fmt ":
+                tag, ch, rate, _bps, _align, bits = struct.unpack("<HHIIHH", body[:16])
+                if tag == 0xFFFE and len(body) >= 40:
+                    tag = struct.unpack("<H", body[24:26])[0]
+                if tag not in (1, 0xFFFE):        # 1 = PCM
+                    raise ValueError(f"{path}: only PCM is supported (tag {tag})")
+                width = bits // 8
+            elif cid == b"data":
+                data = body
+            if size % 2:                          # RIFF chunks are word-aligned
+                fh.read(1)
+    if ch is None or not data:
+        raise ValueError(f"{path}: no fmt/data chunk found")
+    return ch, width, rate, data
+
+
 def read_wav(path, sr=SR):
     """Read a PCM wav to float stereo at the project rate.
 
@@ -495,10 +532,19 @@ def read_wav(path, sr=SR):
     and numpy has no 24-bit integer type, so the three bytes are reassembled
     little-endian and sign-extended off the top byte.
     """
-    with wave.open(path, "rb") as w:
-        n, ch, width, rate = (w.getnframes(), w.getnchannels(),
-                              w.getsampwidth(), w.getframerate())
-        raw = w.readframes(n)
+    try:
+        with wave.open(path, "rb") as w:
+            n, ch, width, rate = (w.getnframes(), w.getnchannels(),
+                                  w.getsampwidth(), w.getframerate())
+            raw = w.readframes(n)
+    except wave.Error:
+        # The stdlib reader rejects WAVE_FORMAT_EXTENSIBLE (format tag 0xFFFE),
+        # which is what ffmpeg writes by default for anything above 16-bit or
+        # above two channels. That is most of what arrives here: every licensed
+        # sample conformed with ffmpeg, and every voice take. Refusing to read
+        # the most common wav variant in the pipeline is not a defensible
+        # limitation, so the chunks are walked directly instead.
+        ch, width, rate, raw = _read_riff(path)
 
     if width == 2:
         x = np.frombuffer(raw, dtype="<i2").astype(np.float64) / 32768.0

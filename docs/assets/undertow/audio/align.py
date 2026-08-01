@@ -38,6 +38,19 @@ import math
 import numpy as np
 from scipy.signal import butter, sosfiltfilt
 
+# Cost per frame of drift away from where the generic duration prior expected a
+# phone to land. This is a TIEBREAK, and it was originally set to 0.35, which
+# made it the dominant term instead.
+#
+# Measured on the first real recording, against ground truth taken from the
+# recording's own silence: at 0.35 the aligner placed the line's mid-sentence
+# pause 25 frames away from where it audibly is. At 0.03 the error is one frame.
+# 0.00 measured identically, so this is not tuned to that recording — a small
+# non-zero value is kept only so that material where the acoustic evidence is
+# genuinely ambiguous (a line under loud music, say) still has something to fall
+# back on rather than choosing arbitrarily.
+DRIFT_COST = 0.03
+
 
 def speech_envelope(audio, sr, fps=24, band=(300.0, 3400.0)):
     """Per-video-frame loudness of the speech band, normalised to 0..1.
@@ -62,8 +75,25 @@ def speech_envelope(audio, sr, fps=24, band=(300.0, 3400.0)):
         seg = x[a:max(b, a + 1)]
         env[i] = math.sqrt(float((seg ** 2).mean())) if len(seg) else 0.0
 
-    peak = env.max()
-    return env / peak if peak > 1e-12 else env
+    # MEASURED IN dB, NOT LINEAR AMPLITUDE, and referenced to a high percentile
+    # rather than to the single loudest frame.
+    #
+    # The first version divided by the peak. On a reading with any real dynamic
+    # range that is a trap: the first phrase of the test line sat far below the
+    # second, and against a peak-normalised scale it came back near zero — the
+    # aligner read a whole spoken phrase as silence and placed the mouth
+    # accordingly.
+    #
+    # Speech and silence are separated by tens of dB and barely at all in linear
+    # amplitude, which is why every meter that has to make this distinction works
+    # in dB. The 95th percentile rather than the maximum keeps one stray transient
+    # from setting the reference for the entire line.
+    ref = float(np.percentile(env, 95))
+    if ref <= 1e-12:
+        return np.zeros(n)
+    db = 20 * np.log10(np.maximum(env, 1e-12) / ref)
+    FLOOR = -45.0                      # below this is silence for our purposes
+    return np.clip((db - FLOOR) / (-FLOOR), 0.0, 1.0)
 
 
 def sync_offset(mouth_openness, envelope, max_frames=12):
@@ -145,6 +175,26 @@ def refine(pairs, audio, sr, fps=24, strength=0.7):
                 want.append(0.90)
     want = np.asarray(want)
 
+    # MATCH THE MODEL TO THE RECORDING'S OWN DYNAMICS, not to absolute numbers.
+    #
+    # The figures above are a ranking — silence quietest, vowels loudest — and
+    # they were being compared directly against a peak-normalised envelope. Real
+    # speech does not oblige: its loudest vowel hits 1.0 by construction but its
+    # average vowel sits far lower, so nothing ever matched the 0.90 vowel target
+    # and the solver assigned almost every frame to the mid-valued consonant
+    # class instead. On the first real recording that produced a chart of one
+    # long neutral mouth with the vowels squeezed out — the exact opposite of
+    # what a chart is for.
+    #
+    # Rescaling the targets onto the envelope's measured mean and spread keeps
+    # the ranking, which is the part that is actually known, and drops the
+    # absolute levels, which were never more than a guess about mic gain.
+    e_mean, e_std = float(env.mean()), float(env.std())
+    w_mean, w_std = float(want.mean()), float(want.std())
+    if w_std > 1e-9 and e_std > 1e-9:
+        want = (want - w_mean) / w_std * e_std + e_mean
+    want = np.clip(want, 0.0, 1.0)
+
     weights = np.asarray([w for _, w in pairs], dtype=np.float64)
     prior_edges = np.concatenate([[0.0], np.cumsum(weights) / weights.sum()]) * n_frames
 
@@ -160,8 +210,14 @@ def refine(pairs, audio, sr, fps=24, strength=0.7):
         diff = np.abs(env - want[i])
         pre = np.concatenate([[0.0], np.cumsum(diff)])
         min_len = 1
-        # a phone may not swallow more than a quarter of the line
-        max_len = max(min_len, int(n_frames * 0.25))
+        # A phone may not swallow more than 0.5s — about 12 frames at 24fps.
+        # This was a quarter of the whole line, which on a four-second reading
+        # let one consonant claim nearly a second and hold the mouth still
+        # through half the sentence. Nothing in speech except a held vowel or a
+        # pause lasts that long, and silence is exempted below because a pause
+        # genuinely can.
+        cap = 0.5 if pairs[i][0] != "sil" else 2.0
+        max_len = max(min_len, min(n_frames, int(cap * fps)))
         for t in range(i, n_frames):
             if cost[i, t] >= INF:
                 continue
@@ -169,7 +225,7 @@ def refine(pairs, audio, sr, fps=24, strength=0.7):
             for u in range(t + min_len, hi + 1):
                 acoustic = pre[u] - pre[t]
                 drift = abs(u - prior_edges[i + 1])
-                c = cost[i, t] + acoustic + strength * drift * 0.35
+                c = cost[i, t] + acoustic + strength * drift * DRIFT_COST
                 if c < cost[i + 1, u]:
                     cost[i + 1, u] = c
                     back[i + 1, u] = t

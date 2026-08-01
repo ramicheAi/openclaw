@@ -43,7 +43,7 @@ MEDIA_EXT = {".png", ".jpg", ".jpeg", ".webp", ".mp4", ".mov", ".wav"}
 # Subdirectories of the asset root that are also scanned. Files in them are
 # registered under a path-qualified key ("signatures/motif-open-door.wav") so
 # a name can repeat between directories without colliding in the manifest.
-MEDIA_SUBDIRS = ("signatures",)
+MEDIA_SUBDIRS = ("signatures", "textures", "lipsync-test")
 
 
 def sha(path):

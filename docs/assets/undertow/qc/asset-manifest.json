@@ -1041,6 +1041,66 @@
    "status": "APPROVED",
    "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'sunlit' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
    "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "lipsync-test/kai-neutral-plate.png": {
+   "sha256_16": "f0eff3a51ea1218b",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment; see docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Kai in a held medium close-up, mouth CLOSED and neutral, on the deck. Built as the start frame for the Route B lip-sync test: a neutral mouth is the only honest starting point for measuring what a generator does to one.",
+   "verification": "Inspected at full resolution before use. Mouth is closed and neutral, face large and centred, mouth unobstructed and readable against the skin. Canon-correct for dry land: dark brown eyes, NOT the submerged Undertow blue, and blue-black coiled hair. Chosen as the start frame precisely because a neutral mouth is the only honest baseline for measuring what a generator does to one.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B lip-sync experiment, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-vo-tierB.wav": {
+   "sha256_16": "3fa962dae2b63239",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment; see docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "TIER B PREVIZ VOICE - SYNTHETIC, NEVER SHIPS. Exists solely to derive timing so picture can be built before casting. Per the Sound Bible, swapping in a real actor later needs no re-animation because the pipeline is timing-driven.",
+   "verification": "Not a picture; verified by measurement. 3.73s, and the aligner's placement of its mid-line pause was checked against ground truth taken from the recording's own silence - agreement to one frame. Voice casting is NOT verified and is not meant to be: no preset is a fifteen-year-old boy, and this exists for timing only.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B lip-sync experiment, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-control-no-audio.mp4": {
+   "sha256_16": "92ac8b0e484c1379",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment; see docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "The control that makes the above mean something: identical prompt and start frame, audio reference withheld. -12 frames and NEGATIVE correlation, which is how we know the model is listening rather than guessing.",
+   "verification": "The control, and its only job is to fail. Verified that it is the same start frame and the same prompt with the audio reference withheld, and that it scores -12 frames with negative correlation against the recording - which is what licenses the claim that the other take's +0 frames comes from the audio and not from luck.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B lip-sync experiment, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-with-audio.mp4": {
+   "sha256_16": "dc4844fcde7e8c0d",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment; see docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Route B under test: wan2_7 with the recording supplied as an audio reference. Measured +0 frames against that recording (r=+0.61) and 0 of 5 required lip closures achieved. Envelope sync, not articulation.",
+   "verification": "Inspected frame by frame across both windows where the chart requires a lip closure, at 24fps, cropped to the mouth. The lips do not meet in any frame of either window. That visual reading agrees with the measurement (minimum aperture 0.40 across the whole clip, 0 of 5 closures) and is why this is filed as evidence of a limit rather than as a usable shot.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B lip-sync experiment, docs/UNDERTOW-SOUND-BIBLE.md section 5"
   }
  },
  "provenance_types": {

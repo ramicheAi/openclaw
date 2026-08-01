@@ -164,9 +164,59 @@ monologue unspoken.
 > boarding decision that has not been made yet, and it is far cheaper to make it
 > now than to solve it 26 times in generation.
 
-**Route B — dedicated sync pass.** Generate the shot mouth-closed and neutral,
-then drive the mouth from the audio. Verify what the available tooling actually
-does on one line before claiming it works for the show.
+**Route B — dedicated sync pass. Tested, and the answer is a qualified no.**
+Generate the shot mouth-closed and neutral, then drive the mouth from the audio.
+
+This has now been run end to end on one line — Kai's *"You took him. You took my
+dad."* — and measured rather than eyeballed. Evidence is in
+`docs/assets/undertow/lipsync-test/`, and the measurement reproduces with
+`qc/measure_lipsync.py`.
+
+First, the tool inventory, because the obvious candidate is the wrong one:
+**`dubbing` is a translation tool**, not a sync tool. It needs speech already in
+the picture and replaces the language. What actually accepts an arbitrary audio
+track and animates to it is **`wan2_7`**, which takes a start image plus an
+`audio_references` input.
+
+| measurement | with audio reference | control: same prompt, no audio |
+|---|---|---|
+| articulation | 0.206 | 0.219 |
+| sync offset vs the recording | **+0 frames** (r = +0.61) | −12 frames (r = −0.24) |
+| lip closures achieved | **0 of 5** | 0 of 5 |
+| minimum aperture across the clip | 0.40 | 0.36 |
+| aperture during the line's 1.6 s pause | 0.40–0.50 | 0.52–0.77 |
+
+Read those two columns together, because neither is meaningful alone.
+
+**The audio reference genuinely works.** Against its own control the difference
+is unambiguous: +0 frames and r = +0.61 with the audio, −12 frames and *negative*
+correlation without it. It is not guessing; it is listening.
+
+**And it never closes the lips.** Minimum aperture over the whole clip is 0.40 —
+the mouth has no closed position at all, and it does not even come to rest during
+the 1.6 second pause in the middle of the line. Frame-by-frame inspection across
+both closure windows confirms the measurement: the lips never meet.
+
+So what `wan2_7` produces is **envelope sync, not articulation**. It opens and
+closes the jaw in time with how loud the audio is, which is genuinely the hard
+half of the problem and is worth having. It does not form phonemes, and *closures
+are the one thing an audience reliably catches.*
+
+What that means in practice:
+
+- **Route B is usable for anything where the mouth is small in frame** — mid
+  shots, wides, over-shoulders, anything past a medium. Correct timing with
+  approximate shapes is exactly what reads fine at that distance.
+- **Route B is not usable for a close-up on a line containing m, b or p**, which
+  is most dramatic close-ups. That is a Route A shot, and this is the measurement
+  that says so rather than a preference.
+- **Retrying does not help.** This is a property of what the generator does, not
+  a bad take. A second attempt costs credits and returns the same class of
+  result.
+
+`qc/measure_lipsync.py` reports these as separate verdicts for exactly this
+reason — "out of sync" and "in time but never closes" fail for opposite causes
+and have different fixes.
 
 **Route C — the fallback that always works.** Re-time the *voice* to the mouth
 you got: measure the picture's open/closed envelope, then shift or reword the VO
