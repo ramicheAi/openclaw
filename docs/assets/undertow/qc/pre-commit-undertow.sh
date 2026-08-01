@@ -58,7 +58,7 @@ if git diff --cached --name-only \
      | grep -qE '^docs/assets/undertow/(.*\.wav$|build-score\.py|build-signatures\.py|mastering\.py)'; then
   echo ""
   echo "  UNDERTOW score delivery gate…"
-  for v in verify_mastering verify_signatures verify_translation; do
+  for v in verify_mastering verify_signatures verify_translation verify_acoustics; do
     if ! python3 "$REPO_ROOT/docs/assets/undertow/qc/$v.py"; then
       cat <<MSG
 

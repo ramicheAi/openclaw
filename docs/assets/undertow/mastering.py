@@ -204,6 +204,141 @@ def stereo_reverb(x, seconds=3.6, mix=0.34, pre=0.02, width=1.0, seed=3, sr=SR):
     return (1 - mix) * dry + mix * wet
 
 
+# ── the house acoustic: one water, every sound ──────────────────────────────
+#
+# The Fathom ladder started life as five stingers. That was too small a job for
+# it. The ladder is really a description of an ACOUSTIC SPACE — how bright it
+# is, how long it rings, how wide it is, how much of it you feel rather than
+# hear — and once it is written as a space, any sound can be put in it.
+#
+# That is what makes a licensed field recording sound like it belongs to this
+# show. A crowd sample from a library and a stinger written from scratch are
+# not related by timbre, tuning or authorship. They are related by ROOM. Run
+# both through fathom_space("twilight") and they were recorded in the same
+# water, because they were.
+#
+# The five underwater rows are numerically identical to the FATHOM table in
+# build-signatures.py, deliberately: the stingers must sit in exactly the same
+# space as everything else at their rank, or the ladder stops being a ladder.
+# "air" is added on top as the dry-land reference — no reverb tail worth the
+# name, full bandwidth — so a cut from poolside to underwater is a real
+# acoustic transition and not a filter sweep.
+#
+#   tier        lowpass   reverb_s   width   predelay   sub_lift_db   wet
+FATHOM_SPACE = {
+    "air":      (20000.0,     0.45,   0.25,     0.008,          0.0,  0.10),
+    "sunlit":   (12000.0,     1.20,   0.35,     0.018,          0.0,  0.22),
+    "twilight": ( 7000.0,     2.00,   0.55,     0.024,          1.5,  0.30),
+    "midnight": ( 4000.0,     3.20,   0.75,     0.030,          3.0,  0.38),
+    "abyssal":  ( 2000.0,     4.60,   0.90,     0.038,          4.5,  0.46),
+    "hadal":    (  800.0,     7.00,   1.00,     0.048,          6.0,  0.55),
+}
+FATHOM_ORDER = ("air", "sunlit", "twilight", "midnight", "abyssal", "hadal")
+
+
+def fathom_space(x, tier, wet=None, seed=3, sr=SR):
+    """Place any sound at a Fathom depth. This is the show's house acoustic.
+
+    Three cues move together, and they move together because they do in real
+    water: brightness falls, the tail lengthens, and the image widens. A
+    listener who could not name one of them still hears the descent, which is
+    the whole design goal — the ladder has to teach itself.
+
+    `wet` overrides the tier's reverb amount for cues that need to stay dry and
+    close at depth (a whisper right at the ear in the abyssal dark is a real
+    dramatic beat, and it should not be drowned by its own room).
+    """
+    if tier not in FATHOM_SPACE:
+        raise ValueError(f"unknown fathom tier {tier!r}; expected one of {FATHOM_ORDER}")
+    cut, secs, width, pre, sub_db, default_wet = FATHOM_SPACE[tier]
+
+    st = np.asarray(x, dtype=np.float64)
+    if st.ndim == 1:
+        st = np.stack([st, st], axis=1)
+
+    # Water eats treble. This is the single most legible depth cue there is.
+    if cut < sr / 2 - 1000:
+        st = sosfiltfilt(butter(3, cut, "lp", fs=sr, output="sos"), st, axis=0)
+
+    # And it hands the energy downward: the deep is felt before it is heard.
+    if sub_db:
+        st = shelf(st, 160.0, sub_db, "low")
+
+    return stereo_reverb(st, seconds=secs, mix=default_wet if wet is None else wet,
+                         pre=pre, width=width, seed=seed, sr=sr)
+
+
+def calm_shape(x, calm, sr=SR):
+    """Render the show's central rule as a mix control.
+
+    Canon: panic is the villain, calm is the stat. That is not only a theme,
+    it is a description of how the two states SOUND, so it can be automated
+    instead of hand-mixed cue by cue.
+
+        calm = 0.0   panic — bright, hard, narrow, pressed against the ear
+        calm = 1.0   stillness — dark, soft, wide, open, far away
+
+    A panicking swimmer's world is not quieter, it is closer and sharper: the
+    high end comes up and the image collapses toward the centre, which is what
+    tunnel vision sounds like. Calm opens both back out.
+    """
+    calm = float(np.clip(calm, 0.0, 1.0))
+    st = np.asarray(x, dtype=np.float64)
+    if st.ndim == 1:
+        st = np.stack([st, st], axis=1)
+
+    # brightness: +4 dB of air at full panic, -3 dB at full calm
+    st = shelf(st, 3500.0, 4.0 - 7.0 * calm, "high")
+
+    # width: collapse toward mono as panic rises
+    mid = st.mean(1)
+    side = (st[:, 0] - st[:, 1]) * 0.5
+    side *= 0.25 + 0.75 * calm
+    return np.stack([mid + side, mid - side], axis=1)
+
+
+def submerged_voice(x, sr=SR):
+    """How a voice sounds to a submerged listener — and it is not "muffled".
+
+    The convention in film is a heavy lowpass plus reverb. That models water as
+    a BARRIER between a source and an air-filled ear canal, which is what you
+    hear standing beside a pool with your head dry. It is the wrong model for a
+    head that is actually under, and this show lives under.
+
+    Submerged, the ear canal floods and the impedance mismatch that the middle
+    ear exists to solve mostly disappears. Sound reaches the cochlea largely by
+    conduction through the skull instead. Two consequences drive this function:
+
+      * DIRECTION DIES. Sound moves through water roughly four times faster
+        than through air, so the interaural time difference between the ears
+        shrinks by about the same factor and falls below what the auditory
+        system can resolve. A submerged listener genuinely cannot tell where a
+        sound came from. So this collapses to mono — not as a stylistic width
+        choice but because a stereo image would be a lie.
+
+      * IT IS THE BOTTOM THAT GOES, NOT THE TOP. Bone conduction is a poor
+        path for low frequencies, so the loss underwater is worst down low.
+        The instinct to reach for a lowpass is backwards; what actually leaves
+        is weight and proximity, and what remains sits inside the skull.
+
+    The narrow lift is the skull's own resonance — the reason an underwater
+    voice reads as coming from inside your head rather than from the room.
+    """
+    st = np.asarray(x, dtype=np.float64)
+    mono = st.mean(1) if st.ndim > 1 else st
+
+    # lose the bottom, which is the part bone conduction does not carry
+    v = sosfiltfilt(butter(2, 300.0, "hp", fs=sr, output="sos"), mono, axis=0)
+    # gentle skull resonance: a band around 1.2k lifted, not a peaky filter
+    band = sosfiltfilt(butter(2, [700.0, 2200.0], "bp", fs=sr, output="sos"), v, axis=0)
+    v = v + band * 0.55
+    # only the very top goes, and only a little — this is water, not a wall
+    v = sosfiltfilt(butter(2, 9000.0, "lp", fs=sr, output="sos"), v, axis=0)
+
+    # no direction: both ears get the identical signal, because they do
+    return np.stack([v, v], axis=1)
+
+
 def pan(x, position=0.0):
     """Constant-power pan of a mono source. -1 hard left, +1 hard right.
 
