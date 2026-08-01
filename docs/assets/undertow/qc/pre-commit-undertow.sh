@@ -55,10 +55,10 @@ fi
 # Only run when the score itself is in play; they take a few seconds each and
 # there is no reason to pay that on an art-only commit.
 if git diff --cached --name-only \
-     | grep -qE '^docs/assets/undertow/(.*\.wav$|build-score\.py|build-signatures\.py|mastering\.py|audio/)'; then
+     | grep -qE '^docs/assets/undertow/(.*\.wav$|build-score\.py|build-signatures\.py|mastering\.py|audio/|textures/|build-textures\.py)'; then
   echo ""
   echo "  UNDERTOW score delivery gate…"
-  for v in verify_mastering verify_signatures verify_translation verify_acoustics verify_lipsync; do
+  for v in verify_mastering verify_signatures verify_translation verify_acoustics verify_lipsync verify_texture; do
     if ! python3 "$REPO_ROOT/docs/assets/undertow/qc/$v.py"; then
       cat <<MSG
 

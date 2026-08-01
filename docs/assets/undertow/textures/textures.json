@@ -1,0 +1,54 @@
+{
+ "_comment": "Texture tier. Licensed sources through mastering.fathom_space() so library material and the show's own signature kit share one room. Licences are recorded in SAMPLES-MANIFEST.md.",
+ "textures": [
+  {
+   "name": "pool-surface",
+   "source": "underwater.wav",
+   "tier": "sunlit",
+   "seconds": 8.0,
+   "lufs": -20.4
+  },
+  {
+   "name": "pool-submerged",
+   "source": "underwater.wav",
+   "tier": "twilight",
+   "seconds": 8.0,
+   "lufs": -20.3
+  },
+  {
+   "name": "pool-deep",
+   "source": "underwater.wav",
+   "tier": "abyssal",
+   "seconds": 8.0,
+   "lufs": -20.2
+  },
+  {
+   "name": "crowd-poolside",
+   "source": "roomtone.wav",
+   "tier": "sunlit",
+   "seconds": 20.0,
+   "lufs": -20.0
+  },
+  {
+   "name": "crowd-submerged",
+   "source": "roomtone.wav",
+   "tier": "midnight",
+   "seconds": 20.0,
+   "lufs": -20.0
+  },
+  {
+   "name": "class-laugh",
+   "source": "classroom.wav",
+   "tier": "air",
+   "seconds": 6.0,
+   "lufs": -20.0
+  },
+  {
+   "name": "class-laugh-memory",
+   "source": "classroom.wav",
+   "tier": "abyssal",
+   "seconds": 6.0,
+   "lufs": -20.0
+  }
+ ]
+}

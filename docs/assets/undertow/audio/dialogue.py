@@ -156,7 +156,13 @@ def scene_headings(markdown):
     out = []
     for i, raw in enumerate(markdown.splitlines(), start=1):
         s = raw.strip()
-        if re.match(r"^\*\*(INT\.|EXT\.|INT/EXT|UNDERWATER)", s):
+        # INT./EXT. only. "**UNDERWATER.**" was in this list and should not have
+        # been: it is an action beat, not a slug, and treating it as a scene
+        # heading moved every following line into a scene it was not in. That
+        # mislabelled Gouda's "Not him." as underwater when he is standing on the
+        # deck — and since the heading is what guesses the Fathom tier, it would
+        # have put a poolside line in a submerged acoustic.
+        if re.match(r"^\*\*(INT\.|EXT\.|INT/EXT)", s):
             out.append({"line_no": i, "heading": _clean(s)})
         elif re.match(r"^##+\s", s):
             out.append({"line_no": i, "heading": _clean(re.sub(r"^#+\s*", "", s))})

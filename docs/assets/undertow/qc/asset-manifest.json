@@ -919,7 +919,7 @@
    "verified_by": "agent",
    "verified_at": "2026-07-31",
    "provenance": "composed-in-repo",
-   "sha256_16": "a1c70c26755e9a2c",
+   "sha256_16": "edf324adabf3c756",
    "kind": "signature-motif",
    "generated_with": "composed in code by build-signatures.py from the theme's own voices",
    "note": "Kemar's One Drop: Riddim Break - he drops the water's own beat for one bar. One-drop feel (emphasis on beat three), then a full bar of nothing, then the bass returns displaced by half a beat: he alone kept time and everyone else is now late. The silence is the technique.",
@@ -985,6 +985,62 @@
    "verified_by": "agent",
    "verified_at": "2026-07-31",
    "provenance": "composed-in-repo"
+  },
+  "textures/class-laugh-memory.wav": {
+   "sha256_16": "55f3bc0cb66cbc41",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'abyssal' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/class-laugh.wav": {
+   "sha256_16": "de93fbb1e6f26a9f",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'air' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/crowd-poolside.wav": {
+   "sha256_16": "8d1827695546bf2e",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'sunlit' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/crowd-submerged.wav": {
+   "sha256_16": "702aabdebdc8b739",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'midnight' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/pool-deep.wav": {
+   "sha256_16": "f1fa59fe27b021df",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'abyssal' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/pool-submerged.wav": {
+   "sha256_16": "cdf8f5ac4a80adc1",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'twilight' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/pool-surface.wav": {
+   "sha256_16": "65e1929466d71d2b",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'sunlit' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
   }
  },
  "provenance_types": {

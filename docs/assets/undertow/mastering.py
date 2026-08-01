@@ -378,28 +378,74 @@ def limiter(st, ceiling_db=CEILING_DBTP, lookahead=0.0015, release=0.09, sr=SR):
     is the defect this whole project keeps finding in its own audio.
 
     Channel-linked so the stereo image does not wander when one side peaks.
+
+    THE PEAK IS MEASURED ON AN OVERSAMPLED SIGNAL, which is the difference
+    between a limiter and a true-peak limiter. Limiting the samples you have
+    leaves the reconstruction between them free to overshoot: a converter, and
+    then a lossy codec, hear that overshoot even though no stored sample exceeds
+    the ceiling. The score never exposed this because it is sparse and tonal.
+    The first dense broadband material to go through the chain — a water field
+    recording — came out at +1.3 dBTP against a -1.0 ceiling, which is a clipped
+    delivery master that every meter reading samples would have called clean.
     """
     ceiling = 10 ** (ceiling_db / 20)
-    la = max(1, int(lookahead * sr))
-    peak = np.abs(st).max(axis=1)
+    OS = 4                                        # ITU-R BS.1770 asks for >= 4x
 
-    want = np.ones_like(peak)
-    hot = peak > ceiling
-    want[hot] = ceiling / peak[hot]
+    def gain_curve(sig):
+        """The whole envelope is computed in the OVERSAMPLED domain.
 
-    # sliding minimum over the lookahead window: start ducking BEFORE the peak
-    pad = np.concatenate([want, np.ones(la)])
-    strided = np.lib.stride_tricks.sliding_window_view(pad, la + 1)
-    g = strided.min(axis=1)[:len(want)]
+        The obvious approach — measure the true peak, then build the gain at the
+        original rate — does not work, and it is worth saying why because it
+        looks like it should. Applying a time-varying gain per sample produces a
+        new waveform whose reconstruction between samples is not simply the old
+        reconstruction scaled: neighbouring samples got different gains. Measured
+        on dense noise, a limiter that held sample peak at exactly -1.01 dB
+        produced an output whose own 4x reconstruction reached +0.96 dBTP.
 
-    # smooth the gain curve; window length set by the release time
-    w = max(3, int(release * sr) | 1)
-    win = np.hanning(w)
-    win /= win.sum()
-    g = np.convolve(np.concatenate([np.ones(w), g, np.ones(w)]), win, mode="same")[w:w + len(want)]
-    g = np.minimum(g, want)          # never let smoothing undo an actual catch
+        Computing the curve upsampled and then folding it back down by taking the
+        MINIMUM of each group of four fixes it. Minimum, not mean: every original
+        sample inherits the most reduction any nearby reconstruction point asked
+        for, which is the conservative direction and the only one that is safe.
+        """
+        up = resample_poly(sig, OS, 1, axis=0)
+        peak = np.abs(up).max(axis=1)
+        want = np.ones_like(peak)
+        hot = peak > ceiling
+        want[hot] = ceiling / peak[hot]
 
-    return st * g[:, None]
+        # sliding minimum over the lookahead window: duck BEFORE the peak
+        la = max(1, int(lookahead * sr * OS))
+        padded = np.concatenate([want, np.ones(la)])
+        g = np.lib.stride_tricks.sliding_window_view(padded, la + 1).min(axis=1)[:len(want)]
+
+        # smooth; an instantaneous gain change is itself a discontinuity, which
+        # is the defect this whole project keeps finding in its own audio
+        w = max(3, int(release * sr * OS) | 1)
+        win = np.hanning(w)
+        win /= win.sum()
+        g = np.convolve(np.concatenate([np.ones(w), g, np.ones(w)]),
+                        win, mode="same")[w:w + len(want)]
+        g = np.minimum(g, want)      # never let smoothing undo an actual catch
+
+        pad = (-len(g)) % OS
+        if pad:
+            g = np.concatenate([g, np.ones(pad)])
+        g = g.reshape(-1, OS).min(axis=1)
+        if len(g) < len(sig):
+            g = np.concatenate([g, np.ones(len(sig) - len(g))])
+        return g[:len(sig)]
+
+    out = st * gain_curve(st)[:, None]
+
+    # BACKSTOP. The fold-down is conservative but not a proof, so the delivered
+    # figure is checked rather than assumed and trimmed if it is still over. A
+    # ceiling that is nearly always met is not a ceiling.
+    for _ in range(4):
+        tp = true_peak(out)
+        if tp <= ceiling_db + 0.01:
+            break
+        out = out * (10 ** ((ceiling_db - tp) / 20))
+    return out
 
 
 def normalise(st, path_probe, target=TARGET_LUFS, ceiling=CEILING_DBTP, passes=3):
@@ -437,6 +483,47 @@ def _write_probe(path, st):
 
 
 # ── delivery ────────────────────────────────────────────────────────────────
+
+def read_wav(path, sr=SR):
+    """Read a PCM wav to float stereo at the project rate.
+
+    Handles 16, 24 and 32-bit, because a licensed sample library is not going to
+    agree with this project on either bit depth or sample rate, and the whole
+    point of the texture tier is that library material comes in.
+
+    24-bit gets unpacked by hand: the `wave` module hands back raw bytes for it
+    and numpy has no 24-bit integer type, so the three bytes are reassembled
+    little-endian and sign-extended off the top byte.
+    """
+    with wave.open(path, "rb") as w:
+        n, ch, width, rate = (w.getnframes(), w.getnchannels(),
+                              w.getsampwidth(), w.getframerate())
+        raw = w.readframes(n)
+
+    if width == 2:
+        x = np.frombuffer(raw, dtype="<i2").astype(np.float64) / 32768.0
+    elif width == 3:
+        b = np.frombuffer(raw, dtype=np.uint8).reshape(-1, 3).astype(np.int32)
+        q = b[:, 0] | (b[:, 1] << 8) | (b[:, 2] << 16)
+        q = np.where(q & 0x800000, q - 0x1000000, q)      # sign-extend
+        x = q.astype(np.float64) / 8388608.0
+    elif width == 4:
+        x = np.frombuffer(raw, dtype="<i4").astype(np.float64) / 2147483648.0
+    else:
+        raise ValueError(f"{path}: unsupported sample width {width * 8}-bit")
+
+    x = x.reshape(-1, ch)
+    if ch == 1:
+        x = np.repeat(x, 2, axis=1)
+    elif ch > 2:
+        x = x[:, :2]
+
+    if rate != sr:
+        from math import gcd
+        g = gcd(int(rate), int(sr))
+        x = resample_poly(x, sr // g, rate // g, axis=0)
+    return x
+
 
 def write_master(path, st, bits=24):
     """Write a stereo master. 24-bit is written verbatim; 16-bit is dithered.
