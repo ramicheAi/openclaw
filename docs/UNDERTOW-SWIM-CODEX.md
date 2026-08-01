@@ -491,6 +491,40 @@ If a shot needs arms doing something underwater, it is one of those three, or th
 character is not swimming — they are sinking, reaching, or drowning, which are all legitimate
 and all look completely different.
 
+### How high a swimmer sits: they are IN the water, not on it
+
+The fastest way to make an animated swimmer look wrong is to float them too high.
+It happens because drawing the whole body above the waterline is easier and reads
+more clearly, and because a body riding high looks fast the way a speedboat looks
+fast. A swimmer is not a speedboat. A swimmer is a body moving *through* water, and
+water closes over it.
+
+**In freestyle, at any moment except the breath:**
+
+- The waterline runs across the **crown of the head**. The back of the head is under.
+- The **whole back, spine and hips are submerged**, visible only as a darker shape
+  through the surface.
+- The only things that break the surface are the **single rolling shoulder** and the
+  **recovering arm**.
+- There is never daylight under the body, and the chest and stomach are never above
+  the waterline.
+
+**"High hips" does not mean hips above the water.** The coaching cue means hips level
+with the shoulders rather than sagging — a body horizontal just under the surface,
+not one tilted head-up with the legs trailing down. Both errors are drawn as if they
+were the same thing, and the fix for a sagging swimmer is to level them, not to lift
+them out.
+
+**At the breath, the head goes sideways and stays low.** The swimmer's own bow wave
+digs a trough beside the head, and the mouth clears in that trough — *below* the
+surrounding surface level. So **one goggle lens stays under the water** and only the
+other clears. Both lenses out of the water at once means the head has been lifted or
+over-rotated, and the hips have just dropped.
+
+The same rule governs the kick: a correct flutter kick **boils the surface from
+underneath** rather than splashing over the top of it. Feet that break clear into the
+air are kicking past the surface, which is wasted effort and looks it.
+
 ### Motion specs: where each movement STARTS
 
 A still frame can be checked against a pose. It cannot be checked against a
