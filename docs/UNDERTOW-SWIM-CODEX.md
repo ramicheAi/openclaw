@@ -463,12 +463,40 @@ without exception, being drawn as a beginner.
 
 | Context | Head |
 |---|---|
-| **Freestyle** | Neutral. Eyes down, or down-and-slightly-forward. The waterline crosses the crown. To breathe the head **rotates with the body roll** — it does not lift. One goggle stays in the water, in the bow-wave trough beside the head. |
+| **Freestyle** | **Face parallel to the pool floor, looking straight DOWN at the tiles.** Neck completely neutral — the head is a continuation of the spine with no angle where the neck meets the shoulders. The waterline crosses the crown. To breathe the head **rotates with the body roll** — it does not lift. One goggle stays in the water, in the bow-wave trough beside the head. |
 | **Butterfly** | Eyes down, chin barely clearing to breathe, head back down before the hands enter. |
 | **Backstroke** | Absolutely still. Eyes up, ears submerged, waterline across the cheeks. |
 | **Breaststroke** | Rises and falls with the pull, always in line with the spine. Never craned. |
 | **Streamline** | Squeezed between the biceps. Eyes down. |
 | **Freediving / dynamic apnea** | The most neutral of all — chin slightly tucked, eyes down. Looking ahead is the single most expensive drag error in the sport. |
+
+### The body line: one straight plank, parallel to the floor
+
+The head rule above is about *where the face points*. This is about the line the
+whole body makes, and they are separate faults that look similar and are usually
+drawn together.
+
+**Head, shoulders, hips and heels sit at the SAME DEPTH.** Lay a straight ruler
+from the crown to the toes and the whole body touches it. The line is parallel to
+the bottom of the pool: not tilted head-up, not tilted head-down, hips not sagging
+below it, back not arched above it.
+
+**The neck is the giveaway.** A craned neck — head lifted a few degrees so the face
+angles forward down the lane instead of straight down — is the single most common
+error in drawn swimming, and it is subtle enough to survive review. It does two
+things at once: it breaks the straight line at the shoulders, and it pushes the hips
+down, because the body pivots around its centre. So a craned neck and sagging hips
+are the *same fault*, and fixing the neck fixes both.
+
+Written as a checklist, because these fail independently:
+
+1. Is the face parallel to the floor, looking at the tiles directly beneath?
+2. Is there a visible angle where the neck meets the shoulders? There should be none.
+3. Do head, hips and heels sit at one depth?
+4. Is the whole line parallel to the bottom, rather than tilted?
+
+An earlier version of this section said "eyes down, or down-and-slightly-forward."
+That was loose enough to permit a craned neck, and it did — twice.
 
 ### There is no arm recovery underwater
 
