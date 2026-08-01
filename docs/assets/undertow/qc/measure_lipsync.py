@@ -64,7 +64,7 @@ MAX_LAG_FRAMES = 1
 LEGIBLE_SWING_PX = 6.0
 
 
-def extract(video, fps, box):
+def extract(video, fps, box, ref_stats=None):
     """Per-frame mouth aperture inside the box, 0..1.
 
     NOT dark-pixel area, which is the obvious choice and the wrong one here. In
@@ -102,11 +102,22 @@ def extract(video, fps, box):
                 dtype=np.float64))
 
     allpix = np.concatenate([c.ravel() for c in crops])
-    hist, edges = np.histogram(allpix, bins=64, range=(0, 255))
-    skin = float((edges[hist.argmax()] + edges[hist.argmax() + 1]) / 2.0)
-    # Half the spread of the skin band itself, so ordinary shading on the face
-    # is not counted as mouth while real lip and teeth values are.
-    tol = max(12.0, float(np.std(allpix[np.abs(allpix - skin) < 40])) * 1.6)
+    if ref_stats is not None:
+        # THE REFERENCE MUST BE MEASURED WITH THE CLIP'S OWN RULER.
+        #
+        # Computing skin tone and tolerance separately for the plate and for the
+        # video looks harmless and is not: the two files are graded differently,
+        # so their raw areas come out on different scales and comparing them is
+        # meaningless. That bug made a clip whose mouth never closes report 46%
+        # of its frames as shut. Passing the clip's statistics into the
+        # reference measurement puts both on one scale.
+        skin, tol = ref_stats
+    else:
+        hist, edges = np.histogram(allpix, bins=64, range=(0, 255))
+        skin = float((edges[hist.argmax()] + edges[hist.argmax() + 1]) / 2.0)
+        # Half the spread of the skin band itself, so ordinary shading on the
+        # face is not counted as mouth while real lip and teeth values are.
+        tol = max(12.0, float(np.std(allpix[np.abs(allpix - skin) < 40])) * 1.6)
     area = np.array([float((np.abs(c - skin) > tol).sum()) / c.size for c in crops])
 
     # Aperture HEIGHT in real pixels, as well as normalised area.
@@ -152,7 +163,7 @@ def extract(video, fps, box):
     # single-frame reference still is its own peak, so it would always
     # normalise to 1.0 and could never define what "closed" looks like.
     return ((area / peak if peak > 0 else area), skin, len(crops),
-            np.asarray(rows_px, dtype=np.float64), native_h, area)
+            np.asarray(rows_px, dtype=np.float64), native_h, area, (skin, tol))
 
 
 def main():
@@ -177,7 +188,7 @@ def main():
     want = np.asarray(V.openness(frames))
     box = tuple(float(v) for v in args.box.split(","))
 
-    got, thresh, n, px, native_h, got_raw = extract(args.video, fps, box)
+    got, thresh, n, px, native_h, got_raw, stats = extract(args.video, fps, box)
     m = min(len(got), len(want))
     got, want_c = got[:m], want[:m]
 
@@ -268,7 +279,8 @@ def main():
     # scale with these fixed features in the box.
     shut_at = SHUT_FRACTION
     if args.closed_reference and os.path.exists(args.closed_reference):
-        _g, _s, _n, _p, _h, ref_raw = extract(args.closed_reference, fps, box)
+        _g, _s, _n, _p, _h, ref_raw, _st = extract(args.closed_reference, fps, box,
+                                                    ref_stats=stats)
         # 20% headroom over the known-closed value, expressed on this clip's
         # own normalised scale so the rest of the report stays comparable.
         shut_at = float(ref_raw.max()) * 1.20 / max(float(got_raw.max()), 1e-9)

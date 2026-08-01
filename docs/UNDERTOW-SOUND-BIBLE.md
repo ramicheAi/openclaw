@@ -202,6 +202,54 @@ closes the jaw in time with how loud the audio is, which is genuinely the hard
 half of the problem and is worth having. It does not form phonemes, and *closures
 are the one thing an audience reliably catches.*
 
+### The shot-scale rule below is WRONG. Read this first.
+
+Both readings above were built on one take per framing, and a five-point ladder
+run afterwards — close-up ×2, medium close-up, medium, wide, same line, same
+recording, same model — showed that take-to-take variance is larger than
+anything shot scale does.
+
+| take | sync offset | r | closures landed |
+|---|---|---|---|
+| close-up, take 1 | +0 | 0.61 | **0 of 5** |
+| close-up, take 2 | +2 | 0.87 | **3 of 5** |
+| medium close-up | +1 | 0.79 | 0 of 5 |
+| medium | +0 | 0.76 | 0 of 5 |
+| wide / full | +4 | 0.31 | 5 of 5 |
+
+Two close-ups with **identical** start plate, prompt and audio scored 0 of 5 and
+3 of 5. That single row invalidates "close-ups fail, wides work": the first
+close-up's failure was the take, not the scale, and I had generalised from n=1
+twice in a row.
+
+**What is actually consistent, across every take at every scale**, from
+magnified frame-by-frame inspection rather than from the aperture numbers:
+
+- **The mouth closes and comes to rest through the long silence.** Four of five
+  takes hold a clean closed lip line across the line's 1.6 second mid-sentence
+  pause. That is reliable.
+- **The short consonant closure inside running speech does not land.** The *m*
+  of "my dad" — chart frame 72 — is open in **all five takes**, checked ±6
+  frames. Not late, absent.
+
+So the limitation is not distance, it is duration. `wan2_7` performs
+envelope-driven jaw motion with a genuine rest state: it hears silence and
+closes, it hears loudness and opens. It does not form a two-frame bilabial stop
+in the middle of a word, at any framing.
+
+That also explains the wide take's flattering 5 of 5 — its +4 frame offset
+shifts the sampled frames into the pause, where every take is closed anyway.
+
+**The operative rule, replacing the scale rule:** Route B is usable wherever the
+performance is carried by opens, closes and rests — which is most dialogue — and
+it will not deliver a specific consonant closure on a specific frame at any
+shot size. Where one particular closure has to read, that is a Route A shot.
+Check every take; do not assume the last one's behaviour. And retrying **does**
+help, contrary to what the close-up section below claims.
+
+The rest of this section is kept as written because the measurements in it are
+sound and the reasoning built on them is instructive about how not to generalise.
+
 ### Then the same line again at wide shot, which reversed the conclusion
 
 The first reading of the close-up result was that Route B would be fine at a

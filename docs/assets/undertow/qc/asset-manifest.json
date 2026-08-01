@@ -1131,6 +1131,81 @@
    "verified_by": "claude-opus-5",
    "verified_at": "2026-08-01",
    "provenance": "Route B scale comparison, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-closeup-take2.mp4": {
+   "sha256_16": "0d8f95f065fa30bd",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B shot-scale ladder; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "The take that broke the shot-scale theory. Identical start plate, prompt and audio to routeb-with-audio.mp4, which landed 0 of 5 closures; this one lands 3 of 5. Take variance, not framing.",
+   "verification": "Verified by magnified frame-by-frame walk: the lips hold a clean closed line through the whole mid-sentence pause, which the first close-up take never did anywhere. Frame 72, the m of 'my', is open here too - that miss is common to all five takes in the ladder.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-medcloseup.mp4": {
+   "sha256_16": "2f9dafc5d111a1cf",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B shot-scale ladder; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Medium close-up rung of the shot-scale ladder. Best sync correlation of the set at r=+0.79.",
+   "verification": "Magnified walk confirms a genuine closed rest through the pause. The 0-of-5 closure score is against the CHART's frames, which sit 2-5 frames before this take's pause-closure begins - late relative to the chart rather than absent, except at frame 72 which is absent.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-medium.mp4": {
+   "sha256_16": "6ad4b6025993d42c",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B shot-scale ladder; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Medium rung of the ladder.",
+   "verification": "Magnified walk confirms the same pattern as the medium close-up: clean closed lip line through the pause, no closure at frame 72.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-neutral-plate-medcloseup.png": {
+   "sha256_16": "17e5fbf9fa56d293",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B shot-scale ladder; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Medium close-up neutral plate; start frame and known-closed calibration reference for that rung.",
+   "verification": "Inspected at full resolution: mouth closed and neutral, canon-correct dark brown eyes on dry land.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-neutral-plate-medium.png": {
+   "sha256_16": "43f9367eadcadb65",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B shot-scale ladder; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Medium neutral plate; start frame and known-closed calibration reference.",
+   "verification": "Inspected at full resolution: mouth closed and neutral, canon-correct.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
   }
  },
  "provenance_types": {
