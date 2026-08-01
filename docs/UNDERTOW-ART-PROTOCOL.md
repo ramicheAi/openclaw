@@ -173,6 +173,35 @@ Practical consequences:
   (Mirei's narrow eyes, Bo's heavyset build, Nakaru's grey streak and throat scar),
   the more it costs when a frame simplifies.
 
+### A clip can drift inside itself, and that is a different check
+
+The contact sheet has always been read as "is this shot right?" It also has to be
+read as **"is this the same person doing the same thing for the whole clip?"** —
+which is not the same question, and the second one was never being asked.
+
+Kemar's shot passed on its opening frames and broke at four seconds: the camera
+lifted above the waterline, the body started riding on top with a shadow beneath
+it, and the face changed enough that the creator's note was *"looks like two
+different people."* That note and *"sitting too high"* were the same defect, not
+two.
+
+So, on every clip:
+
+1. **Sample densely enough to see a mid-clip change** — 8 to 12 frames on a six
+   second shot, not 5.
+2. **Read the sheet twice.** Once asking whether each frame is correct. Once
+   asking whether frame 1 and frame 12 could be the same person in the same
+   moment of the same shot.
+3. **When it drifts, trim rather than regenerate.** Bracket the break with a
+   couple of extra frames, cut at the last verified-good one, and re-verify the
+   trimmed clip on its own. A six second generation yielding four usable seconds
+   is completely normal in real production, and a trim is deterministic where a
+   regeneration is a fresh roll of the dice.
+
+The cut absorbs this for free, because the score measures the edit rather than
+assuming it — trimming a shot moves every downstream cut point and the cue
+re-syncs itself on the next build.
+
 ### Pushing hard on one fault will often break another
 
 Fixing Kemar's face produced two takes from the same prompt. Both got the face
