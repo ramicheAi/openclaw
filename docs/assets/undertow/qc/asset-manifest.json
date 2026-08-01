@@ -634,7 +634,7 @@
       "provenance": "element_id"
     },
     "shot-kemar-joy.mp4": {
-      "sha256_16": "191bdc776bf45399",
+      "sha256_16": "85a09610ccc93d62",
       "kind": "video",
       "characters": [
         "kemar"
@@ -643,8 +643,8 @@
       "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
       "source_job_id": "1dc09b79-0d75-4eea-90bd-d1dc08d09808",
       "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
-      "note": "Kemar swimming real SURFACE freestyle at the moment of a breath. Head not lifted - it stays in line with the spine and ROTATES with the body roll, so one goggle stays in the water while the other clears it, and he breathes in the trough beside his head. Leading arm in a high-elbow catch; the other arm recovers COMPLETELY ABOVE THE WATER, through air. Grinning: joy as a weapon. Legal jammers with green and gold piping, locs wrapped per canon.",
-      "verification": "SUPERSEDES a shot that showed a freestyle arm recovery underwater with the head up. Moved to the surface, which is also better staging - Ren now owns the silent underwater line and Kemar owns the breathing, sunlit one. Verified at zoom: head low and rotated, waterline across the head, recovery arm clearly through air, goggles on. 1280x720 upscaled to 1920x1080 (Topaz), transcoded to h264. Duration 6.04s, identical to the shot it replaces, so no cut point moved.",
+      "note": "Kemar swimming real SURFACE freestyle, shot SPLIT-LEVEL with the lens at the waterline so the camera sees both the sunlit surface and the body beneath it. He is IN the water, not on it: head, back and hips submerged, only the rolling shoulder and the recovering arm breaking through. Head in line with the spine, rotating with the body roll rather than lifting. Leading arm in a high-elbow catch underwater; the other recovers through air. Legal jammers with green and gold piping, locs wrapped per canon.",
+      "verification": "Took five passes, and each note came from the creator rather than from the gate, because the gate could only check identity. Pass 1-2: the original shot had a freestyle arm recovery UNDERWATER with the head raised - two errors a swimmer catches in the first second. Pass 3 moved him to the surface and fixed both, which also improved the staging: Ren now owns the silent submerged line and Kemar owns the breathing sunlit one. Pass 4 fixed a face that read androgynous in the breathing frame, by restating age and sex structurally (jawline, brow, neck, shoulders) rather than as a pronoun; the rejected sibling take from that same pass fixed the face but over-rotated the head so both goggles cleared the water, and added a flag-like graphic to the wrap. Pass 5 fixed the body riding too high - the last and most persistent error, and one the codex had no rule for until now. Creator picked this take over a fully-underwater alternative because that one, while prettier, duplicated Ren's submerged beat. 1280x720 upscaled to 1920x1080 (Topaz), transcoded to h264, 6.04s - same as the shot it replaces, so no cut point moved.",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
       "provenance": "element_id"
@@ -698,7 +698,7 @@
       "provenance": "element_id"
     },
     "teaser-undertow.mp4": {
-      "sha256_16": "f4fc0a06be89eed9",
+      "sha256_16": "7964ba75eb7a3941",
       "kind": "video",
       "characters": [
         "kai",
@@ -717,7 +717,7 @@
       "status": "APPROVED",
       "generated_with": "assembled by build-teaser.py from five element-locked shots plus the drawn title card, scored with the original theme over the Splice bed",
       "note": "37.7s multi-shot teaser. Cut order is story logic: the boy, the rival, the joy, the mystery, the threat, the name. The palette carries the arc - chlorine cyan to cold cyan to gold to violet to storm grey, resolving into the deep blue of the title.",
-      "verification": "Re-cut after both swimming shots were corrected. 10 frames sampled and inspected. Audio -15.9 LUFS, -1.1 dBTP, LRA 11.6. Picture integrity confirmed IDENTICAL against a silent build by h264 bitstream hash. Both replacements came in at 6.04s, exactly matching the shots they replace, so every downstream cut point held and the cue re-measured to the same sync.",
+      "verification": "Re-cut after both swimming shots were corrected across five passes. 10 frames sampled and inspected. Audio -15.9 LUFS, -1.1 dBTP, LRA 11.6. Picture integrity confirmed IDENTICAL against a silent build by h264 bitstream hash. Both replacements are 6.04s, matching the shots they replace, so every downstream cut point held and the cue re-measured to the same sync - the answering phrase still lands its first note on the title.",
       "audio": "Our own score mixed over the Splice field-recording bed at 0.30, now in true stereo and mastered to -16 LUFS / -1.0 dBTP. Cue is scored to the edit's MEASURED dissolve midpoints and the answering phrase lands its first note exactly on the title card. No generated audio.",
       "verified_by": "agent",
       "verified_at": "2026-07-31",
