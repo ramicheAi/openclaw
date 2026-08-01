@@ -55,10 +55,10 @@ fi
 # Only run when the score itself is in play; they take a few seconds each and
 # there is no reason to pay that on an art-only commit.
 if git diff --cached --name-only \
-     | grep -qE '^docs/assets/undertow/(.*\.wav$|build-score\.py|build-signatures\.py|mastering\.py)'; then
+     | grep -qE '^docs/assets/undertow/(.*\.wav$|build-score\.py|build-signatures\.py|mastering\.py|audio/)'; then
   echo ""
   echo "  UNDERTOW score delivery gate…"
-  for v in verify_mastering verify_signatures verify_translation verify_acoustics; do
+  for v in verify_mastering verify_signatures verify_translation verify_acoustics verify_lipsync; do
     if ! python3 "$REPO_ROOT/docs/assets/undertow/qc/$v.py"; then
       cat <<MSG
 
@@ -68,9 +68,14 @@ if git diff --cached --name-only \
   The score package must deliver 24-bit stereo at -16 LUFS with true peak
   under -1.0 dBTP, the signature kit must still demonstrate its design
   (the Fathom ladder audibly a ladder, the dive reflex actually slowing),
-  and the ANSWER must still survive a phone speaker.
+  the ANSWER must still survive a phone speaker, the house acoustic must
+  still put every sound in the same water, and the lip-sync instrument must
+  still find a five-frame defect planted on purpose.
 
-  Full rules: docs/UNDERTOW-SCORE.md
+  That last one is not a formality. An uncalibrated sync detector clears
+  everything, which looks exactly like success.
+
+  Full rules: docs/UNDERTOW-SCORE.md and docs/UNDERTOW-SOUND-BIBLE.md
   ────────────────────────────────────────────────────────────────
 
 MSG
