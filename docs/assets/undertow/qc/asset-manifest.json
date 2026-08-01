@@ -1101,6 +1101,36 @@
    "verified_by": "claude-opus-5",
    "verified_at": "2026-08-01",
    "provenance": "Route B lip-sync experiment, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-neutral-plate-wide.png": {
+   "sha256_16": "18416e30eb4d6d52",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment at wide framing; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Kai at full shot, head about a tenth of frame height, mouth CLOSED and neutral. Serves twice: as the start frame for the wide Route B test, and as the known-closed reference that calibrates the shut threshold for it.",
+   "verification": "Inspected at full resolution. Framing is a true wide - whole figure, generous headroom - mouth closed, canon-correct dark brown eyes on dry land.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B scale comparison, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-wide-with-audio.mp4": {
+   "sha256_16": "31f3398c1966969a",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment at wide framing; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "The same line and the same recording as the close-up test, at wide framing. This is the take that reversed the conclusion: 4 of 5 closures land here where 0 of 5 landed at close-up, and the sync loosens to +4 frames in exchange.",
+   "verification": "Verified by magnified frame-by-frame inspection at the chart's own closure indices, nearest-neighbour scaled so no interpolation could invent detail. Frames 19-22 are genuinely shut; frame 72 is open and stays open across a plus-or-minus six frame window, so that closure is absent rather than shifted. The measurement agrees with the inspection only once the shut threshold is calibrated against the closed-mouth plate - the relative default reported 0 of 5 on a shot that visibly closes.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B scale comparison, docs/UNDERTOW-SOUND-BIBLE.md section 5"
   }
  },
  "provenance_types": {

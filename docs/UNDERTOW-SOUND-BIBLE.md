@@ -202,17 +202,55 @@ closes the jaw in time with how loud the audio is, which is genuinely the hard
 half of the problem and is worth having. It does not form phonemes, and *closures
 are the one thing an audience reliably catches.*
 
-What that means in practice:
+### Then the same line again at wide shot, which reversed the conclusion
 
-- **Route B is usable for anything where the mouth is small in frame** — mid
-  shots, wides, over-shoulders, anything past a medium. Correct timing with
-  approximate shapes is exactly what reads fine at that distance.
+The first reading of the close-up result was that Route B would be fine at a
+distance *because the failure would be too small to resolve*. That reasoning was
+wrong, and the wide test says so twice over: the mouth at full shot is still
+about 22px of lip line at 1080p delivery — plainly visible, not unresolvable —
+and it does not fail there in the first place.
+
+Same line, same recording, same model. Only the framing changed.
+
+| | close-up | wide / full shot |
+|---|---|---|
+| sync offset vs the recording | **+0 frames** (r = +0.61) | +4 frames (r = +0.31) |
+| **lip closures landed** | **0 of 5** | **4 of 5** |
+| does the mouth ever reach a closed position | **never** | yes |
+| aperture at 1080p | 83–113px | ~22px lip line |
+
+**At wide the generator articulates properly and syncs loosely. At close-up it
+syncs perfectly and never articulates.** Magnified frame-by-frame inspection
+agrees with both measurements: at wide the lips genuinely meet during the line's
+pause and on the *m* of "him"; at close-up they never meet anywhere.
+
+The likely reason is that at small scale the model draws a simple stylised mouth
+that has a real closed state, and at close-up it renders a detailed mouth with
+teeth and keeps it alive, never fully shutting. That is a guess about the cause;
+the measurements are not.
+
+What this means in practice:
+
+- **Route B is usable at mid and wide** — and for the opposite reason to the one
+  first assumed. It is not that the fault hides at distance; it is that the fault
+  is not there. Budget for the looser sync: +4 frames is over the standing
+  allowance, and at that scale the sync estimate is itself noisier because the
+  mouth contributes less of the measured signal.
 - **Route B is not usable for a close-up on a line containing m, b or p**, which
   is most dramatic close-ups. That is a Route A shot, and this is the measurement
   that says so rather than a preference.
-- **Retrying does not help.** This is a property of what the generator does, not
-  a bad take. A second attempt costs credits and returns the same class of
-  result.
+- **Retrying does not help at close-up.** It is a property of what the generator
+  does, not a bad take.
+
+One methodological note worth keeping, because it nearly produced the wrong
+answer. The relative shut test — "closed means under a fraction of this clip's
+own widest frame" — fails at distance. The mouth box unavoidably contains the
+nostril shadow and the chin line, and those never go away, so the measured area
+never drops far even when the lips do meet. It reported 0 of 5 on a shot where
+magnified inspection plainly shows closures. Calibrating "shut" against a still
+of the same framing with the mouth known closed fixes it, and the corrected
+numbers then agree with direct inspection at both scales. Pass
+`--closed-reference` with the neutral start plate.
 
 `qc/measure_lipsync.py` reports these as separate verdicts for exactly this
 reason — "out of sync" and "in time but never closes" fail for opposite causes

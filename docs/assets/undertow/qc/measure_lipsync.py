@@ -58,6 +58,10 @@ SHUT_FRACTION = 0.22
 MIN_ARTICULATION = 0.10
 MAX_LEAD_FRAMES = 2
 MAX_LAG_FRAMES = 1
+# Below this much aperture movement, at delivery size, the mouth is too small
+# for a viewer to read as articulating at all - and a fault nobody can resolve
+# is not a fault worth rejecting a shot for.
+LEGIBLE_SWING_PX = 6.0
 
 
 def extract(video, fps, box):
@@ -87,9 +91,11 @@ def extract(video, fps, box):
         if not files:
             raise SystemExit("no frames extracted")
         crops = []
+        native_h = 0
         for f in files:
             im = Image.open(os.path.join(tmp, f)).convert("L")
             w, h = im.size
+            native_h = h
             x0, y0, x1, y1 = box
             crops.append(np.asarray(
                 im.crop((int(x0 * w), int(y0 * h), int(x1 * w), int(y1 * h))),
@@ -102,8 +108,51 @@ def extract(video, fps, box):
     # is not counted as mouth while real lip and teeth values are.
     tol = max(12.0, float(np.std(allpix[np.abs(allpix - skin) < 40])) * 1.6)
     area = np.array([float((np.abs(c - skin) > tol).sum()) / c.size for c in crops])
+
+    # Aperture HEIGHT in real pixels, as well as normalised area.
+    #
+    # This is what decides whether a fault is worth caring about. "The mouth
+    # never closes" is a fact about the generator; whether an audience can SEE
+    # that it never closes is a fact about how many pixels the mouth occupies,
+    # and the two answers diverge completely between a close-up and a wide.
+    # Without this, a shot gets rejected for a defect nobody could resolve.
+    # Measured as the CONTIGUOUS band of mouth rows nearest the centre of the
+    # box, not as the span from the first non-skin row to the last.
+    #
+    # Min-to-max is the obvious version and it measures the wrong thing: a box
+    # loose enough not to clip the open mouth also contains the nostril shadow
+    # above and the chin line below, so the span runs from nose to jaw and
+    # saturates at the box height whatever the mouth is doing. Both shots
+    # reported "clipped" that way, which is a measurement artefact and not a
+    # property of either one. Taking the run that straddles the middle of the
+    # box — where the mouth was placed — isolates it from the rest of the face.
+    rows_px = []
+    for c in crops:
+        rowmass = (np.abs(c - skin) > tol).sum(axis=1) > c.shape[1] * 0.12
+        best, mid = 0, len(rowmass) // 2
+        i = 0
+        while i < len(rowmass):
+            if rowmass[i]:
+                j = i
+                while j < len(rowmass) and rowmass[j]:
+                    j += 1
+                # prefer the run containing the box centre; fall back to longest
+                if i <= mid < j:
+                    best = j - i
+                    break
+                best = max(best, j - i)
+                i = j
+            else:
+                i += 1
+        rows_px.append(int(best))
+
     peak = area.max()
-    return (area / peak if peak > 0 else area), skin, len(crops)
+    # RAW area is returned alongside the normalised one. Normalising by the
+    # clip's own peak is right for correlation and wrong for calibration: a
+    # single-frame reference still is its own peak, so it would always
+    # normalise to 1.0 and could never define what "closed" looks like.
+    return ((area / peak if peak > 0 else area), skin, len(crops),
+            np.asarray(rows_px, dtype=np.float64), native_h, area)
 
 
 def main():
@@ -114,6 +163,12 @@ def main():
                     help="x0,y0,x1,y1 as fractions of frame size")
     ap.add_argument("--audio", help="the recording, to measure picture against sound")
     ap.add_argument("--label", default="")
+    ap.add_argument("--closed-reference",
+                    help="a still of this shot with the mouth KNOWN closed (the "
+                         "neutral start plate). Calibrates 'shut' absolutely "
+                         "instead of relative to the clip's own widest frame.")
+    ap.add_argument("--deliver-height", type=int, default=1080,
+                    help="delivery frame height, for reporting aperture in real pixels")
     args = ap.parse_args()
 
     chart = json.load(open(args.chart))
@@ -122,7 +177,7 @@ def main():
     want = np.asarray(V.openness(frames))
     box = tuple(float(v) for v in args.box.split(","))
 
-    got, thresh, n = extract(args.video, fps, box)
+    got, thresh, n, px, native_h, got_raw = extract(args.video, fps, box)
     m = min(len(got), len(want))
     got, want_c = got[:m], want[:m]
 
@@ -140,6 +195,24 @@ def main():
               "which reads as a small offset rather than as no performance.\033[0m\n")
         return 1
     print("  \033[32m✓\033[0m the mouth is actually performing")
+
+    # Scale to the frame height this will actually be delivered at, because that
+    # is the only size at which "can anyone see it" has an answer.
+    scale = args.deliver_height / max(1, native_h)
+    lo, hi = float(px.min()) * scale, float(px.max()) * scale
+    swing = hi - lo
+    print(f"\n  aperture       {lo:.0f}-{hi:.0f}px at {args.deliver_height}p delivery, "
+          f"swing {swing:.0f}px")
+    # ~1px subtends about a minute of arc at a normal viewing distance for a
+    # 1080p image, which is roughly the acuity limit. A few pixels of movement
+    # is therefore at the edge of being readable as articulation at all. Stated
+    # as a rule of thumb, not a psychophysical constant.
+    if swing < LEGIBLE_SWING_PX:
+        print(f"  \033[33m!\033[0m below ~{LEGIBLE_SWING_PX}px the mouth is not "
+              f"legible as articulating at this size — closure faults here are "
+              f"unresolvable, and so is the performance")
+    else:
+        print(f"  \033[32m✓\033[0m large enough that mouth detail reads")
 
     # THE RECORDING IS THE REFERENCE, NOT THE CHART.
     #
@@ -180,8 +253,30 @@ def main():
 
     # Closures, compared at the offset actually measured: a shot that is simply
     # shifted should be reported as shifted, not as having missed its closures.
+    # CALIBRATE 'SHUT' AGAINST A KNOWN-CLOSED FRAME WHERE ONE IS AVAILABLE.
+    #
+    # The relative test - shut means under a fraction of this clip's own widest
+    # aperture - has a floor problem that only shows up at distance. At wide
+    # shot the box unavoidably contains the nostril shadow and the chin line,
+    # and those never go away, so the measured area never drops far even when
+    # the lips genuinely meet. The clip's own minimum then reads as 0.58 of its
+    # maximum and every closure is reported missed, on a shot where magnified
+    # inspection plainly shows the mouth closing.
+    #
+    # A still of the same framing with the mouth known closed removes the guess:
+    # whatever it measures IS closed, by construction, for this shot at this
+    # scale with these fixed features in the box.
+    shut_at = SHUT_FRACTION
+    if args.closed_reference and os.path.exists(args.closed_reference):
+        _g, _s, _n, _p, _h, ref_raw = extract(args.closed_reference, fps, box)
+        # 20% headroom over the known-closed value, expressed on this clip's
+        # own normalised scale so the rest of the report stays comparable.
+        shut_at = float(ref_raw.max()) * 1.20 / max(float(got_raw.max()), 1e-9)
+        print(f"\n  shut threshold calibrated from the closed-mouth plate: "
+              f"{shut_at:.2f} of this clip's widest "
+              f"(the relative default would be {SHUT_FRACTION})")
     need = [i for i in V.closure_frames(frames) if 0 <= i + offset < m]
-    shut = got <= SHUT_FRACTION
+    shut = got <= shut_at
     hit = [i for i in need if shut[i + offset]]
     print(f"\n  closures       {len(hit)} of {len(need)} shut "
           f"(chart frames {need})")
@@ -191,7 +286,7 @@ def main():
         missed = [i for i in need if i not in hit]
         print(f"  \033[31m✗\033[0m missed at {missed} — measured aperture "
               f"{[round(float(got[i + offset]), 2) for i in missed]} "
-              f"against a {SHUT_FRACTION} shut threshold")
+              f"against a {shut_at:.2f} shut threshold")
 
     # The single number that decides usability, stated last so it is the thing
     # left on screen.
