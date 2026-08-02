@@ -247,7 +247,7 @@ shot size. Where one particular closure has to read, that is a Route A shot.
 Check every take; do not assume the last one's behaviour. And retrying **does**
 help, contrary to what the close-up section below claims.
 
-### How short can a pause be and still read as a rest? 167 ms.
+### How short can a pause be and still read as a rest? About 400 ms.
 
 The rest behaviour was only ever demonstrated on one very long silence — 1.6
 seconds — which is not what dialogue is made of. If rests needed that much room,
@@ -257,18 +257,36 @@ Tested by building one audio file containing **three gaps of different lengths**
 and generating a single shot from it, so gap length is the only variable and
 take-to-take variance cannot reach the comparison:
 
-| gap | duration | frames shut | verdict |
-|---|---|---|---|
-| 4 frames | 167 ms | **4 of 4** | rests |
-| 10 frames | 417 ms | **10 of 10** | rests |
-| 24 frames | 1000 ms | 23 of 24 | rests |
+Run twice, on two different voices, because the first run's shortest result did
+not survive the second:
 
-Picture against audio across the whole clip: **+1 frame, r = +0.71.**
+| gap | duration | take 1 (Callum) | take 2 (Onyx) | reliable? |
+|---|---|---|---|---|
+| 4 frames | 167 ms | 4 of 4 | **0 of 4** | **no** |
+| 10 frames | 417 ms | 10 of 10 | 8 of 10 | yes |
+| 24 frames | 1000 ms | 23 of 24 | 20 of 24 | yes |
 
-167 ms is shorter than a comma. Every natural pause in speech is longer than
-this, so the rest behaviour covers the full range of gaps real dialogue contains
-— not just the dramatic silences. That is the finding that makes Route B worth
-building around rather than worth tolerating.
+Picture against audio: +1 frame in both, r = +0.71 and +0.67.
+
+**The mechanism, from magnified frames rather than from the table.** In the take
+that "failed", the mouth *does* close near that gap — frames 14 to 17 are shut —
+but the silence is frames 17 to 21, so the rest lands three to four frames early
+and the lips are open again before the gap ends. The rest is not missing. It is
+**mistimed**.
+
+That explains both columns at once, and it is a more useful fact than either
+result alone: **rest placement carries roughly ±4 frames of jitter.** A gap has
+to be longer than that jitter to reliably contain a rest. At 10 and 24 frames
+the jitter is absorbed; at 4 frames it is the same size as the gap.
+
+So the working floor is **about 10 frames, 400 ms** — a beat, not a breath. That
+still covers sentence breaks, comma pauses and every dramatic silence, which is
+most of what dialogue is built from. It does not cover the very short junctures
+inside a fast exchange, and those should be treated as continuous speech rather
+than as gaps the mouth will honour.
+
+*(An earlier version of this section claimed 167 ms on the strength of one take.
+It did not replicate. The number above is the one that did.)*
 
 What still fails is unchanged and it is the other end of the scale: a consonant
 closure lasting one or two frames *inside* a word. Rests are a duration
@@ -414,6 +432,66 @@ building.
 For the teaser specifically: one great voice on the protagonist beats eight
 mediocre ones. The recommendation is exactly one human line, with the rest
 carried by score and text cards.
+
+### Cast the boys female, the way anime actually does
+
+Kai's first previz voice was an adult male preset picked off a name. It measured
+**109 Hz** — squarely adult male, 21 Hz below where a fifteen-year-old sits — and
+it was wrong on the ear before it was wrong on the meter.
+
+Pitching it up to 133 Hz put it in band and introduced the obvious risk: push a
+voice far enough and it stops sounding like a voice and starts sounding like a
+process. So the next step was to find one that is natively in band instead.
+
+Measured at neutral pitch, no shifting:
+
+| voice | median F0 | |
+|---|---|---|
+| Caspian | 79 Hz | far too low |
+| Callum, as first shipped | 104 Hz | adult male, the original error |
+| Cillian | 123 Hz | just under |
+| Kevin | 127 Hz | just under |
+| Callum pitched up +4 | 131 Hz | in band, but processed |
+| Hugo | 136 Hz | in band |
+| **Onyx** | **144 Hz** | **in band, unprocessed — selected** |
+| Bram | 162 Hz | in band, top of range |
+
+Onyx measured again on a longer, angrier read: **182 Hz**, still in band. Pitch
+rises with vocal effort, so a voice has to be checked on material like the
+material it will actually perform — a single calm line is not a casting test.
+
+**Onyx is a female preset, and that is the point rather than an accident.**
+Japanese production routinely casts adolescent boys with female seiyuu — Naruto,
+Edward Elric, Gon, Luffy as a child — because a woman working in her lower
+register lands the exact place a fifteen-year-old boy's voice lives: around
+150-170 Hz, with a lightness an adult man has to fake. The measurement agrees
+with the tradition: Onyx sits at 156 Hz **with no processing at all**, where the
+male presets needed either a pitch shift or a compromise.
+
+So the standing note for casting Kai, Ren, Bo and any of the younger cast: audition
+women in their lower register alongside men. It is not a workaround, it is how
+the medium has always done it, and here it is also the only option that needed no
+pitch shift.
+
+The original is kept in `lipsync-test/` as the before-case.
+
+**A warning about the instrument, because it bit three times.** `verify_voice.py`
+verifies itself against six synthetic tones on every run and matches them to
+0.1% — and that was still not enough. Clean harmonic tones do not exercise what
+breaks on real speech. The tracker had an octave error that only appeared on
+voices: frames it could not resolve piled up against the top of its search range,
+and on one take **48% of frames sat at the 400 Hz ceiling**, dragging that take's
+median from the 180s to 264 Hz. The giveaway was a histogram with a second peak
+at the boundary and nothing at all between 300 and 350 Hz, which is not a shape
+any voice has.
+
+Frames that land on the search boundary are now discarded as failures rather
+than counted as measurements. Every figure in the table above is post-fix; the
+figures quoted before it were up to 80 Hz high.
+
+The general lesson, which applies past this file: **a self-test on synthetic
+material proves the arithmetic, not the method.** Check the distribution, not
+just the summary statistic — a median hides a bimodal failure completely.
 
 ### The pronunciation lexicon
 

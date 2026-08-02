@@ -111,7 +111,24 @@ def f0_track(x, sr, frame=0.040, hop=0.010):
                     k = k + shift
         if k > 0:
             out.append(sr / k)
-    return np.asarray(out)
+    f0 = np.asarray(out)
+
+    # DISCARD FRAMES THAT LANDED ON THE SEARCH BOUNDARY. They are failures, not
+    # measurements.
+    #
+    # This tracker passed a synthetic-tone self-test at 0.1% and still got real
+    # speech wrong, which is the lesson: clean harmonic tones do not exercise
+    # the thing that breaks. On real voices — breath, formants, noise, creak —
+    # frames whose true period the search cannot resolve pile up against
+    # F0_MAX. Measured on one take, 48% of frames sat at the ceiling and dragged
+    # its median from the 160s to 264 Hz; the histogram was bimodal with nothing
+    # at all between 300 and 350 Hz, which is not how a voice is distributed and
+    # is the signature of an octave error rather than a high talker.
+    #
+    # A frame that reports the edge of the range is reporting that it failed.
+    if len(f0):
+        f0 = f0[f0 < F0_MAX * 0.95]
+    return f0
 
 
 def describe(path):

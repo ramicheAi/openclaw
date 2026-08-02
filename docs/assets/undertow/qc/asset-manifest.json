@@ -1251,6 +1251,51 @@
    "verified_by": "claude-opus-5",
    "verified_at": "2026-08-02",
    "provenance": "Route B pause-length test, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-vo-tierB-onyx.wav": {
+   "sha256_16": "7d6155ee57419a7d",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause test, second voice; docs/UNDERTOW-SOUND-BIBLE.md sections 5 and 6",
+   "note": "TIER B PREVIZ VOICE v3 - SYNTHETIC, NEVER SHIPS. Onyx, a FEMALE preset, chosen by the creator on the ear and then confirmed on the meter: 144 Hz on a calm read and 182 Hz on an angry one, both inside the 130-200 Hz adolescent band, and both at NEUTRAL PITCH with no shifting. Every male preset in the library needed either a pitch shift or a compromise. Casting adolescent boys with women is standard Japanese practice, not a workaround.",
+   "verification": "Pitch measured with qc/verify_voice.py on two different reads, because F0 rises with vocal effort and one calm line is not a casting test. TIMBRE IS NOT VERIFIED by any measurement here - this voice was selected by the creator listening, which is the only way that decision is ever made.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Voice selection and pause-floor correction, docs/UNDERTOW-SOUND-BIBLE.md"
+  },
+  "lipsync-test/pause-ladder-onyx.wav": {
+   "sha256_16": "da7b9adbcdb90392",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause test, second voice; docs/UNDERTOW-SOUND-BIBLE.md sections 5 and 6",
+   "note": "The pause ladder rebuilt on the Onyx voice: four phrases with silences of exactly 4, 10 and 24 frames between them.",
+   "verification": "Gaps are constructed and therefore exact. Phrase boundaries detected from the speech envelope with within-phrase dips under 8 frames merged.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Voice selection and pause-floor correction, docs/UNDERTOW-SOUND-BIBLE.md"
+  },
+  "lipsync-test/routeb-pause-ladder-onyx.mp4": {
+   "sha256_16": "ff755d5529e636e2",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause test, second voice; docs/UNDERTOW-SOUND-BIBLE.md sections 5 and 6",
+   "note": "The second run of the pause test, and the one that corrected it. The 4-frame gap does NOT hold a rest here where it did on the first voice - which established that the working floor is about 10 frames rather than 4.",
+   "verification": "Magnified frame inspection found the mechanism the numbers alone would have hidden: the mouth DOES close near the short gap, at frames 14-17, but the silence is frames 17-21, so the rest lands three to four frames early and the lips reopen inside the gap. Rest placement carries about plus or minus four frames of jitter, so a gap must be longer than the jitter to contain one.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Voice selection and pause-floor correction, docs/UNDERTOW-SOUND-BIBLE.md"
   }
  },
  "provenance_types": {
