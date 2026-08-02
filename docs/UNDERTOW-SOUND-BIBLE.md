@@ -247,6 +247,33 @@ shot size. Where one particular closure has to read, that is a Route A shot.
 Check every take; do not assume the last one's behaviour. And retrying **does**
 help, contrary to what the close-up section below claims.
 
+### How short can a pause be and still read as a rest? 167 ms.
+
+The rest behaviour was only ever demonstrated on one very long silence — 1.6
+seconds — which is not what dialogue is made of. If rests needed that much room,
+"carried by opens, closes and rests" would cover almost nothing real.
+
+Tested by building one audio file containing **three gaps of different lengths**
+and generating a single shot from it, so gap length is the only variable and
+take-to-take variance cannot reach the comparison:
+
+| gap | duration | frames shut | verdict |
+|---|---|---|---|
+| 4 frames | 167 ms | **4 of 4** | rests |
+| 10 frames | 417 ms | **10 of 10** | rests |
+| 24 frames | 1000 ms | 23 of 24 | rests |
+
+Picture against audio across the whole clip: **+1 frame, r = +0.71.**
+
+167 ms is shorter than a comma. Every natural pause in speech is longer than
+this, so the rest behaviour covers the full range of gaps real dialogue contains
+— not just the dramatic silences. That is the finding that makes Route B worth
+building around rather than worth tolerating.
+
+What still fails is unchanged and it is the other end of the scale: a consonant
+closure lasting one or two frames *inside* a word. Rests are a duration
+phenomenon and the floor is low; phoneme closures are not reached at all.
+
 The rest of this section is kept as written because the measurements in it are
 sound and the reasoning built on them is instructive about how not to generalise.
 

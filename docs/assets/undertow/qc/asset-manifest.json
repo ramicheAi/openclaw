@@ -1221,6 +1221,36 @@
    "verified_by": "claude-opus-5",
    "verified_at": "2026-08-02",
    "provenance": "Voice pitch correction, docs/UNDERTOW-SOUND-BIBLE.md section 6"
+  },
+  "lipsync-test/pause-ladder-audio.wav": {
+   "sha256_16": "bd91bca94eca7f25",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause-length test; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "TIER B PREVIZ - SYNTHETIC, NEVER SHIPS. Four spoken phrases spliced back together with silences of EXACTLY 4, 10 and 24 frames between them. Built so gap length is the only variable in one generation, which puts take-to-take variance outside the comparison entirely.",
+   "verification": "Gap lengths are constructed rather than measured, so they are exact by definition. Phrase boundaries were detected from the speech envelope and merged across within-phrase dips shorter than 8 frames - the first attempt split every sentence in two and produced a choppy file.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Route B pause-length test, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-pause-ladder.mp4": {
+   "sha256_16": "597df843a38efdb9",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause-length test; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "The short-pause test. Answers how brief a silence can be before the mouth stops resting: 4 frames, 167ms, still rests. Shorter than a comma, so the rest behaviour covers every pause real dialogue contains.",
+   "verification": "Measured across the full clip with the shut threshold calibrated from the matching closed-mouth plate: 4 of 4 frames shut at the 167ms gap, 10 of 10 at 417ms, 23 of 24 at 1000ms. Picture against audio +1 frame, r=+0.71. Each gap was also inspected as magnified nearest-neighbour frames rather than trusted from the number.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Route B pause-length test, docs/UNDERTOW-SOUND-BIBLE.md section 5"
   }
  },
  "provenance_types": {
