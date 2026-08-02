@@ -125,7 +125,15 @@ state) rows that everything else interpolates from — then render the material 
 each place on the ladder and crossfade. The room becomes the performance rather
 than a setting the performance happens in.
 
-Two rules that only appear at scene scale:
+**The scene belongs in a document, not in the builder.** Beats, layer envelopes
+and mix targets are creative decisions; a person should be able to change them
+without reading code, and the QC gate should read the same document rather than
+reading the builder — otherwise the gate can never catch the two disagreeing.
+When moving scene data out of code, verify by checksum: a faithful extraction
+renders the same audio, so anything beyond quantization-boundary noise means a
+number was transcribed wrong.
+
+Three rules that only appear at scene scale:
 
 - **Layers hand off; they do not accumulate.** A layer that ramps in and never
   ramps out will sit under the entire rest of the scene. This is the single

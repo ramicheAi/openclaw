@@ -1,0 +1,72 @@
+{
+ "_comment": "UNDERTOW scene cue sheet. This file IS the scene — build-scene.py holds the rendering machinery and no scene data at all, and qc/verify_scene.py grades the rendered audio against this document rather than against the code that made it. Editing a number here changes the mix; there is nowhere else to change it.",
+ "id": "ep1-the-sinking",
+ "title": "Episode 1 — The Sinking",
+ "source": "docs/UNDERTOW-EP1-SCRIPT.md",
+ "duration": 72.0,
+ "fps": 24,
+ "target_lufs": -18.0,
+
+ "_ranks_comment": "The ladder positions this scene moves through. Ordered, because the descent interpolates POSITION on it — a move from twilight to abyssal passes through midnight rather than cutting. 'hadal' is deliberately absent: Kai does not go there in Episode 1, and a rank the scene never reaches should not be in its ladder.",
+ "ranks": ["air", "sunlit", "twilight", "midnight", "abyssal"],
+
+ "_beats_comment": "The scene as a curve, not a list of states. Everything between two rows interpolates. The bpm column is TRANSCRIBED, not designed — canon puts these numbers on screen (90/110/130 on the block, 150 then 140 in the panic, 90/60/40 settling, 34 held), so changing them here changes what the audience is told they are seeing.",
+ "beats": [
+  {"t":  0.0, "fathom": "air",      "calm": 0.20, "bpm":  90, "note": "on the block, the room already receding"},
+  {"t":  6.0, "fathom": "air",      "calm": 0.10, "bpm": 110, "note": ""},
+  {"t": 10.0, "fathom": "air",      "calm": 0.00, "bpm": 130, "note": "the Eye, one flash-frame"},
+  {"t": 11.5, "fathom": "air",      "calm": 0.00, "bpm": 132, "note": "BZZZT"},
+  {"t": 13.0, "fathom": "sunlit",   "calm": 0.00, "bpm": 145, "note": "the fall — a slap of limbs"},
+  {"t": 16.0, "fathom": "twilight", "calm": 0.00, "bpm": 150, "note": "under. panic, thrash, the muffled roar"},
+  {"t": 24.0, "fathom": "twilight", "calm": 0.05, "bpm": 140, "note": ""},
+  {"t": 30.0, "fathom": "midnight", "calm": 0.35, "bpm": 120, "note": "the water settles around him"},
+  {"t": 38.0, "fathom": "midnight", "calm": 0.65, "bpm":  90, "note": ""},
+  {"t": 44.0, "fathom": "abyssal",  "calm": 0.85, "bpm":  60, "note": ""},
+  {"t": 50.0, "fathom": "abyssal",  "calm": 1.00, "bpm":  40, "note": ""},
+  {"t": 56.0, "fathom": "abyssal",  "calm": 1.00, "bpm":  34, "note": "34 BPM. held."},
+  {"t": 66.0, "fathom": "abyssal",  "calm": 1.00, "bpm":  34, "note": ""},
+  {"t": 69.0, "fathom": "air",      "calm": 0.30, "bpm":  34, "note": "SMASH back to the deck"},
+  {"t": 72.0, "fathom": "air",      "calm": 0.30, "bpm":  80, "note": ""}
+ ],
+
+ "_layers_comment": "Texture layers, each with an explicit fade-in and fade-out window. LAYERS HAND OFF; THEY DO NOT ACCUMULATE — this is the single easiest way to destroy an arc and it never looks wrong in code. An omitted fade_out means the layer runs to the end of the scene, and that has to be a deliberate choice rather than an oversight: an earlier version of this scene left pool-surface, the brightest texture in the library, at unity for 56 of 72 seconds underneath a boy motionless on the floor of a pool.",
+ "layers": [
+  {"texture": "crowd-poolside",     "gain_db": -4.0, "fade_in": [ 0.0,  0.0], "fade_out": [12.0, 18.0],
+   "note": "the deck — the crowd and the room he is failing in. It does not follow him down; it is replaced by water."},
+  {"texture": "crowd-submerged",    "gain_db": -6.0, "fade_in": [14.0, 17.0], "fade_out": [27.0, 30.0],
+   "note": "the muffled roar. The crowd follows him under for six seconds and then loses him."},
+  {"texture": "pool-surface",       "gain_db": -3.0, "fade_in": [11.0, 16.0], "fade_out": [22.0, 34.0],
+   "note": "the surface. GONE by the time he is past twilight, because by then he cannot hear it."},
+  {"texture": "pool-submerged",     "gain_db": -2.0, "fade_in": [15.0, 24.0], "fade_out": [38.0, 50.0],
+   "note": "the middle water, arriving while the surface is still going."},
+  {"texture": "pool-deep",          "gain_db": -2.0, "fade_in": [30.0, 46.0], "fade_out": null,
+   "note": "water with nothing bounding it. Deliberately runs to the end — he does not come back up inside this scene."},
+  {"texture": "class-laugh",        "gain_db": -6.0, "fade_in": [13.0, 13.8], "fade_out": [19.2, 20.0],
+   "bus_gain": 0.9,
+   "note": "the classroom laughing at the Anchor, dry and above."},
+  {"texture": "class-laugh-memory", "gain_db": -3.0, "fade_in": [17.0, 20.0], "fade_out": [31.0, 34.0],
+   "bus_gain": 0.9,
+   "note": "the same recording four rungs down. The script says the laughter 'bends into whale-song distortion and fades', and this crossfade IS that sentence — one take, two treatments."}
+ ],
+
+ "_tone_comment": "The thing in the water. 'A low, vast, gentle tone. Like a whale. Like a name.' Two close sines beating slowly against each other so it breathes without being played. It belongs to the deep and only exists down there.",
+ "tone": {
+  "freqs_hz": [36.7, 36.9, 73.4],
+  "gains": [1.0, 0.7, 0.4],
+  "level": 0.16,
+  "fathom": "abyssal",
+  "fade_in": [48.0, 54.0],
+  "fade_out": [64.0, 70.0]
+ },
+
+ "_heart_comment": "The heartbeat is NOT in the room. It is inside his chest and stays there whatever depth he is at, and that contrast is what makes the room feel external and the body feel like his. Consequence worth stating: the heart is the one element that legitimately does not descend, which is why qc/verify_scene.py grades brightness above 2 kHz rather than across the whole band.",
+ "heart": {
+  "level": 0.55,
+  "reverb_seconds": 2.2,
+  "reverb_mix": 0.18,
+  "reverb_width": 0.30
+ },
+
+ "_mix_comment": "Share of energy each bus should hold, set by measurement rather than by an ear this pipeline does not have. The heart is the spine of the sequence and still must not be its loudest object: the room is what changes, the heart is what the change happens to. At unity it measured 55.7% of the energy and simply masked the room the whole scene is about.",
+ "mix": {"world": 0.60, "heart": 0.28, "tone": 0.12}
+}

@@ -33,9 +33,39 @@ scale, because now one file knows what happens when.
 
 ## 2. The cue sheet is the single source of truth
 
-One machine-readable file per scene. From it, four things are generated and can
-never drift apart: the mix, the mouth charts, the shot-generation prompt stubs,
-and the QC expectations.
+Machine-readable documents, not tables buried in code. There are two kinds and
+they do different jobs:
+
+| file | covers | drives |
+|---|---|---|
+| `audio/cues-<script>.json` | every spoken line in a teleplay | mouth charts, sync-free budget |
+| `audio/scene-<id>.json` | one scene end to end | the mix, and the scene's QC gate |
+
+**Honest status of this claim**, because it was written as an aspiration and
+read as a fact for two versions of this document:
+
+- **the mix** — *true now.* `build-scene.py` holds rendering machinery and no
+  scene data at all; every creative number lives in the scene cue sheet.
+- **the QC expectations** — *true for scenes.* `verify_scene.py` reads the same
+  document the builder renders from, deliberately rather than reading the
+  builder, so the two can be caught disagreeing.
+- **the mouth charts** — *partly.* `undertone.py chart` works from a line, and
+  the dialogue cue sheet holds the lines, but nothing yet charts a whole sheet
+  in one pass.
+- **the shot-generation prompt stubs** — *not built.* There is no such mode.
+
+The reason this mattered enough to fix: for two renders the scene existed in
+**two** places — a JSON file holding dialogue and a Python file holding the
+beats, envelopes and mix targets — with nothing keeping them consistent. That
+is exactly the drift the single-source rule exists to prevent, in the file that
+declares the rule.
+
+**The extraction was verified by checksum rather than by reading it over.**
+A faithful move of data out of code must render the same audio: the rebuilt
+scene differs from the previous master in **3 samples out of 6,912,000, each by
+one 24-bit LSB** — three samples that sat on a quantization boundary and rounded
+the other way under a 2.2e-16 change in summation order. Anything larger would
+have meant a number was transcribed wrong.
 
 ```
 python3 docs/assets/undertow/audio/undertone.py spot docs/UNDERTOW-EP1-SCRIPT.md

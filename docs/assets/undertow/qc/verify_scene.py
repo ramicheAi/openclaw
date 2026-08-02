@@ -16,8 +16,12 @@ finished scene USED correct parts, which is a property only the scene has.
 
 WHAT THIS MEASURES
 
-The scene declares a depth curve — build-scene.BEATS, the same table that says
-where Kai is at every moment. This asks whether that intent reached the output:
+The scene declares a depth curve in its cue sheet — audio/scene-<id>.json, the
+same document build-scene.py renders from, which says where Kai is at every
+moment. This asks whether that intent reached the output. Note the source: this
+once read the builder's own module-level table, which is subtly the wrong place
+to get intent from, because a gate reading the code that made the audio can
+never catch the two disagreeing.
 
   brightness   as he goes down, the mix must get DARKER — measured as the SHARE
                OF ENERGY ABOVE 2 kHz, not as a full-band spectral centroid. That
@@ -48,7 +52,7 @@ not a trend test:
 
     python3 qc/verify_scene.py [scene.wav]
 """
-import importlib.util
+import json
 import os
 import sys
 
@@ -91,13 +95,19 @@ def note(m):
     print(f"    \033[2m{m}\033[0m")
 
 
-def load_scene_module():
-    """Import build-scene.py by path — its filename is not a valid identifier."""
-    p = os.path.join(ART, "build-scene.py")
-    spec = importlib.util.spec_from_file_location("build_scene", p)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
+def load_cue_sheet(scene_id="ep1-the-sinking"):
+    """Read the scene's cue sheet — the document, not the builder.
+
+    This used to import build-scene.py and read its module-level BEATS table.
+    That was subtly the wrong source: the intent a gate grades against must not
+    come from the code that produced the audio, or the two can never be caught
+    disagreeing. Both now read audio/scene-<id>.json.
+    """
+    p = os.path.join(ART, "audio", f"scene-{scene_id}.json")
+    if not os.path.exists(p):
+        raise SystemExit(f"\n  no cue sheet at {p}\n")
+    with open(p) as f:
+        return json.load(f)
 
 
 def centroid_hz(seg, sr=M.SR):
@@ -207,11 +217,11 @@ def profile(st, depth_of, sr=M.SR):
     return rows
 
 
-def depth_curve(bs):
+def depth_curve(sc):
     """Position on the fathom ladder as a function of time, from the cue sheet."""
-    pos = {r: i for i, r in enumerate(bs.RANKS)}
-    ts = np.array([b[0] for b in bs.BEATS], float)
-    ps = np.array([float(pos[b[1]]) for b in bs.BEATS])
+    pos = {r: i for i, r in enumerate(sc["ranks"])}
+    ts = np.array([b["t"] for b in sc["beats"]], float)
+    ps = np.array([float(pos[b["fathom"]]) for b in sc["beats"]])
     return lambda t: float(np.interp(t, ts, ps))
 
 
@@ -241,9 +251,10 @@ def grade(rows, label):
 
 
 def main():
-    bs = load_scene_module()
+    scene_id = os.environ.get("UNDERTOW_SCENE", "ep1-the-sinking")
+    sc = load_cue_sheet(scene_id)
     path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
-        ART, "scenes", f"{bs.SCENE}.wav")
+        ART, "scenes", f"{sc['id']}.wav")
     if not os.path.exists(path):
         print(f"\n  no scene at {path} — run build-scene.py first\n")
         return 2
@@ -252,7 +263,7 @@ def main():
     print(f"  {os.path.basename(path)}   window {WINDOW:.0f}s\n")
 
     st = M.read_wav(path)
-    depth_of = depth_curve(bs)
+    depth_of = depth_curve(sc)
     rows = profile(st, depth_of)
 
     trend, darken, width = grade(rows, "as rendered")

@@ -217,7 +217,7 @@ cd docs/assets/undertow
 python3 build-score.py         # theme + teaser cue
 python3 build-signatures.py    # the ten signature sounds
 python3 build-textures.py --src <dir>   # licensed material into the house water
-python3 build-scene.py         # the Ep 1 sinking sequence, 72 s
+python3 build-scene.py         # renders audio/scene-ep1-the-sinking.json
 python3 build-teaser.py        # cut picture, mix score over the ambience bed
 
 python3 qc/verify_signatures.py            # structural + level verification

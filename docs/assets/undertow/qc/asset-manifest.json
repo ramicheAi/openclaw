@@ -1313,7 +1313,7 @@
    "provenance": "Route B pause-floor replication, docs/UNDERTOW-SOUND-BIBLE.md section 5"
   },
   "scenes/ep1-the-sinking.wav": {
-   "sha256_16": "01237701d0ecdd79",
+   "sha256_16": "73f6955e6d553132",
    "kind": "scene-mix",
    "characters": [],
    "status": "APPROVED",
