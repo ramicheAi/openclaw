@@ -257,16 +257,21 @@ Tested by building one audio file containing **three gaps of different lengths**
 and generating a single shot from it, so gap length is the only variable and
 take-to-take variance cannot reach the comparison:
 
-Run twice, on two different voices, because the first run's shortest result did
-not survive the second:
+Run three times — two voices, and the second voice twice — because the first
+run's shortest result did not survive the second:
 
-| gap | duration | take 1 (Callum) | take 2 (Onyx) | reliable? |
-|---|---|---|---|---|
-| 4 frames | 167 ms | 4 of 4 | **0 of 4** | **no** |
-| 10 frames | 417 ms | 10 of 10 | 8 of 10 | yes |
-| 24 frames | 1000 ms | 23 of 24 | 20 of 24 | yes |
+| gap | duration | Callum | Onyx t1 | Onyx t2 | reliable? |
+|---|---|---|---|---|---|
+| 4 frames | 167 ms | 4 of 4 | **0 of 4** | **2 of 4** | **no** |
+| 10 frames | 417 ms | 10 of 10 | 8 of 10 | 9 of 10 | yes — 90% |
+| 24 frames | 1000 ms | 23 of 24 | 20 of 24 | 23 of 24 | yes — 92% |
 
-Picture against audio: +1 frame in both, r = +0.71 and +0.67.
+**Global sync is repeatable; local rest placement is what jitters.** Both Onyx
+takes came back at exactly +1 frame with r = +0.67 and +0.64 — the overall
+alignment to the recording is stable run to run. What moves between takes is
+where each individual rest lands inside its gap. That is worth separating,
+because it means a sync offset measured once can be trusted, while a single
+closure landing correctly once cannot.
 
 **The mechanism, from magnified frames rather than from the table.** In the take
 that "failed", the mouth *does* close near that gap — frames 14 to 17 are shut —

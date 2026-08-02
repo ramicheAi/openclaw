@@ -1,165 +1,188 @@
 ---
 name: undertone
-description: The UNDERTOW sound department — score, effects, voice and lip-sync as one timing-driven pipeline. Use for any audio work on UNDERTOW: spotting a script into cues, registering a character voice, generating a mouth chart for a line, building a scene's mix, or checking sync. Also use when planning a shot that has dialogue in it, because the shot design decision comes before the generation.
+description: Sound department for animation and film work — score, effects, voice, and lip-sync treated as one timing-driven pipeline. Use when spotting a script into cues, choosing or checking a character voice, generating a mouth chart for a line, building a scene's audio, deciding how to frame a shot that has dialogue in it, or verifying that generated lip-sync actually works. Also use when planning any shot with a speaking character, because the shot-design decision comes before generation, not after.
 ---
 
-# /undertone
+# Undertone
 
-UNDERTOW → UNDERTONE. The sound beneath the thing: score, effects and voice at
-once, and the audio sibling of the show's own name.
+The sound department, as one pipeline. Built for the UNDERTOW anime project but
+the method is general: any animation or generated-video work with dialogue in it.
 
-## The one idea everything here follows from
+## The one idea everything follows from
 
-Sound design at scale and lip-sync look like two problems. They are one, and
-naming it correctly is what makes the fix simple: **the picture and the sound
-were being authored independently and married at the end.** That works for a
-mood reel with no talking. It collapses the moment a mouth moves, because you
-cannot sync a mouth to a voice that does not exist yet.
+Sound design at scale and character lip-sync look like two problems. They are
+one, and naming it correctly makes the fix simple: **the picture and the sound
+get authored independently and married at the end.** That works for a mood reel
+with no talking. It collapses the moment a mouth moves, because you cannot sync a
+mouth to a voice that does not exist yet.
 
 Every animation tradition that does dialogue well solved this the same way —
 **pre-scoring.** Record the voice first. Derive the mouth chart from the
 recording. Animate to the chart.
 
-> **The audio is authored first, as data. The picture renders from it.**
+> **Author the audio first, as data. Render the picture from it.**
 > **Nothing is married at the end because nothing was ever separate.**
 
-## Modes
+## Deciding how to shoot a line
 
-| | |
-|---|---|
-| `/undertone spot <script>` | teleplay → machine-readable cue sheet |
-| `/undertone voice <character>` | record / register / lock a voice into the bank |
-| `/undertone chart "<line>" <seconds>` | phonemes → per-frame mouth chart |
-| `/undertone build <scene>` | cue sheet → mix + charts + prompt stubs |
-| `/undertone check` | run every audio gate |
-| `/undertone` | continue whatever sound work is in flight |
+Do this **before** generating anything. It is the cheapest decision in the
+pipeline and the most expensive to reverse.
 
-Everything lives in `docs/assets/undertow/audio/` with gates in
-`docs/assets/undertow/qc/`. The full doctrine is `docs/UNDERTOW-SOUND-BIBLE.md`
-— read it before making a decision this file does not cover.
+**Route A — design the shot so it needs no sync.** Target ≥60% of dialogue
+delivered off-mouth. This is craft, not evasion; it is what anime actually does.
+Over-the-shoulder, back of head, reaction cutaway on the key line, wide shot,
+hair across the face, the character turning away. Off-screen and V.O. lines are
+sync-free before anyone does any work — find them first, they are free.
 
-## Sound design: three tiers by ownership need
-
-Do not synthesise everything (does not scale) and do not switch wholesale to
-samples (throws away the thing that makes the score ours). Split by what
-actually has to be original:
-
-- **Signature — synthesised, owned.** The theme, the five Fathom stingers, the
-  five motifs. Anything the audience *learns to recognise*. This is the IP.
-  Stays in `build-score.py` / `build-signatures.py`.
-- **Texture — licensed, Splice.** Water, crowd, pool ambience, cloth, blocks,
-  room tone. There is no artistic argument for synthesising a starting-block
-  clang. This is where scale comes from.
-- **Derived — processed.** Everything else is one of the above run through the
-  house DSP.
-
-And the rule that makes those cohere:
-
-> **Every sound in UNDERTOW passes through the same water.**
-
-`mastering.fathom_space(x, tier)` — six tiers, `air` through `hadal`. A licensed
-crowd sample at `twilight` stops sounding like a library and starts sounding
-like it was recorded in your pool, because acoustically it was. The five
-underwater rows are numerically identical to the stinger table, so a stinger
-sits in exactly the room its own rank describes.
-
-Two more that are story rules made literal:
-
-- `calm_shape(x, calm)` — "panic is the villain, calm is the stat" as
-  automation. Panic is bright, hard and narrow; tunnel vision has a sound.
-- `submerged_voice(x)` — and it is **not** a muffle. Muffle-plus-reverb models
-  water as a barrier between a source and a dry ear. A flooded ear canal hears
-  by bone conduction: direction dies (sound moves ~4× faster in water, so the
-  interaural time difference collapses below what the ear can resolve), and it
-  is the **bottom** that goes, not the top. Getting this right is cheap and
-  reads as authority to anyone who has ever swum.
-
-## Lip-sync: design the shot first, chart second
-
-**Route A — shots that do not need sync. Aim for ≥60% of dialogue off-mouth.**
-This is craft, not evasion; it is what anime actually does. Over-the-shoulder,
-back of head, reaction cutaway on the key line, wide shot, hair across the face,
-turning away. This show gets it nearly free: **underwater nobody talks**, and
-above water they are behind caps and goggles, and the canon already makes
-internal monologue unspoken. `dialogue.py` marks V.O. and O.S. lines
-automatically — those are sync-free before anyone does any work.
-
-**Route B — dedicated sync pass.** Generate the shot mouth-closed and neutral,
-then drive the mouth from the audio. Verify what the available tooling actually
-does on one line before claiming it works.
+**Route B — audio-driven generation.** Feed the recording to a model that accepts
+an audio reference and animates to it. Works better than expected, with specific
+documented limits — see `references/measured-findings.md` before relying on it.
 
 **Route C — the fallback that always works.** Re-time the *voice* to the mouth
-you got. Measure the picture's open/closed envelope, then shift or reword the VO
-so its closures land where the picture already closes. Normal practice.
+you got: measure the picture's open/closed envelope and shift or reword the VO so
+its closures land where the picture already closes. Normal practice on real
+productions.
 
-**A before B before C, and no shot ships with a visible mouth that misses a
-closure.**
+**A before B before C.** No shot ships with a visible mouth that misses a
+closure.
 
-## The three chart rules, and none of them contains the word "or"
+## The mouth set — eight shapes and a rest
 
-A rule with an "or" in it gets exploited — that is why the swim codex let a
-craned neck through twice. Each of these commits to one behaviour.
+| | shape |
+|---|---|
+| `A` | open wide — jaw down, lips relaxed and apart |
+| `E` | mid open — lips slightly spread, jaw half |
+| `I` | spread — corners wide, teeth nearly together |
+| `O` | rounded open — lips forward in a ring |
+| `U` | small round — lips pushed forward, tight aperture |
+| `M` | **CLOSED** — upper and lower lip in contact |
+| `F` | lower lip drawn under the upper teeth |
+| `C` | narrow consonant — teeth close, lips neutral |
+| `X` | rest — closed, relaxed, no articulation |
 
-1. **Closures are absolute.** M, B and P shut the lips. Never merged, never
-   softened, never dropped for being short. Nobody consciously reads vowels;
-   everybody catches a missed closure.
-2. **Anything under two frames is absorbed.** A mouth that hits every phoneme
-   flaps. Rule 1 outranks this one.
-3. **The mouth leads the sound by exactly one frame.** The eye forgives early
-   and never forgives late.
+Two of the eight do nearly all the perceptual work and neither is a vowel: `M`
+and `F`. Nobody consciously reads vowel shapes; everybody catches a missed
+closure.
 
-## Voice identity gets the same doctrine as visual identity
+## The three chart rules, and none contains the word "or"
 
-Every character has a locked Reference Element. They need a locked **voice** the
-same way, with the same **baseline-state warning**: whatever is in the source
-recording becomes identity, *including room tone, mic distance and accent*.
-Record references clean, close, dry, unprocessed.
+A rule with an "or" in it gets exploited. Each of these commits to one behaviour.
 
-Two tiers, and the split is what makes the whole plan reversible:
+1. **Closures are absolute.** Every M, B and P closes the lips. Never merged,
+   never softened, never dropped for being short.
+2. **Anything under two frames is absorbed** into its neighbour. A mouth that
+   hits every phoneme flaps. Rule 1 outranks this one.
+3. **The mouth leads the sound by exactly one frame.** The eye forgives early and
+   never forgives late.
 
-- **Tier A — anything a producer hears: a real human voice.** A producer hears
-  TTS and discounts the whole package.
-- **Tier B — previz only, never leaves the repo:** synthetic, marked in the
-  filename, used purely to derive timing so picture can be built before casting.
+## Casting a voice
 
-Because the pipeline is timing-driven, **swapping B for A later needs no
-re-animation** — you direct the real actor to the previz timing, which is just
-ADR. So casting never blocks building.
+**Measure the pitch; do not pick by name.** Median fundamental frequency is
+checkable and a preset's name is not. Rough speaking-F0 bands, which overlap
+heavily and are guidance rather than rules: adult male 85–155 Hz, adolescent male
+130–200 Hz, adult female 165–255 Hz, child 200–300 Hz.
 
-## Verification
+**Cast adolescent boys with women.** Japanese production routinely does, because a
+woman working in her lower register lands where a teenage boy's voice actually
+lives — around 150–170 Hz — with a lightness an adult man has to fake. When this
+was measured across nine presets, the only candidate that landed in band *without
+any pitch shifting* was a female voice.
 
-Run `/undertone check` — or `python3 qc/verify_acoustics.py` and
-`python3 qc/verify_lipsync.py` directly. Both are in the pre-commit gate.
+**Check a voice on material like the material it will perform.** F0 rises with
+vocal effort: the same voice measured 144 Hz on a calm read and 182 Hz on an
+angry one. A single calm line is not a casting test.
 
-The standard these hold themselves to, which is the standard for anything added
-here:
+**Two tiers, and the split is what keeps the plan reversible.** Tier A is a real
+human for anything an audience or a buyer hears — synthetic voice reads as cheap
+and discounts the whole package. Tier B is synthetic, previz only, marked in the
+filename, used purely to derive timing so picture can be built before casting.
+Because the pipeline is timing-driven, swapping B for A later needs no
+re-animation — that is just ADR.
 
-- **A detector that has never been shown a real fault is not a detector.**
-  `verify_lipsync.py` plants a 5-frame offset and requires the detector to find
-  it, with the correct sign, in both directions, before any of its other results
-  are allowed to mean anything.
-- **Every test gets a negative control.** `verify_acoustics.py` runs each
-  monotonicity test a second time against untreated signal and requires it to
-  FAIL there. The submerged-voice test is built specifically so a plain lowpass
-  cannot pass it.
+**Pitch settles nothing about casting.** Timbre, weight, accent and performance
+decide it, and none of them is measurable. Send candidates to a human to listen.
 
-## What this pipeline cannot do, stated plainly
+## Sound design at scale: three tiers by ownership need
 
-- **It cannot hear.** Every audio claim is a measurement, not a listen. Attach a
-  number and a reproducible script to each one, and send the user to spot-listen
-  at the two places measurement is weakest: *does it sound like the character*,
-  and *does the mix feel good*. Those are taste.
-- **The chart only covers the mouth.** Blinks, head bobs and breath-holds are
-  sequence properties with no instrument yet. They need human eyes, or the same
-  treatment: author the timing first.
+- **Signature — synthesised, owned.** Themes, stingers, motifs. Anything the
+  audience *learns to recognise*. This is the IP; it must be original.
+- **Texture — licensed.** Water, crowd, room tone, cloth, impacts. There is no
+  artistic argument for synthesising a door slam. This is where scale comes from.
+- **Derived — processed.** Everything else is one of the above through the house
+  DSP.
+
+And the rule that makes them cohere: **every sound passes through the same
+acoustic space.** A licensed field recording and a cue written from scratch share
+no timbre, tuning or authorship — but run both through one room and they were
+recorded in the same place, because acoustically they now were. That is a house
+sound, and it is about twenty lines of code.
+
+## Verification, which is most of the value
+
+Everything here is built on one standard:
+
+> **A detector that has never been shown a real fault is not a detector.**
+
+- **Plant a defect on purpose and require the check to find it** before you
+  believe anything else it says. An uncalibrated sync detector clears
+  everything, which looks exactly like success.
+- **Every test gets a negative control** — run it on material where it should
+  FAIL. A test that passes on treated and untreated alike is measuring nothing.
+- **A self-test on synthetic material proves the arithmetic, not the method.**
+  This one cost three separate bugs. Clean tones do not exercise what breaks on
+  real signal.
+- **Check the distribution, not just the summary statistic.** A median hides a
+  bimodal failure completely — in one case 48% of frames pinned against a search
+  boundary while the median still looked plausible.
+- **Grade a shot against the recording, not against the chart.** The chart is an
+  intermediate; the audience hears the recording. Grading against an intermediate
+  is how a good take gets rejected.
 
 ## Housekeeping that gets expensive if skipped
 
-- **Keep D/M/E stems separate from day one.** Dialogue, Music, Effects on
+- **Keep D/M/E stems separate from day one** — Dialogue, Music, Effects on
   independent tracks. Every distributor requires it and international dubbing is
   impossible without an M&E track.
-- **`SAMPLES-MANIFEST.md`** — per-sample licence record for anything from
-  Splice. Cheap now, painful during a rights review.
-- **Silence is a resource.** The breath limit is an audio rule too. Full silence
-  underwater is the loudest tool in the kit, and only lands if the rest of the
-  mix is disciplined enough to earn it.
+- **Keep a per-sample licence manifest** for anything from a sample library.
+  Cheap now, painful during a rights review. Do not commit the source samples
+  themselves — commit the derived, processed asset, which is a work made with the
+  sample rather than a copy of it.
+- **Silence is a resource.** Full silence is the loudest tool available, and only
+  lands if the rest of the mix is disciplined enough to earn it.
+
+## What this pipeline cannot do
+
+State these rather than discovering them:
+
+- **It cannot hear.** Every audio claim is a measurement, not a listen. Attach a
+  number and a reproducible script to each one, and send a human to spot-listen
+  at the two places measurement is weakest: *does it sound like the character*
+  and *does the mix feel good.* Those are taste.
+- **The chart only covers the mouth.** Blinks, head bobs and breath-holds are
+  sequence properties with no instrument. Human eyes, or the same treatment —
+  author the timing first.
+
+## Tooling
+
+The reference implementation lives in the **openclaw** repo under
+`docs/assets/undertow/`:
+
+| | |
+|---|---|
+| `audio/dialogue.py` | pull spoken lines out of a teleplay, marking off-screen lines |
+| `audio/visemes.py` | phonemes → the eight mouths, and the per-frame chart |
+| `audio/align.py` | energy-envelope alignment by dynamic programming |
+| `audio/undertone.py` | CLI: `spot` a script, `chart` a line, `lines` a script |
+| `audio/cmudict.dict` | CMUdict vendored whole, so nothing needs the network |
+| `mastering.py` | the mastering chain and the acoustic-space function |
+| `qc/verify_lipsync.py` | calibrates the sync instrument against a planted defect |
+| `qc/measure_lipsync.py` | points that instrument at a real shot |
+| `qc/verify_voice.py` | pitch measurement, self-testing against known tones |
+| `qc/verify_acoustics.py` | proves the acoustic ladder, with negative controls |
+
+**If that repo is not in the session**, the doctrine above still applies in full
+and is the part that matters — the scripts are one implementation of it. Say so
+rather than pretending the tools are present.
+
+Full findings, with numbers and the mistakes behind them, are in
+`references/measured-findings.md`. Read it before relying on Route B.
