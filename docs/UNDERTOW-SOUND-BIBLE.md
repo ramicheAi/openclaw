@@ -79,6 +79,60 @@ no tuning and no author. Run both through `fathom_space("twilight")` and they
 share a **room**, because acoustically they were recorded in the same one. That
 is a house sound, and it is about twenty lines of code.
 
+### What the texture tier cannot do, and the claim that had to be withdrawn
+
+This document used to make a stronger boast, and it was false.
+
+The poolside crowd was built from an **art-gallery room tone**, chosen — so the
+argument went — precisely because nothing about a gallery belongs to a swimming
+pool. If it read as a natatorium after treatment, the treatment was doing real
+work rather than flattering material that was already close.
+
+It did not read as a natatorium. Measured with the project's own instrument, the
+shipped texture had a spectral centroid of **592 Hz**, against **2006 Hz** for
+`pool-surface` — the water it has to sit beside. The deck was three times darker
+than the pool.
+
+That is not a cosmetic error, and it did not stay contained. Rendering the
+Episode 1 sinking sequence, it **inverted the entire scene**: the mix got
+brighter as Kai sank, because it opened on the dullest material in the library
+and moved toward the brightest. The one thing that sequence has to do is get
+darker.
+
+The deck is now a competitive indoor sports hall — hard surfaces, shouting, a
+whistle over the top. A gymnasium and a natatorium are acoustic cousins. It
+measures **1805 Hz** after treatment, a 1213 Hz correction, and it now sits
+above every underwater texture as it must. It also sits at **`air`**, not at
+`sunlit`: the deck is dry land, and it had been placed at an underwater rank.
+
+> **`fathom_space()` places a recording at a depth. It does not change what was
+> recorded.** No lowpass and no tail turns an empty gallery into a room with a
+> hundred shouting kids in it. Source selection is a real decision — pick the
+> right room and the right event, then let the ladder place it.
+
+The house acoustic is still real and still measured; `verify_texture.py` grades
+it as a paired comparison and it passes. What it never claimed, and what this
+section wrongly did, is that treatment substitutes for choosing the right source.
+
+### The tail cannot be brighter than the sound inside it
+
+`stereo_reverb()` lowpassed its impulse response at a fixed 3.2 kHz. `fathom_space()`
+filters the *direct* signal to the tier's corner and then hands it to the reverb —
+so at hadal, an 800 Hz object was ringing in a 3.2 kHz room. The reverb was
+brighter than the thing making it, which is not something water does.
+
+It now takes `ir_cut`, and the two callers that place sounds by rank pass their
+own corner. The correction is small where it applies — 15–19 Hz of centroid at
+abyssal and hadal, nothing above them — and it was worth finding twice, because
+the identical fault was sitting in `build-signatures.py`, where every Fathom
+stinger was ringing in a room brighter than itself.
+
+**This was not the cause of the inverted scene.** It was diagnosed as the cause,
+the fix was made, and the measurement then showed it accounted for about 19 Hz
+of a 212 Hz error. The real causes were the gallery source above and the scene
+faults in §5a. Recorded here because a fix that lands where you did not predict
+is the reason to measure after fixing rather than before.
+
 ### The Fathom ladder as an acoustic space
 
 `mastering.fathom_space(x, tier)`. Six tiers. The five underwater rows are
@@ -145,6 +199,90 @@ specifically so that a plain lowpass cannot pass it.
 
 Getting this right is cheap, and it reads as authority to anyone who has ever
 swum.
+
+---
+
+## 5a. Building a whole scene, and why a scene needs its own gate
+
+`build-scene.py` renders the Episode 1 sinking sequence — 72 seconds, no
+dialogue, carried entirely by depth, tempo and silence. It is the first thing
+that uses the whole department at once, and it is where four separate faults
+surfaced that **no existing gate could have caught**.
+
+That is the lesson worth keeping. `verify_mastering` checks the chain.
+`verify_texture` checks each texture alone. `verify_acoustics` checks that the
+ladder is monotonic. All three passed, on every render, while the scene ran
+backwards. The faults were in how a scene **used** correct parts, which is a
+property only the scene has.
+
+### The four faults
+
+**1. The deck was darker than the pool.** The art-gallery source, above. 592 Hz
+against 2006 Hz.
+
+**2. `pool-surface` ramped in and never ramped out.** The brightest texture in
+the library — 2009 Hz — sat at full level for 56 of the scene's 72 seconds,
+underneath the part where a boy is motionless on the floor of a pool. Water is
+now three layers that hand off: surface → submerged → deep, each arriving while
+the last is still going, so there is never a cut, but the surface is *gone* by
+the time he is past twilight, because by then he cannot hear it.
+
+**3. A cue named in the beat sheet was never in the mix.** The sheet says
+"the muffled roar" at 16 s. `crowd-submerged` existed, was built, was verified —
+and was never referenced. It now follows him under for six seconds and loses him.
+
+**4. The heartbeat was fighting the arc, and the comment already knew.** The
+code said *"louder when fast: a racing heart is heard, a slow one is felt."*
+Only the gain was implemented. Measured, the heart's spectral centroid was a
+dead-flat **73 Hz** end to end while its level tracked panic — loudest exactly
+when the mix should be brightest, quietest exactly when it should be darkest.
+A constant 73 Hz object holding 28% of the energy pins a power-weighted centroid
+and the water's 965–1484 Hz variation cannot move it.
+
+> "Heard" versus "felt" is a statement about **spectrum**. If the code only
+> changes gain, the code does not say what the comment says.
+
+The sweep start, the skin transient's level *and* its corner frequency now all
+ride the panic value. Racing, the thump has bite up in the throat; settled, it
+is pure sub through the ribs.
+
+### The paired measurement that found it
+
+Guessing was wrong twice here — first blaming the reverb tail (worth ~19 Hz of a
+212 Hz error), then the double-treatment. What settled it was measuring the stems
+separately against the same depth curve:
+
+| stem | depth → brightness, rank correlation |
+|---|---|
+| world | **−0.82** — descends properly |
+| heart | **+0.16**, centroid flat at 73 Hz |
+| *finished mix* | *+0.07 — no arc at all* |
+
+A stem that descends cleanly and a mix that does not is not an ambiguous result.
+
+### `qc/verify_scene.py`
+
+Reads the depth curve from the cue sheet and measures the **rendered WAV**
+against it — intent versus output. The circular version, which would prove
+nothing, measures the rank weights instead and confirms only that interpolation
+works.
+
+It found two bugs in itself before it found any in the scene, which is by now
+the expected sequence:
+
+- **Spearman with `argsort(argsort(x))` gives tied values arbitrary distinct
+  ranks in input order.** The depth curve is full of ties — seven of seventeen
+  windows sit at the abyssal floor — so it was ranking those seven by the order
+  they happened to appear, which is to say by time, which is to say it was
+  inventing a trend out of nothing. Ties must get **average** ranks.
+- **The "pink noise" negative control was a cumulative sum of white noise**,
+  which is Brownian, not pink. It random-walks, so it drifts, so it has a slow
+  trend in it by construction. It scored −0.52 against a −0.55 threshold: a
+  control one hundredth of a point away from certifying that noise descends.
+  Shaped in the frequency domain instead, it reads −0.24.
+
+Both bugs were invisible against the scene alone and obvious against the
+controls. That is what controls are for.
 
 ---
 

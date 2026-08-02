@@ -1,6 +1,6 @@
 ---
 name: undertone
-description: Sound department for animation and film work — score, effects, voice, and lip-sync treated as one timing-driven pipeline. Use when spotting a script into cues, choosing or checking a character voice, generating a mouth chart for a line, building a scene's audio, deciding how to frame a shot that has dialogue in it, or verifying that generated lip-sync actually works. Also use when planning any shot with a speaking character, because the shot-design decision comes before generation, not after.
+description: Sound department for animation and film work — score, effects, voice, and lip-sync treated as one timing-driven pipeline. Use when spotting a script into cues, choosing or checking a character voice, generating a mouth chart for a line, building or mixing a scene's audio, sourcing library/sample material, deciding how to frame a shot that has dialogue in it, or verifying that generated lip-sync or a finished scene mix actually works. Also use when planning any shot with a speaking character, because the shot-design decision comes before generation, not after.
 ---
 
 # Undertone
@@ -117,6 +117,29 @@ no timbre, tuning or authorship — but run both through one room and they were
 recorded in the same place, because acoustically they now were. That is a house
 sound, and it is about twenty lines of code.
 
+## Building a whole scene
+
+A scene is not a pile of cues, and the difference is measurable. Author the
+depth, tempo and emotional state as a **curve** — a small table of (time, place,
+state) rows that everything else interpolates from — then render the material at
+each place on the ladder and crossfade. The room becomes the performance rather
+than a setting the performance happens in.
+
+Two rules that only appear at scene scale:
+
+- **Layers hand off; they do not accumulate.** A layer that ramps in and never
+  ramps out will sit under the entire rest of the scene. This is the single
+  easiest way to destroy an arc, it never looks wrong in the code, and it is
+  invisible to every component-level check.
+- **Set the mix by stated share, not by ear.** Declare what fraction of energy
+  each stem should hold, measure what it actually holds, and correct. Anything
+  centred and low-frequency — a heartbeat, a sub drone — will otherwise quietly
+  dominate and mask the very thing the scene is about.
+
+And **grade the finished scene against its own cue sheet**, because a scene can
+be assembled entirely from verified parts and still run backwards. That is not
+hypothetical; see `references/measured-findings.md`.
+
 ## Verification, which is most of the value
 
 Everything here is built on one standard:
@@ -174,6 +197,8 @@ The reference implementation lives in the **openclaw** repo under
 | `audio/align.py` | energy-envelope alignment by dynamic programming |
 | `audio/undertone.py` | CLI: `spot` a script, `chart` a line, `lines` a script |
 | `audio/cmudict.dict` | CMUdict vendored whole, so nothing needs the network |
+| `build-scene.py` | a whole scene rendered from a depth/tempo/state curve |
+| `qc/verify_scene.py` | grades a rendered scene against its own cue sheet |
 | `mastering.py` | the mastering chain and the acoustic-space function |
 | `qc/verify_lipsync.py` | calibrates the sync instrument against a planted defect |
 | `qc/measure_lipsync.py` | points that instrument at a real shot |

@@ -158,7 +158,8 @@ def bass_harmonics(x, amount=0.28, below=140.0, sr=SR):
     return lo + hi + harm * amount
 
 
-def stereo_reverb(x, seconds=3.6, mix=0.34, pre=0.02, width=1.0, seed=3, sr=SR):
+def stereo_reverb(x, seconds=3.6, mix=0.34, pre=0.02, width=1.0, seed=3,
+                  ir_cut=3200.0, sr=SR):
     """Convolution reverb with genuinely decorrelated left and right tails.
 
     Two independent noise tails rather than one shared tail is the whole
@@ -176,8 +177,17 @@ def stereo_reverb(x, seconds=3.6, mix=0.34, pre=0.02, width=1.0, seed=3, sr=SR):
     for ch in (0, 1):
         rng = np.random.default_rng(seed + ch * 977)
         ir = rng.normal(0, 1, n) * np.exp(-t * 7.0)
-        # water eats high frequencies; the tail must get darker as it decays
-        ir = sosfilt(butter(2, 3200, "lp", fs=sr, output="sos"), ir)
+        # Water eats high frequencies; the tail must get darker as it decays.
+        #
+        # `ir_cut` exists because a fixed 3.2 kHz tail is WRONG at depth. The
+        # caller filters the direct sound to the tier's corner and then hands
+        # it here — so at hadal, an 800 Hz direct sound was coming back with a
+        # 3.2 kHz reverb tail wrapped around it. The room was brighter than the
+        # thing in it, which is not a thing water does, and it is measurable:
+        # rendering the sinking sequence, spectral centroid ROSE from 504 Hz to
+        # 716 Hz as the character descended. The tail was the only thing that
+        # could be doing that.
+        ir = sosfilt(butter(2, min(3200.0, ir_cut), "lp", fs=sr, output="sos"), ir)
         ir[:int(pre * sr)] = 0
         irs.append(ir)
     # blend a common component back in so the reverb has a centre
@@ -264,8 +274,9 @@ def fathom_space(x, tier, wet=None, seed=3, sr=SR):
     if sub_db:
         st = shelf(st, 160.0, sub_db, "low")
 
+    # The tail cannot be brighter than the direct sound it belongs to.
     return stereo_reverb(st, seconds=secs, mix=default_wet if wet is None else wet,
-                         pre=pre, width=width, seed=seed, sr=sr)
+                         pre=pre, width=width, seed=seed, ir_cut=cut, sr=sr)
 
 
 def calm_shape(x, calm, sr=SR):

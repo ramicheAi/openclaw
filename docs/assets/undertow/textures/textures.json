@@ -6,7 +6,7 @@
    "source": "underwater.wav",
    "tier": "sunlit",
    "seconds": 8.0,
-   "lufs": -20.4
+   "lufs": -20.6
   },
   {
    "name": "pool-submerged",
@@ -24,14 +24,14 @@
   },
   {
    "name": "crowd-poolside",
-   "source": "roomtone.wav",
-   "tier": "sunlit",
+   "source": "hall.wav",
+   "tier": "air",
    "seconds": 20.0,
    "lufs": -20.0
   },
   {
    "name": "crowd-submerged",
-   "source": "roomtone.wav",
+   "source": "hall.wav",
    "tier": "midnight",
    "seconds": 20.0,
    "lufs": -20.0

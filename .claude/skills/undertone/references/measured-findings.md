@@ -171,6 +171,61 @@ head, and an ink-outline walk that ran to the frame edge. That tool was deleted
 rather than shipped. A measurement that can be wrong by an order of magnitude and
 still look plausible is worse than none.
 
+**Treatment offered as a substitute for source selection.** A poolside crowd was
+built from an art-gallery room tone, on the argument that if a gallery reads as a
+natatorium after treatment, the treatment must be real. It does not. Measured, the
+shipped texture sat at a 592 Hz spectral centroid while the water beside it was
+2006 Hz — the deck was three times darker than the pool, and it inverted an entire
+72-second descent sequence, which got *brighter* as the character sank. An
+acoustic-placement function places a recording at a depth; it does not change what
+was recorded. Pick the right room and the right event, then let the ladder place it.
+
+**A reverb tail brighter than the sound inside it.** The convolution reverb
+lowpassed its impulse response at a fixed corner while the caller filtered the
+*direct* signal to a depth-dependent one — so a deep, dark object rang in a bright
+room. Worth stating mainly for what happened next: this was diagnosed as the cause
+of the inverted scene, fixed, and then measured to account for about 19 Hz of a
+212 Hz error. **Measure after fixing, not only before.** A confident diagnosis that
+turns out to be a rounding error is the normal case, not an unusual one.
+
+**Ties given arbitrary ranks in a rank correlation.** `argsort(argsort(x))` hands
+tied values distinct ranks in *input order*. On a depth curve where seven of
+seventeen windows sat at the same floor, that ranked them by the order they
+appeared — by time — and manufactured a trend from nothing. Ties must get average
+ranks.
+
+**A drifting negative control.** A "stationary pink noise" control was built as a
+cumulative sum of white noise, which is Brownian: it random-walks, so it drifts,
+so it contains a slow trend by construction. It scored −0.52 against a −0.55
+threshold — one hundredth of a point from certifying that noise descends. Shape
+noise in the frequency domain when the control's whole job is to be stationary.
+
+**A comment that asserted more than the code implemented.** "Louder when fast: a
+racing heart is heard, a slow one is felt" — with only a gain change behind it.
+*Heard* versus *felt* is a claim about spectrum. The stem's centroid measured
+dead flat end to end while its level tracked panic, putting it in direct
+opposition to the scene's arc. When a comment describes a behaviour, check that
+the code below it produces that behaviour.
+
+---
+
+## Whole scenes need a gate that parts do not
+
+A finished scene has a property none of its components has: whether it uses
+correct parts correctly. Four separate faults shipped through a sinking sequence
+while every component-level gate passed on every render — chain, textures,
+acoustic ladder, all green, on a scene that was running backwards.
+
+Grade a scene by reading its **declared intent** out of the cue sheet and
+measuring the **rendered output** against it. The circular version — measuring
+the interpolation weights instead of the audio — proves only that interpolation
+works.
+
+And measure the stems separately when the mix disagrees with expectation. A stem
+that descends cleanly at −0.82 next to a finished mix at +0.07 is not an
+ambiguous result; it names the masker immediately, where three rounds of guessing
+had not.
+
 ---
 
 ## The standing division of labour

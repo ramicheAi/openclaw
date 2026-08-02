@@ -51,9 +51,37 @@ import mastering as M  # noqa: E402
 
 TEX = os.path.join(ART, "textures")
 
-# Energy an octave above the corner, relative to an octave below it. The tier
-# filters are third-order, so ~18 dB/octave; measuring across two octaves of
-# separation, anything shallower than this is not the filter doing the work.
+
+def _load_take():
+    """build-textures.take(), imported — its filename is not an identifier."""
+    import importlib.util
+    p = os.path.join(ART, "build-textures.py")
+    spec = importlib.util.spec_from_file_location("build_textures", p)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.take
+
+
+_take = _load_take()
+
+# Energy an octave above the corner, relative to an octave below it.
+#
+# THIS IS REPORTED, NOT GATED, and demoting it was the resolution of a direct
+# contradiction in this very file: the block below argues at length that an
+# absolute rolloff figure "was not a control at all" because it measures the
+# source rather than the treatment — and then the code gated on it anyway,
+# ahead of the paired check, so an absolute failure short-circuited before the
+# meaningful test ever ran.
+#
+# What exposed it: the deck crowd was re-sourced from a live sports hall, which
+# has a WHISTLE sitting essentially on top of the midnight rank's 4 kHz corner.
+# A third-order filtfilt attenuates by only about 6 dB right at its corner, so
+# a recording whose energy piles up there cannot reach 12 dB of band separation
+# no matter how correctly it is treated. Measured on neutral broadband, the
+# ladder delivers 12.7-15.7 dB of ADDED damping at every rank, midnight
+# included — the treatment is not what fell short.
+#
+# A texture below this figure is worth looking at. It is not by itself wrong.
 MIN_ROLLOFF_DB = 12.0
 
 # THE MEASUREMENT IS PAIRED, and the first version was not. Requiring the
@@ -81,11 +109,17 @@ MIN_ROLLOFF_DB = 12.0
 MIN_ADDED_ROLLOFF_DB = 6.0
 
 FAIL = []
+WARN = []
 
 
 def fail(m):
     FAIL.append(m)
     print(f"  \033[31m✗\033[0m {m}")
+
+
+def warn(m):
+    WARN.append(m)
+    print(f"  \033[33m!\033[0m {m}")
 
 
 def ok(m):
@@ -164,7 +198,21 @@ def main():
             continue
 
         if have_sources and os.path.exists(os.path.join(src_dir, meta["source"])):
-            src = M.read_wav(os.path.join(src_dir, meta["source"]))
+            # PAIR AGAINST THE SAME WINDOW THE TEXTURE WAS MADE FROM.
+            #
+            # This read the WHOLE source file and compared it against a texture
+            # built from twenty seconds out of the middle of it — a different
+            # stretch of audio, with different things happening in it. That is
+            # the "measure the reference with a different ruler" trap, and it
+            # cost real accuracy here: the hall recording's middle twenty
+            # seconds are brighter than the file as a whole (3.6 dB of rolloff
+            # against 5.1), so the treatment was credited with 5.0 dB of added
+            # damping when it had actually added 6.5.
+            #
+            # take() is imported rather than reimplemented so the two can never
+            # drift apart.
+            src = _take(M.read_wav(os.path.join(src_dir, meta["source"])),
+                        float(meta["seconds"]))
         else:
             rng = np.random.default_rng(abs(hash(name)) % 9999)
             n = M.SR * 4
@@ -173,18 +221,23 @@ def main():
         r_src = rolloff_db(src, corner)
         r_out = rolloff_db(M.read_wav(path), corner)
         added = r_out - r_src
-        mark = "" if (r_out >= MIN_ROLLOFF_DB and added >= MIN_ADDED_ROLLOFF_DB) \
-            else "   <-- weak"
+        mark = "" if added >= MIN_ADDED_ROLLOFF_DB else "   <-- weak"
         print(f"  {name:22s} {tier:10s} {corner:8.0f}Hz {r_src:8.1f} "
               f"{r_out:9.1f} {added:+9.1f}{mark}")
 
-        if r_out < MIN_ROLLOFF_DB:
-            fail(f"{name} only loses {r_out:.1f} dB across its {corner:.0f} Hz "
-                 f"corner (need {MIN_ROLLOFF_DB}) — it is not in the {tier} room")
-        elif added < MIN_ADDED_ROLLOFF_DB:
+        # THE PAIRED MEASURE IS THE GATE. The absolute figure is reported
+        # because it is worth a look, and is not a verdict, because it is a
+        # property of the recording as much as of the treatment.
+        if added < MIN_ADDED_ROLLOFF_DB:
             fail(f"{name} was already damped {r_src:.1f} dB at that corner and the "
                  f"treatment only added {added:.1f} (need {MIN_ADDED_ROLLOFF_DB}) — "
                  f"the room is not what put it there, the source was")
+        elif r_out < MIN_ROLLOFF_DB:
+            warn(f"{name} clears its corner by only {r_out:.1f} dB "
+                 f"(typical is {MIN_ROLLOFF_DB}+), but the treatment added "
+                 f"{added:.1f} dB of that — the source arrived with energy "
+                 f"sitting on the {corner:.0f} Hz corner. Treatment is working; "
+                 f"the recording is bright there.")
 
     if not FAIL:
         ok("every texture is damped at its own rank's corner, and the damping "
@@ -194,8 +247,11 @@ def main():
     if FAIL:
         print(f"\033[31m  FAILED — {len(FAIL)} problem(s)\033[0m\n")
         return 1
-    print("\033[32m  PASSED — an art-gallery room tone is now damped like this "
-          "show's pool\033[0m\n")
+    print("\033[32m  PASSED — licensed field recordings are damped at their own "
+          "rank's corner\033[0m")
+    print("  Note what this does NOT say: that the treatment can fix a source "
+          "recorded in\n  the wrong room. It cannot. See SAMPLES-MANIFEST.md, "
+          "'The one that disproved it'.\n")
     return 0
 
 

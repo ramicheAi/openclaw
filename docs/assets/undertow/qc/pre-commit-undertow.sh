@@ -55,10 +55,10 @@ fi
 # Only run when the score itself is in play; they take a few seconds each and
 # there is no reason to pay that on an art-only commit.
 if git diff --cached --name-only \
-     | grep -qE '^docs/assets/undertow/(.*\.wav$|build-score\.py|build-signatures\.py|mastering\.py|audio/|textures/|build-textures\.py)'; then
+     | grep -qE '^docs/assets/undertow/(.*\.wav$|build-score\.py|build-signatures\.py|build-scene\.py|mastering\.py|audio/|textures/|scenes/|build-textures\.py)'; then
   echo ""
   echo "  UNDERTOW score delivery gate…"
-  for v in verify_mastering verify_signatures verify_translation verify_acoustics verify_lipsync verify_texture; do
+  for v in verify_mastering verify_signatures verify_translation verify_acoustics verify_lipsync verify_texture verify_scene; do
     if ! python3 "$REPO_ROOT/docs/assets/undertow/qc/$v.py"; then
       cat <<MSG
 
@@ -69,11 +69,16 @@ if git diff --cached --name-only \
   under -1.0 dBTP, the signature kit must still demonstrate its design
   (the Fathom ladder audibly a ladder, the dive reflex actually slowing),
   the ANSWER must still survive a phone speaker, the house acoustic must
-  still put every sound in the same water, and the lip-sync instrument must
-  still find a five-frame defect planted on purpose.
+  still put every sound in the same water, the lip-sync instrument must
+  still find a five-frame defect planted on purpose, and any built scene must
+  still get DARKER as it descends.
 
-  That last one is not a formality. An uncalibrated sync detector clears
+  The sync one is not a formality. An uncalibrated sync detector clears
   everything, which looks exactly like success.
+
+  Nor is the scene one. Every other gate here passed on a sinking sequence
+  that was running backwards, because each of them checks a part and the
+  fault was in how the parts were used.
 
   Full rules: docs/UNDERTOW-SCORE.md and docs/UNDERTOW-SOUND-BIBLE.md
   ────────────────────────────────────────────────────────────────

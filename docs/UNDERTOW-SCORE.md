@@ -209,17 +209,44 @@ resolution needs, rather than for a round number.
 | Motifs (5) | `docs/assets/undertow/signatures/motif-*.wav` |
 | Teaser cue | `docs/assets/undertow/qc/teaser-score.wav` |
 | Scored teaser | `docs/assets/undertow/teaser-undertow.mp4` |
+| Textures (7) | `docs/assets/undertow/textures/*.wav` |
+| **Ep 1 sinking sequence, full scene mix** | `docs/assets/undertow/scenes/ep1-the-sinking.wav` |
 
 ```bash
 cd docs/assets/undertow
 python3 build-score.py         # theme + teaser cue
 python3 build-signatures.py    # the ten signature sounds
+python3 build-textures.py --src <dir>   # licensed material into the house water
+python3 build-scene.py         # the Ep 1 sinking sequence, 72 s
 python3 build-teaser.py        # cut picture, mix score over the ambience bed
 
 python3 qc/verify_signatures.py            # structural + level verification
 python3 qc/verify_audio.py undertow-theme.wav
+python3 qc/verify_scene.py                 # does the scene actually descend
 python3 qc/verify_assets.py                # the art-integrity gate
 ```
+
+### The scene mix
+
+`build-scene.py` is the first thing that uses the whole department at once —
+ladder, textures, score instruments, calm automation — and renders 72 seconds of
+picture-length audio from a **curve** rather than a cue list:
+
+| | |
+|---|---|
+| what | Episode 1, Kai falls in and sinks; the water settles around him |
+| length | 72 s, no dialogue |
+| spine | the on-screen heart numbers, transcribed from canon: 90 → 150 → 34 |
+| room | five fathom ranks rendered and crossfaded, so the acoustic *is* the performance |
+
+The heart numbers are not invented for the mix; they are the ones canon puts on
+screen, which is why the tempo curve is a transcription rather than a design.
+
+`qc/verify_scene.py` grades the rendered WAV against that curve — the mix must
+get darker and wider as he descends — with negative controls on reversed audio
+and on stationary noise. It exists because four separate faults shipped through
+this sequence while every component-level gate passed; see
+`UNDERTOW-SOUND-BIBLE.md` §5a.
 
 ### The mastering chain
 

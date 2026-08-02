@@ -316,8 +316,13 @@ def main():
           f"{M.CEILING_DBTP:.1f} dBTP)\n")
     for name, note, cut, rev, sw, dur, width in FATHOM:
         dry = hadal_stinger(dur) if name == "hadal" else fathom_stinger(note, cut, rev, sw, dur)
+        # ir_cut=cut: the tail cannot be brighter than the stinger inside it.
+        # fathom_stinger() already filters the dry signal to this rank's corner,
+        # and the reverb used to be fixed at 3.2 kHz regardless — so the hadal
+        # stinger, an 800 Hz object, was ringing in a 3.2 kHz room. Same fault
+        # as the one found in the sinking sequence, in a second place.
         wet = M.stereo_reverb(M.pan(dry, 0.0), rev, mix=0.28 + 0.30 * sw,
-                              width=width, seed=101 + int(rev * 10))
+                              width=width, seed=101 + int(rev * 10), ir_cut=cut)
         wet = seal(wet, fade_out=min(0.6, dur * 0.12))
         lufs, capped, tp, corr = deliver(os.path.join(OUT, f"fathom-{name}.wav"), wet)
         print(f"    {name:9s} {note:3s}  lp {cut:5d}Hz  rev {rev:.1f}s  width {width:.2f}   "

@@ -13,11 +13,36 @@ rooms, different microphones, different decades, no relationship to each other
 or to the score. A show whose sound is assembled that way is recognisably
 assembled.
 
-So every texture goes through fathom_space(). A crowd recorded in an art gallery
+So every texture goes through fathom_space(). A crowd recorded in a sports hall
 and a Fathom stinger written in numpy share nothing — not timbre, not tuning,
-not authorship. Put both at "sunlit" and they share a ROOM, because acoustically
-they now were recorded in the same one. qc/verify_texture.py measures whether
-that actually happened rather than assuming it.
+not authorship. Put both at "twilight" and they share a ROOM, because
+acoustically they now were recorded in the same one. qc/verify_texture.py
+measures whether that actually happened rather than assuming it.
+
+WHAT THIS TIER CANNOT DO, learned the expensive way.
+
+The deck crowd was originally built from an ART-GALLERY room tone, and the note
+here used to say that was a deliberate test: if a gallery reads as a natatorium
+after treatment, the treatment is real. It does not, and the claim was wrong.
+Measured, the shipped texture came out at a 592 Hz spectral centroid while the
+water it has to sit beside is 2006 Hz — the deck was darker than the pool. In
+the sinking sequence that inverted the whole descent: the scene got BRIGHTER as
+Kai went down, because it opened on its dullest material and moved to its
+brightest.
+
+The correction is the actual doctrine, and it is more useful than the boast:
+
+  * fathom_space() places a recording at a DEPTH. It does not change what was
+    recorded. A hushed room stays hushed; no lowpass and no tail turns an empty
+    gallery into a room with a hundred shouting kids and a whistle in it.
+  * So source selection is a real decision and not a formality. Pick the right
+    ROOM and the right EVENT, then let the ladder place it.
+  * A natatorium is one of the brightest, most reverberant spaces in ordinary
+    life — six hard tiled surfaces. It is nearly the acoustic opposite of the
+    gallery that was standing in for it.
+
+The deck is now a competitive indoor sports hall: right room, right event, and
+its own tail comes with the recording, which is exactly what this tier is for.
 
 Sources are Splice-licensed and recorded in the manifest with their asset UUIDs,
 so the provenance of every shipped texture is traceable to a licence.
@@ -65,10 +90,10 @@ TEXTURES = [
      "the show's basic gesture, and it costs one function call."),
     ("pool-deep",       "underwater.wav", "abyssal",  8.0, -2.0,
      "Water with nothing bounding it. For anything past the sealed door."),
-    ("crowd-poolside",  "roomtone.wav",   "sunlit",  20.0, -3.0,
-     "A meet, heard from the deck. Source is an art-gallery room tone, chosen "
-     "deliberately: if THIS reads as a natatorium, the treatment is real."),
-    ("crowd-submerged", "roomtone.wav",   "midnight", 20.0, -4.0,
+    ("crowd-poolside",  "hall.wav",       "air",     20.0, -3.0,
+     "A meet, heard from the deck. Dry land, so it sits at 'air' — see the "
+     "note below on what putting it at an underwater rank cost."),
+    ("crowd-submerged", "hall.wav",       "midnight", 20.0, -4.0,
      "The same crowd heard with your head under, which is the sound every "
      "swimmer in the audience knows and almost no show gets right."),
     ("class-laugh",     "classroom.wav",  "air",      6.0, -2.0,
