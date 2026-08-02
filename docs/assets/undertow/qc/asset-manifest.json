@@ -1206,6 +1206,21 @@
    "verified_by": "claude-opus-5",
    "verified_at": "2026-08-01",
    "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-vo-tierB-v2.wav": {
+   "sha256_16": "eab68ec399c4dab3",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "seed_audio, preset voice Callum with pitch_rate 4",
+   "note": "TIER B PREVIZ VOICE v2 - SYNTHETIC, NEVER SHIPS. Replaces v1 after the creator flagged that the voice did not match the character. Measured: v1 sat at 109 Hz median F0, squarely adult male and 21 Hz below the adolescent band; this one is 133 Hz, inside it. No preset in the library is a fifteen-year-old boy, which is the concrete reason the Sound Bible requires a real human for anything a producer hears.",
+   "verification": "Pitch measured with qc/verify_voice.py, whose tracker is itself verified against six synthetic tones from 100-300 Hz on every run and matches them within 0.1%. TIMBRE IS NOT VERIFIED and cannot be by any measurement here - whether it sounds like Kai is a listening decision and remains open.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Voice pitch correction, docs/UNDERTOW-SOUND-BIBLE.md section 6"
   }
  },
  "provenance_types": {
