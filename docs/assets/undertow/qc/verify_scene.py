@@ -334,6 +334,54 @@ def main():
         bad(f"stationary noise reads as descending ({ftrend:+.2f}) — the test "
             f"is finding structure that is not there")
 
+
+    # ── EVENTS: does the mix actually collide with the picture? ─────────────
+    #
+    # The first version of this check, written by hand during review, declared
+    # every event PRESENT — and then declared the same +5-12 dB "events" in
+    # four windows where nothing happens. It was counting heartbeats. So this
+    # gate is band-limited per event and graded against no-event CONTROL
+    # windows, and an event only passes by beating its own controls.
+    events = [e for e in sc.get("events", []) if isinstance(e.get("verify"), dict)]
+    if events:
+        print("\n  \033[1mevents — burst at t, in band, above matched controls\033[0m")
+        mono = st.mean(1)
+        def band_db(t0, lo, hi, w=0.30):
+            a = int(max(0.0, t0 - w / 2) * M.SR)
+            seg = mono[a:a + int(w * M.SR)]
+            if len(seg) < 256:
+                return -120.0
+            S = np.abs(np.fft.rfft(seg * np.hanning(len(seg)))) ** 2
+            f = np.fft.rfftfreq(len(seg), 1 / M.SR)
+            return 10 * np.log10(max(S[(f >= lo) & (f < hi)].sum(), 1e-18))
+        # ONSET, not absolute level. The first version compared the event
+        # window against neighbouring windows — and an event that sits next to
+        # the panic passage loses to it on absolute energy while being fully
+        # present. A transient is a RISING EDGE: band energy just after t minus
+        # just before t. Loud neighbours after the onset cannot mask that.
+        ev_times = [e["t"] for e in sc.get("events", [])]
+        def rise_db(t0, lo, hi):
+            after = max(band_db(t0 + 0.15 + dt, lo, hi) for dt in (0.0, 0.1, 0.2))
+            before = band_db(t0 - 0.30, lo, hi)
+            return after - before
+        for e in events:
+            lo, hi = e["verify"]["band"]
+            r = rise_db(e["t"], lo, hi)
+            ctrls = []
+            for off in (-6.0, -3.0, 3.0, 6.0):
+                tc = e["t"] + off
+                if 1.0 < tc < sc["duration"] - 1.0 and \
+                   all(abs(tc - q) > 1.5 for q in ev_times):
+                    ctrls.append(rise_db(tc, lo, hi))
+            floor = np.median(ctrls) if ctrls else 0.0
+            if r >= 6.0 and r - floor >= 4.0:
+                ok(f"{e['sound']:26s} t={e['t']:5.1f}s  onset +{r:.1f} dB "
+                   f"(control floor {floor:+.1f})")
+            else:
+                bad(f"{e['sound']} at t={e['t']}s onset only +{r:.1f} dB vs "
+                    f"control floor {floor:+.1f} — no rising edge, the event "
+                    f"is not landing")
+
     print()
     if FAIL:
         print(f"\033[31m  FAILED — {len(FAIL)} problem(s)\033[0m\n")

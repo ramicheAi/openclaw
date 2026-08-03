@@ -190,15 +190,15 @@
    "texture": "class-laugh",
    "gain_db": -6.0,
    "fade_in": [
-    13.0,
-    13.8
+    14.2,
+    15.0
    ],
    "fade_out": [
-    19.2,
-    20.0
+    19.4,
+    20.2
    ],
    "bus_gain": 0.9,
-   "note": "the classroom laughing at the Anchor, dry and above."
+   "note": "the classroom laughing at the Anchor, dry and above. DELAYED from 13.0: laughter at the exact impact frame gives the crowd zero reaction time; cruelty needs the stunned beat first."
   },
   {
    "texture": "class-laugh-memory",
@@ -213,28 +213,53 @@
    ],
    "bus_gain": 0.9,
    "note": "the same recording four rungs down. The script says the laughter 'bends into whale-song distortion and fades', and this crossfade IS that sentence — one take, two treatments."
+  },
+  {
+   "texture": "crowd-poolside",
+   "gain_db": -8.0,
+   "fade_in": [
+    68.8,
+    69.4
+   ],
+   "fade_out": null,
+   "note": "THE SMASH NEEDS A WORLD TO SMASH INTO. The first mix let the deck exit at 18s and never return, so the cut to Gouda played over dry-treated underwater noise. The hall walla slams back with the cut."
   }
  ],
- "_tone_comment": "The thing in the water. 'A low, vast, gentle tone. Like a whale. Like a name.' Two close sines beating slowly against each other so it breathes without being played. It belongs to the deep and only exists down there.",
+ "_tone_comment": "The thing in the water, and it is not an effect — it is the ANSWER, the theme's reply phrase (D A# G F G) taken down to the register the old ad-hoc sines lived in, each note a detuned pair so it beats and breathes. The score doc's grammar: the answer arriving early means the deep is reaching for someone. This moment IS that sentence; 'like a name' because it is one.",
  "tone": {
-  "freqs_hz": [
-   36.7,
-   36.9,
-   73.4
+  "answer_phrase": [
+   [
+    73.42,
+    2.0
+   ],
+   [
+    58.27,
+    1.5
+   ],
+   [
+    49.0,
+    2.0
+   ],
+   [
+    43.65,
+    1.5
+   ],
+   [
+    49.0,
+    4.0
+   ]
   ],
-  "gains": [
-   1.0,
-   0.7,
-   0.4
-  ],
+  "bpm": 30,
+  "detune_hz": 0.22,
+  "octave_up": 0.35,
   "level": 0.16,
   "fathom": "abyssal",
   "fade_in": [
    48.0,
-   54.0
+   52.0
   ],
   "fade_out": [
-   64.0,
+   66.0,
    70.0
   ]
  },
@@ -261,41 +286,69 @@
    "eyes": "brown",
    "subject": "kai",
    "slug": "the walk to the block",
-   "prompt": "Wide shot from behind and slightly low: a lean 15-year-old boy of mixed Black and Japanese heritage, deep brown skin, tightly-coiled blue-black hair worn overgrown falling toward his eyes, plain dark navy swim jammers, a shell-cord bracelet on his wrist, walking alone along the wet tiled deck of an indoor school swimming pool toward a starting block. He walks like a prisoner to a wall. Late afternoon light through high windows, the pool's reflected caustics crawling on the ceiling and walls. Empty lanes, still water. Anime cel-shaded, clean ink linework, muted teal and concrete palette, cinematic composition, sense of enormous dread in an ordinary room.",
-   "motion": "Slow push in behind him as he walks; his pace never changes. The water is very still."
+   "prompt": "Wide from behind, slightly low: <<<KAI>>> in plain dark navy jammers, shell-cord bracelet on his LEFT wrist, walking alone along the wet deck toward the LANE 4 block. late afternoon, one indoor 25m school natatorium: pale tile deck, high windows on the left wall, flat roof, LANE 4 starting block, blue-and-white lane ropes, water throwing caustics on walls and ceiling. He walks like a prisoner to a wall. Empty lanes, still water. Anime cel-shaded, clean ink linework, muted teal-and-concrete palette, dread in an ordinary room.",
+   "motion": "Slow push-in behind him; pace never changes; water dead still.",
+   "known_issues_fixed": "V1 lane numbers now sequential with his block LANE 4; single venue per env element"
   },
   {
    "id": "02",
    "t_in": 6.0,
-   "t_out": 10.0,
+   "t_out": 8.8,
    "rank": "air",
    "eyes": "brown",
    "subject": "kai",
    "slug": "the water throws light on his face",
-   "prompt": "Close-up, three-quarter: the face of a lean 15-year-old boy of mixed Black and Japanese heritage, deep brown skin, tightly-coiled blue-black hair overgrown and falling toward his eyes, ORDINARY DARK BROWN EYES, no glow of any kind. Rippling turquoise pool caustics crawl across his face from below. His jaw is set; he is trying not to show fear and failing at the edges. Indoor pool, shallow depth of field. Anime cel-shaded, clean ink linework, cinematic key light from the water below.",
-   "motion": "Almost still. Only the caustics move across his face. A single slow blink."
+   "prompt": "Close-up three-quarter of <<<KAI>>>, completely dry, ORDINARY DARK BROWN matte eyes, hair blue-black. SOFT unfocused ripples of reflected water light move across his face — gentle photographic caustics, NOT glowing lines, nothing luminous on his skin. Jaw set, fear at the edges. late afternoon, one indoor 25m school natatorium: pale tile deck, high windows on the left wall, flat roof, LANE 4 starting block, blue-and-white lane ropes, water throwing caustics on walls and ceiling thrown far out of focus. Anime cel-shaded.",
+   "motion": "Nearly still; caustics drift; one slow blink.",
+   "known_issues_fixed": "V2 caustics as light not emissive veins; dry (no towel)"
+  },
+  {
+   "id": "02b",
+   "t_in": 8.8,
+   "t_out": 10.6,
+   "rank": "air",
+   "eyes": "n/a",
+   "subject": "bo",
+   "slug": "Bo: look at me, not the water",
+   "prompt": "Medium from Kai's eyeline, poolside: <<<BO>>> — big, warm, cream cable-knit sweater over club jacket — grinning gently and TAPPING HIS OWN CHEST twice with a flat palm, showing slow breaths, in and out. Kind heavy-browed face, eyes open and warm. Indoor school pool behind, late afternoon. Anime cel-shaded, clean ink linework.",
+   "motion": "He taps his chest slowly, in-out; grin stays; nothing else moves.",
+   "known_issues_fixed": "E3 the scripted anchor beat before the buzzer — the promise the fall breaks"
   },
   {
    "id": "03",
-   "t_in": 10.0,
-   "t_out": 11.5,
+   "t_in": 10.6,
+   "t_out": 11.1,
    "rank": "air",
    "eyes": "n/a",
    "subject": "water",
-   "slug": "THE EYE — one flash-frame",
-   "prompt": "Overhead shot straight down at the surface of an indoor swimming pool, but the water has gone NIGHT-BLACK and bottomless — no tile, no lane lines, no floor, an oil-black circle of open ocean where a pool should be. Something vast is implied just under the surface without being shown. A single ring of disturbance. Horror composition, wrong and beautiful. Anime cel-shaded with heavy blacks, high contrast, one flash-frame of nightmare inserted into an ordinary afternoon.",
-   "motion": "Held, nearly frozen. One ring spreading outward very slowly. Nothing surfaces."
+   "slug": "THE EYE — a true flash-frame",
+   "prompt": "(reuses the existing Eye plate)",
+   "motion": "Held ring, near-frozen.",
+   "media": {
+    "source": "clip-03.mp4",
+    "excerpt": [
+     1.2,
+     1.7
+    ],
+    "retime": false
+   },
+   "known_issues_fixed": "E4 now 0.5s at native speed, not 1.5s at 3.3x"
   },
   {
    "id": "04",
-   "t_in": 11.5,
+   "t_in": 11.1,
    "t_out": 13.0,
    "rank": "air",
    "eyes": "n/a",
    "subject": "feet",
    "slug": "BZZZT — the feet slip",
-   "prompt": "Tight low-angle shot on a pair of bare brown feet on the gritty textured surface of a swimming starting block, toes gripping the front edge, tendons taut. Wet footprints. One heel is already sliding. Indoor pool light, hard shadow under the block, water below out of focus. Anime cel-shaded, clean ink linework, kinetic tension, the instant before a fall.",
-   "motion": "The heel slips backward off the block edge. Fast, ugly, unrecoverable."
+   "prompt": "Tight low angle on bare brown feet gripping the front edge of the LANE 4 starting block, toes curled, tendons taut, wet prints on the textured surface, one heel already sliding. late afternoon, one indoor 25m school natatorium: pale tile deck, high windows on the left wall, flat roof, LANE 4 starting block, blue-and-white lane ropes, water throwing caustics on walls and ceiling, dim late-afternoon light, water below out of focus. No face. Anime cel-shaded, kinetic tension.",
+   "motion": "The heel slips backward off the block edge. Fast, ugly, unrecoverable.",
+   "known_issues_fixed": "V4/V5 same venue, same light, LANE 4 not 3, buzzer lands inside this shot at 11.5",
+   "media": {
+    "crop_pct": 0.94,
+    "retime": true
+   }
   },
   {
    "id": "05",
@@ -305,19 +358,73 @@
    "eyes": "brown",
    "subject": "kai",
    "slug": "THE FALL — a slap of limbs",
-   "prompt": "Wide shot: a lean 15-year-old boy with deep brown skin and tightly-coiled blue-black hair, dark navy swim jammers, falling SIDEWAYS off a starting block into an indoor pool — graceless, arms flung out, legs wrong, nothing like a dive. Caught mid-air just before impact. Behind the fence beyond, blurred silhouettes of students, one phone already raised. Anime cel-shaded, clean ink linework, motion smear on the limbs, humiliating rather than heroic.",
-   "motion": "He hits the water sideways. A flat hard slap, spray thrown wide, the surface breaking badly."
+   "prompt": "Wide: <<<KAI>>> falling SIDEWAYS off the LANE 4 block into the pool — graceless, arms flung, legs wrong, caught just before impact. Behind the far fence, blurred students, one phone raised. late afternoon, one indoor 25m school natatorium: pale tile deck, high windows on the left wall, flat roof, LANE 4 starting block, blue-and-white lane ropes, water throwing caustics on walls and ceiling. Anime cel-shaded, motion smear, humiliating not heroic.",
+   "motion": "He hits flat and hard; wide slap of spray; silhouettes shift.",
+   "known_issues_fixed": "V5 lane/venue/light continuity"
   },
   {
    "id": "06",
    "t_in": 16.0,
-   "t_out": 24.0,
+   "t_out": 19.0,
    "rank": "twilight",
    "eyes": "shut",
    "subject": "kai",
-   "slug": "UNDERWATER — panic, honestly",
-   "prompt": "Underwater shot: a lean 15-year-old boy with deep brown skin and tightly-coiled blue-black hair, dark navy swim jammers, thrashing in panic just below the surface of a swimming pool. EYES SQUEEZED SHUT, mouth open in a scream that is costing him his air, a burst of bubbles torn out of him. Hands clawed. Chlorine-blue water, harsh surface light fracturing overhead, the pale tiled wall behind. Anime cel-shaded, clean ink linework, chaotic bubble trails, genuinely frightening rather than graceful.",
-   "motion": "Violent disorganised thrashing, bubbles bursting from his mouth, his body turning the wrong way. The surface receding above him."
+   "slug": "panic, honestly",
+   "prompt": "(reuses the existing panic clip at native speed)",
+   "motion": "Violent thrash, bubbles torn out of him.",
+   "media": {
+    "source": "clip-06.mp4",
+    "excerpt": [
+     0.0,
+     3.0
+    ],
+    "retime": false
+   },
+   "known_issues_fixed": "E1 panic now cut fast; native speed restores the violence the 0.63x stretch softened"
+  },
+  {
+   "id": "06b",
+   "t_in": 19.0,
+   "t_out": 19.25,
+   "rank": "twilight",
+   "eyes": "n/a",
+   "subject": "water",
+   "slug": "the Eye, inside the panic",
+   "prompt": "(reuses the Eye plate — trauma intrusion)",
+   "motion": "Subliminal.",
+   "media": {
+    "source": "clip-03.mp4",
+    "excerpt": [
+     2.8,
+     3.05
+    ],
+    "retime": false
+   },
+   "known_issues_fixed": "E4 second flash ties the drowning to the cold open"
+  },
+  {
+   "id": "06c",
+   "t_in": 19.25,
+   "t_out": 21.5,
+   "rank": "twilight",
+   "eyes": "n/a",
+   "subject": "water",
+   "slug": "POV — the surface leaves him",
+   "prompt": "Underwater POV looking straight up from a sinking body: the bright fractured surface of the school pool receding, his own last silver bubbles rising away toward it, blue-white lane ropes at the edge of frame bending with refraction, the light narrowing. No character in frame — this IS his eyes. Chlorine blue cooling toward twilight. Anime cel-shaded, painterly refraction.",
+   "motion": "The surface pulls away upward; bubbles leave the camera and shrink toward it.",
+   "known_issues_fixed": "E2 the sequence finally enters his head"
+  },
+  {
+   "id": "06d",
+   "t_in": 21.5,
+   "t_out": 24.0,
+   "rank": "twilight",
+   "eyes": "n/a",
+   "subject": "kai",
+   "slug": "the reaching hand",
+   "prompt": "Underwater close-up: one lean brown boy's arm and open hand reaching UP toward the receding light, fingers spread, shell-cord bracelet on the LEFT wrist, silver bubbles slipping between the fingers. An ordinary human hand, short clean nails. The light does not come closer. Cooling blue. Anime cel-shaded, clean ink linework.",
+   "motion": "The hand strains upward, then the fingers slowly lose their spread as strength goes.",
+   "known_issues_fixed": "E1 fourth panic cut; bracelet standardized LEFT wrist"
   },
   {
    "id": "07",
@@ -327,19 +434,24 @@
    "eyes": "shut",
    "subject": "kai",
    "slug": "he sinks",
-   "prompt": "Underwater wide shot from below, looking up: a lean 15-year-old boy with deep brown skin and tightly-coiled blue-black hair, dark navy swim jammers, sinking away from a bright fractured surface far above. EYES SQUEEZED SHUT. His thrashing has stopped; limbs going slack, arms drifting up above his head as he descends. His last bubbles rise past him toward the light. Chlorine-blue going deeper and colder. Anime cel-shaded, clean ink linework, silhouetted against the surface glare, terrible stillness arriving.",
-   "motion": "He sinks steadily away from camera. Bubbles rise past. Nothing struggles any more."
+   "prompt": "(existing clip)",
+   "motion": "He sinks away; last bubbles rise past.",
+   "media": {
+    "source": "clip-07.mp4",
+    "retime": true
+   }
   },
   {
    "id": "08",
    "t_in": 30.0,
    "t_out": 38.0,
    "rank": "midnight",
-   "eyes": "shut",
+   "eyes": "n/a",
    "subject": "water",
-   "slug": "the water settles around him",
-   "prompt": "Underwater environment shot: the interior of a swimming pool transformed — chlorine-blue turning into deep-ocean cathedral light, enormous slow shafts of down-light through water that has become far larger and older than a pool should be. Suspended dust motes and small bubbles hang motionless, beginning to drift subtly in one direction. Tiled floor barely visible far below in violet shadow. No character. Anime cel-shaded, painterly volumetric god-rays, awe rather than fear, the moment a room becomes an ocean.",
-   "motion": "The light shifts and deepens. Motes and bubbles slow, stop, and begin drifting gently toward one point off-screen."
+   "slug": "the water settles — the pool becomes ocean",
+   "prompt": "Underwater environment shot of the SCHOOL POOL transformed by light alone: pale tiled floor with its dark lane stripe and two round drain covers, tile walls fading into deep-ocean gloom, enormous slow god-rays through water gone cathedral-vast. Suspended motes slow, stop, and begin drifting toward one point. NO ruins, NO stone steps, NO arches, NO plants, NO fish, NO marine life of any kind — an ordinary pool floor lit like the deep sea. Anime cel-shaded, painterly volumetric light, awe.",
+   "motion": "Light deepens; motes reverse into a slow inward drift. No camera move.",
+   "known_issues_fixed": "V8 ruins-and-fish re-shot; the room stays a pool"
   },
   {
    "id": "09",
@@ -349,8 +461,9 @@
    "eyes": "opening",
    "subject": "kai",
    "slug": "the hands drift open",
-   "prompt": "Extreme close-up underwater: two clawed brown hands, fingers rigid with panic, slowly uncurling and drifting open in deep blue water. A shell-cord bracelet on one wrist drifts with them. Small bubbles pass upward. Deep-ocean cathedral light, cool and enormous. Anime cel-shaded, clean ink linework, tender, the physical instant fear leaves a body.",
-   "motion": "The fingers uncurl and the hands drift open and apart. Unhurried. The bracelet turns slightly in the water."
+   "prompt": "Extreme close-up underwater: a 15-year-old boy's two hands, ORDINARY HUMAN HANDS with short clean fingernails, deep brown skin, clenched rigid with fear — slowly, tenderly UNCURLING until both hands drift fully open, palms loose. Shell-cord bracelet on the LEFT wrist. Small bubbles pass up through frame. Deep-ocean cathedral light. Anime cel-shaded, clean ink linework.",
+   "motion": "START clenched, END open: the fingers visibly uncurl across the whole shot and finish open and drifting. That motion is the entire point of the shot.",
+   "known_issues_fixed": "V9 human hands; the uncurling actually happens (start+end framing)"
   },
   {
    "id": "10",
@@ -360,8 +473,13 @@
    "eyes": "blue",
    "subject": "kai",
    "slug": "the eyes open — the power surfaces",
-   "prompt": "Extreme close-up underwater on the face of a 15-year-old boy with deep brown skin and tightly-coiled blue-black hair drifting in the water: his eyes, which had been squeezed shut, are OPENING — and they are luminous DEEP BLUE, glowing faintly from within, lit from inside rather than by the water. Calm, unafraid, slightly wondering. Deep-ocean blue-violet light, motes suspended around him. Anime cel-shaded, clean ink linework, the single most important reveal in the sequence.",
-   "motion": "The eyes open slowly and the blue light rises in them. Hair drifts. Nothing else moves."
+   "prompt": "(existing plate, re-animated)",
+   "motion": "Eyes open slowly; blue light rises in them. Hair drifts. NO water droplets, NO tears — nothing beads or rolls on skin underwater.",
+   "media": {
+    "source": "clip-10R.mp4",
+    "retime": true
+   },
+   "known_issues_fixed": "V10 tears removed"
   },
   {
    "id": "11",
@@ -371,8 +489,13 @@
    "eyes": "blue",
    "subject": "kai",
    "slug": "34 BPM — sitting on the pool floor",
-   "prompt": "Underwater medium-wide, straight on: a lean 15-year-old boy with deep brown skin, tightly-coiled blue-black hair, dark navy swim jammers and a shell-cord bracelet, sitting CROSS-LEGGED on the tiled floor of a swimming pool, perfectly comfortable, hands resting loose on his knees. His eyes are luminous deep blue and open. A wavering shaft of down-light falls on him. Dust motes and bubbles all around are drifting subtly TOWARD him from every direction. Deep-ocean cathedral blue going violet at the floor. Anime cel-shaded, clean ink linework, serene and slightly holy, a pool-sized field of quiet gathered on one boy.",
-   "motion": "He does not move at all. Only the motes and bubbles drift inward toward him, and the down-light wavers."
+   "prompt": "(existing plate, native 10s)",
+   "motion": "He does not move at all; only motes drift inward and the down-light wavers. CAMERA LOCKED OFF on a tripod: no push-in, no reframe, the tiled pool floor and starting blocks stay exactly as they are for the full ten seconds.",
+   "media": {
+    "source": "clip-11R.mp4",
+    "retime": true
+   },
+   "known_issues_fixed": "V11 native length kills the 12fps judder; static pin against drift"
   },
   {
    "id": "12",
@@ -381,10 +504,14 @@
    "rank": "abyssal",
    "eyes": "blue",
    "subject": "kai",
-   "slug": "the field of quiet — hold",
-   "prompt": "Anime film still, underwater VERY WIDE shot inside an ordinary INDOOR SCHOOL SWIMMING POOL — rectangular, lane lines on a pale tiled floor, lane ropes and pennant flags overhead, starting blocks along the far wall, a metal ladder. The room is transformed by LIGHT, not by architecture: chlorine blue deepened into deep-ocean cathedral gloom, enormous shafts of down-light from the broken surface high above. At the bottom centre, small in frame, a single boy sits cross-legged in one shaft on the tiled floor. Everything suspended in the water drifts gently inward toward him. Far above, the tiny distorted silhouettes of people on the deck. NO stone arches, NO vaulted hall — it is unmistakably a school pool that has become an ocean.",
-   "motion": "Extremely slow drift toward him. A held wide. The surface far above shivers once as someone enters the water.",
-   "note": "RE-SHOT. The first version rendered the pool as a vaulted stone hall with arches, which is a continuity jump from the school pool established in shots 01 and 11 and, worse, gets the idea backwards. The script's line is that the POOL becomes an ocean — so the pool has to still be a pool. The transformation must be carried by light and scale, never by swapping the architecture for something grander."
+   "slug": "the field of quiet — and Bo comes",
+   "prompt": "(existing plate, native 10s)",
+   "motion": "Held wide, extremely slow inward drift — then in the final two seconds the bright surface far above BREAKS as a big swimmer plunges through it in a shroud of bubbles, small at the top of frame, descending toward the boy.",
+   "media": {
+    "source": "clip-12R.mp4",
+    "retime": true
+   },
+   "known_issues_fixed": "V12 Bo's rescue dive enters the picture; pairs with the 66.5s entry event"
   },
   {
    "id": "13",
@@ -393,9 +520,191 @@
    "rank": "air",
    "eyes": "n/a",
    "subject": "gouda",
-   "slug": "SMASH to the deck — Gouda's face",
-   "prompt": "Hard cut, above water, poolside: close-up of a 44-year-old Japanese man, a ruin of a magnificent athlete — huge shoulders gone soft, graying topknot going to seed, heavy jaw, broken nose, several days of stubble, rumpled old tracksuit and open windbreaker. He has come bolt upright off a fence he was leaning on. His ordinary dark brown eyes are wide and his face has gone GRAY: the face of a man who has seen this exact stillness once before and it cost him everything. Harsh indoor pool light. Anime cel-shaded, clean ink linework, dread recognition.",
-   "motion": "He straightens off the fence. His face drains. He does not blink."
+   "slug": "SMASH — Gouda knows",
+   "prompt": "(existing clip)",
+   "motion": "He straightens; the blood drains; he does not blink.",
+   "media": {
+    "source": "clip-13.mp4",
+    "retime": true
+   }
   }
- ]
+ ],
+ "duck": {
+  "_comment": "'SOUND drops away — we're inside his head.' World bus only; the heart keeps accelerating through the silence, which is the entire point of it.",
+  "bus": "world",
+  "points": [
+   [
+    9.5,
+    1.0
+   ],
+   [
+    10.1,
+    0.06
+   ],
+   [
+    11.32,
+    0.06
+   ],
+   [
+    11.5,
+    1.0
+   ]
+  ]
+ },
+ "_events_comment": "Single moments the picture can collide with. Spots are dry (spots/); each event carries its own fathom placement. verify.band is the spectral band the events gate checks for a burst at t (±150ms) against no-event controls; verify=false marks slow-attack material (stingers) the transient gate must not be pointed at.",
+ "events": [
+  {
+   "t": 11.5,
+   "sound": "spots/buzzer",
+   "gain_db": -9,
+   "fathom": "air",
+   "verify": {
+    "band": [
+     400,
+     3000
+    ]
+   },
+   "note": "BZZZT. The flinch that causes the fall."
+  },
+  {
+   "t": 13.0,
+   "sound": "spots/splash-impact",
+   "gain_db": 0,
+   "fathom": "air",
+   "verify": {
+    "band": [
+     1500,
+     9000
+    ]
+   },
+   "note": "A slap of limbs. The loudest thing in the scene."
+  },
+  {
+   "t": 16.1,
+   "sound": "spots/air-burst",
+   "gain_db": -2,
+   "fathom": "twilight",
+   "verify": {
+    "band": [
+     800,
+     6000
+    ]
+   },
+   "note": "His scream costs him his air."
+  },
+  {
+   "t": 17.5,
+   "sound": "spots/water-thrash",
+   "gain_db": -18,
+   "fathom": "twilight",
+   "verify": false,
+   "note": "The panic, physically."
+  },
+  {
+   "t": 66.5,
+   "sound": "spots/splash-entry",
+   "gain_db": -16,
+   "fathom": "midnight",
+   "verify": false,
+   "note": "Bo hits the water, heard from four rungs down. verify=false is a CLASSIFICATION, not an exemption: midnight placement smears the attack into a swell by design — an entry heard from four rungs down has no rising edge for a transient gate to find. The onset gate proved this honestly (-4.4 dB). Bo's arrival is verified in PICTURE instead: the bubble column in shot 12's tail, frame-checked in the QC sheet."
+  },
+  {
+   "t": 13.0,
+   "sound": "signatures/fathom-sunlit",
+   "gain_db": -18,
+   "fathom": null,
+   "verify": false,
+   "note": "Rank crossing. The ladder plays its own rungs as he falls through them."
+  },
+  {
+   "t": 16.0,
+   "sound": "signatures/fathom-twilight",
+   "gain_db": -18,
+   "fathom": null,
+   "verify": false,
+   "note": "Rank crossing."
+  },
+  {
+   "t": 30.0,
+   "sound": "signatures/fathom-midnight",
+   "gain_db": -19,
+   "fathom": null,
+   "verify": false,
+   "note": "Rank crossing."
+  },
+  {
+   "t": 44.0,
+   "sound": "signatures/fathom-abyssal",
+   "gain_db": -19,
+   "fathom": null,
+   "verify": false,
+   "note": "Rank crossing — lands with the eyes opening."
+  }
+ ],
+ "overlays": [
+  {
+   "text": "90",
+   "t": [
+    1.0,
+    6.0
+   ]
+  },
+  {
+   "text": "110",
+   "t": [
+    6.0,
+    10.0
+   ]
+  },
+  {
+   "text": "130",
+   "t": [
+    10.0,
+    11.4
+   ]
+  },
+  {
+   "text": "150",
+   "t": [
+    16.5,
+    20.0
+   ]
+  },
+  {
+   "text": "140",
+   "t": [
+    20.0,
+    23.5
+   ]
+  },
+  {
+   "text": "90",
+   "t": [
+    38.5,
+    41.5
+   ]
+  },
+  {
+   "text": "60",
+   "t": [
+    44.0,
+    47.0
+   ]
+  },
+  {
+   "text": "40",
+   "t": [
+    50.0,
+    53.0
+   ]
+  },
+  {
+   "text": "34 BPM",
+   "t": [
+    56.0,
+    66.0
+   ]
+  }
+ ],
+ "_overlays_comment": "Canon puts these numbers on screen; the script's own text. Rendered as restrained diegetic UI by build-sequence. The held '34 BPM' is the sequence's thesis stated as a stat."
 }

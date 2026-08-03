@@ -277,14 +277,67 @@ def main():
     # slowly against each other, so it breathes without being played.
     T = sc["tone"]
     t = np.arange(n) / SR
-    tone = sum(gn * np.sin(2 * np.pi * f * t)
-               for f, gn in zip(T["freqs_hz"], T["gains"]))
+    if "answer_phrase" in T:
+        # The thing in the water is not an effect — it is the theme's ANSWER,
+        # played so low and slow it reads as a voice rather than music. Each
+        # note is a detuned pair (so it beats, like the old sines did) plus a
+        # soft octave; attacks are seconds long, because nothing down there
+        # arrives, it is simply already present.
+        tone = np.zeros(n)
+        beat = 60.0 / float(T.get("bpm", 30))
+        det = float(T.get("detune_hz", 0.2))
+        oct_g = float(T.get("octave_up", 0.35))
+        pos = 0.0
+        for f, beats in T["answer_phrase"]:
+            # note_dur, NOT dur: the first version shadowed the scene duration
+            # here, which silently disabled the duck (its 9.5-11.5s points fell
+            # beyond an 8-second time axis and interp returned 1.0 everywhere).
+            note_dur = beats * beat
+            i0 = int(pos * SR); ln = min(int((note_dur + 2.5) * SR), n - i0)
+            if ln <= 0:
+                break
+            tt = np.arange(ln) / SR
+            env = np.minimum(1.0, tt / 1.2) * np.exp(-np.maximum(0.0, tt - note_dur) * 1.1)
+            nt = (np.sin(2 * np.pi * f * tt) + np.sin(2 * np.pi * (f + det) * tt)
+                  + oct_g * np.sin(2 * np.pi * 2 * f * tt)) * env
+            tone[i0:i0 + ln] += nt
+            pos += note_dur
+        # the phrase is authored from t=0 and PLACED by the envelope window
+        shift = int(T["fade_in"][0] * SR)
+        tone = np.roll(tone, shift); tone[:shift] = 0.0
+    else:
+        tone = sum(gn * np.sin(2 * np.pi * f * t)
+                   for f, gn in zip(T["freqs_hz"], T["gains"]))
     tone = tone * float(T["level"]) * envelope(sc, n, T["fade_in"], T.get("fade_out"))
 
     # ── assemble, then put the whole thing in the water ─────────────────────
     print(f"\n  placing the world at its depth "
           f"({len(sc['ranks'])} ranks, crossfaded)…")
     bed = descend(sc, world, w)
+
+    # ── EVENTS: the moments the picture can collide with ────────────────────
+    # Added AFTER descend, each carrying its own fathom placement, so a spot is
+    # placed in its room exactly once. Gains are relative to the spots' -6dBFS
+    # peak norm; signature stingers arrive already mastered.
+    for ev in sc.get("events", []):
+        path = os.path.join(ART, ev["sound"] + ".wav")
+        x = M.read_wav(path)
+        if ev.get("fathom"):
+            x = M.fathom_space(x, ev["fathom"], seed=97)
+        x = x * (10 ** (ev["gain_db"] / 20.0))
+        i0 = int(ev["t"] * SR); ln = min(len(x), n - i0)
+        if ln > 0:
+            bed[i0:i0 + ln] += x[:ln]
+        print(f"    event {ev['t']:6.2f}s  {ev['sound']:28s} {ev['gain_db']:+4.0f} dB"
+              f"  {ev.get('fathom') or 'as-mastered'}")
+
+    # ── DUCK: 'SOUND drops away' ────────────────────────────────────────────
+    # World only. The heart is exempt because the silence exists to expose it.
+    if "duck" in sc:
+        dp = sc["duck"]["points"]
+        tt = np.linspace(0, dur, n)
+        g = np.interp(tt, [q[0] for q in dp], [q[1] for q in dp], left=1.0, right=1.0)
+        bed = bed * g[:, None]
 
     # The heart is NOT in the room. It is inside his chest, and it stays there
     # whatever depth he is at — that contrast is what makes the room feel

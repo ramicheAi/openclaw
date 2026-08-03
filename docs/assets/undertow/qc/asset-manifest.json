@@ -1313,17 +1313,18 @@
    "provenance": "Route B pause-floor replication, docs/UNDERTOW-SOUND-BIBLE.md section 5"
   },
   "scenes/ep1-the-sinking.wav": {
-   "sha256_16": "73f6955e6d553132",
-   "kind": "scene-mix",
-   "characters": [],
    "status": "APPROVED",
    "provenance": "composed-in-repo",
    "verified_by": "agent",
-   "verified_at": "2026-08-02",
-   "generated_with": "build-scene.py \u2014 Episode 1's sinking sequence, 72s, rendered from a depth/tempo/calm curve rather than a cue list. Five fathom ranks rendered and crossfaded so the acoustic is the performance; textures hand off surface -> submerged -> deep; heartbeat spectrum and level both ride the panic value. Heart tempo transcribed from the on-screen numbers in canon (90 -> 150 -> 34), not invented for the mix.",
-   "note": "The first scene mix in the show, and the first thing to use the whole sound department at once. Four faults surfaced here that no component-level gate could catch, because they were faults in how a scene USED correct parts: a deck texture darker than the water beside it, a surface layer that ramped in and never out, a cue named in the beat sheet but never referenced, and a heartbeat whose spectrum was flat while its level ran opposite to the arc. See docs/UNDERTOW-SOUND-BIBLE.md section 5a.",
-   "verification": "qc/verify_scene.py grades the rendered WAV against the depth curve declared in its own cue sheet \u2014 intent against output, not interpolation against itself. Requires the mix to darken and widen with depth by rank correlation across every window, with negative controls on the scene reversed and on stationary pink noise.",
-   "engineering": "24-bit/48kHz stereo, -18.0 LUFS target, true peak under -1.0 dBTP (4x oversampled per ITU-R BS.1770). Beds sit below cue level deliberately. Mastered through the shared chain in mastering.py."
+   "verified_at": "2026-08-04",
+   "kind": "scene-mix",
+   "characters": [
+    "kai",
+    "gouda"
+   ],
+   "generated_with": "build-scene.py from the cue sheet: beds + heart + ANSWER phrase + events (buzzer, splash, air-burst, thrash, Bo entry) + fathom stingers at rank crossings + pre-buzzer duck + deck return",
+   "note": "v2 mix. The five hard sync moments now exist and three are onset-verified; the tone is the theme's ANSWER; the ladder plays its own rungs; the smash returns to a dry world.",
+   "sha256_16": "196750cfcb510b6c"
   },
   "gouda-v3-neutral-ref.png": {
    "kind": "baseline-reference",
@@ -1342,64 +1343,54 @@
    "sha256_16": "25152f1b6511efc6"
   },
   "sequence/ep1-the-sinking/shot-01.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
    "kind": "sequence-shot",
    "characters": [
     "kai"
    ],
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "note": "EP1 sinking sequence shot 01 (0.0-6.0s, rank air): the walk to the block. Eye state: brown.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "b990120ae7200206"
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element + character element",
+   "note": "EP1 sinking v2 shot 01. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "2b3624c93b528e26"
   },
   "sequence/ep1-the-sinking/clip-01.mp4": {
-   "kind": "sequence-clip",
-   "characters": [
-    "kai"
-   ],
    "status": "APPROVED",
    "provenance": "composed-in-repo",
    "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "kling3_0_turbo animated from shot-01.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 01 (0.0-6.0s, rank air): the walk to the block. Eye state: brown. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "15f585d5acc00afc"
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 01.",
+   "sha256_16": "b498b7b3721cdf00",
+   "characters": []
   },
   "sequence/ep1-the-sinking/shot-02.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
    "kind": "sequence-shot",
    "characters": [
     "kai"
    ],
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "note": "EP1 sinking sequence shot 02 (6.0-10.0s, rank air): the water throws light on his face. Eye state: brown.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "22a480e5eb70d9ee"
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element + character element",
+   "note": "EP1 sinking v2 shot 02. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "409a49f6ca036e84"
   },
   "sequence/ep1-the-sinking/clip-02.mp4": {
-   "kind": "sequence-clip",
-   "characters": [
-    "kai"
-   ],
    "status": "APPROVED",
    "provenance": "composed-in-repo",
    "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "kling3_0_turbo animated from shot-02.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 02 (6.0-10.0s, rank air): the water throws light on his face. Eye state: brown. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "4e497705fb7dc40c"
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 02.",
+   "sha256_16": "f0f63b8656014fb6",
+   "characters": []
   },
   "sequence/ep1-the-sinking/shot-03.png": {
    "kind": "sequence-shot",
@@ -1426,58 +1417,51 @@
    "sha256_16": "372b9b68d2f1c7e2"
   },
   "sequence/ep1-the-sinking/shot-04.png": {
-   "kind": "sequence-shot",
-   "characters": [],
    "status": "APPROVED",
    "provenance": "composed-in-repo",
    "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "nano_banana, element-locked (environment only, no character)",
-   "note": "EP1 sinking sequence shot 04 (11.5-13.0s, rank air): BZZZT \u2014 the feet slip. Eye state: n/a.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "sha256_16": "035820e8e293631e"
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 04. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "8e5c19d91145e56d"
   },
   "sequence/ep1-the-sinking/clip-04.mp4": {
-   "kind": "sequence-clip",
-   "characters": [],
    "status": "APPROVED",
    "provenance": "composed-in-repo",
    "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "kling3_0_turbo animated from shot-04.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 04 (11.5-13.0s, rank air): BZZZT \u2014 the feet slip. Eye state: n/a. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "sha256_16": "a47e8917e408c35c"
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 04.",
+   "sha256_16": "4ae4fdb3cc75d958",
+   "characters": []
   },
   "sequence/ep1-the-sinking/shot-05.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
    "kind": "sequence-shot",
    "characters": [
     "kai"
    ],
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "note": "EP1 sinking sequence shot 05 (13.0-16.0s, rank sunlit): THE FALL \u2014 a slap of limbs. Eye state: brown.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "ffca6532a175472e"
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element + character element",
+   "note": "EP1 sinking v2 shot 05. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "dedc7d0834e16388"
   },
   "sequence/ep1-the-sinking/clip-05.mp4": {
-   "kind": "sequence-clip",
-   "characters": [
-    "kai"
-   ],
    "status": "APPROVED",
    "provenance": "composed-in-repo",
    "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "kling3_0_turbo animated from shot-05.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 05 (13.0-16.0s, rank sunlit): THE FALL \u2014 a slap of limbs. Eye state: brown. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "8543d03cc6ec3f47"
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 05.",
+   "sha256_16": "81ed731677749021",
+   "characters": []
   },
   "sequence/ep1-the-sinking/shot-06.png": {
    "kind": "sequence-shot",
@@ -1540,28 +1524,26 @@
    "sha256_16": "54bf1e88387ed37e"
   },
   "sequence/ep1-the-sinking/shot-08.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
    "kind": "sequence-shot",
    "characters": [],
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "nano_banana, element-locked (environment only, no character)",
-   "note": "EP1 sinking sequence shot 08 (30.0-38.0s, rank midnight): the water settles around him. Eye state: shut.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "sha256_16": "27f075cb5b16d624"
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 08. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "b8c654f6b7147c74"
   },
   "sequence/ep1-the-sinking/clip-08.mp4": {
-   "kind": "sequence-clip",
-   "characters": [],
    "status": "APPROVED",
    "provenance": "composed-in-repo",
    "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "kling3_0_turbo animated from shot-08.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 08 (30.0-38.0s, rank midnight): the water settles around him. Eye state: shut. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "sha256_16": "5e2c0ab8448e3de2"
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 08.",
+   "sha256_16": "4f7afa86b9afa447",
+   "characters": []
   },
   "sequence/ep1-the-sinking/shot-09.png": {
    "kind": "sequence-shot",
@@ -1579,19 +1561,15 @@
    "sha256_16": "450f72e596efb34e"
   },
   "sequence/ep1-the-sinking/clip-09.mp4": {
-   "kind": "sequence-clip",
-   "characters": [
-    "kai"
-   ],
    "status": "APPROVED",
    "provenance": "composed-in-repo",
    "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "kling3_0_turbo animated from shot-09.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 09 (38.0-44.0s, rank midnight): the hands drift open. Eye state: opening. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "a206e0d4f4096a0f"
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 09.",
+   "sha256_16": "8cbbe6353ae8d229",
+   "characters": []
   },
   "sequence/ep1-the-sinking/shot-10.png": {
    "kind": "sequence-shot",
@@ -1714,33 +1692,34 @@
    "sha256_16": "e7130612206a69c6"
   },
   "sequence-ep1-the-sinking.mp4": {
-   "kind": "sequence",
-   "characters": [
-    "kai",
-    "gouda"
-   ],
    "status": "APPROVED",
    "provenance": "derived-from-approved-plates",
    "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "build-sequence.py \u2014 13 clips cut to the windows declared in audio/scene-ep1-the-sinking.json and married to scenes/ep1-the-sinking.wav",
-   "note": "The pre-scoring doctrine executed end to end for the first time: the audio was authored first as data, and this picture was cut to it from the same cue sheet. 72s, no dialogue, so every shot is sync-free by construction. Provenance is derived rather than generated: this file contains no new generation at all, it is a deterministic assembly of the 13 registered, element-locked clips against the registered mix. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Frame-sampled at each shot's midpoint from the FINISHED CUT (not the source stills) and checked against the cue sheet's declared rank and eye state \u2014 see qc/sequence-ep1-sinking-frames.png.",
-   "sha256_16": "2b1c8e5566ec284b"
+   "verified_at": "2026-08-04",
+   "kind": "sequence",
+   "characters": [
+    "kai",
+    "bo",
+    "gouda"
+   ],
+   "generated_with": "build-sequence.py: 17 shots cut to the cue sheet windows, PIL heart numerals composited per the overlays block, married to the v2 mix",
+   "note": "v2 cut executing the full review plan: editorial re-cut (panic fragmented, POV, Bo insert, flash-frame Eye x2), venue element continuity, scripted heart numerals on screen.",
+   "sha256_16": "e74f74b33906ac54"
   },
   "qc/sequence-ep1-sinking-frames.png": {
+   "status": "APPROVED",
+   "provenance": "derived-from-approved-plates",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
    "kind": "qc-artifact",
    "characters": [
     "kai",
+    "bo",
     "gouda"
    ],
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "ffmpeg frame extraction at each shot midpoint from sequence-ep1-the-sinking.mp4",
-   "note": "Evidence sheet for the sinking sequence. Sampled from the finished cut so it grades what ships, not what was fed in.",
-   "sha256_16": "718978221b33672c"
+   "generated_with": "frame-accurate midpoint sampling of the finished cut, ids asserted aligned",
+   "note": "Evidence sheet for the v2 cut.",
+   "sha256_16": "cb334568d344b409"
   },
   "qc/sequence-ep1-review-frames.jpg": {
    "sha256_16": "d7d321e9f5d2ae78",
@@ -1755,6 +1734,221 @@
    "verified_at": "2026-08-04",
    "generated_with": "ffmpeg fps=1 extraction over the full 72s cut, labeled per second",
    "note": "Frame-by-frame review evidence for docs/UNDERTOW-EP1-SINKING-REVIEW.md. One frame per second of the finished sequence; the review's V-findings cite timecodes on this sheet."
+  },
+  "env-natatorium-deck.png": {
+   "status": "APPROVED",
+   "provenance": "founding-plate",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "environment-plate",
+   "element_id": "2d53e9ed-a3b0-47e9-905b-d414b904a31a",
+   "generated_with": "nano_banana, no characters; founding plates of UNDERTOW-Seiran-Natatorium",
+   "note": "The venue element. Exists because the review found every shot inventing its own pool; text cannot hold a building either.",
+   "sha256_16": "5ebb3800b1cbf807",
+   "characters": []
+  },
+  "env-natatorium-waterline.png": {
+   "status": "APPROVED",
+   "provenance": "founding-plate",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "environment-plate",
+   "element_id": "2d53e9ed-a3b0-47e9-905b-d414b904a31a",
+   "generated_with": "nano_banana, no characters; founding plates of UNDERTOW-Seiran-Natatorium",
+   "note": "The venue element. Exists because the review found every shot inventing its own pool; text cannot hold a building either.",
+   "sha256_16": "cd3a0782463ec49d",
+   "characters": []
+  },
+  "env-natatorium-underwater.png": {
+   "status": "APPROVED",
+   "provenance": "founding-plate",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "environment-plate",
+   "element_id": "2d53e9ed-a3b0-47e9-905b-d414b904a31a",
+   "generated_with": "nano_banana, no characters; founding plates of UNDERTOW-Seiran-Natatorium",
+   "note": "The venue element. Exists because the review found every shot inventing its own pool; text cannot hold a building either.",
+   "sha256_16": "64fbac680df63664",
+   "characters": []
+  },
+  "spots/buzzer.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "spot",
+   "generated_with": "build-spots.py \u2014 buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
+   "sha256_16": "0ade81937265d1d2",
+   "characters": []
+  },
+  "spots/splash-impact.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "spot",
+   "generated_with": "build-spots.py \u2014 buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
+   "sha256_16": "cd392a3ba24a5076",
+   "characters": []
+  },
+  "spots/splash-entry.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "spot",
+   "generated_with": "build-spots.py \u2014 buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
+   "sha256_16": "ad5a53cb860e3ee5",
+   "characters": []
+  },
+  "spots/air-burst.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "spot",
+   "generated_with": "build-spots.py \u2014 buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
+   "sha256_16": "03eb866efa384237",
+   "characters": []
+  },
+  "spots/water-thrash.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "spot",
+   "generated_with": "build-spots.py \u2014 buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
+   "sha256_16": "114e0ec12394b87e",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/shot-02b.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [
+    "bo"
+   ],
+   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element + character element",
+   "note": "EP1 sinking v2 shot 02b. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "4f389dbf8bad9e0a"
+  },
+  "sequence/ep1-the-sinking/shot-06c.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 06c. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "5858f27aa27d21a6"
+  },
+  "sequence/ep1-the-sinking/shot-06d.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 06d. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "ed5850663bf8e82d"
+  },
+  "sequence/ep1-the-sinking/shot-09-start.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 09-start. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "a150aa0fce564400"
+  },
+  "sequence/ep1-the-sinking/shot-09-end.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 09-end. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "e7e8db78f1f9f751"
+  },
+  "sequence/ep1-the-sinking/clip-02b.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 02b.",
+   "sha256_16": "9df7251560300148",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-06c.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 06c.",
+   "sha256_16": "b45d47f1ef180b57",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-06d.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 06d.",
+   "sha256_16": "436bd51e46084cf1",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-10R.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 10R.",
+   "sha256_16": "00e816cb526902d3",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-11R.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 11R.",
+   "sha256_16": "6cb31696aeb491fd",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-12R.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 12R.",
+   "sha256_16": "68a8280520bc14d9",
+   "characters": []
   }
  },
  "provenance_types": {

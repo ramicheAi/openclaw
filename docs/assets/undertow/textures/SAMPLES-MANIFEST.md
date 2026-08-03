@@ -28,6 +28,8 @@ python3 build-textures.py --src <dir holding the source wavs>
 |---|---|---|---|
 | `underwater.wav` | Field & Foley — `FF_AW_field_rec_underwater_alt.wav` | `208079a2-e5b2-4982-9b23-f7ce7db3523e` | `pool-surface`, `pool-submerged`, `pool-deep` |
 | `hall.wav` | Field & Foley — `FF_IG_ambience_basketball_competitive.wav` | `07a0eccb-f0db-4fbd-8dfe-ffb2a15fd769` | `crowd-poolside`, `crowd-submerged` |
+| `splash-dive.wav` | Big Room Sound — `BRS_Water_Splash_Dive_5.wav` | `c6ad6fc3-a27a-4259-aa38-e12f91c7a127` | `spots/splash-impact`, `spots/splash-entry` |
+| `uw-bubbles.wav` | Blastwave FX — `UnderwaterBubbles_SFXB.4873.wav` | `c3f6b8c8-7207-45d1-ab82-415850cd95fa` | `spots/air-burst`, `spots/water-thrash` |
 | `classroom.wav` | Big Room Sound — `BRS_Crowd_Highschool_Class_Awwh_Big.wav` | `3912b192-5ca9-4993-8fcd-7679af9d3c0e` | `class-laugh`, `class-laugh-memory` |
 
 ## Derived textures

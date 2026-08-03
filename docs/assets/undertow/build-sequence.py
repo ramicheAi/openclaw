@@ -89,24 +89,52 @@ def main():
 
     parts = []
     for s in shots:
-        clip = os.path.join(src, f"clip-{s['id']}.mp4")
+        media = s.get("media", {})
+        clip = os.path.join(src, media.get("source", f"clip-{s['id']}.mp4"))
         if not os.path.exists(clip):
             raise SystemExit(f"  missing {clip}")
         want = float(s["t_out"]) - float(s["t_in"])
-        have = probe_duration(ff, clip)
-        # setpts scales presentation timestamps: >1 slows down, <1 speeds up.
-        ratio = want / have
+        excerpt = media.get("excerpt")
+        retime = media.get("retime", True)
         out = os.path.join(work, f"seg-{s['id']}.mp4")
-        vf = f"setpts={ratio:.6f}*PTS,{GRADE.get(s['rank'], '')},fps={fps}"
-        vf = vf.replace(",,", ",").rstrip(",")
+
+        pre = []
+        if excerpt:
+            # -ss AFTER -i: frame-accurate. Input-seek is keyframe-approximate
+            # and on concatenated material lands in the neighbouring shot.
+            pre = ["-ss", f"{excerpt[0]:.3f}", "-to", f"{excerpt[1]:.3f}"]
+            have = excerpt[1] - excerpt[0]
+        else:
+            have = probe_duration(ff, clip)
+        if retime:
+            ratio = want / have
+        else:
+            ratio = 1.0
+            if abs(have - want) > 0.05:
+                raise SystemExit(f"  shot {s['id']}: retime=false but excerpt "
+                                 f"{have:.2f}s != window {want:.2f}s")
+
+        vf = f"setpts={ratio:.6f}*PTS"
+        cp = media.get("crop_pct")
+        if cp:
+            # centered crop-zoom; used to remove generated edge artifacts
+            vf += f",crop=iw*{cp}:ih*{cp}:(iw-iw*{cp})/2:(ih-ih*{cp})/2"
+        # every segment conforms to one raster whatever its source resolution
+        vf += ",scale=1920:1080:flags=lanczos,setsar=1"
+        g = GRADE.get(s["rank"], "")
+        if g:
+            vf += f",{g}"
+        vf += f",fps={fps}"
+
         subprocess.run(
-            [ff, "-y", "-loglevel", "error", "-i", clip,
+            [ff, "-nostdin", "-y", "-loglevel", "error", "-i", clip, *pre,
              "-filter:v", vf, "-an", "-t", f"{want:.3f}",
              "-c:v", "libx264", "-preset", "medium", "-crf", "17",
              "-pix_fmt", "yuv420p", out], check=True)
         parts.append(out)
+        mode = "native" if not retime else f"{ratio:5.2f}x"
         print(f"  {s['id']:5s} {s['t_in']:5.1f}-{s['t_out']:<6.1f} {want:5.1f}s "
-              f"{have:5.1f}s {ratio:6.2f}x  {s['rank']:9s} {s['slug']}")
+              f"{have:5.1f}s {mode:>7s}  {s['rank']:9s} {s['slug']}")
 
     listing = os.path.join(work, "concat.txt")
     with open(listing, "w") as f:
@@ -114,11 +142,37 @@ def main():
             f.write(f"file '{p}'\n")
 
     dest = os.path.join(ART, f"sequence-{scene_id}.mp4")
-    print("\n  conforming and marrying to the mix…")
+
+    # ── the scripted on-screen heart numbers ────────────────────────────────
+    # Canon puts these numerals on screen; the script's own text. Rendered as
+    # PIL PNGs composited with overlay, because the bundled ffmpeg carries no
+    # drawtext (no freetype). Restrained diegetic UI, low-left.
+    from PIL import Image, ImageDraw, ImageFont
+    font = ImageFont.truetype(
+        "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf", 46)
+    ov_inputs, chains = [], []
+    overlays = sc.get("overlays", [])
+    for i, ov in enumerate(overlays):
+        img = Image.new("RGBA", (420, 80), (0, 0, 0, 0))
+        d = ImageDraw.Draw(img)
+        d.text((6, 10), ov["text"], font=font, fill=(216, 238, 246, 200),
+               stroke_width=2, stroke_fill=(10, 20, 24, 160))
+        png = os.path.join(work, f"ov{i}.png")
+        img.save(png)
+        ov_inputs += ["-i", png]
+        a, b = ov["t"]
+        src_l = "[0:v]" if i == 0 else f"[v{i-1}]"
+        chains.append(f"{src_l}[{i+2}:v]overlay=main_w*0.075:main_h*0.80"
+                      f":enable='between(t,{a},{b})'[v{i}]")
+    fc = ";".join(chains)
+    last = f"[v{len(overlays)-1}]" if overlays else "[0:v]"
+
+    print("\n  conforming, numerals, marrying to the mix…")
     subprocess.run(
-        [ff, "-y", "-loglevel", "error",
+        [ff, "-nostdin", "-y", "-loglevel", "error",
          "-f", "concat", "-safe", "0", "-i", listing,
-         "-i", audio,
+         "-i", audio, *ov_inputs,
+         "-filter_complex", fc, "-map", last, "-map", "1:a",
          "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p",
          "-c:a", "aac", "-b:a", "320k", "-ar", "48000",
          "-shortest", "-movflags", "+faststart", dest], check=True)
