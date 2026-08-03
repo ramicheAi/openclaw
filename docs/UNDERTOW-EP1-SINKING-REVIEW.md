@@ -129,3 +129,61 @@ nothing and should happen regardless.
 *Evidence: `qc/sequence-ep1-review-frames.jpg` (72 frames, 1/s, labeled).
 Audio measurements reproducible from the checks in this document's history;
 the corrected detector methodology is required for the Phase 1 gate.*
+
+---
+
+# Second pass — what "are you sure?" turned up
+
+The first pass graded shots. This pass grades the *film* — editorial grammar,
+script fidelity, and whether the show's own systems are present. Eleven more
+findings, several larger than anything in the first list.
+
+## Audio structure
+
+| # | finding | severity |
+|---|---|---|
+| A7 | **The smash cut lands on underwater ambience.** `crowd-poolside` fades out at 18s and no deck layer ever returns — at 69–72s the only live layer is `pool-deep`. The SMASH back to the deck has no world to smash back *into*: no crowd murmur, no deck acoustics, just dry-treated water noise under Gouda's face. The cut is scored as if he were still under. | **critical** |
+| A8 | **The signature tier is absent from the show's signature scene.** Ten signature assets on disk — five Fathom stingers built precisely to mark rank crossings — and the scene uses zero. The descent crosses sunlit (13s), twilight (16s), midnight (30s), abyssal (44s), and not one crossing is marked. The ladder was designed to teach itself audibly; its debut scene never plays it. | **critical** |
+| A9 | **The tone should be the ANSWER.** "A low, vast, gentle tone. Like a whale. *Like a name.*" is currently three ad-hoc sine frequencies. The score doc's own grammar says the answer arriving early means *the deep is reaching for someone* — this moment is the literal dramatization of that sentence, and it is scored with material unrelated to the theme. The thing in the water calling Kai should call him with the ANSWER phrase, pitched down and fathom-placed. | high |
+| A10 | **The deck bed is audibly a basketball game.** The source is `FF_IG_ambience_basketball_competitive` — chosen for the right *room* (hard reverberant hall) but it carries the wrong *event*: rhythmic ball bounces and game whistles under a silent solo swim test. The texture gate measures damping, not content; content needs a human ear. Re-source a walla-only stretch or a genuine natatorium bed. | high |
+| A11 | **The crowd laughs at the exact frame of impact** (`class-laugh` fade-in starts at t=13.0, the impact frame). Zero human reaction time. Cruelty timing wants a stunned half-beat — splash, a second of nothing, *then* the laughter arrives (~14.2s). | medium |
+
+## Editorial grammar
+
+| # | finding | severity |
+|---|---|---|
+| E1 | **The cutting rhythm inverts at the peak.** Measured shot length against heart rate: the panic (145–150 BPM) is held in ONE static 8-second shot — the second-longest hold in the piece — while the calm gets 10s. The mix follows the heart; the edit doesn't. Panic should fragment: thrash close-up, POV of the surface receding, a reaching hand, a bubble burst — 4 cuts in those 8 seconds, decelerating into the settle. | **critical** |
+| E2 | **There is no POV shot in a sequence the script sets inside his head** ("SOUND drops away — we're inside his head"). The two free ones: the night-black water seen from the block before the buzzer, and the surface receding above him as he sinks. | high |
+| E3 | **Bo and Mirei are scripted present and appear nowhere.** Only Kai and Gouda exist in the cut. Missing scripted inserts: Bo's grin and chest-tap ("slow breaths, showing him") right before the buzzer — the emotional anchor the fall betrays; the raised phone (its vertical screen is the humiliation device); Mirei's stopwatch — "Twelve seconds. Thirty." is the script's own clock for the held section. | high |
+| E4 | **The Eye is scripted as literally "one flash-frame."** Even the planned 0.75s is long; its true form is a 2–4 frame subliminal insert. And a second micro-flash of it *inside* the panic (~19s) is standard trauma-intrusion grammar that would tie the fall to the cold open's night sea. | medium |
+
+## Continuity, fine grain
+
+| # | finding | severity |
+|---|---|---|
+| V15 | Wardrobe drifts: knee-length jammers in shot 05, mid-thigh shorts by shot 11. Canon says jammers. | medium |
+| V16 | Hair volume flattens in 06–07 against the full coils of 10–11. | low |
+
+## Instruments, again
+
+- **The picture has no gate at all.** The audio has `verify_scene.py`; the cut
+  has manual contact sheets. Build `verify_sequence.py`: duration match,
+  three-point sampling per shot, cut-boundary detection (frame-diff spikes must
+  land at each declared `t_in`), and a **luminance-descends arc check** —
+  the picture should darken with depth exactly as the mix loses treble, and
+  that is measurable the same way.
+- **Findings must live where builders read.** These tables sit in a doc;
+  each shot's corrections belong in the cue sheet as `known_issues`, so any
+  regeneration inherits them automatically.
+
+## Plan amendments
+
+Phase 1 grows and stays free: A7 (a deck-return layer + walla for the smash),
+A8 (place the existing stingers at the four rank crossings), A9 (replace the
+sine tone with the ANSWER phrase — synthesized in-repo like the rest of the
+score), A11 (laughter delayed to ~14.2s). A10 needs one Splice re-source.
+E1/E2/E3/E4 fold into Phases 2–5 as shot-list changes in the cue sheet —
+the panic section becomes four shots, the Eye becomes a true flash-frame
+insert used twice, and Bo, Mirei, and the phone enter the board. Net new
+generation: roughly 5 stills and 4–5 short clips (~45 credits) on top of the
+original estimate.
