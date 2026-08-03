@@ -1741,6 +1741,20 @@
    "generated_with": "ffmpeg frame extraction at each shot midpoint from sequence-ep1-the-sinking.mp4",
    "note": "Evidence sheet for the sinking sequence. Sampled from the finished cut so it grades what ships, not what was fed in.",
    "sha256_16": "718978221b33672c"
+  },
+  "qc/sequence-ep1-review-frames.jpg": {
+   "sha256_16": "d7d321e9f5d2ae78",
+   "kind": "qc-artifact",
+   "characters": [
+    "kai",
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "provenance": "derived-from-approved-plates",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "generated_with": "ffmpeg fps=1 extraction over the full 72s cut, labeled per second",
+   "note": "Frame-by-frame review evidence for docs/UNDERTOW-EP1-SINKING-REVIEW.md. One frame per second of the finished sequence; the review's V-findings cite timecodes on this sheet."
   }
  },
  "provenance_types": {
