@@ -382,8 +382,9 @@
    "eyes": "blue",
    "subject": "kai",
    "slug": "the field of quiet — hold",
-   "prompt": "Underwater very wide shot: the whole of a swimming pool rendered as a vast deep-ocean cathedral space, and at the very bottom centre, small in frame, a single boy sitting cross-legged in one shaft of down-light on the tiled floor. Everything in the water — motes, bubbles, suspended silt — drifts gently inward toward him. Far above, the bright broken surface and the tiny distorted silhouettes of people on the deck. Anime cel-shaded, painterly volumetric light, enormous scale, absolute stillness, the water paying attention to one person.",
-   "motion": "Extremely slow drift toward him. A held wide. The surface far above shivers once as someone enters the water."
+   "prompt": "Anime film still, underwater VERY WIDE shot inside an ordinary INDOOR SCHOOL SWIMMING POOL — rectangular, lane lines on a pale tiled floor, lane ropes and pennant flags overhead, starting blocks along the far wall, a metal ladder. The room is transformed by LIGHT, not by architecture: chlorine blue deepened into deep-ocean cathedral gloom, enormous shafts of down-light from the broken surface high above. At the bottom centre, small in frame, a single boy sits cross-legged in one shaft on the tiled floor. Everything suspended in the water drifts gently inward toward him. Far above, the tiny distorted silhouettes of people on the deck. NO stone arches, NO vaulted hall — it is unmistakably a school pool that has become an ocean.",
+   "motion": "Extremely slow drift toward him. A held wide. The surface far above shivers once as someone enters the water.",
+   "note": "RE-SHOT. The first version rendered the pool as a vaulted stone hall with arches, which is a continuity jump from the school pool established in shots 01 and 11 and, worse, gets the idea backwards. The script's line is that the POOL becomes an ocean — so the pool has to still be a pool. The transformation must be carried by light and scale, never by swapping the architecture for something grander."
   },
   {
    "id": "13",

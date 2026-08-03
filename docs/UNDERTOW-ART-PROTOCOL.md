@@ -207,6 +207,29 @@ Practical consequences:
   (Mirei's narrow eyes, Bo's heavyset build, Nakaru's grey streak and throat scar),
   the more it costs when a frame simplifies.
 
+### Two ways a frame-sampling check lies about a cut that is fine
+
+Sampling frames out of a finished cut and laying them against the shot list is
+the cheapest way to grade an edit, and it fabricated a fault twice in one pass —
+both times in the instrument, never in the picture.
+
+**1. `ffmpeg` eats stdin.** A `while read ... done < list.txt` loop that calls
+ffmpeg inside it loses rows, because ffmpeg consumes the remaining lines of the
+loop's own input. Fewer iterations than rows means labels drift against frames
+and the sheet shows an off-by-N that does not exist in the file. Pass
+`-nostdin`, and assert that the number of frames written equals the number of
+rows read *and* that their ids line up.
+
+**2. `-ss` before `-i` is a keyframe seek, not a frame seek.** On a concatenated
+cut the keyframes sit at segment boundaries, so an approximate seek lands in the
+neighbouring shot — which reads exactly like the edit being out of order. Put
+`-ss` after `-i` for grading. It is slower and it is correct.
+
+The tell that it was the instrument, not the cut: the concat list and the cue
+sheet were both in the right order, and pulling a frame straight out of each
+source clip showed every clip holding the right picture. **When the parts are
+right and the assembly is right, stop suspecting the material.**
+
 ### A clip can drift inside itself, and that is a different check
 
 The contact sheet has always been read as "is this shot right?" It also has to be
