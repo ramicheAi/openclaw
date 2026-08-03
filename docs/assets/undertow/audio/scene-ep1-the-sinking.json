@@ -6,67 +6,395 @@
  "duration": 72.0,
  "fps": 24,
  "target_lufs": -18.0,
-
  "_ranks_comment": "The ladder positions this scene moves through. Ordered, because the descent interpolates POSITION on it — a move from twilight to abyssal passes through midnight rather than cutting. 'hadal' is deliberately absent: Kai does not go there in Episode 1, and a rank the scene never reaches should not be in its ladder.",
- "ranks": ["air", "sunlit", "twilight", "midnight", "abyssal"],
-
+ "ranks": [
+  "air",
+  "sunlit",
+  "twilight",
+  "midnight",
+  "abyssal"
+ ],
  "_beats_comment": "The scene as a curve, not a list of states. Everything between two rows interpolates. The bpm column is TRANSCRIBED, not designed — canon puts these numbers on screen (90/110/130 on the block, 150 then 140 in the panic, 90/60/40 settling, 34 held), so changing them here changes what the audience is told they are seeing.",
  "beats": [
-  {"t":  0.0, "fathom": "air",      "calm": 0.20, "bpm":  90, "note": "on the block, the room already receding"},
-  {"t":  6.0, "fathom": "air",      "calm": 0.10, "bpm": 110, "note": ""},
-  {"t": 10.0, "fathom": "air",      "calm": 0.00, "bpm": 130, "note": "the Eye, one flash-frame"},
-  {"t": 11.5, "fathom": "air",      "calm": 0.00, "bpm": 132, "note": "BZZZT"},
-  {"t": 13.0, "fathom": "sunlit",   "calm": 0.00, "bpm": 145, "note": "the fall — a slap of limbs"},
-  {"t": 16.0, "fathom": "twilight", "calm": 0.00, "bpm": 150, "note": "under. panic, thrash, the muffled roar"},
-  {"t": 24.0, "fathom": "twilight", "calm": 0.05, "bpm": 140, "note": ""},
-  {"t": 30.0, "fathom": "midnight", "calm": 0.35, "bpm": 120, "note": "the water settles around him"},
-  {"t": 38.0, "fathom": "midnight", "calm": 0.65, "bpm":  90, "note": ""},
-  {"t": 44.0, "fathom": "abyssal",  "calm": 0.85, "bpm":  60, "note": ""},
-  {"t": 50.0, "fathom": "abyssal",  "calm": 1.00, "bpm":  40, "note": ""},
-  {"t": 56.0, "fathom": "abyssal",  "calm": 1.00, "bpm":  34, "note": "34 BPM. held."},
-  {"t": 66.0, "fathom": "abyssal",  "calm": 1.00, "bpm":  34, "note": ""},
-  {"t": 69.0, "fathom": "air",      "calm": 0.30, "bpm":  34, "note": "SMASH back to the deck"},
-  {"t": 72.0, "fathom": "air",      "calm": 0.30, "bpm":  80, "note": ""}
+  {
+   "t": 0.0,
+   "fathom": "air",
+   "calm": 0.2,
+   "bpm": 90,
+   "note": "on the block, the room already receding"
+  },
+  {
+   "t": 6.0,
+   "fathom": "air",
+   "calm": 0.1,
+   "bpm": 110,
+   "note": ""
+  },
+  {
+   "t": 10.0,
+   "fathom": "air",
+   "calm": 0.0,
+   "bpm": 130,
+   "note": "the Eye, one flash-frame"
+  },
+  {
+   "t": 11.5,
+   "fathom": "air",
+   "calm": 0.0,
+   "bpm": 132,
+   "note": "BZZZT"
+  },
+  {
+   "t": 13.0,
+   "fathom": "sunlit",
+   "calm": 0.0,
+   "bpm": 145,
+   "note": "the fall — a slap of limbs"
+  },
+  {
+   "t": 16.0,
+   "fathom": "twilight",
+   "calm": 0.0,
+   "bpm": 150,
+   "note": "under. panic, thrash, the muffled roar"
+  },
+  {
+   "t": 24.0,
+   "fathom": "twilight",
+   "calm": 0.05,
+   "bpm": 140,
+   "note": ""
+  },
+  {
+   "t": 30.0,
+   "fathom": "midnight",
+   "calm": 0.35,
+   "bpm": 120,
+   "note": "the water settles around him"
+  },
+  {
+   "t": 38.0,
+   "fathom": "midnight",
+   "calm": 0.65,
+   "bpm": 90,
+   "note": ""
+  },
+  {
+   "t": 44.0,
+   "fathom": "abyssal",
+   "calm": 0.85,
+   "bpm": 60,
+   "note": ""
+  },
+  {
+   "t": 50.0,
+   "fathom": "abyssal",
+   "calm": 1.0,
+   "bpm": 40,
+   "note": ""
+  },
+  {
+   "t": 56.0,
+   "fathom": "abyssal",
+   "calm": 1.0,
+   "bpm": 34,
+   "note": "34 BPM. held."
+  },
+  {
+   "t": 66.0,
+   "fathom": "abyssal",
+   "calm": 1.0,
+   "bpm": 34,
+   "note": ""
+  },
+  {
+   "t": 69.0,
+   "fathom": "air",
+   "calm": 0.3,
+   "bpm": 34,
+   "note": "SMASH back to the deck"
+  },
+  {
+   "t": 72.0,
+   "fathom": "air",
+   "calm": 0.3,
+   "bpm": 80,
+   "note": ""
+  }
  ],
-
  "_layers_comment": "Texture layers, each with an explicit fade-in and fade-out window. LAYERS HAND OFF; THEY DO NOT ACCUMULATE — this is the single easiest way to destroy an arc and it never looks wrong in code. An omitted fade_out means the layer runs to the end of the scene, and that has to be a deliberate choice rather than an oversight: an earlier version of this scene left pool-surface, the brightest texture in the library, at unity for 56 of 72 seconds underneath a boy motionless on the floor of a pool.",
  "layers": [
-  {"texture": "crowd-poolside",     "gain_db": -4.0, "fade_in": [ 0.0,  0.0], "fade_out": [12.0, 18.0],
-   "note": "the deck — the crowd and the room he is failing in. It does not follow him down; it is replaced by water."},
-  {"texture": "crowd-submerged",    "gain_db": -6.0, "fade_in": [14.0, 17.0], "fade_out": [27.0, 30.0],
-   "note": "the muffled roar. The crowd follows him under for six seconds and then loses him."},
-  {"texture": "pool-surface",       "gain_db": -3.0, "fade_in": [11.0, 16.0], "fade_out": [22.0, 34.0],
-   "note": "the surface. GONE by the time he is past twilight, because by then he cannot hear it."},
-  {"texture": "pool-submerged",     "gain_db": -2.0, "fade_in": [15.0, 24.0], "fade_out": [38.0, 50.0],
-   "note": "the middle water, arriving while the surface is still going."},
-  {"texture": "pool-deep",          "gain_db": -2.0, "fade_in": [30.0, 46.0], "fade_out": null,
-   "note": "water with nothing bounding it. Deliberately runs to the end — he does not come back up inside this scene."},
-  {"texture": "class-laugh",        "gain_db": -6.0, "fade_in": [13.0, 13.8], "fade_out": [19.2, 20.0],
+  {
+   "texture": "crowd-poolside",
+   "gain_db": -4.0,
+   "fade_in": [
+    0.0,
+    0.0
+   ],
+   "fade_out": [
+    12.0,
+    18.0
+   ],
+   "note": "the deck — the crowd and the room he is failing in. It does not follow him down; it is replaced by water."
+  },
+  {
+   "texture": "crowd-submerged",
+   "gain_db": -6.0,
+   "fade_in": [
+    14.0,
+    17.0
+   ],
+   "fade_out": [
+    27.0,
+    30.0
+   ],
+   "note": "the muffled roar. The crowd follows him under for six seconds and then loses him."
+  },
+  {
+   "texture": "pool-surface",
+   "gain_db": -3.0,
+   "fade_in": [
+    11.0,
+    16.0
+   ],
+   "fade_out": [
+    22.0,
+    34.0
+   ],
+   "note": "the surface. GONE by the time he is past twilight, because by then he cannot hear it."
+  },
+  {
+   "texture": "pool-submerged",
+   "gain_db": -2.0,
+   "fade_in": [
+    15.0,
+    24.0
+   ],
+   "fade_out": [
+    38.0,
+    50.0
+   ],
+   "note": "the middle water, arriving while the surface is still going."
+  },
+  {
+   "texture": "pool-deep",
+   "gain_db": -2.0,
+   "fade_in": [
+    30.0,
+    46.0
+   ],
+   "fade_out": null,
+   "note": "water with nothing bounding it. Deliberately runs to the end — he does not come back up inside this scene."
+  },
+  {
+   "texture": "class-laugh",
+   "gain_db": -6.0,
+   "fade_in": [
+    13.0,
+    13.8
+   ],
+   "fade_out": [
+    19.2,
+    20.0
+   ],
    "bus_gain": 0.9,
-   "note": "the classroom laughing at the Anchor, dry and above."},
-  {"texture": "class-laugh-memory", "gain_db": -3.0, "fade_in": [17.0, 20.0], "fade_out": [31.0, 34.0],
+   "note": "the classroom laughing at the Anchor, dry and above."
+  },
+  {
+   "texture": "class-laugh-memory",
+   "gain_db": -3.0,
+   "fade_in": [
+    17.0,
+    20.0
+   ],
+   "fade_out": [
+    31.0,
+    34.0
+   ],
    "bus_gain": 0.9,
-   "note": "the same recording four rungs down. The script says the laughter 'bends into whale-song distortion and fades', and this crossfade IS that sentence — one take, two treatments."}
+   "note": "the same recording four rungs down. The script says the laughter 'bends into whale-song distortion and fades', and this crossfade IS that sentence — one take, two treatments."
+  }
  ],
-
  "_tone_comment": "The thing in the water. 'A low, vast, gentle tone. Like a whale. Like a name.' Two close sines beating slowly against each other so it breathes without being played. It belongs to the deep and only exists down there.",
  "tone": {
-  "freqs_hz": [36.7, 36.9, 73.4],
-  "gains": [1.0, 0.7, 0.4],
+  "freqs_hz": [
+   36.7,
+   36.9,
+   73.4
+  ],
+  "gains": [
+   1.0,
+   0.7,
+   0.4
+  ],
   "level": 0.16,
   "fathom": "abyssal",
-  "fade_in": [48.0, 54.0],
-  "fade_out": [64.0, 70.0]
+  "fade_in": [
+   48.0,
+   54.0
+  ],
+  "fade_out": [
+   64.0,
+   70.0
+  ]
  },
-
  "_heart_comment": "The heartbeat is NOT in the room. It is inside his chest and stays there whatever depth he is at, and that contrast is what makes the room feel external and the body feel like his. Consequence worth stating: the heart is the one element that legitimately does not descend, which is why qc/verify_scene.py grades brightness above 2 kHz rather than across the whole band.",
  "heart": {
   "level": 0.55,
   "reverb_seconds": 2.2,
   "reverb_mix": 0.18,
-  "reverb_width": 0.30
+  "reverb_width": 0.3
  },
-
  "_mix_comment": "Share of energy each bus should hold, set by measurement rather than by an ear this pipeline does not have. The heart is the spine of the sequence and still must not be its loudest object: the room is what changes, the heart is what the change happens to. At unity it measured 55.7% of the energy and simply masked the room the whole scene is about.",
- "mix": {"world": 0.60, "heart": 0.28, "tone": 0.12}
+ "mix": {
+  "world": 0.6,
+  "heart": 0.28,
+  "tone": 0.12
+ },
+ "_shots_comment": "The shot list, keyed to the same beats the mix is keyed to, so picture and sound cannot drift. `undertone.py shots` emits generation-ready prompt stubs from this — the fourth thing the sound bible always claimed the cue sheet produced and which did not exist until now. EVERY SHOT HERE IS SYNC-FREE BY CONSTRUCTION: this 72-second window contains no dialogue at all, so Route A costs nothing and no mouth is ever at risk. That is a decision made before generating, which is the only time it is cheap. THE EYE RULE IS THE SPINE OF THE CUT. Canon: Kai's eyes are ordinary dark brown on dry land, and the deep-blue Undertow glow appears ONLY when he is submerged, because it is the visual tell that the power is surfacing. The script independently says 'his eyes, squeezed shut, open' at the moment the water settles. Those two land on the same frame, so the glow arriving IS the story beat — shots 01-05 are brown, 06-08 are shut or hidden, and 09 is where the blue arrives. Getting that order wrong would give the reveal away before it happens.",
+ "shots": [
+  {
+   "id": "01",
+   "t_in": 0.0,
+   "t_out": 6.0,
+   "rank": "air",
+   "eyes": "brown",
+   "subject": "kai",
+   "slug": "the walk to the block",
+   "prompt": "Wide shot from behind and slightly low: a lean 15-year-old boy of mixed Black and Japanese heritage, deep brown skin, tightly-coiled blue-black hair worn overgrown falling toward his eyes, plain dark navy swim jammers, a shell-cord bracelet on his wrist, walking alone along the wet tiled deck of an indoor school swimming pool toward a starting block. He walks like a prisoner to a wall. Late afternoon light through high windows, the pool's reflected caustics crawling on the ceiling and walls. Empty lanes, still water. Anime cel-shaded, clean ink linework, muted teal and concrete palette, cinematic composition, sense of enormous dread in an ordinary room.",
+   "motion": "Slow push in behind him as he walks; his pace never changes. The water is very still."
+  },
+  {
+   "id": "02",
+   "t_in": 6.0,
+   "t_out": 10.0,
+   "rank": "air",
+   "eyes": "brown",
+   "subject": "kai",
+   "slug": "the water throws light on his face",
+   "prompt": "Close-up, three-quarter: the face of a lean 15-year-old boy of mixed Black and Japanese heritage, deep brown skin, tightly-coiled blue-black hair overgrown and falling toward his eyes, ORDINARY DARK BROWN EYES, no glow of any kind. Rippling turquoise pool caustics crawl across his face from below. His jaw is set; he is trying not to show fear and failing at the edges. Indoor pool, shallow depth of field. Anime cel-shaded, clean ink linework, cinematic key light from the water below.",
+   "motion": "Almost still. Only the caustics move across his face. A single slow blink."
+  },
+  {
+   "id": "03",
+   "t_in": 10.0,
+   "t_out": 11.5,
+   "rank": "air",
+   "eyes": "n/a",
+   "subject": "water",
+   "slug": "THE EYE — one flash-frame",
+   "prompt": "Overhead shot straight down at the surface of an indoor swimming pool, but the water has gone NIGHT-BLACK and bottomless — no tile, no lane lines, no floor, an oil-black circle of open ocean where a pool should be. Something vast is implied just under the surface without being shown. A single ring of disturbance. Horror composition, wrong and beautiful. Anime cel-shaded with heavy blacks, high contrast, one flash-frame of nightmare inserted into an ordinary afternoon.",
+   "motion": "Held, nearly frozen. One ring spreading outward very slowly. Nothing surfaces."
+  },
+  {
+   "id": "04",
+   "t_in": 11.5,
+   "t_out": 13.0,
+   "rank": "air",
+   "eyes": "n/a",
+   "subject": "feet",
+   "slug": "BZZZT — the feet slip",
+   "prompt": "Tight low-angle shot on a pair of bare brown feet on the gritty textured surface of a swimming starting block, toes gripping the front edge, tendons taut. Wet footprints. One heel is already sliding. Indoor pool light, hard shadow under the block, water below out of focus. Anime cel-shaded, clean ink linework, kinetic tension, the instant before a fall.",
+   "motion": "The heel slips backward off the block edge. Fast, ugly, unrecoverable."
+  },
+  {
+   "id": "05",
+   "t_in": 13.0,
+   "t_out": 16.0,
+   "rank": "sunlit",
+   "eyes": "brown",
+   "subject": "kai",
+   "slug": "THE FALL — a slap of limbs",
+   "prompt": "Wide shot: a lean 15-year-old boy with deep brown skin and tightly-coiled blue-black hair, dark navy swim jammers, falling SIDEWAYS off a starting block into an indoor pool — graceless, arms flung out, legs wrong, nothing like a dive. Caught mid-air just before impact. Behind the fence beyond, blurred silhouettes of students, one phone already raised. Anime cel-shaded, clean ink linework, motion smear on the limbs, humiliating rather than heroic.",
+   "motion": "He hits the water sideways. A flat hard slap, spray thrown wide, the surface breaking badly."
+  },
+  {
+   "id": "06",
+   "t_in": 16.0,
+   "t_out": 24.0,
+   "rank": "twilight",
+   "eyes": "shut",
+   "subject": "kai",
+   "slug": "UNDERWATER — panic, honestly",
+   "prompt": "Underwater shot: a lean 15-year-old boy with deep brown skin and tightly-coiled blue-black hair, dark navy swim jammers, thrashing in panic just below the surface of a swimming pool. EYES SQUEEZED SHUT, mouth open in a scream that is costing him his air, a burst of bubbles torn out of him. Hands clawed. Chlorine-blue water, harsh surface light fracturing overhead, the pale tiled wall behind. Anime cel-shaded, clean ink linework, chaotic bubble trails, genuinely frightening rather than graceful.",
+   "motion": "Violent disorganised thrashing, bubbles bursting from his mouth, his body turning the wrong way. The surface receding above him."
+  },
+  {
+   "id": "07",
+   "t_in": 24.0,
+   "t_out": 30.0,
+   "rank": "twilight",
+   "eyes": "shut",
+   "subject": "kai",
+   "slug": "he sinks",
+   "prompt": "Underwater wide shot from below, looking up: a lean 15-year-old boy with deep brown skin and tightly-coiled blue-black hair, dark navy swim jammers, sinking away from a bright fractured surface far above. EYES SQUEEZED SHUT. His thrashing has stopped; limbs going slack, arms drifting up above his head as he descends. His last bubbles rise past him toward the light. Chlorine-blue going deeper and colder. Anime cel-shaded, clean ink linework, silhouetted against the surface glare, terrible stillness arriving.",
+   "motion": "He sinks steadily away from camera. Bubbles rise past. Nothing struggles any more."
+  },
+  {
+   "id": "08",
+   "t_in": 30.0,
+   "t_out": 38.0,
+   "rank": "midnight",
+   "eyes": "shut",
+   "subject": "water",
+   "slug": "the water settles around him",
+   "prompt": "Underwater environment shot: the interior of a swimming pool transformed — chlorine-blue turning into deep-ocean cathedral light, enormous slow shafts of down-light through water that has become far larger and older than a pool should be. Suspended dust motes and small bubbles hang motionless, beginning to drift subtly in one direction. Tiled floor barely visible far below in violet shadow. No character. Anime cel-shaded, painterly volumetric god-rays, awe rather than fear, the moment a room becomes an ocean.",
+   "motion": "The light shifts and deepens. Motes and bubbles slow, stop, and begin drifting gently toward one point off-screen."
+  },
+  {
+   "id": "09",
+   "t_in": 38.0,
+   "t_out": 44.0,
+   "rank": "midnight",
+   "eyes": "opening",
+   "subject": "kai",
+   "slug": "the hands drift open",
+   "prompt": "Extreme close-up underwater: two clawed brown hands, fingers rigid with panic, slowly uncurling and drifting open in deep blue water. A shell-cord bracelet on one wrist drifts with them. Small bubbles pass upward. Deep-ocean cathedral light, cool and enormous. Anime cel-shaded, clean ink linework, tender, the physical instant fear leaves a body.",
+   "motion": "The fingers uncurl and the hands drift open and apart. Unhurried. The bracelet turns slightly in the water."
+  },
+  {
+   "id": "10",
+   "t_in": 44.0,
+   "t_out": 50.0,
+   "rank": "abyssal",
+   "eyes": "blue",
+   "subject": "kai",
+   "slug": "the eyes open — the power surfaces",
+   "prompt": "Extreme close-up underwater on the face of a 15-year-old boy with deep brown skin and tightly-coiled blue-black hair drifting in the water: his eyes, which had been squeezed shut, are OPENING — and they are luminous DEEP BLUE, glowing faintly from within, lit from inside rather than by the water. Calm, unafraid, slightly wondering. Deep-ocean blue-violet light, motes suspended around him. Anime cel-shaded, clean ink linework, the single most important reveal in the sequence.",
+   "motion": "The eyes open slowly and the blue light rises in them. Hair drifts. Nothing else moves."
+  },
+  {
+   "id": "11",
+   "t_in": 50.0,
+   "t_out": 60.0,
+   "rank": "abyssal",
+   "eyes": "blue",
+   "subject": "kai",
+   "slug": "34 BPM — sitting on the pool floor",
+   "prompt": "Underwater medium-wide, straight on: a lean 15-year-old boy with deep brown skin, tightly-coiled blue-black hair, dark navy swim jammers and a shell-cord bracelet, sitting CROSS-LEGGED on the tiled floor of a swimming pool, perfectly comfortable, hands resting loose on his knees. His eyes are luminous deep blue and open. A wavering shaft of down-light falls on him. Dust motes and bubbles all around are drifting subtly TOWARD him from every direction. Deep-ocean cathedral blue going violet at the floor. Anime cel-shaded, clean ink linework, serene and slightly holy, a pool-sized field of quiet gathered on one boy.",
+   "motion": "He does not move at all. Only the motes and bubbles drift inward toward him, and the down-light wavers."
+  },
+  {
+   "id": "12",
+   "t_in": 60.0,
+   "t_out": 69.0,
+   "rank": "abyssal",
+   "eyes": "blue",
+   "subject": "kai",
+   "slug": "the field of quiet — hold",
+   "prompt": "Underwater very wide shot: the whole of a swimming pool rendered as a vast deep-ocean cathedral space, and at the very bottom centre, small in frame, a single boy sitting cross-legged in one shaft of down-light on the tiled floor. Everything in the water — motes, bubbles, suspended silt — drifts gently inward toward him. Far above, the bright broken surface and the tiny distorted silhouettes of people on the deck. Anime cel-shaded, painterly volumetric light, enormous scale, absolute stillness, the water paying attention to one person.",
+   "motion": "Extremely slow drift toward him. A held wide. The surface far above shivers once as someone enters the water."
+  },
+  {
+   "id": "13",
+   "t_in": 69.0,
+   "t_out": 72.0,
+   "rank": "air",
+   "eyes": "n/a",
+   "subject": "gouda",
+   "slug": "SMASH to the deck — Gouda's face",
+   "prompt": "Hard cut, above water, poolside: close-up of a 44-year-old Japanese man, a ruin of a magnificent athlete — huge shoulders gone soft, graying topknot going to seed, heavy jaw, broken nose, several days of stubble, rumpled old tracksuit and open windbreaker. He has come bolt upright off a fence he was leaning on. His ordinary dark brown eyes are wide and his face has gone GRAY: the face of a man who has seen this exact stillness once before and it cost him everything. Harsh indoor pool light. Anime cel-shaded, clean ink linework, dread recognition.",
+   "motion": "He straightens off the fence. His face drains. He does not blink."
+  }
+ ]
 }

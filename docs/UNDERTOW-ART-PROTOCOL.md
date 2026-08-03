@@ -68,6 +68,7 @@ Law 4 exists because this failed twice in one day, in two different disguises.
 | Bo | 3D-styled harbour render | the show is rendered in 3D | wrong house style in solo shots |
 | Mirei | pool deck, sunglasses on head | she doesn't wear glasses | eyewear kept migrating to her head |
 | Gouda | seated, grinning, sepia room | a cheerful man with yellow eyes | contradicts his entire character |
+| Gouda **again**, v2 | the plate that *fixed* the above | he is a white European | canon says Japanese — see below |
 | Nakaru | storm sea wall, face in shadow | grey weather was his skin | signature scar and streak invisible |
 
 Kai's was the worst. The deep-blue glow is the visual tell that the Undertow is
@@ -92,6 +93,39 @@ a colour grade. Whatever the answer is, generate a plate without it first.
 it does not go into the element at all — not even as a second reference. Mirei, Gouda
 and Bo are built on their baseline alone for exactly this reason. Their founding plates
 remain canon for provenance and history; they are simply too wrong to teach from.
+
+### The replacement plate can be wrong too, and a targeted review will not catch it
+
+Gouda appears in the table above twice over, and the second time is the one worth
+learning from. His v1 plate was retired for a grin and yellow eyes. The v2 plate that
+replaced it fixed both — and depicted **a white European man with white hair and pale
+skin**, against canon that says *Japanese, former Olympic champion*.
+
+That error then sat in the approved element registry through a canon version bump, a
+full lineup sheet and every gate run since, because nothing checks a plate against
+canon; the gate checks that assets *trace* to an approved element, and this asset traced
+to an approved element perfectly. It was approved. It was just wrong.
+
+It surfaced only when the element was used for a shot that mattered:
+
+1. Prompt says "a heavy-set middle-aged Japanese man" → comes back white.
+2. Rewrite: "JAPANESE, unmistakably East Asian, warm tan skin, JET-BLACK hair" → comes
+   back white again.
+3. Open the element's own reference plate and look at it.
+
+> **When a prompt cannot override a reference, the reference is what is wrong.**
+> Two failed rewrites is the signal to stop rewriting and go and look at the plate.
+
+And the review lesson, which generalises past this show: **a correction invites a
+narrow re-review.** The v2 plate was checked for the grin and the eyes — the two known
+faults — and cleared. Nobody re-read it against the whole canon entry, because it had
+just been "fixed". A regenerated asset is a *new* asset and needs a full check, not a
+diff against the specific complaint.
+
+The cheap defence is a checklist rather than a memory: for every element plate, read the
+character's canon `identity` block field by field against the picture — heritage, skin,
+hair, eyes, build, signature prop — and say which field you verified. Gouda's `heritage`
+field was never once compared to his face.
 
 ---
 

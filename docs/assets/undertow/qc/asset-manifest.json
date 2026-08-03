@@ -1324,6 +1324,423 @@
    "note": "The first scene mix in the show, and the first thing to use the whole sound department at once. Four faults surfaced here that no component-level gate could catch, because they were faults in how a scene USED correct parts: a deck texture darker than the water beside it, a surface layer that ramped in and never out, a cue named in the beat sheet but never referenced, and a heartbeat whose spectrum was flat while its level ran opposite to the arc. See docs/UNDERTOW-SOUND-BIBLE.md section 5a.",
    "verification": "qc/verify_scene.py grades the rendered WAV against the depth curve declared in its own cue sheet \u2014 intent against output, not interpolation against itself. Requires the mix to darken and widen with depth by rank correlation across every window, with negative controls on the scene reversed and on stationary pink noise.",
    "engineering": "24-bit/48kHz stereo, -18.0 LUFS target, true peak under -1.0 dBTP (4x oversampled per ITU-R BS.1770). Beds sit below cue level deliberately. Mastered through the shared chain in mastering.py."
+  },
+  "gouda-v3-neutral-ref.png": {
+   "kind": "baseline-reference",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "provenance": "founding-plate",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "element_id": "829723b5-5b8c-4047-9db8-6d318873b600",
+   "source_job_id": "66df8a89-0bd8-4513-9f85-92f5a7f54fee",
+   "generated_with": "nano_banana (neutral full-body reference plate, flat studio light, no environment)",
+   "note": "Gouda v3 baseline. REPLACES v2, whose plate depicted a white European man with white hair and pale skin against canon's 'Japanese, former Olympic champion'. Verified field by field against the canon identity block: heritage East Asian, warm tan skin, jet-black hair graying only at the temples in an unravelling topknot, dark brown eyes, heavy jaw, broken nose, weary closed expression, tracksuit with open windbreaker, Olympic medal on a faded ribbon.",
+   "verification": "Two shot prompts explicitly specifying Japanese/East Asian/tan skin/jet-black hair both returned a white man against the v2 element; the same prompt against this plate returned a canon-correct character. That paired result is what identifies the element rather than the prompt as the fault.",
+   "sha256_16": "25152f1b6511efc6"
+  },
+  "sequence/ep1-the-sinking/shot-01.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 01 (0.0-6.0s, rank air): the walk to the block. Eye state: brown.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "b990120ae7200206"
+  },
+  "sequence/ep1-the-sinking/clip-01.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-01.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 01 (0.0-6.0s, rank air): the walk to the block. Eye state: brown.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "32b2d2c47acfc413"
+  },
+  "sequence/ep1-the-sinking/shot-02.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 02 (6.0-10.0s, rank air): the water throws light on his face. Eye state: brown.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "22a480e5eb70d9ee"
+  },
+  "sequence/ep1-the-sinking/clip-02.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-02.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 02 (6.0-10.0s, rank air): the water throws light on his face. Eye state: brown.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "0a91022dcbfc764a"
+  },
+  "sequence/ep1-the-sinking/shot-03.png": {
+   "kind": "sequence-shot",
+   "characters": [],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked (environment only, no character)",
+   "note": "EP1 sinking sequence shot 03 (10.0-11.5s, rank air): THE EYE \u2014 one flash-frame. Eye state: n/a.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "sha256_16": "83dad142d21938d9"
+  },
+  "sequence/ep1-the-sinking/clip-03.mp4": {
+   "kind": "sequence-clip",
+   "characters": [],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-03.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 03 (10.0-11.5s, rank air): THE EYE \u2014 one flash-frame. Eye state: n/a.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "sha256_16": "09be7f09c4a1ee80"
+  },
+  "sequence/ep1-the-sinking/shot-04.png": {
+   "kind": "sequence-shot",
+   "characters": [],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked (environment only, no character)",
+   "note": "EP1 sinking sequence shot 04 (11.5-13.0s, rank air): BZZZT \u2014 the feet slip. Eye state: n/a.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "sha256_16": "035820e8e293631e"
+  },
+  "sequence/ep1-the-sinking/clip-04.mp4": {
+   "kind": "sequence-clip",
+   "characters": [],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-04.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 04 (11.5-13.0s, rank air): BZZZT \u2014 the feet slip. Eye state: n/a.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "sha256_16": "8468f3ec56e32079"
+  },
+  "sequence/ep1-the-sinking/shot-05.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 05 (13.0-16.0s, rank sunlit): THE FALL \u2014 a slap of limbs. Eye state: brown.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "ffca6532a175472e"
+  },
+  "sequence/ep1-the-sinking/clip-05.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-05.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 05 (13.0-16.0s, rank sunlit): THE FALL \u2014 a slap of limbs. Eye state: brown.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "0301b3336e248f12"
+  },
+  "sequence/ep1-the-sinking/shot-06.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 06 (16.0-24.0s, rank twilight): UNDERWATER \u2014 panic, honestly. Eye state: shut.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "aa824a5d54dc96c2"
+  },
+  "sequence/ep1-the-sinking/clip-06.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-06.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 06 (16.0-24.0s, rank twilight): UNDERWATER \u2014 panic, honestly. Eye state: shut.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "479ff5ffb7adcba9"
+  },
+  "sequence/ep1-the-sinking/shot-07.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 07 (24.0-30.0s, rank twilight): he sinks. Eye state: shut.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "cc07d35b353c1e26"
+  },
+  "sequence/ep1-the-sinking/clip-07.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-07.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 07 (24.0-30.0s, rank twilight): he sinks. Eye state: shut.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "e7fcd53d941fbcbb"
+  },
+  "sequence/ep1-the-sinking/shot-08.png": {
+   "kind": "sequence-shot",
+   "characters": [],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked (environment only, no character)",
+   "note": "EP1 sinking sequence shot 08 (30.0-38.0s, rank midnight): the water settles around him. Eye state: shut.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "sha256_16": "27f075cb5b16d624"
+  },
+  "sequence/ep1-the-sinking/clip-08.mp4": {
+   "kind": "sequence-clip",
+   "characters": [],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-08.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 08 (30.0-38.0s, rank midnight): the water settles around him. Eye state: shut.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "sha256_16": "ce418db8f8c4decc"
+  },
+  "sequence/ep1-the-sinking/shot-09.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 09 (38.0-44.0s, rank midnight): the hands drift open. Eye state: opening.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "450f72e596efb34e"
+  },
+  "sequence/ep1-the-sinking/clip-09.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-09.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 09 (38.0-44.0s, rank midnight): the hands drift open. Eye state: opening.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "c05d0f0e40f2562f"
+  },
+  "sequence/ep1-the-sinking/shot-10.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 10 (44.0-50.0s, rank abyssal): the eyes open \u2014 the power surfaces. Eye state: blue.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "729fa0968457ce3a"
+  },
+  "sequence/ep1-the-sinking/clip-10.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-10.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 10 (44.0-50.0s, rank abyssal): the eyes open \u2014 the power surfaces. Eye state: blue.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "ded4e7d15e08a664"
+  },
+  "sequence/ep1-the-sinking/shot-11.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 11 (50.0-60.0s, rank abyssal): 34 BPM \u2014 sitting on the pool floor. Eye state: blue.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "f67fe477b6d09dcb"
+  },
+  "sequence/ep1-the-sinking/clip-11.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-11.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 11 (50.0-60.0s, rank abyssal): 34 BPM \u2014 sitting on the pool floor. Eye state: blue.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "bb2d918059cb0426"
+  },
+  "sequence/ep1-the-sinking/shot-12.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 12 (60.0-69.0s, rank abyssal): the field of quiet \u2014 hold. Eye state: blue.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "980cc57391d5721e"
+  },
+  "sequence/ep1-the-sinking/clip-12.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-12.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 12 (60.0-69.0s, rank abyssal): the field of quiet \u2014 hold. Eye state: blue.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "25b05f02926a946d"
+  },
+  "sequence/ep1-the-sinking/shot-13.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 829723b5-5b8c-4047-9db8-6d318873b600",
+   "note": "EP1 sinking sequence shot 13 (69.0-72.0s, rank air): SMASH to the deck \u2014 Gouda's face. Eye state: n/a.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "829723b5-5b8c-4047-9db8-6d318873b600",
+   "sha256_16": "a4a41238d4268968"
+  },
+  "sequence/ep1-the-sinking/clip-13.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-13.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 13 (69.0-72.0s, rank air): SMASH to the deck \u2014 Gouda's face. Eye state: n/a.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "829723b5-5b8c-4047-9db8-6d318873b600",
+   "sha256_16": "1abc53953f7c02fe"
+  },
+  "sequence-ep1-the-sinking.mp4": {
+   "kind": "sequence",
+   "characters": [
+    "kai",
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "provenance": "derived-from-approved-plates",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "build-sequence.py \u2014 13 clips cut to the windows declared in audio/scene-ep1-the-sinking.json and married to scenes/ep1-the-sinking.wav",
+   "note": "The pre-scoring doctrine executed end to end for the first time: the audio was authored first as data, and this picture was cut to it from the same cue sheet. 72s, no dialogue, so every shot is sync-free by construction. Provenance is derived rather than generated: this file contains no new generation at all, it is a deterministic assembly of the 13 registered, element-locked clips against the registered mix.",
+   "verification": "Frame-sampled at each shot's midpoint from the FINISHED CUT (not the source stills) and checked against the cue sheet's declared rank and eye state \u2014 see qc/sequence-ep1-sinking-frames.png.",
+   "sha256_16": "03f325128dae08fe"
+  },
+  "qc/sequence-ep1-sinking-frames.png": {
+   "kind": "qc-artifact",
+   "characters": [
+    "kai",
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "ffmpeg frame extraction at each shot midpoint from sequence-ep1-the-sinking.mp4",
+   "note": "Evidence sheet for the sinking sequence. Sampled from the finished cut so it grades what ships, not what was fed in.",
+   "sha256_16": "b5a134bae9b1ed73"
   }
  },
  "provenance_types": {
