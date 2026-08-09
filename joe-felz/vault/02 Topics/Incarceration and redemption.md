@@ -3,8 +3,8 @@ type: "topic"
 family: "Life, Business and Mindset"
 group: "Incarceration and redemption"
 terms: "11"
-sources: "37"
-occurrences: "120"
+sources: "41"
+occurrences: "125"
 tags:
   - "topic"
   - "life"
@@ -12,16 +12,18 @@ tags:
 
 # Incarceration and redemption
 
-Part of **[[Life, Business and Mindset]]**. 11 distinct terms appear across 37 posts and videos, said 120 times in total.
+Part of **[[Life, Business and Mindset]]**. 11 distinct terms appear across 41 posts and videos, said 125 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
 
 ## prison  
-*said 41 time(s) across 8 source(s)*
+*said 43 time(s) across 9 source(s)*
 
 - [[2026-07-09 It’s where you lose pieces of yourself that were never meant to make it to the]] — 2026-07-09 · [youtube](https://www.youtube.com/watch?v=8zc68v6hen0)  
   > ...elop us. Whatever higher power you believe in [music] is not going to remove your problems until you become the person capable of handling what's after them. If [music] your circumstances change before your character does, you're just going to create the same prison. You have not evolved. You've done nothing. You quit. You gave up. Here you go. Back to square one. Example, this one's good for Joe. You prayed for freedom, right, before you learned responsibility. If you have yet to learn that responsibility, that freedom...
+- [[2026-05-01 Walking the path to freedom 🚐🇨🇷☀️ -Mindset -matrix -escape -buildingreality -jo]] — 2026-05-01 · [youtube](https://www.youtube.com/watch?v=6VDB_T3MSmA)  
+  > Walking the path to freedom 🚐🇨🇷☀️ #Mindset #matrix #escape #buildingreality #joefelz￼ You ever felt like you're stuck in life? Like you're just not free? I felt that multiple times in my life, especially when I was in prison. When I was 19 years old, I ran away barefoot and shirtless from five police units in rural Georgia, and nobody saw me for almost two years. They caught me two days after my 21st birthday, and I did two and a half years in prison. When I was released 15 years...
 - [[2025-11-27 The Concept Behind the Creation]] — 2025-11-27 · [youtube](https://www.youtube.com/watch?v=BRA9cjkOekg)  
   > ...reat effort. So you might see something that lets you wake the [ __ ] up. How do I start, kid? About three and a half years ago, I I left. I My wife divorced me. I left just just said [ __ ] society. I'd done everything they told me to. You know, I got out of prison on 8 n 10 with $50 of clothes on my back and the love and support of my family and just started working. Starting working and looking for freedom. I didn't want to work for other people. I wanted to work for myself. Um that wasn't enough. I had to own my own...
 - [[2025-11-11 Costa Rican Constrution]] — 2025-11-11 · [youtube](https://www.youtube.com/watch?v=ujn2avr266M)  
@@ -70,10 +72,12 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...no I mean the results were unanimous I it was no second place it was 100 um you got your felony charge when you were 18 your first one did that lead to any prison time or what happened with that no I played first offender on that um and I I I wound up getting probation uh first Defender 5 years probation if I would have completed it you know clean slate you know type deal um I had a good attorney and I mean it was it was weed and hash and mushrooms like who gives a [ __ ] these are called plants dog yeah nowadays it' be abs...
 
 ## felon  
-*said 9 time(s) across 3 source(s)*
+*said 10 time(s) across 4 source(s)*
 
 - [[2026-04-24 This is your weekly reminder to chase your dreams 🇨🇴]] — 2026-04-24 · [instagram](https://www.instagram.com/p/DXhjyZUCW4t/)  
   > ...ountains vistas, fresh seafood, local Latin vibes & cool new friends. Gotta hit the airport today, but really wanna stay. The only thing that doesn’t suck about leaving Col￼ombia is flying back to Costa Rica I suppose! Keep in mind I’m a 5’ 4” 8x convicted felon who society had discarded ￼to the corrections department but today I’m living an epic life. If my sawed off ass can do it, so can you. Can’t wait to meet you on a mountain top one day ✈️🌎🫵 #joefelz #mystory #inspiration #travel #newlife
+- [[2026-04-13 This is your your daily reminder to chase your dreams]] — 2026-04-13 · [instagram](https://www.instagram.com/p/DXDZddMDYdC/)  
+  > ...foot up this mountain in Cali when 4 young Colombianos pointed & yelled. At first I thought it might have been a hold up, but I quickly realized they recognized me off of socials & I met 4 friends in a foreign country I didn’t know I had. For a throwaway, 8x felon whose family betrayed him & society cast out, getting spotted in a foreign country then stopping for a photo op was pretty damn cool. So, yeah, chase your dreams. There’s a big old world out there and nothing epic ever happens in your front yard 🇨🇴🤝⛰️ #joe...
 - [[2025-05-11 How I Became A Felon]] — 2025-05-11 · [youtube](https://www.youtube.com/watch?v=rxuzA4OeNUY)  
   > How I Became A Felon July 4, 2007- I was 19 years old and sitting on the banks of Clark Hill Lake, minding my own business when DNR officers pulled up on me in a boat, setting events in motion that would one day land me in prison 🏃🚓👨🏼‍⚖️ #joefelz #felzhouses #felzmedia #confessi...
 - [[2024-01-22 From Convicted Felon to Owning Multiple Businesses & A Real Estate Portfolio]] — 2024-01-22 · [youtube](https://www.youtube.com/watch?v=R1v-1htzRHk)  
@@ -91,19 +95,13 @@ Each term below lists the posts and videos where it appears, with the surroundin
 - [[2024-03-26 My Rags to Riches Story- The Convicted & Barefooted Real Estate Mogul (Full Pod]] — 2024-03-26 · [youtube](https://www.youtube.com/watch?v=GfOUURlj-zE)  
   > ...of drugs how may I help you that's what he did like and I was like uh can you give me a plea bargain he was like that's what I was thinking like like yeah man yeah makes sense I was looking at 55 years with all you know you know that was The Backs they could sentence me to 55 years that's nuts my uncle actually got me two years knocked off of my sentence man I I can't I can't tell you that one he did but my Uncle Paul I just want to credit him there he got two years knocked off my sentence I'll be forever grateful um you...
 
-## convicted  
-*said 7 time(s) across 3 source(s)*
-
-- [[2026-04-24 This is your weekly reminder to chase your dreams 🇨🇴]] — 2026-04-24 · [instagram](https://www.instagram.com/p/DXhjyZUCW4t/)  
-  > ...sweeping mountains vistas, fresh seafood, local Latin vibes & cool new friends. Gotta hit the airport today, but really wanna stay. The only thing that doesn’t suck about leaving Col￼ombia is flying back to Costa Rica I suppose! Keep in mind I’m a 5’ 4” 8x convicted felon who society had discarded ￼to the corrections department but today I’m living an epic life. If my sawed off ass can do it, so can you. Can’t wait to meet you on a mountain top one day ✈️🌎🫵 #joefelz #mystory #inspiration #travel #newlife
-- [[2024-03-26 My Rags to Riches Story- The Convicted & Barefooted Real Estate Mogul (Full Pod]] — 2024-03-26 · [youtube](https://www.youtube.com/watch?v=GfOUURlj-zE)  
-  > My Rags to Riches Story: The Convicted & Barefooted Real Estate Mogul (Full Podcast) hey Josh what's up man hey dude not much why don't you have any of your stupid lights on ever since sergy I just I can't get around the room to plug them in and stuff what surgery uh the hip surgery I had last wee...
-- [[2024-01-22 From Convicted Felon to Owning Multiple Businesses & A Real Estate Portfolio]] — 2024-01-22 · [youtube](https://www.youtube.com/watch?v=R1v-1htzRHk)  
-  > From Convicted Felon to Owning Multiple Businesses & A Real Estate Portfolio Hello all and welcome to the Joe Felz YouTube channel! I joined RJ Bates III on his podcast, The Titanium Vault. In this episode, I discuss how I overcame being a convicted felon and started my rea...
-
 ## record  
-*said 6 time(s) across 5 source(s)*
+*said 8 time(s) across 7 source(s)*
 
+- [[2026-05-02 Terry in fact did NOT put it in reverse🪲🇨🇷🔦 -joefelz -bioluminescence -CostaRic]] — 2026-05-02 · [youtube](https://www.youtube.com/watch?v=U4X6XvTrlAY)  
+  > ...off so you can see the peepers on these jeepers. Ready? Watch the lights stay on. [music] Look at those things. How do you like to walk in your house and see them two peepers looking at you at night? It's a cool little guy and it's pretty cool having a world record holder in your house. I hope he makes it through the night. Them geckos don't play. Oh my god, they're so cute. You know those little light things are actually their eyes and they have a third eyelid on their belly and making them look great. Oh my. Hey, hand...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > ...system on your own without any help because you can ask Parker. The amount of people that ask us questions on a regular basis, it's it's a lot, isn't it? And you can't you don't want to answer it, you know, 48,000 times. You'd like to do it one time and then record it so everybody can get the information for free. Um, and my main impetus for going to teach this class is I have a moral dilemma with electricity. I do not think that humans should buy and sell electricity. I don't think it's theirs. Um, I think it was put h...
 - [[2025-11-11 Costa Rican Constrution]] — 2025-11-11 · [youtube](https://www.youtube.com/watch?v=ujn2avr266M)  
   > ...toad. I guess you'd kill a rat and a toad at the same time, but you know what I have said. So look. All right. So now look, I got to take this. I still need your sentence, but I will. Give me one minute. I got to finish it. Look, I got Charlie wants me to go record something for something. But don't y'all think I should finish this bed and let y'all see it before I do that? It's one sentence, but I can't I can't let the public here yet. It's not It's not public media yet. [laughter] Hey, Big Worm. Hey, look here, bro. I...
 - [[2025-07-10 Showing @naturejab & @EnergizeUsEdu How I Run Renovation off An App]] — 2025-07-10 · [youtube](https://www.youtube.com/watch?v=kVKedeLmB2Y)  
@@ -114,6 +112,16 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > Can you live in a Van with Kids? just for the record have you ever been in this van before no do you think that you could live here with that little kid I think so cuz we wouldn't be in here but sleeping the more you focus on the outdoors the less indoors matters well yeah people always say you can't do this wi...
 - [[2024-01-22 From Convicted Felon to Owning Multiple Businesses & A Real Estate Portfolio]] — 2024-01-22 · [youtube](https://www.youtube.com/watch?v=R1v-1htzRHk)  
   > ...more and nobody's ever stepped back and said, "Fuck you, man. Get out of my [ __ ] house." And here's what I'm telling you. To quote General Jackson, man. He said, "Well, the president has made his decision and let him enforce it." If you look at my criminal record, like man, look, I ain't I don't know what your [ __ ] law says. I comprehend a common sense and you cannot deprive me of my life, liberty, and the pursuit of my happiness. And I'm going to do what I see fit on my land regardless of what you say. And if you w...
+
+## convicted  
+*said 7 time(s) across 3 source(s)*
+
+- [[2026-04-24 This is your weekly reminder to chase your dreams 🇨🇴]] — 2026-04-24 · [instagram](https://www.instagram.com/p/DXhjyZUCW4t/)  
+  > ...sweeping mountains vistas, fresh seafood, local Latin vibes & cool new friends. Gotta hit the airport today, but really wanna stay. The only thing that doesn’t suck about leaving Col￼ombia is flying back to Costa Rica I suppose! Keep in mind I’m a 5’ 4” 8x convicted felon who society had discarded ￼to the corrections department but today I’m living an epic life. If my sawed off ass can do it, so can you. Can’t wait to meet you on a mountain top one day ✈️🌎🫵 #joefelz #mystory #inspiration #travel #newlife
+- [[2024-03-26 My Rags to Riches Story- The Convicted & Barefooted Real Estate Mogul (Full Pod]] — 2024-03-26 · [youtube](https://www.youtube.com/watch?v=GfOUURlj-zE)  
+  > My Rags to Riches Story: The Convicted & Barefooted Real Estate Mogul (Full Podcast) hey Josh what's up man hey dude not much why don't you have any of your stupid lights on ever since sergy I just I can't get around the room to plug them in and stuff what surgery uh the hip surgery I had last wee...
+- [[2024-01-22 From Convicted Felon to Owning Multiple Businesses & A Real Estate Portfolio]] — 2024-01-22 · [youtube](https://www.youtube.com/watch?v=R1v-1htzRHk)  
+  > From Convicted Felon to Owning Multiple Businesses & A Real Estate Portfolio Hello all and welcome to the Joe Felz YouTube channel! I joined RJ Bates III on his podcast, The Titanium Vault. In this episode, I discuss how I overcame being a convicted felon and started my rea...
 
 ## parole  
 *said 2 time(s) across 2 source(s)*

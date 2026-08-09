@@ -3,8 +3,8 @@ type: "topic"
 family: "Ancient, Artifacts and Esoteric"
 group: "Civilizations and sites"
 terms: "9"
-sources: "50"
-occurrences: "151"
+sources: "84"
+occurrences: "199"
 tags:
   - "topic"
   - "ancient"
@@ -12,13 +12,13 @@ tags:
 
 # Civilizations and sites
 
-Part of **[[Ancient, Artifacts and Esoteric]]**. 9 distinct terms appear across 50 posts and videos, said 151 times in total.
+Part of **[[Ancient, Artifacts and Esoteric]]**. 9 distinct terms appear across 84 posts and videos, said 199 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
 
 ## costa rica  
-*said 117 time(s) across 30 source(s)*
+*said 144 time(s) across 51 source(s)*
 
 - [[2026-07-09 It’s where you lose pieces of yourself that were never meant to make it to the]] — 2026-07-09 · [youtube](https://www.youtube.com/watch?v=8zc68v6hen0)  
   > ...inspired the pursuit in many. Let their light carry the mission while you rekindle your flame." Boy, y'all better be carrying some solar flare type flashlights. I'm healing, not healed. There's a big difference between the two. And since we've been back from Costa Rica the last 2 months, life has made damn sure I understood that. It reminded me of something I've heard that I think Joe has smacked down in the middle of learning. We have to stop cursing the season that we are currently in that is meant to create capacity insi...
@@ -34,29 +34,33 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > I have seen ZERO chemtrails in Costa Rica ✈️🌧️🤔 #joefelz #chemtrails #pollution #costarica #waterislife
 - [[2026-05-29 I have seen ZERO of these in Costa Rica 🌧️ -joefelz -pollution -skies -costaric]] — 2026-05-29 · [youtube](https://www.youtube.com/watch?v=gnxs9iHTINU)  
   > I have seen ZERO of these in Costa Rica 🌧️ #joefelz #pollution #skies #costarica #waterislife What the hell's going on with the sky in America? There's another chemtrail forming right there. In April of '25, I bought a homestead in Costa Rica. That does not look like a normal cloud. I've been looki...
+- [[2026-05-26 If you miss this deadline your CR corporation will be stuck🇨🇷-costarica -entrep]] — 2026-05-26 · [youtube](https://www.youtube.com/watch?v=E3L9qAZqtvQ)  
+  > If you miss this deadline your CR corporation will be stuck🇨🇷#costarica #entrepreneur #joefelz Costa Rican law is an absolute maze. I'm sweating over it a little bit. One thing I wish I would have known before starting a business in Costa Rica is how complicated the legal system of Costa Rica is. They just passed a new law, law 10,597. Basically, it says you have to register an official email on your Costa Rican corporation in order to receive all notifications [music] from the government. And ther...
 - [[2026-05-13 It started with threats in the comments & ending with him deleting his]] — 2026-05-13 · [instagram](https://www.instagram.com/p/DYSJgv7EU08/)  
   > It started with threats in the comments & ending with him deleting his account…. Heads up to all expats in Costa Rica- had someone posing as an attorney for the Immigration Department tell me to delete all of my posts about CR & not make any more. He started out saying he was a lawyer for the government who “would like to greet me at an immigration checkpoint” & then we to...
 - [[2026-05-03 Soooo, anybody want a Joe & Alx relic-😍🚌]] — 2026-05-03 · [instagram](https://www.instagram.com/p/DX4ipDRFrYE/)  
   > ...ia base doing lives during the build. The “excuse” Joe uses as the initial reason we moved in together😂 The initial plan was to drive this thing to the tree retreat in Tennessee and use it as the host house but things have shifted in life and now Reality in Costa Rica is the focus🇨🇷 Blood, sweat, tears and a whooooooole lotta love went into this thing and we learned and grew and then went onto build another🚎 I’m gonna miss it but cannot wait to see new life in it #skoolie #buslife #joefelz #joeandalx #felzmedia
+- [[2026-05-02 Terry in fact did NOT put it in reverse🪲🇨🇷🔦 -joefelz -bioluminescence -CostaRic]] — 2026-05-02 · [youtube](https://www.youtube.com/watch?v=U4X6XvTrlAY)  
+  > ...verse🪲🇨🇷🔦 #joefelz #bioluminescence #CostaRica #nature How do you like to walk in your house and see them two peepers looking at you at night? This is the most bioluminescent bug on planet Earth. It's a click beetle and we found it in my little casita here in Costa Rica. I'm fixing to cut the lights off so you can see the peepers on these jeepers. Ready? Watch the lights stay on. [music] Look at those things. How do you like to walk in your house and see them two peepers looking at you at night? It's a cool little guy and it...
+- [[2026-05-01 Walking the path to freedom 🚐🇨🇷☀️ -Mindset -matrix -escape -buildingreality -jo]] — 2026-05-01 · [youtube](https://www.youtube.com/watch?v=6VDB_T3MSmA)  
+  > ...e path to your highest self. And they're right, cuz after she told me she wanted a divorce, I bought my first van. Because I needed solar, I started with solar power. Then I started traveling the US. Then I started traveling the world, and now I'm off-grid in Costa Rica, and I'm living the life I've always wanted to live. But it wasn't easy. I feel like there's a ton of people out there who identify with the things I'm telling them. I'm out. I'm free. I'm out of the system. I'm growing all my food here. I got lobster and til...
+- [[2026-05-01 How much are you pain at the pump ⛽️🔝 -joefelz -gasprices -global -ouch]] — 2026-05-01 · [youtube](https://www.youtube.com/watch?v=C0NHyJIH4Ow)  
+  > How much are you pain at the pump ⛽️🔝 #joefelz #gasprices #global #ouch Gas is going up all over the world. I just filled up here in Costa Rica. It was 30,984 colones. The dollar dropped here a whole lot, so that's like what? $68 for a tank full of diesel. What's gas looking like in your country?
 - [[2026-04-29 I am fully confident my trailer park days of using butter knives as sc]] — 2026-04-29 · [instagram](https://www.instagram.com/p/DXuOL3BFijw/)  
   > I am fully confident my trailer park days of using butter knives as screwdrivers prepared me to build things in Costa Rica😂 You gotta think outside the box here, use items you normally wouldn’t, repurpose, and just go with the flow. Had a few last-minute adjustments since the baby chickens started escaping out of the holes but everything is finished today just in time for us...
-- [[2026-04-29 Weekly hours worked in Costa Rica- 60 plus. Dollars earned- $0- did I]] — 2026-04-29 · [instagram](https://www.instagram.com/p/DXt_itMjQmJ/)  
-  > Weekly hours worked in Costa Rica- 60 plus. Dollars earned: $0- did I make the right choice? 🇨🇷🛖💸 #joefelz #lifestyle #money #labor
-- [[2026-04-27 I have a strange problem with my solar. Basically the opposite of a hi]] — 2026-04-27 · [instagram](https://www.instagram.com/p/DXpvzrtDSts/)  
-  > ...strange problem with my solar. Basically the opposite of a high power bill. Even with only 20 out of 16 panels installed the batteries on my homestead are completely full by 9 AM and cannot accept any more charge even though there is beaming sun in beautiful Costa Rica. You cannot charge a full battery so I am missing about five hours of good sunlight every day. I tried to give the energy back to the municipal government so they could apply it to indigent Tico accounts, but they would not accept it, so what do I do now?...
-- [[2026-04-24 This is your weekly reminder to chase your dreams 🇨🇴]] — 2026-04-24 · [instagram](https://www.instagram.com/p/DXhjyZUCW4t/)  
-  > ...n, my first Indigenous tribe, crystal blue oceans, sweeping mountains vistas, fresh seafood, local Latin vibes & cool new friends. Gotta hit the airport today, but really wanna stay. The only thing that doesn’t suck about leaving Col￼ombia is flying back to Costa Rica I suppose! Keep in mind I’m a 5’ 4” 8x convicted felon who society had discarded ￼to the corrections department but today I’m living an epic life. If my sawed off ass can do it, so can you. Can’t wait to meet you on a mountain top one day ✈️🌎🫵 #joefelz #myst...
-- [[2026-04-12 A gringo shot at the Ticos house juice🍹🇨🇷💃]] — 2026-04-12 · [youtube](https://www.youtube.com/watch?v=IqQl3UZEIu4)  
-  > A gringo shot at the Ticos house juice🍹🇨🇷💃 #joefelz #buildingreality #felzmedia #expatlife #costarica #jugos Our buying Costa Rica have a house juice. We don't have one, so I made one up. I'm going to show you what I put in it. This is wild peanut. This is our vanilla. This is our squash. We need some limes. These are bananas. That's a hibiscus. That's a baby pineapple. Herba buena. Herb...
-- *...and 16 more*
+- *...and 37 more*
 
 ## colombia  
-*said 20 time(s) across 12 source(s)*
+*said 40 time(s) across 24 source(s)*
 
 - [[2026-06-23 If you demand respect for your faith while denying it to theirs….you’re defendi]] — 2026-06-23 · [youtube](https://www.youtube.com/watch?v=1nOak54K1tI)  
   > ...running my little yapper with words of wisdom and knowledge that I think you should probably listen to. Just kind of trying to fill the silence while he is handling his And when he comes back, we'll get back to the Bibles and ancient artifacts and Mexico and Colombia and Costa Rica, solar and construction and all the things that he has shared and and taught us. Until that happens, it's you and me, baby. Anyways, I hope you have the best goddamn Monday.
+- [[2026-04-24 You should travel, cause nothing epic ever happens in your front yard 🇨🇴 -joefe]] — 2026-04-24 · [youtube](https://www.youtube.com/watch?v=IELSruFRRKU)  
+  > You should travel, cause nothing epic ever happens in your front yard 🇨🇴 #joefelz #travel #epic Sometimes you got to leave a place and you really don't want to go. I like the out of this little private beach. That's what Colombia's been like for me. The view from my homie Sebastian's house. I got to do amazing things here like meet my first indigenous tribe. This is the village of the Kogi. Dive in crystal blue water and spear a fish. Just got out of the water. I shot two fish. out wi...
 - [[2026-04-23 In trading in my 1987 mechanic shirt for a 100% buffalo hide vest han]] — 2026-04-23 · [instagram](https://www.instagram.com/p/DXe1kPviaSK/)  
   > In trading in my 1987 mechanic shirt for a 100% buffalo hide vest handmade by the indigenous tribes of Colombia, I feel my transformation from Joe to TicoJoe is complete 🇨🇴🦬🇨🇷 #joefelz #leathercraft #transformation #indigenous #tico
+- [[2026-04-21 I’ve searched the world for the old ways & today I found them 🎣 -joefelz -fishi]] — 2026-04-21 · [youtube](https://www.youtube.com/watch?v=EYYACjyGgwE)  
+  > ...know, it's fantastic. No fishy taste. It just tastes like it's good for you. Now, how does it feel to have caught your meal? A whole different level of appreciation. And look, then we're paying it forward to this little cat right here. If you've never been to Colombia, you've got to change that. This place is a hidden gem.
 - [[2026-04-20 This is what I mean by there is high value in being low class]] — 2026-04-20 · [instagram](https://www.instagram.com/p/DXXCqPQEd74/)  
   > ...y to do this daily to feed themselves. Although few people do it in 2026, I can confidently tell you that a meal tastes better when you catch it yourself. It was a great day for all, especially the street cat we blessed with our hard earned fish scraps. Viva Colombia 🇨🇴🎣😋 #joefelz #fishing #colombia #experiences #travel
 - [[2026-04-20 Traditional Fishing in a Colombian Village]] — 2026-04-20 · [youtube](https://www.youtube.com/watch?v=RJSYhO7lpNU)  
@@ -73,10 +77,11 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > Bosses- like for real, what would Jimmy say if you told him to tote a motor solo??? 🇨🇴💪 #joefelz #workethic #colombia
 - [[2026-04-17 Flight to Colombia + purchases = less than your trip to the mall 🇨🇴💰🫡]] — 2026-04-17 · [instagram](https://www.instagram.com/p/DXNj9ERDQ1S/)  
   > Flight to Colombia + purchases = less than your trip to the mall 🇨🇴💰🫡 #joefelz #travellife #shopping #supportlocal #womeninbusiness
-- [[2026-04-14 Just got handed this in Colombia- would you try it 🇨🇴🍺🤔]] — 2026-04-14 · [instagram](https://www.instagram.com/p/DXIZlXXCfoV/)  
-  > Just got handed this in Colombia- would you try it 🇨🇴🍺🤔 #joefelz #travellife
-- [[2026-04-14 Most modern society is consumed with modern things but I am NOT & I ne]] — 2026-04-14 · [instagram](https://www.instagram.com/p/DXH72vaiW1d/)  
-  > Most modern society is consumed with modern things but I am NOT & I never miss a chance to look upon something ancient. Cali, Colombia has a stellar archaeology museum with fantastic pieces from multiple ages. Just look at them and think: what were they trying to say with their creations? Look at the faces, the eyes, the triangles & geometry. There is constant repetition of numerology & all...
+- [[2026-04-17 Fly here + fly back + purchases = cheaper than the mall 🇨🇴 -joefelz -shopping -]] — 2026-04-17 · [youtube](https://www.youtube.com/watch?v=3mgZbx3_4aI)  
+  > Fly here + fly back + purchases = cheaper than the mall 🇨🇴 #joefelz #shopping #travel #handmade Well, I don't know if I'm ever going back to America. When I heard about a women's own business of handmade goods in Colombia, I had to go. Everything in here is handmade by women only. Coconut purses, handmade linen clothing. I can imagine Alex in this. Woof. And the little ladies here are so friendly. Oh, como estas? Bien, bien. I'm going to bless these women today. I'm going to d...
+- [[2026-04-15 I got the vaccine- here is the aftermath 💉 -joefelz -truth -vaccine -workout -c]] — 2026-04-15 · [youtube](https://www.youtube.com/watch?v=UPtYVf4wRiY)  
+  > I got the vaccine- here is the aftermath 💉 #joefelz #truth #vaccine #workout #colombia #realdeal There's so much concerning vaccines, but hey, I'm the guinea pig. I got a vaccine in Colombia yesterday for yellow fever. I had to get it to go back to Costa Rica. And a lot of people are telling me I'm going to die, I'm going to have horrible side...
+- *...and 10 more*
 
 ## mayan  
 *said 6 time(s) across 1 source(s)*
@@ -92,17 +97,19 @@ Each term below lists the posts and videos where it appears, with the surroundin
 - [[2026-02-05 X-Ray & Analysis of Ancient Artifacts]] — 2026-02-05 · [youtube](https://www.youtube.com/watch?v=lRDdLhFBbCc)  
   > ...think about all the symbolism in the Freemason house, we have seven there, seven worlds. We're living in the [music] eighth now, a third eye. You see, they all have a third eye. They have the sun, the moon, they have orbs, four fingers, [music] just like the Egyptian sarcophaguses, and he's sitting here placed. There's almost another face here, and lots of triangles with the eye. Vesica Pisces symbols and things of that nature. I would love for there to be a battery in here. You know why? It'd be a much neater explanation...
 
+## egypt  
+*said 2 time(s) across 2 source(s)*
+
+- [[2026-03-12 Preserving history📜👁️🧎‍♂️‍➡️]] — 2026-03-12 · [youtube](https://www.youtube.com/watch?v=8jnvsYln_NM)  
+  > ...lot of magic going on for a long time. In the first place, as I've already remarked, the Israelites stood alone among all the surrounding pagan nations and magic among them had [clears throat] a peculiar form. For although the Jews had spent so long a time in Egypt, they carried with them but little of its magic, that is, of the real theurgic magical arts which are perfected by natural powers and human inventions. The magical ecstasies and miracles were rather inspirations of divine power and the influence of the black...
+- [[2025-12-05 There’s a lot more to this one than meets the eye. 📖♾️🕵🏼]] — 2025-12-05 · [instagram](https://www.instagram.com/p/DR5Rf4cERxh/)  
+  > ...ye. 📖♾️🕵🏼 #joefelz #felzmedia #sandyrunoriginal #realityofvanlife #apocrypha #bannedbooks #thebible #freemason #mysterious #endtimes #christianity #occult #history #coverup #bookofenoch #religion #heresy #coincidence #investigation #strange #thoughtprovoking #egypt #rabbithole #manonamission #confused #thinking #realestdudeontheinternet #welcometothejoeshow #truthseeker #curious
+
 ## nephilim  
 *said 1 time(s) across 1 source(s)*
 
 - [[2026-03-21 From the Flood to the Future]] — 2026-03-21 · [youtube](https://www.youtube.com/watch?v=g34POITRxiQ)  
   > ...ryas probably about 14,000 years ago and they all have the same cause. What was the cause of the flood in the Bible? Uh I think it was because God got angry with people on Earth and decided to uh kill them all. That's also things to do with the Elohim and the Nephilim and trying to cleanse the Earth from them and that's why he saved Noah. God didn't save Noah, Noah believed. If you read the Bible it said Noah started building a boat at a time when it had never rained on the Earth. They'd never seen rain before. Oh. Do you...
-
-## egypt  
-*said 1 time(s) across 1 source(s)*
-
-- [[2026-03-12 Preserving history📜👁️🧎‍♂️‍➡️]] — 2026-03-12 · [youtube](https://www.youtube.com/watch?v=8jnvsYln_NM)  
-  > ...lot of magic going on for a long time. In the first place, as I've already remarked, the Israelites stood alone among all the surrounding pagan nations and magic among them had [clears throat] a peculiar form. For although the Jews had spent so long a time in Egypt, they carried with them but little of its magic, that is, of the real theurgic magical arts which are perfected by natural powers and human inventions. The magical ecstasies and miracles were rather inspirations of divine power and the influence of the black...
 
 ## aztec  
 *said 1 time(s) across 1 source(s)*

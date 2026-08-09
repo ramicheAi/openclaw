@@ -40,3 +40,49 @@ page 9: +12 -> 120 total | more=True | delay=45s
 [page 10] HTTP 401 -> throttled, delay now 180s
 resuming at page 10 (120 posts)
 [page 10] HTTP 401 -> throttled, delay now 90s
+[page 10] HTTP 401 -> throttled, delay now 180s
+[page 10] HTTP 401 -> throttled, delay now 300s
+resuming at page 10 (120 posts)
+[page 10] HTTP 401 -> throttled, delay now 90s
+[page 10] HTTP 401 -> throttled, delay now 120s
+page 10: +12 -> 132 total | more=True | delay=120s
+[page 11] HTTP 401 -> throttled, delay now 120s
+resuming at page 11 (132 posts)
+[page 11] HTTP 401 -> throttled, delay now 90s
+page 11: +12 -> 144 total | more=True | delay=90s
+[page 12] HTTP 401 -> throttled, delay now 120s
+[page 12] HTTP 401 -> throttled, delay now 120s
+[page 12] HTTP 401 -> throttled, delay now 120s
+resuming at page 12 (144 posts)
+[page 12] HTTP 401 -> throttled, delay now 90s
+[page 12] HTTP 401 -> throttled, delay now 120s
+page 12: +12 -> 156 total | more=True | delay=120s
+[page 13] HTTP 401 -> throttled, delay now 120s
+[page 13] HTTP 401 -> throttled, delay now 120s
+resuming at page 13 (156 posts)
+page 13: +12 -> 168 total | more=True | delay=45s
+[page 14] HTTP 401 -> throttled, delay now 90s
+[page 14] HTTP 401 -> throttled, delay now 120s
+[page 14] HTTP 401 -> throttled, delay now 120s
+[page 14] HTTP 401 -> throttled, delay now 120s
+[page 14] HTTP 401 -> throttled, delay now 120s
+resuming at page 14 (168 posts)
+page 14: +12 -> 180 total | more=True | delay=45s
+page 15: +12 -> 192 total | more=True | delay=45s
+[page 16] HTTP 401 -> throttled, delay now 90s
+[page 16] HTTP 401 -> throttled, delay now 120s
+[page 16] HTTP 401 -> throttled, delay now 120s
+page 16: +12 -> 204 total | more=True | delay=120s
+resuming at page 17 (204 posts)
+[page 17] HTTP 401 -> throttled, delay now 90s
+[page 17] HTTP 401 -> throttled, delay now 120s
+page 17: +12 -> 216 total | more=True | delay=120s
+[page 18] HTTP 401 -> throttled, delay now 120s
+[page 18] HTTP 401 -> throttled, delay now 120s
+resuming at page 18 (216 posts)
+[page 18] HTTP 401 -> throttled, delay now 90s
+[page 18] HTTP 401 -> throttled, delay now 120s
+[page 18] HTTP 401 -> throttled, delay now 120s
+[page 18] HTTP 401 -> throttled, delay now 120s
+[page 18] HTTP 401 -> throttled, delay now 120s
+[page 18] HTTP 401 -> throttled, delay now 120s

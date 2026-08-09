@@ -2,9 +2,9 @@
 type: "topic"
 family: "Electricity, Solar and Energy"
 group: "Storage and batteries"
-terms: "9"
-sources: "46"
-occurrences: "189"
+terms: "10"
+sources: "57"
+occurrences: "246"
 tags:
   - "topic"
   - "electrical"
@@ -12,18 +12,24 @@ tags:
 
 # Storage and batteries
 
-Part of **[[Electricity, Solar and Energy]]**. 9 distinct terms appear across 46 posts and videos, said 189 times in total.
+Part of **[[Electricity, Solar and Energy]]**. 10 distinct terms appear across 57 posts and videos, said 246 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
 
 ## battery  
-*said 117 time(s) across 20 source(s)*
+*said 154 time(s) across 24 source(s)*
 
 - [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
   > ...here on this earth by God for all of us to use and that people have been selling it to you. I don't like that. So, I will give up my time and energy for free if I can teach you the only way that I know right now that you can just snatch it. I want all my big battery people up here so y'all know who owns this place and who made this possible. I'm Dennis Marshall. I started this company. I came from NASA, lived up in the mountains of Montana and I said, "I don't want to pay anyone an electric bill anymore." And I realized...
+- [[2026-06-08 This @OUKITELMobile WP61 plus is my bug out phone-OUK10 gets you 10 % off 🤳 -jo]] — 2026-06-08 · [youtube](https://www.youtube.com/watch?v=fGOKRbmIFJM)  
+  > ...own antenna. You want to know why? Because communication is not Wi-Fi dependent with the professional DMR walkie-talkie. 3.4 mile range. Pretty cool. You just touch to talk. Breaker breaker 1-9. This is the phone [music] you want when the grid goes down. The battery on this at 20,000 milliamps is worth more than this, this, and this put together. It's basically indestructible. [music] I mean, indestructible. [clears throat] Takes a licking keeps on ticking. I bet you've never hosed off your phone to clean it. I spend a l...
+- [[2026-06-01 I stopped the spy with an @OUKITELMobile WP500 & OUK10 gets 10% off 🤳 -joefelz]] — 2026-06-01 · [youtube](https://www.youtube.com/watch?v=5bFKrFCwbOI)  
+  > ...ion. This comes with 16 GB built in that's connected to a cloud that's monitored by some tech giant somewhere. This comes with 1 TB built in that can expand to 2 TB and no need to connect to cloud with that kind of storage. Basically, little computer. [music] Battery's pretty nuts, too. This is 3,500 mA. This is 20,000 mA. 7x. And it's a portable power pack, too. The power port is power in or power out. You can charge your other devices off of this thing. This might be my favorite thing, the thermal imaging camera. See th...
 - [[2026-04-27 I have a strange problem with my solar. Basically the opposite of a hi]] — 2026-04-27 · [instagram](https://www.instagram.com/p/DXpvzrtDSts/)  
   > ...ly the opposite of a high power bill. Even with only 20 out of 16 panels installed the batteries on my homestead are completely full by 9 AM and cannot accept any more charge even though there is beaming sun in beautiful Costa Rica. You cannot charge a full battery so I am missing about five hours of good sunlight every day. I tried to give the energy back to the municipal government so they could apply it to indigent Tico accounts, but they would not accept it, so what do I do now? What’s Plan B? I figured I could...
+- [[2026-04-27 Will merging cyber & solar solve my problem☀️ -joefelz -solar -bitcoin -problem]] — 2026-04-27 · [youtube](https://www.youtube.com/watch?v=4Ia27mWu_aA)  
+  > ...lar solve my problem☀️ #joefelz #solar #bitcoin #problems #help #idea Having too much electricity is a strange problem. I really need help with solar, but I need help today. Let me show you what I've installed and then I'll tell you what's going on. Three big battery Apex 10 kWs, they're all wired in parallel. That's going to be producing 131 amps at 230 volts continuous. I got four big battery Nexus Pros all wired in parallel. That's going to give me 60 kW of storage. I have 2625 watt panels, two groups of 10 wired in se...
 - [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
   > ...ter spending months of my life designing solar systems for people I finally bit the bullet and developed FelzCalc, a free online tool you can use to build your own solar system. To use it, you will need the electrical specifications of the solar panel panels, battery, and inverter you plan to use. There is also an option to select “need one” under the inverter section and FelzCalc will provide the electrical specifications that are compatible with the battery and panels you would like to use. ￼ Here is the link to Felz C...
 - [[2026-03-15 Living the “American Dream” in Costa Rica]] — 2026-03-15 · [youtube](https://www.youtube.com/watch?v=VevlwoBJNcU)  
@@ -32,6 +38,8 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...house underground. It's got bedrooms and bathrooms and kitchens and except my bunkers have like underfloor storage like an airplane where you put your luggage. You got water tanks. You got food. But then you've got a mechanical room with a diesel generator, a battery room, a decontamination room, and a mudroom. So, the living quarters just feels like any house, but then you have all these mechanical rooms that you know that you know you're in a bomb shelter when you're going through all these submarine doors. You feel lik...
 - [[2026-02-25 Is there a battery inside-]] — 2026-02-25 · [youtube](https://www.youtube.com/watch?v=4eMp3v5tGC0)  
   > Is there a battery inside? I don’t understand where the energy is coming from? I don’t know how they are making light. Even with the help of @dr.parkinstine & @naturejab I still have no idea how these artifacts function. So I took them to my friend David, who has a dental prac...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > ..., and I asked Parker to code because he's going to add a lot to this that I don't know. And he is just fantabulously dressed. And [applause] real quick, can I have Marshall, Bruce, where's Michael? Joseph, can I have all my big Where's Dave? I want all my big battery people up here so y'all know who owns this place and who make this possible. This is Marshall. Marshall is Can you tell who you are? Yeah, you my name is Marshall. I started this company with my partner eight years ago. Um um we I'm an engineer. He's a busine...
 - [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=MIetQV6xQto)  
   > ...ng to do that today. That is the hardest part. Trade knowledge required. I'll show y'all another day when we ring back up, I suppose. Now, what do we have to do with these? Here you go. Let's bring that inverter right about there to the middle along with that battery. some negative wires. Now, you should not be like, you know, tender footing the live wires. Um, just kind of No, use the the red one for you. We're going to come from that side. Now, what does anybody know how you make up connectors? Go ahead. Another piece o...
 - [[2026-02-05 X-Ray & Analysis of Ancient Artifacts]] — 2026-02-05 · [youtube](https://www.youtube.com/watch?v=lRDdLhFBbCc)  
@@ -40,25 +48,23 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...we are using 2.4 amps taken out. Right now we have a gas heater running and this is all running off of 12 volt is lighting fridge freezer and heater. Okay, so I'm going to cut on the high voltage system. I have a 120 240 split phase inverter. Shout out to Big Battery. I only use Big Battery products, man. Best company in America, probably the world. So there you go. 12vt. And I'm going to cut on the inverter. Oh, you see it shot up. Now we're going 3.7. Okay, that's cuz there's standby voltage to run the 120. Now we have...
 - [[2026-01-23 The Symbolism & Meaning Behind Ancient Energy]] — 2026-01-23 · [youtube](https://www.youtube.com/watch?v=vYvIKWWfQbk)  
   > ...swers, these artifacts invite us to observe, document, and analyze rigorously, maintaining an open mind towards what we do [music] not yet fully understand. I think this fits the bill of do not fully understand. [music] Rocks that emit light endlessly, uh, no battery attached. If somebody could help me can figure out how this works, I think it would be beneficial to the human race and civilization as a whole. Uh, Joe and Arturo signing out [music] from sunny Florida.
-- [[2025-11-11 Costa Rican Constrution]] — 2025-11-11 · [youtube](https://www.youtube.com/watch?v=ujn2avr266M)  
-  > ...e building a number of things. And when I get done with these, I'm going to build the energy center. After I get the solar and the hydro and all the stuff that we all know about done, then I'm going to play a little bit. Uh, I got some ideas. The owner of Big Battery, Eric Lungren, he's going to be here. He's flying in on this week, the end of this week. Uh, he's going to come meet me. We're going to talk about what we're going to do here. And so, yeah, that's what I got going on. I'm going to stop talking and start worki...
-- [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  
-  > ...bleenergy #sunpower #offgrid #teamwork #learning #diy #electricity #energy #pyrolysis #howto #installation #constructionwork #electrician #dynamicduo #teamearth #solarpower #electricalengineering I'm Joe. I'm Jab. Today we're gonna show you how to install Big Battery Ethos. We have 10 of them installed here and 10 more that we're going to install right here. Jab, what is that? This is a 18 uh KB inverter EG4. First thing you want to do is number all your batteries. We have them numbered 1 through 10. [music] Then you have...
-- [[2025-06-14 How to Diagnose & Repair a Solar Generator]] — 2025-06-14 · [youtube](https://www.youtube.com/watch?v=mA8K-OfWKGw)  
-  > ...I'm a mechanical innovator by nature. Serge Cortez Serge aka Prof, the master of the code here to train how to be the best in the trades. Nutrition. Here we go. We going to face a solar generator. Has anybody ever seen inside a solar generator? No. This is a battery Evo Walwish Gen 3 solar generator. 22 kWh battery bank. 12 1/2 KVA inverter. Split phase 120 and 240 output. You can plug solar right into it. here. Charge it off the grid right here. It's all in one. To turn it on, you just hit a button. I've put 2422 kwatt...
-- [[2025-05-21 Wiring the Recycoline Solar System @naturejab]] — 2025-05-21 · [youtube](https://www.youtube.com/watch?v=NBQ05L2xB6Q)  
-  > ...to guess we can test this one and see if it's positive, right? And then off of that, it'll be the same. Assume, bro. You sent this [ __ ] down here without the connector. What you want to happen? You thought we was going to be patient. Love the [ __ ] out of battery Evo. Sometimes it pissed me off. If all that stands between us and testing this [ __ ] off of solar is something to plug into that, we fit. We're going to make Yeah. And so what we have confabulated is that we're going to take these damn little terminal conne...
-- *...and 6 more*
+- *...and 10 more*
 
 ## batteries  
-*said 27 time(s) across 10 source(s)*
+*said 39 time(s) across 13 source(s)*
 
 - [[2026-04-27 I have a strange problem with my solar. Basically the opposite of a hi]] — 2026-04-27 · [instagram](https://www.instagram.com/p/DXpvzrtDSts/)  
   > I have a strange problem with my solar. Basically the opposite of a high power bill. Even with only 20 out of 16 panels installed the batteries on my homestead are completely full by 9 AM and cannot accept any more charge even though there is beaming sun in beautiful Costa Rica. You cannot charge a full battery so I am missing about five hours of good sunlight every day. I tried to give the energy...
+- [[2026-04-27 Will merging cyber & solar solve my problem☀️ -joefelz -solar -bitcoin -problem]] — 2026-04-27 · [youtube](https://www.youtube.com/watch?v=4Ia27mWu_aA)  
+  > ...ge. I have 2625 watt panels, two groups of 10 wired in series and connected to the inverters. That'll make about 40 50 60 kW a day depending on sunlight. house is running off grid. We've got all the energy we need and therein lies the problem. See how full my batteries are? You see that the sun is still shining? You cannot charge a full battery. Initially, I tried to give the energy back to the Costa Rican government for free as long as they'd apply it to Tico accounts who can't pay their bills. They said no. Governments ar...
 - [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
   > ...s down. Next, we go to our battery. You're going to have to refer to your battery manual. You can find them online for pretty much any model. This is the Big Battery Nexus. Product specifications, 10. Once again, we start with wiring type, series or parallel. Batteries are almost always wired in parallel. These are all 48-V batteries, so if you wire in parallel, they will stay 48-V. If you wire two 48-V batteries in series, you would have a 96-V system. So, if you're grouping multiple batteries together at the same voltage,...
+- [[2026-03-14 After 8 months of planning & 4 months figuring out Costa Rican importi]] — 2026-03-14 · [instagram](https://www.instagram.com/p/DV4czueES8b/)  
+  > After 8 months of planning & 4 months figuring out Costa Rican importing, my solar array has finally arrived at the homestead. Four 15 kwh Nexus batteries & three 10 kw Apex inverters, which will give me around 130 amps AC output @ 230v & drink up to 33,000 watts of solar an hour. Can’t wait to show you what I mean when I say OG really stands for off grid 🇨🇷☀️😎 #joefelz #solar #offgrid #homestead #working
 - [[2026-03-02 See inside the plant that built Zuckerberg’s bunker]] — 2026-03-02 · [youtube](https://www.youtube.com/watch?v=LMQlqGpybxg)  
   > ...lly quiet in here right now. But we're in just one of the two bedrooms in this 10 by 50-ft bunker. So, a bunker like this, if you're curious, costs like $250,000 plus the installation, which is probably another 100,000 with freight. And then you got to put in batteries and then generators, so these are not cheap. Mhm. It's like buying a Ferrari, okay? I'd rather have this than a Ferrari. Well, depends on your age, but I would, too, you know? Ferraris they get they get driven for 2 days, they get parked in the garage, and th...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > ...the mountains of Montana and I said um I don't really want to pay $15,000 to get power gr up here and I don't want to pay anyone electric bill anymore. And I realized that you could build your own solar system and it's really not that hard. And back then the batteries were terrible. There were they'd catch fire. They're from China and you know there was some you know DIY stuff out there but it was it was rough. So I said I'm going to start a company to make a very cheap affordable battery for the American market designed b...
 - [[2026-02-05 X-Ray & Analysis of Ancient Artifacts]] — 2026-02-05 · [youtube](https://www.youtube.com/watch?v=lRDdLhFBbCc)  
   > ...und in buried substrata with charcoal dated [music] around 4,000 years. We don't know exactly what they are. When you take them and connect them properly, they only go one way. When properly oriented, Mhm. they make light. A lot of people think that they have batteries in there and other things, but I don't know what it is. I'd think some type of pio electric or frequency energy. Do they look authentic to [music] you? Do they look like reproductions? What do you think, Parker? Honest opinion, these do look like reproduction...
 - [[2026-01-30 Could You Live in My Van-]] — 2026-01-30 · [youtube](https://www.youtube.com/watch?v=2Kvc76Lhn0c)  
@@ -74,29 +80,33 @@ Each term below lists the posts and videos where it appears, with the surroundin
 - [[2024-09-25 Nontraditional Entrepreneurial Finance Explained]] — 2024-09-25 · [youtube](https://www.youtube.com/watch?v=gA8cC0VmuAg)  
   > ...reat they pay you a third of what they sell you power for so what I'm gonna do I'm going to rent my property with electricity included and I'm going to sell the power first wow my house yeah I have a battery backup and you know what else I can do I can set my batteries and my inverters to give all the power during the heat of the day and and then run and discharge and then guess what even if my batteries Get Low I can have my inverter charge the batteries on the grid when it's off peak at 3 cents k hour so I'mma [ __ ] beat...
 
-## bms  
-*said 17 time(s) across 1 source(s)*
-
-- [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  
-  > ...what is that? This is a 18 uh KB inverter EG4. First thing you want to do is number all your batteries. We have them numbered 1 through 10. [music] Then you have to set the dip switches. Dip switches are located on this side. Before you mess with it, cut the BMS off. Pink. And the manual shows you for each number battery going from one all the way up to 16 how you want to set the dip switches. So we're going to just follow what's shown here. So this is number 10. So we're going to follow number 10 on here. What you [...
-
 ## big battery  
-*said 13 time(s) across 7 source(s)*
+*said 19 time(s) across 9 source(s)*
 
 - [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
   > ...put here on this earth by God for all of us to use and that people have been selling it to you. I don't like that. So, I will give up my time and energy for free if I can teach you the only way that I know right now that you can just snatch it. I want all my big battery people up here so y'all know who owns this place and who made this possible. I'm Dennis Marshall. I started this company. I came from NASA, lived up in the mountains of Montana and I said, "I don't want to pay anyone an electric bill anymore." And I realized...
+- [[2026-04-27 Will merging cyber & solar solve my problem☀️ -joefelz -solar -bitcoin -problem]] — 2026-04-27 · [youtube](https://www.youtube.com/watch?v=4Ia27mWu_aA)  
+  > ...& solar solve my problem☀️ #joefelz #solar #bitcoin #problems #help #idea Having too much electricity is a strange problem. I really need help with solar, but I need help today. Let me show you what I've installed and then I'll tell you what's going on. Three big battery Apex 10 kWs, they're all wired in parallel. That's going to be producing 131 amps at 230 volts continuous. I got four big battery Nexus Pros all wired in parallel. That's going to give me 60 kW of storage. I have 2625 watt panels, two groups of 10 wired in se...
 - [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
   > ...be defined. Amps times volts equals watts. This right here is the basis for all solar energy. Remember this down. Next, we go to our battery. You're going to have to refer to your battery manual. You can find them online for pretty much any model. This is the Big Battery Nexus. Product specifications, 10. Once again, we start with wiring type, series or parallel. Batteries are almost always wired in parallel. These are all 48-V batteries, so if you wire in parallel, they will stay 48-V. If you wire two 48-V batteries in serie...
 - [[2026-03-15 Living the “American Dream” in Costa Rica]] — 2026-03-15 · [youtube](https://www.youtube.com/watch?v=VevlwoBJNcU)  
   > ...igher, huh? We have an entire great room here that we're not doing anything with. One day I think this will be used for electrical classes and seminars, maybe group yoga. Life is pretty good here, but I'm still building. This is my off-grid solar system, some big battery. I have 60 kW of storage, not bad for a house that uses like 30 kW a month. This is how I'm living right now, completely off-grid, sweating when it's hot, no hot water, food from the earth. Plan is to build a renewable energy center here so other people can c...
 - [[2026-03-02 See inside the plant that built Zuckerberg’s bunker]] — 2026-03-02 · [youtube](https://www.youtube.com/watch?v=LMQlqGpybxg)  
   > ...life and this is very impressive and I want to thank you for taking your time and telling me what's on your mind. You're a very interesting guy. Okay. I'm glad to have met you and I will Well, thank you. Thanks for [laughter] coming by. Yeah, and I'm going to Big Battery to do their solar stuff. If they ever I I use Big Battery in my bunkers. Well, Big Battery is legit, Marshall is legit. Thank you to Eric and Marshall at Big Battery for setting this up and thank you for Ron for taking your time out. Anytime. Come back. This...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > .... Um, and I asked Parker to code because he's going to add a lot to this that I don't know. And he is just fantabulously dressed. And [applause] real quick, can I have Marshall, Bruce, where's Michael? Joseph, can I have all my big Where's Dave? I want all my big battery people up here so y'all know who owns this place and who make this possible. This is Marshall. Marshall is Can you tell who you are? Yeah, you my name is Marshall. I started this company with my partner eight years ago. Um um we I'm an engineer. He's a busine...
 - [[2026-01-30 Could You Live in My Van-]] — 2026-01-30 · [youtube](https://www.youtube.com/watch?v=2Kvc76Lhn0c)  
   > ...see we are using 2.4 amps taken out. Right now we have a gas heater running and this is all running off of 12 volt is lighting fridge freezer and heater. Okay, so I'm going to cut on the high voltage system. I have a 120 240 split phase inverter. Shout out to Big Battery. I only use Big Battery products, man. Best company in America, probably the world. So there you go. 12vt. And I'm going to cut on the inverter. Oh, you see it shot up. Now we're going 3.7. Okay, that's cuz there's standby voltage to run the 120. Now we have...
 - [[2025-11-11 Costa Rican Constrution]] — 2025-11-11 · [youtube](https://www.youtube.com/watch?v=ujn2avr266M)  
   > ...ungle building a number of things. And when I get done with these, I'm going to build the energy center. After I get the solar and the hydro and all the stuff that we all know about done, then I'm going to play a little bit. Uh, I got some ideas. The owner of Big Battery, Eric Lungren, he's going to be here. He's flying in on this week, the end of this week. Uh, he's going to come meet me. We're going to talk about what we're going to do here. And so, yeah, that's what I got going on. I'm going to stop talking and start worki...
 - [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  
   > ...newableenergy #sunpower #offgrid #teamwork #learning #diy #electricity #energy #pyrolysis #howto #installation #constructionwork #electrician #dynamicduo #teamearth #solarpower #electricalengineering I'm Joe. I'm Jab. Today we're gonna show you how to install Big Battery Ethos. We have 10 of them installed here and 10 more that we're going to install right here. Jab, what is that? This is a 18 uh KB inverter EG4. First thing you want to do is number all your batteries. We have them numbered 1 through 10. [music] Then you have...
+
+## bms  
+*said 17 time(s) across 1 source(s)*
+
+- [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  
+  > ...what is that? This is a 18 uh KB inverter EG4. First thing you want to do is number all your batteries. We have them numbered 1 through 10. [music] Then you have to set the dip switches. Dip switches are located on this side. Before you mess with it, cut the BMS off. Pink. And the manual shows you for each number battery going from one all the way up to 16 how you want to set the dip switches. So we're going to just follow what's shown here. So this is number 10. So we're going to follow number 10 on here. What you [...
 
 ## lithium  
 *said 5 time(s) across 3 source(s)*
@@ -114,19 +124,27 @@ Each term below lists the posts and videos where it appears, with the surroundin
 - [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  
   > Jab and Joe Simplify Solar: Step by Step Installation of @BigBattery Ethos Certified electrician Joe Felz & inventor Julian Brown walk you through how to install solar batteries on this 100 kWh mobile install, which will be used to power Julian's pyrolysis machine. The system here will achieve 100 KW of continuous 230V output with s...
 
+## bigbattery  
+*said 3 time(s) across 3 source(s)*
+
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > Simplifying Solar with BigBattery being here. Um, I think I speak for both of us when I say it's humbling to see how many people show up, to see some regular nobodies talk about things. Um, it's kind of weird. Um, roll out a dirty band coming to a room full of people. Um, and uh, we had Who w...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=MIetQV6xQto)  
+  > Simplifying Solar with BigBattery and Zayn in memory. Zayn hooked up his own his first solar system today. Give me Zay. Did anybody see Zayn hooking up the solar system? How much advanced warning did you have of that? Zero seconds. How nervous were you? Are you more nervous then now? Good, go...
+- [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  
+  > Jab and Joe Simplify Solar: Step by Step Installation of @BigBattery Ethos Certified electrician Joe Felz & inventor Julian Brown walk you through how to install solar batteries on this 100 kWh mobile install, which will be used to power Julian's pyrolysis machine. The system here will achieve 100 KW of continuous 230V output...
+
 ## state of charge  
 *said 3 time(s) across 1 source(s)*
 
 - [[2024-11-19 Rv Solar Install 🚐 -joefelz -felzenergy -solarpower -solarenergy -solar -offgri]] — 2024-11-19 · [youtube](https://www.youtube.com/watch?v=LK7-efM-t9s)  
   > ...going to put it a little lower than that I don't want it to get all the way full I'm going to make our Max voltage rate 29.2 you don't want it to be all the way full like a bottle of water that sunit might explode 230 amp hours put our discharge floor at 15% state of charge how are we going to set our state of charge that is how full this battery is let's pull up a chart here I have a lithium battery charge chart we see on a 24 volt 100% rest is 27.2 wow 100% charge 29.2 this lines up so if our voltage is 25.6 eight that would p...
 
-## bigbattery  
-*said 2 time(s) across 2 source(s)*
+## amp hour  
+*said 1 time(s) across 1 source(s)*
 
-- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=MIetQV6xQto)  
-  > Simplifying Solar with BigBattery and Zayn in memory. Zayn hooked up his own his first solar system today. Give me Zay. Did anybody see Zayn hooking up the solar system? How much advanced warning did you have of that? Zero seconds. How nervous were you? Are you more nervous then now? Good, go...
-- [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  
-  > Jab and Joe Simplify Solar: Step by Step Installation of @BigBattery Ethos Certified electrician Joe Felz & inventor Julian Brown walk you through how to install solar batteries on this 100 kWh mobile install, which will be used to power Julian's pyrolysis machine. The system here will achieve 100 KW of continuous 230V output...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > ...n 40 and 60 and I have a 51.2 2 volt battery or if I have two 51.2 volt batteries and my range is between 40 and 60, how should I wire these to make them work? What? Parallel. Why? Well, what would happen? So, each voltage is 51.2 amp hours. Anybody ever read amp hour? You'll read on a battery, it'll tell you amp hours. 280 amp hours right here. What does that mean? Well, amps time volts equals watt. So, if you multiply volts times amp hours, you get kilowatt or watt hours. 1,00 W hours is 1 kilowatt hour. Okay, that's whe...
 
 ## dod  
 *said 1 time(s) across 1 source(s)*

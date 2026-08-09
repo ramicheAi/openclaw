@@ -11,13 +11,15 @@ rather than taken on trust.
 # as a person's name; AMBIGUOUS names need a scriptural cue nearby before we
 # count them.
 BIBLE_SAFE = [
-    "Genesis", "Exodus", "Leviticus", "Deuteronomy", "Nehemiah",
+    "Leviticus", "Deuteronomy", "Nehemiah",
     "Psalms", "Psalm", "Proverbs", "Ecclesiastes", "Lamentations",
     "Ezekiel", "Obadiah", "Nahum", "Habakkuk", "Zephaniah", "Haggai",
-    "Zechariah", "Romans", "Corinthians", "Galatians", "Ephesians",
-    "Philippians", "Colossians", "Thessalonians", "Hebrews",
-    "Revelation", "Revelations",
+    "Zechariah", "Corinthians", "Galatians", "Ephesians",
+    "Philippians", "Colossians", "Thessalonians",
 ]
+# Ordinary lowercase words that are book names only when capitalised, so these
+# are matched case-sensitively: "the genesis of an idea" is not the book.
+BIBLE_SAFE_CASED = ["Genesis", "Exodus"]
 # Names that are also ordinary words or common first names. Every one of these
 # produced a false positive in testing ("Daniel the painter", "John Hall" in a
 # livestream chat), so they only count with an explicit scriptural construction.
@@ -27,6 +29,9 @@ BIBLE_AMBIGUOUS = [
     "James", "Peter", "Daniel", "Matthew", "Joshua", "Ruth", "Ezra",
     "Esther", "Isaiah", "Jeremiah", "Hosea", "Joel", "Amos", "Jonah",
     "Micah", "Malachi", "Timothy", "Titus", "Philemon", "Jude",
+    # Also names of peoples, or ordinary nouns: "the Romans drank",
+    # "the Hebrews", "a revelation". Need an explicit scriptural form.
+    "Romans", "Hebrews", "Revelation", "Revelations",
 ]
 # Books outside the 66-book Protestant canon that this creator discusses.
 BIBLE_EXTRA_CANON = [

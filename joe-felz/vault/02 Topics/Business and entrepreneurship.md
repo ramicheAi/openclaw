@@ -3,8 +3,8 @@ type: "topic"
 family: "Life, Business and Mindset"
 group: "Business and entrepreneurship"
 terms: "10"
-sources: "44"
-occurrences: "134"
+sources: "52"
+occurrences: "143"
 tags:
   - "topic"
   - "life"
@@ -12,20 +12,26 @@ tags:
 
 # Business and entrepreneurship
 
-Part of **[[Life, Business and Mindset]]**. 10 distinct terms appear across 44 posts and videos, said 134 times in total.
+Part of **[[Life, Business and Mindset]]**. 10 distinct terms appear across 52 posts and videos, said 143 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
 
 ## business  
-*said 79 time(s) across 12 source(s)*
+*said 82 time(s) across 15 source(s)*
 
 - [[2026-06-11 Why am I not in Costa Rica- I’ll tell ya❓🇨🇷🗂️ -handleyabusiness -costarica -lif]] — 2026-06-11 · [youtube](https://www.youtube.com/watch?v=NHrN-0kvDew)  
   > ...just like you. I'm a regular old guy who's just been out there chasing his dreams, but when I have things that I need to fix, I come back and handle them cuz that's what a man does. And I got cars that break down. I got tenants that tear up my houses. I have business and family obligations that I need to take care of. And if it meant leaving my off-grid paradise over there, so be it. Because [music] that's what a man does. He owns up to his responsibilities and his obligations before he chases his dreams. And that's what...
 - [[2026-05-31 Trust👏Your👏Feet👏 -mindset -healing -free -joeandalx]] — 2026-05-31 · [youtube](https://www.youtube.com/watch?v=oJ-HFF0bqMI)  
   > ...ic] Stay with it for a minute. Knowing your attachment style, knowing your childhood wounds, knowing your purpose is not transformation. Transformation is making the phone call to apologize, leaving the relationship to protect [music] your peace, starting the business even though your family said it failed miserably, going for the [music] run that you hate, quitting the job you know you weren't meant for. Transformation is [music] action. The funny thing about healing is you don't find all the answers and then begin. You j...
+- [[2026-05-26 If you miss this deadline your CR corporation will be stuck🇨🇷-costarica -entrep]] — 2026-05-26 · [youtube](https://www.youtube.com/watch?v=E3L9qAZqtvQ)  
+  > If you miss this deadline your CR corporation will be stuck🇨🇷#costarica #entrepreneur #joefelz Costa Rican law is an absolute maze. I'm sweating over it a little bit. One thing I wish I would have known before starting a business in Costa Rica is how complicated the legal system of Costa Rica is. They just passed a new law, law 10,597. Basically, it says you have to register an official email on your Costa Rican corporation in order to receive all notifications [music] from the govern...
+- [[2026-04-17 Fly here + fly back + purchases = cheaper than the mall 🇨🇴 -joefelz -shopping -]] — 2026-04-17 · [youtube](https://www.youtube.com/watch?v=3mgZbx3_4aI)  
+  > Fly here + fly back + purchases = cheaper than the mall 🇨🇴 #joefelz #shopping #travel #handmade Well, I don't know if I'm ever going back to America. When I heard about a women's own business of handmade goods in Colombia, I had to go. Everything in here is handmade by women only. Coconut purses, handmade linen clothing. I can imagine Alex in this. Woof. And the little ladies here are so friendly. Oh, como estas? Bien, bien. I'm going to bless the...
 - [[2026-03-19 How we bought land in Costa Rica (and you can too)]] — 2026-03-19 · [youtube](https://www.youtube.com/watch?v=7GaObN6VAsU)  
   > ...my funds were coming from. Once I was finally approved, I was able to send the deposit and buy the property. The easiest way to get residency in Costa Rica is via investment. The floor for residency via investment is a $150,000 expenditure in a property or a business here in Costa Rica. Then you're going to have to submit an FBI background check that's apostilled and wait 6, 12, 18 months. Everything moves a lot slower down here. Hey. That is a guinea fowl. That is one of the most annoying birds you'll ever see. It's kind...
+- [[2026-03-18 Last week I did a thing- hired my first employee in a foreign country]] — 2026-03-18 · [instagram](https://www.instagram.com/p/DWC19_uDRvg/)  
+  > ...listen, not the other way around. He also told me this is his DREAM JOB- his last bosses had a literal overseer who watched all workers all 8 hours daily. He is also super eager to learn solar and construction skills from me on the job. After a lifetime of business, this feels like a bucket list item for me. Can’t wait to see what José cooks up here at @buildingrealitycr 🇨🇷🤝❤️ #joefelz #costarica #lifegoals #dreamjob #businessman
 - [[2025-11-11 Costa Rican Constrution]] — 2025-11-11 · [youtube](https://www.youtube.com/watch?v=ujn2avr266M)  
   > ...the one who uh emailed me? Somebody from New Zealand emailed me. And guys, if you want to get me to go somewhere, here's the deal. Investment. I happen to be the one who started them and like kind of, you know, like signed them and stuff, but I have to have a business reason to travel somewhere. That way it justifies all my expenses for the government. Um, so yeah, I'll travel anywhere. I just need to have a reason to go there, like enough money to cover a plane ticket, place to stay, floor to sleep on. um something like t...
 - [[2025-07-10 Showing @naturejab & @EnergizeUsEdu How I Run Renovation off An App]] — 2025-07-10 · [youtube](https://www.youtube.com/watch?v=kVKedeLmB2Y)  
@@ -42,14 +48,17 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...for one possible exception I have never committed a goddamn crime not in my mind I'm just here to tell you like I really haven't I've never done anything to anyone what I have done has literally what I did would literally be considered minding your own [ __ ] business in most parts of the world like yeah the next time I got in trouble was the only time that I ever really did anything bad and I feel I felt terrible about this I have made amends for it I went out to the church and I I stroke him a check I look the pastor in...
 - [[2024-02-01 From Inmate to Investor - How I did it]] — 2024-02-01 · [youtube](https://www.youtube.com/watch?v=sQ80oZS2Ua4)  
   > ...was living in my mama's basement on Sandy Run Court wages were low work was slow and everybody was kind of scrambling after the 08 recession in the real estate and construction industry I didn't have a truck I didn't have anything but I wanted to start my own business I've always had an entrepreneurial Spirit which I believe is really the main contributing factor to somebody's success I got my little business license for Creative Construction Solutions while I was on the job site I built all of this from scratch I made ove...
-- [[2024-01-22 From Convicted Felon to Owning Multiple Businesses & A Real Estate Portfolio]] — 2024-01-22 · [youtube](https://www.youtube.com/watch?v=R1v-1htzRHk)  
-  > ...use I didn't want to live in my parents' basement. Right. I was I was fresh out the chain gang. I was trying to, you know, get somewhere, dog. Right. And uh I just knew I needed a house. The real estate portion came from, you know, I had started my own little business and I was doing all this contract work for Ashcroft Properties who had between two and 250 Section 8 rentals. And so really the seed was planted there. You know, I say I tell people all the time, you will learn best through osmosis. Take your ass somewhere an...
+- *...and 1 more*
 
 ## entrepreneur  
-*said 22 time(s) across 8 source(s)*
+*said 24 time(s) across 10 source(s)*
 
 - [[2026-05-26 If you miss this deadline your CR corporation will be stuck👨‍⚖️📜🇨🇷]] — 2026-05-26 · [instagram](https://www.instagram.com/p/DY0UW1zxt2W/)  
   > If you miss this deadline your CR corporation will be stuck👨‍⚖️📜🇨🇷 #costarica #law #entrepreneur #llc #joefelz
+- [[2026-05-26 If you miss this deadline your CR corporation will be stuck🇨🇷-costarica -entrep]] — 2026-05-26 · [youtube](https://www.youtube.com/watch?v=E3L9qAZqtvQ)  
+  > If you miss this deadline your CR corporation will be stuck🇨🇷#costarica #entrepreneur #joefelz Costa Rican law is an absolute maze. I'm sweating over it a little bit. One thing I wish I would have known before starting a business in Costa Rica is how complicated the legal system of Costa Rica is. They just passed a new law, law 10,597. Basica...
+- [[2026-03-20 This might just look like fruit to you, but it’s really a reminder to]] — 2026-03-20 · [instagram](https://www.instagram.com/p/DWHUsxYDqZu/)  
+  > This might just look like fruit to you, but it’s really a reminder to chase your dreams. In spring on 2025, Alx & I dreamt of growing all of food on our own land. Fast forward one year & WE ARE ACTUALLY DOING IT. I am builder, entrepreneur & solar pro, not a farmer, but with a lot of Tico help our finca is overflowing with *REAL* food- not the wax covered, chemical laced GMO stuff we overpaid for at the grocery store. “Faith without works is dead”- this is faith in action. Breakfast today was...
 - [[2025-11-11 Costa Rican Constrution]] — 2025-11-11 · [youtube](https://www.youtube.com/watch?v=ujn2avr266M)  
   > ...is for you at all. Tell you that much with a legitimate fact. Two more. Make it [snorts] easy. I'mma mark it. A lot easier if you mark it on the ground first. [snorts] A lot easier to see. That lines up pretty well. Because most people think this is some like entrepreneur doing something special in a foreign country, but what it's really like is one of your degenerate friends won the lottery and bought a place in Costa Rica and is now up there just doing what the he wants to. He's got a badass girlfriend. They got some kids. T...
 - [[2025-07-10 Showing @naturejab & @EnergizeUsEdu How I Run Renovation off An App]] — 2025-07-10 · [youtube](https://www.youtube.com/watch?v=kVKedeLmB2Y)  
@@ -66,12 +75,14 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...Race. I tour 10 in three times and I haven't run one since. Well, I mean not a race. I ran 29 miles the other week on the Appalachian Trail just came off the couch. Right. You know you shared that story. I'll share a little bit of mine. You know I've been an entrepreneur now for 14 years. Uh officially started my my first entity real business like I'm all in started an LLC in 2012. It was August 6th, 2012. My dad watched Monday Night Football Cowboys versus the Eagles on September 5th or September 4th September 5th that night...
 
 ## leads  
-*said 9 time(s) across 7 source(s)*
+*said 10 time(s) across 8 source(s)*
 
 - [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
   > ...xt one. Series. If you connect in series, what does it look like, Parker? Okay, so this is like one thing, and then you're going to go into the next thing, and into the next thing. We're going to go plus, minus, plus, minus. On that solar panel, there are two leads. One is a positive, and one is a negative. They only go one way. You cannot connect the wrong ones together unless you connect the same ones on a panel together. Don't do that. But in series, you literally just take them and clip them together. And when you d...
 - [[2026-03-02 See inside the plant that built Zuckerberg’s bunker]] — 2026-03-02 · [youtube](https://www.youtube.com/watch?v=LMQlqGpybxg)  
   > ...stallation, good cuts. Oh. Okay. Panel. Yeah, 520s, 115, 160, air filtration. Everything in here seems to be tuned to just optimum efficiency. Everything you need and nothing you don't. Behind this, this is the dog house but that's also the escape tunnel that leads to the secondary escape. And here's your pump. This is a 120 water pump. I see the plug right here. GFI protected filter. That's got to be your water heater, isn't it? Uh the top one's a water This is your water filter for the sediment. This is your pump, and...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > ...olts equals watts? Am I losing anybody? We're going to go to the next one. Series. You have two different types of wire. If you connect in series, what does it look like, Parker? We're going to go plus minus plus minus. Now, on that solar panel, there are two leads. One is a positive and one is a negative. And if you look at them, will you go over and hold those up so they can kind of see? If you go over there and look at these panels, you'll see that it has one positive and one negative. They only go one way. You canno...
 - [[2026-02-05 X-Ray & Analysis of Ancient Artifacts]] — 2026-02-05 · [youtube](https://www.youtube.com/watch?v=lRDdLhFBbCc)  
   > .... It's making alternating current just from you touching it. Yeah. Just a static type charge. I'm making a frequency by doing this. Now, if I hold it on there, that would be direct current. It doesn't register. So, it wants direct current. Here are the copper leads. We have nothing. Correct. Let's check the resistance cuz that's how we'll find out if there's is there filament in there or something, right? We have any ohms. No. If there was a filament in there running, it would [music] it would out resistance between the...
 - [[2026-01-23 The Symbolism & Meaning Behind Ancient Energy]] — 2026-01-23 · [youtube](https://www.youtube.com/watch?v=vYvIKWWfQbk)  
@@ -94,10 +105,12 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...to run my Construction Company remotely and my renovation company and I did not understand what I was building when I started man but I've built a [ __ ] Behemoth I really have it's four panels in one it has an admin panel a manager panel a vendor panel and a client panel linked directly to QuickBook it has built-in accounting built-in reports man it has task management and Lead management with monetization penalties if they're late not just a slap on the wrist it has change order management it has contracts in app um an...
 
 ## contract  
-*said 6 time(s) across 4 source(s)*
+*said 7 time(s) across 5 source(s)*
 
 - [[2026-03-19 How we bought land in Costa Rica (and you can too)]] — 2026-03-19 · [youtube](https://www.youtube.com/watch?v=7GaObN6VAsU)  
   > ...ish. formation process took about a month to do and cost me about $1,200 USD. After you form the corporation, you're going to have to go find a property. Once you find a property, it's a lot like the US real estate transactions. You're going to have to have a contract. There's a due diligence. If you want an inspection, you can have it, but then you're going to hit the escrow part. Escrow part is where they verify your funds are not coming from narcoterrorism of some kind. I don't know why it took them a month to know that...
+- [[2026-03-18 Last week I did a thing- hired my first employee in a foreign country]] — 2026-03-18 · [instagram](https://www.instagram.com/p/DWC19_uDRvg/)  
+  > Last week I did a thing- hired my first employee in a foreign country. Hiring someone *properly* in Costa Rica is a process, involving a lawyer, a contract, insurance premiums & employer taxes. I could have done it quicker & cheaper it under the table, but wanted to handle all this properly so José would have medical insurance & qualify for a pension after enough time. José was referred to me as one of the b...
 - [[2025-07-10 Showing @naturejab & @EnergizeUsEdu How I Run Renovation off An App]] — 2025-07-10 · [youtube](https://www.youtube.com/watch?v=kVKedeLmB2Y)  
   > ...before pictures. To bid this job, send your labor price and include your metal roofing material list in your work description. I don't have to come to this job. You give me the material list and your price and pictures of what you're going to do. And per the contract you sign, if you buy anything on my account, you have to upload the receipt to this. If you don't, I can withhold the amount of the receipt from your pay until you do. It really teaches your guys to think. That is my end goal. I want to run the business, but...
 - [[2024-09-25 Nontraditional Entrepreneurial Finance Explained]] — 2024-09-25 · [youtube](https://www.youtube.com/watch?v=gA8cC0VmuAg)  
@@ -120,10 +133,12 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...ek on the Appalachian Trail just came off the couch. Right. You know you shared that story. I'll share a little bit of mine. You know I've been an entrepreneur now for 14 years. Uh officially started my my first entity real business like I'm all in started an LLC in 2012. It was August 6th, 2012. My dad watched Monday Night Football Cowboys versus the Eagles on September 5th or September 4th September 5th that night he fell in his house that he lived in for 30 years and hit his head never woke up. Um went to the hospi...
 
 ## sales  
-*said 2 time(s) across 2 source(s)*
+*said 4 time(s) across 3 source(s)*
 
 - [[2026-06-09 Change the way you look at things, and the things you look at change -investing]] — 2026-06-09 · [youtube](https://www.youtube.com/watch?v=6MNckhBkhmg)  
   > ...arket very much in the last couple years. Now that I'm back, I have seen that things have gone downhill a whole lot. Talked to all my buddies in investing here at Augusta, and they said interest rates up, price of everything up, days on market up, real estate sales down, rentals longer on market, and everything else is kind of going rough for everybody. This is a pretty tough time, and I don't know what caused it, and I don't know how to fix it, but I know that we're all in this together. We're all just busting our ass...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > ...process to Costa Rica. Like three and a half months. I don't know how many different translated emails we've gone through. Uh but Bruce is behind the scenes and if you ever get something new, you're going to deal with Bruce. So I'm Bruce. I'm the director of sales battery. Um, I've been in and around the solar world for about 10 years, commercial, a little bit down to residential. Uh, stepped away from it and, uh, wouldn't come back until I could find someone that I could partner with and believe in what their their dr...
 - [[2024-02-03 Van-Life is the ULTIMATE Flex!]] — 2024-02-03 · [youtube](https://www.youtube.com/watch?v=7NpEPxwxzO0)  
   > ...here where do you top out at here you're probably going to top out maybe $25 $30 an hour but how about Jackson Hole Wyoming might top out at $150 an hour why cuz it's a bougie ass Town located in the national park and there's no housing there the average home sales price is about a million bucks there ain't no construction workers buying these houses they don't have anybody to work there and you can't go cuz there's nobody nowhere to stay you have this van and you can go stay in Grand Teton National Park and stack money...
 

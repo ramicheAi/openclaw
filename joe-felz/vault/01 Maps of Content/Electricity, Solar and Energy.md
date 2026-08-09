@@ -9,11 +9,11 @@ tags:
 
 Sub-topics, ordered by how often they come up.
 
-- [[Fundamentals]] — said 389 times
-- [[Solar generation]] — said 264 times
-- [[AC - DC and wiring]] — said 203 times
-- [[Storage and batteries]] — said 189 times
-- [[Conversion and control]] — said 99 times
-- [[Measurement and tools]] — said 38 times
+- [[Fundamentals]] — said 613 times
+- [[Solar generation]] — said 368 times
+- [[AC - DC and wiring]] — said 269 times
+- [[Storage and batteries]] — said 246 times
+- [[Conversion and control]] — said 124 times
+- [[Measurement and tools]] — said 42 times
 
 Back to [[Master MOC]].

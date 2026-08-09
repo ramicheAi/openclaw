@@ -2,9 +2,9 @@
 type: "topic"
 family: "Electricity, Solar and Energy"
 group: "Measurement and tools"
-terms: "5"
-sources: "11"
-occurrences: "38"
+terms: "6"
+sources: "13"
+occurrences: "42"
 tags:
   - "topic"
   - "electrical"
@@ -12,7 +12,7 @@ tags:
 
 # Measurement and tools
 
-Part of **[[Electricity, Solar and Energy]]**. 5 distinct terms appear across 11 posts and videos, said 38 times in total.
+Part of **[[Electricity, Solar and Energy]]**. 6 distinct terms appear across 13 posts and videos, said 42 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
@@ -26,10 +26,12 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > X-Ray & Analysis of Ancient Artifacts How is light coming from the stones? Where is the energy coming from? After being puzzled by these artifacts for months, I took them to the best electrical mind I know, @dr.parkinstine. Besides being an electrical savant, Par...
 
 ## meter  
-*said 8 time(s) across 6 source(s)*
+*said 11 time(s) across 7 source(s)*
 
 - [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
   > ...y are operating between the 35 and 50 range. Now, if I have one operating at 42 volts, 10.61 amps, what happens if I hook two of them together in series? Series, if you connect in series, I take two of them panels, put negative to positive, and test it with a meter, what will it read? 84 volts. Are we tall enough to ride this ride? Yeah. I'm old. I'm old. Nope. Who [clears throat] has ever hooked up a solar system and had voltage going in but nothing's charging? This was your problem. I learned because I had uh one pane...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > ...e a way to determine that if you don't have those numbers to read by counting sales or something like that? Well, not not that I know of. There might be one that I do not know of. I'm sure if I sat there long enough with nothing to do, I could tell you with a meter maybe. Well, with a meter, it is going to give us what voltage output. Our voltage. You got to have two. You're right. So, it is tougher. But to make it easy, everything in the US has to have an electrical data sheet. And before you start doing anything, you...
 - [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=MIetQV6xQto)  
   > ...because I can't follow. Now, we talked about series versus parallel wiring. We are not going to maximize this system because I don't feel like needing 20 panels out. I'm just going to show you a real life example of how this works. And we're going to need the meter. All right, got that zing. And y'all are going to see it happen. Now, hopefully you're going to get to see something rating voltage. Now, what I've done here is just take an MC4 connector and hook it to this one wire. That way, we can test it all the way down...
 - [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  
@@ -58,3 +60,9 @@ Each term below lists the posts and videos where it appears, with the surroundin
 
 - [[2025-05-21 Wiring the Recycoline Solar System @naturejab]] — 2025-05-21 · [youtube](https://www.youtube.com/watch?v=NBQ05L2xB6Q)  
   > ...bout going the right way. Don't put a lot of pressure on it, but hold it. Yeah. Mhm. See, good stuff. Hey, one for one. I heard it. There it went. Tighten it up. That really the most the hardest thing you need to know. I'm f to [ __ ] y'all up again with this multimeter. You don't have to set it. Detects everything. AC DC from 12 volt to 300 volt. Hey, watch. It owns out automatically. Go over there and it'll test all this voltage. You can put it right to AC. Everything [ __ ] automated. Hey, very smart. Very helpful. Hey, j...
+
+## thermal imaging  
+*said 1 time(s) across 1 source(s)*
+
+- [[2026-06-01 I stopped the spy with an @OUKITELMobile WP500 & OUK10 gets 10% off 🤳 -joefelz]] — 2026-06-01 · [youtube](https://www.youtube.com/watch?v=5bFKrFCwbOI)  
+  > ...ttle computer. [music] Battery's pretty nuts, too. This is 3,500 mA. This is 20,000 mA. 7x. And it's a portable power pack, too. The power port is power in or power out. You can charge your other devices off of this thing. This might be my favorite thing, the thermal imaging camera. See those running devices over there? Look, they're warm. You can look for faulty electrical wiring, knowing what circuits are energized. Fridge is wild. You can see your reflection on it. You can see the heat coming off the side. [music] And then whe...

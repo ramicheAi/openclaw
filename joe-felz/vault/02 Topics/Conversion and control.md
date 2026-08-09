@@ -3,8 +3,8 @@ type: "topic"
 family: "Electricity, Solar and Energy"
 group: "Conversion and control"
 terms: "8"
-sources: "32"
-occurrences: "99"
+sources: "34"
+occurrences: "124"
 tags:
   - "topic"
   - "electrical"
@@ -12,18 +12,20 @@ tags:
 
 # Conversion and control
 
-Part of **[[Electricity, Solar and Energy]]**. 8 distinct terms appear across 32 posts and videos, said 99 times in total.
+Part of **[[Electricity, Solar and Energy]]**. 8 distinct terms appear across 34 posts and videos, said 124 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
 
 ## inverter  
-*said 54 time(s) across 13 source(s)*
+*said 77 time(s) across 14 source(s)*
 
 - [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
   > ...you didn't think about your open circuit. Let's do 10 * 50.85. Wait a minute, we're still good. I almost could get 11. Now, so here's what you want to do to maximize your solar. You want to get as close as you can to that clip voltage without exceeding. That inverter right there will take 11,000 watts of solar an hour. To put this in perspective, according to the DOE, the standard of average American home takes 30 kWh a day. That inverter under ideal conditions will make it less than 3 hours. [laughter] Technology's come...
 - [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
   > ...months of my life designing solar systems for people I finally bit the bullet and developed FelzCalc, a free online tool you can use to build your own solar system. To use it, you will need the electrical specifications of the solar panel panels, battery, and inverter you plan to use. There is also an option to select “need one” under the inverter section and FelzCalc will provide the electrical specifications that are compatible with the battery and panels you would like to use. ￼ Here is the link to Felz Calc: https://...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > ...ght, cuz we're going to base everything else off of those four pieces of information. So, if you do not understand and understand clearly, raise your hand, man. Everybody's a genius today, right? Okay. So, now how does this work? Well, um can you uh roll that inverter over here? Or just give me the spec sheet already. [clears throat] Let me get the spec sheet that work. Who is intimidated by these? Anybody? Who's intimidated by pages and pages of electrical documents? Yeah. [clears throat] It's like reading a plea bar. No,...
 - [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=MIetQV6xQto)  
   > ...I love them on metal. Installing the racks. We're not going to do that today. That is the hardest part. Trade knowledge required. I'll show y'all another day when we ring back up, I suppose. Now, what do we have to do with these? Here you go. Let's bring that inverter right about there to the middle along with that battery. some negative wires. Now, you should not be like, you know, tender footing the live wires. Um, just kind of No, use the the red one for you. We're going to come from that side. Now, what does anybody kn...
 - [[2026-01-30 Could You Live in My Van-]] — 2026-01-30 · [youtube](https://www.youtube.com/watch?v=2Kvc76Lhn0c)  
@@ -76,10 +78,12 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...greens? That means your inverter and your battery check out. Now let's do inverter PV input minimum. If you see minimum and you see maximum, you know you're looking for two values. I don't see PV, but I see solar. PV stands for photovoltaic. Down here, I see MPPT. That means maximum power point tracker. That is your solar charger just written in electrical jargon so you can't understand it. They could make this a little easier, but they don't want you to know this information. They want you to have an engineer, and I...
 
 ## charge controller  
-*said 6 time(s) across 2 source(s)*
+*said 8 time(s) across 3 source(s)*
 
 - [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
   > ...hours. You have to do a little reading. AH stands for amp hours, 280. 57344. Let's do the math to check. So, we have 14.3 kWh, and we have four, two, carry my one, seven. Pink. 57.2, 57.3. I would say the math is checking out, wouldn't you? Next, we're at the charge controller and the inverter. This comes set at need one, but I have an inverter, so I'm going to select have one. If you select need one, it will give you the electrical specifications that your inverter requires. Then down here, it says separate charge controller or co...
+- [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
+  > ...You need one from your TV. Um let's see. I want a Bluetooth transmitter. The Apex comes with one, but I'm just doing this for things. And it would need to wire across the the negative from your battery and your inverter. Um, and notice this one has a separate charge controller because not all inverters have the charge controller contained. But if you do this contain an inverter, now it's in the inverter. That's how the apex wires. Yes. Now with this, you can literally go on there and enter the electrical specifications of anything...
 - [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  
   > ...e to your bats. And can this take 120 and 240 220 in? I'm looking at only 240 right now. That's why I was saying I have those 120 wall chargers that we can slap on there and it'll charge directly. So, you could really do it from anything. And homie, with that charge controller, [music] that Victron charge controller or with that other charge controller, we could have outputs you could plug wind turbines in or water turbines. And like, if you think about it, you're near a river. You just take a water turbine and throw it in there an...
 

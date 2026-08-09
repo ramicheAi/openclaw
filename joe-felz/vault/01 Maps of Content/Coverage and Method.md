@@ -18,8 +18,8 @@ tags:
 
 ## Counts
 
-- Instagram posts captured: **120** of about **3,353** on the account (3.6%).
-- YouTube items captured: **72**, of which **70** have transcripts.
+- Instagram posts captured: **216** of about **3,353** on the account (6.4%).
+- YouTube items captured: **105**, of which **102** have transcripts.
 
 Instagram rate-limits anonymous access hard: a few requests succeed, then the whole IP is refused for a period. The scraper backs off and resumes, and it checkpoints after every page, so re-running `scripts/scrape.py` continues from where it stopped rather than starting over.
 

@@ -3,8 +3,8 @@ type: "topic"
 family: "Ancient, Artifacts and Esoteric"
 group: "Artifacts and archaeology"
 terms: "8"
-sources: "31"
-occurrences: "48"
+sources: "32"
+occurrences: "49"
 tags:
   - "topic"
   - "ancient"
@@ -12,14 +12,16 @@ tags:
 
 # Artifacts and archaeology
 
-Part of **[[Ancient, Artifacts and Esoteric]]**. 8 distinct terms appear across 31 posts and videos, said 48 times in total.
+Part of **[[Ancient, Artifacts and Esoteric]]**. 8 distinct terms appear across 32 posts and videos, said 49 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
 
 ## stone  
-*said 19 time(s) across 10 source(s)*
+*said 20 time(s) across 11 source(s)*
 
+- [[2026-03-20 Playgrounds in Costa Rica are different. Everyday we walk through 40 a]] — 2026-03-20 · [instagram](https://www.instagram.com/p/DWFgEc0jfWt/)  
+  > Playgrounds in Costa Rica are different. Everyday we walk through 40 acres of cacao to God’s playground, an untouched riverscape surrounded by literal jungle. 1,000 year old trees line the bank. One has an indigenous grinding stone covered in moss still sitting on its roots & a 65 ft rope swing we all love. The largest tree is full of bats on one side, has been struck by lighting on the other & also has a human sized cavity I use to meditate. I call it the Tree of Life & Death. The...
 - [[2026-03-19 How we bought land in Costa Rica (and you can too)]] — 2026-03-19 · [youtube](https://www.youtube.com/watch?v=7GaObN6VAsU)  
   > ...omething for 40 years in 1 year. There's also a sawmill, a big workshop, group bathrooms, a main house, a casita, an outdoor kitchen, and a whole bunch of other Across the street is a river with some thousand-year-old trees that has a Native American grinding stone covered in moss sitting on the roots. This is a pretty wild place. I looked at houses that required you to cross a river in your rental car. I looked at houses way up at the top of the mountain with a driveway you couldn't even walk up. I looked at fancy hous...
 - [[2026-03-04 Touring a Freemason Mansion with @dr.parkinstine]] — 2026-03-04 · [youtube](https://www.youtube.com/watch?v=_4nBhNr2eX8)  

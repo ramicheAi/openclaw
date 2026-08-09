@@ -93,6 +93,14 @@ def scan_bible(recs):
                 add(hits, name, rec, text, m, {"confidence": "high"})
                 break
 
+        for name in getattr(LX, "BIBLE_SAFE_CASED", []):
+            for m in word_re(name, 0).finditer(text):  # capitalised only
+                add(hits, name, rec, text, m,
+                    {"confidence": "high",
+                     "note": "matched case-sensitively; the lowercase word is "
+                             "ordinary English"})
+                break
+
         # Ambiguous names need an explicit scriptural construction, not merely
         # a religious word somewhere nearby. A loose proximity rule matched
         # "Daniel the painter" (in a video that also said "God") and "John

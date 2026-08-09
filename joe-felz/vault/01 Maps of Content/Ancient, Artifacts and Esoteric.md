@@ -9,10 +9,10 @@ tags:
 
 Sub-topics, ordered by how often they come up.
 
-- [[Flood, origins and scripture]] — said 247 times
-- [[Civilizations and sites]] — said 151 times
-- [[Artifacts and archaeology]] — said 48 times
-- [[Energy and frequency]] — said 33 times
-- [[Symbolism and esoterica]] — said 31 times
+- [[Flood, origins and scripture]] — said 302 times
+- [[Civilizations and sites]] — said 199 times
+- [[Artifacts and archaeology]] — said 49 times
+- [[Energy and frequency]] — said 44 times
+- [[Symbolism and esoterica]] — said 37 times
 
 Back to [[Master MOC]].

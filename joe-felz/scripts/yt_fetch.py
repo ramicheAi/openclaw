@@ -80,7 +80,7 @@ def fetch(vid):
 
 DELAY_MIN = 8.0
 DELAY_START = 15.0
-DELAY_MAX = 420.0
+DELAY_MAX = 180.0
 
 
 def main():

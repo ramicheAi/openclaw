@@ -27,7 +27,7 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
 
 DELAY_MIN = 20.0        # never go faster than this
 DELAY_START = 45.0
-DELAY_MAX = 300.0
+DELAY_MAX = 120.0
 SUCCESS_STREAK_TO_SPEED_UP = 5
 
 

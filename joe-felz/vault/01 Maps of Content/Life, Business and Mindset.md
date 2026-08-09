@@ -9,10 +9,10 @@ tags:
 
 Sub-topics, ordered by how often they come up.
 
-- [[Vanlife, homestead and travel]] — said 190 times
-- [[Real estate and investing]] — said 161 times
-- [[Business and entrepreneurship]] — said 134 times
-- [[Mindset and philosophy]] — said 134 times
-- [[Incarceration and redemption]] — said 120 times
+- [[Vanlife, homestead and travel]] — said 223 times
+- [[Mindset and philosophy]] — said 175 times
+- [[Real estate and investing]] — said 168 times
+- [[Business and entrepreneurship]] — said 143 times
+- [[Incarceration and redemption]] — said 125 times
 
 Back to [[Master MOC]].
