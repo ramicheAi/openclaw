@@ -1324,7 +1324,7 @@
    ],
    "generated_with": "build-scene.py from the cue sheet: beds + heart + ANSWER phrase + events (buzzer, splash, air-burst, thrash, Bo entry) + fathom stingers at rank crossings + pre-buzzer duck + deck return",
    "note": "v2 mix. The five hard sync moments now exist and three are onset-verified; the tone is the theme's ANSWER; the ladder plays its own rungs; the smash returns to a dry world.",
-   "sha256_16": "196750cfcb510b6c"
+   "sha256_16": "275969eea82c3295"
   },
   "gouda-v3-neutral-ref.png": {
    "kind": "baseline-reference",
@@ -1703,8 +1703,8 @@
     "gouda"
    ],
    "generated_with": "build-sequence.py: 17 shots cut to the cue sheet windows, PIL heart numerals composited per the overlays block, married to the v2 mix",
-   "note": "v2 cut executing the full review plan: editorial re-cut (panic fragmented, POV, Bo insert, flash-frame Eye x2), venue element continuity, scripted heart numerals on screen.",
-   "sha256_16": "e74f74b33906ac54"
+   "note": "v3, the QUIET CUT. The creator judged v2 far worse than the original: the micro-cut panic, sped-up inserts, mono-font numerals and stinger-stuffed mix traded the sequence's hypnosis for a checklist. v3 restores the original 13-shot breathing rhythm and keeps only the uncontroversial fixes: one venue, pool-floor 08, hands that uncurl, no tears, static 11, Bo's dive, and four restrained sound events. Taste outranks gates; gates only keep taste honest.",
+   "sha256_16": "64c5cdc8ab4e03f5"
   },
   "qc/sequence-ep1-sinking-frames.png": {
    "status": "APPROVED",

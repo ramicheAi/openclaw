@@ -227,39 +227,24 @@
  ],
  "_tone_comment": "The thing in the water, and it is not an effect — it is the ANSWER, the theme's reply phrase (D A# G F G) taken down to the register the old ad-hoc sines lived in, each note a detuned pair so it beats and breathes. The score doc's grammar: the answer arriving early means the deep is reaching for someone. This moment IS that sentence; 'like a name' because it is one.",
  "tone": {
-  "answer_phrase": [
-   [
-    73.42,
-    2.0
-   ],
-   [
-    58.27,
-    1.5
-   ],
-   [
-    49.0,
-    2.0
-   ],
-   [
-    43.65,
-    1.5
-   ],
-   [
-    49.0,
-    4.0
-   ]
+  "freqs_hz": [
+   36.7,
+   36.9,
+   73.4
   ],
-  "bpm": 30,
-  "detune_hz": 0.22,
-  "octave_up": 0.35,
+  "gains": [
+   1.0,
+   0.7,
+   0.4
+  ],
   "level": 0.16,
   "fathom": "abyssal",
   "fade_in": [
    48.0,
-   52.0
+   54.0
   ],
   "fade_out": [
-   66.0,
+   64.0,
    70.0
   ]
  },
@@ -293,7 +278,7 @@
   {
    "id": "02",
    "t_in": 6.0,
-   "t_out": 8.8,
+   "t_out": 10.0,
    "rank": "air",
    "eyes": "brown",
    "subject": "kai",
@@ -303,21 +288,9 @@
    "known_issues_fixed": "V2 caustics as light not emissive veins; dry (no towel)"
   },
   {
-   "id": "02b",
-   "t_in": 8.8,
-   "t_out": 10.6,
-   "rank": "air",
-   "eyes": "n/a",
-   "subject": "bo",
-   "slug": "Bo: look at me, not the water",
-   "prompt": "Medium from Kai's eyeline, poolside: <<<BO>>> — big, warm, cream cable-knit sweater over club jacket — grinning gently and TAPPING HIS OWN CHEST twice with a flat palm, showing slow breaths, in and out. Kind heavy-browed face, eyes open and warm. Indoor school pool behind, late afternoon. Anime cel-shaded, clean ink linework.",
-   "motion": "He taps his chest slowly, in-out; grin stays; nothing else moves.",
-   "known_issues_fixed": "E3 the scripted anchor beat before the buzzer — the promise the fall breaks"
-  },
-  {
    "id": "03",
-   "t_in": 10.6,
-   "t_out": 11.1,
+   "t_in": 10.0,
+   "t_out": 11.5,
    "rank": "air",
    "eyes": "n/a",
    "subject": "water",
@@ -327,8 +300,8 @@
    "media": {
     "source": "clip-03.mp4",
     "excerpt": [
-     1.2,
-     1.7
+     0.9,
+     2.4
     ],
     "retime": false
    },
@@ -336,7 +309,7 @@
   },
   {
    "id": "04",
-   "t_in": 11.1,
+   "t_in": 11.5,
    "t_out": 13.0,
    "rank": "air",
    "eyes": "n/a",
@@ -365,7 +338,7 @@
   {
    "id": "06",
    "t_in": 16.0,
-   "t_out": 19.0,
+   "t_out": 24.0,
    "rank": "twilight",
    "eyes": "shut",
    "subject": "kai",
@@ -374,57 +347,9 @@
    "motion": "Violent thrash, bubbles torn out of him.",
    "media": {
     "source": "clip-06.mp4",
-    "excerpt": [
-     0.0,
-     3.0
-    ],
-    "retime": false
+    "retime": true
    },
    "known_issues_fixed": "E1 panic now cut fast; native speed restores the violence the 0.63x stretch softened"
-  },
-  {
-   "id": "06b",
-   "t_in": 19.0,
-   "t_out": 19.25,
-   "rank": "twilight",
-   "eyes": "n/a",
-   "subject": "water",
-   "slug": "the Eye, inside the panic",
-   "prompt": "(reuses the Eye plate — trauma intrusion)",
-   "motion": "Subliminal.",
-   "media": {
-    "source": "clip-03.mp4",
-    "excerpt": [
-     2.8,
-     3.05
-    ],
-    "retime": false
-   },
-   "known_issues_fixed": "E4 second flash ties the drowning to the cold open"
-  },
-  {
-   "id": "06c",
-   "t_in": 19.25,
-   "t_out": 21.5,
-   "rank": "twilight",
-   "eyes": "n/a",
-   "subject": "water",
-   "slug": "POV — the surface leaves him",
-   "prompt": "Underwater POV looking straight up from a sinking body: the bright fractured surface of the school pool receding, his own last silver bubbles rising away toward it, blue-white lane ropes at the edge of frame bending with refraction, the light narrowing. No character in frame — this IS his eyes. Chlorine blue cooling toward twilight. Anime cel-shaded, painterly refraction.",
-   "motion": "The surface pulls away upward; bubbles leave the camera and shrink toward it.",
-   "known_issues_fixed": "E2 the sequence finally enters his head"
-  },
-  {
-   "id": "06d",
-   "t_in": 21.5,
-   "t_out": 24.0,
-   "rank": "twilight",
-   "eyes": "n/a",
-   "subject": "kai",
-   "slug": "the reaching hand",
-   "prompt": "Underwater close-up: one lean brown boy's arm and open hand reaching UP toward the receding light, fingers spread, shell-cord bracelet on the LEFT wrist, silver bubbles slipping between the fingers. An ordinary human hand, short clean nails. The light does not come closer. Cooling blue. Anime cel-shaded, clean ink linework.",
-   "motion": "The hand strains upward, then the fingers slowly lose their spread as strength goes.",
-   "known_issues_fixed": "E1 fourth panic cut; bracelet standardized LEFT wrist"
   },
   {
    "id": "07",
@@ -451,7 +376,15 @@
    "slug": "the water settles — the pool becomes ocean",
    "prompt": "Underwater environment shot of the SCHOOL POOL transformed by light alone: pale tiled floor with its dark lane stripe and two round drain covers, tile walls fading into deep-ocean gloom, enormous slow god-rays through water gone cathedral-vast. Suspended motes slow, stop, and begin drifting toward one point. NO ruins, NO stone steps, NO arches, NO plants, NO fish, NO marine life of any kind — an ordinary pool floor lit like the deep sea. Anime cel-shaded, painterly volumetric light, awe.",
    "motion": "Light deepens; motes reverse into a slow inward drift. No camera move.",
-   "known_issues_fixed": "V8 ruins-and-fish re-shot; the room stays a pool"
+   "known_issues_fixed": "V8 ruins-and-fish re-shot; the room stays a pool",
+   "media": {
+    "source": "clip-08.mp4",
+    "excerpt": [
+     1.0,
+     9.0
+    ],
+    "retime": false
+   }
   },
   {
    "id": "09",
@@ -509,7 +442,11 @@
    "motion": "Held wide, extremely slow inward drift — then in the final two seconds the bright surface far above BREAKS as a big swimmer plunges through it in a shroud of bubbles, small at the top of frame, descending toward the boy.",
    "media": {
     "source": "clip-12R.mp4",
-    "retime": true
+    "excerpt": [
+     0.8,
+     9.8
+    ],
+    "retime": false
    },
    "known_issues_fixed": "V12 Bo's rescue dive enters the picture; pairs with the 66.5s entry event"
   },
@@ -539,11 +476,11 @@
    ],
    [
     10.1,
-    0.06
+    0.4
    ],
    [
     11.32,
-    0.06
+    0.4
    ],
    [
     11.5,
@@ -556,7 +493,7 @@
   {
    "t": 11.5,
    "sound": "spots/buzzer",
-   "gain_db": -9,
+   "gain_db": -15,
    "fathom": "air",
    "verify": {
     "band": [
@@ -569,7 +506,7 @@
   {
    "t": 13.0,
    "sound": "spots/splash-impact",
-   "gain_db": 0,
+   "gain_db": -5,
    "fathom": "air",
    "verify": {
     "band": [
@@ -582,7 +519,7 @@
   {
    "t": 16.1,
    "sound": "spots/air-burst",
-   "gain_db": -2,
+   "gain_db": -10,
    "fathom": "twilight",
    "verify": {
     "band": [
@@ -593,118 +530,14 @@
    "note": "His scream costs him his air."
   },
   {
-   "t": 17.5,
-   "sound": "spots/water-thrash",
-   "gain_db": -18,
-   "fathom": "twilight",
-   "verify": false,
-   "note": "The panic, physically."
-  },
-  {
    "t": 66.5,
    "sound": "spots/splash-entry",
    "gain_db": -16,
    "fathom": "midnight",
    "verify": false,
    "note": "Bo hits the water, heard from four rungs down. verify=false is a CLASSIFICATION, not an exemption: midnight placement smears the attack into a swell by design — an entry heard from four rungs down has no rising edge for a transient gate to find. The onset gate proved this honestly (-4.4 dB). Bo's arrival is verified in PICTURE instead: the bubble column in shot 12's tail, frame-checked in the QC sheet."
-  },
-  {
-   "t": 13.0,
-   "sound": "signatures/fathom-sunlit",
-   "gain_db": -18,
-   "fathom": null,
-   "verify": false,
-   "note": "Rank crossing. The ladder plays its own rungs as he falls through them."
-  },
-  {
-   "t": 16.0,
-   "sound": "signatures/fathom-twilight",
-   "gain_db": -18,
-   "fathom": null,
-   "verify": false,
-   "note": "Rank crossing."
-  },
-  {
-   "t": 30.0,
-   "sound": "signatures/fathom-midnight",
-   "gain_db": -19,
-   "fathom": null,
-   "verify": false,
-   "note": "Rank crossing."
-  },
-  {
-   "t": 44.0,
-   "sound": "signatures/fathom-abyssal",
-   "gain_db": -19,
-   "fathom": null,
-   "verify": false,
-   "note": "Rank crossing — lands with the eyes opening."
   }
  ],
- "overlays": [
-  {
-   "text": "90",
-   "t": [
-    1.0,
-    6.0
-   ]
-  },
-  {
-   "text": "110",
-   "t": [
-    6.0,
-    10.0
-   ]
-  },
-  {
-   "text": "130",
-   "t": [
-    10.0,
-    11.4
-   ]
-  },
-  {
-   "text": "150",
-   "t": [
-    16.5,
-    20.0
-   ]
-  },
-  {
-   "text": "140",
-   "t": [
-    20.0,
-    23.5
-   ]
-  },
-  {
-   "text": "90",
-   "t": [
-    38.5,
-    41.5
-   ]
-  },
-  {
-   "text": "60",
-   "t": [
-    44.0,
-    47.0
-   ]
-  },
-  {
-   "text": "40",
-   "t": [
-    50.0,
-    53.0
-   ]
-  },
-  {
-   "text": "34 BPM",
-   "t": [
-    56.0,
-    66.0
-   ]
-  }
- ],
+ "overlays": [],
  "_overlays_comment": "Canon puts these numbers on screen; the script's own text. Rendered as restrained diegetic UI by build-sequence. The held '34 BPM' is the sequence's thesis stated as a stat."
 }

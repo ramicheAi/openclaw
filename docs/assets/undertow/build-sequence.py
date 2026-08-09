@@ -164,15 +164,19 @@ def main():
         src_l = "[0:v]" if i == 0 else f"[v{i-1}]"
         chains.append(f"{src_l}[{i+2}:v]overlay=main_w*0.075:main_h*0.80"
                       f":enable='between(t,{a},{b})'[v{i}]")
-    fc = ";".join(chains)
-    last = f"[v{len(overlays)-1}]" if overlays else "[0:v]"
+    # No overlays means no filter graph at all — an empty filter_complex is a
+    # hard ffmpeg error, not a no-op.
+    if overlays:
+        fx = ["-filter_complex", ";".join(chains),
+              "-map", f"[v{len(overlays)-1}]", "-map", "1:a"]
+    else:
+        fx = ["-map", "0:v", "-map", "1:a"]
 
     print("\n  conforming, numerals, marrying to the mix…")
     subprocess.run(
         [ff, "-nostdin", "-y", "-loglevel", "error",
          "-f", "concat", "-safe", "0", "-i", listing,
-         "-i", audio, *ov_inputs,
-         "-filter_complex", fc, "-map", last, "-map", "1:a",
+         "-i", audio, *ov_inputs, *fx,
          "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p",
          "-c:a", "aac", "-b:a", "320k", "-ar", "48000",
          "-shortest", "-movflags", "+faststart", dest], check=True)
