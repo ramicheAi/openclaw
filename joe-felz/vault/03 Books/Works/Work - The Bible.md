@@ -1,7 +1,7 @@
 ---
 type: "work"
 work: "The Bible"
-mentions: "15"
+mentions: "17"
 tags:
   - "book"
   - "work"
@@ -9,7 +9,7 @@ tags:
 
 # The Bible
 
-Referenced **15** time(s). Linked from [[Books and Works Mentioned]].
+Referenced **17** time(s). Linked from [[Books and Works Mentioned]].
 
 
 ### [[2026-06-09 Change the way you look at things, and the things you look at change -investing]]
@@ -42,10 +42,20 @@ Referenced **15** time(s). Linked from [[Books and Works Mentioned]].
 
 > ...a number of other books. The physics [music] and physiology of spiritualism from 1871, what a banger. The history of the Jews, that's kind of fun. Flavius Joseph and my personal favorite, ancient magic, magnetism, and psychic forces. As stated before, viewing the Bible we free for all. If you would like to download one of these other books, it will be on a donation basis only. If you would like to download or screenshot the Bible for your personal use, you will have to [music] be in the subscriber channel. That will cost 7...
 
+### [[2026-04-12 The Earth is speaking- are we listening- ☄️ -joefelz -bible -prophecy -signs -e]]
+2026-04-12 · [youtube](https://www.youtube.com/watch?v=3DXmVM9hbT0)
+
+> The Earth is speaking- are we listening? ☄️ #joefelz #bible #prophecy #signs #endtimes #meteor Who do you trust? The Bible or the government? Does God still speak to humanity like he used to in the Bible? Admittedly, I wasn't paying enough attention until something strange happened the other day. A flock of ravens circling my house got my attention. That is absolutely wild. Espec...
+
 ### [[2026-04-04 The Bible is NOT a rule book for your life 📖💭🙏]]
 2026-04-04 · [instagram](https://www.instagram.com/p/DWuFIg9kZvR/)
 
 > The Bible is NOT a rule book for your life 📖💭🙏 #joefelz #bible #christianity #faith #perspective
+
+### [[2026-04-04 The Bible is NOT a rule book for your life 🙏 -joefelz -bible -faith -christiani]]
+2026-04-04 · [youtube](https://www.youtube.com/watch?v=Ul2Oukpbo-A)
+
+> The Bible is NOT a rule book for your life 🙏 #joefelz #bible #faith #christianity #perspective #god The Bible is not a rule book for your life. If you reading the Bible today and it's not clicking, it's because you're reading it the wrong way. Most people read this lik...
 
 ### [[2026-03-21 From the Flood to the Future]]
 2026-03-21 · [youtube](https://www.youtube.com/watch?v=g34POITRxiQ)

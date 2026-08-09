@@ -3,8 +3,8 @@ type: "topic"
 family: "Electricity, Solar and Energy"
 group: "Conversion and control"
 terms: "8"
-sources: "34"
-occurrences: "124"
+sources: "35"
+occurrences: "125"
 tags:
   - "topic"
   - "electrical"
@@ -12,7 +12,7 @@ tags:
 
 # Conversion and control
 
-Part of **[[Electricity, Solar and Energy]]**. 8 distinct terms appear across 34 posts and videos, said 124 times in total.
+Part of **[[Electricity, Solar and Energy]]**. 8 distinct terms appear across 35 posts and videos, said 125 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
@@ -70,10 +70,12 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...That's literally when it started. I didn't have any social media for 7 years. Right. And so, it just started there, man. And uh So, I live in the van, dude. I drove all the way I've driven the whole country coast to coast four times. Uh I have an off-grid uh generator in there. Pushes 240 V. It's a 6 kW inverter. You know, I backfeed your house, man. Um you know, it's it's pretty cool. Full kitchen, full bath, water heater, propane heater, AC, heat, you know, a little table. Whatever you want, man. You got mobile internet...
 
 ## mppt  
-*said 10 time(s) across 2 source(s)*
+*said 11 time(s) across 3 source(s)*
 
 - [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
   > ...lances. And if you know how to set up an equation, and you set pick the right values, it will solve correctly every time. But if one value is wrong, it will not work. So right here, I'm going to use the 10 kW model today. If you look at this, you will see the MPPT voltage range. Does anybody know what MPPT stands for? Maximum power point tracking. What does that mean? So there's like a combination of volts and amps that will come out of your panel at any given point in time. It's taking that and converting it into the...
+- [[2026-04-09 How much can I get from the sun on day 1- ☀️ -joefelz -solar -testing -offgrid]] — 2026-04-09 · [youtube](https://www.youtube.com/watch?v=a_xnRt3kDhk)  
+  > ...p it up later. It is 1:21 in the afternoon and we are up to 94%. I told you it was going to be full by 3:00. They're going to be full by 2:00 and to go to Greece. Totes my goats. A man with a goat is no joke. It is 3:21 and we are sitting at 99%. A note about MPPT chargers, they slow down at the top. So it's kind of like a bottle of water, so if you fill the bottle up, you cannot exceed the top or it'll blow up. So it goes really slow right there at the end. A little fact for you and also so I wasn't wrong cuz they're...
 - [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
   > ...greens? That means your inverter and your battery check out. Now let's do inverter PV input minimum. If you see minimum and you see maximum, you know you're looking for two values. I don't see PV, but I see solar. PV stands for photovoltaic. Down here, I see MPPT. That means maximum power point tracker. That is your solar charger just written in electrical jargon so you can't understand it. They could make this a little easier, but they don't want you to know this information. They want you to have an engineer, and I...
 

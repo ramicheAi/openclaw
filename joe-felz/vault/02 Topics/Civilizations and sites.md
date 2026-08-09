@@ -3,8 +3,8 @@ type: "topic"
 family: "Ancient, Artifacts and Esoteric"
 group: "Civilizations and sites"
 terms: "9"
-sources: "84"
-occurrences: "199"
+sources: "97"
+occurrences: "221"
 tags:
   - "topic"
   - "ancient"
@@ -12,13 +12,13 @@ tags:
 
 # Civilizations and sites
 
-Part of **[[Ancient, Artifacts and Esoteric]]**. 9 distinct terms appear across 84 posts and videos, said 199 times in total.
+Part of **[[Ancient, Artifacts and Esoteric]]**. 9 distinct terms appear across 97 posts and videos, said 221 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
 
 ## costa rica  
-*said 144 time(s) across 51 source(s)*
+*said 156 time(s) across 61 source(s)*
 
 - [[2026-07-09 It’s where you lose pieces of yourself that were never meant to make it to the]] — 2026-07-09 · [youtube](https://www.youtube.com/watch?v=8zc68v6hen0)  
   > ...inspired the pursuit in many. Let their light carry the mission while you rekindle your flame." Boy, y'all better be carrying some solar flare type flashlights. I'm healing, not healed. There's a big difference between the two. And since we've been back from Costa Rica the last 2 months, life has made damn sure I understood that. It reminded me of something I've heard that I think Joe has smacked down in the middle of learning. We have to stop cursing the season that we are currently in that is meant to create capacity insi...
@@ -48,10 +48,10 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > How much are you pain at the pump ⛽️🔝 #joefelz #gasprices #global #ouch Gas is going up all over the world. I just filled up here in Costa Rica. It was 30,984 colones. The dollar dropped here a whole lot, so that's like what? $68 for a tank full of diesel. What's gas looking like in your country?
 - [[2026-04-29 I am fully confident my trailer park days of using butter knives as sc]] — 2026-04-29 · [instagram](https://www.instagram.com/p/DXuOL3BFijw/)  
   > I am fully confident my trailer park days of using butter knives as screwdrivers prepared me to build things in Costa Rica😂 You gotta think outside the box here, use items you normally wouldn’t, repurpose, and just go with the flow. Had a few last-minute adjustments since the baby chickens started escaping out of the holes but everything is finished today just in time for us...
-- *...and 37 more*
+- *...and 47 more*
 
 ## colombia  
-*said 40 time(s) across 24 source(s)*
+*said 50 time(s) across 27 source(s)*
 
 - [[2026-06-23 If you demand respect for your faith while denying it to theirs….you’re defendi]] — 2026-06-23 · [youtube](https://www.youtube.com/watch?v=1nOak54K1tI)  
   > ...running my little yapper with words of wisdom and knowledge that I think you should probably listen to. Just kind of trying to fill the silence while he is handling his And when he comes back, we'll get back to the Bibles and ancient artifacts and Mexico and Colombia and Costa Rica, solar and construction and all the things that he has shared and and taught us. Until that happens, it's you and me, baby. Anyways, I hope you have the best goddamn Monday.
@@ -71,6 +71,8 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > Riding a public bus as a barefoot gringo on a Saturday night is a legit experience 🇨🇴🚎🌝 #joefelz #traveker #colombia
 - [[2026-04-18 Fact- you can live like a baller in Colombia for $100 🇨🇴👌💵]] — 2026-04-18 · [instagram](https://www.instagram.com/p/DXQKscdjZpH/)  
   > Fact: you can live like a baller in Colombia for $100 🇨🇴👌💵 #joefelz #colombia #travel #expat #costofliving
+- [[2026-04-18 How far will $100 go in Colombia 🇨🇴 -joefelz -travel -colombia -money -baller]] — 2026-04-18 · [youtube](https://www.youtube.com/watch?v=-BwVrAfhix4)  
+  > How far will $100 go in Colombia 🇨🇴 #joefelz #travel #colombia #money #baller I'm going to try and spend $100 today cuz I don't think I can do it. First, let's go exchange the money. $1 is 3,500 Colombian pesos. Let's go blow these guys. Starting out with two coffees with foamed milk. Fresh...
 - [[2026-04-17 I have officially found my favorite place in Colombia (thus far)]] — 2026-04-17 · [instagram](https://www.instagram.com/p/DXPew8ciclU/)  
   > I have officially found my favorite place in Colombia (thus far). This is a legit fishing village, traditional as they come- check the nets they have set out every morning. Gonna go out on a boat tomorrow & try hand lining for the first time. Pretty excited to experience this new vibe 🇨🇴🎣🏝️ #joefelz #colombia...
 - [[2026-04-17 Bosses- like for real, what would Jimmy say if you told him to tote a]] — 2026-04-17 · [instagram](https://www.instagram.com/p/DXPXIQbkT4K/)  
@@ -79,9 +81,7 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > Flight to Colombia + purchases = less than your trip to the mall 🇨🇴💰🫡 #joefelz #travellife #shopping #supportlocal #womeninbusiness
 - [[2026-04-17 Fly here + fly back + purchases = cheaper than the mall 🇨🇴 -joefelz -shopping -]] — 2026-04-17 · [youtube](https://www.youtube.com/watch?v=3mgZbx3_4aI)  
   > Fly here + fly back + purchases = cheaper than the mall 🇨🇴 #joefelz #shopping #travel #handmade Well, I don't know if I'm ever going back to America. When I heard about a women's own business of handmade goods in Colombia, I had to go. Everything in here is handmade by women only. Coconut purses, handmade linen clothing. I can imagine Alex in this. Woof. And the little ladies here are so friendly. Oh, como estas? Bien, bien. I'm going to bless these women today. I'm going to d...
-- [[2026-04-15 I got the vaccine- here is the aftermath 💉 -joefelz -truth -vaccine -workout -c]] — 2026-04-15 · [youtube](https://www.youtube.com/watch?v=UPtYVf4wRiY)  
-  > I got the vaccine- here is the aftermath 💉 #joefelz #truth #vaccine #workout #colombia #realdeal There's so much concerning vaccines, but hey, I'm the guinea pig. I got a vaccine in Colombia yesterday for yellow fever. I had to get it to go back to Costa Rica. And a lot of people are telling me I'm going to die, I'm going to have horrible side...
-- *...and 10 more*
+- *...and 13 more*
 
 ## mayan  
 *said 6 time(s) across 1 source(s)*

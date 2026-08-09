@@ -3,8 +3,8 @@ type: "topic"
 family: "Ancient, Artifacts and Esoteric"
 group: "Flood, origins and scripture"
 terms: "22"
-sources: "137"
-occurrences: "302"
+sources: "153"
+occurrences: "333"
 tags:
   - "topic"
   - "ancient"
@@ -12,13 +12,13 @@ tags:
 
 # Flood, origins and scripture
 
-Part of **[[Ancient, Artifacts and Esoteric]]**. 22 distinct terms appear across 137 posts and videos, said 302 times in total.
+Part of **[[Ancient, Artifacts and Esoteric]]**. 22 distinct terms appear across 153 posts and videos, said 333 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
 
 ## god  
-*said 114 time(s) across 42 source(s)*
+*said 126 time(s) across 47 source(s)*
 
 - [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
   > ...fire solar and how you can do it, too. My main impetus for wanting to teach this class is I have a moral dilemma with electricity. I do not think that humans should buy and sell electricity. I don't think it's theirs. I think it was put here on this earth by God for all of us to use and that people have been selling it to you. I don't like that. So, I will give up my time and energy for free if I can teach you the only way that I know right now that you can just snatch it. I want all my big battery people up here so...
@@ -44,14 +44,14 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > .... How does one mine for Bitcoin? I understand that mining for Bitcoin just takes electricity. Problem is that most people's electricity is very expensive, but I'm in the unique situation where I have too much electricity and ample electricity coming down from God every day. As you can tell, I am not exactly a Bitcoin miner, just a redneck with an iPhone and a badass solar system and I could use some help here. So, if you are a Bitcoin mining professional like I'm a solar professional and you like to come down here to...
 - [[2026-04-26 In reality, milk doesn’t NOT come from a carton 🐐 -joefelz -homestead -goat -re]] — 2026-04-26 · [youtube](https://www.youtube.com/watch?v=iA5JVgr8LOc)  
   > ...one. Ooh. Yep. All right. Squeeze her out. Got to get under there and wash all this [music] stuff. Now what? But I don't mind milking a goat. I ain't signed up to wash his tit. Well, let me hold the goat. Hold Nicole, you wash the stuff. You really got to Oh god. Don't make this weird. How can it be any weirder? This is a girl goat? It's like balls. They hanging down, they floppy. Are there four [music] or two? It's only two. I made it through the whole chain gang without doing this. I'll steal. You hold her, I'm goi...
+- [[2026-04-14 I had two choices- get stuck or be stuck💉-joefelz -vaccine -travellife -colombi]] — 2026-04-14 · [youtube](https://www.youtube.com/watch?v=65bMJTmqTsA)  
+  > ...so let's go get vaccinated in a foreign country with absolutely no preparation. So, I have a 30-minute walk down the streets of Cali. You're walking on this little 2-ft platform next to eight lanes of traffic, dog. Some people got it pretty rough. Woah. Good god, that's a lot of pigeons. I have never seen more pigeons in one place in my life. Well, I made it. So, they're really nice. They gave me this little appointment card, and here we go. There's only like two or three people ahead of me. Hopefully, I can get this...
 - [[2026-04-12 God has been broadcasting since year zero, our antennas are the proble]] — 2026-04-12 · [instagram](https://www.instagram.com/p/DXAr33vDYXQ/)  
   > God has been broadcasting since year zero, our antennas are the problem ☄️📖🌅 #joefelz #bible #signs #prophecy #endtimes
-- [[2026-04-12 A gringo shot at the Ticos house juice🍹🇨🇷💃]] — 2026-04-12 · [youtube](https://www.youtube.com/watch?v=IqQl3UZEIu4)  
-  > ...That's a baby pineapple. Herba buena. Herba buena. Herba buena. We need [music] that. Them's oranges. We need a ladder. It's not going to work. That worked. We got to get a couple more of those. I need a machete. Let's wash it. Okay, to the sink. Frog. Oh my god. [music] And fast. This is the trapiche. This is how you work a trapiche. Yes. Stick it in there. And then you got to This is This is easier with two people or animals. You got it. Turn this at the same time. Oh wait, we forgot the bottle. Okay, bottle, strai...
-- *...and 28 more*
+- *...and 33 more*
 
 ## jesus  
-*said 54 time(s) across 23 source(s)*
+*said 60 time(s) across 26 source(s)*
 
 - [[2026-06-11 We each have a responsibility to protect, restore and sustain this planet 🌍🍃-ou]] — 2026-06-11 · [youtube](https://www.youtube.com/watch?v=YsrURmrawm8)  
   > ...He's still alive. Yeah, he's good. You can hear mom and dad up here. You see him? It's a mockingbird. You know, humans need to be kinder to nature. You're a good woman. If you think about it, they're animals just like us. Let me to tell you. You think [music] Jesus would leave a baby bird on the ground? No, man. He'd stop what he was doing and pick him up. I love Alex so much because [music] I can see the good in her by her actions. Okay. All right. If [music] we did nothing else today, it would be a good day, wouldn't...
@@ -81,10 +81,10 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...sh revolt that happened about 160 BC and they excluded it because it wasn't in the Jewish Bible and because they said it was written about 100 BC, which is crazy because the earliest book of the New Testament was Mark and that was written about 50 years after Jesus died, which is about the same time period of Maccabees. The Book of Manasseh is excluded because it was not in the Hebrew canon. Lastly, the Destruction of Bel and the Dragon. It says it again, cut off from the end of Daniel. Why? Because it was not in the He...
 - [[2026-04-15 Database is close, FREE BIBLES INCOMING 📚-joefelz -bible -truthseeker -faith -h]] — 2026-04-15 · [youtube](https://www.youtube.com/watch?v=1325wqIQ6iw)  
   > ...It must be self-supporting declining outside contributions so it can live forever. [music] And I am really tired of tire kickers just begging for stuff for free. I'm busting my ass through this and spending tens of thousands of dollars and months of my life. Jesus said if you seek, you will find. He didn't say if you ask, if you beg. Seek has a certain implication of effort on your part. [music] The plan is to open this up for about 100 users to go in there and test everything. So, if we have any kinks, we can see them...
-- *...and 9 more*
+- *...and 12 more*
 
 ## church  
-*said 34 time(s) across 11 source(s)*
+*said 36 time(s) across 12 source(s)*
 
 - [[2026-06-23 If you demand respect for your faith while denying it to theirs….you’re defendi]] — 2026-06-23 · [youtube](https://www.youtube.com/watch?v=1nOak54K1tI)  
   > ...rence #bible If saying goddamn sends me to hell, whose hell are we talking about exactly? A lot of comments lately saying things like you can't say goddamn and then praise the Lord. I've never once claimed [music] to be a Christian. I am the horse sweating in church for sure. Um, but this doesn't go to church. My religion is nature. I listen to the wind and the trees and my gut. There are always these people that feel the need to tell these other people that they are doing something wrong because they're not doing it the...
@@ -96,6 +96,8 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...st influential man in my life. He put the love of God in my heart and the knowledge of Jesus in my mind at a young age. He read the Bible to me every day. Every morning we had a prayer hike as a family. Every night we had prayer time as a family. He had me in church three times a week. He delivered me when he was a missionary in Papua New Guinea with his own two hands. My dad taught me so many things. He was a runner, a marathoner, and he always told me to catch him on the hill, son. And with those words echoing in my mi...
 - [[2026-05-07 The apocrypha has been removed and I think I know why📜⛪️🤔 -Apocrypha -bibletrut]] — 2026-05-07 · [youtube](https://www.youtube.com/watch?v=F-_X_XnPirc)  
   > ...and I think I know why📜⛪️🤔 #Apocrypha #bibletruth #history #joefelz Says it again, cut off from the end of Daniel. What is the Apocrypha? A certain group of books of the Bible that used to be included but ain't in your Bible today. What was in it? Why did the church take it out? Well, to understand this, you got to do a little digging in the church history. The Apocrypha used to come standard in all Bibles. The Council of Hippo in 393 and the Council of Carthage in 397 reaffirmed and included them in all standard literat...
+- [[2026-04-04 The Bible is NOT a rule book for your life 🙏 -joefelz -bible -faith -christiani]] — 2026-04-04 · [youtube](https://www.youtube.com/watch?v=Ul2Oukpbo-A)  
+  > ...you connect with the courage of David or the fear of Jonah or the brashness of Jacob. These are the things you have to pick out. You do not need to look for the rules, you need to look for the reflection. Jesus came to make you free [music] from the law. The church came to impose the law. And the modern church that exists today is exactly what Jesus said not to do. You shall not be like the Pharisees who pray on the street corner with phylacteries to make a big show of it. The Bible is not a rule book for your life. It...
 - [[2026-03-12 Preserving history📜👁️🧎‍♂️‍➡️]] — 2026-03-12 · [youtube](https://www.youtube.com/watch?v=8jnvsYln_NM)  
   > ...w few in their feelings and sufferings and their doings and and aspirings raise themselves in the sea of life above the world of imagination. In the literary hero romance among the scenes of the stage, there is no more original thought than in the persevering church goer. The great mass wishes to be devout and thinks that the glorification of God's name lies in miracles rather than natural action. Dignity, riches, and power are only too much the springs of even great and eminent minds. [clears throat] There's a whole lot...
 - [[2025-05-11 How I Became A Felon]] — 2025-05-11 · [youtube](https://www.youtube.com/watch?v=rxuzA4OeNUY)  
@@ -109,20 +111,8 @@ Each term below lists the posts and videos where it appears, with the surroundin
 - [[2024-01-22 From Convicted Felon to Owning Multiple Businesses & A Real Estate Portfolio]] — 2024-01-22 · [youtube](https://www.youtube.com/watch?v=R1v-1htzRHk)  
   > ...I don't know if you understand like how rare that is. Well, well, here's the thing, dog. I really did. Um and what most people don't comprehend there is that I grew up without a TV. I was born in Papua New Guinea. My parents are missionaries. I was I was in a church. We had a prayer hike every morning, every night. I didn't have a TV. I was kicked out of UGA my second semester for selling dope. Give me a little taste of freedom. I'm right back home. I was gone, man. I was a fugitive in the streets for 2 years then in the...
 
-## noah  
-*said 16 time(s) across 4 source(s)*
-
-- [[2026-06-09 Change the way you look at things, and the things you look at change -investing]] — 2026-06-09 · [youtube](https://www.youtube.com/watch?v=6MNckhBkhmg)  
-  > ...and I don't know what caused it, and I don't know how to fix it, but I know that we're all in this together. We're all just busting our ass trying to get our head above water. Times like this, you kind of think about all the people in the Bible. Did God save Noah? Noah believed God, built a boat at a time when it had not rained on Earth, and it took him like 40 years. Do you think Noah was made fun of? Yes. Do you think Noah was criticized? Yes. But Noah just kept building his little boat because he knew that it was g...
-- [[2026-03-21 From the Flood to the Future]] — 2026-03-21 · [youtube](https://www.youtube.com/watch?v=g34POITRxiQ)  
-  > ...was the cause of the flood in the Bible? Uh I think it was because God got angry with people on Earth and decided to uh kill them all. That's also things to do with the Elohim and the Nephilim and trying to cleanse the Earth from them and that's why he saved Noah. God didn't save Noah, Noah believed. If you read the Bible it said Noah started building a boat at a time when it had never rained on the Earth. They'd never seen rain before. Oh. Do you know how long it took him? No. 40 [ __ ] years. Wow. Imagine building a...
-- [[2025-11-27 The Concept Behind the Creation]] — 2025-11-27 · [youtube](https://www.youtube.com/watch?v=BRA9cjkOekg)  
-  > .... But overcoming the internal struggles of just my past, that happened to me. And I didn't do it. It happened to me. The timing and sequence almost feels divine. My whole life feels divine in a sense that God never does anything nice to you. You know, he told Noah it was going to rain at a time when it had never rained on earth. Never before. And it took Noah 40 years to build a boat in the desert. And everybody called him crazy. You think he wasn't made fun of building his boat in the desert when it never rained? Peop...
-- [[2024-09-25 Nontraditional Entrepreneurial Finance Explained]] — 2024-09-25 · [youtube](https://www.youtube.com/watch?v=gA8cC0VmuAg)  
-  > ...thing is the way you do everything and I understand business like I understand the natural world and how I understand the the spiritual world at this point and I I'm going to tell you just to observe what's going on God talked to Isaac with a ram he talked to Noah with a dove he talked to Ezekiel with a fleece Moses and these people this what I'm saying and but here's the thing how many times have you seen a bird streak across the sky and not thought anything of it that's the thing God is still talking we're just too d...
-
 ## faith  
-*said 15 time(s) across 12 source(s)*
+*said 18 time(s) across 14 source(s)*
 
 - [[2026-06-23 You don’t have to believe what someone else believes. But if you deman]] — 2026-06-23 · [instagram](https://www.instagram.com/p/DZ6I4pltadr/)  
   > You don’t have to believe what someone else believes. But if you demand respect for your faith while denying it to theirs, you’re not defending religion—you’re defending preference🤷🏼‍♀️⛪️🧘‍♀️ #religion #joefelz #biblestudy #Respectfully #joeandalx
@@ -140,6 +130,10 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...ek building a tower & 6 days installing equipment, the Felz Finca is finally off grid. I have dreamt about an offer at Homestead since I was a child and today it became my reality. So as my finca runs of Sonpower this Easter, I implore you to remember that “faith without works is dead” = quit dreaming and go build the life you’ve always wanted 🇨🇷☀️✝️ #joefelz #offgrid #solar #faith #dreamscometrue
 - [[2026-04-04 The Bible is NOT a rule book for your life 📖💭🙏]] — 2026-04-04 · [instagram](https://www.instagram.com/p/DWuFIg9kZvR/)  
   > The Bible is NOT a rule book for your life 📖💭🙏 #joefelz #bible #christianity #faith #perspective
+- [[2026-04-04 The Bible is NOT a rule book for your life 🙏 -joefelz -bible -faith -christiani]] — 2026-04-04 · [youtube](https://www.youtube.com/watch?v=Ul2Oukpbo-A)  
+  > The Bible is NOT a rule book for your life 🙏 #joefelz #bible #faith #christianity #perspective #god The Bible is not a rule book for your life. If you reading the Bible today and it's not clicking, it's because you're reading it the wrong way. Most people read this like a rule book for life. It governs this life and the next....
+- [[2026-04-04 Your body is a temple. Some temples have cool signs 🐲 -joefelz -tattoo -symboli]] — 2026-04-04 · [youtube](https://www.youtube.com/watch?v=lgwDkpMi168)  
+  > Your body is a temple. Some temples have cool signs 🐲 #joefelz #tattoo #symbolism #faith #reborn No judgement taken, my guy. I heard my body was a temple, so I just figured I'd put a good sign on it. This is not a tattoo, it tells a story and it's a story from my favorite book as a child, St. George and the Dragon. Children's books have changed a...
 - [[2026-03-20 This might just look like fruit to you, but it’s really a reminder to]] — 2026-03-20 · [instagram](https://www.instagram.com/p/DWHUsxYDqZu/)  
   > ...st forward one year & WE ARE ACTUALLY DOING IT. I am builder, entrepreneur & solar pro, not a farmer, but with a lot of Tico help our finca is overflowing with *REAL* food- not the wax covered, chemical laced GMO stuff we overpaid for at the grocery store. “Faith without works is dead”- this is faith in action. Breakfast today was a plantain the size of a midget arm & a juicy papaya washed down with a coconut garnished with a few kitten hairs. Best of all, we didn’t pay a dime for breakfast & no one but God control...
 - [[2026-03-07 Guys I’m drowning. 3600 pages scanned, 10,000+ still to go. It’s beyon]] — 2026-03-07 · [instagram](https://www.instagram.com/p/DVl_P7wiatP/)  
@@ -148,6 +142,20 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...ostarica #felzmedia #livingabroad #diy #expatlife #community #authenticity #reality #experience #offgrid #homestead #selfreliance #thematrix #selfimprovement #truthseekers #raw #mission #purposedriven #perspective #freedom #indpendence #learning #growth #god #faith #pain #loss #hearttouching #heartache #inspiration #dreams #newlife #change If I make a place that's a symbol, it's kind of like the pyramids. You know, if you look at the pyramids, the [ __ ] are there and they beg to be studied because they're so weird. Ene...
 - [[2024-03-26 My Rags to Riches Story- The Convicted & Barefooted Real Estate Mogul (Full Pod]] — 2024-03-26 · [youtube](https://www.youtube.com/watch?v=GfOUURlj-zE)  
   > ...gination but we're so deep in it that you can't you don't even know you're in it bro that's how deep it goes and like I just I don't know why I just if you can tell I can tell by look on your face I you know I don't exist there and I never have yeah yeah it's Faith right that's what money is that's kind of what I expect you to say I expected you to say it's it's about gaining that freedom so I [ __ ] hate money dude I really do if you think about it money has caused more [ __ ] than anything else and it is the main lead...
+
+## noah  
+*said 18 time(s) across 5 source(s)*
+
+- [[2026-06-09 Change the way you look at things, and the things you look at change -investing]] — 2026-06-09 · [youtube](https://www.youtube.com/watch?v=6MNckhBkhmg)  
+  > ...and I don't know what caused it, and I don't know how to fix it, but I know that we're all in this together. We're all just busting our ass trying to get our head above water. Times like this, you kind of think about all the people in the Bible. Did God save Noah? Noah believed God, built a boat at a time when it had not rained on Earth, and it took him like 40 years. Do you think Noah was made fun of? Yes. Do you think Noah was criticized? Yes. But Noah just kept building his little boat because he knew that it was g...
+- [[2026-04-12 The Earth is speaking- are we listening- ☄️ -joefelz -bible -prophecy -signs -e]] — 2026-04-12 · [youtube](https://www.youtube.com/watch?v=3DXmVM9hbT0)  
+  > ...the stuff going on in Israel. The crows shook me up a little bit, so I pulled out the Bible to find instances of [music] God speaking to humanity. Genesis 8, chapter 12, and the dove came in to an even tide and lo her mouth had an olive plucked off of it. So, Noah knew the waters were abated from off the earth. God talked to Noah with a dove. Genesis [music] chapter 22, verse 13, Abraham lifted up his eyes and looked and behold behind him a ram caught in the thicket by his thorns. Abraham as Jacob's grandpa God spoke t...
+- [[2026-03-21 From the Flood to the Future]] — 2026-03-21 · [youtube](https://www.youtube.com/watch?v=g34POITRxiQ)  
+  > ...was the cause of the flood in the Bible? Uh I think it was because God got angry with people on Earth and decided to uh kill them all. That's also things to do with the Elohim and the Nephilim and trying to cleanse the Earth from them and that's why he saved Noah. God didn't save Noah, Noah believed. If you read the Bible it said Noah started building a boat at a time when it had never rained on the Earth. They'd never seen rain before. Oh. Do you know how long it took him? No. 40 [ __ ] years. Wow. Imagine building a...
+- [[2025-11-27 The Concept Behind the Creation]] — 2025-11-27 · [youtube](https://www.youtube.com/watch?v=BRA9cjkOekg)  
+  > .... But overcoming the internal struggles of just my past, that happened to me. And I didn't do it. It happened to me. The timing and sequence almost feels divine. My whole life feels divine in a sense that God never does anything nice to you. You know, he told Noah it was going to rain at a time when it had never rained on earth. Never before. And it took Noah 40 years to build a boat in the desert. And everybody called him crazy. You think he wasn't made fun of building his boat in the desert when it never rained? Peop...
+- [[2024-09-25 Nontraditional Entrepreneurial Finance Explained]] — 2024-09-25 · [youtube](https://www.youtube.com/watch?v=gA8cC0VmuAg)  
+  > ...thing is the way you do everything and I understand business like I understand the natural world and how I understand the the spiritual world at this point and I I'm going to tell you just to observe what's going on God talked to Isaac with a ram he talked to Noah with a dove he talked to Ezekiel with a fleece Moses and these people this what I'm saying and but here's the thing how many times have you seen a bird streak across the sky and not thought anything of it that's the thing God is still talking we're just too d...
 
 ## spirit  
 *said 12 time(s) across 7 source(s)*
@@ -213,6 +221,26 @@ Each term below lists the posts and videos where it appears, with the surroundin
 - [[2026-03-21 From the Flood to the Future]] — 2026-03-21 · [youtube](https://www.youtube.com/watch?v=g34POITRxiQ)  
   > From the Flood to the Future While explorering the witch mountains of Escazú with Javier & Luis, they asked me about my views of the Bible & humanity. These are my candid thoughts, unscripted and unedited, on how humanity got where it is now & where we are headed. Let me...
 
+## prophecy  
+*said 5 time(s) across 4 source(s)*
+
+- [[2026-04-12 God has been broadcasting since year zero, our antennas are the proble]] — 2026-04-12 · [instagram](https://www.instagram.com/p/DXAr33vDYXQ/)  
+  > God has been broadcasting since year zero, our antennas are the problem ☄️📖🌅 #joefelz #bible #signs #prophecy #endtimes
+- [[2026-04-12 The Earth is speaking- are we listening- ☄️ -joefelz -bible -prophecy -signs -e]] — 2026-04-12 · [youtube](https://www.youtube.com/watch?v=3DXmVM9hbT0)  
+  > The Earth is speaking- are we listening? ☄️ #joefelz #bible #prophecy #signs #endtimes #meteor Who do you trust? The Bible or the government? Does God still speak to humanity like he used to in the Bible? Admittedly, I wasn't paying enough attention until something strange happened the other day. A flock of ravens circling my h...
+- [[2026-04-10 That feeling 2” above your belly button is either indigestion or intui]] — 2026-04-10 · [instagram](https://www.instagram.com/p/DW9t9rPkath/)  
+  > That feeling 2” above your belly button is either indigestion or intuition 🇨🇷🐦‍⬛🤔 #joefelz #strange #currentevents #signs #prophecy
+- [[2026-04-10 This kinda weirded me out but kinda normal for 2026 🤔 -joefelz -signs -prophecy]] — 2026-04-10 · [youtube](https://www.youtube.com/watch?v=3J9wNtVXaeI)  
+  > This kinda weirded me out but kinda normal for 2026 🤔 #joefelz #signs #prophecy #currentevents I think there is no denying that a lot of strange things are happening on planet Earth. What? That is a giant flock of ravens or buzzards going over our house. I have not seen a giant flock of ravens in Costa Rica to this point. Have you? Tel A...
+
+## angel  
+*said 5 time(s) across 2 source(s)*
+
+- [[2026-04-04 The Bible is NOT a rule book for your life 🙏 -joefelz -bible -faith -christiani]] — 2026-04-04 · [youtube](https://www.youtube.com/watch?v=Ul2Oukpbo-A)  
+  > ...recorded at a time when nobody could read or write and paper didn't exist. And the Bible [music] ain't just stories, they are the epic interactions of humanity with the divine. Like Jacob, who was so hardheaded he slept with a rock for a pillow and fought an angel that he saw descending and ascending from heaven on a ladder. King David, the 13-year-old boy who killed a 7-ft 2 Goliath with a rock and a slingshot at age 13. Think about the faith of Elijah's widow who gave her last oil and flour to make a cake for the pro...
+- [[2024-09-25 Nontraditional Entrepreneurial Finance Explained]] — 2024-09-25 · [youtube](https://www.youtube.com/watch?v=gA8cC0VmuAg)  
+  > ...ay yeah okay it used to be a pot leaf it was the first tattoo ever had I got it covered when I was in prison you know why I got that on there cuz Jacob was hard-headed and he ran from God remember he was so hardheaded he slept on a rock and had a dream and an angel that was going up and down and the angel Jacob fought the angel and it hurt his hip Jacob didn't care who it was Angel friend and he was hard-headed but then he woke up his hard-headed ass woke up and said the Lord was with me and I knew it not the whole time...
+
 ## christ  
 *said 5 time(s) across 4 source(s)*
 
@@ -237,11 +265,13 @@ Each term below lists the posts and videos where it appears, with the surroundin
 - [[2024-03-26 My Rags to Riches Story- The Convicted & Barefooted Real Estate Mogul (Full Pod]] — 2024-03-26 · [youtube](https://www.youtube.com/watch?v=GfOUURlj-zE)  
   > ...that's kind of yeah yeah that's wild ironic yeah but uh man um yeah dude when I went to ug I I stood out I was in the top Farm I stayed in 929 Creswell um and I dude I tell you it was amazing I grew up without a TV in austa Georgia and a shelter Conservative Christian home and I was now at the University of Georgia I had arrived like dude it was like a three to one girl to guy ratio in the freshman class and like a uhuh three to2 hot girl to guy ratio dude the the goods were odd and the odds were good like I mean yeah man...
 
-## angel  
-*said 4 time(s) across 1 source(s)*
+## abraham  
+*said 3 time(s) across 2 source(s)*
 
-- [[2024-09-25 Nontraditional Entrepreneurial Finance Explained]] — 2024-09-25 · [youtube](https://www.youtube.com/watch?v=gA8cC0VmuAg)  
-  > ...ay yeah okay it used to be a pot leaf it was the first tattoo ever had I got it covered when I was in prison you know why I got that on there cuz Jacob was hard-headed and he ran from God remember he was so hardheaded he slept on a rock and had a dream and an angel that was going up and down and the angel Jacob fought the angel and it hurt his hip Jacob didn't care who it was Angel friend and he was hard-headed but then he woke up his hard-headed ass woke up and said the Lord was with me and I knew it not the whole time...
+- [[2026-04-12 The Earth is speaking- are we listening- ☄️ -joefelz -bible -prophecy -signs -e]] — 2026-04-12 · [youtube](https://www.youtube.com/watch?v=3DXmVM9hbT0)  
+  > ...d speaking to humanity. Genesis 8, chapter 12, and the dove came in to an even tide and lo her mouth had an olive plucked off of it. So, Noah knew the waters were abated from off the earth. God talked to Noah with a dove. Genesis [music] chapter 22, verse 13, Abraham lifted up his eyes and looked and behold behind him a ram caught in the thicket by his thorns. Abraham as Jacob's grandpa God spoke to him with a ram. God [music] has always spoken to humanity using animals and natural signs. And then there are a lot of proph...
+- [[2026-03-04 Touring a Freemason Mansion with @dr.parkinstine]] — 2026-03-04 · [youtube](https://www.youtube.com/watch?v=_4nBhNr2eX8)  
+  > ...threshold? Threshold. Psycher's, yes. You got to explain this to me. This one right here is kind of They don't want me to do it. I don't think it's bad at all. I I just the eyes are It's a simple transformation. It actually is. Now, if you know anything about Abraham and Isaac, I just say the eyes. You know, if you look at it, the eyes are the window to the soul. And this one is This guy is it. He's not playing around with us. Yeah. I need a tape measure to know all the dimensions of all of this. I just and I want to pull...
 
 ## eve  
 *said 3 time(s) across 2 source(s)*
@@ -250,14 +280,6 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...en a while. Okay. So, y'all want to come close? There's some detailed stuff here. Get out one of each. This would be the trade knowledge. All righty. Now, if you look at these, we can see how they go. Mother nature has taught us how this works. It is Adam and Eve. Adam will not work. Okay? Has to go in like that. The male and the female. All right? Now, right, easiest way to remember it. The big one goes in the little one and the little one's in the big one. Now, I'm going to tell you, I have messed up more of these t...
 - [[2025-05-21 Wiring the Recycoline Solar System @naturejab]] — 2025-05-21 · [youtube](https://www.youtube.com/watch?v=NBQ05L2xB6Q)  
   > ...you need a junction. This is a parallel connector. All of the negatives go here and all the positives go here. The voltage remains constant and the ampacity adds up. You only have positive and negative and they only go one way. And you have Adam and you have Eve. They only go one way. You cannot connect two females together. You can't mess it up, right? You can mess it up if you take a panel, connect in two together, same thing leads off one panel, boom. Don't do that. These are called MC4 connectors. You have a male...
-
-## prophecy  
-*said 2 time(s) across 2 source(s)*
-
-- [[2026-04-12 God has been broadcasting since year zero, our antennas are the proble]] — 2026-04-12 · [instagram](https://www.instagram.com/p/DXAr33vDYXQ/)  
-  > God has been broadcasting since year zero, our antennas are the problem ☄️📖🌅 #joefelz #bible #signs #prophecy #endtimes
-- [[2026-04-10 That feeling 2” above your belly button is either indigestion or intui]] — 2026-04-10 · [instagram](https://www.instagram.com/p/DW9t9rPkath/)  
-  > That feeling 2” above your belly button is either indigestion or intuition 🇨🇷🐦‍⬛🤔 #joefelz #strange #currentevents #signs #prophecy
 
 ## impact  
 *said 2 time(s) across 2 source(s)*
@@ -300,9 +322,3 @@ Each term below lists the posts and videos where it appears, with the surroundin
 
 - [[2026-03-21 From the Flood to the Future]] — 2026-03-21 · [youtube](https://www.youtube.com/watch?v=g34POITRxiQ)  
   > ...ryas probably about 14,000 years ago and they all have the same cause. What was the cause of the flood in the Bible? Uh I think it was because God got angry with people on Earth and decided to uh kill them all. That's also things to do with the Elohim and the Nephilim and trying to cleanse the Earth from them and that's why he saved Noah. God didn't save Noah, Noah believed. If you read the Bible it said Noah started building a boat at a time when it had never rained on the Earth. They'd never seen rain before. Oh. Do you...
-
-## abraham  
-*said 1 time(s) across 1 source(s)*
-
-- [[2026-03-04 Touring a Freemason Mansion with @dr.parkinstine]] — 2026-03-04 · [youtube](https://www.youtube.com/watch?v=_4nBhNr2eX8)  
-  > ...threshold? Threshold. Psycher's, yes. You got to explain this to me. This one right here is kind of They don't want me to do it. I don't think it's bad at all. I I just the eyes are It's a simple transformation. It actually is. Now, if you know anything about Abraham and Isaac, I just say the eyes. You know, if you look at it, the eyes are the window to the soul. And this one is This guy is it. He's not playing around with us. Yeah. I need a tape measure to know all the dimensions of all of this. I just and I want to pull...

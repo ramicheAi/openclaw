@@ -3,8 +3,8 @@ type: "topic"
 family: "Life, Business and Mindset"
 group: "Real estate and investing"
 terms: "18"
-sources: "49"
-occurrences: "168"
+sources: "51"
+occurrences: "170"
 tags:
   - "topic"
   - "life"
@@ -12,7 +12,7 @@ tags:
 
 # Real estate and investing
 
-Part of **[[Life, Business and Mindset]]**. 18 distinct terms appear across 49 posts and videos, said 168 times in total.
+Part of **[[Life, Business and Mindset]]**. 18 distinct terms appear across 51 posts and videos, said 170 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
@@ -56,7 +56,7 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...gusta. There you go. Then personally, just just Joe Fells, I own uh Creative Construction Solutions, licensed builder and electrician, so full construction company in Augusta, pretty good reputation. Um I also have uh my own portfolio of 65-ish properties. Uh rental properties, there's a couple flips in there, a couple bare lots, buy and hold stuff, but few Airbnbs, Georgia, Tennessee, Washington state. I uh closed my South Carolina branch after me and the HOA in Beaufort didn't get along. Um and uh pretty much if you're...
 
 ## flip  
-*said 11 time(s) across 9 source(s)*
+*said 12 time(s) across 10 source(s)*
 
 - [[2026-06-01 I stopped the spy with an @OUKITELMobile WP500 & OUK10 gets 10% off 🤳 -joefelz]] — 2026-06-01 · [youtube](https://www.youtube.com/watch?v=5bFKrFCwbOI)  
   > ...ng going on in my life from old Bibles and solar science to free energy, I'm switching to a new phone. This is the Alcatel WP500 Ultra. The difference is obvious. Look at the size. Look how big they are. See that little button right there? Watch what happens. Flip. Recording, camera, location disabled. As soon as you hit that switch, the camera, the microphone, and the GPS have no power going to them. Built in the hardware. One-click privacy protection. This comes with 16 GB built in that's connected to a cloud that's...
@@ -64,6 +64,8 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...egin, life starts showing you what really still needs to be worked on. You think you healed your anger until somebody cuts you off in traffic and you follow him for 27 blocks until you finally catch up to him and threaten to bite off their finger if they ever flip you off again. You think you've healed your fear until it's time to bet on yourself. The trigger [music] isn't the problem. The trigger is the flashlight. Stop waiting until you're certain. Certainty is a fairy tale they sell you because uncertainty is uncomf...
 - [[2026-05-03 Does anyone understand my mindset 🏃‍♂️ -joefelz -running -discipline -mindset -]] — 2026-05-03 · [youtube](https://www.youtube.com/watch?v=8bQcDA31xEs)  
   > Does anyone understand my mindset 🏃‍♂️ #joefelz #running #discipline #mindset #selfimprovement Everybody always says they want to go running with me until they see the places that we're going to go running. Usually I'm here in flip-flops in mountains like this. That's where we going. Way up there, pig dog. No food, no water, not even a pair of closed-toed shoes. Just a hope and a prayer trying to find out how much is inside my soul on a regular basis. And I just don't know how many huma...
+- [[2026-03-28 I am on a mission to simplify solar ☀️ -joefelz -solar -offgrid -electrical -kn]] — 2026-03-28 · [youtube](https://www.youtube.com/watch?v=5YOiOupLUVk)  
+  > ...ty that I cannot wait to take out of here. All I have left to do is install a 100 amp breaker here, run a number two copper wire over here, snatch that stupid government wire out, and plug it in. Then I hook up all my batteries, connect them to the inverters, flip the switches, and we're on. Solar is very complicated for a lot of people, but I'm here to make it simple for you. That way you can find your freedom and live off grid. No man should control your energy because energy is from the earth. It was put here by God...
 - [[2026-03-12 Preserving history📜👁️🧎‍♂️‍➡️]] — 2026-03-12 · [youtube](https://www.youtube.com/watch?v=8jnvsYln_NM)  
   > ...s] See, look at those. They keep coming in there skewed. This is not as easy it would look. Uh I'm honest. Hey New York, what's up? And then I can start here. I'm going to start over again. And then I don't need this. Okay. Click. And then when you go down to flip the page, you can kind of And then straighten up, let it quit moving, and then click again. All right. Mhm. You don't have to think Yeah, y'all think this is easy. It's not as easy as it would look. Um everybody's like, "Hey, you scan the Bible a little bit."...
 - [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=MIetQV6xQto)  
@@ -88,10 +90,12 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...osta Rica and tell them you're looking to buy land and you'll be off. You don't know anything about real estate in general don't even attempt this. People who are in the real estate industry understand about real estate. They know about title. They know about closing. They know about finance. They know about lawyers. They know about leans. They know about tax deed, probate. They know these things exist. If all those terms are foreign to you, stay the [ __ ] out of Costa Rica. I know about all this [ __ ] and know about it...
 
 ## note  
-*said 6 time(s) across 3 source(s)*
+*said 7 time(s) across 4 source(s)*
 
 - [[2026-06-23 If you demand respect for your faith while denying it to theirs….you’re defendi]] — 2026-06-23 · [youtube](https://www.youtube.com/watch?v=1nOak54K1tI)  
   > ...oing to some terrible [music] place don't honor the same deities I do. I'm not out there hexing people cuz they don't follow Hecate and Lilith or whoever. I simply let them be. It's your life. Do it how you're going to do it. I'm going to do mine. So, on that note, I'm probably going to continue to say words like goddamn. On another [music] note, Joe is taking a very much needed break from social media to focus on himself, focus on his life, focus [music] on finding some peace. Here I am running my little yapper with w...
+- [[2026-04-09 How much can I get from the sun on day 1- ☀️ -joefelz -solar -testing -offgrid]] — 2026-04-09 · [youtube](https://www.youtube.com/watch?v=a_xnRt3kDhk)  
+  > ...Got to scrap it up later. It is 1:21 in the afternoon and we are up to 94%. I told you it was going to be full by 3:00. They're going to be full by 2:00 and to go to Greece. Totes my goats. A man with a goat is no joke. It is 3:21 and we are sitting at 99%. A note about MPPT chargers, they slow down at the top. So it's kind of like a bottle of water, so if you fill the bottle up, you cannot exceed the top or it'll blow up. So it goes really slow right there at the end. A little fact for you and also so I wasn't wrong c...
 - [[2024-02-11 The Murder Rock - The Full Story]] — 2024-02-11 · [youtube](https://www.youtube.com/watch?v=GRxBLdl2Nds)  
   > ...Road right next to uh Douglas fur last night there was a rock that we woke up to that was carved into that said I will kill again um placed next to our van on a tree stump um okay but I didn't know felt like we should have called and told somebody there was a note that said I will kill again scrawled on a rock and left near a van in the middle of the night yeah okay yeah okay all right so what we need to do um did you take a photo of it at all yes and a video so what we want to do um we we need to contact um I'm going...
 - [[2024-01-22 From Convicted Felon to Owning Multiple Businesses & A Real Estate Portfolio]] — 2024-01-22 · [youtube](https://www.youtube.com/watch?v=R1v-1htzRHk)  

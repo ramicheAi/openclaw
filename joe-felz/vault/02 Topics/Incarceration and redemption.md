@@ -3,8 +3,8 @@ type: "topic"
 family: "Life, Business and Mindset"
 group: "Incarceration and redemption"
 terms: "11"
-sources: "41"
-occurrences: "125"
+sources: "42"
+occurrences: "129"
 tags:
   - "topic"
   - "life"
@@ -12,18 +12,20 @@ tags:
 
 # Incarceration and redemption
 
-Part of **[[Life, Business and Mindset]]**. 11 distinct terms appear across 41 posts and videos, said 125 times in total.
+Part of **[[Life, Business and Mindset]]**. 11 distinct terms appear across 42 posts and videos, said 129 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
 
 ## prison  
-*said 43 time(s) across 9 source(s)*
+*said 47 time(s) across 10 source(s)*
 
 - [[2026-07-09 It’s where you lose pieces of yourself that were never meant to make it to the]] — 2026-07-09 · [youtube](https://www.youtube.com/watch?v=8zc68v6hen0)  
   > ...elop us. Whatever higher power you believe in [music] is not going to remove your problems until you become the person capable of handling what's after them. If [music] your circumstances change before your character does, you're just going to create the same prison. You have not evolved. You've done nothing. You quit. You gave up. Here you go. Back to square one. Example, this one's good for Joe. You prayed for freedom, right, before you learned responsibility. If you have yet to learn that responsibility, that freedom...
 - [[2026-05-01 Walking the path to freedom 🚐🇨🇷☀️ -Mindset -matrix -escape -buildingreality -jo]] — 2026-05-01 · [youtube](https://www.youtube.com/watch?v=6VDB_T3MSmA)  
   > Walking the path to freedom 🚐🇨🇷☀️ #Mindset #matrix #escape #buildingreality #joefelz￼ You ever felt like you're stuck in life? Like you're just not free? I felt that multiple times in my life, especially when I was in prison. When I was 19 years old, I ran away barefoot and shirtless from five police units in rural Georgia, and nobody saw me for almost two years. They caught me two days after my 21st birthday, and I did two and a half years in prison. When I was released 15 years...
+- [[2026-04-13 Now THIS is a story that needs to be told 🚓 -joefelz -mystory -spanish -life -r]] — 2026-04-13 · [youtube](https://www.youtube.com/watch?v=AgJUGlV2b_g)  
+  > ...in 2008, an economic distress in America, I had to work construction cuz I had no license, no ID, no nothing. And that's where I first began construction work. I'm the only construction worker in my entire family. Then, when they finally caught me, I went to prison for 30 months at Roger State Prison, where I started learning Spanish with the locos, and the Mexicans there, they really taught me, man. I became friends with them. I was the only white boy allowed on the soccer field. Now, fast forward 15 years from my pris...
 - [[2025-11-27 The Concept Behind the Creation]] — 2025-11-27 · [youtube](https://www.youtube.com/watch?v=BRA9cjkOekg)  
   > ...reat effort. So you might see something that lets you wake the [ __ ] up. How do I start, kid? About three and a half years ago, I I left. I My wife divorced me. I left just just said [ __ ] society. I'd done everything they told me to. You know, I got out of prison on 8 n 10 with $50 of clothes on my back and the love and support of my family and just started working. Starting working and looking for freedom. I didn't want to work for other people. I wanted to work for myself. Um that wasn't enough. I had to own my own...
 - [[2025-11-11 Costa Rican Constrution]] — 2025-11-11 · [youtube](https://www.youtube.com/watch?v=ujn2avr266M)  

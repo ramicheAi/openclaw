@@ -3,8 +3,8 @@ type: "topic"
 family: "Life, Business and Mindset"
 group: "Vanlife, homestead and travel"
 terms: "14"
-sources: "112"
-occurrences: "223"
+sources: "115"
+occurrences: "232"
 tags:
   - "topic"
   - "life"
@@ -12,7 +12,7 @@ tags:
 
 # Vanlife, homestead and travel
 
-Part of **[[Life, Business and Mindset]]**. 14 distinct terms appear across 112 posts and videos, said 223 times in total.
+Part of **[[Life, Business and Mindset]]**. 14 distinct terms appear across 115 posts and videos, said 232 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
@@ -51,7 +51,7 @@ Each term below lists the posts and videos where it appears, with the surroundin
 - *...and 12 more*
 
 ## homestead  
-*said 43 time(s) across 26 source(s)*
+*said 46 time(s) across 27 source(s)*
 
 - [[2026-07-03 🇨🇷Reality Check… Who’s ready to live Pura Vida-🌴]] — 2026-07-03 · [instagram](https://www.instagram.com/p/DaVwjgVltNy/)  
   > ...guys know- Joe is currently on an extended media break. The reality is… the matrix has unfortunately sunk its nails back in, and it looks like we’ll be stationary in the U.S. for at least the next year. We’ve got a lot here that simply has to be handled Our homestead in Costa Rica hasn’t just been a breath of fresh mountain air for us—it has become a beacon of hope for so many of you. It’s been proof that a different way of living is possible. That you don’t have to be wealthy, retired, or special to build a life that’s s...
@@ -81,17 +81,21 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...say I will do something crazy and then you see me *actually* doing it. I said I was going to build a roof completely out of solar panels & here it is- twenty 625w panels sealed with 8 tubes of Durotán, which can produce 12,500 watts of energy every hour on a homestead only takes around 30,000 PER MONTH. Now for my next crazy idea: I would like to give all the excess energy to the Costa Rican government for free on the condition that they pass it to indigent Ticos who cannot pay their power bills. This will be harder to...
 - [[2026-03-29 Ever dreamt of leaving it all behind- Here’s what it -actually- looks]] — 2026-03-29 · [instagram](https://www.instagram.com/p/DWe6bQakdPZ/)  
   > Ever dreamt of leaving it all behind? Here’s what it *actually* looks like 🇺🇸✌️🇨🇷 #joefelz #costarica #homestead #freedom #selfsufficient
-- *...and 12 more*
+- *...and 13 more*
 
 ## off grid  
-*said 20 time(s) across 16 source(s)*
+*said 26 time(s) across 18 source(s)*
 
 - [[2026-04-29 So you wanna live off grid, huh- 🇨🇷💪 -joefelz -homestead -work -costarica -offg]] — 2026-04-29 · [youtube](https://www.youtube.com/watch?v=xINAyHwYLW8)  
   > So you wanna live off grid, huh? 🇨🇷💪 #joefelz #homestead #work #costarica #offgrid #realitycheck Homesteading is a little different than you think. A lot of people say they want to live off grid. You think it's all sunshine and rainbows, but they have absolutely no idea what it'd be li...
 - [[2026-04-27 Will merging cyber & solar solve my problem☀️ -joefelz -solar -bitcoin -problem]] — 2026-04-27 · [youtube](https://www.youtube.com/watch?v=4Ia27mWu_aA)  
   > ...four big battery Nexus Pros all wired in parallel. That's going to give me 60 kW of storage. I have 2625 watt panels, two groups of 10 wired in series and connected to the inverters. That'll make about 40 50 60 kW a day depending on sunlight. house is running off grid. We've got all the energy we need and therein lies the problem. See how full my batteries are? You see that the sun is still shining? You cannot charge a full battery. Initially, I tried to give the energy back to the Costa Rican government for free as long a...
+- [[2026-04-09 How much can I get from the sun on day 1- ☀️ -joefelz -solar -testing -offgrid]] — 2026-04-09 · [youtube](https://www.youtube.com/watch?v=a_xnRt3kDhk)  
+  > ...u cannot exceed the top or it'll blow up. So it goes really slow right there at the end. A little fact for you and also so I wasn't wrong cuz they're not full by 3:00. It is now 4:25. I'm still sitting at 99% but while we were waiting, I took the entire finca off grid. You see the hated government wires taped up up there, not in use. You can see power going into the house right now. Now for the final verdict. How much power did we make in a day? It is 4:25, sun's still out, 34.7 kilowatt hours. It was raining this morning,...
 - [[2026-04-05 On Easter Sunday I, much like Jesus, said “it is finished” 🧎‍♂️]] — 2026-04-05 · [instagram](https://www.instagram.com/p/DWxAiIHEUWA/)  
   > On Easter Sunday I, much like Jesus, said “it is finished” 🧎‍♂️ 12 months of planning, 4 month navigating Costa Rican import, one week building a tower & 6 days installing equipment, the Felz Finca is finally off grid. I have dreamt about an offer at Homestead since I was a child and today it became my reality. So as my finca runs of Sonpower this Easter, I implore you to remember that “faith without works is dead” = quit dreaming and go build the life you’ve always want...
+- [[2026-03-28 I am on a mission to simplify solar ☀️ -joefelz -solar -offgrid -electrical -kn]] — 2026-03-28 · [youtube](https://www.youtube.com/watch?v=5YOiOupLUVk)  
+  > ...knowledgeispower No man should control your energy because energy is from the earth. It was put here by God for humans to use it and I think it is a crime that we've been buying and selling it for so long. Need to know info for anybody who wants to live truly off grid. Solar has come a long way in the last 5 years, but the main problem we have is with peak ampacity. Each one of these inverters will produce 10 kW of energy. That's about 42 amps at 230 volts. [music] That's not quite enough to run an electric range and much...
 - [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
   > ...I also have a load calculator on my website that you can use to calculate the amount of energy and max impact that will be required for your solar system here: https://felzenergy.com/electric-load-calculator/ I sincerely hope this tool helps all of you. Go off grid and find you’re free just like me. If you need my help in designing a system, you can book a call on my website and I will be there to assist you throughout the process. Sending love from Costa Rica -Joe #joefelz #solar #costarica #energy #offgrid #electric...
 - [[2026-03-25 About to slam the most powerful system of my solar career. @buildingre]] — 2026-03-25 · [instagram](https://www.instagram.com/p/DWUeN5fEb4C/)  
@@ -110,11 +114,7 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...an for almost 4 years and driven the ENTIRE country coast-to-coast six times during ￼this period. My van has two separate beds, a full bathroom with shower, fridge with freezer, kitchen, air conditioning, electric heat, gas heat, water heater, and bodacious off grid solar system. The solar system is 17.7 kWh of storage @ 24V with a 6kw ￼120/240v split phase inverter all powered by a 550W solar panel. I have a 40 gallon freshwater tank plus gray and black water tanks. I park my vanhouse￼ anywhere I want to in America o...
 - [[2025-11-27 The Concept Behind the Creation]] — 2025-11-27 · [youtube](https://www.youtube.com/watch?v=BRA9cjkOekg)  
   > ...left. I got in a van when everybody had rejected me. Um and and I left again. It wasn't right. I went around just kind of like a journeyman, equipping myself with knowledge in various places. I ran ultramarathons, won ultramarathons. I learned solar. I lived off grid. I became undetectable. Nobody knew where I laid my head at night cuz I lived in a van. But I did not feel safe in America anymore, man. I can read the writing on the wall. I don't care if anybody else notices that I do. That place is [ __ ] from the top down...
-- [[2025-09-02 Walkthrough of my Costa Rican Homestead- Soon to be the home of the first FelzT]] — 2025-09-02 · [youtube](https://www.youtube.com/watch?v=z6Elh0CIdLo)  
-  > ...mber 4th, 2024 a notification for a cheap flight from Tampa, Florida to San Jose, Costa Rica populated in my inbox. 10 months later, I’m in Costa Rica standing in front of my free and clear homestead I purchased￼ making plans for future Casita construction, off grid energy, production towers and combing through 5000+ applications for an internship I’ve created that will allow others to learn Tico Joe style. Here is a walk-through of the existing structures on the homestead and plans for the future Pura Vida mae ￼🤙🛖🇨🇷 #...
-- [[2025-05-21 Wiring the Recycoline Solar System @naturejab]] — 2025-05-21 · [youtube](https://www.youtube.com/watch?v=NBQ05L2xB6Q)  
-  > ...power an energy tank. I go over the basics of solar with Julian including - making up mc4 connectors -series versus parallel wiring -wiring in series-parallel -how and when to check voltage This video contains the basic info required to install a basic off grid system #solar #solarsystem #offgrid #electrical #renewableenergies #electrician #science #contractorlife #electricalengineering #teamwork Uh, I said let's go big. Okay, let's do it. All right, why not? Taking up an NC4 connector. If I do something that's wro...
-- *...and 2 more*
+- *...and 4 more*
 
 ## pura vida  
 *said 10 time(s) across 10 source(s)*

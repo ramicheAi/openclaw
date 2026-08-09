@@ -3,8 +3,8 @@ type: "topic"
 family: "Life, Business and Mindset"
 group: "Mindset and philosophy"
 terms: "15"
-sources: "132"
-occurrences: "175"
+sources: "135"
+occurrences: "179"
 tags:
   - "topic"
   - "life"
@@ -12,13 +12,13 @@ tags:
 
 # Mindset and philosophy
 
-Part of **[[Life, Business and Mindset]]**. 15 distinct terms appear across 132 posts and videos, said 175 times in total.
+Part of **[[Life, Business and Mindset]]**. 15 distinct terms appear across 135 posts and videos, said 179 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
 
 ## freedom  
-*said 37 time(s) across 26 source(s)*
+*said 38 time(s) across 27 source(s)*
 
 - [[2026-07-09 Almost nobody celebrates the climb. The climb is where you’re tested]] — 2026-07-09 · [instagram](https://www.instagram.com/p/DalwCtIClK-/)  
   > Almost nobody celebrates the climb. The climb is where you’re tested. It’s where you’re stretched. It’s where you lose pieces of yourself that were never meant to make it to the top⛰️💪🏻🦋 #mindset #freedom #purpose #joefelz #joeandalx
@@ -38,6 +38,8 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > Walking the path to freedom 🚐🇨🇷☀️ #Mindset #matrix #escape #buildingreality #joefelz￼ You ever felt like you're stuck in life? Like you're just not free? I felt that multiple times in my life, especially when I was in prison. When I was 19 years old, I ran away barefoot and shirtless fr...
 - [[2026-03-29 Ever dreamt of leaving it all behind- Here’s what it -actually- looks]] — 2026-03-29 · [instagram](https://www.instagram.com/p/DWe6bQakdPZ/)  
   > Ever dreamt of leaving it all behind? Here’s what it *actually* looks like 🇺🇸✌️🇨🇷 #joefelz #costarica #homestead #freedom #selfsufficient
+- [[2026-03-28 I am on a mission to simplify solar ☀️ -joefelz -solar -offgrid -electrical -kn]] — 2026-03-28 · [youtube](https://www.youtube.com/watch?v=5YOiOupLUVk)  
+  > ...that stupid government wire out, and plug it in. Then I hook up all my batteries, connect them to the inverters, flip the switches, and we're on. Solar is very complicated for a lot of people, but I'm here to make it simple for you. That way you can find your freedom and live off grid. No man should control your energy because energy is from the earth. It was put here by God for humans to use it and I think it is a crime that we've been buying and selling it for so long. Got a couple more wires to run, couple batteries to...
 - [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
   > ...ystem, you can book a call on my website and I will be there to assist you throughout the process. Sending love from Costa Rica -Joe #joefelz #solar #costarica #energy #offgrid #electricity #solarsystem #diy #electricianlife #solarenergy #sunpower #wiring #freedom #energy #renewableenergy #knowledgeispower #solarbattery #calculation #diagram Today I'm going to show you how to use Phil's Calc, my free online solar calculator. My name is Joe Phil's, licensed electrician in multiple states. I've lived off-grid for over 3...
 - [[2026-03-26 The best things in life are free. Write that down 🇨🇷🐟🧘]] — 2026-03-26 · [instagram](https://www.instagram.com/p/DWVAQwBDRtW/)  
@@ -46,9 +48,7 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > I always wanted to live off grid. One day I stopped dreaming & started doing 🇨🇷🦞☀️ #joefelz #offgrid #solar #homestead #freedom
 - [[2026-03-19 How we bought land in Costa Rica (and you can too)]] — 2026-03-19 · [youtube](https://www.youtube.com/watch?v=7GaObN6VAsU)  
   > ...l.com. I sincerely hope that you all can one day find your free, just like me 🇨🇷🛖💗 #joefelz #costarica #puravida #immigrants #expatlife #livingabroad #homestead #realestate #realestateinvesting #property #centralamerica #farmlife #lawyers #residency #moving #freedom #chaseyourdream #foreigner #process #questionsandanswers #findyourfreedom #expat #escape #gone If you have questions about moving to Costa Rica, I don't have all the answers, but I'll give you my real-life experience. In this video, I'm going to tell you abou...
-- [[2026-03-15 Ever dreamt of leaving it all & going off grid- I’ll show you what it]] — 2026-03-15 · [instagram](https://www.instagram.com/p/DV6JadhDdjR/)  
-  > Ever dreamt of leaving it all & going off grid? I’ll show you what it actually looks like 🇨🇷🛖🆓 #joefelz #costarica #homestead #offgrid #freedom
-- *...and 12 more*
+- *...and 13 more*
 
 ## mindset  
 *said 26 time(s) across 19 source(s)*
@@ -147,7 +147,7 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...e turn like that, you want to strap it right [music] here. If not, it's going to want to break on that seam. Okay. There's the final bug up here. And I'm going to take the red wire, connect it to the battery terminal here, crank her down. All right, moment of truth, Jeff. What we about to do? All right, so what we have here is a solar trailer. 100 kilowatt hours of battery capacity within this trailer. two 18KW inverters, EG4, big battery, hooked us up with the batteries, Ethos batteries, and we're about to hook this on...
 
 ## faith  
-*said 15 time(s) across 12 source(s)*
+*said 18 time(s) across 14 source(s)*
 
 - [[2026-06-23 You don’t have to believe what someone else believes. But if you deman]] — 2026-06-23 · [instagram](https://www.instagram.com/p/DZ6I4pltadr/)  
   > You don’t have to believe what someone else believes. But if you demand respect for your faith while denying it to theirs, you’re not defending religion—you’re defending preference🤷🏼‍♀️⛪️🧘‍♀️ #religion #joefelz #biblestudy #Respectfully #joeandalx
@@ -165,6 +165,10 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...ek building a tower & 6 days installing equipment, the Felz Finca is finally off grid. I have dreamt about an offer at Homestead since I was a child and today it became my reality. So as my finca runs of Sonpower this Easter, I implore you to remember that “faith without works is dead” = quit dreaming and go build the life you’ve always wanted 🇨🇷☀️✝️ #joefelz #offgrid #solar #faith #dreamscometrue
 - [[2026-04-04 The Bible is NOT a rule book for your life 📖💭🙏]] — 2026-04-04 · [instagram](https://www.instagram.com/p/DWuFIg9kZvR/)  
   > The Bible is NOT a rule book for your life 📖💭🙏 #joefelz #bible #christianity #faith #perspective
+- [[2026-04-04 The Bible is NOT a rule book for your life 🙏 -joefelz -bible -faith -christiani]] — 2026-04-04 · [youtube](https://www.youtube.com/watch?v=Ul2Oukpbo-A)  
+  > The Bible is NOT a rule book for your life 🙏 #joefelz #bible #faith #christianity #perspective #god The Bible is not a rule book for your life. If you reading the Bible today and it's not clicking, it's because you're reading it the wrong way. Most people read this like a rule book for life. It governs this life and the next....
+- [[2026-04-04 Your body is a temple. Some temples have cool signs 🐲 -joefelz -tattoo -symboli]] — 2026-04-04 · [youtube](https://www.youtube.com/watch?v=lgwDkpMi168)  
+  > Your body is a temple. Some temples have cool signs 🐲 #joefelz #tattoo #symbolism #faith #reborn No judgement taken, my guy. I heard my body was a temple, so I just figured I'd put a good sign on it. This is not a tattoo, it tells a story and it's a story from my favorite book as a child, St. George and the Dragon. Children's books have changed a...
 - [[2026-03-20 This might just look like fruit to you, but it’s really a reminder to]] — 2026-03-20 · [instagram](https://www.instagram.com/p/DWHUsxYDqZu/)  
   > ...st forward one year & WE ARE ACTUALLY DOING IT. I am builder, entrepreneur & solar pro, not a farmer, but with a lot of Tico help our finca is overflowing with *REAL* food- not the wax covered, chemical laced GMO stuff we overpaid for at the grocery store. “Faith without works is dead”- this is faith in action. Breakfast today was a plantain the size of a midget arm & a juicy papaya washed down with a coconut garnished with a few kitten hairs. Best of all, we didn’t pay a dime for breakfast & no one but God control...
 - [[2026-03-07 Guys I’m drowning. 3600 pages scanned, 10,000+ still to go. It’s beyon]] — 2026-03-07 · [instagram](https://www.instagram.com/p/DVl_P7wiatP/)  

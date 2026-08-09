@@ -13,11 +13,25 @@ project treats the material as a record worth preserving, and keeps his own word
 
 | Output | Path | What it is |
 | --- | --- | --- |
-| Obsidian vault | `vault/` | Linked notes: subject indexes, book/Bible indexes, and one note per source holding the full caption or transcript |
+| Obsidian vault | `vault/` | Linked notes: subject indexes, book/Bible indexes, the library catalog, and one note per source holding the full caption or transcript |
 | ELI5 PDF | `dist/Joe-Felz-Explained-Simply.pdf` | Plain-English guide to everything he covered |
+| Library catalog | `data/library.json` | The 35 books in the digital library he was building, with links and per-URL liveness checks |
 | Unified corpus | `data/derived/corpus.json` | Every captured item in one normalised schema |
 | Extraction index | `data/derived/extraction.json` | Every term hit, with a verbatim quote and source URL |
 | Raw data | `data/raw/`, `data/subs/` | Untouched API responses and caption tracks |
+
+## The library
+
+He described building a digital library of old books he believed were being lost,
+kept in the one air-conditioned room of his Costa Rica house because the humidity
+was destroying them. `data/library.json` catalogs the titles across three shelves —
+**Rare Bibles**, **Occult, History and Miscellaneous**, and **Freemasonry** — each
+with the list's own annotations and links to free copies online.
+
+`scripts/check_library_links.py` probes every URL and records the result, so the
+catalog notes show whether each copy was reachable. Titles are kept exactly as the
+list gave them; where a link's contents do not match its listed title, the note
+carries a warning rather than a silent correction.
 
 ## The pipeline
 

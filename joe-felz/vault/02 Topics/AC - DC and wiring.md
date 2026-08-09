@@ -3,8 +3,8 @@ type: "topic"
 family: "Electricity, Solar and Energy"
 group: "AC / DC and wiring"
 terms: "16"
-sources: "102"
-occurrences: "269"
+sources: "104"
+occurrences: "273"
 tags:
   - "topic"
   - "electrical"
@@ -12,7 +12,7 @@ tags:
 
 # AC / DC and wiring
 
-Part of **[[Electricity, Solar and Energy]]**. 16 distinct terms appear across 102 posts and videos, said 269 times in total.
+Part of **[[Electricity, Solar and Energy]]**. 16 distinct terms appear across 104 posts and videos, said 273 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
@@ -44,7 +44,7 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...idential model. He told me they didn't have any left in stock. Our inverter specs, max AC charge current, 50 to 240. PV input, here's where we're concerned. 90 to 230 volts. Max DC charge current 160 amp. What does that tell me? I have two separate inputs for series parallel connection. It all has to be between 90 and 230 and I cannot exceed 160 amps between both of them. That is what I know. I see two inputs and I know the inverters. I know the equipment and a single one 80 amps 90 to 230. When I see 160 amps at the sam...
 
 ## parallel  
-*said 54 time(s) across 11 source(s)*
+*said 56 time(s) across 12 source(s)*
 
 - [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
   > ...rmation? Okay, well, that changes today. There's a few things you need to know about solar. Amps * volts = watts. Ohm's law, Watt's law, there's a lot of different things that people call this formula. And next, you must know the difference between series and parallel wiring. Yeah, Parker, series and parallel is a big thing, isn't it? Mhm. I will say, guys, all of this stuff is so simple, but because it's so simple, it's remarkably easy to mess up. And you wouldn't think it, but you got a 50/50 chance. There's only a posit...
@@ -52,6 +52,8 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...ome type of solar thing on the interwebs? Did anybody have any relative success finding clear information? Okay, well, that changes today. There's a few things you need to know about solar. Amps * volts = watts. You must know the difference between series and parallel wiring. You have Parker series and parallel is a big thing, isn't it? Mhm. I will say, guys, all of this stuff is so simple, but because it's so simple, it's remarkably easy to mess up. And you wouldn't think it, but you got a 50/50 chance. There's only a pos...
 - [[2026-04-27 Will merging cyber & solar solve my problem☀️ -joefelz -solar -bitcoin -problem]] — 2026-04-27 · [youtube](https://www.youtube.com/watch?v=4Ia27mWu_aA)  
   > ...tcoin #problems #help #idea Having too much electricity is a strange problem. I really need help with solar, but I need help today. Let me show you what I've installed and then I'll tell you what's going on. Three big battery Apex 10 kWs, they're all wired in parallel. That's going to be producing 131 amps at 230 volts continuous. I got four big battery Nexus Pros all wired in parallel. That's going to give me 60 kW of storage. I have 2625 watt panels, two groups of 10 wired in series and connected to the inverters. That'l...
+- [[2026-03-28 I am on a mission to simplify solar ☀️ -joefelz -solar -offgrid -electrical -kn]] — 2026-03-28 · [youtube](https://www.youtube.com/watch?v=5YOiOupLUVk)  
+  > ...ric range and much less my entire homestead. In order to overcome this problem, you must do some solar scientist-ing. Luckily, I am a solar scientist who can help you understand solar. In order to overcome the ampacity shortfall, you have to wire inverters in parallel. I must warn you that not all products have this capability, so you have to check the manufacturer specifications. The Big Battery Apex I'm installing in Costa Rica has that capability and here's how you wire in parallel. What you do is take the load wires fr...
 - [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
   > ...squeeze that lemon. Same thing goes with the ampacity. It's going to operate at 15.45 A, but sometimes it will float up to 16.32, although you will see no more energy realization at this higher value. The first thing you see is the wiring type, series versus parallel. If you wire in series, plus minus plus minus plus minus, it will increase voltage and ampacity remains constant. That basically means if you wire up two of these panels in series, you will have around 82 V at 15.45 A. If you wire in parallel, grouping all of...
 - [[2026-03-06 Who else thinks it’s stupid to install a metal roof then cover it with]] — 2026-03-06 · [instagram](https://www.instagram.com/p/DVjNlQpkb_n/)  
@@ -159,12 +161,14 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...d now when I turn it off right I mean that's just it's just running right now but now you see it drop off okay but see the coolest thing thing is is I can do this I can cut that inverter off it uses no energy and I can cut the fridge on cuz it's running off a DC cuz it costs 4 amps just to run the inverter right I've designed this thing pretty well I have a lot of functionality this pulls out you know you can sit right there this breaks down if you and I want to go somewhere no homo this is two beds one bed two bed r...
 
 ## breaker  
-*said 15 time(s) across 7 source(s)*
+*said 17 time(s) across 8 source(s)*
 
 - [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
   > ...w, if you look on here, there's two different numbers, 18A + 18A, 22A + 22A. We're using the 10 kW, so we're going to look at the 22A cuz it's under that column. 22 amps is our our ampacity. We cannot exceed ampacity ever. What happens if you exceed ampacity? Breaker trip, wire melt, something blows up. Ampacity is the the power behind it. I'm going to tell you all this and then I'm going to show you the easy way that you can do it cuz I put all this in computer coding on a free program that will do it for you. But, I wil...
 - [[2026-06-08 This @OUKITELMobile WP61 plus is my bug out phone-OUK10 gets you 10 % off 🤳 -jo]] — 2026-06-08 · [youtube](https://www.youtube.com/watch?v=fGOKRbmIFJM)  
   > ...us. It is the most massive and impressive phone I've ever seen. And it comes with its own antenna. You want to know why? Because communication is not Wi-Fi dependent with the professional DMR walkie-talkie. 3.4 mile range. Pretty cool. You just touch to talk. Breaker breaker 1-9. This is the phone [music] you want when the grid goes down. The battery on this at 20,000 milliamps is worth more than this, this, and this put together. It's basically indestructible. [music] I mean, indestructible. [clears throat] Takes a licki...
+- [[2026-03-28 I am on a mission to simplify solar ☀️ -joefelz -solar -offgrid -electrical -kn]] — 2026-03-28 · [youtube](https://www.youtube.com/watch?v=5YOiOupLUVk)  
+  > ...ions. The Big Battery Apex I'm installing in Costa Rica has that capability and here's how you wire in parallel. What you do is take the load wires from each one of your inverters and wire them into a combiner box first. All your hots go into a properly sized breaker since this puts out about 43 amps at 230, I have them on 15 amp breakers. And the combiner box allows all the energy to combine and balance before you send it up in your main wires to your load panel. This is my load panel where I'll provide all the energy fo...
 - [[2026-02-07 Simplifying Solar with BigBattery]] — 2026-02-07 · [youtube](https://www.youtube.com/watch?v=1gvJMYig9Ms)  
   > ...g to explain that for you. Um, let's take a microwave for example that pulls 100 watts. Okay. [clears throat] Does anybody know what voltage a microwave operates on? 120. Usually 120. 120. Okay. This is a formula in order to solve for something like what size breaker does the microwave need to be on? Anybody had to figure that out before? Okay. So, we read the electrical label on the microwave. It tells us it pulls 100 watts. And you know that plug is 120 volts. So, you say 100 watts equals amps. That's our breaker size....
 - [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  

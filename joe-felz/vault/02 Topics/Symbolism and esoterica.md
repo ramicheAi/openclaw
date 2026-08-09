@@ -3,8 +3,8 @@ type: "topic"
 family: "Ancient, Artifacts and Esoteric"
 group: "Symbolism and esoterica"
 terms: "9"
-sources: "26"
-occurrences: "37"
+sources: "27"
+occurrences: "38"
 tags:
   - "topic"
   - "ancient"
@@ -12,7 +12,7 @@ tags:
 
 # Symbolism and esoterica
 
-Part of **[[Ancient, Artifacts and Esoteric]]**. 9 distinct terms appear across 26 posts and videos, said 37 times in total.
+Part of **[[Ancient, Artifacts and Esoteric]]**. 9 distinct terms appear across 27 posts and videos, said 38 times in total.
 
 Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
 
@@ -47,6 +47,20 @@ Each term below lists the posts and videos where it appears, with the surroundin
 - [[2025-12-05 There’s a lot more to this one than meets the eye. 📖♾️🕵🏼]] — 2025-12-05 · [instagram](https://www.instagram.com/p/DR5Rf4cERxh/)  
   > There’s a lot more to this one than meets the eye. 📖♾️🕵🏼 #joefelz #felzmedia #sandyrunoriginal #realityofvanlife #apocrypha #bannedbooks #thebible #freemason #mysterious #endtimes #christianity #occult #history #coverup #bookofenoch #religion #heresy #coincidence #investigation #strange #thoughtprovoking #egypt #rabbithole #manonamission #confused #thinking #realestdudeontheinternet #welcometothejoeshow #truthseek...
 
+## symbolism  
+*said 5 time(s) across 5 source(s)*
+
+- [[2026-04-04 Your body is a temple. Some temples have cool signs 🐲 -joefelz -tattoo -symboli]] — 2026-04-04 · [youtube](https://www.youtube.com/watch?v=lgwDkpMi168)  
+  > Your body is a temple. Some temples have cool signs 🐲 #joefelz #tattoo #symbolism #faith #reborn No judgement taken, my guy. I heard my body was a temple, so I just figured I'd put a good sign on it. This is not a tattoo, it tells a story and it's a story from my favorite book as a child, St. George and the Dragon. Children's books have ch...
+- [[2026-03-04 Touring a Freemason Mansion with @dr.parkinstine]] — 2026-03-04 · [youtube](https://www.youtube.com/watch?v=_4nBhNr2eX8)  
+  > ...walking through here. I still do not know much about the Freemasons, but will admit they are better builders than I. I have so much to learn 🏯👁️🙇 #joefelz #freemasons #building #oldhouse #historichomes #historicbuildings #architecture #construction #symbols #symbolism #learning #secrets #design #walkthrough #constructionlife #studentoflife #truthseeker #respect Who else has something like this hanging on their wall with a story that their grandpa told them that's never been written down? Today I'm here with Joe and Whitney...
+- [[2026-02-05 X-Ray & Analysis of Ancient Artifacts]] — 2026-02-05 · [youtube](https://www.youtube.com/watch?v=lRDdLhFBbCc)  
+  > ...ike whoever made these [music] is just toying with us with the DC energy. That is kind of an outlier. You know, I was expecting to see a little bit of AC current. I think these things are trying to tell [music] us a story. You know, if you think about all the symbolism in the Freemason house, we have seven there, seven worlds. We're living in the [music] eighth now, a third eye. You see, they all have a third eye. They have the sun, the moon, they have orbs, four fingers, [music] just like the Egyptian sarcophaguses, and he...
+- [[2026-01-23 The Symbolism & Meaning Behind Ancient Energy]] — 2026-01-23 · [youtube](https://www.youtube.com/watch?v=vYvIKWWfQbk)  
+  > The Symbolism & Meaning Behind Ancient Energy As mind blowing as the illuminating crystals are, the symbols and carvings on these relics are possibly of more importance. Full of suns, moons, planets, orbs aliens, triangles, third eyes, microchips and awash in geometric lan...
+- [[2026-01-18 Examining an Unexplained Artifact]] — 2026-01-18 · [youtube](https://www.youtube.com/watch?v=UoAEMLNitXs)  
+  > ...y when certain people walk in a room or not wanting to emit light while being recorded. I have a lot more to figure out on these and would welcome any sincere qualified opinions. -Joe￼ #joefelz #felzmedia #felzenergy #energy #frequency #magnetism #artifacts #symbolism #truthseekers #research #archaeology #ancient #ancienthistory #ancientwisdom #secrets #physics #electricity #global #alien #unexplained #mystery #light #history #manonamission #electrician #renewableenergy #losttechnology #future #welcometothejoeshow
+
 ## occult  
 *said 4 time(s) across 4 source(s)*
 
@@ -58,18 +72,6 @@ Each term below lists the posts and videos where it appears, with the surroundin
   > ...ions based off a lifetime of study. Helpful input and pursuit of truth is welcomed ⏱️🛕🌍 #joefelz #buildingreality #joespeaks #mayan #time #ancient #artifacts #time #archaeology #lostcivilizations #history #astrology #science #indigenous #secrets #paranormal #occult #enrgy #magnetism #magnetic #energy When you come in this room, you get goosebumps. [music] These things have a a an aura about them that you can't see through a [ __ ] camera. This one appears to be free spinning. I am here with a massive trove of artifacts....
 - [[2025-12-05 There’s a lot more to this one than meets the eye. 📖♾️🕵🏼]] — 2025-12-05 · [instagram](https://www.instagram.com/p/DR5Rf4cERxh/)  
   > There’s a lot more to this one than meets the eye. 📖♾️🕵🏼 #joefelz #felzmedia #sandyrunoriginal #realityofvanlife #apocrypha #bannedbooks #thebible #freemason #mysterious #endtimes #christianity #occult #history #coverup #bookofenoch #religion #heresy #coincidence #investigation #strange #thoughtprovoking #egypt #rabbithole #manonamission #confused #thinking #realestdudeontheinternet #welcometothejoeshow #truthseeker #curious
-
-## symbolism  
-*said 4 time(s) across 4 source(s)*
-
-- [[2026-03-04 Touring a Freemason Mansion with @dr.parkinstine]] — 2026-03-04 · [youtube](https://www.youtube.com/watch?v=_4nBhNr2eX8)  
-  > ...walking through here. I still do not know much about the Freemasons, but will admit they are better builders than I. I have so much to learn 🏯👁️🙇 #joefelz #freemasons #building #oldhouse #historichomes #historicbuildings #architecture #construction #symbols #symbolism #learning #secrets #design #walkthrough #constructionlife #studentoflife #truthseeker #respect Who else has something like this hanging on their wall with a story that their grandpa told them that's never been written down? Today I'm here with Joe and Whitney...
-- [[2026-02-05 X-Ray & Analysis of Ancient Artifacts]] — 2026-02-05 · [youtube](https://www.youtube.com/watch?v=lRDdLhFBbCc)  
-  > ...ike whoever made these [music] is just toying with us with the DC energy. That is kind of an outlier. You know, I was expecting to see a little bit of AC current. I think these things are trying to tell [music] us a story. You know, if you think about all the symbolism in the Freemason house, we have seven there, seven worlds. We're living in the [music] eighth now, a third eye. You see, they all have a third eye. They have the sun, the moon, they have orbs, four fingers, [music] just like the Egyptian sarcophaguses, and he...
-- [[2026-01-23 The Symbolism & Meaning Behind Ancient Energy]] — 2026-01-23 · [youtube](https://www.youtube.com/watch?v=vYvIKWWfQbk)  
-  > The Symbolism & Meaning Behind Ancient Energy As mind blowing as the illuminating crystals are, the symbols and carvings on these relics are possibly of more importance. Full of suns, moons, planets, orbs aliens, triangles, third eyes, microchips and awash in geometric lan...
-- [[2026-01-18 Examining an Unexplained Artifact]] — 2026-01-18 · [youtube](https://www.youtube.com/watch?v=UoAEMLNitXs)  
-  > ...y when certain people walk in a room or not wanting to emit light while being recorded. I have a lot more to figure out on these and would welcome any sincere qualified opinions. -Joe￼ #joefelz #felzmedia #felzenergy #energy #frequency #magnetism #artifacts #symbolism #truthseekers #research #archaeology #ancient #ancienthistory #ancientwisdom #secrets #physics #electricity #global #alien #unexplained #mystery #light #history #manonamission #electrician #renewableenergy #losttechnology #future #welcometothejoeshow
 
 ## masonic  
 *said 3 time(s) across 3 source(s)*

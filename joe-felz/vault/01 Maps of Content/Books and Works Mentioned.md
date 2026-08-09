@@ -12,7 +12,7 @@ Two lists. The first comes from a fixed list of known titles. The second is free
 
 ## Known titles
 
-- [[Work - The Bible]] — 15 mention(s)
+- [[Work - The Bible]] — 17 mention(s)
 - [[Work - Truth Shall Set You Free]] — 1 mention(s)
 - [[Work - Master Mason]] — 1 mention(s)
 - [[Work - Masonic Law]] — 1 mention(s)

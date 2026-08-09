@@ -26,8 +26,8 @@ Start here. This vault is a record of what Joe Felz published, organised by subj
 
 ## What is in here
 
-- **321** items captured
+- **337** items captured
 - **216** Instagram posts
-- **105** YouTube items, **102** with transcripts
-- **152,391** words of caption and transcript text
+- **121** YouTube items, **117** with transcripts
+- **156,995** words of caption and transcript text
 - Date range **2024-01-22 to 2026-08-04**

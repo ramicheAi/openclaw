@@ -126,7 +126,7 @@ Everything captured, newest month first.
 - [[2026-05-04 Operation Find Your Free- In my Skoolie is underway🚌✌️🤍 -skoolie -busconversion]] · youtube/video
 - *...and 14 more*
 
-## 2026-04 — 86 item(s)
+## 2026-04 — 101 item(s)
 
 - [[2026-04-30 Is it just me- 1️⃣]] · instagram/photo
 - [[2026-04-30 If you could travel anywhere in the world right now, where would it be]] · instagram/photo
@@ -164,10 +164,12 @@ Everything captured, newest month first.
 - [[2026-04-20 This is what I mean by there is high value in being low class]] · instagram/carousel
 - [[2026-04-20 Which hits harder- Taganga at day or Taganga at night- 🌄🤔🌃]] · instagram/carousel
 - [[2026-04-20 Would you eat here 🇨🇴🚽🤔]] · instagram/reel
+- [[2026-04-20 Would you eat here 🇨🇴🤔 -joefelz -perspective -buildingcode -travel -vibes -prio]] · youtube/short
 - [[2026-04-20 Traditional Fishing in a Colombian Village]] · youtube/video
 - [[2026-04-19 I’ve been fishing my entire life but never like today…]] · instagram/carousel
 - [[2026-04-19 Riding a public bus as a barefoot gringo on a Saturday night is a legi]] · instagram/carousel
 - [[2026-04-18 Fact- you can live like a baller in Colombia for $100 🇨🇴👌💵]] · instagram/reel
+- [[2026-04-18 How far will $100 go in Colombia 🇨🇴 -joefelz -travel -colombia -money -baller]] · youtube/video
 - [[2026-04-17 I have officially found my favorite place in Colombia (thus far)]] · instagram/carousel
 - [[2026-04-17 Bosses- like for real, what would Jimmy say if you told him to tote a]] · instagram/reel
 - [[2026-04-17 Flight to Colombia + purchases = less than your trip to the mall 🇨🇴💰🫡]] · instagram/reel
@@ -182,15 +184,13 @@ Everything captured, newest month first.
 - [[2026-04-14 Most modern society is consumed with modern things but I am NOT & I ne]] · instagram/carousel
 - [[2026-04-14 ALWAYS wanted to do this, but it’s a little hair raising 🇨🇴🛖🤔]] · instagram/photo
 - [[2026-04-14 I had two choices- get stuck or be stuck. WWYD- 🇨🇴💉🇨🇷]] · instagram/reel
+- [[2026-04-14 I had two choices- get stuck or be stuck💉-joefelz -vaccine -travellife -colombi]] · youtube/video
 - [[2026-04-13 I thought I got out the chain gang but I been introducing myself with]] · instagram/carousel
 - [[2026-04-13 Now THIS is a story worth telling. Life always comes full circle, some]] · instagram/reel
 - [[2026-04-13 Hola Colombia, quiero hacer amigos, hacer algo épico y conocer la VERD]] · instagram/reel
-- [[2026-04-13 Like for real, what would you do--- 🇨🇴🤷‍♂️💳]] · instagram/photo
-- [[2026-04-13 This is your your daily reminder to chase your dreams]] · instagram/carousel
-- [[2026-04-12 A grinGO at Tico house juice🍹🇨🇷💃 -]] · instagram/reel
-- *...and 26 more*
+- *...and 41 more*
 
-## 2026-03 — 70 item(s)
+## 2026-03 — 71 item(s)
 
 - [[2026-03-31 This is how my page works- I say I will do something crazy and then yo]] · instagram/carousel
 - [[2026-03-31 God freely gave energy to humanity & I would like to do the same 🇨🇷☀️🆓]] · instagram/reel
@@ -201,6 +201,7 @@ Everything captured, newest month first.
 - [[2026-03-28 Yes, there are snakes in Costa Rica & this is how you pick out the poi]] · instagram/reel
 - [[2026-03-28 One man is on a mission to simplify solar for all☀️🔋🆓]] · instagram/reel
 - [[2026-03-28 Wanna DIY your own solar but don’t know where to start-]] · instagram/photo
+- [[2026-03-28 I am on a mission to simplify solar ☀️ -joefelz -solar -offgrid -electrical -kn]] · youtube/video
 - [[2026-03-27 Rarely am I stumped but this langostino got me- after catching dinner]] · instagram/carousel
 - [[2026-03-27 True professionals build roofs out of solar panels & caulking 🇨🇷☀️💪]] · instagram/reel
 - [[2026-03-27 DIY Solar- Free Online Solar Design]] · youtube/video
@@ -251,8 +252,7 @@ Everything captured, newest month first.
 - [[2026-03-10 This is a picture of a dollar falling. It’s happening all over the wor]] · instagram/carousel
 - [[2026-03-10 Leave it to Alx…]] · instagram/carousel
 - [[2026-03-09 WE INTERRUPT YOUR REGULARLY SCHEDULED BROADCAST🎙️🤦🏼‍♀️🚫]] · instagram/reel
-- [[2026-03-09 We started with a tree, now we have a table! After a giant mango fell,]] · instagram/carousel
-- *...and 10 more*
+- *...and 11 more*
 
 ## 2026-02 — 4 item(s)
 
