@@ -1,0 +1,1552 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.080 --> 00:00:01.990 align:start position:0%
+ 
+If<00:00:00.320><c> you're</c><00:00:00.480><c> going</c><00:00:00.560><c> to</c><00:00:00.719><c> configure</c><00:00:01.280><c> solar,</c><00:00:01.760><c> you</c>
+
+00:00:01.990 --> 00:00:02.000 align:start position:0%
+If you're going to configure solar, you
+ 
+
+00:00:02.000 --> 00:00:03.830 align:start position:0%
+If you're going to configure solar, you
+got<00:00:02.080><c> to</c><00:00:02.240><c> do</c><00:00:02.320><c> a</c><00:00:02.560><c> reduction.</c><00:00:03.280><c> Start</c><00:00:03.439><c> with</c><00:00:03.679><c> the</c>
+
+00:00:03.830 --> 00:00:03.840 align:start position:0%
+got to do a reduction. Start with the
+ 
+
+00:00:03.840 --> 00:00:05.430 align:start position:0%
+got to do a reduction. Start with the
+end<00:00:04.080><c> goal</c><00:00:04.319><c> and</c><00:00:04.480><c> work</c><00:00:04.720><c> backwards.</c><00:00:05.120><c> The</c><00:00:05.279><c> reason</c>
+
+00:00:05.430 --> 00:00:05.440 align:start position:0%
+end goal and work backwards. The reason
+ 
+
+00:00:05.440 --> 00:00:07.030 align:start position:0%
+end goal and work backwards. The reason
+you<00:00:05.600><c> make</c><00:00:05.759><c> the</c><00:00:05.920><c> solar</c><00:00:06.240><c> is</c><00:00:06.400><c> to</c><00:00:06.560><c> produce</c><00:00:06.799><c> power</c>
+
+00:00:07.030 --> 00:00:07.040 align:start position:0%
+you make the solar is to produce power
+ 
+
+00:00:07.040 --> 00:00:08.390 align:start position:0%
+you make the solar is to produce power
+for<00:00:07.279><c> something,</c><00:00:07.520><c> right?</c><00:00:07.759><c> First,</c><00:00:08.000><c> you</c><00:00:08.160><c> need</c><00:00:08.240><c> to</c>
+
+00:00:08.390 --> 00:00:08.400 align:start position:0%
+for something, right? First, you need to
+ 
+
+00:00:08.400 --> 00:00:09.990 align:start position:0%
+for something, right? First, you need to
+know<00:00:08.480><c> your</c><00:00:08.639><c> voltage</c><00:00:09.280><c> and</c><00:00:09.519><c> you</c><00:00:09.679><c> need</c><00:00:09.760><c> to</c><00:00:09.840><c> know</c>
+
+00:00:09.990 --> 00:00:10.000 align:start position:0%
+know your voltage and you need to know
+ 
+
+00:00:10.000 --> 00:00:12.070 align:start position:0%
+know your voltage and you need to know
+your<00:00:10.160><c> max</c><00:00:10.400><c> amperage.</c><00:00:10.880><c> Do</c><00:00:10.960><c> a</c><00:00:11.120><c> load</c><00:00:11.360><c> calculation</c>
+
+00:00:12.070 --> 00:00:12.080 align:start position:0%
+your max amperage. Do a load calculation
+ 
+
+00:00:12.080 --> 00:00:13.589 align:start position:0%
+your max amperage. Do a load calculation
+for<00:00:12.320><c> a</c><00:00:12.400><c> house.</c><00:00:12.639><c> Just</c><00:00:12.880><c> do</c><00:00:12.960><c> a</c><00:00:13.120><c> standard</c><00:00:13.360><c> load</c>
+
+00:00:13.589 --> 00:00:13.599 align:start position:0%
+for a house. Just do a standard load
+ 
+
+00:00:13.599 --> 00:00:14.870 align:start position:0%
+for a house. Just do a standard load
+calculation.<00:00:14.080><c> There's</c><00:00:14.240><c> a</c><00:00:14.400><c> [&nbsp;__&nbsp;]</c><00:00:14.719><c> section</c>
+
+00:00:14.870 --> 00:00:14.880 align:start position:0%
+calculation. There's a [&nbsp;__&nbsp;] section
+ 
+
+00:00:14.880 --> 00:00:16.550 align:start position:0%
+calculation. There's a [&nbsp;__&nbsp;] section
+in<00:00:15.040><c> the</c><00:00:15.200><c> code</c><00:00:15.440><c> book.</c><00:00:15.679><c> For</c><00:00:15.839><c> the</c><00:00:16.000><c> purposes</c><00:00:16.320><c> of</c>
+
+00:00:16.550 --> 00:00:16.560 align:start position:0%
+in the code book. For the purposes of
+ 
+
+00:00:16.560 --> 00:00:18.750 align:start position:0%
+in the code book. For the purposes of
+right<00:00:16.800><c> now,</c><00:00:17.119><c> we</c><00:00:17.359><c> have</c><00:00:17.440><c> this</c><00:00:17.680><c> energy</c>
+
+00:00:18.750 --> 00:00:18.760 align:start position:0%
+right now, we have this energy
+ 
+
+00:00:18.760 --> 00:00:20.790 align:start position:0%
+right now, we have this energy
+tank.<00:00:19.760><c> Now,</c><00:00:19.920><c> I'm</c><00:00:20.080><c> going</c><00:00:20.160><c> to</c><00:00:20.240><c> look</c><00:00:20.400><c> up</c><00:00:20.560><c> the</c>
+
+00:00:20.790 --> 00:00:20.800 align:start position:0%
+tank. Now, I'm going to look up the
+ 
+
+00:00:20.800 --> 00:00:22.950 align:start position:0%
+tank. Now, I'm going to look up the
+specs<00:00:21.039><c> on</c><00:00:21.279><c> it</c><00:00:21.520><c> cuz</c><00:00:21.760><c> that</c><00:00:22.000><c> is</c><00:00:22.240><c> going</c><00:00:22.320><c> to</c><00:00:22.480><c> provide</c>
+
+00:00:22.950 --> 00:00:22.960 align:start position:0%
+specs on it cuz that is going to provide
+ 
+
+00:00:22.960 --> 00:00:25.670 align:start position:0%
+specs on it cuz that is going to provide
+our<00:00:23.199><c> input.</c><00:00:23.840><c> We</c><00:00:24.000><c> know</c><00:00:24.080><c> it's</c><00:00:24.400><c> 230</c><00:00:25.119><c> volts.</c><00:00:25.519><c> This</c>
+
+00:00:25.670 --> 00:00:25.680 align:start position:0%
+our input. We know it's 230 volts. This
+ 
+
+00:00:25.680 --> 00:00:27.349 align:start position:0%
+our input. We know it's 230 volts. This
+is<00:00:25.760><c> what</c><00:00:25.920><c> I</c><00:00:26.080><c> was</c><00:00:26.240><c> telling</c><00:00:26.400><c> you</c><00:00:26.480><c> about</c><00:00:26.800><c> the</c><00:00:27.039><c> tow</c>
+
+00:00:27.349 --> 00:00:27.359 align:start position:0%
+is what I was telling you about the tow
+ 
+
+00:00:27.359 --> 00:00:29.429 align:start position:0%
+is what I was telling you about the tow
+hitch<00:00:27.840><c> because</c><00:00:28.160><c> the</c><00:00:28.480><c> residential</c><00:00:29.119><c> model</c>
+
+00:00:29.429 --> 00:00:29.439 align:start position:0%
+hitch because the residential model
+ 
+
+00:00:29.439 --> 00:00:31.429 align:start position:0%
+hitch because the residential model
+doesn't<00:00:29.760><c> have</c><00:00:29.840><c> a</c><00:00:30.000><c> tow</c><00:00:30.240><c> hitch.</c><00:00:30.720><c> This</c><00:00:30.880><c> one</c><00:00:31.119><c> does.</c>
+
+00:00:31.429 --> 00:00:31.439 align:start position:0%
+doesn't have a tow hitch. This one does.
+ 
+
+00:00:31.439 --> 00:00:33.110 align:start position:0%
+doesn't have a tow hitch. This one does.
+So,<00:00:31.599><c> I</c><00:00:31.760><c> think</c><00:00:31.920><c> we</c><00:00:32.079><c> have</c><00:00:32.160><c> the</c><00:00:32.399><c> commercial</c><00:00:32.800><c> unit</c>
+
+00:00:33.110 --> 00:00:33.120 align:start position:0%
+So, I think we have the commercial unit
+ 
+
+00:00:33.120 --> 00:00:35.030 align:start position:0%
+So, I think we have the commercial unit
+which<00:00:33.360><c> has</c><00:00:33.520><c> a</c><00:00:33.760><c> bigger</c><00:00:34.000><c> battery</c><00:00:34.640><c> and</c><00:00:34.800><c> I</c><00:00:34.960><c> think</c>
+
+00:00:35.030 --> 00:00:35.040 align:start position:0%
+which has a bigger battery and I think
+ 
+
+00:00:35.040 --> 00:00:37.110 align:start position:0%
+which has a bigger battery and I think
+it<00:00:35.280><c> has</c><00:00:35.360><c> a</c><00:00:35.520><c> a</c><00:00:35.760><c> bigger</c><00:00:36.000><c> inverter</c><00:00:36.480><c> as</c><00:00:36.719><c> well.</c>
+
+00:00:37.110 --> 00:00:37.120 align:start position:0%
+it has a a bigger inverter as well.
+ 
+
+00:00:37.120 --> 00:00:38.549 align:start position:0%
+it has a a bigger inverter as well.
+We're<00:00:37.360><c> going</c><00:00:37.440><c> to</c><00:00:37.600><c> find</c><00:00:37.760><c> out,</c><00:00:38.079><c> but</c><00:00:38.239><c> they</c><00:00:38.480><c> could</c>
+
+00:00:38.549 --> 00:00:38.559 align:start position:0%
+We're going to find out, but they could
+ 
+
+00:00:38.559 --> 00:00:40.150 align:start position:0%
+We're going to find out, but they could
+have<00:00:38.719><c> just</c><00:00:38.960><c> put</c><00:00:39.120><c> a</c><00:00:39.280><c> [&nbsp;__&nbsp;]</c><00:00:39.520><c> tow</c><00:00:39.760><c> hitch</c><00:00:39.920><c> on</c><00:00:40.079><c> the</c>
+
+00:00:40.150 --> 00:00:40.160 align:start position:0%
+have just put a [&nbsp;__&nbsp;] tow hitch on the
+ 
+
+00:00:40.160 --> 00:00:41.750 align:start position:0%
+have just put a [&nbsp;__&nbsp;] tow hitch on the
+residential<00:00:40.719><c> model.</c><00:00:41.120><c> He</c><00:00:41.280><c> told</c><00:00:41.440><c> me</c><00:00:41.520><c> they</c>
+
+00:00:41.750 --> 00:00:41.760 align:start position:0%
+residential model. He told me they
+ 
+
+00:00:41.760 --> 00:00:43.190 align:start position:0%
+residential model. He told me they
+didn't<00:00:41.920><c> have</c><00:00:42.000><c> any</c><00:00:42.239><c> left</c><00:00:42.399><c> in</c><00:00:42.640><c> stock.</c><00:00:42.960><c> Our</c>
+
+00:00:43.190 --> 00:00:43.200 align:start position:0%
+didn't have any left in stock. Our
+ 
+
+00:00:43.200 --> 00:00:46.310 align:start position:0%
+didn't have any left in stock. Our
+inverter<00:00:43.680><c> specs,</c><00:00:44.320><c> max</c><00:00:45.040><c> AC</c><00:00:45.520><c> charge</c><00:00:45.920><c> current,</c>
+
+00:00:46.310 --> 00:00:46.320 align:start position:0%
+inverter specs, max AC charge current,
+ 
+
+00:00:46.320 --> 00:00:49.590 align:start position:0%
+inverter specs, max AC charge current,
+50<00:00:46.640><c> to</c><00:00:46.800><c> 240.</c><00:00:47.520><c> PV</c><00:00:48.000><c> input,</c><00:00:48.800><c> here's</c><00:00:49.120><c> where</c><00:00:49.360><c> we're</c>
+
+00:00:49.590 --> 00:00:49.600 align:start position:0%
+50 to 240. PV input, here's where we're
+ 
+
+00:00:49.600 --> 00:00:53.029 align:start position:0%
+50 to 240. PV input, here's where we're
+concerned.<00:00:50.320><c> 90</c><00:00:50.640><c> to</c><00:00:51.039><c> 230</c><00:00:51.680><c> volts.</c><00:00:52.239><c> Max</c><00:00:52.640><c> DC</c>
+
+00:00:53.029 --> 00:00:53.039 align:start position:0%
+concerned. 90 to 230 volts. Max DC
+ 
+
+00:00:53.039 --> 00:00:55.430 align:start position:0%
+concerned. 90 to 230 volts. Max DC
+charge<00:00:53.360><c> current</c><00:00:53.920><c> 160</c><00:00:54.480><c> amp.</c><00:00:54.879><c> What</c><00:00:55.120><c> does</c><00:00:55.199><c> that</c>
+
+00:00:55.430 --> 00:00:55.440 align:start position:0%
+charge current 160 amp. What does that
+ 
+
+00:00:55.440 --> 00:00:59.029 align:start position:0%
+charge current 160 amp. What does that
+tell<00:00:55.600><c> me?</c><00:00:56.000><c> I</c><00:00:56.239><c> have</c><00:00:56.879><c> two</c><00:00:57.360><c> separate</c><00:00:57.840><c> inputs</c><00:00:58.719><c> for</c>
+
+00:00:59.029 --> 00:00:59.039 align:start position:0%
+tell me? I have two separate inputs for
+ 
+
+00:00:59.039 --> 00:01:01.189 align:start position:0%
+tell me? I have two separate inputs for
+series<00:00:59.359><c> parallel</c><00:00:59.920><c> connection.</c><00:01:00.480><c> It</c><00:01:00.800><c> all</c><00:01:01.039><c> has</c>
+
+00:01:01.189 --> 00:01:01.199 align:start position:0%
+series parallel connection. It all has
+ 
+
+00:01:01.199 --> 00:01:03.510 align:start position:0%
+series parallel connection. It all has
+to<00:01:01.359><c> be</c><00:01:01.520><c> between</c><00:01:01.920><c> 90</c><00:01:02.239><c> and</c><00:01:02.399><c> 230</c><00:01:02.960><c> and</c><00:01:03.120><c> I</c><00:01:03.280><c> cannot</c>
+
+00:01:03.510 --> 00:01:03.520 align:start position:0%
+to be between 90 and 230 and I cannot
+ 
+
+00:01:03.520 --> 00:01:05.990 align:start position:0%
+to be between 90 and 230 and I cannot
+exceed<00:01:04.080><c> 160</c><00:01:04.640><c> amps</c><00:01:05.040><c> between</c><00:01:05.360><c> both</c><00:01:05.519><c> of</c><00:01:05.680><c> them.</c>
+
+00:01:05.990 --> 00:01:06.000 align:start position:0%
+exceed 160 amps between both of them.
+ 
+
+00:01:06.000 --> 00:01:07.990 align:start position:0%
+exceed 160 amps between both of them.
+That<00:01:06.159><c> is</c><00:01:06.320><c> what</c><00:01:06.479><c> I</c><00:01:06.720><c> know.</c><00:01:07.040><c> I</c><00:01:07.280><c> see</c><00:01:07.439><c> two</c><00:01:07.600><c> inputs</c>
+
+00:01:07.990 --> 00:01:08.000 align:start position:0%
+That is what I know. I see two inputs
+ 
+
+00:01:08.000 --> 00:01:09.429 align:start position:0%
+That is what I know. I see two inputs
+and<00:01:08.159><c> I</c><00:01:08.240><c> know</c><00:01:08.400><c> the</c><00:01:08.560><c> inverters.</c><00:01:09.040><c> I</c><00:01:09.200><c> know</c><00:01:09.280><c> the</c>
+
+00:01:09.429 --> 00:01:09.439 align:start position:0%
+and I know the inverters. I know the
+ 
+
+00:01:09.439 --> 00:01:12.710 align:start position:0%
+and I know the inverters. I know the
+equipment<00:01:10.000><c> and</c><00:01:10.159><c> a</c><00:01:10.320><c> single</c><00:01:10.640><c> one</c><00:01:11.040><c> 80</c><00:01:11.280><c> amps</c><00:01:12.240><c> 90</c><00:01:12.479><c> to</c>
+
+00:01:12.710 --> 00:01:12.720 align:start position:0%
+equipment and a single one 80 amps 90 to
+ 
+
+00:01:12.720 --> 00:01:15.429 align:start position:0%
+equipment and a single one 80 amps 90 to
+230.<00:01:13.360><c> When</c><00:01:13.600><c> I</c><00:01:13.760><c> see</c><00:01:14.240><c> 160</c><00:01:14.720><c> amps</c><00:01:14.960><c> at</c><00:01:15.119><c> the</c><00:01:15.280><c> same</c>
+
+00:01:15.429 --> 00:01:15.439 align:start position:0%
+230. When I see 160 amps at the same
+ 
+
+00:01:15.439 --> 00:01:17.190 align:start position:0%
+230. When I see 160 amps at the same
+voltage,<00:01:16.080><c> I</c><00:01:16.240><c> already</c><00:01:16.479><c> know</c><00:01:16.640><c> it's</c><00:01:16.880><c> just</c><00:01:16.960><c> wired</c>
+
+00:01:17.190 --> 00:01:17.200 align:start position:0%
+voltage, I already know it's just wired
+ 
+
+00:01:17.200 --> 00:01:20.550 align:start position:0%
+voltage, I already know it's just wired
+in<00:01:17.360><c> parallel.</c><00:01:18.080><c> 94</c><00:01:18.560><c> kwatt</c><00:01:19.119><c> hours.</c><00:01:19.680><c> It's</c><00:01:19.840><c> a</c><00:01:20.000><c> 72</c>
+
+00:01:20.550 --> 00:01:20.560 align:start position:0%
+in parallel. 94 kwatt hours. It's a 72
+ 
+
+00:01:20.560 --> 00:01:23.910 align:start position:0%
+in parallel. 94 kwatt hours. It's a 72
+volt<00:01:20.960><c> system.</c><00:01:21.600><c> Operates</c><00:01:22.080><c> up</c><00:01:22.240><c> to</c><00:01:22.560><c> 87.6</c><00:01:23.759><c> 6</c>
+
+00:01:23.910 --> 00:01:23.920 align:start position:0%
+volt system. Operates up to 87.6 6
+ 
+
+00:01:23.920 --> 00:01:25.830 align:start position:0%
+volt system. Operates up to 87.6 6
+volts.<00:01:24.560><c> That's</c><00:01:24.720><c> a</c><00:01:24.880><c> really</c><00:01:25.040><c> high</c><00:01:25.280><c> voltage.</c><00:01:25.759><c> Do</c>
+
+00:01:25.830 --> 00:01:25.840 align:start position:0%
+volts. That's a really high voltage. Do
+ 
+
+00:01:25.840 --> 00:01:26.870 align:start position:0%
+volts. That's a really high voltage. Do
+y'all<00:01:26.080><c> know</c><00:01:26.320><c> the</c><00:01:26.479><c> difference</c><00:01:26.640><c> between</c>
+
+00:01:26.870 --> 00:01:26.880 align:start position:0%
+y'all know the difference between
+ 
+
+00:01:26.880 --> 00:01:28.870 align:start position:0%
+y'all know the difference between
+nominal<00:01:27.360><c> and</c><00:01:27.680><c> actual</c><00:01:28.000><c> voltage?</c><00:01:28.400><c> What</c><00:01:28.560><c> voltage</c>
+
+00:01:28.870 --> 00:01:28.880 align:start position:0%
+nominal and actual voltage? What voltage
+ 
+
+00:01:28.880 --> 00:01:31.030 align:start position:0%
+nominal and actual voltage? What voltage
+is<00:01:29.040><c> a</c><00:01:29.200><c> 24volt</c><00:01:29.840><c> system</c><00:01:30.159><c> operate</c><00:01:30.479><c> at?</c><00:01:30.799><c> If</c><00:01:30.960><c> you</c>
+
+00:01:31.030 --> 00:01:31.040 align:start position:0%
+is a 24volt system operate at? If you
+ 
+
+00:01:31.040 --> 00:01:32.870 align:start position:0%
+is a 24volt system operate at? If you
+put<00:01:31.119><c> a</c><00:01:31.280><c> meter</c><00:01:31.520><c> to</c><00:01:31.600><c> it,</c><00:01:31.840><c> it's</c><00:01:32.079><c> usually</c><00:01:32.320><c> in</c><00:01:32.560><c> the</c>
+
+00:01:32.870 --> 00:01:32.880 align:start position:0%
+put a meter to it, it's usually in the
+ 
+
+00:01:32.880 --> 00:01:36.670 align:start position:0%
+put a meter to it, it's usually in the
+26<00:01:33.360><c> to</c><00:01:33.600><c> 27</c><00:01:34.079><c> range.</c><00:01:34.560><c> 48</c><00:01:35.040><c> volt</c><00:01:35.360><c> system</c><00:01:35.920><c> usually</c>
+
+00:01:36.670 --> 00:01:36.680 align:start position:0%
+26 to 27 range. 48 volt system usually
+ 
+
+00:01:36.680 --> 00:01:39.789 align:start position:0%
+26 to 27 range. 48 volt system usually
+51.2.<00:01:37.680><c> This</c><00:01:37.840><c> one</c><00:01:38.400><c> operates</c>
+
+00:01:39.789 --> 00:01:39.799 align:start position:0%
+51.2. This one operates
+ 
+
+00:01:39.799 --> 00:01:43.990 align:start position:0%
+51.2. This one operates
+67.2<00:01:40.799><c> to</c><00:01:41.479><c> 87.6.</c><00:01:42.479><c> This</c><00:01:42.640><c> is</c><00:01:42.720><c> a</c><00:01:42.960><c> 72vt</c><00:01:43.680><c> system.</c>
+
+00:01:43.990 --> 00:01:44.000 align:start position:0%
+67.2 to 87.6. This is a 72vt system.
+ 
+
+00:01:44.000 --> 00:01:45.830 align:start position:0%
+67.2 to 87.6. This is a 72vt system.
+Why?<00:01:44.320><c> Because</c><00:01:44.479><c> we're</c><00:01:44.640><c> going</c><00:01:44.880><c> by</c><00:01:45.119><c> 12s.</c><00:01:45.520><c> When</c><00:01:45.680><c> I</c>
+
+00:01:45.830 --> 00:01:45.840 align:start position:0%
+Why? Because we're going by 12s. When I
+ 
+
+00:01:45.840 --> 00:01:47.510 align:start position:0%
+Why? Because we're going by 12s. When I
+see<00:01:45.920><c> these</c><00:01:46.240><c> higher</c><00:01:46.479><c> voltages,</c><00:01:47.119><c> that's</c><00:01:47.280><c> the</c>
+
+00:01:47.510 --> 00:01:47.520 align:start position:0%
+see these higher voltages, that's the
+ 
+
+00:01:47.520 --> 00:01:49.590 align:start position:0%
+see these higher voltages, that's the
+new<00:01:47.680><c> battery</c><00:01:48.079><c> technology.</c><00:01:48.960><c> These</c><00:01:49.200><c> are</c><00:01:49.280><c> a</c><00:01:49.439><c> lot</c>
+
+00:01:49.590 --> 00:01:49.600 align:start position:0%
+new battery technology. These are a lot
+ 
+
+00:01:49.600 --> 00:01:53.429 align:start position:0%
+new battery technology. These are a lot
+higher.<00:01:50.159><c> Lithium</c><00:01:51.119><c> ion,</c><00:01:51.600><c> not</c><00:01:51.759><c> lithium</c><00:01:52.399><c> ion.</c><00:01:53.040><c> 22</c>
+
+00:01:53.429 --> 00:01:53.439 align:start position:0%
+higher. Lithium ion, not lithium ion. 22
+ 
+
+00:01:53.439 --> 00:01:55.590 align:start position:0%
+higher. Lithium ion, not lithium ion. 22
+kWh<00:01:54.240><c> battery</c><00:01:54.479><c> is</c><00:01:54.720><c> a</c><00:01:54.880><c> little</c><00:01:54.960><c> bit</c><00:01:55.119><c> smaller</c><00:01:55.439><c> than</c>
+
+00:01:55.590 --> 00:01:55.600 align:start position:0%
+kWh battery is a little bit smaller than
+ 
+
+00:01:55.600 --> 00:01:58.789 align:start position:0%
+kWh battery is a little bit smaller than
+a<00:01:55.840><c> 13</c><00:01:56.159><c> kWh</c><00:01:56.880><c> battery</c><00:01:57.200><c> to</c><00:01:57.439><c> lithium</c><00:01:57.920><c> ion.</c><00:01:58.320><c> We</c><00:01:58.560><c> got</c>
+
+00:01:58.789 --> 00:01:58.799 align:start position:0%
+a 13 kWh battery to lithium ion. We got
+ 
+
+00:01:58.799 --> 00:02:03.590 align:start position:0%
+a 13 kWh battery to lithium ion. We got
+90<00:01:59.520><c> to</c><00:01:59.759><c> 230.</c><00:02:01.200><c> Put</c><00:02:01.360><c> that</c><00:02:01.520><c> dirt</c><00:02:01.759><c> on</c><00:02:01.920><c> purpose.</c><00:02:02.880><c> 160</c>
+
+00:02:03.590 --> 00:02:03.600 align:start position:0%
+90 to 230. Put that dirt on purpose. 160
+ 
+
+00:02:03.600 --> 00:02:06.709 align:start position:0%
+90 to 230. Put that dirt on purpose. 160
+amp.<00:02:04.320><c> That's</c><00:02:04.560><c> my</c><00:02:04.799><c> PV</c><00:02:05.280><c> charging</c><00:02:05.759><c> specs.</c><00:02:06.399><c> Must</c>
+
+00:02:06.709 --> 00:02:06.719 align:start position:0%
+amp. That's my PV charging specs. Must
+ 
+
+00:02:06.719 --> 00:02:09.190 align:start position:0%
+amp. That's my PV charging specs. Must
+be<00:02:07.280><c> within</c><00:02:07.600><c> this</c><00:02:07.840><c> range.</c><00:02:08.399><c> I</c><00:02:08.560><c> look</c><00:02:08.800><c> at</c><00:02:08.879><c> solar</c>
+
+00:02:09.190 --> 00:02:09.200 align:start position:0%
+be within this range. I look at solar
+ 
+
+00:02:09.200 --> 00:02:10.550 align:start position:0%
+be within this range. I look at solar
+like<00:02:09.280><c> a</c><00:02:09.440><c> carnival</c><00:02:09.759><c> ride.</c><00:02:10.080><c> You</c><00:02:10.239><c> must</c><00:02:10.399><c> be</c><00:02:10.560><c> at</c>
+
+00:02:10.550 --> 00:02:10.560 align:start position:0%
+like a carnival ride. You must be at
+ 
+
+00:02:10.560 --> 00:02:13.750 align:start position:0%
+like a carnival ride. You must be at
+least<00:02:10.959><c> 90</c><00:02:11.200><c> in</c><00:02:11.520><c> tall.</c><00:02:11.840><c> Cannot</c><00:02:12.160><c> be</c><00:02:12.400><c> over</c><00:02:12.800><c> 230</c><00:02:13.440><c> in</c>
+
+00:02:13.750 --> 00:02:13.760 align:start position:0%
+least 90 in tall. Cannot be over 230 in
+ 
+
+00:02:13.760 --> 00:02:16.630 align:start position:0%
+least 90 in tall. Cannot be over 230 in
+tall.<00:02:14.160><c> Cannot</c><00:02:14.480><c> weigh</c><00:02:14.720><c> more</c><00:02:14.879><c> than</c><00:02:15.200><c> 160</c><00:02:15.760><c> lbs.</c>
+
+00:02:16.630 --> 00:02:16.640 align:start position:0%
+tall. Cannot weigh more than 160 lbs.
+ 
+
+00:02:16.640 --> 00:02:18.309 align:start position:0%
+tall. Cannot weigh more than 160 lbs.
+That's<00:02:16.720><c> just</c><00:02:16.959><c> simple.</c><00:02:17.680><c> Yeah.</c><00:02:17.920><c> Well,</c><00:02:18.080><c> it's</c><00:02:18.160><c> a</c>
+
+00:02:18.309 --> 00:02:18.319 align:start position:0%
+That's just simple. Yeah. Well, it's a
+ 
+
+00:02:18.319 --> 00:02:19.750 align:start position:0%
+That's just simple. Yeah. Well, it's a
+good<00:02:18.400><c> way</c><00:02:18.480><c> to</c><00:02:18.560><c> see</c><00:02:18.720><c> it.</c><00:02:19.040><c> If</c><00:02:19.200><c> I</c><00:02:19.280><c> see</c><00:02:19.520><c> something,</c>
+
+00:02:19.750 --> 00:02:19.760 align:start position:0%
+good way to see it. If I see something,
+ 
+
+00:02:19.760 --> 00:02:21.670 align:start position:0%
+good way to see it. If I see something,
+I<00:02:20.000><c> remember</c><00:02:20.239><c> it.</c><00:02:20.480><c> I</c><00:02:20.560><c> got</c><00:02:20.720><c> this</c><00:02:20.879><c> pornographic</c>
+
+00:02:21.670 --> 00:02:21.680 align:start position:0%
+I remember it. I got this pornographic
+ 
+
+00:02:21.680 --> 00:02:24.550 align:start position:0%
+I remember it. I got this pornographic
+memory.<00:02:22.160><c> You</c><00:02:22.319><c> see</c><00:02:22.480><c> a</c><00:02:22.640><c> pornograph.</c>
+
+00:02:24.550 --> 00:02:24.560 align:start position:0%
+memory. You see a pornograph.
+ 
+
+00:02:24.560 --> 00:02:26.710 align:start position:0%
+memory. You see a pornograph.
+You<00:02:24.720><c> log</c><00:02:24.879><c> in</c><00:02:25.040><c> to</c><00:02:25.400><c> failsenergy.com.</c><00:02:26.400><c> You</c><00:02:26.640><c> come</c>
+
+00:02:26.710 --> 00:02:26.720 align:start position:0%
+You log in to failsenergy.com. You come
+ 
+
+00:02:26.720 --> 00:02:28.229 align:start position:0%
+You log in to failsenergy.com. You come
+over<00:02:26.879><c> here</c><00:02:27.040><c> to</c><00:02:27.200><c> build</c><00:02:27.360><c> a</c><00:02:27.599><c> system.</c><00:02:27.920><c> You</c><00:02:28.080><c> just</c>
+
+00:02:28.229 --> 00:02:28.239 align:start position:0%
+over here to build a system. You just
+ 
+
+00:02:28.239 --> 00:02:29.910 align:start position:0%
+over here to build a system. You just
+have<00:02:28.319><c> to</c><00:02:28.480><c> make</c><00:02:28.560><c> a</c><00:02:28.720><c> free</c><00:02:28.959><c> login.</c><00:02:29.599><c> We</c><00:02:29.760><c> have</c><00:02:29.840><c> to</c>
+
+00:02:29.910 --> 00:02:29.920 align:start position:0%
+have to make a free login. We have to
+ 
+
+00:02:29.920 --> 00:02:31.270 align:start position:0%
+have to make a free login. We have to
+have<00:02:30.000><c> an</c><00:02:30.239><c> email</c><00:02:30.400><c> so</c><00:02:30.560><c> we</c><00:02:30.720><c> can</c><00:02:30.879><c> send</c><00:02:30.959><c> you</c><00:02:31.120><c> your</c>
+
+00:02:31.270 --> 00:02:31.280 align:start position:0%
+have an email so we can send you your
+ 
+
+00:02:31.280 --> 00:02:32.949 align:start position:0%
+have an email so we can send you your
+free<00:02:31.520><c> wiring</c><00:02:31.920><c> diagram.</c><00:02:32.480><c> All</c><00:02:32.560><c> right.</c><00:02:32.720><c> Now,</c>
+
+00:02:32.949 --> 00:02:32.959 align:start position:0%
+free wiring diagram. All right. Now,
+ 
+
+00:02:32.959 --> 00:02:34.470 align:start position:0%
+free wiring diagram. All right. Now,
+fill<00:02:33.120><c> out</c><00:02:33.280><c> this</c><00:02:33.440><c> form</c><00:02:33.680><c> below.</c><00:02:34.080><c> What</c><00:02:34.239><c> are</c><00:02:34.319><c> our</c>
+
+00:02:34.470 --> 00:02:34.480 align:start position:0%
+fill out this form below. What are our
+ 
+
+00:02:34.480 --> 00:02:39.270 align:start position:0%
+fill out this form below. What are our
+electrical<00:02:34.879><c> specs?</c><00:02:35.879><c> 10.72</c><00:02:36.879><c> amps</c><00:02:37.519><c> 42</c><00:02:38.400><c> 42</c><00:02:38.800><c> volt.</c>
+
+00:02:39.270 --> 00:02:39.280 align:start position:0%
+electrical specs? 10.72 amps 42 42 volt.
+ 
+
+00:02:39.280 --> 00:02:41.270 align:start position:0%
+electrical specs? 10.72 amps 42 42 volt.
+Your<00:02:39.519><c> your</c><00:02:39.760><c> Vmax,</c><00:02:40.400><c> right?</c><00:02:40.800><c> That's</c><00:02:40.959><c> like</c><00:02:41.120><c> your</c>
+
+00:02:41.270 --> 00:02:41.280 align:start position:0%
+Your your Vmax, right? That's like your
+ 
+
+00:02:41.280 --> 00:02:42.550 align:start position:0%
+Your your Vmax, right? That's like your
+operator.<00:02:41.760><c> Then</c><00:02:41.920><c> you</c><00:02:42.000><c> have</c><00:02:42.160><c> your</c><00:02:42.319><c> open</c>
+
+00:02:42.550 --> 00:02:42.560 align:start position:0%
+operator. Then you have your open
+ 
+
+00:02:42.560 --> 00:02:44.229 align:start position:0%
+operator. Then you have your open
+circuit<00:02:42.959><c> that</c><00:02:43.280><c> if</c><00:02:43.440><c> you</c><00:02:43.519><c> configure</c><00:02:43.920><c> for</c><00:02:44.080><c> your</c>
+
+00:02:44.229 --> 00:02:44.239 align:start position:0%
+circuit that if you configure for your
+ 
+
+00:02:44.239 --> 00:02:45.830 align:start position:0%
+circuit that if you configure for your
+operator,<00:02:44.640><c> it'll</c><00:02:44.879><c> work,</c><00:02:44.959><c> but</c><00:02:45.200><c> then</c><00:02:45.360><c> when</c><00:02:45.519><c> it</c>
+
+00:02:45.830 --> 00:02:45.840 align:start position:0%
+operator, it'll work, but then when it
+ 
+
+00:02:45.840 --> 00:02:47.509 align:start position:0%
+operator, it'll work, but then when it
+hits<00:02:46.160><c> open</c><00:02:46.400><c> circuit,</c><00:02:46.720><c> it'll</c><00:02:46.879><c> trip</c><00:02:47.120><c> out.</c>
+
+00:02:47.509 --> 00:02:47.519 align:start position:0%
+hits open circuit, it'll trip out.
+ 
+
+00:02:47.519 --> 00:02:50.470 align:start position:0%
+hits open circuit, it'll trip out.
+configure<00:02:48.000><c> for</c><00:02:48.239><c> your</c><00:02:48.480><c> expected</c><00:02:49.040><c> output</c><00:02:49.599><c> using</c>
+
+00:02:50.470 --> 00:02:50.480 align:start position:0%
+configure for your expected output using
+ 
+
+00:02:50.480 --> 00:02:52.790 align:start position:0%
+configure for your expected output using
+the<00:02:50.720><c> max</c><00:02:51.280><c> figures.</c><00:02:51.680><c> You</c><00:02:51.840><c> have</c><00:02:52.000><c> to</c><00:02:52.160><c> configure</c>
+
+00:02:52.790 --> 00:02:52.800 align:start position:0%
+the max figures. You have to configure
+ 
+
+00:02:52.800 --> 00:02:54.790 align:start position:0%
+the max figures. You have to configure
+your<00:02:53.120><c> breaker</c><00:02:53.599><c> size</c><00:02:53.920><c> and</c><00:02:54.160><c> everything</c><00:02:54.640><c> and</c>
+
+00:02:54.790 --> 00:02:54.800 align:start position:0%
+your breaker size and everything and
+ 
+
+00:02:54.800 --> 00:02:56.790 align:start position:0%
+your breaker size and everything and
+your<00:02:55.040><c> system</c><00:02:55.280><c> based</c><00:02:55.599><c> off</c><00:02:55.840><c> the</c><00:02:56.160><c> short</c><00:02:56.560><c> short</c>
+
+00:02:56.790 --> 00:02:56.800 align:start position:0%
+your system based off the short short
+ 
+
+00:02:56.800 --> 00:02:59.030 align:start position:0%
+your system based off the short short
+circuit<00:02:57.200><c> value.</c><00:02:57.599><c> You</c><00:02:57.760><c> got</c><00:02:57.840><c> a</c><00:02:58.000><c> 20</c><00:02:58.160><c> amp</c><00:02:58.480><c> breaker.</c>
+
+00:02:59.030 --> 00:02:59.040 align:start position:0%
+circuit value. You got a 20 amp breaker.
+ 
+
+00:02:59.040 --> 00:03:01.190 align:start position:0%
+circuit value. You got a 20 amp breaker.
+Why?<00:02:59.280><c> Cuz</c><00:02:59.440><c> it</c><00:02:59.599><c> can't</c><00:02:59.840><c> exceed</c><00:03:00.239><c> this.</c><00:03:00.879><c> But</c><00:03:00.959><c> it's</c>
+
+00:03:01.190 --> 00:03:01.200 align:start position:0%
+Why? Cuz it can't exceed this. But it's
+ 
+
+00:03:01.200 --> 00:03:03.110 align:start position:0%
+Why? Cuz it can't exceed this. But it's
+going<00:03:01.280><c> to</c><00:03:01.360><c> really</c><00:03:01.680><c> operate</c><00:03:02.080><c> around</c><00:03:02.400><c> 12</c><00:03:02.640><c> to</c><00:03:02.879><c> 15</c>
+
+00:03:03.110 --> 00:03:03.120 align:start position:0%
+going to really operate around 12 to 15
+ 
+
+00:03:03.120 --> 00:03:05.190 align:start position:0%
+going to really operate around 12 to 15
+amps.<00:03:03.519><c> Play</c><00:03:03.680><c> it</c><00:03:03.840><c> safe</c><00:03:04.080><c> cuz</c><00:03:04.239><c> you</c><00:03:04.400><c> never</c><00:03:04.640><c> exceed</c>
+
+00:03:05.190 --> 00:03:05.200 align:start position:0%
+amps. Play it safe cuz you never exceed
+ 
+
+00:03:05.200 --> 00:03:07.910 align:start position:0%
+amps. Play it safe cuz you never exceed
+voltage.<00:03:05.760><c> If</c><00:03:05.920><c> we</c><00:03:06.080><c> have</c><00:03:06.319><c> 230</c><00:03:07.040><c> volts</c><00:03:07.440><c> operating</c>
+
+00:03:07.910 --> 00:03:07.920 align:start position:0%
+voltage. If we have 230 volts operating
+ 
+
+00:03:07.920 --> 00:03:10.550 align:start position:0%
+voltage. If we have 230 volts operating
+at<00:03:08.159><c> 42</c><00:03:08.560><c> volts,</c><00:03:09.360><c> we</c><00:03:09.599><c> can</c><00:03:09.680><c> put</c><00:03:09.920><c> five</c><00:03:10.159><c> in</c><00:03:10.319><c> there.</c>
+
+00:03:10.550 --> 00:03:10.560 align:start position:0%
+at 42 volts, we can put five in there.
+ 
+
+00:03:10.560 --> 00:03:13.430 align:start position:0%
+at 42 volts, we can put five in there.
+As<00:03:10.720><c> I</c><00:03:10.879><c> put</c><00:03:11.040><c> five</c><00:03:11.280><c> in</c><00:03:11.519><c> there,</c><00:03:12.080><c> look</c><00:03:12.239><c> at</c><00:03:12.400><c> there.</c>
+
+00:03:13.430 --> 00:03:13.440 align:start position:0%
+As I put five in there, look at there.
+ 
+
+00:03:13.440 --> 00:03:17.110 align:start position:0%
+As I put five in there, look at there.
+2250<00:03:14.400><c> watts.</c><00:03:14.720><c> Amps</c><00:03:15.120><c> times</c><00:03:15.360><c> volts</c><00:03:15.680><c> is</c><00:03:16.640><c> watts.</c>
+
+00:03:17.110 --> 00:03:17.120 align:start position:0%
+2250 watts. Amps times volts is watts.
+ 
+
+00:03:17.120 --> 00:03:18.470 align:start position:0%
+2250 watts. Amps times volts is watts.
+I'm<00:03:17.280><c> going</c><00:03:17.360><c> to</c><00:03:17.440><c> go</c><00:03:17.599><c> ahead</c><00:03:17.760><c> and</c><00:03:17.920><c> put</c><00:03:18.080><c> four</c><00:03:18.319><c> in</c>
+
+00:03:18.470 --> 00:03:18.480 align:start position:0%
+I'm going to go ahead and put four in
+ 
+
+00:03:18.480 --> 00:03:20.070 align:start position:0%
+I'm going to go ahead and put four in
+here<00:03:18.720><c> because</c><00:03:18.959><c> I</c><00:03:19.200><c> know</c><00:03:19.519><c> what's</c><00:03:19.840><c> going</c><00:03:19.920><c> to</c>
+
+00:03:20.070 --> 00:03:20.080 align:start position:0%
+here because I know what's going to
+ 
+
+00:03:20.080 --> 00:03:22.630 align:start position:0%
+here because I know what's going to
+happen.<00:03:20.560><c> Add</c><00:03:20.800><c> parallel</c><00:03:21.280><c> string.</c><00:03:21.680><c> Copy</c><00:03:22.080><c> value.</c>
+
+00:03:22.630 --> 00:03:22.640 align:start position:0%
+happen. Add parallel string. Copy value.
+ 
+
+00:03:22.640 --> 00:03:25.270 align:start position:0%
+happen. Add parallel string. Copy value.
+1<00:03:23.040><c> 2</c><00:03:23.360><c> 3.</c><00:03:23.680><c> I</c><00:03:23.920><c> think</c><00:03:24.000><c> we</c><00:03:24.159><c> can</c><00:03:24.319><c> put</c><00:03:24.480><c> four</c><00:03:24.720><c> on</c><00:03:24.959><c> here.</c>
+
+00:03:25.270 --> 00:03:25.280 align:start position:0%
+1 2 3. I think we can put four on here.
+ 
+
+00:03:25.280 --> 00:03:26.949 align:start position:0%
+1 2 3. I think we can put four on here.
+How<00:03:25.440><c> are</c><00:03:25.519><c> we</c><00:03:25.680><c> going</c><00:03:25.680><c> to</c><00:03:25.840><c> wire</c><00:03:26.080><c> our</c><00:03:26.400><c> batteries?</c>
+
+00:03:26.949 --> 00:03:26.959 align:start position:0%
+How are we going to wire our batteries?
+ 
+
+00:03:26.959 --> 00:03:28.949 align:start position:0%
+How are we going to wire our batteries?
+We<00:03:27.200><c> have</c><00:03:27.440><c> one</c><00:03:27.680><c> battery.</c><00:03:28.239><c> What's</c><00:03:28.480><c> our</c><00:03:28.720><c> battery</c>
+
+00:03:28.949 --> 00:03:28.959 align:start position:0%
+We have one battery. What's our battery
+ 
+
+00:03:28.959 --> 00:03:32.309 align:start position:0%
+We have one battery. What's our battery
+voltage<00:03:29.519><c> between</c><00:03:29.959><c> 67</c><00:03:30.959><c> 87</c><00:03:31.440><c> high</c><00:03:31.680><c> voltage</c><00:03:32.080><c> cut</c>
+
+00:03:32.309 --> 00:03:32.319 align:start position:0%
+voltage between 67 87 high voltage cut
+ 
+
+00:03:32.319 --> 00:03:34.550 align:start position:0%
+voltage between 67 87 high voltage cut
+off?<00:03:32.799><c> Let's</c><00:03:32.959><c> say</c><00:03:33.120><c> when</c><00:03:33.280><c> it's</c><00:03:33.440><c> full.</c><00:03:33.840><c> Amp</c><00:03:34.159><c> hours</c>
+
+00:03:34.550 --> 00:03:34.560 align:start position:0%
+off? Let's say when it's full. Amp hours
+ 
+
+00:03:34.560 --> 00:03:36.190 align:start position:0%
+off? Let's say when it's full. Amp hours
+of
+
+00:03:36.190 --> 00:03:36.200 align:start position:0%
+of
+ 
+
+00:03:36.200 --> 00:03:40.070 align:start position:0%
+of
+1224.<00:03:37.200><c> Total</c><00:03:37.599><c> battery</c><00:03:37.920><c> storage</c><00:03:38.400><c> max</c><00:03:39.080><c> 106.</c>
+
+00:03:40.070 --> 00:03:40.080 align:start position:0%
+1224. Total battery storage max 106.
+ 
+
+00:03:40.080 --> 00:03:42.149 align:start position:0%
+1224. Total battery storage max 106.
+Wson<00:03:40.720><c> always</c><00:03:41.040><c> rates</c><00:03:41.360><c> his</c><00:03:41.519><c> lower</c><00:03:41.840><c> than</c><00:03:41.920><c> they</c>
+
+00:03:42.149 --> 00:03:42.159 align:start position:0%
+Wson always rates his lower than they
+ 
+
+00:03:42.159 --> 00:03:43.509 align:start position:0%
+Wson always rates his lower than they
+are.<00:03:42.400><c> You're</c><00:03:42.560><c> getting</c><00:03:42.720><c> more</c><00:03:42.959><c> bang</c><00:03:43.200><c> for</c><00:03:43.360><c> your</c>
+
+00:03:43.509 --> 00:03:43.519 align:start position:0%
+are. You're getting more bang for your
+ 
+
+00:03:43.519 --> 00:03:45.509 align:start position:0%
+are. You're getting more bang for your
+buck.<00:03:43.840><c> Okay.</c><00:03:43.920><c> So,</c><00:03:44.080><c> what's</c><00:03:44.319><c> my</c><00:03:44.560><c> DC</c><00:03:45.040><c> minimum</c>
+
+00:03:45.509 --> 00:03:45.519 align:start position:0%
+buck. Okay. So, what's my DC minimum
+ 
+
+00:03:45.519 --> 00:03:49.190 align:start position:0%
+buck. Okay. So, what's my DC minimum
+input?<00:03:46.159><c> 90.</c><00:03:46.799><c> Okay.</c><00:03:47.280><c> What</c><00:03:47.440><c> is</c><00:03:47.599><c> my</c><00:03:47.840><c> max</c><00:03:48.239><c> input?</c>
+
+00:03:49.190 --> 00:03:49.200 align:start position:0%
+input? 90. Okay. What is my max input?
+ 
+
+00:03:49.200 --> 00:03:51.990 align:start position:0%
+input? 90. Okay. What is my max input?
+230.<00:03:50.080><c> Okay.</c><00:03:51.040><c> I</c><00:03:51.120><c> have</c><00:03:51.200><c> one</c><00:03:51.440><c> question</c><00:03:51.680><c> about</c><00:03:51.840><c> the</c>
+
+00:03:51.990 --> 00:03:52.000 align:start position:0%
+230. Okay. I have one question about the
+ 
+
+00:03:52.000 --> 00:03:53.910 align:start position:0%
+230. Okay. I have one question about the
+minimum<00:03:52.560><c> input,</c><00:03:52.959><c> right?</c><00:03:53.360><c> Does</c><00:03:53.599><c> that</c><00:03:53.760><c> mean</c>
+
+00:03:53.910 --> 00:03:53.920 align:start position:0%
+minimum input, right? Does that mean
+ 
+
+00:03:53.920 --> 00:03:55.190 align:start position:0%
+minimum input, right? Does that mean
+that<00:03:54.080><c> when</c><00:03:54.239><c> you're</c><00:03:54.319><c> hooking</c><00:03:54.560><c> up</c><00:03:54.720><c> your</c><00:03:54.879><c> strings</c>
+
+00:03:55.190 --> 00:03:55.200 align:start position:0%
+that when you're hooking up your strings
+ 
+
+00:03:55.200 --> 00:03:57.589 align:start position:0%
+that when you're hooking up your strings
+of<00:03:55.360><c> solar</c><00:03:55.599><c> panels,</c><00:03:56.319><c> if</c><00:03:56.560><c> it's</c><00:03:56.720><c> less</c><00:03:57.040><c> than</c><00:03:57.280><c> 90</c>
+
+00:03:57.589 --> 00:03:57.599 align:start position:0%
+of solar panels, if it's less than 90
+ 
+
+00:03:57.599 --> 00:03:59.030 align:start position:0%
+of solar panels, if it's less than 90
+volts,<00:03:57.920><c> it</c><00:03:58.080><c> won't</c><00:03:58.239><c> charge</c><00:03:58.480><c> the</c><00:03:58.640><c> battery</c><00:03:58.879><c> at</c>
+
+00:03:59.030 --> 00:03:59.040 align:start position:0%
+volts, it won't charge the battery at
+ 
+
+00:03:59.040 --> 00:04:02.309 align:start position:0%
+volts, it won't charge the battery at
+all?<00:03:59.799><c> Submit.</c><00:04:00.799><c> Okay.</c><00:04:01.439><c> We</c><00:04:01.680><c> ain't</c><00:04:01.920><c> quite</c><00:04:02.159><c> done</c>
+
+00:04:02.309 --> 00:04:02.319 align:start position:0%
+all? Submit. Okay. We ain't quite done
+ 
+
+00:04:02.319 --> 00:04:05.589 align:start position:0%
+all? Submit. Okay. We ain't quite done
+yet.<00:04:02.879><c> I</c><00:04:03.120><c> think</c><00:04:03.200><c> you</c><00:04:03.439><c> need</c><00:04:03.519><c> a</c><00:04:03.760><c> 12V</c><00:04:04.400><c> bus</c><00:04:04.799><c> bar.</c><00:04:05.360><c> Oh,</c>
+
+00:04:05.589 --> 00:04:05.599 align:start position:0%
+yet. I think you need a 12V bus bar. Oh,
+ 
+
+00:04:05.599 --> 00:04:07.350 align:start position:0%
+yet. I think you need a 12V bus bar. Oh,
+definitely<00:04:05.920><c> a</c><00:04:06.159><c> Bluetooth</c><00:04:06.560><c> transmitter.</c><00:04:07.200><c> And</c>
+
+00:04:07.350 --> 00:04:07.360 align:start position:0%
+definitely a Bluetooth transmitter. And
+ 
+
+00:04:07.360 --> 00:04:08.550 align:start position:0%
+definitely a Bluetooth transmitter. And
+I<00:04:07.519><c> can</c><00:04:07.680><c> show</c><00:04:07.760><c> you</c><00:04:07.920><c> where</c><00:04:08.080><c> that's</c><00:04:08.319><c> going</c><00:04:08.400><c> to</c>
+
+00:04:08.550 --> 00:04:08.560 align:start position:0%
+I can show you where that's going to
+ 
+
+00:04:08.560 --> 00:04:10.070 align:start position:0%
+I can show you where that's going to
+wire<00:04:08.799><c> up.</c><00:04:09.120><c> That's</c><00:04:09.280><c> going</c><00:04:09.360><c> to</c><00:04:09.439><c> wire</c><00:04:09.680><c> up</c><00:04:09.760><c> on</c><00:04:09.920><c> your</c>
+
+00:04:10.070 --> 00:04:10.080 align:start position:0%
+wire up. That's going to wire up on your
+ 
+
+00:04:10.080 --> 00:04:11.509 align:start position:0%
+wire up. That's going to wire up on your
+negative<00:04:10.560><c> between</c><00:04:10.799><c> your</c><00:04:11.040><c> battery</c><00:04:11.280><c> and</c><00:04:11.439><c> your</c>
+
+00:04:11.509 --> 00:04:11.519 align:start position:0%
+negative between your battery and your
+ 
+
+00:04:11.519 --> 00:04:13.830 align:start position:0%
+negative between your battery and your
+inverter.<00:04:12.159><c> What</c><00:04:12.319><c> else?</c><00:04:12.720><c> Oh,</c><00:04:13.040><c> we</c><00:04:13.200><c> need</c><00:04:13.280><c> a</c><00:04:13.439><c> PV</c>
+
+00:04:13.830 --> 00:04:13.840 align:start position:0%
+inverter. What else? Oh, we need a PV
+ 
+
+00:04:13.840 --> 00:04:15.589 align:start position:0%
+inverter. What else? Oh, we need a PV
+disconnect<00:04:14.400><c> right</c><00:04:14.560><c> here.</c><00:04:14.879><c> Well,</c><00:04:15.120><c> you</c><00:04:15.280><c> can</c><00:04:15.360><c> add</c>
+
+00:04:15.589 --> 00:04:15.599 align:start position:0%
+disconnect right here. Well, you can add
+ 
+
+00:04:15.599 --> 00:04:17.110 align:start position:0%
+disconnect right here. Well, you can add
+anything<00:04:15.920><c> in</c><00:04:16.160><c> here</c><00:04:16.320><c> off</c><00:04:16.479><c> of</c><00:04:16.639><c> this</c><00:04:16.799><c> that</c><00:04:16.959><c> you</c>
+
+00:04:17.110 --> 00:04:17.120 align:start position:0%
+anything in here off of this that you
+ 
+
+00:04:17.120 --> 00:04:20.150 align:start position:0%
+anything in here off of this that you
+want<00:04:17.359><c> in</c><00:04:17.600><c> my</c><00:04:17.840><c> email.</c>
+
+00:04:20.150 --> 00:04:20.160 align:start position:0%
+want in my email.
+ 
+
+00:04:20.160 --> 00:04:23.110 align:start position:0%
+want in my email.
+For<00:04:20.400><c> all</c><00:04:20.560><c> your</c><00:04:20.959><c> your</c><00:04:21.040><c> your</c><00:04:21.680><c> solar</c><00:04:22.160><c> needs</c><00:04:22.800><c> and</c>
+
+00:04:23.110 --> 00:04:23.120 align:start position:0%
+For all your your your solar needs and
+ 
+
+00:04:23.120 --> 00:04:26.870 align:start position:0%
+For all your your your solar needs and
+design,<00:04:24.560><c> I</c><00:04:24.720><c> let</c><00:04:24.960><c> you</c><00:04:25.919><c> instead</c><00:04:26.240><c> of</c><00:04:26.400><c> each</c><00:04:26.639><c> one</c><00:04:26.720><c> of</c>
+
+00:04:26.870 --> 00:04:26.880 align:start position:0%
+design, I let you instead of each one of
+ 
+
+00:04:26.880 --> 00:04:29.189 align:start position:0%
+design, I let you instead of each one of
+these<00:04:27.120><c> products,</c><00:04:28.080><c> I</c><00:04:28.320><c> can</c><00:04:28.479><c> pick</c><00:04:28.639><c> one</c><00:04:28.880><c> that</c><00:04:29.040><c> I</c>
+
+00:04:29.189 --> 00:04:29.199 align:start position:0%
+these products, I can pick one that I
+ 
+
+00:04:29.199 --> 00:04:31.510 align:start position:0%
+these products, I can pick one that I
+have<00:04:29.360><c> used</c><00:04:29.600><c> and</c><00:04:29.840><c> know</c><00:04:30.160><c> works</c><00:04:30.560><c> and</c><00:04:30.800><c> put</c><00:04:31.040><c> on</c><00:04:31.280><c> this</c>
+
+00:04:31.510 --> 00:04:31.520 align:start position:0%
+have used and know works and put on this
+ 
+
+00:04:31.520 --> 00:04:33.430 align:start position:0%
+have used and know works and put on this
+website<00:04:31.919><c> and</c><00:04:32.240><c> link</c><00:04:32.400><c> it</c><00:04:32.639><c> directly.</c><00:04:33.199><c> You</c>
+
+00:04:33.430 --> 00:04:33.440 align:start position:0%
+website and link it directly. You
+ 
+
+00:04:33.440 --> 00:04:35.590 align:start position:0%
+website and link it directly. You
+literally<00:04:33.680><c> can</c><00:04:33.919><c> use</c><00:04:34.080><c> this.</c><00:04:34.720><c> It's</c><00:04:34.960><c> free.</c><00:04:35.520><c> You</c>
+
+00:04:35.590 --> 00:04:35.600 align:start position:0%
+literally can use this. It's free. You
+ 
+
+00:04:35.600 --> 00:04:37.430 align:start position:0%
+literally can use this. It's free. You
+made<00:04:35.759><c> it,</c><00:04:35.919><c> right?</c><00:04:36.320><c> Mhm.</c><00:04:36.639><c> I</c><00:04:36.960><c> designed</c><00:04:37.199><c> this</c>
+
+00:04:37.430 --> 00:04:37.440 align:start position:0%
+made it, right? Mhm. I designed this
+ 
+
+00:04:37.440 --> 00:04:38.870 align:start position:0%
+made it, right? Mhm. I designed this
+whole<00:04:37.680><c> website.</c><00:04:38.080><c> That's</c><00:04:38.240><c> Hey,</c><00:04:38.479><c> look.</c><00:04:38.720><c> That's</c>
+
+00:04:38.870 --> 00:04:38.880 align:start position:0%
+whole website. That's Hey, look. That's
+ 
+
+00:04:38.880 --> 00:04:40.870 align:start position:0%
+whole website. That's Hey, look. That's
+me.<00:04:39.199><c> That's</c><00:04:39.360><c> John.</c><00:04:39.759><c> Those</c><00:04:39.919><c> are</c><00:04:40.000><c> the</c><00:04:40.240><c> 660s.</c>
+
+00:04:40.870 --> 00:04:40.880 align:start position:0%
+me. That's John. Those are the 660s.
+ 
+
+00:04:40.880 --> 00:04:42.710 align:start position:0%
+me. That's John. Those are the 660s.
+There's<00:04:41.040><c> Nick.</c><00:04:41.440><c> There's</c><00:04:41.680><c> my</c><00:04:41.840><c> [&nbsp;__&nbsp;]</c><00:04:42.240><c> van</c>
+
+00:04:42.710 --> 00:04:42.720 align:start position:0%
+There's Nick. There's my [&nbsp;__&nbsp;] van
+ 
+
+00:04:42.720 --> 00:04:45.670 align:start position:0%
+There's Nick. There's my [&nbsp;__&nbsp;] van
+wearing<00:04:43.040><c> the</c><00:04:43.280><c> same</c><00:04:43.520><c> goddamn</c><00:04:44.160><c> dirty</c><00:04:44.560><c> shorts.</c>
+
+00:04:45.670 --> 00:04:45.680 align:start position:0%
+wearing the same goddamn dirty shorts.
+ 
+
+00:04:45.680 --> 00:04:48.710 align:start position:0%
+wearing the same goddamn dirty shorts.
+That's<00:04:45.840><c> me.</c><00:04:47.280><c> We</c><00:04:47.520><c> are</c><00:04:47.600><c> a</c><00:04:47.759><c> renewable</c><00:04:48.320><c> energy</c>
+
+00:04:48.710 --> 00:04:48.720 align:start position:0%
+That's me. We are a renewable energy
+ 
+
+00:04:48.720 --> 00:04:50.790 align:start position:0%
+That's me. We are a renewable energy
+brain<00:04:49.120><c> trust</c><00:04:49.440><c> dedicated</c><00:04:50.160><c> delivering</c>
+
+00:04:50.790 --> 00:04:50.800 align:start position:0%
+brain trust dedicated delivering
+ 
+
+00:04:50.800 --> 00:04:52.629 align:start position:0%
+brain trust dedicated delivering
+electric<00:04:51.440><c> information</c><00:04:52.000><c> and</c><00:04:52.320><c> power</c>
+
+00:04:52.629 --> 00:04:52.639 align:start position:0%
+electric information and power
+ 
+
+00:04:52.639 --> 00:04:54.629 align:start position:0%
+electric information and power
+generation<00:04:53.199><c> to</c><00:04:53.520><c> real</c><00:04:53.759><c> people</c><00:04:54.000><c> in</c><00:04:54.320><c> real</c>
+
+00:04:54.629 --> 00:04:54.639 align:start position:0%
+generation to real people in real
+ 
+
+00:04:54.639 --> 00:04:56.870 align:start position:0%
+generation to real people in real
+situations.<00:04:55.440><c> Guys,</c><00:04:55.680><c> I</c><00:04:55.840><c> I</c><00:04:56.160><c> wanted</c><00:04:56.400><c> to</c><00:04:56.560><c> show</c><00:04:56.720><c> you</c>
+
+00:04:56.870 --> 00:04:56.880 align:start position:0%
+situations. Guys, I I wanted to show you
+ 
+
+00:04:56.880 --> 00:04:58.230 align:start position:0%
+situations. Guys, I I wanted to show you
+all<00:04:57.040><c> this</c><00:04:57.199><c> and</c><00:04:57.440><c> now</c><00:04:57.600><c> that</c><00:04:57.759><c> I've</c><00:04:57.919><c> showed</c><00:04:58.080><c> you</c>
+
+00:04:58.230 --> 00:04:58.240 align:start position:0%
+all this and now that I've showed you
+ 
+
+00:04:58.240 --> 00:05:00.070 align:start position:0%
+all this and now that I've showed you
+that,<00:04:58.639><c> you</c><00:04:58.800><c> can</c><00:04:58.960><c> do</c><00:04:59.040><c> it</c><00:04:59.120><c> just</c><00:04:59.280><c> like</c><00:04:59.440><c> I</c><00:04:59.680><c> can.</c><00:04:59.919><c> You</c>
+
+00:05:00.070 --> 00:05:00.080 align:start position:0%
+that, you can do it just like I can. You
+ 
+
+00:05:00.080 --> 00:05:01.510 align:start position:0%
+that, you can do it just like I can. You
+can<00:05:00.160><c> give</c><00:05:00.320><c> me</c><00:05:00.479><c> feedback,</c><00:05:00.880><c> too,</c><00:05:01.040><c> on</c><00:05:01.280><c> how</c><00:05:01.360><c> to</c>
+
+00:05:01.510 --> 00:05:01.520 align:start position:0%
+can give me feedback, too, on how to
+ 
+
+00:05:01.520 --> 00:05:03.350 align:start position:0%
+can give me feedback, too, on how to
+make<00:05:01.600><c> it</c><00:05:01.759><c> easier</c><00:05:02.080><c> and</c><00:05:02.320><c> more</c><00:05:02.560><c> and</c><00:05:02.720><c> and</c><00:05:02.880><c> and</c>
+
+00:05:03.350 --> 00:05:03.360 align:start position:0%
+make it easier and more and and and
+ 
+
+00:05:03.360 --> 00:05:05.030 align:start position:0%
+make it easier and more and and and
+better<00:05:03.600><c> cuz</c><00:05:03.759><c> it's</c><00:05:03.919><c> not</c><00:05:04.080><c> user</c><00:05:04.400><c> friendly</c><00:05:04.720><c> to</c><00:05:04.880><c> me</c>
+
+00:05:05.030 --> 00:05:05.040 align:start position:0%
+better cuz it's not user friendly to me
+ 
+
+00:05:05.040 --> 00:05:07.110 align:start position:0%
+better cuz it's not user friendly to me
+yet.<00:05:05.440><c> When</c><00:05:05.600><c> you</c><00:05:05.680><c> make</c><00:05:05.759><c> a</c><00:05:06.000><c> free</c><00:05:06.160><c> login,</c><00:05:06.800><c> go</c><00:05:06.960><c> for</c>
+
+00:05:07.110 --> 00:05:07.120 align:start position:0%
+yet. When you make a free login, go for
+ 
+
+00:05:07.120 --> 00:05:09.270 align:start position:0%
+yet. When you make a free login, go for
+it.<00:05:07.520><c> Sewing</c><00:05:07.919><c> is</c><00:05:08.080><c> not</c><00:05:08.240><c> that</c><00:05:08.479><c> hard</c><00:05:08.720><c> and</c><00:05:08.880><c> you</c><00:05:09.120><c> just</c>
+
+00:05:09.270 --> 00:05:09.280 align:start position:0%
+it. Sewing is not that hard and you just
+ 
+
+00:05:09.280 --> 00:05:11.590 align:start position:0%
+it. Sewing is not that hard and you just
+made<00:05:09.440><c> it</c><00:05:09.759><c> even</c><00:05:10.160><c> simple.</c><00:05:10.880><c> It</c><00:05:11.039><c> looks</c><00:05:11.280><c> like</c><00:05:11.440><c> we're</c>
+
+00:05:11.590 --> 00:05:11.600 align:start position:0%
+made it even simple. It looks like we're
+ 
+
+00:05:11.600 --> 00:05:13.510 align:start position:0%
+made it even simple. It looks like we're
+going<00:05:11.680><c> to</c><00:05:11.759><c> be</c><00:05:11.840><c> putting</c><00:05:12.000><c> in</c><00:05:12.160><c> a</c><00:05:12.320><c> max</c><00:05:12.479><c> of</c><00:05:12.720><c> 7500</c>
+
+00:05:13.510 --> 00:05:13.520 align:start position:0%
+going to be putting in a max of 7500
+ 
+
+00:05:13.520 --> 00:05:15.430 align:start position:0%
+going to be putting in a max of 7500
+watts.<00:05:14.000><c> How</c><00:05:14.160><c> many</c><00:05:14.320><c> kilowatt</c><00:05:14.800><c> hours</c><00:05:15.120><c> do</c><00:05:15.280><c> you</c>
+
+00:05:15.430 --> 00:05:15.440 align:start position:0%
+watts. How many kilowatt hours do you
+ 
+
+00:05:15.440 --> 00:05:17.830 align:start position:0%
+watts. How many kilowatt hours do you
+need,<00:05:15.680><c> Julian,</c><00:05:16.080><c> to</c><00:05:16.320><c> run</c><00:05:16.560><c> your</c><00:05:16.880><c> uh</c><00:05:17.120><c> machine?</c><00:05:17.600><c> 40</c>
+
+00:05:17.830 --> 00:05:17.840 align:start position:0%
+need, Julian, to run your uh machine? 40
+ 
+
+00:05:17.840 --> 00:05:21.670 align:start position:0%
+need, Julian, to run your uh machine? 40
+kwatt<00:05:18.320><c> hours.</c><00:05:18.720><c> 7200</c><00:05:19.440><c> watts</c><00:05:19.840><c> going</c><00:05:20.080><c> in.</c><00:05:21.039><c> Is</c><00:05:21.199><c> a</c><00:05:21.280><c> 4</c>
+
+00:05:21.670 --> 00:05:21.680 align:start position:0%
+kwatt hours. 7200 watts going in. Is a 4
+ 
+
+00:05:21.680 --> 00:05:23.430 align:start position:0%
+kwatt hours. 7200 watts going in. Is a 4
+1/2<00:05:21.840><c> hour</c><00:05:22.080><c> sun</c><00:05:22.400><c> hour</c><00:05:22.560><c> state.</c><00:05:22.880><c> Correct.</c><00:05:23.280><c> At</c>
+
+00:05:23.430 --> 00:05:23.440 align:start position:0%
+1/2 hour sun hour state. Correct. At
+ 
+
+00:05:23.440 --> 00:05:26.230 align:start position:0%
+1/2 hour sun hour state. Correct. At
+four<00:05:23.759><c> just</c><00:05:23.919><c> to</c><00:05:24.080><c> be</c><00:05:24.240><c> safe.</c><00:05:24.800><c> How</c><00:05:24.960><c> about</c><00:05:25.199><c> 29</c><00:05:25.680><c> kwatt</c>
+
+00:05:26.230 --> 00:05:26.240 align:start position:0%
+four just to be safe. How about 29 kwatt
+ 
+
+00:05:26.240 --> 00:05:29.590 align:start position:0%
+four just to be safe. How about 29 kwatt
+hours<00:05:26.800><c> off</c><00:05:27.039><c> of</c><00:05:27.919><c> 16</c><00:05:28.320><c> of</c><00:05:28.479><c> these</c><00:05:28.639><c> used</c><00:05:28.960><c> panels.</c>
+
+00:05:29.590 --> 00:05:29.600 align:start position:0%
+hours off of 16 of these used panels.
+ 
+
+00:05:29.600 --> 00:05:33.270 align:start position:0%
+hours off of 16 of these used panels.
+We're<00:05:29.840><c> only</c><00:05:30.080><c> at</c><00:05:30.320><c> 42</c><00:05:30.800><c> amps.</c><00:05:31.280><c> We</c><00:05:31.520><c> can</c><00:05:31.680><c> go</c><00:05:31.919><c> up</c><00:05:32.280><c> to</c>
+
+00:05:33.270 --> 00:05:33.280 align:start position:0%
+We're only at 42 amps. We can go up to
+ 
+
+00:05:33.280 --> 00:05:35.830 align:start position:0%
+We're only at 42 amps. We can go up to
+160<00:05:34.080><c> if</c><00:05:34.320><c> we</c><00:05:34.479><c> do</c><00:05:34.560><c> it</c><00:05:34.720><c> on</c><00:05:34.880><c> our</c><00:05:35.120><c> open</c><00:05:35.440><c> circuit</c>
+
+00:05:35.830 --> 00:05:35.840 align:start position:0%
+160 if we do it on our open circuit
+ 
+
+00:05:35.840 --> 00:05:37.909 align:start position:0%
+160 if we do it on our open circuit
+voltage<00:05:36.240><c> at</c><00:05:36.560><c> five.</c><00:05:36.800><c> Our</c><00:05:37.120><c> total</c><00:05:37.360><c> voltage</c><00:05:37.680><c> is</c><00:05:37.759><c> at</c>
+
+00:05:37.909 --> 00:05:37.919 align:start position:0%
+voltage at five. Our total voltage is at
+ 
+
+00:05:37.919 --> 00:05:39.749 align:start position:0%
+voltage at five. Our total voltage is at
+50.<00:05:38.240><c> It</c><00:05:38.400><c> shuts</c><00:05:38.639><c> off</c><00:05:38.720><c> the</c><00:05:38.880><c> whole</c><00:05:39.039><c> system.</c><00:05:39.520><c> So,</c>
+
+00:05:39.749 --> 00:05:39.759 align:start position:0%
+50. It shuts off the whole system. So,
+ 
+
+00:05:39.759 --> 00:05:41.029 align:start position:0%
+50. It shuts off the whole system. So,
+here's<00:05:40.000><c> where</c><00:05:40.160><c> we're</c><00:05:40.320><c> at.</c><00:05:40.560><c> We</c><00:05:40.720><c> have</c><00:05:40.800><c> our</c>
+
+00:05:41.029 --> 00:05:41.039 align:start position:0%
+here's where we're at. We have our
+ 
+
+00:05:41.039 --> 00:05:43.670 align:start position:0%
+here's where we're at. We have our
+voltage<00:05:41.919><c> and</c><00:05:42.160><c> we</c><00:05:42.320><c> have</c><00:05:42.400><c> our</c><00:05:42.639><c> ampacity.</c><00:05:43.440><c> We're</c>
+
+00:05:43.670 --> 00:05:43.680 align:start position:0%
+voltage and we have our ampacity. We're
+ 
+
+00:05:43.680 --> 00:05:46.310 align:start position:0%
+voltage and we have our ampacity. We're
+only<00:05:43.919><c> operating</c><00:05:44.400><c> at</c><00:05:44.960><c> 168</c><00:05:45.360><c> volts.</c><00:05:45.840><c> That's</c>
+
+00:05:46.310 --> 00:05:46.320 align:start position:0%
+only operating at 168 volts. That's
+ 
+
+00:05:46.320 --> 00:05:47.510 align:start position:0%
+only operating at 168 volts. That's
+beautiful.<00:05:46.720><c> It's</c><00:05:46.880><c> in</c><00:05:47.039><c> the</c><00:05:47.120><c> middle.</c><00:05:47.280><c> It's</c>
+
+00:05:47.510 --> 00:05:47.520 align:start position:0%
+beautiful. It's in the middle. It's
+ 
+
+00:05:47.520 --> 00:05:50.590 align:start position:0%
+beautiful. It's in the middle. It's
+nowhere<00:05:47.759><c> near</c><00:05:47.919><c> the</c><00:05:48.160><c> top</c><00:05:48.320><c> threshold.</c>
+
+00:05:50.590 --> 00:05:50.600 align:start position:0%
+nowhere near the top threshold.
+ 
+
+00:05:50.600 --> 00:05:53.670 align:start position:0%
+nowhere near the top threshold.
+42.8<00:05:51.600><c> amps.</c><00:05:52.160><c> Theoretically,</c><00:05:52.880><c> I'd</c><00:05:53.199><c> say</c><00:05:53.360><c> add</c>
+
+00:05:53.670 --> 00:05:53.680 align:start position:0%
+42.8 amps. Theoretically, I'd say add
+ 
+
+00:05:53.680 --> 00:05:55.990 align:start position:0%
+42.8 amps. Theoretically, I'd say add
+three<00:05:53.919><c> safely.</c><00:05:54.639><c> That'll</c><00:05:54.960><c> put</c><00:05:55.039><c> us</c><00:05:55.199><c> up</c><00:05:55.360><c> around</c>
+
+00:05:55.990 --> 00:05:56.000 align:start position:0%
+three safely. That'll put us up around
+ 
+
+00:05:56.000 --> 00:05:58.550 align:start position:0%
+three safely. That'll put us up around
+130<00:05:56.320><c> something</c><00:05:56.759><c> amps.</c><00:05:57.759><c> Dude,</c><00:05:58.080><c> that's</c><00:05:58.320><c> a</c><00:05:58.479><c> lot</c>
+
+00:05:58.550 --> 00:05:58.560 align:start position:0%
+130 something amps. Dude, that's a lot
+ 
+
+00:05:58.560 --> 00:06:01.909 align:start position:0%
+130 something amps. Dude, that's a lot
+of<00:05:58.720><c> [&nbsp;__&nbsp;]</c><00:05:58.960><c> juice.</c><00:05:59.360><c> Let's</c><00:05:59.600><c> say</c><00:05:59.759><c> we</c><00:06:00.000><c> add</c><00:06:00.639><c> three</c>
+
+00:06:01.909 --> 00:06:01.919 align:start position:0%
+of [&nbsp;__&nbsp;] juice. Let's say we add three
+ 
+
+00:06:01.919 --> 00:06:03.749 align:start position:0%
+of [&nbsp;__&nbsp;] juice. Let's say we add three
+sets.<00:06:02.479><c> That's</c><00:06:02.639><c> what</c><00:06:02.800><c> that</c><00:06:03.039><c> is</c><00:06:03.199><c> capable</c><00:06:03.520><c> of</c>
+
+00:06:03.749 --> 00:06:03.759 align:start position:0%
+sets. That's what that is capable of
+ 
+
+00:06:03.759 --> 00:06:05.430 align:start position:0%
+sets. That's what that is capable of
+producing<00:06:04.160><c> in</c><00:06:04.319><c> a</c><00:06:04.479><c> day</c><00:06:04.639><c> in</c><00:06:04.800><c> a</c><00:06:04.960><c> real</c><00:06:05.199><c> life</c>
+
+00:06:05.430 --> 00:06:05.440 align:start position:0%
+producing in a day in a real life
+ 
+
+00:06:05.440 --> 00:06:07.270 align:start position:0%
+producing in a day in a real life
+scenario.<00:06:06.000><c> Y'all</c><00:06:06.319><c> know</c><00:06:06.400><c> about</c><00:06:06.720><c> residential</c>
+
+00:06:07.270 --> 00:06:07.280 align:start position:0%
+scenario. Y'all know about residential
+ 
+
+00:06:07.280 --> 00:06:09.510 align:start position:0%
+scenario. Y'all know about residential
+AC<00:06:07.680><c> electric.</c><00:06:08.160><c> Take</c><00:06:08.319><c> a</c><00:06:08.479><c> panel</c><00:06:08.720><c> here.</c><00:06:09.120><c> And</c><00:06:09.360><c> all</c>
+
+00:06:09.510 --> 00:06:09.520 align:start position:0%
+AC electric. Take a panel here. And all
+ 
+
+00:06:09.520 --> 00:06:11.189 align:start position:0%
+AC electric. Take a panel here. And all
+you<00:06:09.680><c> do</c><00:06:09.759><c> is</c><00:06:09.919><c> pull</c><00:06:10.160><c> some</c><00:06:10.319><c> circuits</c><00:06:10.720><c> out</c><00:06:10.800><c> of</c><00:06:10.960><c> it</c>
+
+00:06:11.189 --> 00:06:11.199 align:start position:0%
+you do is pull some circuits out of it
+ 
+
+00:06:11.199 --> 00:06:13.110 align:start position:0%
+you do is pull some circuits out of it
+and<00:06:11.360><c> put</c><00:06:11.520><c> it</c><00:06:11.600><c> in</c><00:06:11.680><c> a</c><00:06:11.840><c> sub</c><00:06:12.000><c> panel</c><00:06:12.319><c> over</c><00:06:12.479><c> here.</c><00:06:13.039><c> Put</c>
+
+00:06:13.110 --> 00:06:13.120 align:start position:0%
+and put it in a sub panel over here. Put
+ 
+
+00:06:13.120 --> 00:06:15.189 align:start position:0%
+and put it in a sub panel over here. Put
+a<00:06:13.280><c> 50</c><00:06:13.440><c> amp</c><00:06:13.759><c> plug</c><00:06:14.000><c> coming</c><00:06:14.240><c> into</c><00:06:14.479><c> it</c><00:06:14.880><c> to</c><00:06:15.039><c> feed</c>
+
+00:06:15.189 --> 00:06:15.199 align:start position:0%
+a 50 amp plug coming into it to feed
+ 
+
+00:06:15.199 --> 00:06:18.070 align:start position:0%
+a 50 amp plug coming into it to feed
+your<00:06:15.360><c> main.</c><00:06:15.680><c> Put</c><00:06:15.840><c> a</c><00:06:16.000><c> 50</c><00:06:16.160><c> amp</c><00:06:16.479><c> plug</c><00:06:17.199><c> and</c><00:06:17.360><c> outlet</c>
+
+00:06:18.070 --> 00:06:18.080 align:start position:0%
+your main. Put a 50 amp plug and outlet
+ 
+
+00:06:18.080 --> 00:06:19.749 align:start position:0%
+your main. Put a 50 amp plug and outlet
+coming<00:06:18.319><c> out</c><00:06:18.479><c> of</c><00:06:18.639><c> the</c><00:06:18.800><c> grid.</c><00:06:19.120><c> And</c><00:06:19.280><c> you</c><00:06:19.440><c> take</c><00:06:19.600><c> the</c>
+
+00:06:19.749 --> 00:06:19.759 align:start position:0%
+coming out of the grid. And you take the
+ 
+
+00:06:19.759 --> 00:06:21.749 align:start position:0%
+coming out of the grid. And you take the
+AC<00:06:20.160><c> charger</c><00:06:20.479><c> and</c><00:06:20.720><c> plug</c><00:06:20.880><c> it</c><00:06:21.039><c> into</c><00:06:21.280><c> the</c><00:06:21.440><c> grid.</c>
+
+00:06:21.749 --> 00:06:21.759 align:start position:0%
+AC charger and plug it into the grid.
+ 
+
+00:06:21.759 --> 00:06:23.510 align:start position:0%
+AC charger and plug it into the grid.
+Then<00:06:22.000><c> you</c><00:06:22.160><c> take</c><00:06:22.240><c> the</c><00:06:22.400><c> AC</c><00:06:22.720><c> output</c><00:06:23.039><c> and</c><00:06:23.199><c> plug</c><00:06:23.360><c> it</c>
+
+00:06:23.510 --> 00:06:23.520 align:start position:0%
+Then you take the AC output and plug it
+ 
+
+00:06:23.520 --> 00:06:25.270 align:start position:0%
+Then you take the AC output and plug it
+in<00:06:23.600><c> to</c><00:06:23.759><c> feed</c><00:06:23.919><c> your</c><00:06:24.080><c> sub</c><00:06:24.319><c> panel.</c><00:06:24.720><c> It's</c><00:06:24.960><c> charging</c>
+
+00:06:25.270 --> 00:06:25.280 align:start position:0%
+in to feed your sub panel. It's charging
+ 
+
+00:06:25.280 --> 00:06:27.430 align:start position:0%
+in to feed your sub panel. It's charging
+off<00:06:25.440><c> of</c><00:06:25.520><c> the</c><00:06:25.680><c> grid,</c><00:06:25.919><c> but</c><00:06:26.160><c> what</c><00:06:26.319><c> you</c><00:06:26.479><c> do</c><00:06:27.039><c> is</c><00:06:27.280><c> set</c>
+
+00:06:27.430 --> 00:06:27.440 align:start position:0%
+off of the grid, but what you do is set
+ 
+
+00:06:27.440 --> 00:06:29.590 align:start position:0%
+off of the grid, but what you do is set
+it<00:06:27.600><c> to</c><00:06:27.840><c> only</c><00:06:28.080><c> charge</c><00:06:28.400><c> during</c><00:06:28.720><c> off</c><00:06:28.960><c> peak</c><00:06:29.199><c> hours.</c>
+
+00:06:29.590 --> 00:06:29.600 align:start position:0%
+it to only charge during off peak hours.
+ 
+
+00:06:29.600 --> 00:06:31.830 align:start position:0%
+it to only charge during off peak hours.
+So<00:06:29.759><c> you</c><00:06:30.000><c> only</c><00:06:30.319><c> buy</c><00:06:30.479><c> the</c><00:06:30.720><c> cheap</c><00:06:31.039><c> energy.</c><00:06:31.680><c> You</c>
+
+00:06:31.830 --> 00:06:31.840 align:start position:0%
+So you only buy the cheap energy. You
+ 
+
+00:06:31.840 --> 00:06:34.550 align:start position:0%
+So you only buy the cheap energy. You
+can<00:06:32.000><c> cut</c><00:06:32.160><c> your</c><00:06:32.319><c> energy</c><00:06:32.720><c> bill</c><00:06:33.039><c> by</c><00:06:33.440><c> 50%.</c><00:06:34.240><c> All</c><00:06:34.479><c> you</c>
+
+00:06:34.550 --> 00:06:34.560 align:start position:0%
+can cut your energy bill by 50%. All you
+ 
+
+00:06:34.560 --> 00:06:35.990 align:start position:0%
+can cut your energy bill by 50%. All you
+have<00:06:34.639><c> to</c><00:06:34.800><c> do</c><00:06:34.880><c> is</c><00:06:35.039><c> select</c><00:06:35.280><c> the</c><00:06:35.440><c> circuits,</c><00:06:35.759><c> do</c><00:06:35.919><c> a</c>
+
+00:06:35.990 --> 00:06:36.000 align:start position:0%
+have to do is select the circuits, do a
+ 
+
+00:06:36.000 --> 00:06:37.350 align:start position:0%
+have to do is select the circuits, do a
+load<00:06:36.240><c> calculation,</c><00:06:36.800><c> figure</c><00:06:36.960><c> out</c><00:06:37.199><c> this</c><00:06:37.280><c> is</c>
+
+00:06:37.350 --> 00:06:37.360 align:start position:0%
+load calculation, figure out this is
+ 
+
+00:06:37.360 --> 00:06:39.110 align:start position:0%
+load calculation, figure out this is
+what<00:06:37.520><c> I'm</c><00:06:37.680><c> using.</c><00:06:37.919><c> I'mma</c><00:06:38.240><c> put</c><00:06:38.319><c> this</c><00:06:38.479><c> in</c><00:06:38.639><c> here.</c>
+
+00:06:39.110 --> 00:06:39.120 align:start position:0%
+what I'm using. I'mma put this in here.
+ 
+
+00:06:39.120 --> 00:06:41.029 align:start position:0%
+what I'm using. I'mma put this in here.
+I'mma<00:06:39.440><c> run</c><00:06:39.680><c> I'mma</c><00:06:40.000><c> run</c><00:06:40.160><c> all</c><00:06:40.400><c> this.</c><00:06:40.720><c> And</c><00:06:40.800><c> if</c><00:06:40.960><c> you</c>
+
+00:06:41.029 --> 00:06:41.039 align:start position:0%
+I'mma run I'mma run all this. And if you
+ 
+
+00:06:41.039 --> 00:06:42.950 align:start position:0%
+I'mma run I'mma run all this. And if you
+hook<00:06:41.280><c> solar</c><00:06:41.600><c> panels</c><00:06:41.840><c> to</c><00:06:42.000><c> it,</c><00:06:42.240><c> then</c><00:06:42.639><c> you</c><00:06:42.800><c> have</c>
+
+00:06:42.950 --> 00:06:42.960 align:start position:0%
+hook solar panels to it, then you have
+ 
+
+00:06:42.960 --> 00:06:44.629 align:start position:0%
+hook solar panels to it, then you have
+the<00:06:43.120><c> security</c><00:06:43.520><c> of</c><00:06:43.840><c> under</c><00:06:44.160><c> the</c><00:06:44.240><c> grid,</c><00:06:44.479><c> but</c>
+
+00:06:44.629 --> 00:06:44.639 align:start position:0%
+the security of under the grid, but
+ 
+
+00:06:44.639 --> 00:06:46.070 align:start position:0%
+the security of under the grid, but
+you're<00:06:44.720><c> running</c><00:06:44.880><c> your</c><00:06:45.120><c> AC,</c><00:06:45.440><c> your</c><00:06:45.600><c> fridge,</c><00:06:45.919><c> all</c>
+
+00:06:46.070 --> 00:06:46.080 align:start position:0%
+you're running your AC, your fridge, all
+ 
+
+00:06:46.080 --> 00:06:47.430 align:start position:0%
+you're running your AC, your fridge, all
+your<00:06:46.240><c> [&nbsp;__&nbsp;]</c><00:06:46.400><c> off</c><00:06:46.560><c> of</c><00:06:46.720><c> solar.</c><00:06:47.039><c> You</c><00:06:47.199><c> ain't</c>
+
+00:06:47.430 --> 00:06:47.440 align:start position:0%
+your [&nbsp;__&nbsp;] off of solar. You ain't
+ 
+
+00:06:47.440 --> 00:06:49.029 align:start position:0%
+your [&nbsp;__&nbsp;] off of solar. You ain't
+worried<00:06:47.680><c> about</c><00:06:48.000><c> selling</c><00:06:48.319><c> them</c><00:06:48.560><c> energy</c><00:06:48.880><c> back</c>
+
+00:06:49.029 --> 00:06:49.039 align:start position:0%
+worried about selling them energy back
+ 
+
+00:06:49.039 --> 00:06:50.710 align:start position:0%
+worried about selling them energy back
+for<00:06:49.280><c> 30</c><00:06:49.440><c> cents</c><00:06:49.680><c> on</c><00:06:49.840><c> the</c><00:06:50.000><c> dollar.</c><00:06:50.240><c> So</c><00:06:50.319><c> they</c><00:06:50.479><c> pimp</c>
+
+00:06:50.710 --> 00:06:50.720 align:start position:0%
+for 30 cents on the dollar. So they pimp
+ 
+
+00:06:50.720 --> 00:06:52.309 align:start position:0%
+for 30 cents on the dollar. So they pimp
+me<00:06:50.800><c> out</c><00:06:50.960><c> to</c><00:06:51.039><c> my</c><00:06:51.199><c> neighbor.</c><00:06:51.600><c> I'm</c><00:06:51.759><c> pimping</c><00:06:52.160><c> you</c>
+
+00:06:52.309 --> 00:06:52.319 align:start position:0%
+me out to my neighbor. I'm pimping you
+ 
+
+00:06:52.319 --> 00:06:54.230 align:start position:0%
+me out to my neighbor. I'm pimping you
+out,<00:06:52.560><c> bro.</c><00:06:52.960><c> It's</c><00:06:53.199><c> called</c><00:06:53.440><c> [&nbsp;__&nbsp;]</c><00:06:53.759><c> karma,</c>
+
+00:06:54.230 --> 00:06:54.240 align:start position:0%
+out, bro. It's called [&nbsp;__&nbsp;] karma,
+ 
+
+00:06:54.240 --> 00:06:56.230 align:start position:0%
+out, bro. It's called [&nbsp;__&nbsp;] karma,
+bro.<00:06:54.479><c> If</c><00:06:54.639><c> you</c><00:06:54.800><c> burn</c><00:06:55.120><c> dead</c><00:06:55.440><c> animals</c><00:06:55.919><c> and</c>
+
+00:06:56.230 --> 00:06:56.240 align:start position:0%
+bro. If you burn dead animals and
+ 
+
+00:06:56.240 --> 00:06:57.749 align:start position:0%
+bro. If you burn dead animals and
+[&nbsp;__&nbsp;]<00:06:56.639><c> nuclear</c><00:06:57.039><c> power</c><00:06:57.280><c> to</c><00:06:57.520><c> make</c>
+
+00:06:57.749 --> 00:06:57.759 align:start position:0%
+[&nbsp;__&nbsp;] nuclear power to make
+ 
+
+00:06:57.759 --> 00:06:59.189 align:start position:0%
+[&nbsp;__&nbsp;] nuclear power to make
+electricity<00:06:58.400><c> so</c><00:06:58.560><c> you</c><00:06:58.720><c> run</c><00:06:58.880><c> an</c><00:06:59.039><c> air</c>
+
+00:06:59.189 --> 00:06:59.199 align:start position:0%
+electricity so you run an air
+ 
+
+00:06:59.199 --> 00:07:02.629 align:start position:0%
+electricity so you run an air
+conditioner,<00:07:00.479><c> you're</c><00:07:00.639><c> just</c><00:07:00.960><c> sorry,</c><00:07:01.360><c> bro.</c>
+
+00:07:02.629 --> 00:07:02.639 align:start position:0%
+conditioner, you're just sorry, bro.
+ 
+
+00:07:02.639 --> 00:07:04.950 align:start position:0%
+conditioner, you're just sorry, bro.
+Like<00:07:03.199><c> in</c><00:07:03.440><c> my</c><00:07:03.680><c> opinion,</c><00:07:04.000><c> I'd</c><00:07:04.240><c> rather</c><00:07:04.560><c> switch.</c>
+
+00:07:04.950 --> 00:07:04.960 align:start position:0%
+Like in my opinion, I'd rather switch.
+ 
+
+00:07:04.960 --> 00:07:09.160 align:start position:0%
+Like in my opinion, I'd rather switch.
+We're<00:07:05.199><c> smart</c><00:07:05.360><c> enough</c><00:07:05.599><c> nowadays</c><00:07:06.160><c> like</c>
+

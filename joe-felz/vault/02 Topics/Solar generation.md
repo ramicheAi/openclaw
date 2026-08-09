@@ -1,0 +1,177 @@
+---
+type: "topic"
+family: "Electricity, Solar and Energy"
+group: "Solar generation"
+terms: "12"
+sources: "76"
+occurrences: "264"
+tags:
+  - "topic"
+  - "electrical"
+---
+
+# Solar generation
+
+Part of **[[Electricity, Solar and Energy]]**. 12 distinct terms appear across 76 posts and videos, said 264 times in total.
+
+Each term below lists the posts and videos where it appears, with the surrounding words quoted exactly.
+
+
+## solar  
+*said 192 time(s) across 35 source(s)*
+
+- [[2026-07-09 It’s where you lose pieces of yourself that were never meant to make it to the]] — 2026-07-09 · [youtube](https://www.youtube.com/watch?v=8zc68v6hen0)  
+  > ...ke it to the top #mindset #joefelz got a message today about Joe. At the very end of it, it said, "Your pursuit of knowledge has inspired the pursuit in many. Let their light carry the mission while you rekindle your flame." Boy, y'all better be carrying some solar flare type flashlights. I'm healing, not healed. There's a big difference between the two. And since we've been back from Costa Rica the last 2 months, life has made damn sure I understood that. It reminded me of something I've heard that I think Joe has smac...
+- [[2026-06-23 If you demand respect for your faith while denying it to theirs….you’re defendi]] — 2026-06-23 · [youtube](https://www.youtube.com/watch?v=1nOak54K1tI)  
+  > ...with words of wisdom and knowledge that I think you should probably listen to. Just kind of trying to fill the silence while he is handling his And when he comes back, we'll get back to the Bibles and ancient artifacts and Mexico and Colombia and Costa Rica, solar and construction and all the things that he has shared and and taught us. Until that happens, it's you and me, baby. Anyways, I hope you have the best goddamn Monday.
+- [[2026-06-12 Knowledge is POWER☀️🔋📝]] — 2026-06-12 · [instagram](https://www.instagram.com/p/DZfra29RplS/)  
+  > Knowledge is POWER☀️🔋📝 #solar #howto #offgrid #joefelz #felzenergy
+- [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
+  > Simplifying Solar with Joe Felz☀️🔋📝 #solar #solarenergy #offgrid #howto #joefelz The whole purpose of this class is to teach you how you can design and figure and install a system on your own. I'm going to try and roll through this and just just tell y'all how I configure fire...
+- [[2026-06-12 Knowledge is POWER☀️🔋📝 -solar -howto -offgrid -joefelz -felzenergy]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=iu3yP-xQ4k4)  
+  > Knowledge is POWER☀️🔋📝 #solar #howto #offgrid #joefelz #felzenergy I have a moral dilemma with electricity. I do not think that humans should buy and sell electricity. I don't think it's theirs. I think it was put here on this earth by God for all of us to use and that people have been se...
+- [[2026-06-11 Why am I not in Costa Rica- I’ll tell ya❓🇨🇷🗂️ -handleyabusiness -costarica -lif]] — 2026-06-11 · [youtube](https://www.youtube.com/watch?v=NHrN-0kvDew)  
+  > ...ause [music] that's what a man does. He owns up to his responsibilities and his obligations before he chases his dreams. And that's what I'm here doing. The good news is, after I get done with all this stuff, [music] we should be able to open up for our first solar classes, our first off-grid living experiences, and some badass Costa Rica travel packages. [music] So, if you're in the States and you'd like to see me, I'll be here for a little while. I've been offered a chance to go work on a house in Alaska. [music] Uh I...
+- [[2026-06-03 Life hasn’t been as glamorous as the Costa Rican jungle lately]] — 2026-06-03 · [instagram](https://www.instagram.com/p/DZINTAYljPs/)  
+  > ...imes shower. We’re tired, we’re beat up- some days not even sure which direction we’re headed- but we’re still alive. First, I wanna thank every single one of you who’s stuck with us - from bibles, to vanlife, ancient artifacts, homesteading, renovations, solar etc. We know we’re all over the place. We don’t get to respond to every message but read more than you realize. Your stories, struggles, achievements and resilience have helped carry us through and give us the strength to get back up in the morning. Second-...
+- [[2026-05-03 Soooo, anybody want a Joe & Alx relic-😍🚌]] — 2026-05-03 · [instagram](https://www.instagram.com/p/DX4ipDRFrYE/)  
+  > ...possibility of selling my first Skoolie, which the thought of initially makes me wanna bawl but also I’d much rather have someone in it and starting their move to freedom than have it just sitting This bus has so much of our story wrapped in it. Joe’s second solar system he built. The place where we grew much of our media base doing lives during the build. The “excuse” Joe uses as the initial reason we moved in together😂 The initial plan was to drive this thing to the tree retreat in Tennessee and use it as the host...
+- [[2026-04-29 You think you want to live off-grid- You better start growing your cal]] — 2026-04-29 · [instagram](https://www.instagram.com/p/DXsnA3hDcag/)  
+  > You think you want to live off-grid? You better start growing your calluses now Cletus. The day started off at 5:30AM with morning animal duties and ended by installing 19 meters of wire to power the rest of the farm off solar. Somewhere between there we built a new grow-out coop for the baby chickens, spent a few hours searching for the blockage in the 2 miles of manguera, fixing that, normal house duties, kids, prep and cooking, caught a mouse, milked a goat, etc. etc. etc. Sitti...
+- [[2026-04-27 I have a strange problem with my solar. Basically the opposite of a hi]] — 2026-04-27 · [instagram](https://www.instagram.com/p/DXpvzrtDSts/)  
+  > I have a strange problem with my solar. Basically the opposite of a high power bill. Even with only 20 out of 16 panels installed the batteries on my homestead are completely full by 9 AM and cannot accept any more charge even though there is beaming sun in beautiful Costa Rica. You cannot charg...
+- [[2026-04-27 Can I combine cyber with solar to solve this power problem- ☀️🔋🧑‍💻]] — 2026-04-27 · [instagram](https://www.instagram.com/p/DXprqoykdwW/)  
+  > Can I combine cyber with solar to solve this power problem? ☀️🔋🧑‍💻 #joefelz #solar #bitcoin #problems #help
+- [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
+  > DIY Solar: Free Online Solar Design After spending months of my life designing solar systems for people I finally bit the bullet and developed FelzCalc, a free online tool you can use to build your own solar system. To use it, you will need the electrical specification...
+- [[2026-03-15 Living the “American Dream” in Costa Rica]] — 2026-03-15 · [youtube](https://www.youtube.com/watch?v=VevlwoBJNcU)  
+  > ...off grid, growing their own food & depending on Mother Earth for all things. Alx & I had the same dream for years & decided to make it a reality. In April 2025 we bought a 4 acre homestead in Costa Rica with the plan of building a renewable energy center for solar education and off grid living so other people could come experience what true autonomy is really like. While we have much left to do, this is a glimpse into how we are currently living. Homestead life isn’t easy, but it is extremely fulfilling and one day I...
+- [[2026-03-02 See inside the plant that built Zuckerberg’s bunker]] — 2026-03-02 · [youtube](https://www.youtube.com/watch?v=LMQlqGpybxg)  
+  > ...pressive and I want to thank you for taking your time and telling me what's on your mind. You're a very interesting guy. Okay. I'm glad to have met you and I will Well, thank you. Thanks for [laughter] coming by. Yeah, and I'm going to Big Battery to do their solar stuff. If they ever I I use Big Battery in my bunkers. Well, Big Battery is legit, Marshall is legit. Thank you to Eric and Marshall at Big Battery for setting this up and thank you for Ron for taking your time out. Anytime. Come back. This has been great see...
+- *...and 21 more*
+
+## pv  
+*said 19 time(s) across 5 source(s)*
+
+- [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
+  > ...u need to think volts DC. Rated battery, I need two numbers. Wait, there's two numbers there, one lower, one higher. The bottom one is 40, top one is 60. You see how it changed greens? That means your inverter and your battery check out. Now let's do inverter PV input minimum. If you see minimum and you see maximum, you know you're looking for two values. I don't see PV, but I see solar. PV stands for photovoltaic. Down here, I see MPPT. That means maximum power point tracker. That is your solar charger just written...
+- [[2025-06-14 How to Diagnose & Repair a Solar Generator]] — 2025-06-14 · [youtube](https://www.youtube.com/watch?v=mA8K-OfWKGw)  
+  > ...The issue we're having is this. I should say never disconnect a live solar circuit, but it's a little late for all that. Whenever you're messing with a solar generator, you have to know what you're working with. You got to read the book. Solar input, 80 amps. PV input. The machine will charge between 90 and 230 volts. 209 cooking. Yep. All right. Should the machine work? Yes, it should because it only needs a minimum of 90. Nothing. All right. So, it can't take power in. Let's confirm that it's a working circuit. Ora...
+- [[2025-05-21 Wiring the Recycoline Solar System @naturejab]] — 2025-05-21 · [youtube](https://www.youtube.com/watch?v=NBQ05L2xB6Q)  
+  > ...energies #electrician #science #contractorlife #electricalengineering #teamwork Uh, I said let's go big. Okay, let's do it. All right, why not? Taking up an NC4 connector. If I do something that's wrong, you tell me. I am. Okay. You got to strip it out first. PV wire is really thick insulated, so you really got to make sure you strip it well. I use clines. If you can't find that, you get a sharp knife and just go in a circle. You don't want to nick that wire. You nick that wire. You got to cut that wire and start all...
+- [[2025-05-21 The Recycoline Solar Setup- Designing the System ☀️ -energy -solar -redneck -sc]] — 2025-05-21 · [youtube](https://www.youtube.com/watch?v=U39hgKHCN54)  
+  > ...ger battery and I think it has a a bigger inverter as well. We're going to find out, but they could have just put a [ __ ] tow hitch on the residential model. He told me they didn't have any left in stock. Our inverter specs, max AC charge current, 50 to 240. PV input, here's where we're concerned. 90 to 230 volts. Max DC charge current 160 amp. What does that tell me? I have two separate inputs for series parallel connection. It all has to be between 90 and 230 and I cannot exceed 160 amps between both of them. That...
+- [[2024-11-16 RV Solar Install🚐-joefelz -felzenergy -solarpower -solarenergy -solar -offgrid]] — 2024-11-16 · [youtube](https://www.youtube.com/watch?v=OXyy8sNVsOc)  
+  > ...elzenergy #solarpower #solarenergy #solar #offgrid #diy #howto #felzvans today we're installing a 5.9 KW battery a 3kw 24volt inverter and a 460 W panel on this 1990 Toyota hyos the accessories we're going to need for installation are mc4 connectors insulated PV wire mounting hardware solar entry Hood bluetooth smart chunk connector tools needed mc4 connector battery cable crimper socket set and every man thing located in this belt cuz if you ain't get this type of [ __ ] you shouldn't be attempting this type of redn...
+
+## solar panel  
+*said 16 time(s) across 9 source(s)*
+
+- [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
+  > ...We're going to go to the next one. Series. If you connect in series, what does it look like, Parker? Okay, so this is like one thing, and then you're going to go into the next thing, and into the next thing. We're going to go plus, minus, plus, minus. On that solar panel, there are two leads. One is a positive, and one is a negative. They only go one way. You cannot connect the wrong ones together unless you connect the same ones on a panel together. Don't do that. But in series, you literally just take them and clip them tog...
+- [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
+  > ...line Solar Design After spending months of my life designing solar systems for people I finally bit the bullet and developed FelzCalc, a free online tool you can use to build your own solar system. To use it, you will need the electrical specifications of the solar panel panels, battery, and inverter you plan to use. There is also an option to select “need one” under the inverter section and FelzCalc will provide the electrical specifications that are compatible with the battery and panels you would like to use. ￼ Here is th...
+- [[2026-02-05 X-Ray & Analysis of Ancient Artifacts]] — 2026-02-05 · [youtube](https://www.youtube.com/watch?v=lRDdLhFBbCc)  
+  > ...e just took grounded it out with a screwdriver. Makes me think there's like a battery built into this with an LED and [clears throat] solar panels. And I don't know how you charge [music] this through the Just let the crystals stay in the sun. Well, there's a solar panel under the crystal. Well, we'll find out in the X-ray, won't we? It's not voltage. It's continuity. No voltage. See, let me check AC real quick. See, it's not creating any AC there. But you can have continuity. Let's hear it. Let's hear it. And you show these....
+- [[2026-01-30 Could You Live in My Van-]] — 2026-01-30 · [youtube](https://www.youtube.com/watch?v=2Kvc76Lhn0c)  
+  > ...l bathroom with shower, fridge with freezer, kitchen, air conditioning, electric heat, gas heat, water heater, and bodacious off grid solar system. The solar system is 17.7 kWh of storage @ 24V with a 6kw ￼120/240v split phase inverter all powered by a 550W solar panel. I have a 40 gallon freshwater tank plus gray and black water tanks. I park my vanhouse￼ anywhere I want to in America on millions of acres of public land. How much is my rent? How much is my power bill? How much is my water bill? Vanlife ain’t for everyb...
+- [[2025-11-27 The Concept Behind the Creation]] — 2025-11-27 · [youtube](https://www.youtube.com/watch?v=BRA9cjkOekg)  
+  > ...have driven me to go further and further and further away from what I see is [ __ ] up and evil. All that [ __ ] out there made by man. I I don't know. I don't know why I started on social media, but 3 years later, look at it. I I don't know why I picked up a solar panel for my van, but 3 years later, look at it. I don't know why I'm in Costa Rica, but I promise you, 3 years later, look at it. And uh this is really the first thing I've ever done for myself. It has cost me everything that I knew in my previous life and loved....
+- [[2025-11-11 Costa Rican Constrution]] — 2025-11-11 · [youtube](https://www.youtube.com/watch?v=ujn2avr266M)  
+  > ...all know what that's like. John Hall Nico. Hey guys. Yeah, man. and I uh I never really came live on uh YouTube, but I do a lot of DIY stuff. And most of y'all know me as a solar guy and a video maker, but uh I've only done those for like 3 years. I touched a solar panel and a cell phone and a social media at the same time in like July of 22. Uh TV, just a redneck with an iPhone now. Um I've been a carpenter for 20 years and uh I know a little bit more about that. What's up KC? All you people, I've seen your names before. Now...
+- [[2025-05-21 Wiring the Recycoline Solar System @naturejab]] — 2025-05-21 · [youtube](https://www.youtube.com/watch?v=NBQ05L2xB6Q)  
+  > ...like 120. Oh, them [ __ ] ain't fitting to work. That one ain't going to connect. Well, hold on. There it goes. Ready? Pink. You touch yours now. Ready? Yep. What we got? 130. 130. All right. Now, let's clip one more together. Bro, the only requirement for a solar panel is that it be in the sun. Click. Click. We should be past. We should be what? 160. We set our our solar diagram set around 160. We're at 175 laying down on the ground. 175 volts just like that. How long did that take? All right, let's do three more. I want y'...
+- [[2025-05-19 The Recyoline Solar Setup ☀️🗑️🌏 -joefelz -solar -solarjoe -recycling -climatech]] — 2025-05-19 · [youtube](https://www.youtube.com/watch?v=TKwwHGcKFlQ)  
+  > ...ine using sunshine. They reuse boxes. It's a wooden box with S clips. Oh, I love that. You're going to use the box. A lot of people say things about Wson, but his character and his mission and the same with ours. He wants to reuse, man. That's Look, there's a solar panel, boy. Look at that. Can't stop us. We're a little [ __ ] army of redneck. We just need to get it anywhere off the road. It's got a remote control and tank tracks, man. We'll ride it in there. Well, what have you done in the past? Why don't we Hey, let's just...
+- [[2024-09-25 Nontraditional Entrepreneurial Finance Explained]] — 2024-09-25 · [youtube](https://www.youtube.com/watch?v=gA8cC0VmuAg)  
+  > ...two things to align your passion with sustainable living solar I've always been interested in solar it's fascinated me why it's getting something for nothing and it it's coming down for free every day and like I said a three-fold decision every time we put a solar panel on the roof I live in Georgia dog you put a solar panel on the roof it absorbs the sunlight that is normally hitting your black shingles and making your house hotter and so it reduces the heat coming in and then it converts it to energy that you can use to co...
+
+## off-grid  
+*said 10 time(s) across 6 source(s)*
+
+- [[2026-06-11 Why am I not in Costa Rica- I’ll tell ya❓🇨🇷🗂️ -handleyabusiness -costarica -lif]] — 2026-06-11 · [youtube](https://www.youtube.com/watch?v=NHrN-0kvDew)  
+  > ...when I have things that I need to fix, I come back and handle them cuz that's what a man does. And I got cars that break down. I got tenants that tear up my houses. I have business and family obligations that I need to take care of. And if it meant leaving my off-grid paradise over there, so be it. Because [music] that's what a man does. He owns up to his responsibilities and his obligations before he chases his dreams. And that's what I'm here doing. The good news is, after I get done with all this stuff, [music] we shoul...
+- [[2026-04-29 You think you want to live off-grid- You better start growing your cal]] — 2026-04-29 · [instagram](https://www.instagram.com/p/DXsnA3hDcag/)  
+  > You think you want to live off-grid? You better start growing your calluses now Cletus. The day started off at 5:30AM with morning animal duties and ended by installing 19 meters of wire to power the rest of the farm off solar. Somewhere between there we built a new grow-out coop for the baby c...
+- [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
+  > ...wer #wiring #freedom #energy #renewableenergy #knowledgeispower #solarbattery #calculation #diagram Today I'm going to show you how to use Phil's Calc, my free online solar calculator. My name is Joe Phil's, licensed electrician in multiple states. I've lived off-grid for over 3 and 1/2 years, and I'm here to help you not pay a power bill or depend on anybody else for your energy cuz it's You'll have to create a free login to use this, that way we have somewhere to send your wiring diagram. In order to use Phil's Calc, you...
+- [[2026-03-15 Living the “American Dream” in Costa Rica]] — 2026-03-15 · [youtube](https://www.youtube.com/watch?v=VevlwoBJNcU)  
+  > ...de alpaca by some natives. Higher, huh? We have an entire great room here that we're not doing anything with. One day I think this will be used for electrical classes and seminars, maybe group yoga. Life is pretty good here, but I'm still building. This is my off-grid solar system, some big battery. I have 60 kW of storage, not bad for a house that uses like 30 kW a month. This is how I'm living right now, completely off-grid, sweating when it's hot, no hot water, food from the earth. Plan is to build a renewable energy ce...
+- [[2024-09-25 Nontraditional Entrepreneurial Finance Explained]] — 2024-09-25 · [youtube](https://www.youtube.com/watch?v=gA8cC0VmuAg)  
+  > ...e with and things like that man cuz if you lay down with you you lay down with other dogs you probably catch fleas Y and trying to keep my energy levels with people of the same caliber and mindset and I have the idea to build a [ __ ] fils Village the like an off-grid little completely repurposed made out of trash little Fels Village but you already know I'm not thinking of just building a ra right or an Airbnb I'm thinking about building my concept for existence into a village and then just like the Jesus house I don't kn...
+- [[2024-01-22 From Convicted Felon to Owning Multiple Businesses & A Real Estate Portfolio]] — 2024-01-22 · [youtube](https://www.youtube.com/watch?v=R1v-1htzRHk)  
+  > ...ocial media. That's literally when it started. I didn't have any social media for 7 years. Right. And so, it just started there, man. And uh So, I live in the van, dude. I drove all the way I've driven the whole country coast to coast four times. Uh I have an off-grid uh generator in there. Pushes 240 V. It's a 6 kW inverter. You know, I backfeed your house, man. Um you know, it's it's pretty cool. Full kitchen, full bath, water heater, propane heater, AC, heat, you know, a little table. Whatever you want, man. You got mob...
+
+## off grid  
+*said 10 time(s) across 8 source(s)*
+
+- [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
+  > ...I also have a load calculator on my website that you can use to calculate the amount of energy and max impact that will be required for your solar system here: https://felzenergy.com/electric-load-calculator/ I sincerely hope this tool helps all of you. Go off grid and find you’re free just like me. If you need my help in designing a system, you can book a call on my website and I will be there to assist you throughout the process. Sending love from Costa Rica -Joe #joefelz #solar #costarica #energy #offgrid #electric...
+- [[2026-03-15 Living the “American Dream” in Costa Rica]] — 2026-03-15 · [youtube](https://www.youtube.com/watch?v=VevlwoBJNcU)  
+  > Living the “American Dream” in Costa Rica Many people dream of living off grid, growing their own food & depending on Mother Earth for all things. Alx & I had the same dream for years & decided to make it a reality. In April 2025 we bought a 4 acre homestead in Costa Rica with the plan of building a renewable energy center for solar edu...
+- [[2026-01-30 Could You Live in My Van-]] — 2026-01-30 · [youtube](https://www.youtube.com/watch?v=2Kvc76Lhn0c)  
+  > ...an for almost 4 years and driven the ENTIRE country coast-to-coast six times during ￼this period. My van has two separate beds, a full bathroom with shower, fridge with freezer, kitchen, air conditioning, electric heat, gas heat, water heater, and bodacious off grid solar system. The solar system is 17.7 kWh of storage @ 24V with a 6kw ￼120/240v split phase inverter all powered by a 550W solar panel. I have a 40 gallon freshwater tank plus gray and black water tanks. I park my vanhouse￼ anywhere I want to in America o...
+- [[2025-11-27 The Concept Behind the Creation]] — 2025-11-27 · [youtube](https://www.youtube.com/watch?v=BRA9cjkOekg)  
+  > ...left. I got in a van when everybody had rejected me. Um and and I left again. It wasn't right. I went around just kind of like a journeyman, equipping myself with knowledge in various places. I ran ultramarathons, won ultramarathons. I learned solar. I lived off grid. I became undetectable. Nobody knew where I laid my head at night cuz I lived in a van. But I did not feel safe in America anymore, man. I can read the writing on the wall. I don't care if anybody else notices that I do. That place is [ __ ] from the top down...
+- [[2025-09-02 Walkthrough of my Costa Rican Homestead- Soon to be the home of the first FelzT]] — 2025-09-02 · [youtube](https://www.youtube.com/watch?v=z6Elh0CIdLo)  
+  > ...mber 4th, 2024 a notification for a cheap flight from Tampa, Florida to San Jose, Costa Rica populated in my inbox. 10 months later, I’m in Costa Rica standing in front of my free and clear homestead I purchased￼ making plans for future Casita construction, off grid energy, production towers and combing through 5000+ applications for an internship I’ve created that will allow others to learn Tico Joe style. Here is a walk-through of the existing structures on the homestead and plans for the future Pura Vida mae ￼🤙🛖🇨🇷 #...
+- [[2025-05-21 Wiring the Recycoline Solar System @naturejab]] — 2025-05-21 · [youtube](https://www.youtube.com/watch?v=NBQ05L2xB6Q)  
+  > ...power an energy tank. I go over the basics of solar with Julian including - making up mc4 connectors -series versus parallel wiring -wiring in series-parallel -how and when to check voltage This video contains the basic info required to install a basic off grid system #solar #solarsystem #offgrid #electrical #renewableenergies #electrician #science #contractorlife #electricalengineering #teamwork Uh, I said let's go big. Okay, let's do it. All right, why not? Taking up an NC4 connector. If I do something that's wro...
+- [[2024-04-16 Live Skoolie Conversion]] — 2024-04-16 · [youtube](https://www.youtube.com/watch?v=Tg62boj2a38)  
+  > Live Skoolie Conversion We are converting a 22 passenger church bus into a solar powered off grid hippie freedom wagon 🚎😶‍🌫️ YouTube live man one we've never done [Music] make you videos [Music]
+- [[2024-03-20 Making my Tiny House off grid W- BatterEVO (It's SO EASY)]] — 2024-03-20 · [youtube](https://www.youtube.com/watch?v=pz3gt-_kIEM)  
+  > Making my Tiny House off grid W/ BatterEVO (It's SO EASY) going to run a tiny house off of this one walrus and it's so easy to put in it is on Wheels oh my God all we're going to do is this separate the circuits that we want to control from this panel and put it in a sub panel right here...
+
+## string  
+*said 9 time(s) across 6 source(s)*
+
+- [[2026-06-12 Simplifying Solar with Joe Felz☀️🔋📝]] — 2026-06-12 · [youtube](https://www.youtube.com/watch?v=HU-ji79agRc)  
+  > ...nder 22. Now, this is where you learn how to optimize a system. We can go up to 22 amps, but we're only going to 10.61. So, what I would do is find another panel for this system because I can't wire this in parallel. Now, what would happen if we took the same string that's operating at 10. 61 amps, 419 volts. What will happen if we make an identical string? We clip 10 more together, positive, negative, positive, negative, and then we take our main positive and negative from each one and wire them together. What will happ...
+- [[2025-10-27 Catching a Crocodile Tico Style 🇨🇷🐊]] — 2025-10-27 · [youtube](https://www.youtube.com/watch?v=0HbVF_Dyd0M)  
+  > Catching a Crocodile Tico Style 🇨🇷🐊 Costa Rica animal rescue workers catch crocodiles using nothing but a string & an old t-shirt. Impressive to see in real life. This what’s they mean by “Pura Vida Mae” 🇨🇷🐊😳 #joefelz #costarica #animalrescue #crocodile #wildlifeencounters #reptiles #herpetology #animallovers #puravida #livingabroad #centralamerica #travel #travellife #...
+- [[2025-05-21 Wiring the Recycoline Solar System @naturejab]] — 2025-05-21 · [youtube](https://www.youtube.com/watch?v=NBQ05L2xB6Q)  
+  > ...'s just going down the line like this. So connecting in series, negative to positive. 89. Okay. Clip. Clip. 133. 13. All right. All these panels are looking All these panels are looking great. Good as hell. 179 180. Yep. Cooking. We need We need four one more string of force. Very important with solar. All your strings have to be balanced. What is balanced? Balance means all the same number, wattage, rating. Can mix match with micro inverters, but that's outside of the scope of what we're doing today. That's advanced sol...
+- [[2025-05-21 The Recycoline Solar Setup- Designing the System ☀️ -energy -solar -redneck -sc]] — 2025-05-21 · [youtube](https://www.youtube.com/watch?v=U39hgKHCN54)  
+  > ...exceed voltage. If we have 230 volts operating at 42 volts, we can put five in there. As I put five in there, look at there. 2250 watts. Amps times volts is watts. I'm going to go ahead and put four in here because I know what's going to happen. Add parallel string. Copy value. 1 2 3. I think we can put four on here. How are we going to wire our batteries? We have one battery. What's our battery voltage between 67 87 high voltage cut off? Let's say when it's full. Amp hours of 1224. Total battery storage max 106. Wson a...
+- [[2025-05-19 The Recyoline Solar Setup ☀️🗑️🌏 -joefelz -solar -solarjoe -recycling -climatech]] — 2025-05-19 · [youtube](https://www.youtube.com/watch?v=TKwwHGcKFlQ)  
+  > ...builds businesses that run themselves. You can install solar now. Imagine you taking somebody who's never installed it before and you have to tell them what to do and you can't touch anything. Plug in all the values from your electrical plate, add a parallel string, click a button, and have a PDF wiring diagram emailed to you for free. So, man, you want a hug? Come here, man. I had to teach people in India's law so they could like I translated this [ __ ] nine times things that you can select need an inverter or have on...
+- [[2024-02-02 One of my FAVORITE places on EARTH!]] — 2024-02-02 · [youtube](https://www.youtube.com/watch?v=GGfovru_saA)  
+  > One of my FAVORITE places on EARTH! most of you know me is a dirty degenerate hippie who lives in a van and wear [ __ ] he finds in abandoned houses which is all true but what you did not know meletus is that I also have a string of vacation rentals and destination locations throughout the us today I'm going to show you my Tennessee location Joe's tree Retreat check it out it has exposed beams everywhere and I painted this thing to look like a tree cleus one bedroom upstairs with the...
+
+## tilt  
+*said 2 time(s) across 2 source(s)*
+
+- [[2025-09-02 Walkthrough of my Costa Rican Homestead- Soon to be the home of the first FelzT]] — 2025-09-02 · [youtube](https://www.youtube.com/watch?v=z6Elh0CIdLo)  
+  > ...ones. Look at this. Once again, 100% te. Then over here we have two bedrooms and a shower. Let me explain Costa Rican showers to you. Simple as hell. The drains are all in the corner. They're never in the middle. What they do is put the base in and then just tilt the whole thing and put regular floor tile on it. You don't have to have mosaics or all this crazy slooter You just have to be okay with a hole in a different spot. Water heaters here have exposed electrical wires with wire nuts and everything. 230 volts. Per...
+- [[2025-06-14 How to Diagnose & Repair a Solar Generator]] — 2025-06-14 · [youtube](https://www.youtube.com/watch?v=mA8K-OfWKGw)  
+  > ...t it. Gucci. Yep. Hey, a blend of of of intelligence and trade knowledge. Now we have two screws that are stripped out. How do we get them out, Serge? Oh, I see that. Oh, yeah. Now we either one. You got a a good special B screwdriver. Aha. Fire. Fire. Got to tilt the right way. There we go. Now we get some leverage. Now you get some leverage. Little force. This is what you're talking about. I'll cut the [ __ ] off with a sawzaw. I got you. Nope. All right. Okay. Hold on. That [ __ ] is red guarded down, too. But they...
+
+## net metering  
+*said 2 time(s) across 1 source(s)*
+
+- [[2024-09-25 Nontraditional Entrepreneurial Finance Explained]] — 2024-09-25 · [youtube](https://www.youtube.com/watch?v=gA8cC0VmuAg)  
+  > ...house prices and purchase prices and all of that stuff well but then let me spin this for you a little bit further because you're a financial guy right I said a three-fold decision that's only a one twofold right then you know what I'm going to do Georgia has net metering that's great they pay you a third of what they sell you power for so what I'm gonna do I'm going to rent my property with electricity included and I'm going to sell the power first wow my house yeah I have a battery backup and you know what else I can do I ca...
+
+## photovoltaic  
+*said 1 time(s) across 1 source(s)*
+
+- [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
+  > ...e is 60. You see how it changed greens? That means your inverter and your battery check out. Now let's do inverter PV input minimum. If you see minimum and you see maximum, you know you're looking for two values. I don't see PV, but I see solar. PV stands for photovoltaic. Down here, I see MPPT. That means maximum power point tracker. That is your solar charger just written in electrical jargon so you can't understand it. They could make this a little easier, but they don't want you to know this information. They want you to h...
+
+## hybrid inverter  
+*said 1 time(s) across 1 source(s)*
+
+- [[2026-03-27 DIY Solar- Free Online Solar Design]] — 2026-03-27 · [youtube](https://www.youtube.com/watch?v=994EhMJ6BMc)  
+  > ...ou'd like to use, you can select need one and it will give you the electrical specifications inverter that will work with your system. But for this one, I'm going to select have one because I do. I'm going to be demonstrating the 48-V Nexus and the 10-kW Apex Hybrid Inverter on this use of Phil's Calc. It starts with your solar panels. To fill this out, we're going to need to go look at our solar panel data sheet. Every solar panel has a data sheet on the back of it. And we're going to be looking for four values: the maximum powe...
+
+## grid tie  
+*said 1 time(s) across 1 source(s)*
+
+- [[2025-09-23 Jab and Joe Simplify Solar- Step by Step Installation of @BigBattery Ethos]] — 2025-09-23 · [youtube](https://www.youtube.com/watch?v=xZtXwSwp-TU)  
+  > ...pyrolysis machine. The system here will achieve 100 KW of continuous 230V output with spikes up to 131 A and provide 200 KW of solar energy when maximized at 112 panels, but all components fit in one custom trailer. The Ethos system is UL compliant with full grid tie & backup power function and is Joe's choice for REAL LIFE solar systems. #joefelz #solar #solarsystem #renewableenergy #sunpower #offgrid #teamwork #learning #diy #electricity #energy #pyrolysis #howto #installation #constructionwork #electrician #dynamicdu...
+
+## array  
+*said 1 time(s) across 1 source(s)*
+
+- [[2025-06-14 How to Diagnose & Repair a Solar Generator]] — 2025-06-14 · [youtube](https://www.youtube.com/watch?v=mA8K-OfWKGw)  
+  > ...trade school should be- 4 dudes cracking jokes in garage 😎 See how ​⁠​⁠@naturejab, ​⁠​⁠@EnergizeUsEdu, Adrian Hubbard & I diagnose and repair a BatteryEvo Gen3 Walrus. See inside an actual solar generator & learn how to use your trade knowledge to fix a solar array. Remember, knowledge is POWER ☀️🔋👷#joefelz #naturejab #solar #solarsystem #diy #electrical #tradework #learning #renewableenergy #sunpower #construction #bluecollar #teamwork #electrician #collab #reallife #offgrid #energy #wiring #electricalengineering #st...

@@ -1,0 +1,42 @@
+page 0: +12 -> 12 total | more=True
+[page 1] HTTP 401 -> backoff 41s (fail 1)
+[page 1] HTTP 401 -> backoff 83s (fail 2)
+page 1: +12 -> 24 total | more=True
+page 2: +12 -> 36 total | more=True
+[page 3] HTTP 401 -> backoff 47s (fail 1)
+resuming at page 3 (36 posts)
+[page 3] HTTP 401 -> throttled, delay now 90s
+page 3: +12 -> 48 total | more=True | delay=90s
+[page 4] HTTP 401 -> throttled, delay now 180s
+[page 4] HTTP 401 -> throttled, delay now 360s
+resuming at page 4 (48 posts)
+[page 4] HTTP 401 -> throttled, delay now 90s
+[page 4] HTTP 401 -> throttled, delay now 180s
+[page 4] HTTP 401 -> throttled, delay now 300s
+resuming at page 4 (48 posts)
+[page 4] HTTP 401 -> throttled, delay now 90s
+[page 4] HTTP 401 -> throttled, delay now 180s
+[page 4] HTTP 401 -> throttled, delay now 300s
+page 4: +12 -> 60 total | more=True | delay=300s
+[page 5] HTTP 401 -> throttled, delay now 300s
+[page 5] HTTP 401 -> throttled, delay now 300s
+[page 5] HTTP 401 -> throttled, delay now 300s
+page 5: +12 -> 72 total | more=True | delay=300s
+[page 6] HTTP 401 -> throttled, delay now 300s
+[page 6] HTTP 401 -> throttled, delay now 300s
+[page 6] HTTP 401 -> throttled, delay now 300s
+[page 6] HTTP 401 -> throttled, delay now 300s
+[page 6] HTTP 401 -> throttled, delay now 300s
+page 6: +12 -> 84 total | more=True | delay=300s
+[page 7] HTTP 401 -> throttled, delay now 300s
+[page 7] HTTP 401 -> throttled, delay now 300s
+[page 7] HTTP 401 -> throttled, delay now 300s
+[page 7] HTTP 401 -> throttled, delay now 300s
+resuming at page 7 (84 posts)
+page 7: +12 -> 96 total | more=True | delay=45s
+page 8: +12 -> 108 total | more=True | delay=45s
+page 9: +12 -> 120 total | more=True | delay=45s
+[page 10] HTTP 401 -> throttled, delay now 90s
+[page 10] HTTP 401 -> throttled, delay now 180s
+resuming at page 10 (120 posts)
+[page 10] HTTP 401 -> throttled, delay now 90s
