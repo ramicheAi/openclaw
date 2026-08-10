@@ -1,0 +1,364 @@
+{
+ "description": "Catalog of the digital library Joe Felz was building. Transcribed from a shared list of titles and links; annotations in FELZ quotes are from that list, not added here.",
+ "source_attribution": "https://x.com/TruthFairy131/status/2084934264588825086/video/1?s=46",
+ "categories": [
+  {
+   "name": "Rare Bibles",
+   "items": [
+    {
+     "title": "The 1812 Bible",
+     "annotation": "\"1812 RARE Bible\" — FELZ",
+     "urls": [
+      "https://archive.org/details/holybiblecontain41unse_0/page/n3/mode/2up"
+     ],
+     "link_status": {
+      "https://archive.org/details/holybiblecontain41unse_0/page/n3/mode/2up": "200 (large file)"
+     }
+    },
+    {
+     "title": "The 1828 Bible",
+     "annotation": "\"the Bush Owned Bible\" — FELZ",
+     "urls": [
+      "https://archive.org/details/holybiblecontain00cann/page/n5/mode/2up"
+     ],
+     "link_status": {
+      "https://archive.org/details/holybiblecontain00cann/page/n5/mode/2up": "200 (large file)"
+     }
+    },
+    {
+     "title": "Haydock Catholic Family Bible (1859/1884 editions)",
+     "annotation": "\"the Catholic Bible\" — FELZ; internet version only",
+     "urls": [
+      "https://archive.org/details/bim_eighteenth-century_the-holy-bible-containi_bible-english-authori_1800_0/page/n397/mode/2up"
+     ],
+     "discrepancy": "The archive.org item at this link is an 1800 Authorized (King James) printing, not the Haydock Douay-Rheims edition named in the list.",
+     "link_status": {
+      "https://archive.org/details/bim_eighteenth-century_the-holy-bible-containi_bible-english-authori_1800_0/page/n397/mode/2up": "200 (large file)"
+     }
+    },
+    {
+     "title": "The Holy Bible — Douay-Rheims Version 1899",
+     "annotation": "\"1899 Bible\" — FELZ",
+     "urls": [
+      "https://archive.org/details/BiblicalCollectionPrintedBetween1600-1800/ACompleatCollectionOfTheGenuineWorksOfFlaviusJosephus/"
+     ],
+     "discrepancy": "The link supplied points to a Josephus volume inside a 1600-1800 biblical collection, not to a Douay-Rheims 1899 Bible.",
+     "link_status": {
+      "https://archive.org/details/BiblicalCollectionPrintedBetween1600-1800/ACompleatCollectionOfTheGenuineWorksOfFlaviusJosephus/": "200 (large file)"
+     }
+    },
+    {
+     "title": "Other Bible(s) (Library of Congress)",
+     "urls": [
+      "https://www.loc.gov/item/78317681/"
+     ],
+     "link_status": {
+      "https://www.loc.gov/item/78317681/": "403"
+     }
+    },
+    {
+     "title": "Latina Version (Library of Congress)",
+     "urls": [
+      "https://www.loc.gov/item/52002339"
+     ],
+     "link_status": {
+      "https://www.loc.gov/item/52002339": "403"
+     }
+    },
+    {
+     "title": "Latin Version 2 (Library of Congress)",
+     "urls": [
+      "https://www.loc.gov/item/52002226/"
+     ],
+     "link_status": {
+      "https://www.loc.gov/item/52002226/": "403"
+     }
+    },
+    {
+     "title": "Lincoln Family Bible",
+     "annotation": "\"AN ACTUAL PRESIDENTIAL FAMILY BIBLE SINCE THE BUSH ONE IS A LIE\" — from the list",
+     "urls": [
+      "https://www.loc.gov/item/mal4334500/"
+     ],
+     "link_status": {
+      "https://www.loc.gov/item/mal4334500/": "403"
+     }
+    }
+   ]
+  },
+  {
+   "name": "Occult, History and Miscellaneous",
+   "items": [
+    {
+     "title": "Ancient Magic, Magnetism & Psychic Forces (1895)",
+     "urls": [
+      "https://iapsop.com/ssoc/1896__anderson___philosophy_of_occultism.pdf"
+     ],
+     "discrepancy": "The PDF at this link is Anderson's Philosophy of Occultism (1896); the list titles it Ancient Magic, Magnetism & Psychic Forces (1895).",
+     "link_status": {
+      "https://iapsop.com/ssoc/1896__anderson___philosophy_of_occultism.pdf": "200 (large file)"
+     }
+    },
+    {
+     "title": "History of the Jews (1866)",
+     "urls": [
+      "https://uodiyala.edu.iq/uploads/PDF%20ELIBRARY%20UODIYALA/EL45/A%20History%20Of%20The%20Jews%20%20Paul%20Johnson.pdf"
+     ],
+     "discrepancy": "The PDF at this link is Paul Johnson's A History of the Jews (1987), not an 1866 work. The 1866 History of the Jews is usually Milman's.",
+     "link_status": {
+      "https://uodiyala.edu.iq/uploads/PDF%20ELIBRARY%20UODIYALA/EL45/A%20History%20Of%20The%20Jews%20%20Paul%20Johnson.pdf": "200 (large file)"
+     }
+    },
+    {
+     "title": "The History of Freemasonry (Mackey)",
+     "urls": [
+      "https://dn790007.ca.archive.org/0/items/historyoffreemas05mack/historyoffreemas05mack.pdf"
+     ],
+     "note": "Archive identifier historyoffreemas05mack (volume 5 of Mackey's History of Freemasonry). The shared list rendered 'ff' as a typographic ligature; corrected here.",
+     "link_status": {
+      "https://dn790007.ca.archive.org/0/items/historyoffreemas05mack/historyoffreemas05mack.pdf": "error: curl: (35) Recv failure: Connection reset by peer"
+     }
+    },
+    {
+     "title": "Taoist Yoga — Chee Soo (1983)",
+     "urls": [],
+     "discrepancy": "The link given in the list duplicates the History of Freemasonry PDF above, so no working link for this title was supplied."
+    },
+    {
+     "title": "Seventeen Remarkable Vignettes of Papua New Guinea",
+     "annotation": "Joe Felz's dad's book — from the list; no PDF found, Amazon listing only",
+     "urls": [
+      "https://www.amazon.com/dp/B0DC5859W1"
+     ],
+     "link_status": {
+      "https://www.amazon.com/dp/B0DC5859W1": "200"
+     }
+    },
+    {
+     "title": "Heroes of European History (1907)",
+     "urls": [
+      "https://play.google.com/books/reader?id=Y9rbneI_MZoC&pg=GBS.PP16&hl=en"
+     ],
+     "link_status": {
+      "https://play.google.com/books/reader?id=Y9rbneI_MZoC&pg=GBS.PP16&hl=en": "200"
+     }
+    },
+    {
+     "title": "The Physics and Physiology of Spiritualism",
+     "urls": [
+      "https://upload.wikimedia.org/wikipedia/commons/b/be/The_physics_and_physiology_of_spiritualism_%28IA_cu31924031165867%29.pdf"
+     ],
+     "link_status": {
+      "https://upload.wikimedia.org/wikipedia/commons/b/be/The_physics_and_physiology_of_spiritualism_%28IA_cu31924031165867%29.pdf": "200 (large file)"
+     }
+    },
+    {
+     "title": "Am I Jew or Gentile? (1893)",
+     "urls": [
+      "https://babel.hathitrust.org/cgi/pt?id=nnc1.cu58962735&seq=2"
+     ],
+     "link_status": {
+      "https://babel.hathitrust.org/cgi/pt?id=nnc1.cu58962735&seq=2": "403"
+     }
+    },
+    {
+     "title": "The Earliest Gospel (Frederick C. Grant)",
+     "urls": [
+      "https://media.sabda.org/alkitab-2/Religion-Online.org%20Books/Grant%2C%20Frederick%20C.%20-%20The%20Earliest%20Gospel.pdf"
+     ],
+     "link_status": {
+      "https://media.sabda.org/alkitab-2/Religion-Online.org%20Books/Grant%2C%20Frederick%20C.%20-%20The%20Earliest%20Gospel.pdf": "200 (large file)"
+     }
+    },
+    {
+     "title": "Conversations on The Bible (1889)",
+     "urls": [
+      "https://babel.hathitrust.org/cgi/pt?id=ia.ark:/13960/t4th8vf6m&seq=9"
+     ],
+     "link_status": {
+      "https://babel.hathitrust.org/cgi/pt?id=ia.ark:/13960/t4th8vf6m&seq=9": "403"
+     }
+    },
+    {
+     "title": "Unnamed Amazon listing (ISBN 0331688581)",
+     "urls": [
+      "https://www.amazon.com/dp/0331688581"
+     ],
+     "discrepancy": "The list gives this Amazon item with no title. ISBN 0331688581 is a Forgotten Books reprint; the underlying work is not identified in the list.",
+     "link_status": {
+      "https://www.amazon.com/dp/0331688581": "200"
+     }
+    },
+    {
+     "title": "Electricity and Magnetism — Fleeming Jenkin (1873)",
+     "urls": [
+      "https://darwin-online.org.uk/converted/pdf/1873_Jenkin_Electricity_magnetism_A4720.pdf"
+     ],
+     "link_status": {
+      "https://darwin-online.org.uk/converted/pdf/1873_Jenkin_Electricity_magnetism_A4720.pdf": "error: curl: (28) Connection timed out after 25002 milliseconds"
+     }
+    },
+    {
+     "title": "The Teaching of Zoroaster (1885)",
+     "urls": [
+      "https://archive.org/details/zoroaster00crawrich/page/n7/mode/2up"
+     ],
+     "link_status": {
+      "https://archive.org/details/zoroaster00crawrich/page/n7/mode/2up": "200 (large file)"
+     }
+    },
+    {
+     "title": "Holy Bible from Ancient Eastern Manuscripts — George M. Lamsa, Peshitta translation (1933, 1967 edition)",
+     "urls": [
+      "https://archive.org/details/holy-bible-from-ancient-eastern-manuscripts-george-m.-lamsas-translations-peshitta-1967"
+     ],
+     "link_status": {
+      "https://archive.org/details/holy-bible-from-ancient-eastern-manuscripts-george-m.-lamsas-translations-peshitta-1967": "200 (large file)"
+     }
+    },
+    {
+     "title": "The Encyclopedia of Witchcraft and Demonology (Robbins)",
+     "urls": [
+      "https://archive.org/details/encyclopediaofwi0000robb"
+     ],
+     "link_status": {
+      "https://archive.org/details/encyclopediaofwi0000robb": "200 (large file)"
+     }
+    },
+    {
+     "title": "1967 World Almanac VOL 14, issues 1-8",
+     "urls": [
+      "https://almanac.upenn.edu/archive/issues/almpdf14.html",
+      "https://almanac.upenn.edu/archive/v14pdf/n01/101667.pdf",
+      "https://almanac.upenn.edu/archive/v14pdf/n02/111667.pdf",
+      "https://almanac.upenn.edu/archive/v14pdf/n03/121667.pdf",
+      "https://almanac.upenn.edu/archive/v14pdf/n04/011668.pdf",
+      "https://almanac.upenn.edu/archive/v14pdf/n05/021668.pdf",
+      "https://almanac.upenn.edu/archive/v14pdf/n06/031668.pdf",
+      "https://almanac.upenn.edu/archive/v14pdf/n07/041668.pdf",
+      "https://almanac.upenn.edu/archive/v14pdf/n08/051668.pdf"
+     ],
+     "discrepancy": "These PDFs are the University of Pennsylvania's staff journal 'Almanac', volume 14 (1967-68), not the World Almanac reference annual.",
+     "link_status": {
+      "https://almanac.upenn.edu/archive/issues/almpdf14.html": "200",
+      "https://almanac.upenn.edu/archive/v14pdf/n01/101667.pdf": "200 (large file)",
+      "https://almanac.upenn.edu/archive/v14pdf/n02/111667.pdf": "200 (large file)",
+      "https://almanac.upenn.edu/archive/v14pdf/n03/121667.pdf": "200 (large file)",
+      "https://almanac.upenn.edu/archive/v14pdf/n04/011668.pdf": "200 (large file)",
+      "https://almanac.upenn.edu/archive/v14pdf/n05/021668.pdf": "200 (large file)",
+      "https://almanac.upenn.edu/archive/v14pdf/n06/031668.pdf": "200 (large file)",
+      "https://almanac.upenn.edu/archive/v14pdf/n07/041668.pdf": "200 (large file)",
+      "https://almanac.upenn.edu/archive/v14pdf/n08/051668.pdf": "200 (large file)"
+     }
+    },
+    {
+     "title": "The Complete Works of Flavius Josephus (1737 translation)",
+     "annotation": "\"Earlier version than the one Joe Felz had\" — from the list",
+     "urls": [
+      "https://www.crcnh.org/downloads/history-reference/josephus/The-Complete-Works-of-Flavius-Josephus.pdf"
+     ],
+     "link_status": {
+      "https://www.crcnh.org/downloads/history-reference/josephus/The-Complete-Works-of-Flavius-Josephus.pdf": "200 (large file)"
+     }
+    },
+    {
+     "title": "The Outline of History — H.G. Wells (1920)",
+     "urls": [
+      "https://www.scribd.com/document/689110564/The-Outline-of-History"
+     ],
+     "link_status": {
+      "https://www.scribd.com/document/689110564/The-Outline-of-History": "200"
+     }
+    },
+    {
+     "title": "Night Scenes of the Bible (March)",
+     "urls": [
+      "https://archive.org/details/nightscenesinbib00marc/page/n9/mode/2up"
+     ],
+     "link_status": {
+      "https://archive.org/details/nightscenesinbib00marc/page/n9/mode/2up": "200 (large file)"
+     }
+    }
+   ]
+  },
+  {
+   "name": "Freemasonry",
+   "items": [
+    {
+     "title": "The Freemason's Bible",
+     "urls": [
+      "https://archive.org/details/freemasonsbible"
+     ],
+     "link_status": {
+      "https://archive.org/details/freemasonsbible": "200 (large file)"
+     }
+    },
+    {
+     "title": "The Master Mason's Handbook",
+     "urls": [
+      "https://archive.org/details/cu31924030307262/mode/2up"
+     ],
+     "link_status": {
+      "https://archive.org/details/cu31924030307262/mode/2up": "200 (large file)"
+     }
+    },
+    {
+     "title": "A Handbook of Freemasonry (Stevens, 1868)",
+     "urls": [
+      "https://nebraskamasonicfoundation.com/misc/Stevens_Handbook_1868.pdf"
+     ],
+     "link_status": {
+      "https://nebraskamasonicfoundation.com/misc/Stevens_Handbook_1868.pdf": "200 (large file)"
+     }
+    },
+    {
+     "title": "The Book of the Fellowcraft",
+     "urls": [
+      "https://www.lincolnshirefreemasons.org/wp-content/uploads/2019/11/Pathway-book-2-Fellow-Craft.pdf"
+     ],
+     "link_status": {
+      "https://www.lincolnshirefreemasons.org/wp-content/uploads/2019/11/Pathway-book-2-Fellow-Craft.pdf": "200 (large file)"
+     }
+    },
+    {
+     "title": "The Principles of Masonic Law — A.G. Mackey",
+     "annotation": "\"Masonic Law & Customs\" — from the list",
+     "urls": [
+      "https://ia601000.us.archive.org/25/items/The_Principles_Of_Masonic_Law_-_A._G._Mackey/The_Principles_Of_Masonic_Law_-_A._G._Mackey.pdf"
+     ],
+     "link_status": {
+      "https://ia601000.us.archive.org/25/items/The_Principles_Of_Masonic_Law_-_A._G._Mackey/The_Principles_Of_Masonic_Law_-_A._G._Mackey.pdf": "200 (large file)"
+     }
+    },
+    {
+     "title": "The Freemason's Monitor (Webb)",
+     "urls": [
+      "https://dn790008.ca.archive.org/0/items/freemasonsmonito00webb/freemasonsmonito00webb.pdf"
+     ],
+     "link_status": {
+      "https://dn790008.ca.archive.org/0/items/freemasonsmonito00webb/freemasonsmonito00webb.pdf": "200 (large file)"
+     }
+    },
+    {
+     "title": "(Freemasonic) Customs and Bylaws — Maine Blue Book, part 4",
+     "urls": [
+      "https://www.mainemason.org/resources/the-blue-book/part-4/"
+     ],
+     "link_status": {
+      "https://www.mainemason.org/resources/the-blue-book/part-4/": "200"
+     }
+    },
+    {
+     "title": "And The Truth Shall Set You Free — David Icke",
+     "urls": [
+      "https://ia800502.us.archive.org/16/items/DavidIckeAndTheTruthShallSetYouFree/David%20Icke%20%20And%20The%20Truth%20Shall%20Set%20You%20Free.pdf"
+     ],
+     "link_status": {
+      "https://ia800502.us.archive.org/16/items/DavidIckeAndTheTruthShallSetYouFree/David%20Icke%20%20And%20The%20Truth%20Shall%20Set%20You%20Free.pdf": "200 (large file)"
+     }
+    }
+   ]
+  }
+ ],
+ "links_checked_utc": "2026-08-09 17:40 UTC"
+}
