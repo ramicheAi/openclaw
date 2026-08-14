@@ -364,11 +364,16 @@ def main():
             after = max(band_db(t0 + 0.15 + dt, lo, hi) for dt in (0.0, 0.1, 0.2))
             before = band_db(t0 - 0.30, lo, hi)
             return after - before
+        # Six candidate offsets, not four. Measured failure behind this: in a
+        # 30s scene whose events cluster, only TWO offsets survived the
+        # keep-clear filter, and a median of two is a mean — one control
+        # window that happens to catch a heartbeat transient (+8dB) then owns
+        # the floor. More candidates make the median an actual median.
         for e in events:
             lo, hi = e["verify"]["band"]
             r = rise_db(e["t"], lo, hi)
             ctrls = []
-            for off in (-6.0, -3.0, 3.0, 6.0):
+            for off in (-6.0, -4.5, -3.0, 3.0, 4.5, 6.0):
                 tc = e["t"] + off
                 if 1.0 < tc < sc["duration"] - 1.0 and \
                    all(abs(tc - q) > 1.5 for q in ev_times):

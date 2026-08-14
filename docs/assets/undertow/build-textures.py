@@ -101,7 +101,42 @@ TEXTURES = [
     ("class-laugh-memory", "classroom.wav", "abyssal", 6.0, -6.0,
      "The same laugh as Kai hears it on the pool floor. Same recording, four "
      "rungs down; the distance is the whole point."),
+    # ── the musical beds ────────────────────────────────────────────────────
+    # Licensed cinematic material pitched into the score's D minor and placed
+    # on the ladder like any other texture, so the music descends WITH him.
+    # The original theme (build-score.py) stays the signature tier; these are
+    # its supporting weather. Pitching is done by resampling — for drones and
+    # textural material the small tempo change that rides along is inaudible.
+    ("panic-strings",  "score-cello-bm.wav",       "twilight", 8.0, -3.0,
+     "Deep cello chatter, Bm pitched +3 to Dm. The thrash's music: motion "
+     "without melody, under the panic only."),
+    ("midnight-shimmer", "score-interference-ds.wav", "midnight", 12.0, -3.0,
+     "A slow interference atmosphere, D# pitched -1 to D. The transition from "
+     "panic to awe — the water starting to sound intentional."),
+    ("deep-drone",     "score-drone-cm.wav",       "abyssal",  12.0, -2.0,
+     "A dark drone, Cm pitched +2 to Dm. Sits under the ANSWER tone at the "
+     "bottom of the scene; the deep's own pedal note."),
 ]
+
+# Semitone offsets applied to a texture's SOURCE before treatment, keyed by
+# output name. Resampling changes speed with pitch, which is correct enough
+# for beds and wrong for anything rhythmic — do not point this at a groove.
+PITCH_SEMITONES = {
+    "panic-strings": 3,
+    "midnight-shimmer": -1,
+    "deep-drone": 2,
+}
+
+
+def pitch_shift(x, semitones, sr=None):
+    """Pitch by resampling. Up = faster/shorter; textures don't mind."""
+    if not semitones:
+        return x
+    from fractions import Fraction
+    from scipy.signal import resample_poly
+    factor = 2.0 ** (semitones / 12.0)          # frequency multiplier
+    fr = Fraction(1.0 / factor).limit_denominator(512)
+    return resample_poly(x, fr.numerator, fr.denominator, axis=0)
 
 
 def take(x, seconds, sr=M.SR):
@@ -139,6 +174,7 @@ def main():
             print(f"  \033[33mskip\033[0m {name}: no source at {path}")
             continue
         x = M.read_wav(path)
+        x = pitch_shift(x, PITCH_SEMITONES.get(name, 0))
         seg = take(x, secs) * (10 ** (gain_db / 20))
         wet = M.fathom_space(seg, tier, seed=abs(hash(name)) % 9000 + 11)
         st, lufs, capped = M.master(wet, scratch, target=TEXTURE_LUFS)

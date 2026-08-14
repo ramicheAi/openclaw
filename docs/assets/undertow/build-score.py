@@ -408,6 +408,137 @@ def build_teaser_score(total=None):
             dict(lead=lead, low=low, bedl=bedl, bedr=bedr, pulse=pulse).items()}
 
 
+# ── SCENE CUES ──────────────────────────────────────────────────────────────
+# Scored from the scene's cue sheet, not from a stopwatch: every anchor below
+# is a shot boundary read out of audio/scene-<id>.json, so if the cut moves,
+# rebuilding the cue moves the music with it. This is the pre-scoring doctrine
+# applied to the score itself — the same document drives mix, cut and cue.
+
+def _load_cue_sheet(scene_id):
+    import json
+    with open(os.path.join(ART, "audio", f"scene-{scene_id}.json")) as f:
+        return json.load(f)
+
+
+def _shot_in(sc, shot_id):
+    for s in sc["shots"]:
+        if s["id"] == shot_id:
+            return float(s["t_in"])
+    raise KeyError(f"no shot {shot_id} in {sc['id']}")
+
+
+def build_sinking_cue():
+    """Episode 1, the sinking — the theme finally scored INTO the show.
+
+    The arrangement follows the scene's own grammar: a thin thread of the CALL
+    while he is still on dry land, a low hit on the impact, a falling bass line
+    under the panic, and then — as the water settles, which is the scene's
+    turn — the first full CALL answered from below. The cue thins out before
+    the abyssal floor because the ANSWER-tone in the scene mix owns that
+    register; the score hands off to it rather than doubling it.
+    """
+    sc = _load_cue_sheet("ep1-the-sinking")
+    total = float(sc["duration"])
+    t_impact = _shot_in(sc, "05")           # 13.0  the slap
+    t_under = _shot_in(sc, "06")            # 16.0  he goes under
+    t_settle = _shot_in(sc, "08")           # 30.0  the water settles
+    t_eyes = _shot_in(sc, "10")             # 44.0  the eyes open
+
+    n = int(total * SR)
+    lead, low = np.zeros(n), np.zeros(n)
+    bedl, bedr = np.zeros(n), np.zeros(n)
+    pulse = np.zeros(n)                     # unused: the MIX owns the heart
+
+    def bed(notes, dur, amp, at):
+        f = [hz(x) for x in notes]
+        return (place(bedl, pad(f, dur, amp, seed=7), at),
+                place(bedr, pad(f, dur, amp, seed=71), at))
+
+    # dry land: the call, unfinished — three notes and it stops. The duck and
+    # the buzzer own 9.5-13, so the thread is gone before they arrive.
+    lead = phrase(lead, CALL[:3], CALL_BEATS[:3], glass, 2.0, 0.28)
+
+    # the impact: one low D, with the splash, not instead of it
+    low = place(low, sub(hz("D2"), 3.0, 0.55), t_impact)
+    low = place(low, bass(hz("D2"), 2.2, 0.30), t_impact + 0.05)
+
+    # the panic: a bass line walking DOWN while his heart runs up —
+    # contrary motion, the score already sinking ahead of him
+    for i, note in enumerate(["D2", "C2", "A#1", "G1"]):
+        low = place(low, bass(hz(note), 3.2, 0.30), t_under + 0.5 + i * 3.5)
+
+    # the water settles: the turn. First full CALL, first ANSWER.
+    bedl, bedr = bed(CHORDS["Dm"], 16.0, 0.20, t_settle - 1.0)
+    lead = phrase(lead, CALL, CALL_BEATS, glass, t_settle + 2.0, 0.52)
+    low = phrase(low, ANSWER, ANSWER_BEATS, sub, t_settle + 5.5, 0.62)
+
+    # the eyes open: the call again, higher in the mix's attention but
+    # thinner here — the picture is doing the talking now
+    bedl, bedr = bed(CHORDS["Bb"], 10.0, 0.16, t_eyes - 0.5)
+    lead = phrase(lead, CALL, CALL_BEATS, glass, t_eyes + 2.0, 0.34)
+
+    # nothing after ~56s: the abyssal floor belongs to the ANSWER tone and a
+    # 34 BPM heart. Silence is a resource and this cue spends it.
+    return {k: v[:n] for k, v in
+            dict(lead=lead, low=low, bedl=bedl, bedr=bedr, pulse=pulse).items()}
+
+
+def build_teaser30_cue():
+    """The 30-second teaser cut of the same grammar, scored to its cue sheet."""
+    sc = _load_cue_sheet("ep1-teaser")
+    total = float(sc["duration"])
+    t_impact = _shot_in(sc, "04")           # 5.5   the fall
+    t_ocean = _shot_in(sc, "07")            # 12.5  the pool becomes ocean
+    t_hands = _shot_in(sc, "08")            # 16.5  the hands drift open
+    t_eyes = _shot_in(sc, "10")             # 21.5  the eyes open
+    t_title = _shot_in(sc, "12")            # 27.0  逆流 UNDERTOW
+
+    n = int(total * SR)
+    lead, low = np.zeros(n), np.zeros(n)
+    bedl, bedr = np.zeros(n), np.zeros(n)
+    pulse = np.zeros(n)
+
+    def bed(notes, dur, amp, at):
+        f = [hz(x) for x in notes]
+        return (place(bedl, pad(f, dur, amp, seed=7), at),
+                place(bedr, pad(f, dur, amp, seed=71), at))
+
+    # the hook: the call's first three notes over the Eye. At 0.6 rather than
+    # 0.3: the third strike then lands at 3.1s, clear of the impact's approach
+    # — the events gate measured the earlier placement's strike competing with
+    # the splash transient, which is a mixing note as much as a gate failure.
+    lead = phrase(lead, CALL[:3], CALL_BEATS[:3], glass, 0.6, 0.30)
+
+    # the impact, then two falling bass steps under the compressed panic
+    low = place(low, sub(hz("D2"), 2.5, 0.55), t_impact)
+    low = place(low, bass(hz("C2"), 2.0, 0.30), t_impact + 2.6)
+    low = place(low, bass(hz("A#1"), 2.2, 0.30), t_impact + 4.4)
+
+    # the ocean: full CALL over the Dm bed
+    bedl, bedr = bed(CHORDS["Dm"], 9.0, 0.22, t_ocean - 0.5)
+    lead = phrase(lead, CALL, CALL_BEATS, glass, t_ocean + 0.5, 0.50)
+    low = phrase(low, ANSWER, ANSWER_BEATS, sub, t_hands - 0.5, 0.56)
+
+    # the eyes: thin high call over the Bb bed
+    bedl, bedr = bed(CHORDS["Bb"], 7.0, 0.16, t_eyes - 0.5)
+    lead = phrase(lead, CALL, CALL_BEATS, glass, t_eyes + 0.3, 0.38)
+
+    # the title: the answer at the CALL's own tempo, first note ON the card —
+    # the same gesture the original teaser score ends on, because it is the
+    # series thesis: the deep replies, and this time in your rhythm.
+    bedl, bedr = bed(CHORDS["Dm"], 6.0, 0.24, t_title - 1.2)
+    low = phrase(low, ANSWER, CALL_BEATS, sub, t_title, 0.68)
+
+    return {k: v[:n] for k, v in
+            dict(lead=lead, low=low, bedl=bedl, bedr=bedr, pulse=pulse).items()}
+
+
+SCENE_CUES = {
+    "ep1-the-sinking": build_sinking_cue,
+    "ep1-teaser": build_teaser30_cue,
+}
+
+
 def spatialise(stems):
     """Place the stems in the stereo field. Composition ends here; mixing begins.
 
@@ -508,6 +639,14 @@ if __name__ == "__main__":
     # The concert theme is a deliverable and lives with the assets, under the
     # gate. The teaser cue is an intermediate cut to one specific edit — it
     # lives in qc/ alongside the Splice bed it gets mixed with.
+    if "--cue" in sys.argv:
+        # a scene cue: composed to the scene's cue sheet, consumed by
+        # build-scene.py as the score bus. Delivered to scores/.
+        scene_id = sys.argv[sys.argv.index("--cue") + 1]
+        out = os.path.join(ART, "scores")
+        os.makedirs(out, exist_ok=True)
+        deliver(scene_id, SCENE_CUES[scene_id](), out, also_16=False)
+        sys.exit(0)
     deliver("undertow-theme", build_theme(), ART)
     if "--theme" not in sys.argv:
         deliver("teaser-score", build_teaser_score(), os.path.join(ART, "qc"),

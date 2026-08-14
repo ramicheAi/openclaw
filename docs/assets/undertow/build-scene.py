@@ -349,6 +349,24 @@ def main():
     # The tone belongs to the deep and only exists down there.
     tone_st = M.fathom_space(np.stack([tone, tone], 1), T["fathom"], seed=71)
 
+    # ── SCORE: the composed cue, if the scene declares one ──────────────────
+    # Rendered by build-score.py --cue <id> from the SAME cue sheet, so the
+    # music's anchors are the cut's anchors by construction. D/M/E doctrine:
+    # the score is its own stem and never merges into the world bus — it is
+    # non-diegetic, so it does not descend, exactly like the heart does not.
+    # (The musical BEDS that do descend are textures on the world bus.)
+    score_st = None
+    if "score" in sc:
+        sp = os.path.join(ART, "scores", sc["score"]["cue"] + ".wav")
+        if not os.path.exists(sp):
+            raise SystemExit(f"\n  no cue at {sp} — run "
+                             f"build-score.py --cue {sc['score']['cue']} first\n")
+        x = M.read_wav(sp) * (10 ** (sc["score"].get("gain_db", 0.0) / 20.0))
+        if len(x) < n:
+            x = np.concatenate([x, np.zeros((n - len(x), 2))])
+        score_st = x[:n]
+        print(f"  score cue: {os.path.basename(sp)}")
+
     # ── MIX BUS: set by measurement, not by ear I do not have ───────────────
     #
     # The first render of this scene had the heartbeat at unity and it ate the
@@ -370,6 +388,8 @@ def main():
         return float(np.sqrt((np.asarray(a) ** 2).mean()))
 
     stems = {"world": bed, "heart": heart_st, "tone": tone_st}
+    if score_st is not None:
+        stems["score"] = score_st
     raw = {k: rms(v) for k, v in stems.items()}
     total = sum(raw.values()) or 1.0
     print("\n  mix bus — share of energy, before and after:")
