@@ -6,7 +6,7 @@
    "source": "underwater.wav",
    "tier": "sunlit",
    "seconds": 8.0,
-   "lufs": -20.6
+   "lufs": -20.5
   },
   {
    "name": "pool-submerged",
@@ -48,6 +48,27 @@
    "source": "classroom.wav",
    "tier": "abyssal",
    "seconds": 6.0,
+   "lufs": -20.0
+  },
+  {
+   "name": "panic-strings",
+   "source": "score-cello-bm.wav",
+   "tier": "twilight",
+   "seconds": 8.0,
+   "lufs": -20.0
+  },
+  {
+   "name": "midnight-shimmer",
+   "source": "score-interference-ds.wav",
+   "tier": "midnight",
+   "seconds": 12.0,
+   "lufs": -20.0
+  },
+  {
+   "name": "deep-drone",
+   "source": "score-drone-cm.wav",
+   "tier": "abyssal",
+   "seconds": 12.0,
    "lufs": -20.0
   }
  ]

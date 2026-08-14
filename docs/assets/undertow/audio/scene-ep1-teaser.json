@@ -1,0 +1,512 @@
+{
+ "_comment": "UNDERTOW teaser cue sheet — the 30-second cut of the sinking, built for release rather than for the episode. Same doctrine as the scene it is cut from: this document IS the teaser, build-scene.py renders its mix and build-sequence.py cuts its picture, and neither holds any teaser data of its own. DISTRIBUTION IS PIPELINE: the lesson taken from studying commercial AI-film products is that poster, teaser and release metadata are pipeline steps, not afterthoughts — but here they are authored as cue sheets and briefs rather than clicked through a wizard. Every visual in this cut is an existing episode plate; the teaser cost zero generation credits by construction.",
+ "id": "ep1-teaser",
+ "title": "UNDERTOW — series teaser (30s)",
+ "source": "docs/assets/undertow/audio/scene-ep1-the-sinking.json",
+ "duration": 30.0,
+ "fps": 24,
+ "target_lufs": -18.0,
+ "_ranks_comment": "The full episode ladder minus nothing: the teaser IS the descent, compressed. Ordered, because the descent interpolates POSITION on it.",
+ "ranks": [
+  "air",
+  "sunlit",
+  "twilight",
+  "midnight",
+  "abyssal"
+ ],
+ "_beats_comment": "The scene's 72-second arc compressed to 30 without changing its shape: air, the flinch, the fall, panic, and then the long settle to 34 BPM. The teaser ends where the episode's thesis is — held at 34 — rather than resolving, because a teaser's job is to open a question.",
+ "beats": [
+  {
+   "t": 0.0,
+   "fathom": "air",
+   "calm": 0.4,
+   "bpm": 72,
+   "note": "the Eye — something is looking back"
+  },
+  {
+   "t": 1.5,
+   "fathom": "air",
+   "calm": 0.2,
+   "bpm": 90,
+   "note": "his face, the water's light on it"
+  },
+  {
+   "t": 4.0,
+   "fathom": "air",
+   "calm": 0.0,
+   "bpm": 120,
+   "note": "BZZZT"
+  },
+  {
+   "t": 5.5,
+   "fathom": "sunlit",
+   "calm": 0.0,
+   "bpm": 145,
+   "note": "the fall"
+  },
+  {
+   "t": 8.0,
+   "fathom": "twilight",
+   "calm": 0.0,
+   "bpm": 150,
+   "note": "panic"
+  },
+  {
+   "t": 10.5,
+   "fathom": "midnight",
+   "calm": 0.3,
+   "bpm": 110,
+   "note": "CARD: the boy who cannot swim"
+  },
+  {
+   "t": 12.5,
+   "fathom": "midnight",
+   "calm": 0.55,
+   "bpm": 85,
+   "note": "the pool becomes ocean"
+  },
+  {
+   "t": 16.5,
+   "fathom": "midnight",
+   "calm": 0.8,
+   "bpm": 60,
+   "note": "the hands drift open"
+  },
+  {
+   "t": 19.5,
+   "fathom": "abyssal",
+   "calm": 0.9,
+   "bpm": 45,
+   "note": "CARD: is the one the water wants"
+  },
+  {
+   "t": 21.5,
+   "fathom": "abyssal",
+   "calm": 1.0,
+   "bpm": 34,
+   "note": "the eyes open blue. 34 BPM, held to the end"
+  },
+  {
+   "t": 27.0,
+   "fathom": "abyssal",
+   "calm": 1.0,
+   "bpm": 34,
+   "note": "title"
+  },
+  {
+   "t": 30.0,
+   "fathom": "abyssal",
+   "calm": 1.0,
+   "bpm": 34,
+   "note": ""
+  }
+ ],
+ "_layers_comment": "Layers hand off; they do not accumulate. Same handoff chain as the episode — deck crowd lost at the surface, surface lost in the middle water, pool-deep deliberately running to the end because the teaser does not come back up.",
+ "layers": [
+  {
+   "texture": "crowd-poolside",
+   "gain_db": -5.0,
+   "fade_in": [
+    0.0,
+    0.0
+   ],
+   "fade_out": [
+    5.5,
+    8.5
+   ],
+   "note": "the room he is failing in. It does not follow him down."
+  },
+  {
+   "texture": "pool-surface",
+   "gain_db": -3.0,
+   "fade_in": [
+    4.5,
+    6.5
+   ],
+   "fade_out": [
+    9.0,
+    13.0
+   ],
+   "note": "the surface, arriving with the fall and gone by the first card."
+  },
+  {
+   "texture": "crowd-submerged",
+   "gain_db": -6.0,
+   "fade_in": [
+    6.0,
+    8.0
+   ],
+   "fade_out": [
+    10.5,
+    12.5
+   ],
+   "note": "the muffled roar follows him under for four seconds and loses him."
+  },
+  {
+   "texture": "pool-submerged",
+   "gain_db": -2.0,
+   "fade_in": [
+    7.0,
+    11.0
+   ],
+   "fade_out": [
+    17.0,
+    21.0
+   ],
+   "note": "the middle water."
+  },
+  {
+   "texture": "pool-deep",
+   "gain_db": -2.0,
+   "fade_in": [
+    12.0,
+    18.0
+   ],
+   "fade_out": null,
+   "note": "water with nothing bounding it. Runs to the end — the teaser ends down here."
+  },
+  {
+   "texture": "panic-strings",
+   "gain_db": -4.0,
+   "fade_in": [
+    7.5,
+    8.5
+   ],
+   "fade_out": [
+    10.0,
+    11.5
+   ],
+   "note": "the thrash's music, compressed to the teaser's three seconds of panic."
+  },
+  {
+   "texture": "deep-drone",
+   "gain_db": -5.0,
+   "fade_in": [
+    20.0,
+    24.0
+   ],
+   "fade_out": null,
+   "note": "the Dm pedal under the tone, running out under the title."
+  }
+ ],
+ "_score_comment": "The composed cue (build-score.py --cue ep1-teaser): CALL over the Eye, the impact hit, CALL answered over the ocean turn, and the ANSWER landing its first note exactly on the title card.",
+ "score": {
+  "cue": "ep1-teaser",
+  "gain_db": 0.0
+ },
+ "_tone_comment": "The thing in the water, arriving under the second card and running out under the title. No fade_out: the last thing the teaser leaves in the room is the deep, breathing.",
+ "tone": {
+  "freqs_hz": [
+   36.7,
+   36.9,
+   73.4
+  ],
+  "gains": [
+   1.0,
+   0.7,
+   0.4
+  ],
+  "level": 0.16,
+  "fathom": "abyssal",
+  "fade_in": [
+   20.0,
+   24.0
+  ],
+  "fade_out": null
+ },
+ "heart": {
+  "level": 0.55,
+  "reverb_seconds": 2.2,
+  "reverb_mix": 0.18,
+  "reverb_width": 0.3
+ },
+ "mix": {
+  "world": 0.5,
+  "heart": 0.24,
+  "tone": 0.1,
+  "score": 0.16
+ },
+ "_shots_comment": "Twelve shots, every frame an existing episode plate or a locally-rendered card — the teaser spends nothing. Native speed wherever an excerpt can cover the window (the v2 lesson: retiming is where slapstick comes from); the only retimed shots are ones whose whole action must land inside the window. The Eye Rule holds here too: brown/hidden eyes until 21.5, blue only underwater.",
+ "shots": [
+  {
+   "id": "01",
+   "t_in": 0.0,
+   "t_out": 1.5,
+   "rank": "air",
+   "eyes": "n/a",
+   "subject": "water",
+   "slug": "THE EYE — the hook",
+   "media": {
+    "source": "../ep1-the-sinking/clip-03.mp4",
+    "excerpt": [
+     0.9,
+     2.4
+    ],
+    "retime": false
+   }
+  },
+  {
+   "id": "02",
+   "t_in": 1.5,
+   "t_out": 4.0,
+   "rank": "air",
+   "eyes": "brown",
+   "subject": "kai",
+   "slug": "his face, the water's light on it",
+   "media": {
+    "source": "../ep1-the-sinking/clip-02.mp4",
+    "excerpt": [
+     1.0,
+     3.5
+    ],
+    "retime": false
+   }
+  },
+  {
+   "id": "03",
+   "t_in": 4.0,
+   "t_out": 5.5,
+   "rank": "air",
+   "eyes": "n/a",
+   "subject": "feet",
+   "slug": "BZZZT — the feet slip",
+   "media": {
+    "source": "../ep1-the-sinking/clip-04.mp4",
+    "crop_pct": 0.94,
+    "retime": true
+   }
+  },
+  {
+   "id": "04",
+   "t_in": 5.5,
+   "t_out": 8.0,
+   "rank": "sunlit",
+   "eyes": "brown",
+   "subject": "kai",
+   "slug": "THE FALL",
+   "media": {
+    "source": "../ep1-the-sinking/clip-05R.mp4",
+    "excerpt": [
+     3.05,
+     5.04
+    ],
+    "retime": true
+   }
+  },
+  {
+   "id": "05",
+   "t_in": 8.0,
+   "t_out": 10.5,
+   "rank": "twilight",
+   "eyes": "shut",
+   "subject": "kai",
+   "slug": "panic",
+   "media": {
+    "source": "../ep1-the-sinking/clip-06.mp4",
+    "retime": true
+   }
+  },
+  {
+   "id": "06",
+   "t_in": 10.5,
+   "t_out": 12.5,
+   "rank": "midnight",
+   "eyes": "n/a",
+   "subject": "card",
+   "slug": "CARD — the boy who cannot swim",
+   "media": {
+    "source": "card-1.mp4",
+    "retime": false
+   }
+  },
+  {
+   "id": "07",
+   "t_in": 12.5,
+   "t_out": 16.5,
+   "rank": "midnight",
+   "eyes": "n/a",
+   "subject": "water",
+   "slug": "the pool becomes ocean",
+   "media": {
+    "source": "../ep1-the-sinking/clip-08R.mp4",
+    "excerpt": [
+     1.0,
+     5.0
+    ],
+    "retime": false
+   }
+  },
+  {
+   "id": "08",
+   "t_in": 16.5,
+   "t_out": 19.5,
+   "rank": "midnight",
+   "eyes": "opening",
+   "subject": "kai",
+   "slug": "the hands drift open",
+   "media": {
+    "source": "../ep1-the-sinking/clip-09.mp4",
+    "retime": true
+   }
+  },
+  {
+   "id": "09",
+   "t_in": 19.5,
+   "t_out": 21.5,
+   "rank": "abyssal",
+   "eyes": "n/a",
+   "subject": "card",
+   "slug": "CARD — is the one the water wants",
+   "media": {
+    "source": "card-2.mp4",
+    "retime": false
+   }
+  },
+  {
+   "id": "10",
+   "t_in": 21.5,
+   "t_out": 24.5,
+   "rank": "abyssal",
+   "eyes": "blue",
+   "subject": "kai",
+   "slug": "the eyes open — the power surfaces",
+   "media": {
+    "source": "../ep1-the-sinking/clip-10R.mp4",
+    "retime": true
+   }
+  },
+  {
+   "id": "11",
+   "t_in": 24.5,
+   "t_out": 27.0,
+   "rank": "abyssal",
+   "eyes": "blue",
+   "subject": "kai",
+   "slug": "34 BPM — held",
+   "media": {
+    "source": "../ep1-the-sinking/clip-11R.mp4",
+    "excerpt": [
+     2.0,
+     4.5
+    ],
+    "retime": false
+   }
+  },
+  {
+   "id": "12",
+   "t_in": 27.0,
+   "t_out": 30.0,
+   "rank": "abyssal",
+   "eyes": "n/a",
+   "subject": "card",
+   "slug": "TITLE — 逆流 UNDERTOW",
+   "media": {
+    "source": "card-title.mp4",
+    "retime": false
+   }
+  }
+ ],
+ "_cards_comment": "The teaser's three text cards, authored here as data and rendered by build-cards.py — same rule as everything else: a person edits this file, not a script. Near-black with the faintest light-from-above gradient; the title card alone gets the blue glow from below, because that is the show's key image (the boy on the pool floor, lit from beneath).",
+ "cards": [
+  {
+   "id": "card-1",
+   "seconds": 2.0,
+   "lines": [
+    "THE BOY WHO CANNOT SWIM"
+   ]
+  },
+  {
+   "id": "card-2",
+   "seconds": 2.0,
+   "lines": [
+    "IS THE ONE THE WATER WANTS"
+   ]
+  },
+  {
+   "id": "card-title",
+   "seconds": 3.0,
+   "kanji": "逆流",
+   "lines": [
+    "UNDERTOW"
+   ],
+   "glow": true
+  }
+ ],
+ "duck": {
+  "_comment": "Two silences, both earned: the pre-buzzer drop into his head, and the title drop — the world ducks under the title so the last ten seconds belong to a 34 BPM heart and the tone. Silence is a resource. The trailing 30.0 point exists because interp holds the RIGHT edge at 1.0 past the last point; without it the title duck would silently release.",
+  "bus": "world",
+  "points": [
+   [
+    3.5,
+    1.0
+   ],
+   [
+    3.8,
+    0.5
+   ],
+   [
+    4.2,
+    0.5
+   ],
+   [
+    4.3,
+    1.0
+   ],
+   [
+    26.4,
+    1.0
+   ],
+   [
+    27.1,
+    0.25
+   ],
+   [
+    30.0,
+    0.25
+   ]
+  ]
+ },
+ "_events_comment": "Three events, all inherited from the episode's spot placements: the flinch, the impact, the scream. The teaser adds nothing the episode does not have — v3's lesson standing guard.",
+ "events": [
+  {
+   "t": 4.3,
+   "sound": "spots/buzzer",
+   "gain_db": -15,
+   "fathom": "air",
+   "verify": {
+    "band": [
+     400,
+     3000
+    ]
+   },
+   "note": "BZZZT. The flinch that causes the fall."
+  },
+  {
+   "t": 5.5,
+   "sound": "spots/splash-impact",
+   "gain_db": -4,
+   "fathom": "air",
+   "verify": {
+    "band": [
+     1500,
+     9000
+    ]
+   },
+   "note": "The impact, on the cut to the fall shot — same treatment as the episode."
+  },
+  {
+   "t": 8.3,
+   "sound": "spots/air-burst",
+   "gain_db": -10,
+   "fathom": "twilight",
+   "verify": {
+    "band": [
+     800,
+     6000
+    ]
+   },
+   "note": "His scream costs him his air."
+  }
+ ],
+ "overlays": []
+}

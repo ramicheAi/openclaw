@@ -223,8 +223,52 @@
    ],
    "fade_out": null,
    "note": "THE SMASH NEEDS A WORLD TO SMASH INTO. The first mix let the deck exit at 18s and never return, so the cut to Gouda played over dry-treated underwater noise. The hall walla slams back with the cut."
+  },
+  {
+   "texture": "panic-strings",
+   "gain_db": -4.0,
+   "fade_in": [
+    15.0,
+    17.5
+   ],
+   "fade_out": [
+    27.0,
+    30.5
+   ],
+   "note": "MUSIC, tier one: licensed cello chatter pitched to Dm, twilight-placed so it descends with him. Motion without melody — the thrash's music, gone when the water settles."
+  },
+  {
+   "texture": "midnight-shimmer",
+   "gain_db": -6.0,
+   "fade_in": [
+    29.0,
+    33.0
+   ],
+   "fade_out": [
+    42.0,
+    47.0
+   ],
+   "note": "MUSIC, tier two: the interference atmosphere in D, arriving as the pool becomes ocean — the water starting to sound intentional."
+  },
+  {
+   "texture": "deep-drone",
+   "gain_db": -5.0,
+   "fade_in": [
+    43.0,
+    50.0
+   ],
+   "fade_out": [
+    64.0,
+    69.0
+   ],
+   "note": "MUSIC, tier three: the Dm drone under the ANSWER tone at the floor of the scene. Out before the deck smash — the music does not follow him back up."
   }
  ],
+ "_score_comment": "The composed cue (build-score.py --cue ep1-the-sinking): the CALL and ANSWER scored to this document's own shot boundaries. Non-diegetic, so it rides its own bus and does not descend — the musical beds that DO descend are the three textures above. D/M/E separation holds: world, heart, tone, score are four stems to the last mile.",
+ "score": {
+  "cue": "ep1-the-sinking",
+  "gain_db": 0.0
+ },
  "_tone_comment": "The thing in the water, and it is not an effect — it is the ANSWER, the theme's reply phrase (D A# G F G) taken down to the register the old ad-hoc sines lived in, each note a detuned pair so it beats and breathes. The score doc's grammar: the answer arriving early means the deep is reaching for someone. This moment IS that sentence; 'like a name' because it is one.",
  "tone": {
   "freqs_hz": [
@@ -257,9 +301,10 @@
  },
  "_mix_comment": "Share of energy each bus should hold, set by measurement rather than by an ear this pipeline does not have. The heart is the spine of the sequence and still must not be its loudest object: the room is what changes, the heart is what the change happens to. At unity it measured 55.7% of the energy and simply masked the room the whole scene is about.",
  "mix": {
-  "world": 0.6,
-  "heart": 0.28,
-  "tone": 0.12
+  "world": 0.5,
+  "heart": 0.24,
+  "tone": 0.1,
+  "score": 0.16
  },
  "_shots_comment": "The shot list, keyed to the same beats the mix is keyed to, so picture and sound cannot drift. `undertone.py shots` emits generation-ready prompt stubs from this — the fourth thing the sound bible always claimed the cue sheet produced and which did not exist until now. EVERY SHOT HERE IS SYNC-FREE BY CONSTRUCTION: this 72-second window contains no dialogue at all, so Route A costs nothing and no mouth is ever at risk. That is a decision made before generating, which is the only time it is cheap. THE EYE RULE IS THE SPINE OF THE CUT. Canon: Kai's eyes are ordinary dark brown on dry land, and the deep-blue Undertow glow appears ONLY when he is submerged, because it is the visual tell that the power is surfacing. The script independently says 'his eyes, squeezed shut, open' at the moment the water settles. Those two land on the same frame, so the glow arriving IS the story beat — shots 01-05 are brown, 06-08 are shut or hidden, and 09 is where the blue arrives. Getting that order wrong would give the reveal away before it happens.",
  "shots": [
@@ -333,7 +378,15 @@
    "slug": "THE FALL — a slap of limbs",
    "prompt": "Wide: <<<KAI>>> falling SIDEWAYS off the LANE 4 block into the pool — graceless, arms flung, legs wrong, caught just before impact. Behind the far fence, blurred students, one phone raised. late afternoon, one indoor 25m school natatorium: pale tile deck, high windows on the left wall, flat roof, LANE 4 starting block, blue-and-white lane ropes, water throwing caustics on walls and ceiling. Anime cel-shaded, motion smear, humiliating not heroic.",
    "motion": "He hits flat and hard; wide slap of spray; silhouettes shift.",
-   "known_issues_fixed": "V5 lane/venue/light continuity"
+   "media": {
+    "source": "clip-05R.mp4",
+    "excerpt": [
+     3.05,
+     5.04
+    ],
+    "retime": true
+   },
+   "known_issues_fixed": "REBUILT from start/end stills after review: the old plate had him reclining ON the water with a frozen wake and blocks carrying two lane numbers each. Excerpt opens ON the impact (clip t=3.1) so the slap lands with the 13.0 splash event — the fall itself is implied by the feet-slip cut, which is the grammar; the full clip's 2s of airborne fall would put the sound two seconds early."
   },
   {
    "id": "06",
@@ -376,12 +429,12 @@
    "slug": "the water settles — the pool becomes ocean",
    "prompt": "Underwater environment shot of the SCHOOL POOL transformed by light alone: pale tiled floor with its dark lane stripe and two round drain covers, tile walls fading into deep-ocean gloom, enormous slow god-rays through water gone cathedral-vast. Suspended motes slow, stop, and begin drifting toward one point. NO ruins, NO stone steps, NO arches, NO plants, NO fish, NO marine life of any kind — an ordinary pool floor lit like the deep sea. Anime cel-shaded, painterly volumetric light, awe.",
    "motion": "Light deepens; motes reverse into a slow inward drift. No camera move.",
-   "known_issues_fixed": "V8 ruins-and-fish re-shot; the room stays a pool",
+   "known_issues_fixed": "REBUILT: the old plate's far wall had melted into T-shaped monoliths. New plate keeps ordinary vertical tiled walls, ladder, block undersides; locked-off camera, light-only motion.",
    "media": {
-    "source": "clip-08.mp4",
+    "source": "clip-08R.mp4",
     "excerpt": [
-     1.0,
-     9.0
+     0.5,
+     8.5
     ],
     "retime": false
    }
@@ -441,14 +494,14 @@
    "prompt": "(existing plate, native 10s)",
    "motion": "Held wide, extremely slow inward drift — then in the final two seconds the bright surface far above BREAKS as a big swimmer plunges through it in a shroud of bubbles, small at the top of frame, descending toward the boy.",
    "media": {
-    "source": "clip-12R.mp4",
+    "source": "clip-12R2.mp4",
     "excerpt": [
-     0.8,
-     9.8
+     1.0,
+     10.0
     ],
     "retime": false
    },
-   "known_issues_fixed": "V12 Bo's rescue dive enters the picture; pairs with the 66.5s entry event"
+   "known_issues_fixed": "REBUILT: the old plate put him in a two-tier arena with spectators standing UNDERWATER and bunting through the water column. New plate is the same school-pool room as shot 11 (outpainted from its own frame), Bo's plunge in the tail directly above him."
   },
   {
    "id": "13",

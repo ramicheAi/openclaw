@@ -2,7 +2,7 @@
  "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
  "manifest_version": "1.2",
  "canon_version": "2.7",
- "generated": "2026-07-31",
+ "generated": "2026-08-14",
  "assets": {
   "bo-dock.png": {
    "sha256_16": "ec4f2a61c237ebff",
@@ -32,11 +32,11 @@
    "status": "APPROVED",
    "element_id": null,
    "generated_with": "composited from the eight BASELINE reference plates (no generation)",
-   "status_note": "Rebuilt 2026-07-31 for canon 2.6. Now a true height chart: all eight on one ground line at canon height, scaled crown-to-feet so styled hair does not eat real height. Verified against its own grid by diffing the sheet against a figure-free render \u2014 worst error 0.5cm, all eight feet on the same row.",
+   "status_note": "Rebuilt 2026-07-31 for canon 2.6. Now a true height chart: all eight on one ground line at canon height, scaled crown-to-feet so styled hair does not eat real height. Verified against its own grid by diffing the sheet against a figure-free render — worst error 0.5cm, all eight feet on the same row.",
    "verified_by": "agent",
    "verified_at": "2026-07-31",
    "provenance": "derived-from-approved-plates",
-   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py \u2014 identity is mathematically identical to canon."
+   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py — identity is mathematically identical to canon."
   },
   "gouda-01.png": {
    "sha256_16": "19ef68434b43c8cb",
@@ -987,7 +987,7 @@
    "provenance": "composed-in-repo"
   },
   "textures/class-laugh-memory.wav": {
-   "sha256_16": "36775e7972857429",
+   "sha256_16": "8e4749fc1d0b50d2",
    "kind": "texture",
    "characters": [],
    "status": "APPROVED",
@@ -995,7 +995,7 @@
    "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
   },
   "textures/class-laugh.wav": {
-   "sha256_16": "06db8da35fdca1fb",
+   "sha256_16": "296ccc995f1c35ba",
    "kind": "texture",
    "characters": [],
    "status": "APPROVED",
@@ -1003,7 +1003,7 @@
    "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
   },
   "textures/crowd-poolside.wav": {
-   "sha256_16": "b082368e4ba66db8",
+   "sha256_16": "4d1a9bd4dc668c12",
    "kind": "texture",
    "characters": [],
    "status": "APPROVED",
@@ -1011,7 +1011,7 @@
    "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
   },
   "textures/crowd-submerged.wav": {
-   "sha256_16": "2cbcf0faaa5318e3",
+   "sha256_16": "314b268fca4b8dc3",
    "kind": "texture",
    "characters": [],
    "status": "APPROVED",
@@ -1019,7 +1019,7 @@
    "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
   },
   "textures/pool-deep.wav": {
-   "sha256_16": "8c293c0c39ca8922",
+   "sha256_16": "57b3a9d9a6556db3",
    "kind": "texture",
    "characters": [],
    "status": "APPROVED",
@@ -1027,7 +1027,7 @@
    "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
   },
   "textures/pool-submerged.wav": {
-   "sha256_16": "badaed793ff11831",
+   "sha256_16": "155a289a170791cd",
    "kind": "texture",
    "characters": [],
    "status": "APPROVED",
@@ -1035,7 +1035,7 @@
    "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
   },
   "textures/pool-surface.wav": {
-   "sha256_16": "fd4e93d70d5faf7b",
+   "sha256_16": "f0137362ddd59253",
    "kind": "texture",
    "characters": [],
    "status": "APPROVED",
@@ -1316,15 +1316,15 @@
    "status": "APPROVED",
    "provenance": "composed-in-repo",
    "verified_by": "agent",
-   "verified_at": "2026-08-04",
+   "verified_at": "2026-08-14",
    "kind": "scene-mix",
    "characters": [
     "kai",
     "gouda"
    ],
-   "generated_with": "build-scene.py from the cue sheet: beds + heart + ANSWER phrase + events (buzzer, splash, air-burst, thrash, Bo entry) + fathom stingers at rank crossings + pre-buzzer duck + deck return",
-   "note": "v2 mix. The five hard sync moments now exist and three are onset-verified; the tone is the theme's ANSWER; the ladder plays its own rungs; the smash returns to a dry world.",
-   "sha256_16": "275969eea82c3295"
+   "generated_with": "build-scene.py v4: beds + heart + ANSWER tone + events + duck + SCORE BUS (build-score.py --cue) + three fathom-placed musical beds",
+   "note": "v4 mix: the scene finally carries music. Descent gate -0.89, all three onset events pass above matched controls.",
+   "sha256_16": "e789e1fa61df6f52"
   },
   "gouda-v3-neutral-ref.png": {
    "kind": "baseline-reference",
@@ -1400,7 +1400,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-03",
    "generated_with": "nano_banana, element-locked (environment only, no character)",
-   "note": "EP1 sinking sequence shot 03 (10.0-11.5s, rank air): THE EYE \u2014 one flash-frame. Eye state: n/a.",
+   "note": "EP1 sinking sequence shot 03 (10.0-11.5s, rank air): THE EYE — one flash-frame. Eye state: n/a.",
    "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "sha256_16": "83dad142d21938d9"
   },
@@ -1412,7 +1412,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-03",
    "generated_with": "kling3_0_turbo animated from shot-03.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 03 (10.0-11.5s, rank air): THE EYE \u2014 one flash-frame. Eye state: n/a. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
+   "note": "EP1 sinking sequence shot 03 (10.0-11.5s, rank air): THE EYE — one flash-frame. Eye state: n/a. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
    "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "sha256_16": "372b9b68d2f1c7e2"
   },
@@ -1452,17 +1452,6 @@
    "note": "EP1 sinking v2 shot 05. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
    "sha256_16": "dedc7d0834e16388"
   },
-  "sequence/ep1-the-sinking/clip-05.mp4": {
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-04",
-   "kind": "sequence-clip",
-   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
-   "note": "EP1 sinking v2 clip 05.",
-   "sha256_16": "81ed731677749021",
-   "characters": []
-  },
   "sequence/ep1-the-sinking/shot-06.png": {
    "kind": "sequence-shot",
    "characters": [
@@ -1473,7 +1462,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-03",
    "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "note": "EP1 sinking sequence shot 06 (16.0-24.0s, rank twilight): UNDERWATER \u2014 panic, honestly. Eye state: shut.",
+   "note": "EP1 sinking sequence shot 06 (16.0-24.0s, rank twilight): UNDERWATER — panic, honestly. Eye state: shut.",
    "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
    "sha256_16": "aa824a5d54dc96c2"
@@ -1488,7 +1477,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-03",
    "generated_with": "kling3_0_turbo animated from shot-06.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 06 (16.0-24.0s, rank twilight): UNDERWATER \u2014 panic, honestly. Eye state: shut. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
+   "note": "EP1 sinking sequence shot 06 (16.0-24.0s, rank twilight): UNDERWATER — panic, honestly. Eye state: shut. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
    "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
    "sha256_16": "b444083eed806079"
@@ -1534,17 +1523,6 @@
    "note": "EP1 sinking v2 shot 08. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
    "sha256_16": "b8c654f6b7147c74"
   },
-  "sequence/ep1-the-sinking/clip-08.mp4": {
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-04",
-   "kind": "sequence-clip",
-   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
-   "note": "EP1 sinking v2 clip 08.",
-   "sha256_16": "4f7afa86b9afa447",
-   "characters": []
-  },
   "sequence/ep1-the-sinking/shot-09.png": {
    "kind": "sequence-shot",
    "characters": [
@@ -1581,25 +1559,10 @@
    "verified_by": "agent",
    "verified_at": "2026-08-03",
    "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "note": "EP1 sinking sequence shot 10 (44.0-50.0s, rank abyssal): the eyes open \u2014 the power surfaces. Eye state: blue.",
+   "note": "EP1 sinking sequence shot 10 (44.0-50.0s, rank abyssal): the eyes open — the power surfaces. Eye state: blue.",
    "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
    "sha256_16": "729fa0968457ce3a"
-  },
-  "sequence/ep1-the-sinking/clip-10.mp4": {
-   "kind": "sequence-clip",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "kling3_0_turbo animated from shot-10.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 10 (44.0-50.0s, rank abyssal): the eyes open \u2014 the power surfaces. Eye state: blue. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "569d16111c75d345"
   },
   "sequence/ep1-the-sinking/shot-11.png": {
    "kind": "sequence-shot",
@@ -1611,25 +1574,10 @@
    "verified_by": "agent",
    "verified_at": "2026-08-03",
    "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "note": "EP1 sinking sequence shot 11 (50.0-60.0s, rank abyssal): 34 BPM \u2014 sitting on the pool floor. Eye state: blue.",
+   "note": "EP1 sinking sequence shot 11 (50.0-60.0s, rank abyssal): 34 BPM — sitting on the pool floor. Eye state: blue.",
    "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
    "sha256_16": "f67fe477b6d09dcb"
-  },
-  "sequence/ep1-the-sinking/clip-11.mp4": {
-   "kind": "sequence-clip",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "kling3_0_turbo animated from shot-11.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 11 (50.0-60.0s, rank abyssal): 34 BPM \u2014 sitting on the pool floor. Eye state: blue. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "2c93ac9df48cb23e"
   },
   "sequence/ep1-the-sinking/shot-12.png": {
    "kind": "sequence-shot",
@@ -1641,25 +1589,10 @@
    "verified_by": "agent",
    "verified_at": "2026-08-03",
    "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "note": "EP1 sinking sequence shot 12 (60.0-69.0s, rank abyssal): the field of quiet \u2014 hold. Eye state: blue. RE-SHOT: the first version rendered a vaulted stone hall with arches, a continuity jump from the school pool in shots 01 and 11. The script says the POOL becomes an ocean, so the pool must still be a pool \u2014 the transformation is carried by light and scale, not by swapping architecture.",
+   "note": "EP1 sinking sequence shot 12 (60.0-69.0s, rank abyssal): the field of quiet — hold. Eye state: blue. RE-SHOT: the first version rendered a vaulted stone hall with arches, a continuity jump from the school pool in shots 01 and 11. The script says the POOL becomes an ocean, so the pool must still be a pool — the transformation is carried by light and scale, not by swapping architecture.",
    "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
    "sha256_16": "da50256c985d7094"
-  },
-  "sequence/ep1-the-sinking/clip-12.mp4": {
-   "kind": "sequence-clip",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "kling3_0_turbo animated from shot-12.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 12 (60.0-69.0s, rank abyssal): the field of quiet \u2014 hold. Eye state: blue. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "18c9c48fda8eed71"
   },
   "sequence/ep1-the-sinking/shot-13.png": {
    "kind": "sequence-shot",
@@ -1671,7 +1604,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-03",
    "generated_with": "nano_banana, element-locked to 829723b5-5b8c-4047-9db8-6d318873b600",
-   "note": "EP1 sinking sequence shot 13 (69.0-72.0s, rank air): SMASH to the deck \u2014 Gouda's face. Eye state: n/a.",
+   "note": "EP1 sinking sequence shot 13 (69.0-72.0s, rank air): SMASH to the deck — Gouda's face. Eye state: n/a.",
    "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "element_id": "829723b5-5b8c-4047-9db8-6d318873b600",
    "sha256_16": "a4a41238d4268968"
@@ -1686,7 +1619,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-03",
    "generated_with": "kling3_0_turbo animated from shot-13.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 13 (69.0-72.0s, rank air): SMASH to the deck \u2014 Gouda's face. Eye state: n/a. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
+   "note": "EP1 sinking sequence shot 13 (69.0-72.0s, rank air): SMASH to the deck — Gouda's face. Eye state: n/a. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
    "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
    "element_id": "829723b5-5b8c-4047-9db8-6d318873b600",
    "sha256_16": "e7130612206a69c6"
@@ -1695,16 +1628,16 @@
    "status": "APPROVED",
    "provenance": "derived-from-approved-plates",
    "verified_by": "agent",
-   "verified_at": "2026-08-04",
+   "verified_at": "2026-08-14",
    "kind": "sequence",
    "characters": [
     "kai",
     "bo",
     "gouda"
    ],
-   "generated_with": "build-sequence.py: 17 shots cut to the cue sheet windows, PIL heart numerals composited per the overlays block, married to the v2 mix",
-   "note": "v3, the QUIET CUT. The creator judged v2 far worse than the original: the micro-cut panic, sped-up inserts, mono-font numerals and stinger-stuffed mix traded the sequence's hypnosis for a checklist. v3 restores the original 13-shot breathing rhythm and keeps only the uncontroversial fixes: one venue, pool-floor 08, hands that uncurl, no tears, static 11, Bo's dive, and four restrained sound events. Taste outranks gates; gates only keep taste honest.",
-   "sha256_16": "64c5cdc8ab4e03f5"
+   "generated_with": "build-sequence.py: 13 shots cut to the cue sheet, married to the v4 scored mix",
+   "note": "v4: v3's quiet rhythm kept; shots 05/08/12 rebuilt after creator review (hovering fall, melted walls, underwater arena all gone); score added. Impact opens shot 05 so the slap lands ON the 13.0 event.",
+   "sha256_16": "ec189ce1a24c5eed"
   },
   "qc/sequence-ep1-sinking-frames.png": {
    "status": "APPROVED",
@@ -1777,7 +1710,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-04",
    "kind": "spot",
-   "generated_with": "build-spots.py \u2014 buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "generated_with": "build-spots.py — buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
    "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
    "sha256_16": "0ade81937265d1d2",
    "characters": []
@@ -1788,7 +1721,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-04",
    "kind": "spot",
-   "generated_with": "build-spots.py \u2014 buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "generated_with": "build-spots.py — buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
    "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
    "sha256_16": "cd392a3ba24a5076",
    "characters": []
@@ -1799,7 +1732,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-04",
    "kind": "spot",
-   "generated_with": "build-spots.py \u2014 buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "generated_with": "build-spots.py — buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
    "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
    "sha256_16": "ad5a53cb860e3ee5",
    "characters": []
@@ -1810,7 +1743,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-04",
    "kind": "spot",
-   "generated_with": "build-spots.py \u2014 buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "generated_with": "build-spots.py — buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
    "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
    "sha256_16": "03eb866efa384237",
    "characters": []
@@ -1821,7 +1754,7 @@
    "verified_by": "agent",
    "verified_at": "2026-08-04",
    "kind": "spot",
-   "generated_with": "build-spots.py \u2014 buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "generated_with": "build-spots.py — buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
    "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
    "sha256_16": "114e0ec12394b87e",
    "characters": []
@@ -1884,39 +1817,6 @@
    "note": "EP1 sinking v2 shot 09-end. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
    "sha256_16": "e7e8db78f1f9f751"
   },
-  "sequence/ep1-the-sinking/clip-02b.mp4": {
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-04",
-   "kind": "sequence-clip",
-   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
-   "note": "EP1 sinking v2 clip 02b.",
-   "sha256_16": "9df7251560300148",
-   "characters": []
-  },
-  "sequence/ep1-the-sinking/clip-06c.mp4": {
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-04",
-   "kind": "sequence-clip",
-   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
-   "note": "EP1 sinking v2 clip 06c.",
-   "sha256_16": "b45d47f1ef180b57",
-   "characters": []
-  },
-  "sequence/ep1-the-sinking/clip-06d.mp4": {
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-04",
-   "kind": "sequence-clip",
-   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
-   "note": "EP1 sinking v2 clip 06d.",
-   "sha256_16": "436bd51e46084cf1",
-   "characters": []
-  },
   "sequence/ep1-the-sinking/clip-10R.mp4": {
    "status": "APPROVED",
    "provenance": "composed-in-repo",
@@ -1939,20 +1839,193 @@
    "sha256_16": "6cb31696aeb491fd",
    "characters": []
   },
-  "sequence/ep1-the-sinking/clip-12R.mp4": {
+  "textures/panic-strings.wav": {
+   "sha256_16": "0995124de312a146",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "texture",
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed source, pitch-shifted by resampling, through mastering.fathom_space(), mastered to -20 LUFS / -1.0 dBTP",
+   "note": "Licensed cello chatter (Bm) pitched +3 to Dm, twilight rank. The thrash's music. Licence in SAMPLES-MANIFEST.md.",
+   "characters": []
+  },
+  "textures/midnight-shimmer.wav": {
+   "sha256_16": "c5841dd113a201e5",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "texture",
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed source, pitch-shifted by resampling, through mastering.fathom_space(), mastered to -20 LUFS / -1.0 dBTP",
+   "note": "Licensed interference atmosphere (D#) pitched -1 to D, midnight rank. Panic handing off to awe. Licence in SAMPLES-MANIFEST.md.",
+   "characters": []
+  },
+  "textures/deep-drone.wav": {
+   "sha256_16": "8d92f259fd3dada5",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "texture",
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed source, pitch-shifted by resampling, through mastering.fathom_space(), mastered to -20 LUFS / -1.0 dBTP",
+   "note": "Licensed drone (Cm) pitched +2 to Dm, abyssal rank. The deep's pedal under the ANSWER tone. Licence in SAMPLES-MANIFEST.md.",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-05R.mp4": {
+   "sha256_16": "2664019d5a50ade0",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "sequence-clip",
+   "status": "APPROVED",
+   "provenance": "approved-plate-as-reference",
+   "characters": [
+    "kai"
+   ],
+   "generated_with": "nano_banana start/end stills (kai-neutral-ref + env-natatorium-waterline as image references; lane-number and vignette fixed by targeted edits) -> kling3_0_turbo 5s",
+   "note": "THE FALL rebuilt: waterline camera, real toppling weight, impact at clip t=3.1. Replaces the hovering-body plate the creator rejected."
+  },
+  "sequence/ep1-the-sinking/clip-08R.mp4": {
+   "sha256_16": "51170080a78f2895",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "sequence-clip",
+   "status": "APPROVED",
+   "provenance": "approved-plate-as-reference",
+   "generated_with": "nano_banana still locked to the natatorium env plates -> kling3_0_turbo 10s, camera locked off, light-only motion",
+   "note": "The pool-becomes-ocean room rebuilt with ordinary vertical pool walls; replaces the melted-monolith plate.",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-12R2.mp4": {
+   "sha256_16": "ae32f96ba8686ac3",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "sequence-clip",
+   "status": "APPROVED",
+   "provenance": "approved-plate-as-reference",
+   "characters": [
+    "kai",
+    "bo"
+   ],
+   "generated_with": "clip-11R frame widened via nano_banana (room-anchor reference) for the start still; end still adds Bo's plunge; kling3_0_turbo 10s start+end",
+   "note": "The field of quiet rebuilt in the SAME room as shot 11; Bo's rescue plunge directly above Kai in the tail. Replaces the underwater-arena plate."
+  },
+  "scenes/ep1-teaser.wav": {
+   "sha256_16": "c8c63ab3039ac28e",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "scene-mix",
    "status": "APPROVED",
    "provenance": "composed-in-repo",
+   "characters": [
+    "kai",
+    "bo"
+   ],
+   "generated_with": "build-scene.py from scene-ep1-teaser.json: same machinery, 30s compression of the sinking arc, score bus + cards",
+   "note": "Teaser mix. Gated: descent -0.99, events pass."
+  },
+  "scores/ep1-the-sinking.wav": {
+   "sha256_16": "dc7afc94b3d19666",
    "verified_by": "agent",
-   "verified_at": "2026-08-04",
-   "kind": "sequence-clip",
-   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
-   "note": "EP1 sinking v2 clip 12R.",
-   "sha256_16": "68a8280520bc14d9",
+   "verified_at": "2026-08-14",
+   "kind": "score-cue",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-score.py --cue ep1-the-sinking: CALL/ANSWER grammar scored to the cue sheet's shot boundaries",
+   "note": "The sinking cue: thread of the CALL on dry land, low D on the impact, falling bass under the panic, first full CALL+ANSWER as the water settles, silence at the abyssal floor.",
+   "characters": []
+  },
+  "scores/ep1-teaser.wav": {
+   "sha256_16": "7da0dae71ede9de3",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "score-cue",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-score.py --cue ep1-teaser",
+   "note": "Teaser cue: CALL over the Eye, ANSWER's first note landing on the title card.",
+   "characters": []
+  },
+  "sequence-ep1-teaser.mp4": {
+   "sha256_16": "503696d4b8444095",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "sequence",
+   "status": "APPROVED",
+   "provenance": "derived-from-approved-plates",
+   "characters": [
+    "kai",
+    "bo"
+   ],
+   "generated_with": "build-sequence.py from scene-ep1-teaser.json: 12 shots, all existing plates + build-cards.py cards, zero generation spend",
+   "note": "The 30s series teaser: the sinking arc compressed, two premise cards, title card with the ANSWER landing on it."
+  },
+  "sequence/ep1-teaser/card-1.png": {
+   "sha256_16": "491b0ea6b1a98058",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-teaser/card-1.mp4": {
+   "sha256_16": "48a3b010a8d39bad",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-teaser/card-2.png": {
+   "sha256_16": "e18758b01faca202",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-teaser/card-2.mp4": {
+   "sha256_16": "8aa45b43271e1de7",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-teaser/card-title.png": {
+   "sha256_16": "6e34d232fec187a5",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-teaser/card-title.mp4": {
+   "sha256_16": "f0f143a50bd7af98",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
    "characters": []
   }
  },
  "provenance_types": {
-  "element_id": "Generated with a locked character element. REQUIRED for all new character art. Multi-character art uses element_ids (a list) \u2014 one lock per character in frame.",
+  "element_id": "Generated with a locked character element. REQUIRED for all new character art. Multi-character art uses element_ids (a list) — one lock per character in frame.",
   "derived-from-approved-plates": "Composited/derived from approved plates with no generation. Identity is exact.",
   "approved-plate-as-reference": "Generated with an approved plate as image reference. Legacy-acceptable; weaker than element_id.",
   "rejected-record": "Retained only to document a rejection. Never ship.",

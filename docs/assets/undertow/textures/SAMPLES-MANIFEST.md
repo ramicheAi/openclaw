@@ -31,6 +31,10 @@ python3 build-textures.py --src <dir holding the source wavs>
 | `splash-dive.wav` | Big Room Sound — `BRS_Water_Splash_Dive_5.wav` | `c6ad6fc3-a27a-4259-aa38-e12f91c7a127` | `spots/splash-impact`, `spots/splash-entry` |
 | `uw-bubbles.wav` | Blastwave FX — `UnderwaterBubbles_SFXB.4873.wav` | `c3f6b8c8-7207-45d1-ab82-415850cd95fa` | `spots/air-burst`, `spots/water-thrash` |
 | `classroom.wav` | Big Room Sound — `BRS_Crowd_Highschool_Class_Awwh_Big.wav` | `3912b192-5ca9-4993-8fcd-7679af9d3c0e` | `class-laugh`, `class-laugh-memory` |
+| `score-cello-bm.wav` | Montage by Splice — `MNT_CN_120_fx_cello_chatter_deep_Bm.wav` | `64634108-1c34-44cd-bc69-e9725fb58efc` | `panic-strings` (pitched +3 to Dm) |
+| `score-interference-ds.wav` | ModeAudio — `MA_SWM_75_Atmosphere_Loop_Interference_D#.wav` | `f98712d9-8431-4f39-9ccf-401e623ffd30` | `midnight-shimmer` (pitched −1 to D) |
+| `score-drone-cm.wav` | Sample Magic — `ae_mus75_londonfog_drone_Cm.wav` | `becdbe74-d47d-457a-b6ce-93bde7e40746` | `deep-drone` (pitched +2 to Dm) |
+| `score-piano-d.wav` | Sample Magic — `lfp_piano_80_dullmel_D.wav` | `36bc1b09-2016-43c1-844d-75bc16ddfa05` | *downloaded, unused* — auditioned for the settle motif; the glass CALL owns that register, so no texture was built from it. Recorded here because the licence exists whether or not the sample shipped. |
 
 ## Derived textures
 
@@ -47,6 +51,9 @@ of `build-textures.py`.
 | `crowd-submerged` | midnight | `hall.wav` | the same crowd with your head under |
 | `class-laugh` | air | `classroom.wav` | the classroom laughing at the Anchor, Ep 1 — pointedly dry |
 | `class-laugh-memory` | abyssal | `classroom.wav` | the same laugh as Kai hears it on the pool floor |
+| `panic-strings` | twilight | `score-cello-bm.wav` | the thrash's music: cello chatter in Dm, motion without melody |
+| `midnight-shimmer` | midnight | `score-interference-ds.wav` | the water starting to sound intentional, panic handing off to awe |
+| `deep-drone` | abyssal | `score-drone-cm.wav` | the deep's own pedal note, under the ANSWER tone |
 
 Three of those pairs are the same recording at two different ranks. That is the
 argument for the house acoustic in one line: cutting between `pool-surface` and
