@@ -1,0 +1,460 @@
+# UNDERTOW — Element Registry
+
+A living companion to [UNDERTOW-ANIME-BIBLE.md](UNDERTOW-ANIME-BIBLE.md).
+
+**Process:** whenever a new visual, scenic, or thematic element is named, it gets logged
+here with a full integration treatment — what it *is* in-world, how it hooks into the
+existing lore (Nagi, the Deep Houses, Currents/Fathoms, the Hadal Gate), how it looks on
+screen, and where it lands in the story. Elements are never bolted on; they must earn a
+place in the world's logic. Statuses: `integrated` (woven into canon below, bible update
+pending or done) · `proposed` (logged, treatment drafted, awaiting approval) · `parked`.
+
+## Registry
+
+| # | Element | Status | Canon home |
+|---|---------|--------|-----------|
+| 1 | Enormous world trees stretching to heaven | integrated | The Ten Pillars (drowned world-trees) |
+| 2 | Dragons | integrated | The Currents themselves are dragons |
+| 3 | Tartarian technology | integrated | Nagi resonance-architecture ("the Old Build") |
+| 4 | Bible teachings | integrated | The moral spine + Deep-calls-to-deep motif |
+| 5 | Supernatural power | integrated | Currents & Sovereign states (bible §5, extended) |
+| 6 | Power scaling | integrated | Fathom ladder (bible §5) + canon feat table |
+| 7 | Mystical angels | integrated | The Ascended (counterparts of the Drowned) |
+| 8 | Jamaica & Caribbean culture | integrated | The Freewater House (the Eleventh House) |
+| 9 | The Americas + all races, non-obvious | integrated | The surface superpower, the Humboldt Guild, ambient representation |
+| 10 | Otherworldly sea creatures | integrated | The Deep Bestiary (creatures by depth) |
+| 11 | The elements of life | integrated | The Life Wheel (thematic canon) |
+| 12 | Power scaling in pool races | integrated | Surface Forms + Lane Wars (Deep-Water Doctrine extended) |
+
+---
+
+## 1. The Ten Pillars — world trees that stretch to heaven
+
+**In-world:** Before the First Drowning, ten colossal world-trees — the **Pillars** —
+stood along the coasts of Nagi, trunks kilometers high, crowns literally in the cloud
+layer, roots drinking from the deep aquifers. Nagi's scripture called them the ladder
+between the deep and heaven. When the seas rose, the Pillars drowned *standing*. They
+did not die. Each of the ten Deep Houses was founded at the base of one drowned Pillar,
+and guards it still.
+
+**How they look now (the scenic payoff):**
+- From the surface: each Pillar's uppermost crown breaks the waves as an "island" of
+  impossible old-growth canopy — ordinary maps call them atolls. Locals call them holy.
+- Below: the trunk descends through every depth tier — sun-shafted canopy (Sunlit),
+  vast branch-halls where the Meridian builds its arenas (Twilight), bioluminescent
+  bark-glyphs like vertical constellations (Midnight), and root-country tangling into
+  trench rock (Abyssal). **Descending a Pillar trunk is the show's depth ladder made
+  scenic** — a single continuous camera move down a Pillar can tell you the whole power
+  system without a word of dialogue.
+- The roots of all ten Pillars converge, hadal-deep, on one place: they are the living
+  lattice that holds the **Hadal Gate** shut. The Gate isn't sealed by stone. It's
+  sealed by a tree's grip.
+
+**Story use:** Fathom Games venues are Pillar branch-halls (every arc's arena is a new
+region of a new tree — One Piece island cadence, vertical). A dying Pillar =
+season-level crisis (its House's Current weakens with it). Kai's final Hadal descent in
+S5 runs *inside* a hollow root — climbing the world-tree downward, the Yggdrasil ladder
+inverted.
+
+---
+
+## 2. Dragons — the Currents have bodies
+
+**In-world:** The great ocean currents are not water in motion. They are **dragons** —
+planet-scale, ancient, mostly indifferent — and what the bible calls "awakening a
+Current" is, in truth, *a dragon learning your name*. Nagi never said "the Kuroshio
+Current"; it said "the Kuroshio **dragon**." House Ryn (already canon: dragon-king
+courts) are the old dragon-speakers, keepers of the etiquette of asking.
+
+**Scaling hook (see element 6):** the Fathom ladder gets a mythic ceiling —
+- **Sunlit–Twilight:** the dragon tolerates you (you can read and ride its flow).
+- **Midnight:** the dragon answers you — high-Fathom swimmers' wakes visibly take
+  **dragon shape**: a serpentine flow-form coiling the lane. The current-clash of two
+  Midnight swimmers is two wake-dragons fighting above the racers' bodies. This is the
+  show's signature spectacle shot.
+- **Abyssal:** the dragon *carries* you — House Heads can call open-ocean currents into
+  places they should not exist.
+- **Hadal:** behind the Gate sleeps the **first dragon** — the deep's own grief given a
+  body (see element 4: Leviathan). What the Wardens actually hold shut.
+
+**Design:** wake-dragons are drawn as water-in-motion, not creatures — translucent,
+particle-edged, each House's dragon patterned after its region's art (Kurose's a sumi-e
+ink dragon, Tangaroa's a koru-spiral taniwha, Sedna's a pale bone-sleek serpent).
+
+---
+
+## 3. Tartarian technology — the Old Build
+
+**In-world:** Nagi's surviving works — the **Old Build** — are exactly the imagery the
+"lost great civilization" aesthetic dreams of: cathedral-scale domes and star-fort
+geometries on the sea floor, world's-fair grandeur drowned mid-celebration, megalithic
+joints too perfect for tools, and **resonance technology**: machines with no motors,
+powered by water pressure, tide, and *sound*. The Old Build doesn't burn fuel — it
+*sings*. Organ-pipe towers that convert current into light; door-seals that open only
+to a swimmer's controlled exhale at the right pitch; the Meridian's hidden halls lit for
+twelve thousand years by tide-driven resonance lamps no one alive can build.
+
+**The buried-world angle (AoT-grade):** official archaeology says these are natural
+formations. The Meridian actively curates that lie — surveys redirected, sonar scrubbed.
+The audience gets the thrill of "a great civilization was erased from history" as
+*in-world conspiracy that is actually true*, with the Houses as the ones doing the
+erasing — which feeds Nakaru's righteous case against them (canon: the secrecy has a
+body count).
+
+**Story use:** deep trials are Old Build dungeon crawls (breath-pitch locks make Breath
+training *plot-critical*); mid-series arc where the crew must relearn a piece of Old
+Build engineering to stabilize a dying Pillar; the Hadal Gate is the Old Build's
+masterwork — the one machine Nagi built to *never* be opened.
+
+---
+
+## 4. Bible teachings — the moral spine
+
+**Approach:** the ten Houses already carry the world's sea-myths; the Bible thread is
+carried personally — by **Kai's grandmother**, who raised him after the sea took Daigo,
+and whose faith is the household the audience grows up in. It is written with the same
+researched respect as every other tradition in the show: never a sermon, always a scene.
+
+**Canonical weave (each teaching gets a story organ, not a citation):**
+- **"Deep calls to deep" (Psalm 42:7)** — the series tagline, spoken over the cold open
+  of episode 1. In-world it is also literal: the deep *calls*. It called Daigo. It calls
+  Kai.
+- **The Flood** — already canon: the First Drowning is the event behind every flood
+  memory, Noah's included. Grandmother's telling of Noah in ep 5 quietly matches the
+  Nagi reveal in ep 10 — faith and lore describing one event from two shores.
+- **Jonah** — Kai's episode-1 sinking *is* a Jonah story: swallowed by the deep,
+  returned changed, given a calling he spends the series learning to accept. Ren
+  mockingly calls him "Jonah" in Arc 2; by S3 the name is an honor.
+- **Walking on water** — the highest visible mastery in the canon. At the peak of
+  Abyssal attunement the sea *bears you up*: a House Head steps off a boat and stands.
+  Peter's lesson is the mechanic: it works exactly as long as you do not doubt — fear,
+  and you sink. Mettle as literal physics. (The first time Kai stands on water for
+  three seconds is a season finale beat.)
+- **Parting of the sea** — the legendary feat of a previous era's greatest Warden;
+  spoken of the way Baki speaks of Yujiro's feats. Whether Daigo ever did it is a
+  fandom-bait mystery the show answers in S5.
+- **Baptism** — every awakening scene is staged as one: going under as one person,
+  surfacing as another. The show's transformation grammar.
+- **Leviathan (Job 41)** — the first dragon behind the Gate. Job's whirlwind answer —
+  *can you draw out Leviathan with a hook?* — is the Meridian's oldest text about what
+  must never be attempted, and Nakaru's plan is precisely to attempt it.
+- **Teachings as arc engines:** forgiveness (Kai's answer to Nakaru cannot be victory;
+  it has to be mercy that costs something); "greater love has no one than this" (Daigo's
+  choice at the Gate — laying down his life for people who will never know); the talents
+  parable (Gouda's buried gift, un-buried by coaching Kai).
+
+**Guardrail:** the show never adjudicates between traditions. The grandmother's faith,
+the Houses' myths, and Nagi's history are three lamps on one sea — that's stated once,
+by her, and it's the show's whole theology.
+
+---
+
+## 5. Supernatural power — Currents, extended upward
+
+Already canon as the three-layer system (bible §5: Breath / Current / Fathom). The new
+elements extend its ceiling without breaking its three laws (water-only; amplifies
+technique; interference):
+
+- **Sovereign states (Midnight+):** wake-dragon manifestation (element 2), breath-of-life
+  (Yemoja line's resuscitation gift — the power system's healer class), still-water
+  standing (element 4's walking-on-water, the Abyssal proof), and **the Undertow's own
+  secret**: Kai's Current doesn't move him through water — it moves *the deep itself*,
+  which is why the Gate's lattice (element 1) answers his bloodline.
+- **Named techniques (all awakened tiers):** every House trains signature moves — named,
+  shouted, title-carded in calligraphy on screen (bible §5, "the Deep-Water Doctrine"
+  has the sampler: Marlin Line, Still Sea, First Wave, Star Path, Riddim Break, Open
+  Door). Techniques are choreography with a name and a bill — each one is drilled on
+  screen before it's ever landed in competition.
+- **Sovereign Waters (domain-class, Midnight+):** a high-Fathom swimmer *declares* their
+  water, imposing their Current's nature on a whole stretch of sea — ice-flowered lanes,
+  indoor squalls, bass-driven water that forces rivals onto Freewater's beat. Two
+  overlapping domains is a current-clash at war-scale: the arena itself becomes the
+  fight. Declaring burns Breath massively and holding a domain against a stronger will
+  is the deep world's ultimate contest of calm — exaggeration with the training bill
+  still attached.
+- **The two ends of transcendence:** go past your Fathom wrongly and the deep takes you
+  (**the Drowned**, canon). Be *carried* past it — acknowledged, not conquering — and
+  something else happens (**the Ascended**, element 7). Every supernatural ceiling in
+  the show resolves into this fork: the same depth, entered in fear or in faith.
+
+---
+
+## 6. Power scaling — canon numbers for the ladder
+
+The Fathom ladder (bible §5) stays the spine. What's added: a **canon feat table**, so
+power-scaling discourse — the lifeblood of Baki/Solo Leveling fandoms — has official
+fuel, and the writers' room has guardrails against creep:
+
+| Tier | Static breath | Depth sovereign | Signature feat ceiling |
+|---|---|---|---|
+| Sunlit | 4 min | 20 m | Read pool currents; +5% sustained speed; first named technique |
+| Twilight | 8 min | 200 m | Ride open-ocean flow lines; lane interference; full technique arsenal |
+| Midnight | 20 min | 1,000 m | Wake-dragon manifests; summon a rip in still water; **declare Sovereign Waters** (domain) |
+| Abyssal | Hours (torpor) | 6,000 m | Stand on water; redirect a local current; tow a becalmed ship; swim up a waterfall; arena-scale domains |
+| Hadal | Unmeasured | Full trench | Gate-threshold survival; part a strait for one held breath; feats become scripture |
+
+**The Deep-Water Doctrine (Canon v1.2, logged):** *real at the surface, legend in the
+deep.* Spectacle scales with depth — surface meets stay near-real (the leash that keeps
+the sport meaningful), Twilight venues speak, and Midnight-and-below goes as big as any
+battle anime alive: named techniques, Sovereign Waters, myth-grade Abyssal feats
+(bible §5). Palette-by-depth doubles as power-by-depth: the darker the frame, the more
+legendary what's allowed to happen in it.
+
+**Seam amendment (Canon v1.1, logged):** Sunlit-tier numbers are elevated-but-human —
+real freediving training can approach them (see
+[UNDERTOW-SWIM-CODEX.md](UNDERTOW-SWIM-CODEX.md) §2). Twilight and beyond are
+**Current-assisted by definition**: raw Breath alone, however trained, caps at the
+Sunlit ceiling. The 8-minute/200m Twilight line is where physiology hands off to myth,
+and the show marks that transition on screen rather than hiding it.
+
+Rules that keep scaling honest: tier gaps are **hard** (a Twilight swimmer cannot beat a
+Midnight swimmer in deep water — races against higher tiers are won only in *shallow,
+technical* formats, which keeps surface sport meaningful forever); every on-screen
+power-up must show its training bill (a promise the show never breaks); and exactly one character per
+season is allowed to break the table — and it's the season's biggest moment.
+
+---
+
+## 7. Mystical angels — the Ascended
+
+**In-world:** The deep has two doors out of being human. The Drowned (canon) are those
+the deep *took* — pulled down past themselves in fear or greed. The **Ascended** are
+those the deep *offered up*: swimmers who went past their limit for someone else's sake
+and were not taken but **borne** — changed into beings of the light-side of water. They
+appear as figures standing inside god-rays: columns of sun piercing the twilight zone,
+a silhouette where the shaft meets the blue, wings that on a second look are not wings
+but light refracting through a wake. Divers' folklore in every port town describes them
+identically. The Meridian's oldest word for them is **the Watchers**.
+
+**Role in the lore machine:**
+- They are the Gate's other guard. The Pillar-roots (element 1) hold it physically; the
+  Ascended hold it *witnessed* — the cherub-at-the-gate image made canon: the way back
+  to what Nagi sealed is kept by beings of light.
+- They do not intervene. That's their tragedy and their rule — they are witnesses, and
+  the one time in the series an Ascended breaks the rule and *acts* (catching a sinking
+  child mid-series — implied to be why Kai survived at seven) is retroactively the
+  biggest lore bomb in the show.
+- **Daigo's fate, precisely:** the S3–S5 question stops being "is Kai's father alive?"
+  and becomes "which door did he go through?" Nakaru insists Daigo Drowned. The
+  grandmother has always said the sea *carried* him. S5 answers it at the Gate.
+
+**Design:** never fully seen above Midnight depth; always backlit, always still while
+everything else drifts; their "voice" is the hydrophone anomaly from the ep-1
+post-credits scene. Palette exception: they carry Sunlit gold into Midnight black —
+the only element in the show allowed to break palette-by-depth, which is exactly why
+every frame containing one feels wrong in the right way.
+
+---
+
+## 8. Jamaica & the Caribbean — the Freewater House
+
+**In-world:** The hidden world's eleventh power, and the one its institutions refuse to
+count. The Yemoja tradition crossed the Atlantic inside the people the Middle Passage
+carried — and survived: **River Mumma** in Jamaica's rivers (the golden-combed mother of
+waters), **Yemayá** in Cuba, **La Sirène** in Haiti — one mother, many islands. From
+that survival grew a pan-Caribbean line, led from Jamaica, self-named **the Freewater
+House**. It has no Pillar — its founders' Pillar stands an ocean away at the Yemoja
+seat — so it broke the Meridian's oldest equation on purpose: *no Pillar, no House?
+Then the House is the people.* Freewater's "trunk" is a living human chain of memory,
+song, and training, passed hand to hand for three hundred years — which quietly makes
+it the only House built the way Nagi's covenant was actually meant to work.
+
+**The seat — Port Royal:** the line's hall is the real drowned city off Kingston, sunk
+in 1692 — the only House seat young enough to remember being alive, streets and walls
+still legible under the harbor. In-world it matters doctrinally: the Meridian teaches
+that drowned cities are ancient history; Port Royal sits there proving the sea never
+stopped taking. Freewater keeps its dead city lit — resonance lamps in the drowned
+streets — as both memorial and argument.
+
+**Founding legend:** the line's oldest story — told with the gravity it deserves and
+built with tradition-keepers — is of captives who chose the water and *walked home
+through the deep* (the Igbo Landing memory, honored, not borrowed lightly). In-world,
+the Freewater elders hold that some of them were **carried** — that the Atlantic's
+first Ascended of the modern era rose from the Middle Passage, and that they still
+walk the crossing's path along the seafloor. No Meridian record confirms it. The
+Freewater House doesn't need the record. (This threads the Ascended lore (§7) straight
+through Caribbean history: witness, memory, and the sea's debt.)
+
+**Signature craft — riddim swimming:** pace and stroke held to an internal drum line,
+nyabinghi-rooted. Real sport truth underneath (elite racing *is* rhythm discipline —
+stroke rate, pacing, the swim codex §5's whole cheat sheet), raised to House art:
+- A Freewater crew swimming to one shared beat moves like a single body — the finest
+  relay and open-water pack racers in the hidden world.
+- Their "sound-system" events fill a drowned city with bass you feel in your sternum
+  at depth — the warmest, loudest meets in the deep world; joy as a competitive ethos.
+- Their champion swims races *to music only they can hear* — and the show scores those
+  races to it, so the audience hears the riddim the lanes can't.
+
+**Head:** the title, not a name — **the sitting River Mumma**, matriarch of the line,
+keeper of the golden comb (regalia, teaching tool, and the House's one relic). [NEW,
+to be built with tradition-keepers.]
+
+**Champion (new cast):** **Kemar "Riddim" Reid (17)** [NEW] — Port Royal spearfisher's
+son, the fastest warm-water sprinter in the hidden world, swims to a beat he's carried
+since childhood and grins mid-race like the water's telling him a joke. Joy-forward,
+Luffy-warm, and carrying the line's whole grievance lightly until the day he doesn't:
+his arc is the Freewater recognition fight given a face. First of the hidden world's
+swimmers to call Kai a brother — unregistered knows unregistered.
+
+**Story engine:** Freewater's three-century fight for recognition ("no Pillar, no
+House") runs beside Kai's unregistered-Isozaki mirror and feeds the series' core
+institutional argument — who gets counted, who gets protected, whose drowned cities
+get remembered. When the Houses fracture in Season 4, Freewater's choice of side is
+one of the season's hinges — and they choose based on how people treated them when
+nothing required it.
+
+**Sound & visual design:** nyabinghi drumming and deep reggae bass in the score;
+Jamaican Patois in Freewater dialogue (written with Jamaican writers); green-gold-black
+woven into their second-skins; the sigil — **River Mumma's golden comb crossed over a
+drum, above a broken chain** [NEW, tradition-keeper review before anything ships].
+Port Royal underwater at night — a drowned city lit warm from inside, bass rolling
+through it — is designed to be one of the show's signature images.
+
+---
+
+## 9. The Americas + the whole human family (non-obvious representation)
+
+**North America — the surface superpower.** The United States gets the show's slyest
+worldbuilding move: it dominates the *surface* sport — the NCAA machine, Olympic
+factories, sports-science labs — and has **no House at all.** No bloodline, no Pillar,
+no seat at the Meridian. Which produces the best possible American character:
+
+- **Jordan "Splits" Reyes (18) [NEW]** — US phenom, world-junior record holder,
+  Mexican-American, raised on data, film study, and 4:45am yardage. She has beaten
+  awakened swimmers in surface meets *without knowing they existed* — pure sport
+  science outswimming demigods who were holding back. When the S4 unmasking exposes
+  the hidden world, she becomes the surface world's champion and its angriest
+  question: *"You had magic, and you still needed lane ropes to beat me?"* Bo's
+  work-over-bloodline thesis at world scale — and the audience's American door into
+  the deep world's politics.
+
+**South America.** House Iara (Amazon) already holds the freshwater myth-line; added
+alongside it: **the Humboldt Guild [NEW]** — current-pilots of the Pacific coast
+(Peru/Chile), fishing lineages who read the world's richest current like a road. Not a
+House and not seeking to be one: unaffiliated specialists who hire out to every House
+as open-water navigators, respected by all, owned by none. (The Humboldt dragon is the
+only great current whose riders never founded a House — the Guild says the Humboldt
+prefers it that way.)
+
+**All races, woven in — the ambient-representation rule.** The whole human family is
+present the way it is in real pools: everywhere, unannounced. The crew, champions,
+judges, coaches, rivals, and background lanes span every heritage; identity shows up
+as *texture* — technique lineages, food on the table, music in the walk-on, a
+grandmother's prayer, a second language switched into mid-race — and never as a Very
+Special Episode. The rule for the writers' room: **representation is set dressing done
+with love, and story is story.** Nobody on this show is their demographic; everybody
+is their dream.
+
+---
+
+## 10. The Deep Bestiary — otherworldly sea creatures
+
+Same doctrine as everything else: **the deeper, the more mystical.** Sunlit water holds
+real animals; by Hadal depth, the line between creature and spirit is gone. The deep's
+fauna are part of Nagi's leftover ecology — life shaped by twelve thousand years of
+living beside the Gate's leakage and the Pillars' resonance.
+
+- **Sunlit — real, but attentive.** Dolphins and reef fish behave normally… except
+  around awakened swimmers, whom they treat like weather: schooling into their wake,
+  riding their currents. First sign on screen that a swimmer is more than they seem.
+- **Twilight — the Whale Choirs.** Whales are the deep's priesthood: their song
+  carries Nagi hymns none of them ever learned, and they surface to breach in
+  formation when an Ascended passes below. The "vast gentle tone" of episode 1 sits
+  inside whalesong like a voice inside a choir. Meridian deep-listeners' oldest trick:
+  they don't listen for the deep — they listen to what the whales answer.
+- **Midnight — Lantern-Jellies and Glass Eels.** Lantern-jellies are bioluminescent
+  drifters that gather where grief pools in the water — they swarm, gently, around the
+  Drowned, keeping them lit; deep folklore says each jelly holds one memory a Drowned
+  soul can't carry anymore. Glass Eels are threshold-creatures: near-invisible river
+  of bodies marking safe lines through Old Build ruins — follow the eels, live; cross
+  them, don't.
+- **Abyssal — the Old Turtles.** Sea turtles older than the Houses, shells grown into
+  living charts — ridges and glyph-barnacles mapping the current-roads of the world.
+  Tangaroa wayfinders apprentice by swimming beside one for a season. An Old Turtle
+  surfacing at a Fathom Games is the deep world's highest omen.
+- **Hadal — the Shepherds.** Angler-lit beings that circle the Gate's outskirts,
+  neither fish nor ghost — the deep's own antibodies. They herd the reckless *away*
+  from the threshold and the Drowned *toward* the lantern-jellies' light. The
+  Wardens' records call them co-workers. What they actually are is answered only in
+  S5, at the Gate: they are the dreams Leviathan still has of the ocean's living
+  things, swum loose.
+- **Companion beasts (recurring cast):** Kemar's harbor dolphin who thinks she's a
+  guard dog; the Kurose koi older than the family's records; the one gull that has
+  followed Gouda since his championship years and refuses to explain itself (comic
+  relief with a lore payoff: it saw what happened to his friend).
+
+---
+
+## 11. The Life Wheel — the elements of life the show carries
+
+The full answer to "what should a great shonen hold?" — every major element of a human
+life, each with a canon home, so no season is ever thematically thin:
+
+| Element of life | Where it lives in canon |
+|---|---|
+| **Dream & purpose** | Kai's declared dream (ep 1) — the series spine |
+| **Family & inheritance** | Daigo's shadow; grandmother's table; House bloodlines |
+| **Friendship & found family** | The crew — Bo's "swim with us" |
+| **Rivalry & respect** | Ren; the House champions; every current-clash |
+| **Fear & courage** | Kai's water-fear; mettle thesis — courage means doing it scared |
+| **Grief & loss** | The whole cosmology — Leviathan IS grief; Gouda; Nakaru |
+| **Faith & doubt** | Grandmother's Bible thread; Nagi's covenant; walking on water |
+| **Love** | Familial first; slow-burn romantic threads kept light and earned (Kai/Luna, Mirei's unspoken) |
+| **Joy & celebration** | Freewater's whole ethos; the club's last-place gold |
+| **Work & talent** | Bo vs bloodline; Jordan Reyes vs the awakened |
+| **Identity & belonging** | Unregistered lines (Isozaki, Freewater); Luna between worlds |
+| **Justice & mercy** | Nakaru's case; Kai's answer — mercy that costs |
+| **Betrayal & forgiveness** | The Meridian's silences; Ren breaking ranks; Gouda's wound |
+| **Sacrifice & legacy** | Nagi's choice; Daigo's crossing; Kai's final binding |
+| **Pride & humility** | Kurose doctrine; Kai asking Bo to train him harder (ep 5) |
+| **Freedom & institution** | Freewater's creed vs Meridian law; the Silence Accord |
+| **Death & what remains** | The Drowned/Ascended fork; Port Royal kept lit |
+| **Coming of age** | Every kid in the cast — the pool as the door to adulthood |
+| **Joy of the body** | The Baki inheritance — swimming as the celebration of what humans can do |
+| **Hope** | The final image: the first stroke, taught again |
+
+Rule: every arc must be traceable to at least three spokes of the Wheel, and every
+season must touch all of them at least once. (The gauntlet checks this.)
+
+---
+
+## 12. Power scaling in the pool — Surface Forms & Lane Wars
+
+The Deep-Water Doctrine's missing half, now canon: exaggeration lives in the pool too —
+in two sanctioned ways.
+
+**Surface Forms.** Every named technique has two builds: its **Deep Form** (full anime,
+title card, water obeys) and its **Surface Form** — the *legal* version, compressed
+into what judges and physics-on-camera allow. Marlin Line's Surface Form is a breakout
+so violent the pool's surface tears in a line; Riddim Break's is a tempo shift that
+makes seven rivals miss their turns by half a beat; Open Door's is Kai's impossible
+final-15m surge as the water quietly *helps*. Surface Forms are the show's connoisseur
+layer: the audience learns to see the Deep Form hiding inside the legal one — power
+scaling running live in an ordinary school meet, invisible to the crowd, screamingly
+obvious to fans.
+
+**Lane Wars.** The hidden world's own pool discipline — night meets in flooded Old
+Build natatoriums where powers are *unrestricted in a 25-meter pool.* Eight lanes, no
+open ocean to dilute anything: two Sovereign Waters overlapping in a pool is a knife
+fight in a phone booth, and the deep world knows it — Lane Wars are its most-watched,
+most-feared duels. Champions who rule open water get humbled in short course, and vice
+versa (real sport truth scaled up: sprint specialists vs open-water tacticians). This
+gives the show pool-set battles every bit as huge as its ocean arcs — the same lanes
+kids swim in, gone mythic.
+
+---
+
+## Cross-element synthesis (how the elements lock together)
+
+The additions resolve into one cosmology, not seven gimmicks:
+
+**The Pillars (1) are the ladder between the deep and heaven. The dragons (2) are the
+sea's living will, and the first of them — Leviathan (4) — sleeps behind a Gate held
+shut by the Pillars' roots and watched by the Ascended (7). Nagi's Old Build (3) is the
+engineering of a civilization that knew all this and drowned itself to seal it. The
+power system (5) is humanity's inheritance of that covenant, the Fathom ladder (6) its
+measure — and every swimmer who goes deep enough meets the same fork the whole show is
+about: enter the deep in fear and be taken; enter it in faith and be carried.**
+
+Which means Kai's dream — *swim to the bottom of the sea and bring his father home* —
+was always a pilgrimage up the world tree, downward.

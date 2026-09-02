@@ -1,0 +1,2046 @@
+{
+ "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
+ "manifest_version": "1.2",
+ "canon_version": "2.7",
+ "generated": "2026-09-02",
+ "assets": {
+  "bo-dock.png": {
+   "sha256_16": "ec4f2a61c237ebff",
+   "kind": "character",
+   "characters": [
+    "bo"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "cast-lineup-sheet.png": {
+   "sha256_16": "beae52b4809c603e",
+   "kind": "composite",
+   "characters": [
+    "kai",
+    "ren",
+    "kemar",
+    "bo",
+    "luna",
+    "mirei",
+    "gouda",
+    "nakaru"
+   ],
+   "status": "APPROVED",
+   "element_id": null,
+   "generated_with": "composited from the eight BASELINE reference plates (no generation)",
+   "status_note": "Rebuilt 2026-07-31 for canon 2.6. Now a true height chart: all eight on one ground line at canon height, scaled crown-to-feet so styled hair does not eat real height. Verified against its own grid by diffing the sheet against a figure-free render — worst error 0.5cm, all eight feet on the same row.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "derived-from-approved-plates",
+   "provenance_note": "Zero generation. Cropped/composited directly from the 8 approved plates by build-lineup.py — identity is mathematically identical to canon."
+  },
+  "gouda-01.png": {
+   "sha256_16": "19ef68434b43c8cb",
+   "kind": "character",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "gouda-02.png": {
+   "sha256_16": "cf8e55fc4893676b",
+   "kind": "character",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "1d48287d-fe34-4348-8b25-dc51ff12b53c",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "kai-pool-floor-01.png": {
+   "sha256_16": "d7eab47f2e65dff3",
+   "kind": "character",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "kai-pool-floor-02.png": {
+   "sha256_16": "8f0cdc0a1923d89b",
+   "kind": "character",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "4ee10302-b895-45ab-9680-426cb23ac03a",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "kemar-01.png": {
+   "sha256_16": "479f3527e4ddd86a",
+   "kind": "character",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "kemar-02.png": {
+   "sha256_16": "04499e1e6a421ba3",
+   "kind": "character",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "dd39c0c5-9359-478b-a7c7-d34ca1db86f8",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "luna-01.png": {
+   "sha256_16": "324dd18ca3d8fd42",
+   "kind": "character",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "luna-02.png": {
+   "sha256_16": "0dc0237491641228",
+   "kind": "character",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "a927c91a-708f-4928-9dd5-d52a9a126005",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "mirei-01.png": {
+   "sha256_16": "69eb663e651b3232",
+   "kind": "character",
+   "characters": [
+    "mirei"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "mirei-02.png": {
+   "sha256_16": "13dd2e034def3aff",
+   "kind": "character",
+   "characters": [
+    "mirei"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "nakaru-seawall-01.png": {
+   "sha256_16": "a34b6a09945cbbe9",
+   "kind": "character",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "nakaru-seawall-02.png": {
+   "sha256_16": "db0057e5c18aba64",
+   "kind": "character",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "83d1ffbc-338d-4815-b673-f367757af91e",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "poster-deep-calls-to-deep-4k.png": {
+   "sha256_16": "a817870200aa7129",
+   "kind": "key-art",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id",
+   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
+   "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (4K print master, 2751x4096, upscaled from the hero)"
+  },
+  "poster-deep-calls-to-deep-alt.png": {
+   "sha256_16": "e8ab2e4732d6e34e",
+   "kind": "key-art",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id",
+   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
+   "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (alternate take)"
+  },
+  "poster-deep-calls-to-deep.png": {
+   "sha256_16": "9d8d531aa8c30762",
+   "kind": "key-art",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "status_note": "Composition unchanged - tree, glyphs, roots, lit doorway, drowned city, gradient. Only the diving figure was re-driven by the element. Kai canon-correct: deep brown skin, coiled blue-black hair, jammers, bracelet, no apparatus, no cape.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id",
+   "provenance_note": "Generated with Kai's approved hero plate supplied as a dual image reference alongside the composition plate. Predates elements; creator-verified canon-correct.",
+   "generated_with": "regenerated with Kai's locked element, using the creator-approved poster as a composition reference so the world-tree design is preserved exactly (hero)"
+  },
+  "ren-fence-01.png": {
+   "sha256_16": "dbb285bed52f64ac",
+   "kind": "character",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED-founding-plate",
+   "element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
+   "note": "Creator-approved. This IS the identity source of truth.",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "ren-fence-02.png": {
+   "sha256_16": "a24638f9db21971f",
+   "kind": "character",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED-alternate",
+   "element_id": "f32e90af-fd07-4ae1-a89c-06d7968e3215",
+   "verified_by": "creator",
+   "verified_at": "2026-07-25"
+  },
+  "teaser-sinking-01.mp4": {
+   "sha256_16": "923a81dd4cfa422d",
+   "kind": "video",
+   "characters": [
+    "kai"
+   ],
+   "element_ids": [
+    "38b45365-9f70-4b2e-a79e-b7949fea9007"
+   ],
+   "status": "APPROVED",
+   "source_job_id": "be842cd8-e6a8-40e1-9901-9e881060dca3",
+   "generated_with": "seedance_2_0, Kai-v2 element + approved hero plate as start frame, 8s, 1248x1664, scored",
+   "replaces_sha256_16": "8111b2a7f01a0e58",
+   "status_note": "Redone 2026-07-31 with the locked element, which holds identity across the whole clip rather than only at frame 0. The predecessor's real defect was never identity drift - Kai was on-model throughout it - but a push-in so hard that by 2.9s the surface silhouettes and pool floor were both gone and the shot became a generic chest-up view. This take holds the full vertical depth for all 8s: he stays small on the tiled floor and the surface recedes as he sinks. Eyes closed, then the Undertow glow comes up at ~5.2s - canon-correct because he is submerged.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "verification": "12 frames sampled and inspected; sheet kept at qc/teaser-sinking-01-frames.png",
+   "provenance": "element_id",
+   "audio": "Sound bed built from four licensed Splice field recordings: FF_IE_drone_lowest_gravity (Field & Foley) as the Undertow bed, Falling_C_Sub (ModeAudio) for the descent, and two hydrophone recordings (Splice Soundscapes) for submerged room tone and the eye-opening reveal at ~5.2s. Mixed with ffmpeg; no generated audio.",
+   "audio_verification": "-19.4 LUFS integrated, -2.7 dBFS true peak, 1.2 LU range. Speech-band ratio 0.17 (bottom-heavy, no voice). Spectrogram inspected: no sustained mid harmonics. Picture bitstream hash IDENTICAL to the verified silent cut - confirming the mux altered no frame. Re-runnable via qc/verify_audio.py."
+  },
+  "kai-neutral-ref.png": {
+   "sha256_16": "922c12c2a41f8ec2",
+   "kind": "character",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "source_job_id": "0cbde580-efd8-401f-8cb8-b5895809e826",
+   "note": "Kai in his un-powered baseline state: flat neutral daylight, plain background, ordinary dark brown eyes, blue-black hair. Exists so his element cannot mistake the submerged Undertow glow for his permanent face.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-30"
+  },
+  "luna-neutral-ref.png": {
+   "sha256_16": "bfbea6eb0f674c40",
+   "kind": "character",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+   "source_job_id": "12dcc278-b1f5-432a-8084-0648f41f52f3",
+   "note": "Luna in neutral daylight on a plain background, pale ivory skin. Exists so her element cannot mistake violet underwater light for her skin tone.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-30"
+  },
+  "crew-key-visual.png": {
+   "sha256_16": "b0bde22460d564be",
+   "kind": "key-art",
+   "characters": [
+    "bo",
+    "kai",
+    "mirei",
+    "luna"
+   ],
+   "element_ids": [
+    "d3ee8e1f-8fc1-4da6-8563-fca5d6e5c3c5",
+    "38b45365-9f70-4b2e-a79e-b7949fea9007",
+    "afa98e3a-d9db-4cc4-8978-bcb1476e4e1d",
+    "3d3c787c-1929-4b3e-a4ad-6033e9d53564"
+   ],
+   "status": "APPROVED",
+   "source_job_id": "7b253f92-2f98-4365-b597-1269659fc94b",
+   "generated_with": "four locked elements, one per character in frame",
+   "status_note": "First crew visual with every character element-locked. Kai's eyes correctly dark brown on dry land; Bo heavyset and fully clothed; Luna pale ivory. Supersedes cast-key-visual.png.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-30",
+   "provenance": "element_id"
+  },
+  "ren-neutral-ref.png": {
+   "sha256_16": "7b3538652614581e",
+   "kind": "character",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+   "source_job_id": "4c01684e-dae0-4ee7-965a-5e301a905c67",
+   "note": "Neutral-daylight three-view turnaround (profile/front/back). Replaces a chest-up twilight crop that gave the element no body and a magenta cast on the face.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "kemar-neutral-ref.png": {
+   "sha256_16": "f53ddd12d0129120",
+   "kind": "character",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+   "source_job_id": "61d56291-82bf-4173-a560-e52c043e4ffc",
+   "note": "Neutral plate with the REDESIGNED Freewater House tracksuit. Replaces the Jamaican-flag racing kit, which read as costume next to a cast that wears believable athletic wear. Heritage now carried by thin green-gold piping, the House sigil, and his loc wrap. Eyes open.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "bo-neutral-ref.png": {
+   "sha256_16": "698f48528f57c3a1",
+   "kind": "character",
+   "characters": [
+    "bo"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+   "source_job_id": "6bffbd31-83f7-4792-8382-7def106fa11a",
+   "note": "Flat 2D cel-shaded neutral plate with his eyes open. Replaces a semi-3D CG render that was teaching the wrong house style.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "mirei-neutral-ref.png": {
+   "sha256_16": "2cffa176416f1364",
+   "kind": "character",
+   "characters": [
+    "mirei"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
+   "source_job_id": "bc6a4a9e-d645-4ee6-b9fe-178929867a95",
+   "note": "Neutral plate with prescription glasses ON HER FACE, narrow eyes, MANAGER armband, clipboard and stopwatch. Corrects a founding plate that had her bare-faced with sunglasses on her head.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "gouda-neutral-ref.png": {
+   "sha256_16": "04cabf466bde2e40",
+   "kind": "character",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
+   "source_job_id": "b2272a53-8efd-4ba9-96ae-fa4f515ed7f2",
+   "note": "Standing neutral plate, weary and closed, ordinary dark brown eyes. Corrects a founding plate that had him grinning with yellow eyes under a sepia cast.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "nakaru-neutral-ref.png": {
+   "sha256_16": "8613de78e16dd2e5",
+   "kind": "character",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED-baseline-reference",
+   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+   "source_job_id": "c64a5a1e-acb3-4afe-a608-86f066c8a4f6",
+   "note": "Neutral plate in which the grey temple streak and throat scar are legible for the first time. The storm plate hid both.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31"
+  },
+  "rivals-key-visual.png": {
+   "sha256_16": "1faadbdc88f82f1c",
+   "kind": "key-art",
+   "characters": [
+    "ren",
+    "kemar",
+    "gouda",
+    "nakaru"
+   ],
+   "element_ids": [
+    "0e910d33-6a73-4735-b590-a4384330330b",
+    "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+    "ac4108b9-2c69-4489-afa6-04521ef6866e",
+    "ffe0c6d9-7199-4355-b167-00e7b21afcf9"
+   ],
+   "status": "APPROVED",
+   "source_job_id": "74fd4f61-f842-4429-be24-c27de5e3ca63",
+   "generated_with": "four v2 elements, one per character in frame",
+   "status_note": "Verification render for the rebuilt elements, regenerated with Kemar-v3. Every previously-broken behaviour absent: Ren pale not violet, Kemar's eyes open in the new Freewater House tracksuit, Gouda weary with dark eyes, Nakaru's grey temple streak visible. Ren's crisp kit beside Kemar's patched one carries the recognition argument visually.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-kai.png": {
+   "sha256_16": "5c4233c2e9f41b42",
+   "kind": "character",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "source_job_id": "21fe0435-15d0-47ed-b448-03e339cef70e",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Dark brown eyes, no glow. Coiled blue-black hair, bracelet, jammers, towel. Barefoot.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-ren.png": {
+   "sha256_16": "56da0fc27b8004c6",
+   "kind": "character",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED",
+   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+   "source_job_id": "d758badf-4b3c-4391-bec8-21404877dd4d",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Pale skin not violet. Tight undercut, silver-gray eyes, wave-and-torii crest at chest.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-kemar.png": {
+   "sha256_16": "f23715fb0b9244fc",
+   "kind": "character",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED",
+   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+   "source_job_id": "ba390510-a1cc-4650-9807-645438959d39",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Eyes OPEN and warm. Charcoal Freewater tracksuit, green-gold piping, House sigil, repair patches. No flag.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-bo.png": {
+   "sha256_16": "65a9579faeaf4203",
+   "kind": "character",
+   "characters": [
+    "bo"
+   ],
+   "status": "APPROVED",
+   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+   "source_job_id": "5f5bc792-4379-47ec-bac6-3a6140f2d670",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Heavyset, cream sweater fully covering, eyes open, 2D cel-shaded not 3D.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-luna.png": {
+   "sha256_16": "266e97cc916f3dc5",
+   "kind": "character",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED",
+   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+   "source_job_id": "0a201c63-ccd0-43d2-bb59-93f9cf1d8221",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Pale ivory skin not lavender. Brow markings, indigo wave stitching, shell anklet, no crest.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-mirei.png": {
+   "sha256_16": "e4f4e7683f9246f8",
+   "kind": "character",
+   "characters": [
+    "mirei"
+   ],
+   "status": "APPROVED",
+   "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
+   "source_job_id": "c10c8fb5-5054-4bba-a218-f108a19a863a",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Prescription glasses ON HER FACE in all views, narrow eyes, MANAGER armband, clipboard, stopwatch.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-gouda.png": {
+   "sha256_16": "d8319d1bd256d88b",
+   "kind": "character",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
+   "source_job_id": "89708b52-0578-4aac-be75-9d20b6c8f7bc",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Weary and closed, NOT grinning. Ordinary dark eyes, not yellow. Topknot, stubble, medal.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "turnaround-nakaru.png": {
+   "sha256_16": "5eb97003ab6424c0",
+   "kind": "character",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED",
+   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+   "source_job_id": "72a6af73-35a1-48b7-a535-d9dace16283e",
+   "generated_with": "four-view production turnaround, generated with the character's locked v2 element",
+   "note": "Front / three-quarter / profile / back on one ground line. Checked: Grey temple streak and throat scar both visible. Dark eyes, no glow. Grounded, no fantasy.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-kai.png": {
+   "sha256_16": "33e2d749468419b7",
+   "kind": "character",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "source_job_id": "f9a9b8ca-8170-45fe-8862-3aaee574d28d",
+   "generated_with": "expression sheet generated with Kai's locked element",
+   "note": "Eight expressions: guarded neutral, held fear, stubbornness, a rare small smile, grief, wonder. Checked: consistent face across all panels, deep brown skin, coiled blue-black hair, and ordinary DARK BROWN eyes in every single panel - no glow anywhere, correct for dry land.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "teaser-titlecard.png": {
+   "sha256_16": "ceb25793a8f9f36d",
+   "kind": "title-card",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "drawn deterministically by build-titlecard.py (PIL) - zero generation",
+   "note": "The one frame carrying the show's name is drawn, not generated. Generated text is the least reliable thing an image model produces and a misspelt logo is not a defect you want to find after a pitch. still",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "derived-from-approved-plates"
+  },
+  "teaser-titlecard.mp4": {
+   "sha256_16": "ce715a577ab70b6c",
+   "kind": "title-card",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "drawn deterministically by build-titlecard.py (PIL) - zero generation",
+   "note": "The one frame carrying the show's name is drawn, not generated. Generated text is the least reliable thing an image model produces and a misspelt logo is not a defect you want to find after a pitch. Held 8s - the card holds for exactly as long as the theme needs to resolve on it, not for a round number.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "derived-from-approved-plates"
+  },
+  "expressions-ren.png": {
+   "sha256_16": "67f1903ff97a8ea8",
+   "kind": "character",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED",
+   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+   "source_job_id": "2a1fd3eb-3380-45e9-9916-9bc267652c61",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Eight panels, cold throughout with one crack of unwanted doubt. Silver-gray eyes in every panel, pale skin, tight undercut.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-gouda.png": {
+   "sha256_16": "9ddb9c8a6b103226",
+   "kind": "character",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "element_id": "ac4108b9-2c69-4489-afa6-04521ef6866e",
+   "source_job_id": "04b02c98-96be-407c-ad8e-484c2a29ec8a",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Six panels: weary, sharp assessment, haunted, gruff, grief, reluctant fondness. Ordinary dark brown eyes in every panel, never yellow. Never grins.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-mirei.png": {
+   "sha256_16": "3344681042e56ff8",
+   "kind": "character",
+   "characters": [
+    "mirei"
+   ],
+   "status": "APPROVED",
+   "element_id": "e031eb28-c3b3-41a8-a02b-57ff156cfffb",
+   "source_job_id": "a8279db8-dab3-4713-9551-f16ececf6806",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Six panels. Glasses ON HER FACE in all six. Panel two has her chewing the longer asymmetric strand - the exact tic canon gives her when calculating.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "shot-ren-lane.mp4": {
+   "sha256_16": "3cffbbaa02a5405f",
+   "kind": "video",
+   "characters": [
+    "ren"
+   ],
+   "status": "APPROVED",
+   "element_id": "0e910d33-6a73-4735-b590-a4384330330b",
+   "source_job_id": "487ebe68-a848-4fcd-b37d-c0093ae6f6a2",
+   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+   "note": "Ren in the UNDERWATER STREAMLINE PHASE off the start - the fastest phase of any race and, per the swim codex, the show's single best-integrated rule-as-story-beat. Body one rigid line, arms locked overhead, head buried between the biceps with only goggles and jaw showing, dolphin kick from the chest through pointed toes. Precision as menace: he is not stroking, he is a shape moving through water. Legal textile jammers, waist to above the knee.",
+   "verification": "SUPERSEDES a shot that showed a freestyle arm recovery UNDERWATER with the head raised looking forward - two errors a swimmer catches in the first second, neither caught by the art gate because it checked identity only. Took three passes. Pass 1 fixed the recovery but left the swimmer small in frame; pass 2 was closer but the hands were apart, which is a 'superman glide', not a streamline. Pass 3 succeeded by describing the SILHOUETTE rather than the anatomy: in a strict side profile a correct streamline shows only ONE arm and ONE hand, because the far ones occlude completely. Verified across 6 sampled frames: single-blade silhouette held, head buried, lane lines correctly ABOVE him, jammers legal. FOURTH PASS fixed the legs, on a creator note that still-frame review could never have produced: the dolphin kick undulation initiates at the CHEST, not the legs, and travels chest to hips to knees to feet like a crack running down a whip. Legs now joined as one tail throughout, and the wave visibly leads from the body rather than the feet flapping. Creator confirmed this take as the correct movement. 1280x720 from the model, upscaled to 1920x1080 (Topaz) and transcoded to h264 to match the cut.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "shot-kemar-joy.mp4": {
+   "sha256_16": "4de9b07491795aa6",
+   "kind": "video",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED",
+   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+   "source_job_id": "5f674459-0b9f-401f-8afa-64b7a0df7337",
+   "generated_with": "seedance_2_0 with the character's locked element, 6s 720p, upscaled to 1920x1080 by Topaz (job 25cec8ff-6bac-4bbd-9b13-37bc99c14074) and transcoded to h264, silent",
+   "note": "Kemar swimming real SURFACE freestyle, shot SPLIT-LEVEL with the lens at the waterline. THE BODY LINE IS THE POINT: head, shoulders, hips and heels sit at ONE depth, forming a single straight line parallel to the pool floor, held for the whole 6.04s. The neck is neutral - the head is a continuation of the spine with no angle at the shoulders - which is what fixes the two notes that read as separate faults but are the same fault: a craned neck and sagging hips. He is IN the water and not on it: the waterline crosses the crown, the back and hips are submerged, and the only things breaking the surface are the rolling shoulder and the recovering arm. Verified across a full-clip frame walk at 8fps that the recovering arm genuinely clears the surface and swings forward through AIR, water sheeting off the fingers - the fault this shot existed to fix was arm recovery underwater, so that is checked as a sequence and not from a single frame. Fourth and final take; the three before it each broke something else while fixing the line.",
+   "verification": "Took five passes, and each note came from the creator rather than from the gate, because the gate could only check identity. Pass 1-2: the original shot had a freestyle arm recovery UNDERWATER with the head raised - two errors a swimmer catches in the first second. Pass 3 moved him to the surface and fixed both, which also improved the staging: Ren now owns the silent submerged line and Kemar owns the breathing sunlit one. Pass 4 fixed a face that read androgynous in the breathing frame, by restating age and sex structurally (jawline, brow, neck, shoulders) rather than as a pronoun; the rejected sibling take from that same pass fixed the face but over-rotated the head so both goggles cleared the water, and added a flag-like graphic to the wrap. Pass 5 fixed the body riding too high - the last and most persistent error, and one the codex had no rule for until now. Creator picked this take over a fully-underwater alternative because that one, while prettier, duplicated Ren's submerged beat. 1280x720 upscaled to 1920x1080 (Topaz), transcoded to h264, 6.04s - same as the shot it replaces, so no cut point moved. TRIMMED to 4.21s. The 6.04s clip drifted WITHIN itself: for the first 4.2 seconds the camera holds split-level with the body correctly submerged, then at about 4.3s it lifts above the waterline, the swimmer rides on top with a shadow beneath, and the face changes enough to read as a different person. Creator caught it as 'looks like two different people' - which is the same defect as 'sitting too high', not a separate one. The break was bracketed to between 4.2s and 4.4s by frame sampling and the clip cut at the last verified-good frame. Consistency re-verified across 8 frames of the trimmed shot.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "shot-luna-descent.mp4": {
+   "sha256_16": "8b0b081c1f5eaeb7",
+   "kind": "video",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED",
+   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+   "source_job_id": "1708355c-06aa-4bf5-b72c-3417a087d2c7",
+   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+   "note": "Headfirst descent into violet twilight. Her skin reads PALE IVORY throughout - the strongest proof the baseline fix held, since violet water is the exact condition that turned her lavender before.",
+   "verification": "6 frames sampled and inspected against canon",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "shot-nakaru-wall.mp4": {
+   "sha256_16": "26d07cc3e3ff084d",
+   "kind": "video",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED",
+   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+   "source_job_id": "742df82c-1345-414a-997d-418aba5b7c40",
+   "generated_with": "seedance_2_0 with the character's locked element, 6s, 1920x1080, silent",
+   "note": "Motionless on a storm sea wall while the weather moves around him. Grey temple streak visible, no glow, no fantasy. Menace through stillness.",
+   "verification": "6 frames sampled and inspected against canon",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "shot-kai-sinking.mp4": {
+   "sha256_16": "00d8cfa68269d242",
+   "kind": "video",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "source_job_id": "2c01f4bc-8927-4341-952f-d4e5a503a437",
+   "generated_with": "seedance_2_0 with Kai-v2, 8s, 1920x1080, silent",
+   "note": "16:9 version of the sinking shot for the multi-shot cut. Holds the full depth for all 8s - he stays small on the tiled floor with the surface and its indifferent silhouettes far above. Eyes verified at full resolution: open with the blue Undertow light, canon-correct because submerged.",
+   "verification": "7 frames sampled plus a full-resolution face crop to confirm the eye state",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "teaser-undertow.mp4": {
+   "sha256_16": "9590007a338530d1",
+   "kind": "video",
+   "characters": [
+    "kai",
+    "ren",
+    "kemar",
+    "luna",
+    "nakaru"
+   ],
+   "element_ids": [
+    "38b45365-9f70-4b2e-a79e-b7949fea9007",
+    "0e910d33-6a73-4735-b590-a4384330330b",
+    "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+    "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+    "ffe0c6d9-7199-4355-b167-00e7b21afcf9"
+   ],
+   "status": "APPROVED",
+   "generated_with": "assembled by build-teaser.py from five element-locked shots plus the drawn title card, scored with the original theme over the Splice bed",
+   "note": "37.7s multi-shot teaser. Cut order is story logic: the boy, the rival, the joy, the mystery, the threat, the name. The palette carries the arc - chlorine cyan to cold cyan to gold to violet to storm grey, resolving into the deep blue of the title.",
+   "verification": "Re-cut at 35.88s after Kemar's shot was trimmed to its consistent portion. 10 frames sampled and inspected. Audio -16.0 LUFS, -1.2 dBTP. Picture integrity IDENTICAL against a silent build by h264 bitstream hash. Kemar's shot is now 4.21s rather than 6.04s, so every downstream cut point moved - and the cue re-measured the edit and re-synced itself automatically, which is exactly why it was built to measure rather than assume.",
+   "audio": "Our own score mixed over the Splice field-recording bed at 0.30, now in true stereo and mastered to -16 LUFS / -1.0 dBTP. Cue is scored to the edit's MEASURED dissolve midpoints and the answering phrase lands its first note exactly on the title card. No generated audio.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-kemar.png": {
+   "sha256_16": "22657265bcd63755",
+   "kind": "character",
+   "characters": [
+    "kemar"
+   ],
+   "status": "APPROVED",
+   "element_id": "a0cfcce4-b424-4c7d-9347-e5dcc619daf3",
+   "source_job_id": "46c4124a-bbe6-4074-801a-b452aff6b64c",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Eight panels: warm neutral through huge laugh, race focus, teasing, old grievance, fierce joy. Warm brown eyes OPEN throughout; the new Freewater collar with its green-gold piping reads correctly at this crop.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-bo.png": {
+   "sha256_16": "79913afd9ab76106",
+   "kind": "character",
+   "characters": [
+    "bo"
+   ],
+   "status": "APPROVED",
+   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+   "source_job_id": "d64a6248-7841-463b-82f5-895b5b311f74",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Six panels: warm neutral, enormous grin, worried for a friend, determined, gentle patience, quietly hurt. Broad kind face, heavy brows, warm dark eyes, sweater collar. 2D cel-shaded, never 3D.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-luna.png": {
+   "sha256_16": "fe0893e0900c2a4d",
+   "kind": "character",
+   "characters": [
+    "luna"
+   ],
+   "status": "APPROVED",
+   "element_id": "3d3c787c-1929-4b3e-a4ad-6033e9d53564",
+   "source_job_id": "82613643-a3ef-4588-9280-7795c3710608",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Six panels: serene, curious, sorrowing, still before a dive, a rare warm smile, knowing. Pale ivory skin in every panel, brow markings visible throughout, moon-pale eyes.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "expressions-nakaru.png": {
+   "sha256_16": "1e872d7dff8ca329",
+   "kind": "character",
+   "characters": [
+    "nakaru"
+   ],
+   "status": "APPROVED",
+   "element_id": "ffe0c6d9-7199-4355-b167-00e7b21afcf9",
+   "source_job_id": "88f04cca-ff84-46df-a062-acafa725fc72",
+   "generated_with": "expression sheet generated with the character's locked element",
+   "note": "Eight panels: calm, quiet grief, absolute conviction, something almost gentle, listening, regret closed away. Grey temple streak AND throat scar visible in every panel. No glow, no fantasy, never rage, never a grin.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "element_id"
+  },
+  "undertow-theme.wav": {
+   "sha256_16": "d28494d191e5c19b",
+   "kind": "score",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "composed in code by build-score.py - additive/subtractive synthesis in numpy, zero generated audio, zero library music",
+   "note": "\"Deep Calls to Deep\" - the main theme, 64s concert statement. D minor, 60 BPM (a resting heart rate; one beat = one second of breath-hold). The grammar is the series' own title phrase from Psalm 42:7 made literal: THE CALL, a five-note figure that falls a sixth then lifts one step, is answered by THE SAME FIGURE from below - an octave and a fifth down, two bars late, slower and heavier. That is dramatically loadable: an answer arriving EARLY is the deep reaching for someone, an answer in the WRONG key is the Second Tide, an answer that never comes is the worst thing in the show. Voices: struck-glass bowls with inharmonic partials (the call), sub sine (the answer), a detuned pad breathing on a 12s cycle (the sea), and a nyabinghi-rooted heartbeat pulse. Owned outright - no licence attached to the thing the series is identified by.",
+   "verification": "-16.0 LUFS, -1.5 dBTP, stereo correlation +0.85, DC 0.000000, no energy below 22Hz, starts and ends at silence. Spectrogram read. Four engineering defects were found and fixed before this master: the file was dual-mono (L and R bit-identical); the reverb sat ~22dB below what its mix parameter claimed, so a score about underwater space had almost none; the ANSWER masked the CALL by 11dB RMS (low stem 89% of mix energy against lead at 7.2%); and the glass voice decayed its upper partials fastest, which is a drum not a bowl, leaving under 1% of energy above 400Hz for EQ to work with. The last was fixed in the instrument, not the equaliser - EQ cannot lift content that was never synthesised.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "signatures/fathom-sunlit.wav": {
+   "status": "APPROVED",
+   "characters": [],
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "sha256_16": "9aa02549a5780c73",
+   "kind": "signature-stinger",
+   "generated_with": "composed in code by build-signatures.py from the theme's own voices",
+   "note": "Fathom rank stinger: SUNLIT (D5). 0-20m. Awakened novice; most club swimmers cap here. Bright and close. Full attack, shortest tail. The five ranks spell the show's home chord downward - D5 A4 F4 D3 D2 - so the ladder is the theme. Two things change together as you descend, both physically true of water: high frequency dies and reverb grows. Nobody has to be told which is deeper.",
+   "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "signatures/fathom-twilight.wav": {
+   "status": "APPROVED",
+   "characters": [],
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "sha256_16": "2b657daf8b27da9d",
+   "kind": "signature-stinger",
+   "generated_with": "composed in code by build-signatures.py from the theme's own voices",
+   "note": "Fathom rank stinger: TWILIGHT (A4). 20-200m. Meridian licensing threshold; Fathom Games entrants. First loss of air in the top end. The five ranks spell the show's home chord downward - D5 A4 F4 D3 D2 - so the ladder is the theme. Two things change together as you descend, both physically true of water: high frequency dies and reverb grows. Nobody has to be told which is deeper.",
+   "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "signatures/fathom-midnight.wav": {
+   "status": "APPROVED",
+   "characters": [],
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "sha256_16": "3fb43fdfdbef7b37",
+   "kind": "signature-stinger",
+   "generated_with": "composed in code by build-signatures.py from the theme's own voices",
+   "note": "Fathom rank stinger: MIDNIGHT (F4). 200-1,000m. House champions - perhaps forty people alive. The sub begins taking over from the glass. The five ranks spell the show's home chord downward - D5 A4 F4 D3 D2 - so the ladder is the theme. Two things change together as you descend, both physically true of water: high frequency dies and reverb grows. Nobody has to be told which is deeper.",
+   "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "signatures/fathom-abyssal.wav": {
+   "status": "APPROVED",
+   "characters": [],
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "sha256_16": "e41ac814143f6f42",
+   "kind": "signature-stinger",
+   "generated_with": "composed in code by build-signatures.py from the theme's own voices",
+   "note": "Fathom rank stinger: ABYSSAL (D3). 1,000-6,000m. The ten House Heads. Mostly felt rather than heard. The five ranks spell the show's home chord downward - D5 A4 F4 D3 D2 - so the ladder is the theme. Two things change together as you descend, both physically true of water: high frequency dies and reverb grows. Nobody has to be told which is deeper.",
+   "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "signatures/fathom-hadal.wav": {
+   "status": "APPROVED",
+   "characters": [],
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "sha256_16": "c45a9dda9f29e90b",
+   "kind": "signature-stinger",
+   "generated_with": "composed in code by build-signatures.py from the theme's own voices",
+   "note": "Fathom rank stinger: HADAL (D2). 6,000m+. Wardens only; to go Hadal is to risk becoming Drowned. The only stinger with NO attack transient - it swells in, already present. You do not hear yourself arrive there. The five ranks spell the show's home chord downward - D5 A4 F4 D3 D2 - so the ladder is the theme. Two things change together as you descend, both physically true of water: high frequency dies and reverb grows. Nobody has to be told which is deeper.",
+   "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "signatures/motif-current-wakes.wav": {
+   "status": "APPROVED",
+   "characters": [],
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "sha256_16": "f88ccefc3c0767ef",
+   "kind": "signature-motif",
+   "generated_with": "composed in code by build-signatures.py from the theme's own voices",
+   "note": "The water agreeing with you - a Current waking. The CALL's descending shape mirrored so it lifts instead, quicker than the theme, over the relative major. The identical gesture, welcomed.",
+   "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "signatures/motif-dive-reflex.wav": {
+   "status": "APPROVED",
+   "characters": [],
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "sha256_16": "7982ea157a095fd2",
+   "kind": "signature-motif",
+   "generated_with": "composed in code by build-signatures.py from the theme's own voices",
+   "note": "Bradycardia, literally: the heartbeat voice easing from 72 to 38 BPM. The physiological core of the series made audible. Warm and safe when it settles; the same figure sped up and clipped is panic.",
+   "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "signatures/motif-second-tide.wav": {
+   "status": "APPROVED",
+   "characters": [],
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "sha256_16": "8e8d00028e552df3",
+   "kind": "signature-motif",
+   "generated_with": "composed in code by build-signatures.py from the theme's own voices",
+   "note": "Nakaru. Canon states the rule - an answer in the WRONG key is the Second Tide - so this is the theme exactly, with the answer transposed a tritone away, the furthest wrong an answer can land. Nothing detuned, nothing growling, no dissonant cluster: he is not scored as a monster. The right shape, answered wrongly.",
+   "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "signatures/motif-open-door.wav": {
+   "status": "APPROVED",
+   "characters": [],
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "sha256_16": "09d658ff4be1b9e8",
+   "kind": "signature-motif",
+   "generated_with": "composed in code by build-signatures.py from the theme's own voices",
+   "note": "Kai's Undertow: Open Door - the deep pulling upward, a vertical current in a flat pool. A sub glissando climbing two octaves under the call. The only motif in the kit that ascends in the low register, because it is the only time the deep reaches UP.",
+   "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "signatures/motif-riddim-break.wav": {
+   "status": "APPROVED",
+   "characters": [],
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo",
+   "sha256_16": "edf324adabf3c756",
+   "kind": "signature-motif",
+   "generated_with": "composed in code by build-signatures.py from the theme's own voices",
+   "note": "Kemar's One Drop: Riddim Break - he drops the water's own beat for one bar. One-drop feel (emphasis on beat three), then a full bar of nothing, then the bass returns displaced by half a beat: he alone kept time and everyone else is now late. The silence is the technique.",
+   "verification": "qc/verify_signatures.py measures the design claim rather than the file: the Fathom ladder is confirmed monotonically darker AND more spacious across all five ranks, the dive reflex confirmed slowing 0.89s -> 1.53s between beats, the riddim break confirmed dropping 3.57s against a 0.72s pulse, open-door's sub confirmed climbing 54->108 Hz, current-wakes confirmed lifting 441->741 Hz. Kit level-matched within 1.4 LU at -16 LUFS with no true peak above -1.0 dBTP. Click detector calibrated against a planted defect, not guessed.",
+   "engineering": "24-bit/48kHz stereo, -16.0 LUFS integrated, true peak under -1.0 dBTP (measured 4x oversampled per ITU-R BS.1770). Mastered through the shared chain in mastering.py: DC block, 24Hz subsonic filter, stereo placement, 120Hz bass mono-maker, loudness trim, look-ahead channel-linked true-peak limiter, endpoint seal. Verified by qc/verify_mastering.py."
+  },
+  "env-port-royal.png": {
+   "kind": "environment",
+   "characters": [],
+   "status": "APPROVED",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "derived-from-approved-plates",
+   "sha256_16": "f2b2a580859749ab",
+   "generated_with": "nano_banana_flash, no characters in frame so no element lock applies",
+   "note": "Sunken Port Royal - the seat of Freewater House. Canon: a real city the sea took in 1692, 'kept lit from inside', the only House seated in a drowned city young enough to remember being alive. Hundreds of amber lamps burning in windows against deep teal water; the contrast IS the image.",
+   "verification": "REGENERATED. The first pass returned a beautiful drowned town with classical colonnades and an Italian campanile - a generic Mediterranean city, not Port Royal. For a House rooted in documented Caribbean history that is exactly the costume-shop pastiche the bible forbids, so it was rejected and re-briefed to late-1600s English colonial Caribbean: brick-and-timber merchant houses, steep shingled roofs, sash windows, a SQUAT SQUARE church tower with a weathervane (no spire, no campanile), waterfront warehouses, timber wharves, sunken sloops, and a low brick fort with angled bastions. All confirmed present at zoom. The single swimmer was zoomed and confirmed a bare free-swimmer - no tank, no mask, no fins."
+  },
+  "env-fathom-arena.png": {
+   "kind": "environment",
+   "characters": [],
+   "status": "APPROVED",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "derived-from-approved-plates",
+   "sha256_16": "e80062596c7db996",
+   "generated_with": "nano_banana_flash, no characters in frame so no element lock applies",
+   "note": "The Fathom Games arena: a drowned Nagi ruin, per canon a circular amphitheatre whose tiers descend into a black shaft. The event is a DESCENT, not a lap - the composition has to make the drop read as frightening before anyone explains the rules. House banners hang in the current; lane lamps thin out with depth until the bottom is simply black.",
+   "verification": "Chosen over an alternate that read as a lane stadium rather than a well. Spectators zoomed and confirmed robed figures with NO scuba tanks, masks or fins - everyone in this world breath-holds. Foreground figures give the scale that makes the shaft land."
+  },
+  "env-cold-open-boat.png": {
+   "kind": "environment",
+   "characters": [],
+   "status": "APPROVED",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "derived-from-approved-plates",
+   "sha256_16": "50797c061e7fe71d",
+   "generated_with": "nano_banana_flash, no characters in frame so no element lock applies",
+   "note": "Episode 1 cold open: Daigo Isozaki's boat on a black sea at night, deck empty, one warm lamp - and far below the hull a faint cold light that should not be there. Dread with no monster in it. The two lights and the enormous black between them are the whole frame, and the image is the series' first question asked without a word of dialogue.",
+   "verification": "Chosen over an alternate whose lamp hung from the boom rather than sitting on deck, and whose light below read as a soft blob rather than a sharp patient point. Hull name reads KAIYO. No characters in frame, so no element lock applies."
+  },
+  "fathom-ladder.mp4": {
+   "sha256_16": "518f4bba9c4b81f2",
+   "kind": "explainer",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "drawn deterministically by build-fathom-ladder.py (PIL) and scored with the five Fathom stingers - zero generation",
+   "note": "33.5s continuous descent through all five Fathom ranks. The Bible asks the audience to chart Fathom like a stat sheet, and a pitch document can only ASSERT that a system is intuitive. This asserts nothing: it descends, and by the third card a viewer is predicting the next sound before it arrives. Colour follows the Bible's palette spine in canon order - sun-bleached chlorine cyan, green-gold open water, violet twilight, bioluminescent midnight, and Hadal 'where the only colors are what characters bring with them', which is why the last tier is black except for one carried light. The gradient is continuous rather than five flat blocks, so the Bible's promise holds: pause any frame and the colour gives you the depth.",
+   "verification": "9 frames sampled across the full piece and inspected; audio -15.7 LUFS, -2.0 dBFS true peak, LRA 14.7, spectrogram read. Three defects found and fixed on inspection: marine snow was drawn at a fixed brightness and read as dust on the lens wherever the water was lighter than the particles, so it is now derived from the current water colour; the depth readout was left-aligned at a fixed x and grew through the ruler as the number gained digits, so it is right-aligned against it; and Hadal held 14 seconds of a 38 second piece with a frozen counter, so the tail was cut to the length of its own stinger. The legibility scrim is a gradient, not blurred rectangles - those had visible ends and read as grey lozenges. Audio re-mastered in stereo through the shared chain: -16.0 LUFS, -1.9 dBTP, correlation +0.94.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "derived-from-approved-plates"
+  },
+  "undertow-theme-16.wav": {
+   "sha256_16": "ef1d6ec5299e9ef7",
+   "kind": "score",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "16-bit distribution copy of undertow-theme.wav, written by build-score.py",
+   "note": "Dithered 16-bit copy of the main theme for distribution. The 24-bit file is the master and the thing any future re-master starts from; this is the one that gets muxed and sent around.",
+   "verification": "TPDF dither applied at 1 LSB. Dither is used here and NOT on the 24-bit master deliberately: at 24 bits the quantisation floor is around -144 dBFS, far below anything in this material, so dither would add noise for nothing. At 16 bits the floor is -96 dBFS and truncation error correlates with the signal, which on a long reverb tail fading to silence is audible as a granular stair-step instead of a fade - and this score is made almost entirely of long tails fading to silence.",
+   "verified_by": "agent",
+   "verified_at": "2026-07-31",
+   "provenance": "composed-in-repo"
+  },
+  "textures/class-laugh-memory.wav": {
+   "sha256_16": "8e4749fc1d0b50d2",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'abyssal' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/class-laugh.wav": {
+   "sha256_16": "296ccc995f1c35ba",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'air' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/crowd-poolside.wav": {
+   "sha256_16": "4d1a9bd4dc668c12",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'sunlit' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/crowd-submerged.wav": {
+   "sha256_16": "314b268fca4b8dc3",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'midnight' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/pool-deep.wav": {
+   "sha256_16": "57b3a9d9a6556db3",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'abyssal' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/pool-submerged.wav": {
+   "sha256_16": "155a289a170791cd",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'twilight' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "textures/pool-surface.wav": {
+   "sha256_16": "f0137362ddd59253",
+   "kind": "texture",
+   "characters": [],
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed field recording through mastering.fathom_space() at the 'sunlit' rank, mastered to -20 LUFS / -1.0 dBTP. Source licence and asset UUID in textures/SAMPLES-MANIFEST.md.",
+   "note": "Texture tier. The source is licensed library material; what makes it this show's is that it passes through the same water as the score. Verified by qc/verify_texture.py as a paired measurement against the untreated source at the same corner frequency."
+  },
+  "lipsync-test/kai-neutral-plate.png": {
+   "sha256_16": "f0eff3a51ea1218b",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment; see docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Kai in a held medium close-up, mouth CLOSED and neutral, on the deck. Built as the start frame for the Route B lip-sync test: a neutral mouth is the only honest starting point for measuring what a generator does to one.",
+   "verification": "Inspected at full resolution before use. Mouth is closed and neutral, face large and centred, mouth unobstructed and readable against the skin. Canon-correct for dry land: dark brown eyes, NOT the submerged Undertow blue, and blue-black coiled hair. Chosen as the start frame precisely because a neutral mouth is the only honest baseline for measuring what a generator does to one.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B lip-sync experiment, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-vo-tierB.wav": {
+   "sha256_16": "3fa962dae2b63239",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment; see docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "TIER B PREVIZ VOICE - SYNTHETIC, NEVER SHIPS. Exists solely to derive timing so picture can be built before casting. Per the Sound Bible, swapping in a real actor later needs no re-animation because the pipeline is timing-driven.",
+   "verification": "Not a picture; verified by measurement. 3.73s, and the aligner's placement of its mid-line pause was checked against ground truth taken from the recording's own silence - agreement to one frame. Voice casting is NOT verified and is not meant to be: no preset is a fifteen-year-old boy, and this exists for timing only.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B lip-sync experiment, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-control-no-audio.mp4": {
+   "sha256_16": "92ac8b0e484c1379",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment; see docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "The control that makes the above mean something: identical prompt and start frame, audio reference withheld. -12 frames and NEGATIVE correlation, which is how we know the model is listening rather than guessing.",
+   "verification": "The control, and its only job is to fail. Verified that it is the same start frame and the same prompt with the audio reference withheld, and that it scores -12 frames with negative correlation against the recording - which is what licenses the claim that the other take's +0 frames comes from the audio and not from luck.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B lip-sync experiment, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-with-audio.mp4": {
+   "sha256_16": "dc4844fcde7e8c0d",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment; see docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Route B under test: wan2_7 with the recording supplied as an audio reference. Measured +0 frames against that recording (r=+0.61) and 0 of 5 required lip closures achieved. Envelope sync, not articulation.",
+   "verification": "Inspected frame by frame across both windows where the chart requires a lip closure, at 24fps, cropped to the mouth. The lips do not meet in any frame of either window. That visual reading agrees with the measurement (minimum aperture 0.40 across the whole clip, 0 of 5 closures) and is why this is filed as evidence of a limit rather than as a usable shot.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B lip-sync experiment, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-neutral-plate-wide.png": {
+   "sha256_16": "18416e30eb4d6d52",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment at wide framing; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Kai at full shot, head about a tenth of frame height, mouth CLOSED and neutral. Serves twice: as the start frame for the wide Route B test, and as the known-closed reference that calibrates the shut threshold for it.",
+   "verification": "Inspected at full resolution. Framing is a true wide - whole figure, generous headroom - mouth closed, canon-correct dark brown eyes on dry land.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B scale comparison, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-wide-with-audio.mp4": {
+   "sha256_16": "31f3398c1966969a",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B lip-sync experiment at wide framing; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "The same line and the same recording as the close-up test, at wide framing. This is the take that reversed the conclusion: 4 of 5 closures land here where 0 of 5 landed at close-up, and the sync loosens to +4 frames in exchange.",
+   "verification": "Verified by magnified frame-by-frame inspection at the chart's own closure indices, nearest-neighbour scaled so no interpolation could invent detail. Frames 19-22 are genuinely shut; frame 72 is open and stays open across a plus-or-minus six frame window, so that closure is absent rather than shifted. The measurement agrees with the inspection only once the shut threshold is calibrated against the closed-mouth plate - the relative default reported 0 of 5 on a shot that visibly closes.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B scale comparison, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-closeup-take2.mp4": {
+   "sha256_16": "0d8f95f065fa30bd",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B shot-scale ladder; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "The take that broke the shot-scale theory. Identical start plate, prompt and audio to routeb-with-audio.mp4, which landed 0 of 5 closures; this one lands 3 of 5. Take variance, not framing.",
+   "verification": "Verified by magnified frame-by-frame walk: the lips hold a clean closed line through the whole mid-sentence pause, which the first close-up take never did anywhere. Frame 72, the m of 'my', is open here too - that miss is common to all five takes in the ladder.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-medcloseup.mp4": {
+   "sha256_16": "2f9dafc5d111a1cf",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B shot-scale ladder; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Medium close-up rung of the shot-scale ladder. Best sync correlation of the set at r=+0.79.",
+   "verification": "Magnified walk confirms a genuine closed rest through the pause. The 0-of-5 closure score is against the CHART's frames, which sit 2-5 frames before this take's pause-closure begins - late relative to the chart rather than absent, except at frame 72 which is absent.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-medium.mp4": {
+   "sha256_16": "6ad4b6025993d42c",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B shot-scale ladder; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Medium rung of the ladder.",
+   "verification": "Magnified walk confirms the same pattern as the medium close-up: clean closed lip line through the pause, no closure at frame 72.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-neutral-plate-medcloseup.png": {
+   "sha256_16": "17e5fbf9fa56d293",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B shot-scale ladder; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Medium close-up neutral plate; start frame and known-closed calibration reference for that rung.",
+   "verification": "Inspected at full resolution: mouth closed and neutral, canon-correct dark brown eyes on dry land.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-neutral-plate-medium.png": {
+   "sha256_16": "43f9367eadcadb65",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B shot-scale ladder; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Medium neutral plate; start frame and known-closed calibration reference.",
+   "verification": "Inspected at full resolution: mouth closed and neutral, canon-correct.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-01",
+   "provenance": "Route B shot-scale ladder, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-vo-tierB-v2.wav": {
+   "sha256_16": "eab68ec399c4dab3",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "seed_audio, preset voice Callum with pitch_rate 4",
+   "note": "TIER B PREVIZ VOICE v2 - SYNTHETIC, NEVER SHIPS. Replaces v1 after the creator flagged that the voice did not match the character. Measured: v1 sat at 109 Hz median F0, squarely adult male and 21 Hz below the adolescent band; this one is 133 Hz, inside it. No preset in the library is a fifteen-year-old boy, which is the concrete reason the Sound Bible requires a real human for anything a producer hears.",
+   "verification": "Pitch measured with qc/verify_voice.py, whose tracker is itself verified against six synthetic tones from 100-300 Hz on every run and matches them within 0.1%. TIMBRE IS NOT VERIFIED and cannot be by any measurement here - whether it sounds like Kai is a listening decision and remains open.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Voice pitch correction, docs/UNDERTOW-SOUND-BIBLE.md section 6"
+  },
+  "lipsync-test/pause-ladder-audio.wav": {
+   "sha256_16": "bd91bca94eca7f25",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause-length test; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "TIER B PREVIZ - SYNTHETIC, NEVER SHIPS. Four spoken phrases spliced back together with silences of EXACTLY 4, 10 and 24 frames between them. Built so gap length is the only variable in one generation, which puts take-to-take variance outside the comparison entirely.",
+   "verification": "Gap lengths are constructed rather than measured, so they are exact by definition. Phrase boundaries were detected from the speech envelope and merged across within-phrase dips shorter than 8 frames - the first attempt split every sentence in two and produced a choppy file.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Route B pause-length test, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/routeb-pause-ladder.mp4": {
+   "sha256_16": "597df843a38efdb9",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause-length test; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "The short-pause test. Answers how brief a silence can be before the mouth stops resting: 4 frames, 167ms, still rests. Shorter than a comma, so the rest behaviour covers every pause real dialogue contains.",
+   "verification": "Measured across the full clip with the shut threshold calibrated from the matching closed-mouth plate: 4 of 4 frames shut at the 167ms gap, 10 of 10 at 417ms, 23 of 24 at 1000ms. Picture against audio +1 frame, r=+0.71. Each gap was also inspected as magnified nearest-neighbour frames rather than trusted from the number.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Route B pause-length test, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "lipsync-test/kai-vo-tierB-onyx.wav": {
+   "sha256_16": "7d6155ee57419a7d",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause test, second voice; docs/UNDERTOW-SOUND-BIBLE.md sections 5 and 6",
+   "note": "TIER B PREVIZ VOICE v3 - SYNTHETIC, NEVER SHIPS. Onyx, a FEMALE preset, chosen by the creator on the ear and then confirmed on the meter: 144 Hz on a calm read and 182 Hz on an angry one, both inside the 130-200 Hz adolescent band, and both at NEUTRAL PITCH with no shifting. Every male preset in the library needed either a pitch shift or a compromise. Casting adolescent boys with women is standard Japanese practice, not a workaround.",
+   "verification": "Pitch measured with qc/verify_voice.py on two different reads, because F0 rises with vocal effort and one calm line is not a casting test. TIMBRE IS NOT VERIFIED by any measurement here - this voice was selected by the creator listening, which is the only way that decision is ever made.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Voice selection and pause-floor correction, docs/UNDERTOW-SOUND-BIBLE.md"
+  },
+  "lipsync-test/pause-ladder-onyx.wav": {
+   "sha256_16": "da7b9adbcdb90392",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause test, second voice; docs/UNDERTOW-SOUND-BIBLE.md sections 5 and 6",
+   "note": "The pause ladder rebuilt on the Onyx voice: four phrases with silences of exactly 4, 10 and 24 frames between them.",
+   "verification": "Gaps are constructed and therefore exact. Phrase boundaries detected from the speech envelope with within-phrase dips under 8 frames merged.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Voice selection and pause-floor correction, docs/UNDERTOW-SOUND-BIBLE.md"
+  },
+  "lipsync-test/routeb-pause-ladder-onyx.mp4": {
+   "sha256_16": "ff755d5529e636e2",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause test, second voice; docs/UNDERTOW-SOUND-BIBLE.md sections 5 and 6",
+   "note": "The second run of the pause test, and the one that corrected it. The 4-frame gap does NOT hold a rest here where it did on the first voice - which established that the working floor is about 10 frames rather than 4.",
+   "verification": "Magnified frame inspection found the mechanism the numbers alone would have hidden: the mouth DOES close near the short gap, at frames 14-17, but the silence is frames 17-21, so the rest lands three to four frames early and the lips reopen inside the gap. Rest placement carries about plus or minus four frames of jitter, so a gap must be longer than the jitter to contain one.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Voice selection and pause-floor correction, docs/UNDERTOW-SOUND-BIBLE.md"
+  },
+  "lipsync-test/routeb-pause-ladder-onyx-take2.mp4": {
+   "sha256_16": "85e7e8eaee04703c",
+   "kind": "lipsync-test",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "Route B pause test, third run; docs/UNDERTOW-SOUND-BIBLE.md section 5",
+   "note": "Second Onyx take of the identical line, run to separate take variance from inherent jitter. Result: the GLOBAL sync offset is repeatable - both Onyx takes landed at exactly +1 frame - while the placement of individual rests moves. 4-frame gap scored 0 of 4 then 2 of 4; 10-frame scored 8 of 10 then 9 of 10.",
+   "verification": "Measured with the shut threshold calibrated from the matching closed-mouth plate and the reference thresholded with the clip's own statistics. Three takes now agree that 10 frames and above is reliable at about 90% and that 4 frames is not.",
+   "verified_by": "claude-opus-5",
+   "verified_at": "2026-08-02",
+   "provenance": "Route B pause-floor replication, docs/UNDERTOW-SOUND-BIBLE.md section 5"
+  },
+  "scenes/ep1-the-sinking.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "scene-mix",
+   "characters": [
+    "kai",
+    "gouda"
+   ],
+   "generated_with": "build-scene.py v4: beds + heart + ANSWER tone + events + duck + SCORE BUS (build-score.py --cue) + three fathom-placed musical beds",
+   "note": "v4 mix: the scene finally carries music. Descent gate -0.89, all three onset events pass above matched controls.",
+   "sha256_16": "e789e1fa61df6f52"
+  },
+  "gouda-v3-neutral-ref.png": {
+   "kind": "baseline-reference",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "provenance": "founding-plate",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "element_id": "829723b5-5b8c-4047-9db8-6d318873b600",
+   "source_job_id": "66df8a89-0bd8-4513-9f85-92f5a7f54fee",
+   "generated_with": "nano_banana (neutral full-body reference plate, flat studio light, no environment)",
+   "note": "Gouda v3 baseline. REPLACES v2, whose plate depicted a white European man with white hair and pale skin against canon's 'Japanese, former Olympic champion'. Verified field by field against the canon identity block: heritage East Asian, warm tan skin, jet-black hair graying only at the temples in an unravelling topknot, dark brown eyes, heavy jaw, broken nose, weary closed expression, tracksuit with open windbreaker, Olympic medal on a faded ribbon.",
+   "verification": "Two shot prompts explicitly specifying Japanese/East Asian/tan skin/jet-black hair both returned a white man against the v2 element; the same prompt against this plate returned a canon-correct character. That paired result is what identifies the element rather than the prompt as the fault.",
+   "sha256_16": "25152f1b6511efc6"
+  },
+  "sequence/ep1-the-sinking/shot-01.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element + character element",
+   "note": "EP1 sinking v2 shot 01. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "2b3624c93b528e26"
+  },
+  "sequence/ep1-the-sinking/clip-01.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 01.",
+   "sha256_16": "b498b7b3721cdf00",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/shot-02.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element + character element",
+   "note": "EP1 sinking v2 shot 02. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "409a49f6ca036e84"
+  },
+  "sequence/ep1-the-sinking/clip-02.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 02.",
+   "sha256_16": "f0f63b8656014fb6",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/shot-03.png": {
+   "kind": "sequence-shot",
+   "characters": [],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked (environment only, no character)",
+   "note": "EP1 sinking sequence shot 03 (10.0-11.5s, rank air): THE EYE — one flash-frame. Eye state: n/a.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "sha256_16": "83dad142d21938d9"
+  },
+  "sequence/ep1-the-sinking/clip-03.mp4": {
+   "kind": "sequence-clip",
+   "characters": [],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-03.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 03 (10.0-11.5s, rank air): THE EYE — one flash-frame. Eye state: n/a. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "sha256_16": "372b9b68d2f1c7e2"
+  },
+  "sequence/ep1-the-sinking/shot-04.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 04. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "8e5c19d91145e56d"
+  },
+  "sequence/ep1-the-sinking/clip-04.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 04.",
+   "sha256_16": "4ae4fdb3cc75d958",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/shot-05.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element + character element",
+   "note": "EP1 sinking v2 shot 05. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "dedc7d0834e16388"
+  },
+  "sequence/ep1-the-sinking/shot-06.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 06 (16.0-24.0s, rank twilight): UNDERWATER — panic, honestly. Eye state: shut.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "aa824a5d54dc96c2"
+  },
+  "sequence/ep1-the-sinking/shot-07.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 07 (24.0-30.0s, rank twilight): he sinks. Eye state: shut.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "cc07d35b353c1e26"
+  },
+  "sequence/ep1-the-sinking/clip-07.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-07.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 07 (24.0-30.0s, rank twilight): he sinks. Eye state: shut. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "54bf1e88387ed37e"
+  },
+  "sequence/ep1-the-sinking/shot-08.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 08. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "b8c654f6b7147c74"
+  },
+  "sequence/ep1-the-sinking/shot-09.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 09 (38.0-44.0s, rank midnight): the hands drift open. Eye state: opening.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "450f72e596efb34e"
+  },
+  "sequence/ep1-the-sinking/clip-09.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 09.",
+   "sha256_16": "8cbbe6353ae8d229",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/shot-10.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 10 (44.0-50.0s, rank abyssal): the eyes open — the power surfaces. Eye state: blue.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "729fa0968457ce3a"
+  },
+  "sequence/ep1-the-sinking/shot-11.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 11 (50.0-60.0s, rank abyssal): 34 BPM — sitting on the pool floor. Eye state: blue.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "f67fe477b6d09dcb"
+  },
+  "sequence/ep1-the-sinking/shot-12.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "note": "EP1 sinking sequence shot 12 (60.0-69.0s, rank abyssal): the field of quiet — hold. Eye state: blue. RE-SHOT: the first version rendered a vaulted stone hall with arches, a continuity jump from the school pool in shots 01 and 11. The script says the POOL becomes an ocean, so the pool must still be a pool — the transformation is carried by light and scale, not by swapping architecture.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
+   "sha256_16": "da50256c985d7094"
+  },
+  "sequence/ep1-the-sinking/shot-13.png": {
+   "kind": "sequence-shot",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "nano_banana, element-locked to 829723b5-5b8c-4047-9db8-6d318873b600",
+   "note": "EP1 sinking sequence shot 13 (69.0-72.0s, rank air): SMASH to the deck — Gouda's face. Eye state: n/a.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "829723b5-5b8c-4047-9db8-6d318873b600",
+   "sha256_16": "a4a41238d4268968"
+  },
+  "sequence/ep1-the-sinking/clip-13.mp4": {
+   "kind": "sequence-clip",
+   "characters": [
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-03",
+   "generated_with": "kling3_0_turbo animated from shot-13.png as start frame; identity carried by the frame",
+   "note": "EP1 sinking sequence shot 13 (69.0-72.0s, rank air): SMASH to the deck — Gouda's face. Eye state: n/a. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
+   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
+   "element_id": "829723b5-5b8c-4047-9db8-6d318873b600",
+   "sha256_16": "e7130612206a69c6"
+  },
+  "sequence-ep1-the-sinking.mp4": {
+   "status": "APPROVED",
+   "provenance": "derived-from-approved-plates",
+   "verified_by": "agent",
+   "verified_at": "2026-09-02",
+   "kind": "sequence",
+   "characters": [
+    "kai",
+    "bo",
+    "gouda"
+   ],
+   "generated_with": "build-sequence.py: 13 shots cut to the cue sheet, married to the v4 scored mix",
+   "note": "v4: v3's quiet rhythm kept; shots 05/08/12 rebuilt after creator review (hovering fall, melted walls, underwater arena all gone); score added. Impact opens shot 05 so the slap lands ON the 13.0 event.",
+   "sha256_16": "11c450d6c424f542"
+  },
+  "qc/sequence-ep1-sinking-frames.png": {
+   "status": "APPROVED",
+   "provenance": "derived-from-approved-plates",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "qc-artifact",
+   "characters": [
+    "kai",
+    "bo",
+    "gouda"
+   ],
+   "generated_with": "frame-accurate midpoint sampling of the finished cut, ids asserted aligned",
+   "note": "Evidence sheet for the v2 cut.",
+   "sha256_16": "cb334568d344b409"
+  },
+  "qc/sequence-ep1-review-frames.jpg": {
+   "sha256_16": "d7d321e9f5d2ae78",
+   "kind": "qc-artifact",
+   "characters": [
+    "kai",
+    "gouda"
+   ],
+   "status": "APPROVED",
+   "provenance": "derived-from-approved-plates",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "generated_with": "ffmpeg fps=1 extraction over the full 72s cut, labeled per second",
+   "note": "Frame-by-frame review evidence for docs/UNDERTOW-EP1-SINKING-REVIEW.md. One frame per second of the finished sequence; the review's V-findings cite timecodes on this sheet."
+  },
+  "env-natatorium-deck.png": {
+   "status": "APPROVED",
+   "provenance": "founding-plate",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "environment-plate",
+   "element_id": "2d53e9ed-a3b0-47e9-905b-d414b904a31a",
+   "generated_with": "nano_banana, no characters; founding plates of UNDERTOW-Seiran-Natatorium",
+   "note": "The venue element. Exists because the review found every shot inventing its own pool; text cannot hold a building either.",
+   "sha256_16": "5ebb3800b1cbf807",
+   "characters": []
+  },
+  "env-natatorium-waterline.png": {
+   "status": "APPROVED",
+   "provenance": "founding-plate",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "environment-plate",
+   "element_id": "2d53e9ed-a3b0-47e9-905b-d414b904a31a",
+   "generated_with": "nano_banana, no characters; founding plates of UNDERTOW-Seiran-Natatorium",
+   "note": "The venue element. Exists because the review found every shot inventing its own pool; text cannot hold a building either.",
+   "sha256_16": "cd3a0782463ec49d",
+   "characters": []
+  },
+  "env-natatorium-underwater.png": {
+   "status": "APPROVED",
+   "provenance": "founding-plate",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "environment-plate",
+   "element_id": "2d53e9ed-a3b0-47e9-905b-d414b904a31a",
+   "generated_with": "nano_banana, no characters; founding plates of UNDERTOW-Seiran-Natatorium",
+   "note": "The venue element. Exists because the review found every shot inventing its own pool; text cannot hold a building either.",
+   "sha256_16": "64fbac680df63664",
+   "characters": []
+  },
+  "spots/buzzer.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "spot",
+   "generated_with": "build-spots.py — buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
+   "sha256_16": "0ade81937265d1d2",
+   "characters": []
+  },
+  "spots/splash-impact.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "spot",
+   "generated_with": "build-spots.py — buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
+   "sha256_16": "cd392a3ba24a5076",
+   "characters": []
+  },
+  "spots/splash-entry.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "spot",
+   "generated_with": "build-spots.py — buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
+   "sha256_16": "ad5a53cb860e3ee5",
+   "characters": []
+  },
+  "spots/air-burst.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "spot",
+   "generated_with": "build-spots.py — buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
+   "sha256_16": "03eb866efa384237",
+   "characters": []
+  },
+  "spots/water-thrash.wav": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "spot",
+   "generated_with": "build-spots.py — buzzer synthesized (signature tier); water spots excerpted from Splice sources (SAMPLES-MANIFEST), trimmed to onset, peak-normalized -6 dBFS, dry",
+   "note": "Spot tier: single events the picture collides with. Fathom placement happens per-event at scene build.",
+   "sha256_16": "114e0ec12394b87e",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/shot-02b.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [
+    "bo"
+   ],
+   "element_id": "ed896eef-699b-40d4-a6dd-9af0d0b02989",
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element + character element",
+   "note": "EP1 sinking v2 shot 02b. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "4f389dbf8bad9e0a"
+  },
+  "sequence/ep1-the-sinking/shot-06c.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 06c. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "5858f27aa27d21a6"
+  },
+  "sequence/ep1-the-sinking/shot-06d.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 06d. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "ed5850663bf8e82d"
+  },
+  "sequence/ep1-the-sinking/shot-09-start.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 09-start. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "a150aa0fce564400"
+  },
+  "sequence/ep1-the-sinking/shot-09-end.png": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-shot",
+   "characters": [],
+   "generated_with": "nano_banana, locked to UNDERTOW-Seiran-Natatorium environment element",
+   "note": "EP1 sinking v2 shot 09-end. Regenerated per UNDERTOW-EP1-SINKING-REVIEW.md against the venue element; continuity fields (lane 4, blue/white ropes, late afternoon, LEFT-wrist bracelet) declared in the cue sheet.",
+   "sha256_16": "e7e8db78f1f9f751"
+  },
+  "sequence/ep1-the-sinking/clip-10R.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 10R.",
+   "sha256_16": "00e816cb526902d3",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-11R.mp4": {
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "verified_by": "agent",
+   "verified_at": "2026-08-04",
+   "kind": "sequence-clip",
+   "generated_with": "kling3_0_turbo from the registered still (08/11R/12R native 10s; 09 start+end framing)",
+   "note": "EP1 sinking v2 clip 11R.",
+   "sha256_16": "6cb31696aeb491fd",
+   "characters": []
+  },
+  "textures/panic-strings.wav": {
+   "sha256_16": "0995124de312a146",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "texture",
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed source, pitch-shifted by resampling, through mastering.fathom_space(), mastered to -20 LUFS / -1.0 dBTP",
+   "note": "Licensed cello chatter (Bm) pitched +3 to Dm, twilight rank. The thrash's music. Licence in SAMPLES-MANIFEST.md.",
+   "characters": []
+  },
+  "textures/midnight-shimmer.wav": {
+   "sha256_16": "c5841dd113a201e5",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "texture",
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed source, pitch-shifted by resampling, through mastering.fathom_space(), mastered to -20 LUFS / -1.0 dBTP",
+   "note": "Licensed interference atmosphere (D#) pitched -1 to D, midnight rank. Panic handing off to awe. Licence in SAMPLES-MANIFEST.md.",
+   "characters": []
+  },
+  "textures/deep-drone.wav": {
+   "sha256_16": "8d92f259fd3dada5",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "texture",
+   "status": "APPROVED",
+   "generated_with": "Splice-licensed source, pitch-shifted by resampling, through mastering.fathom_space(), mastered to -20 LUFS / -1.0 dBTP",
+   "note": "Licensed drone (Cm) pitched +2 to Dm, abyssal rank. The deep's pedal under the ANSWER tone. Licence in SAMPLES-MANIFEST.md.",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-05R.mp4": {
+   "sha256_16": "2664019d5a50ade0",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "sequence-clip",
+   "status": "APPROVED",
+   "provenance": "approved-plate-as-reference",
+   "characters": [
+    "kai"
+   ],
+   "generated_with": "nano_banana start/end stills (kai-neutral-ref + env-natatorium-waterline as image references; lane-number and vignette fixed by targeted edits) -> kling3_0_turbo 5s",
+   "note": "THE FALL rebuilt: waterline camera, real toppling weight, impact at clip t=3.1. Replaces the hovering-body plate the creator rejected."
+  },
+  "sequence/ep1-the-sinking/clip-08R.mp4": {
+   "sha256_16": "51170080a78f2895",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "sequence-clip",
+   "status": "APPROVED",
+   "provenance": "approved-plate-as-reference",
+   "generated_with": "nano_banana still locked to the natatorium env plates -> kling3_0_turbo 10s, camera locked off, light-only motion",
+   "note": "The pool-becomes-ocean room rebuilt with ordinary vertical pool walls; replaces the melted-monolith plate.",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-12R2.mp4": {
+   "sha256_16": "ae32f96ba8686ac3",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "sequence-clip",
+   "status": "APPROVED",
+   "provenance": "approved-plate-as-reference",
+   "characters": [
+    "kai",
+    "bo"
+   ],
+   "generated_with": "clip-11R frame widened via nano_banana (room-anchor reference) for the start still; end still adds Bo's plunge; kling3_0_turbo 10s start+end",
+   "note": "The field of quiet rebuilt in the SAME room as shot 11; Bo's rescue plunge directly above Kai in the tail. Replaces the underwater-arena plate."
+  },
+  "scenes/ep1-teaser.wav": {
+   "sha256_16": "c8c63ab3039ac28e",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "scene-mix",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "characters": [
+    "kai",
+    "bo"
+   ],
+   "generated_with": "build-scene.py from scene-ep1-teaser.json: same machinery, 30s compression of the sinking arc, score bus + cards",
+   "note": "Teaser mix. Gated: descent -0.99, events pass."
+  },
+  "scores/ep1-the-sinking.wav": {
+   "sha256_16": "dc7afc94b3d19666",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "score-cue",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-score.py --cue ep1-the-sinking: CALL/ANSWER grammar scored to the cue sheet's shot boundaries",
+   "note": "The sinking cue: thread of the CALL on dry land, low D on the impact, falling bass under the panic, first full CALL+ANSWER as the water settles, silence at the abyssal floor.",
+   "characters": []
+  },
+  "scores/ep1-teaser.wav": {
+   "sha256_16": "7da0dae71ede9de3",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "score-cue",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-score.py --cue ep1-teaser",
+   "note": "Teaser cue: CALL over the Eye, ANSWER's first note landing on the title card.",
+   "characters": []
+  },
+  "sequence-ep1-teaser.mp4": {
+   "sha256_16": "4a35112059c0098c",
+   "verified_by": "agent",
+   "verified_at": "2026-09-02",
+   "kind": "sequence",
+   "status": "APPROVED",
+   "provenance": "derived-from-approved-plates",
+   "characters": [
+    "kai",
+    "bo"
+   ],
+   "generated_with": "build-sequence.py from scene-ep1-teaser.json: 12 shots, all existing plates + build-cards.py cards, zero generation spend",
+   "note": "The 30s series teaser: the sinking arc compressed, two premise cards, title card with the ANSWER landing on it."
+  },
+  "sequence/ep1-teaser/card-1.png": {
+   "sha256_16": "491b0ea6b1a98058",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-teaser/card-1.mp4": {
+   "sha256_16": "48a3b010a8d39bad",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-teaser/card-2.png": {
+   "sha256_16": "e18758b01faca202",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-teaser/card-2.mp4": {
+   "sha256_16": "8aa45b43271e1de7",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-teaser/card-title.png": {
+   "sha256_16": "6e34d232fec187a5",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-teaser/card-title.mp4": {
+   "sha256_16": "f0f143a50bd7af98",
+   "verified_by": "agent",
+   "verified_at": "2026-08-14",
+   "kind": "title-card",
+   "status": "APPROVED",
+   "provenance": "composed-in-repo",
+   "generated_with": "build-cards.py from the teaser cue sheet's cards block",
+   "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
+   "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-06S.mp4": {
+   "sha256_16": "15beab10003b0d93",
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "approved-plate-as-reference",
+   "generated_with": "seedance_2_5 omni_reference, 8s 1080p: start_image = clip-06 first frame, image_references = kai-neutral-ref. First Seedance clip in the show.",
+   "note": "The panic at native length: 8s clip for the 8s window, no retime. Identity held mid-motion by reference; thrash weakens honestly into the sink. Adopted after a measured pilot against the kling clip it replaces.",
+   "verified_by": "agent",
+   "verified_at": "2026-09-02"
+  }
+ },
+ "provenance_types": {
+  "element_id": "Generated with a locked character element. REQUIRED for all new character art. Multi-character art uses element_ids (a list) — one lock per character in frame.",
+  "derived-from-approved-plates": "Composited/derived from approved plates with no generation. Identity is exact.",
+  "approved-plate-as-reference": "Generated with an approved plate as image reference. Legacy-acceptable; weaker than element_id.",
+  "rejected-record": "Retained only to document a rejection. Never ship.",
+  "composed-in-repo": "Audio composed programmatically in this repo from first principles. No generation, no library music, no licence. Fully owned and revisable to the frame."
+ },
+ "superseded": {
+  "cast-key-visual.png": {
+   "sha256_16": "65128841a6128c97",
+   "removed_at": "2026-07-30",
+   "reason": "Kai's skin rendered lighter than his approved plate. Superseded by crew-key-visual.png, generated with locked elements.",
+   "recoverable_from": "git history"
+  },
+  "cast-key-visual-alt.png": {
+   "sha256_16": "47abe81307003660",
+   "removed_at": "2026-07-30",
+   "reason": "Bo rendered lanky; canon requires heavyset. Never shipped. Superseded by crew-key-visual.png.",
+   "recoverable_from": "git history"
+  }
+ }
+}

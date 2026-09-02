@@ -1,0 +1,25 @@
+{
+ "_comment": "Spot tier: peak-normalized dry event sounds. Fathom placement happens at scene build from the cue sheet.",
+ "spots": {
+  "buzzer": {
+   "seconds": 0.9,
+   "peak_dbfs": -6.0
+  },
+  "splash-impact": {
+   "seconds": 3.4,
+   "peak_dbfs": -6.0
+  },
+  "splash-entry": {
+   "seconds": 4.2,
+   "peak_dbfs": -6.0
+  },
+  "air-burst": {
+   "seconds": 2.8,
+   "peak_dbfs": -6.0
+  },
+  "water-thrash": {
+   "seconds": 6.5,
+   "peak_dbfs": -6.0
+  }
+ }
+}

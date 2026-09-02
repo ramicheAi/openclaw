@@ -1,0 +1,600 @@
+{
+ "_comment": "UNDERTOW scene cue sheet. This file IS the scene — build-scene.py holds the rendering machinery and no scene data at all, and qc/verify_scene.py grades the rendered audio against this document rather than against the code that made it. Editing a number here changes the mix; there is nowhere else to change it.",
+ "id": "ep1-the-sinking",
+ "title": "Episode 1 — The Sinking",
+ "source": "docs/UNDERTOW-EP1-SCRIPT.md",
+ "duration": 72.0,
+ "fps": 24,
+ "target_lufs": -18.0,
+ "_ranks_comment": "The ladder positions this scene moves through. Ordered, because the descent interpolates POSITION on it — a move from twilight to abyssal passes through midnight rather than cutting. 'hadal' is deliberately absent: Kai does not go there in Episode 1, and a rank the scene never reaches should not be in its ladder.",
+ "ranks": [
+  "air",
+  "sunlit",
+  "twilight",
+  "midnight",
+  "abyssal"
+ ],
+ "_beats_comment": "The scene as a curve, not a list of states. Everything between two rows interpolates. The bpm column is TRANSCRIBED, not designed — canon puts these numbers on screen (90/110/130 on the block, 150 then 140 in the panic, 90/60/40 settling, 34 held), so changing them here changes what the audience is told they are seeing.",
+ "beats": [
+  {
+   "t": 0.0,
+   "fathom": "air",
+   "calm": 0.2,
+   "bpm": 90,
+   "note": "on the block, the room already receding"
+  },
+  {
+   "t": 6.0,
+   "fathom": "air",
+   "calm": 0.1,
+   "bpm": 110,
+   "note": ""
+  },
+  {
+   "t": 10.0,
+   "fathom": "air",
+   "calm": 0.0,
+   "bpm": 130,
+   "note": "the Eye, one flash-frame"
+  },
+  {
+   "t": 11.5,
+   "fathom": "air",
+   "calm": 0.0,
+   "bpm": 132,
+   "note": "BZZZT"
+  },
+  {
+   "t": 13.0,
+   "fathom": "sunlit",
+   "calm": 0.0,
+   "bpm": 145,
+   "note": "the fall — a slap of limbs"
+  },
+  {
+   "t": 16.0,
+   "fathom": "twilight",
+   "calm": 0.0,
+   "bpm": 150,
+   "note": "under. panic, thrash, the muffled roar"
+  },
+  {
+   "t": 24.0,
+   "fathom": "twilight",
+   "calm": 0.05,
+   "bpm": 140,
+   "note": ""
+  },
+  {
+   "t": 30.0,
+   "fathom": "midnight",
+   "calm": 0.35,
+   "bpm": 120,
+   "note": "the water settles around him"
+  },
+  {
+   "t": 38.0,
+   "fathom": "midnight",
+   "calm": 0.65,
+   "bpm": 90,
+   "note": ""
+  },
+  {
+   "t": 44.0,
+   "fathom": "abyssal",
+   "calm": 0.85,
+   "bpm": 60,
+   "note": ""
+  },
+  {
+   "t": 50.0,
+   "fathom": "abyssal",
+   "calm": 1.0,
+   "bpm": 40,
+   "note": ""
+  },
+  {
+   "t": 56.0,
+   "fathom": "abyssal",
+   "calm": 1.0,
+   "bpm": 34,
+   "note": "34 BPM. held."
+  },
+  {
+   "t": 66.0,
+   "fathom": "abyssal",
+   "calm": 1.0,
+   "bpm": 34,
+   "note": ""
+  },
+  {
+   "t": 69.0,
+   "fathom": "air",
+   "calm": 0.3,
+   "bpm": 34,
+   "note": "SMASH back to the deck"
+  },
+  {
+   "t": 72.0,
+   "fathom": "air",
+   "calm": 0.3,
+   "bpm": 80,
+   "note": ""
+  }
+ ],
+ "_layers_comment": "Texture layers, each with an explicit fade-in and fade-out window. LAYERS HAND OFF; THEY DO NOT ACCUMULATE — this is the single easiest way to destroy an arc and it never looks wrong in code. An omitted fade_out means the layer runs to the end of the scene, and that has to be a deliberate choice rather than an oversight: an earlier version of this scene left pool-surface, the brightest texture in the library, at unity for 56 of 72 seconds underneath a boy motionless on the floor of a pool.",
+ "layers": [
+  {
+   "texture": "crowd-poolside",
+   "gain_db": -4.0,
+   "fade_in": [
+    0.0,
+    0.0
+   ],
+   "fade_out": [
+    12.0,
+    18.0
+   ],
+   "note": "the deck — the crowd and the room he is failing in. It does not follow him down; it is replaced by water."
+  },
+  {
+   "texture": "crowd-submerged",
+   "gain_db": -6.0,
+   "fade_in": [
+    14.0,
+    17.0
+   ],
+   "fade_out": [
+    27.0,
+    30.0
+   ],
+   "note": "the muffled roar. The crowd follows him under for six seconds and then loses him."
+  },
+  {
+   "texture": "pool-surface",
+   "gain_db": -3.0,
+   "fade_in": [
+    11.0,
+    16.0
+   ],
+   "fade_out": [
+    22.0,
+    34.0
+   ],
+   "note": "the surface. GONE by the time he is past twilight, because by then he cannot hear it."
+  },
+  {
+   "texture": "pool-submerged",
+   "gain_db": -2.0,
+   "fade_in": [
+    15.0,
+    24.0
+   ],
+   "fade_out": [
+    38.0,
+    50.0
+   ],
+   "note": "the middle water, arriving while the surface is still going."
+  },
+  {
+   "texture": "pool-deep",
+   "gain_db": -2.0,
+   "fade_in": [
+    30.0,
+    46.0
+   ],
+   "fade_out": null,
+   "note": "water with nothing bounding it. Deliberately runs to the end — he does not come back up inside this scene."
+  },
+  {
+   "texture": "class-laugh",
+   "gain_db": -6.0,
+   "fade_in": [
+    14.2,
+    15.0
+   ],
+   "fade_out": [
+    19.4,
+    20.2
+   ],
+   "bus_gain": 0.9,
+   "note": "the classroom laughing at the Anchor, dry and above. DELAYED from 13.0: laughter at the exact impact frame gives the crowd zero reaction time; cruelty needs the stunned beat first."
+  },
+  {
+   "texture": "class-laugh-memory",
+   "gain_db": -3.0,
+   "fade_in": [
+    17.0,
+    20.0
+   ],
+   "fade_out": [
+    31.0,
+    34.0
+   ],
+   "bus_gain": 0.9,
+   "note": "the same recording four rungs down. The script says the laughter 'bends into whale-song distortion and fades', and this crossfade IS that sentence — one take, two treatments."
+  },
+  {
+   "texture": "crowd-poolside",
+   "gain_db": -8.0,
+   "fade_in": [
+    68.8,
+    69.4
+   ],
+   "fade_out": null,
+   "note": "THE SMASH NEEDS A WORLD TO SMASH INTO. The first mix let the deck exit at 18s and never return, so the cut to Gouda played over dry-treated underwater noise. The hall walla slams back with the cut."
+  },
+  {
+   "texture": "panic-strings",
+   "gain_db": -4.0,
+   "fade_in": [
+    15.0,
+    17.5
+   ],
+   "fade_out": [
+    27.0,
+    30.5
+   ],
+   "note": "MUSIC, tier one: licensed cello chatter pitched to Dm, twilight-placed so it descends with him. Motion without melody — the thrash's music, gone when the water settles."
+  },
+  {
+   "texture": "midnight-shimmer",
+   "gain_db": -6.0,
+   "fade_in": [
+    29.0,
+    33.0
+   ],
+   "fade_out": [
+    42.0,
+    47.0
+   ],
+   "note": "MUSIC, tier two: the interference atmosphere in D, arriving as the pool becomes ocean — the water starting to sound intentional."
+  },
+  {
+   "texture": "deep-drone",
+   "gain_db": -5.0,
+   "fade_in": [
+    43.0,
+    50.0
+   ],
+   "fade_out": [
+    64.0,
+    69.0
+   ],
+   "note": "MUSIC, tier three: the Dm drone under the ANSWER tone at the floor of the scene. Out before the deck smash — the music does not follow him back up."
+  }
+ ],
+ "_score_comment": "The composed cue (build-score.py --cue ep1-the-sinking): the CALL and ANSWER scored to this document's own shot boundaries. Non-diegetic, so it rides its own bus and does not descend — the musical beds that DO descend are the three textures above. D/M/E separation holds: world, heart, tone, score are four stems to the last mile.",
+ "score": {
+  "cue": "ep1-the-sinking",
+  "gain_db": 0.0
+ },
+ "_tone_comment": "The thing in the water, and it is not an effect — it is the ANSWER, the theme's reply phrase (D A# G F G) taken down to the register the old ad-hoc sines lived in, each note a detuned pair so it beats and breathes. The score doc's grammar: the answer arriving early means the deep is reaching for someone. This moment IS that sentence; 'like a name' because it is one.",
+ "tone": {
+  "freqs_hz": [
+   36.7,
+   36.9,
+   73.4
+  ],
+  "gains": [
+   1.0,
+   0.7,
+   0.4
+  ],
+  "level": 0.16,
+  "fathom": "abyssal",
+  "fade_in": [
+   48.0,
+   54.0
+  ],
+  "fade_out": [
+   64.0,
+   70.0
+  ]
+ },
+ "_heart_comment": "The heartbeat is NOT in the room. It is inside his chest and stays there whatever depth he is at, and that contrast is what makes the room feel external and the body feel like his. Consequence worth stating: the heart is the one element that legitimately does not descend, which is why qc/verify_scene.py grades brightness above 2 kHz rather than across the whole band.",
+ "heart": {
+  "level": 0.55,
+  "reverb_seconds": 2.2,
+  "reverb_mix": 0.18,
+  "reverb_width": 0.3
+ },
+ "_mix_comment": "Share of energy each bus should hold, set by measurement rather than by an ear this pipeline does not have. The heart is the spine of the sequence and still must not be its loudest object: the room is what changes, the heart is what the change happens to. At unity it measured 55.7% of the energy and simply masked the room the whole scene is about.",
+ "mix": {
+  "world": 0.5,
+  "heart": 0.24,
+  "tone": 0.1,
+  "score": 0.16
+ },
+ "_shots_comment": "The shot list, keyed to the same beats the mix is keyed to, so picture and sound cannot drift. `undertone.py shots` emits generation-ready prompt stubs from this — the fourth thing the sound bible always claimed the cue sheet produced and which did not exist until now. EVERY SHOT HERE IS SYNC-FREE BY CONSTRUCTION: this 72-second window contains no dialogue at all, so Route A costs nothing and no mouth is ever at risk. That is a decision made before generating, which is the only time it is cheap. THE EYE RULE IS THE SPINE OF THE CUT. Canon: Kai's eyes are ordinary dark brown on dry land, and the deep-blue Undertow glow appears ONLY when he is submerged, because it is the visual tell that the power is surfacing. The script independently says 'his eyes, squeezed shut, open' at the moment the water settles. Those two land on the same frame, so the glow arriving IS the story beat — shots 01-05 are brown, 06-08 are shut or hidden, and 09 is where the blue arrives. Getting that order wrong would give the reveal away before it happens.",
+ "shots": [
+  {
+   "id": "01",
+   "t_in": 0.0,
+   "t_out": 6.0,
+   "rank": "air",
+   "eyes": "brown",
+   "subject": "kai",
+   "slug": "the walk to the block",
+   "prompt": "Wide from behind, slightly low: <<<KAI>>> in plain dark navy jammers, shell-cord bracelet on his LEFT wrist, walking alone along the wet deck toward the LANE 4 block. late afternoon, one indoor 25m school natatorium: pale tile deck, high windows on the left wall, flat roof, LANE 4 starting block, blue-and-white lane ropes, water throwing caustics on walls and ceiling. He walks like a prisoner to a wall. Empty lanes, still water. Anime cel-shaded, clean ink linework, muted teal-and-concrete palette, dread in an ordinary room.",
+   "motion": "Slow push-in behind him; pace never changes; water dead still.",
+   "known_issues_fixed": "V1 lane numbers now sequential with his block LANE 4; single venue per env element"
+  },
+  {
+   "id": "02",
+   "t_in": 6.0,
+   "t_out": 10.0,
+   "rank": "air",
+   "eyes": "brown",
+   "subject": "kai",
+   "slug": "the water throws light on his face",
+   "prompt": "Close-up three-quarter of <<<KAI>>>, completely dry, ORDINARY DARK BROWN matte eyes, hair blue-black. SOFT unfocused ripples of reflected water light move across his face — gentle photographic caustics, NOT glowing lines, nothing luminous on his skin. Jaw set, fear at the edges. late afternoon, one indoor 25m school natatorium: pale tile deck, high windows on the left wall, flat roof, LANE 4 starting block, blue-and-white lane ropes, water throwing caustics on walls and ceiling thrown far out of focus. Anime cel-shaded.",
+   "motion": "Nearly still; caustics drift; one slow blink.",
+   "known_issues_fixed": "V2 caustics as light not emissive veins; dry (no towel)"
+  },
+  {
+   "id": "03",
+   "t_in": 10.0,
+   "t_out": 11.5,
+   "rank": "air",
+   "eyes": "n/a",
+   "subject": "water",
+   "slug": "THE EYE — a true flash-frame",
+   "prompt": "(reuses the existing Eye plate)",
+   "motion": "Held ring, near-frozen.",
+   "media": {
+    "source": "clip-03.mp4",
+    "excerpt": [
+     0.9,
+     2.4
+    ],
+    "retime": false
+   },
+   "known_issues_fixed": "E4 now 0.5s at native speed, not 1.5s at 3.3x"
+  },
+  {
+   "id": "04",
+   "t_in": 11.5,
+   "t_out": 13.0,
+   "rank": "air",
+   "eyes": "n/a",
+   "subject": "feet",
+   "slug": "BZZZT — the feet slip",
+   "prompt": "Tight low angle on bare brown feet gripping the front edge of the LANE 4 starting block, toes curled, tendons taut, wet prints on the textured surface, one heel already sliding. late afternoon, one indoor 25m school natatorium: pale tile deck, high windows on the left wall, flat roof, LANE 4 starting block, blue-and-white lane ropes, water throwing caustics on walls and ceiling, dim late-afternoon light, water below out of focus. No face. Anime cel-shaded, kinetic tension.",
+   "motion": "The heel slips backward off the block edge. Fast, ugly, unrecoverable.",
+   "known_issues_fixed": "V4/V5 same venue, same light, LANE 4 not 3, buzzer lands inside this shot at 11.5",
+   "media": {
+    "crop_pct": 0.94,
+    "retime": true
+   }
+  },
+  {
+   "id": "05",
+   "t_in": 13.0,
+   "t_out": 16.0,
+   "rank": "sunlit",
+   "eyes": "brown",
+   "subject": "kai",
+   "slug": "THE FALL — a slap of limbs",
+   "prompt": "Wide: <<<KAI>>> falling SIDEWAYS off the LANE 4 block into the pool — graceless, arms flung, legs wrong, caught just before impact. Behind the far fence, blurred students, one phone raised. late afternoon, one indoor 25m school natatorium: pale tile deck, high windows on the left wall, flat roof, LANE 4 starting block, blue-and-white lane ropes, water throwing caustics on walls and ceiling. Anime cel-shaded, motion smear, humiliating not heroic.",
+   "motion": "He hits flat and hard; wide slap of spray; silhouettes shift.",
+   "media": {
+    "source": "clip-05R.mp4",
+    "excerpt": [
+     3.05,
+     5.04
+    ],
+    "retime": true
+   },
+   "known_issues_fixed": "REBUILT from start/end stills after review: the old plate had him reclining ON the water with a frozen wake and blocks carrying two lane numbers each. Excerpt opens ON the impact (clip t=3.1) so the slap lands with the 13.0 splash event — the fall itself is implied by the feet-slip cut, which is the grammar; the full clip's 2s of airborne fall would put the sound two seconds early."
+  },
+  {
+   "id": "06",
+   "t_in": 16.0,
+   "t_out": 24.0,
+   "rank": "twilight",
+   "eyes": "shut",
+   "subject": "kai",
+   "slug": "panic, honestly",
+   "prompt": "(reuses the existing panic clip at native speed)",
+   "motion": "Violent thrash, bubbles torn out of him.",
+   "media": {
+    "source": "clip-06S.mp4",
+    "excerpt": [
+     0.0,
+     8.0
+    ],
+    "retime": false
+   },
+   "known_issues_fixed": "SEEDANCE 2.5 (omni_reference): native 8s fill for the 8s window — the 1.59x retime compromise is gone. Identity held mid-motion by image reference (kai-neutral-ref) with clip-06's own first frame as the start anchor; the thrash weakens honestly into the sink that shot 07 continues."
+  },
+  {
+   "id": "07",
+   "t_in": 24.0,
+   "t_out": 30.0,
+   "rank": "twilight",
+   "eyes": "shut",
+   "subject": "kai",
+   "slug": "he sinks",
+   "prompt": "(existing clip)",
+   "motion": "He sinks away; last bubbles rise past.",
+   "media": {
+    "source": "clip-07.mp4",
+    "retime": true
+   }
+  },
+  {
+   "id": "08",
+   "t_in": 30.0,
+   "t_out": 38.0,
+   "rank": "midnight",
+   "eyes": "n/a",
+   "subject": "water",
+   "slug": "the water settles — the pool becomes ocean",
+   "prompt": "Underwater environment shot of the SCHOOL POOL transformed by light alone: pale tiled floor with its dark lane stripe and two round drain covers, tile walls fading into deep-ocean gloom, enormous slow god-rays through water gone cathedral-vast. Suspended motes slow, stop, and begin drifting toward one point. NO ruins, NO stone steps, NO arches, NO plants, NO fish, NO marine life of any kind — an ordinary pool floor lit like the deep sea. Anime cel-shaded, painterly volumetric light, awe.",
+   "motion": "Light deepens; motes reverse into a slow inward drift. No camera move.",
+   "known_issues_fixed": "REBUILT: the old plate's far wall had melted into T-shaped monoliths. New plate keeps ordinary vertical tiled walls, ladder, block undersides; locked-off camera, light-only motion.",
+   "media": {
+    "source": "clip-08R.mp4",
+    "excerpt": [
+     0.5,
+     8.5
+    ],
+    "retime": false
+   }
+  },
+  {
+   "id": "09",
+   "t_in": 38.0,
+   "t_out": 44.0,
+   "rank": "midnight",
+   "eyes": "opening",
+   "subject": "kai",
+   "slug": "the hands drift open",
+   "prompt": "Extreme close-up underwater: a 15-year-old boy's two hands, ORDINARY HUMAN HANDS with short clean fingernails, deep brown skin, clenched rigid with fear — slowly, tenderly UNCURLING until both hands drift fully open, palms loose. Shell-cord bracelet on the LEFT wrist. Small bubbles pass up through frame. Deep-ocean cathedral light. Anime cel-shaded, clean ink linework.",
+   "motion": "START clenched, END open: the fingers visibly uncurl across the whole shot and finish open and drifting. That motion is the entire point of the shot.",
+   "known_issues_fixed": "V9 human hands; the uncurling actually happens (start+end framing)"
+  },
+  {
+   "id": "10",
+   "t_in": 44.0,
+   "t_out": 50.0,
+   "rank": "abyssal",
+   "eyes": "blue",
+   "subject": "kai",
+   "slug": "the eyes open — the power surfaces",
+   "prompt": "(existing plate, re-animated)",
+   "motion": "Eyes open slowly; blue light rises in them. Hair drifts. NO water droplets, NO tears — nothing beads or rolls on skin underwater.",
+   "media": {
+    "source": "clip-10R.mp4",
+    "retime": true
+   },
+   "known_issues_fixed": "V10 tears removed"
+  },
+  {
+   "id": "11",
+   "t_in": 50.0,
+   "t_out": 60.0,
+   "rank": "abyssal",
+   "eyes": "blue",
+   "subject": "kai",
+   "slug": "34 BPM — sitting on the pool floor",
+   "prompt": "(existing plate, native 10s)",
+   "motion": "He does not move at all; only motes drift inward and the down-light wavers. CAMERA LOCKED OFF on a tripod: no push-in, no reframe, the tiled pool floor and starting blocks stay exactly as they are for the full ten seconds.",
+   "media": {
+    "source": "clip-11R.mp4",
+    "retime": true
+   },
+   "known_issues_fixed": "V11 native length kills the 12fps judder; static pin against drift"
+  },
+  {
+   "id": "12",
+   "t_in": 60.0,
+   "t_out": 69.0,
+   "rank": "abyssal",
+   "eyes": "blue",
+   "subject": "kai",
+   "slug": "the field of quiet — and Bo comes",
+   "prompt": "(existing plate, native 10s)",
+   "motion": "Held wide, extremely slow inward drift — then in the final two seconds the bright surface far above BREAKS as a big swimmer plunges through it in a shroud of bubbles, small at the top of frame, descending toward the boy.",
+   "media": {
+    "source": "clip-12R2.mp4",
+    "excerpt": [
+     1.0,
+     10.0
+    ],
+    "retime": false
+   },
+   "known_issues_fixed": "REBUILT: the old plate put him in a two-tier arena with spectators standing UNDERWATER and bunting through the water column. New plate is the same school-pool room as shot 11 (outpainted from its own frame), Bo's plunge in the tail directly above him."
+  },
+  {
+   "id": "13",
+   "t_in": 69.0,
+   "t_out": 72.0,
+   "rank": "air",
+   "eyes": "n/a",
+   "subject": "gouda",
+   "slug": "SMASH — Gouda knows",
+   "prompt": "(existing clip)",
+   "motion": "He straightens; the blood drains; he does not blink.",
+   "media": {
+    "source": "clip-13.mp4",
+    "retime": true
+   }
+  }
+ ],
+ "duck": {
+  "_comment": "'SOUND drops away — we're inside his head.' World bus only; the heart keeps accelerating through the silence, which is the entire point of it.",
+  "bus": "world",
+  "points": [
+   [
+    9.5,
+    1.0
+   ],
+   [
+    10.1,
+    0.4
+   ],
+   [
+    11.32,
+    0.4
+   ],
+   [
+    11.5,
+    1.0
+   ]
+  ]
+ },
+ "_events_comment": "Single moments the picture can collide with. Spots are dry (spots/); each event carries its own fathom placement. verify.band is the spectral band the events gate checks for a burst at t (±150ms) against no-event controls; verify=false marks slow-attack material (stingers) the transient gate must not be pointed at.",
+ "events": [
+  {
+   "t": 11.5,
+   "sound": "spots/buzzer",
+   "gain_db": -15,
+   "fathom": "air",
+   "verify": {
+    "band": [
+     400,
+     3000
+    ]
+   },
+   "note": "BZZZT. The flinch that causes the fall."
+  },
+  {
+   "t": 13.0,
+   "sound": "spots/splash-impact",
+   "gain_db": -5,
+   "fathom": "air",
+   "verify": {
+    "band": [
+     1500,
+     9000
+    ]
+   },
+   "note": "A slap of limbs. The loudest thing in the scene."
+  },
+  {
+   "t": 16.1,
+   "sound": "spots/air-burst",
+   "gain_db": -10,
+   "fathom": "twilight",
+   "verify": {
+    "band": [
+     800,
+     6000
+    ]
+   },
+   "note": "His scream costs him his air."
+  },
+  {
+   "t": 66.5,
+   "sound": "spots/splash-entry",
+   "gain_db": -16,
+   "fathom": "midnight",
+   "verify": false,
+   "note": "Bo hits the water, heard from four rungs down. verify=false is a CLASSIFICATION, not an exemption: midnight placement smears the attack into a swell by design — an entry heard from four rungs down has no rising edge for a transient gate to find. The onset gate proved this honestly (-4.4 dB). Bo's arrival is verified in PICTURE instead: the bubble column in shot 12's tail, frame-checked in the QC sheet."
+  }
+ ],
+ "overlays": [],
+ "_overlays_comment": "Canon puts these numbers on screen; the script's own text. Rendered as restrained diegetic UI by build-sequence. The held '34 BPM' is the sequence's thesis stated as a stat."
+}
