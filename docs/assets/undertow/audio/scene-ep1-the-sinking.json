@@ -399,10 +399,14 @@
    "prompt": "(reuses the existing panic clip at native speed)",
    "motion": "Violent thrash, bubbles torn out of him.",
    "media": {
-    "source": "clip-06.mp4",
-    "retime": true
+    "source": "clip-06S.mp4",
+    "excerpt": [
+     0.0,
+     8.0
+    ],
+    "retime": false
    },
-   "known_issues_fixed": "E1 panic now cut fast; native speed restores the violence the 0.63x stretch softened"
+   "known_issues_fixed": "SEEDANCE 2.5 (omni_reference): native 8s fill for the 8s window — the 1.59x retime compromise is gone. Identity held mid-motion by image reference (kai-neutral-ref) with clip-06's own first frame as the start anchor; the thrash weakens honestly into the sink that shot 07 continues."
   },
   {
    "id": "07",

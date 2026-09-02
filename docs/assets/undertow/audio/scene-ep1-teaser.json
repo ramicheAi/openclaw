@@ -302,8 +302,12 @@
    "subject": "kai",
    "slug": "panic",
    "media": {
-    "source": "../ep1-the-sinking/clip-06.mp4",
-    "retime": true
+    "source": "../ep1-the-sinking/clip-06S.mp4",
+    "excerpt": [
+     0.3,
+     2.8
+    ],
+    "retime": false
    }
   },
   {

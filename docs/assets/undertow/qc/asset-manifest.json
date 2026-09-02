@@ -2,7 +2,7 @@
  "_doc": "UNDERTOW asset manifest. Every media file in assets/undertow MUST be registered here with provenance and sign-off. Enforced by qc/verify_assets.py and the pre-commit hook.",
  "manifest_version": "1.2",
  "canon_version": "2.7",
- "generated": "2026-08-14",
+ "generated": "2026-09-02",
  "assets": {
   "bo-dock.png": {
    "sha256_16": "ec4f2a61c237ebff",
@@ -1467,21 +1467,6 @@
    "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
    "sha256_16": "aa824a5d54dc96c2"
   },
-  "sequence/ep1-the-sinking/clip-06.mp4": {
-   "kind": "sequence-clip",
-   "characters": [
-    "kai"
-   ],
-   "status": "APPROVED",
-   "provenance": "composed-in-repo",
-   "verified_by": "agent",
-   "verified_at": "2026-08-03",
-   "generated_with": "kling3_0_turbo animated from shot-06.png as start frame; identity carried by the frame",
-   "note": "EP1 sinking sequence shot 06 (16.0-24.0s, rank twilight): UNDERWATER — panic, honestly. Eye state: shut. Upscaled to 1920x1080 (Topaz) from the 720p generator output.",
-   "verification": "Graded against the eye rule in canon: brown above water, shut while panicking, blue only once submerged and settled. Frame-sampled from the finished cut in qc/sequence-ep1-sinking-frames.png.",
-   "element_id": "38b45365-9f70-4b2e-a79e-b7949fea9007",
-   "sha256_16": "b444083eed806079"
-  },
   "sequence/ep1-the-sinking/shot-07.png": {
    "kind": "sequence-shot",
    "characters": [
@@ -1628,7 +1613,7 @@
    "status": "APPROVED",
    "provenance": "derived-from-approved-plates",
    "verified_by": "agent",
-   "verified_at": "2026-08-14",
+   "verified_at": "2026-09-02",
    "kind": "sequence",
    "characters": [
     "kai",
@@ -1637,7 +1622,7 @@
    ],
    "generated_with": "build-sequence.py: 13 shots cut to the cue sheet, married to the v4 scored mix",
    "note": "v4: v3's quiet rhythm kept; shots 05/08/12 rebuilt after creator review (hovering fall, melted walls, underwater arena all gone); score added. Impact opens shot 05 so the slap lands ON the 13.0 event.",
-   "sha256_16": "ec189ce1a24c5eed"
+   "sha256_16": "11c450d6c424f542"
   },
   "qc/sequence-ep1-sinking-frames.png": {
    "status": "APPROVED",
@@ -1944,9 +1929,9 @@
    "characters": []
   },
   "sequence-ep1-teaser.mp4": {
-   "sha256_16": "503696d4b8444095",
+   "sha256_16": "4a35112059c0098c",
    "verified_by": "agent",
-   "verified_at": "2026-08-14",
+   "verified_at": "2026-09-02",
    "kind": "sequence",
    "status": "APPROVED",
    "provenance": "derived-from-approved-plates",
@@ -2022,6 +2007,19 @@
    "generated_with": "build-cards.py from the teaser cue sheet's cards block",
    "note": "Text card authored as cue-sheet data; near-black, letterspaced; title card carries the light-from-below glow.",
    "characters": []
+  },
+  "sequence/ep1-the-sinking/clip-06S.mp4": {
+   "sha256_16": "15beab10003b0d93",
+   "kind": "sequence-clip",
+   "characters": [
+    "kai"
+   ],
+   "status": "APPROVED",
+   "provenance": "approved-plate-as-reference",
+   "generated_with": "seedance_2_5 omni_reference, 8s 1080p: start_image = clip-06 first frame, image_references = kai-neutral-ref. First Seedance clip in the show.",
+   "note": "The panic at native length: 8s clip for the 8s window, no retime. Identity held mid-motion by reference; thrash weakens honestly into the sink. Adopted after a measured pilot against the kling clip it replaces.",
+   "verified_by": "agent",
+   "verified_at": "2026-09-02"
   }
  },
  "provenance_types": {
